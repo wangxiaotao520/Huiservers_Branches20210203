@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 import android.util.Log;
 
-import com.huacheng.huiservers.shop.bean.BestpayMerchant;
+import com.huacheng.huiservers.ui.shop.bean.BestpayMerchant;
 import com.huacheng.huiservers.yipay.CryptUtil;
 
 public class ParamsUtil {

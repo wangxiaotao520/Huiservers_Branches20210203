@@ -22,7 +22,7 @@
             android:id="@+id/sdv_service_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            fresco:placeholderImage="@drawable/icon_girdview"
+            fresco:placeholderImage="@drawable/ic_default_25"
             fresco:roundedCornerRadius="15dp" />
 
         <RelativeLayout
@@ -69,7 +69,7 @@
                 android:layout_width="@dimen/margin_20"
                 android:layout_height="@dimen/margin_20"
                 android:layout_marginTop="@dimen/margin_3"
-                fresco:placeholderImage="@drawable/facehead1"
+                fresco:placeholderImage="@drawable/ic_default_head"
                 fresco:roundAsCircle="true" />
 
             <TextView

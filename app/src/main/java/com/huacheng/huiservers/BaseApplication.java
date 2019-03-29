@@ -2,7 +2,6 @@ package com.huacheng.huiservers;
 
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -13,9 +12,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.ajb.call.utlis.CommonUtils;
 import com.huacheng.huiservers.linkedme.MiddleActivity;
+import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.microquation.linkedme.android.LinkedME;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -34,6 +35,9 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.tinker.entry.ApplicationLike;
+import com.tinkerpatch.sdk.TinkerPatch;
+import com.tinkerpatch.sdk.loader.TinkerPatchApplicationLike;
 import com.umeng.socialize.PlatformConfig;
 
 import java.io.BufferedReader;
@@ -50,6 +54,7 @@ import cn.magicwindow.MagicWindowSDK;
 
 
 public class BaseApplication extends Application {
+    private static final String TAG = "BaseApplication";
     /**
      * 全局Context，原理是因为Application类是应用�?��运行的，�?��在我们的代码调用时，该�?已经被赋值过�?
      */
@@ -75,11 +80,18 @@ public class BaseApplication extends Application {
 
     //字体地址，一般放置在assets/fonts目录
     String fontPath = "fonts/scyahei.ttf";
-    //private MyProtocal protocal = new MyProtocal();
-    private String str;
 
     private static List<Activity> oList;//用于存放所有启动的Activity的集合
 
+    public static ModelUser user;
+    public static Context mContext;
+
+    private ApplicationLike tinkerApplicationLike;
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     @Override
     public void onCreate() {
         super.onCreate();
@@ -89,7 +101,7 @@ public class BaseApplication extends Application {
         mMainThreadHandler = new Handler();
         mMainLooper = getMainLooper();
         mInstance = this;
-
+        mContext = this.getApplicationContext();
         oList = new ArrayList<Activity>();
 
         MWConfiguration config = new MWConfiguration(this);
@@ -119,15 +131,43 @@ public class BaseApplication extends Application {
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
         strategy.setUploadProcess(processName == null || processName.equals(packageName));
         // 初始化Bugly
-        CrashReport.initCrashReport(context, "bb9f25fed0", true, strategy);
+        CrashReport.initCrashReport(context, "bb9f25fed0", false, strategy);
         //CrashReport.initCrashReport(getApplicationContext(), "bb9f25fed0", true);
         //CrashReport.testJavaCrash();
         //初始化fresco
         FrescoUtils.getInstance().initializeFresco(this);
         //初始化linkedme
         initLinkedME();
+        //TODO 初始化tinker
+        initTinkerPatch();
     }
+    /**
+     * 我们需要确保至少对主进程跟patch进程初始化 TinkerPatch
+     */
+    private void initTinkerPatch() {
+        // 我们可以从这里获得Tinker加载过程的信息
+        if (BuildConfig.TINKER_ENABLE) {
+            tinkerApplicationLike = TinkerPatchApplicationLike.getTinkerPatchApplicationLike();
+            // 初始化TinkerPatch SDK
+            TinkerPatch.init(
+                    tinkerApplicationLike
+//                new TinkerPatch.Builder(tinkerApplicationLike)
+//                    .requestLoader(new OkHttp3Loader())
+//                    .build()
+            )
+                    .reflectPatchLibrary()
+                    .setPatchRollbackOnScreenOff(true)
+                    .setPatchRestartOnSrceenOff(true)
+                    .setFetchPatchIntervalByHours(3)
+            ;
+            // 获取当前的补丁版本
+            Log.d(TAG, "Current patch version is " + TinkerPatch.with().getPatchVersion());
 
+            // fetchPatchUpdateAndPollWithInterval 与 fetchPatchUpdate(false)
+            // 不同的是，会通过handler的方式去轮询
+            TinkerPatch.with().fetchPatchUpdateAndPollWithInterval();
+        }
+    }
     private void initLinkedME() {
         // 初始化SDK
         LinkedME.getInstance(this);
@@ -185,29 +225,6 @@ public class BaseApplication extends Application {
         return res;
     }
     ///===========设置字体不跟随系统字体大小改变
-
-    /**
-     * 获得当前进程的名�?
-     *
-     * @param context
-     * @return 进程�?
-     */
-    public static String getCurProcessName(Context context) {
-
-        int pid = android.os.Process.myPid();
-
-        ActivityManager activityManager = (ActivityManager) context
-                .getSystemService(Context.ACTIVITY_SERVICE);
-
-        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager
-                .getRunningAppProcesses()) {
-
-            if (appProcess.pid == pid) {
-                return appProcess.processName;
-            }
-        }
-        return null;
-    }
 
 
     public static BaseApplication getApplication() {
@@ -328,21 +345,22 @@ public class BaseApplication extends Application {
     /**
      * 销毁所有的Activity
      */
-    public  static void removeALLActivity_() {
+    public static void removeALLActivity_() {
         //通过循环，把集合中的所有Activity销毁
-        if (oList!=null){
+        if (oList != null) {
             for (Activity activity : oList) {
                 activity.finish();
             }
         }
     }
+
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
                 //    layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);//全局设置主题颜色
-             //   return new ClassicsHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+                //   return new ClassicsHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
                 return new MaterialHeader(context).setColorSchemeColors(getApplication().getResources().getColor(R.color.orange));
             }
         });
@@ -356,9 +374,15 @@ public class BaseApplication extends Application {
         });
     }
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
+    public static Context getContext() {
+        return mContext;
+    }
+
+    public static ModelUser getUser() {
+        return user;
+    }
+
+    public static void setUser(ModelUser user) {
+        BaseApplication.user = user;
     }
 }

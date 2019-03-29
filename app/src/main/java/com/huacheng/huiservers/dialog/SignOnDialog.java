@@ -1,8 +1,6 @@
 package com.huacheng.huiservers.dialog;
 
 
-import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,10 +14,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.utils.AppUpdate;
+import com.huacheng.huiservers.SplashUI;
+
+import uk.co.senab.photoview.PhotoView;
 
 public class SignOnDialog implements OnClickListener {
     private Activity mcontext;
@@ -44,7 +42,7 @@ public class SignOnDialog implements OnClickListener {
                 intent.putExtra("file_name",name);
                 intent.putExtra("download_src",url);
                 intent.setClass(mcontext,DownLoadDialog.class);
-                mcontext.startActivity(intent);
+                mcontext.startActivityForResult(intent, SplashUI.ACT_REQUEST_DOWNLOAD);
 				
 			}
 		});

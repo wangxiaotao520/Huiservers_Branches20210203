@@ -11,7 +11,7 @@
         android:textColor="@color/text_color"
         android:textSize="14sp"
         android:background="#E3E3E3"
-        android:text="保洁"
+        android:text=""
         android:ellipsize="end"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"

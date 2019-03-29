@@ -26,7 +26,7 @@
             android:ellipsize="end"
             android:maxEms="4"
             android:singleLine="true"
-            android:text="清洗油烟机"
+            android:text=""
             android:textColor="@color/black_jain_87"
             android:textSize="@dimen/t_12sp" />
 

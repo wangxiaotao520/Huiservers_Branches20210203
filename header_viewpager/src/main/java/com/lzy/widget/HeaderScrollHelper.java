@@ -39,7 +39,7 @@ public class HeaderScrollHelper {
         this.mCurrentScrollableContainer = scrollableContainer;
     }
 
-    private View getScrollableView() {
+    public View getScrollableView() {
         if (mCurrentScrollableContainer == null) return null;
         return mCurrentScrollableContainer.getScrollableView();
     }
@@ -52,7 +52,7 @@ public class HeaderScrollHelper {
     public boolean isTop() {
         View scrollableView = getScrollableView();
         if (scrollableView == null) {
-            throw new NullPointerException("You should call ScrollableHelper.setCurrentScrollableContainer() to set ScrollableContainer.");
+           throw new NullPointerException("You should call ScrollableHelper.setCurrentScrollableContainer() to set ScrollableContainer.");
         }
         if (scrollableView instanceof AdapterView) {
             return isAdapterViewTop((AdapterView) scrollableView);

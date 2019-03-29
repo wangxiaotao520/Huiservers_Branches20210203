@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.MyCookieStore;
 import com.lidroid.xutils.http.RequestParams;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;

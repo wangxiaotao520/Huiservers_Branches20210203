@@ -52,15 +52,23 @@ public class SharePrefrenceUtil {
         editor.commit();
     }
 
-    //首页选择的小区id
-    public String getXiaoQuIdF() {
-        return sharedPreferences.getString("xiaoqu_id_f", "1");
-    }
-
-    public void setXiaoQuIdF(String xiaoqu_id_f) {
-        editor.putString("xiaoqu_id_f", xiaoqu_id_f);
+    /**
+     * 设置企业id
+     * @param companyId
+     */
+    public void setCompanyId(String companyId) {
+        editor.putString("company_id", companyId);
         editor.commit();
     }
+
+    /**
+     * 获取企业id
+     * @return
+     */
+    public String getCommanyId() {
+        return sharedPreferences.getString("company_id", "0");
+    }
+
 
     //首页选择的小区名字
     public String getXiaoQuNanme() {

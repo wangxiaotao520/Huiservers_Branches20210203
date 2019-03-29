@@ -20,7 +20,6 @@ public class DeleteAddressDialog extends Dialog implements OnClickListener{
 		public void back(String name);
 	}
 	public DeleteAddressDialog(Context context, OnCustomDialogListener onCustomDialogListener) {
-		// TODO Auto-generated constructor stub
 		super(context);
 		this.context=context;
 		this.customDialogListener = onCustomDialogListener;

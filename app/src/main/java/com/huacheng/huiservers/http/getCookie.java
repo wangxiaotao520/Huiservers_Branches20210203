@@ -1,13 +1,11 @@
 package com.huacheng.huiservers.http;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.http.client.CookieStore;
 import org.apache.http.cookie.Cookie;
 
-import com.huacheng.huiservers.utils.MyCookieStore;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class getCookie {
 	Cookie cookie;
@@ -89,19 +87,16 @@ public class getCookie {
 		
 		@Override
 		public boolean clearExpired(Date date) {
-			// TODO Auto-generated method stub
 			return false;
 		}
 		
 		@Override
 		public void clear() {
-			// TODO Auto-generated method stub
 			
 		}
 		
 		@Override
 		public void addCookie(Cookie cookie) {
-			// TODO Auto-generated method stub
 			
 		}
 	};

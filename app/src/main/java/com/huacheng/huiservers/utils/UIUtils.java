@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.huacheng.huiservers.BaseApplication;
-import com.huacheng.huiservers.BaseUI;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,7 +72,7 @@ public class UIUtils {
     }
 
     public static void startActivity(Intent intent) {
-        BaseUI activity = BaseUI.getForegroundActivity();
+        BaseActivityOld activity = BaseActivityOld.getForegroundActivity();
         if (activity != null) {
             activity.startActivity(intent);
         } else {
@@ -137,7 +137,7 @@ public class UIUtils {
     }
 
     private static void showToast(String str) {
-        BaseUI frontActivity = BaseUI.getForegroundActivity();
+        BaseActivityOld frontActivity = BaseActivityOld.getForegroundActivity();
         if (frontActivity != null) {
             XToast.makeText(frontActivity, str, XToast.LENGTH_SHORT).show();
         }

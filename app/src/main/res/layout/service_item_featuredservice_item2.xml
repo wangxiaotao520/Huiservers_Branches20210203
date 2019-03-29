@@ -22,7 +22,7 @@
             android:id="@+id/sdv_service_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            fresco:placeholderImage="@drawable/icon_girdview"
+            fresco:placeholderImage="@drawable/ic_default_25"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:roundedCornerRadius="15dp" />
 

@@ -30,7 +30,7 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="张三"
+                android:text=""
                 android:textColor="#555555"
                 android:textSize="@dimen/t_18sp"/>
 
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_5"
-                android:text="地址：榆次区迎宾合作社"
+                android:text="地址："
                 android:textColor="@color/graynew2"
                 android:textSize="13sp"/>
 
@@ -54,7 +54,7 @@
                 android:id="@+id/tv_order_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="账单号：465416541651651"
+                android:text="账单号："
                 android:textColor="#555555"
                 android:textSize="15sp"/>
 

@@ -13,24 +13,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.center.New_Shop_Order_DetailActivity;
-import com.huacheng.huiservers.center.ShopOrderListActivity;
-import com.huacheng.huiservers.facepay.FacepayIndexActivity;
-import com.huacheng.huiservers.facepay.FacepayPaymentHistoryActivity;
-import com.huacheng.huiservers.geren.CableTelIndexActivity;
-import com.huacheng.huiservers.geren.CabletelPaymentHistoryActivity;
-import com.huacheng.huiservers.geren.ZhifuActivity;
-import com.huacheng.huiservers.house.HouseBillRecordingActivity;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.property.bean.EventProperty;
-import com.huacheng.huiservers.protocol.ShopProtocol;
-import com.huacheng.huiservers.servicenew.ui.order.FragmentOrderListActivity;
-import com.huacheng.huiservers.servicenew.ui.order.JpushPresenter;
-import com.huacheng.huiservers.utils.MyCookieStore;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.model.EventBusWorkOrderModel;
+import com.huacheng.huiservers.model.ModelEventWX;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.center.NewShopOrderDetailActivity;
+import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
+import com.huacheng.huiservers.ui.center.geren.WiredIndexActivity;
+import com.huacheng.huiservers.ui.center.geren.WiredHistoryActivity;
+import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
+import com.huacheng.huiservers.ui.index.facepay.FacepayHistoryActivity;
+import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
+import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
+import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.Url_info;
 import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.huiservers.wuye.ConfirmPropertyOrderActivity;
 import com.lidroid.xutils.http.RequestParams;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -132,7 +133,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
             txt_result.setText("支付失败");
             XToast.makeText(this, "支付失败", XToast.LENGTH_SHORT).show();*/
         }
-        getRelust();
+     //   getRelust();
+        ModelEventWX modelEventWX = new ModelEventWX();
+        modelEventWX.setType(0);
+        EventBus.getDefault().post(modelEventWX);
+        finish();
         // }
     }
 
@@ -179,7 +184,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
         params.addBodyParameter("id", MyCookieStore.o_id);
-        if (MyCookieStore.type.equals("wuye") || MyCookieStore.type.equals("wuyeNew")) {
+        if ( MyCookieStore.type.equals("wuyeNew")) {
             params.addBodyParameter("type", "property");//物业的
             params.addBodyParameter("prepay", "0");
         } else if (MyCookieStore.type.equals("shop") || MyCookieStore.type.equals("shop_1")) {//shop_1 是从购物流程一路付款成功的
@@ -202,7 +207,15 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
             params.addBodyParameter("type", "wired");// 有线缴费
             params.addBodyParameter("prepay", "0");
         }else if (MyCookieStore.type.equals("service_new_pay")) {
-            params.addBodyParameter("type", "serve");// // 支付成功后+服务付款
+            params.addBodyParameter("type", "serve");// // 新服务
+            params.addBodyParameter("prepay", "0");
+        }else if (MyCookieStore.type.equals("workorder_yufu")) {
+
+            params.addBodyParameter("type", "work");// // 预付
+            params.addBodyParameter("prepay", "1");
+        }else if (MyCookieStore.type.equals("workorder_pay")) {
+            // 工单支付
+            params.addBodyParameter("type", "work");// 工单支付
             params.addBodyParameter("prepay", "0");
         }
         HttpHelper hh = new HttpHelper(info.confirm_order_payment, params, WXPayEntryActivity.this) {
@@ -231,21 +244,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
 						}*/
 
                     }
-                    if (MyCookieStore.type.equals("wuye")) {
-                        MyCookieStore.WyJf_notify = 1;
-                        Intent intent = new Intent(WXPayEntryActivity.this, HouseBillRecordingActivity.class);
-                        intent.putExtra("room", MyCookieStore.ConfirmWuye);
-                        startActivity(intent);
-                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        },1200);
-                        if (ConfirmPropertyOrderActivity.staticConfirm != null) {
-                            ConfirmPropertyOrderActivity.staticConfirm.finish();
-                        }
-                    }
+
                     if (MyCookieStore.type.equals("wuyeNew")) {
                         EventBus.getDefault().post(new EventProperty());
                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
@@ -267,14 +266,14 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
                         },1200);
                     }
                     if (MyCookieStore.type.equals("facepay")) {// 当面付成功
-                        Intent intent = new Intent(WXPayEntryActivity.this, FacepayPaymentHistoryActivity.class);
+                        Intent intent = new Intent(WXPayEntryActivity.this, FacepayHistoryActivity.class);
                         startActivity(intent);
                         finish();
 //                        FacepayConfirmPaymentActivity.sFacepayConfirm.finish();
                         FacepayIndexActivity.sFacePayIndex.finish();
                     }
                     if (MyCookieStore.type.equals("wired")) {// 有线缴费成功
-                        Intent intent = new Intent(WXPayEntryActivity.this, CabletelPaymentHistoryActivity.class);
+                        Intent intent = new Intent(WXPayEntryActivity.this, WiredHistoryActivity.class);
                         startActivity(intent);
                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                             @Override
@@ -282,7 +281,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
                                 finish();
                             }
                         },1200);
-                        CableTelIndexActivity.instant.finish();
+                        WiredIndexActivity.instant.finish();
                     }
                     if (MyCookieStore.type.equals("service_new_pay")){// 新服务支付成功
                         Intent intent = new Intent(WXPayEntryActivity.this, FragmentOrderListActivity.class);
@@ -296,6 +295,35 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
                         },1200);
                         // 调一下支付成功推送的接口
                         new JpushPresenter().paySuccessJpush(MyCookieStore.o_id);
+                    }
+                    if (MyCookieStore.type.equals("workorder_yufu")){// 工单预付
+                       // 跳转到列表页
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        },1200);
+                        Intent intent = new Intent(WXPayEntryActivity.this, WorkOrderListActivity.class);
+                        startActivity(intent);
+                        EventBusWorkOrderModel eventBusModel = new EventBusWorkOrderModel();
+                        eventBusModel.setWo_id(MyCookieStore.o_id);
+                        eventBusModel.setEvent_type(1);
+                        EventBus.getDefault().post(eventBusModel);
+
+                    }
+                    if (MyCookieStore.type.equals("workorder_pay")){
+                        //支付跳转
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 1200);
+                        EventBusWorkOrderModel eventBusModel = new EventBusWorkOrderModel();
+                        eventBusModel.setWo_id(MyCookieStore.o_id);
+                        eventBusModel.setEvent_type(2);
+                        EventBus.getDefault().post(eventBusModel);
                     }
                     ZhifuActivity.sZhifu.finish();
                 } else {
@@ -323,9 +351,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
                     }
                     if (MyCookieStore.type.equals("shop_1")) {//购物车里付款
 
-                    }
-                    if (MyCookieStore.type.equals("wuye")) {
-                        ZhifuActivity.sZhifu.finish();
                     }
                     if (MyCookieStore.type.equals("facepay")) {
                         ZhifuActivity.sZhifu.finish();
@@ -379,9 +404,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
             }
             if (MyCookieStore.type.equals("shop_1")) {//购物车里付款成功
 
-            }
-            if (MyCookieStore.type.equals("wuye")) {
-                ZhifuActivity.sZhifu.finish();
             }
             if (MyCookieStore.type.equals("facepay")) {
                 ZhifuActivity.sZhifu.finish();
@@ -468,7 +490,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
                         intent.putExtras(bundle);
                         setResult(333, intent);
                         //startActivity(intent);
-                        New_Shop_Order_DetailActivity.instant.finish();
+                        NewShopOrderDetailActivity.instant.finish();
                         finish();
                     }
 

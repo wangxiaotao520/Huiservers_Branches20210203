@@ -9,6 +9,8 @@ import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Display;
@@ -19,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,6 +43,11 @@ public class ToolUtils {
 
     Context mContext;
     View mView;
+
+
+    public ToolUtils() {
+    }
+
 
     public ToolUtils(Context context, View v) {
         this.mContext = context;
@@ -672,7 +680,6 @@ public class ToolUtils {
     }
 
     /**
-     *
      * 字符串转换为对应日期
      *
      * @param source
@@ -705,6 +712,7 @@ public class ToolUtils {
 
     /**
      * 输入价格
+     *
      * @param editText
      */
     public static void setPriceInput(final EditText editText) {
@@ -751,19 +759,214 @@ public class ToolUtils {
 
         });
     }
+
     public static String getStandardTimeWithYeay(long timestamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(timestamp * 1000);
         return sdf.format(date);
     }
+
     public static String getStandardTimeHm(long timestamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         Date date = new Date(timestamp * 1000);
         return sdf.format(date);
     }
+
     public static String getStandardTime(long timestamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date(timestamp * 1000);
         return sdf.format(date);
+    }
+
+    /**
+     * 关闭软键盘
+     */
+    public static void closeInputMethod(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        boolean isOpen = imm.isActive();
+        if (isOpen) {
+            // imm.toggleSoftInput(0,
+            // InputMethodManager.HIDE_NOT_ALWAYS);//没有显示则显示
+
+            imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    /**
+     * 限制编辑控件
+     * 小数位数保留两个
+     * 位数限制在7位
+     * @param et
+     */
+    public static void filterDecimalDigits(final EditText et) {
+        final int DECIMAL_DIGITS = 2;//小数的位数
+        final int LENGTH_FILTER = 7;//位数限制在7位
+
+        et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+        et.setFilters(new InputFilter[]{
+
+                        new InputFilter() {
+                            int decimalNumber = 2;//小数点后保留位数
+
+                            @Override
+                            //source:即将输入的内容 dest：原来输入的内容
+                            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                                String sourceContent = source.toString();
+                                String lastInputContent = dest.toString();
+
+                                //验证删除等按键
+                                if (TextUtils.isEmpty(sourceContent)) {
+                                    return "";
+                                }
+
+                                //以小数点"."开头，默认为设置为“0.”开头
+                                if (sourceContent.equals(".") && lastInputContent.length() == 0) {
+                                    return "0.";
+                                }
+                                //小数点后保留两位
+                                if (lastInputContent.contains(".")) {
+                                    int index = lastInputContent.indexOf(".");
+                                    if (dend - index >= decimalNumber + 1) {
+                                        return "";
+                                    }
+
+                                }
+                                return null;
+                            }
+                        },
+
+                        new InputFilter.LengthFilter(LENGTH_FILTER) {
+
+                        }
+
+                }
+
+        );
+
+        et.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (s.length() >= 7) {
+                    return;
+                }
+
+                if (s.toString().contains(".")) {
+                    if (s.length() - 1 - s.toString().indexOf(".") > DECIMAL_DIGITS) {
+                        s = s.toString().subSequence(0,
+                                s.toString().indexOf(".") + DECIMAL_DIGITS + 1);
+                        et.setText(s);
+                        et.setSelection(s.length());
+                    }
+                }
+                if (s.toString().trim().substring(0).equals(".")) {
+                    s = "0" + s;
+                    et.setText(s);
+                    et.setSelection(2);
+                }
+                if (s.toString().startsWith("0")
+                        && s.toString().trim().length() > 1) {
+                    if (!s.toString().substring(1, 2).equals(".")) {
+                        et.setText(s.subSequence(0, 1));
+                        et.setSelection(1);
+                        return;
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    public static void filterDecimalDigitsText(final TextView et) {
+        final int DECIMAL_DIGITS = 2;//小数的位数
+
+        et.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
+        et.setFilters(new InputFilter[]{
+
+                        new InputFilter() {
+                            int decimalNumber = 2;//小数点后保留位数
+
+                            @Override
+                            //source:即将输入的内容 dest：原来输入的内容
+                            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                                String sourceContent = source.toString();
+                                String lastInputContent = dest.toString();
+
+                                //验证删除等按键
+                                if (TextUtils.isEmpty(sourceContent)) {
+                                    return "";
+                                }
+
+                                //以小数点"."开头，默认为设置为“0.”开头
+                                if (sourceContent.equals(".") && lastInputContent.length() == 0) {
+                                    return "0.";
+                                }
+                                //小数点后保留两位
+                                if (lastInputContent.contains(".")) {
+                                    int index = lastInputContent.indexOf(".");
+                                    if (dend - index >= decimalNumber + 1) {
+                                        return "";
+                                    }
+
+                                }
+                                return null;
+                            }
+                        },
+                }
+
+        );
+
+        et.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (s.toString().contains(".")) {
+                    if (s.length() - 1 - s.toString().indexOf(".") > DECIMAL_DIGITS) {
+                        s = s.toString().subSequence(0,
+                                s.toString().indexOf(".") + DECIMAL_DIGITS + 1);
+                        et.setText(s);
+//                        et.setSelection(s.length());
+                    }
+                }
+                if (s.toString().trim().substring(0).equals(".")) {
+                    s = "0" + s;
+                    et.setText(s);
+//                    et.setSelection(2);
+                }
+                if (s.toString().startsWith("0")
+                        && s.toString().trim().length() > 1) {
+                    if (!s.toString().substring(1, 2).equals(".")) {
+                        et.setText(s.subSequence(0, 1));
+//                        et.setSelection(1);
+                        return;
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 }

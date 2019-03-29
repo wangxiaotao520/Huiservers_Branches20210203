@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.huacheng.huiservers">
 
-    <uses-sdk
-        android:minSdkVersion="19"
-        android:targetSdkVersion="22" />
+    <!--<uses-sdk-->
+        <!--android:minSdkVersion="19"-->
+        <!--android:targetSdkVersion="22" />-->
     <!-- ===============推送权限 -->
     <!-- Required -->
     <permission
@@ -39,18 +39,13 @@
 
     <!-- 访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- 拨打电话权限 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" /> <!-- 写入通讯录权限 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 微信支付配置权限开始   权限已有 不需要在配置 -->
-    <!--
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    -->
+
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <!-- 支付配置权限结束 -->
@@ -94,6 +89,7 @@
         android:icon="@drawable/app_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:resizeableActivity="true"
         android:theme="@style/AppCompatTheme.Base">
         <!-- 高德地图app_key -->
         <meta-data
@@ -115,15 +111,9 @@
         <activity
             android:name="com.huacheng.huiservers.SplashUI"
             android:label="@string/app_name"
-            android:theme="@style/AppCompatTheme.Base">
+            android:theme="@style/AppTheme.Slide">
 
             <!--<intent-filter>-->
-            <!--<data android:scheme="huahceng"/>-->
-            <!--<action android:name="android.intent.action.VIEW"/>-->
-
-            <!--<category android:name="android.intent.category.DEFAULT"/>-->
-            <!--<category android:name="android.intent.category.BROWSABLE"/>-->
-
             <!--<data android:scheme="huahceng"/>-->
             <!--<action android:name="android.intent.action.VIEW"/>-->
 
@@ -264,7 +254,7 @@
 
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
-            android:name="com.huacheng.huiservers.view.MyReceiver"
+            android:name="com.huacheng.huiservers.jpush.MyReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -361,23 +351,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--<activity
-            android:name="com.tencent.tauth.AuthActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-
-                <data android:scheme="tencent1105961986"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.tencent.connect.common.AssistActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>-->
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -451,9 +425,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.dialog.SearchPopupWindow"
-            android:theme="@style/MyDialogStyleBottom" />
-        <activity
             android:name="com.huacheng.huiservers.dialog.UMShareDialog"
             android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyleBottom"
@@ -467,24 +438,24 @@
         <!-- 呼叫中心 -->
         <!-- 编辑帖子 -->
         <activity
-            android:name="com.huacheng.huiservers.cricle.FaBuActivity"
+            android:name="com.huacheng.huiservers.ui.circle.FaBuActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <!--我的圈子-->
         <activity
-            android:name="com.huacheng.huiservers.cricle.MyCircleActivity"
+            android:name="com.huacheng.huiservers.ui.circle.MyCircleActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <!-- 活动列表 -->
         <activity
-            android:name="com.huacheng.huiservers.huodong.EducationListActivity"
+            android:name="com.huacheng.huiservers.ui.index.huodong.EducationListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 活动详情 -->
         <activity
-            android:name="com.huacheng.huiservers.huodong.EducationActivity2"
+            android:name="com.huacheng.huiservers.ui.index.huodong.EducationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!-- 订单详情 -->
@@ -497,13 +468,13 @@
         <!-- 注册类型 -->
         <!-- 注册声明 -->
         <activity
-            android:name="com.huacheng.huiservers.login.ResigerShengmingActivity"
+            android:name="com.huacheng.huiservers.ui.login.ResigerShengmingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 个人商户注册界面 -->
         <!-- 支付界面 -->
         <activity
-            android:name="com.huacheng.huiservers.geren.ZhifuActivity"
+            android:name="com.huacheng.huiservers.ui.center.geren.ZhifuActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -517,196 +488,117 @@
             </intent-filter>
         </activity>
 
-        <!-- 新版物业团队界面 -->
 
-        <!-- 新版物业详情界面 -->
-        <!-- 新版物业查询信息界面-->
-        <!-- 报修详情界面 -->
-        <!-- 添加报修问题界面 -->
-        <!-- 物业缴费列表界面 -->
-        <!-- 反馈列表界面 -->
-        <!-- 添加反馈界面 -->
-        <!-- 反馈详情界面 -->
-        <!-- 物业获取验证码界面 -->
-        <!-- 查询业主成功界面 -->
-        <!--住宅-->
-        <!--住宅成员-->
-        <!--住宅添加成员-->
-
-
-        <!--物业加入缴水、电费0306-->
-        <activity
-            android:name="com.huacheng.huiservers.wuye.ConfirmPropertyOrderActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-
-        <!-- 优惠券列表界面 -->
-        <!-- 优惠券详情界面 -->
-        <!-- 优惠券使用纪录 -->
         <!--4.0优惠券-->
         <activity
-            android:name="com.huacheng.huiservers.center.Coupon40ListActivity"
+            android:name="com.huacheng.huiservers.ui.center.CouponListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--到店使用-->
         <activity
-            android:name="com.huacheng.huiservers.center.Coupon40ToshopUseActivity"
+            android:name="com.huacheng.huiservers.ui.center.CouponToShopUseActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--优惠券记录-->
         <activity
-            android:name="com.huacheng.huiservers.center.Coupon40RecordingActivity"
+            android:name="com.huacheng.huiservers.ui.center.CouponRecordingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-
-
-        <!-- 个人中心主界面 -->
         <!-- 设置 -->
         <activity
-            android:name="com.huacheng.huiservers.center.SetActivity"
+            android:name="com.huacheng.huiservers.ui.center.SetActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 意见反馈 -->
         <activity
-            android:name="com.huacheng.huiservers.center.YiJianActivity"
+            android:name="com.huacheng.huiservers.ui.center.YiJianActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 商务合作 -->
         <activity
-            android:name="com.huacheng.huiservers.center.HeZuoActivity"
+            android:name="com.huacheng.huiservers.ui.center.HeZuoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 个人信息界面 -->
         <activity
-            android:name="com.huacheng.huiservers.center.MyInfoActivity2"
+            android:name="com.huacheng.huiservers.ui.center.MyInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!-- 购物订单界面 -->
-
-        <!-- 首頁地区一级 -->
-        <!-- 首頁地区二级 -->
-
-        <!-- 地址地区一级 -->
-        <!-- 地址地区二级 -->
-        <!-- 地址地区三级 -->
         <!-- 小区选择 -->
         <activity
-            android:name="com.huacheng.huiservers.center.XiaoquActivity"
+            android:name="com.huacheng.huiservers.XiaoquActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!-- 付款详情界面 -->
-        <!-- 未付款详情状态以外的其他状态界面 -->
-        <!-- 退款提交界面 -->
-        <!-- 生活订单界面 -->
-        <!-- 生活订单详情界面 -->
-        <!-- 我的收藏界面 -->
         <!-- 个人中心账户界面 -->
         <activity
-            android:name="com.huacheng.huiservers.center.CenterMoneyActivity"
+            android:name="com.huacheng.huiservers.ui.center.CenterMoneyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 关于我们界面 -->
         <activity
-            android:name="com.huacheng.huiservers.center.AboutActivity"
+            android:name="com.huacheng.huiservers.ui.center.AboutActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!-- 账号安全界面 -->
         <!-- 购物订单评价界面 -->
-        <activity
-            android:name="com.huacheng.huiservers.center.OrderPingjiaActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-
-
-        <!-- 追加问题界面 -->
-
-        <!-- 商城首页界面 -->
         <!-- 商城分类界面 -->
         <activity
-            android:name="com.huacheng.huiservers.shop.ShopCateActivity"
+            android:name="com.huacheng.huiservers.ui.shop.ShopCateActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 商城商品搜索界面 -->
         <activity
-            android:name="com.huacheng.huiservers.shop.SearchShopActivity"
+            android:name="com.huacheng.huiservers.ui.shop.SearchShopActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.shop.SearchResultActivity"
+            android:name="com.huacheng.huiservers.ui.shop.SearchResultActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 优惠券webView -->
         <activity
-            android:name="com.huacheng.huiservers.shop.ShopWBActivity"
+            android:name="com.huacheng.huiservers.ui.shop.ShopWBActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!-- 商城商品搜索界面 -->
-        <!-- 商城专区界面 -->
-        <!-- 商城专区秒杀界面 -->
         <!-- 商城商品详情界面 -->
         <activity
-            android:name="com.huacheng.huiservers.shop.ShopDetailActivity"
+            android:name="com.huacheng.huiservers.ui.shop.ShopDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 商城商品详情软文H5界面 -->
-        <activity
-            android:name="com.huacheng.huiservers.shop.ShopDetailH5Activity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!-- 测试 商城商品详情界面Activity -->
-
-        <!-- 购物车确认订单界面 -->
         <!-- 购物车确认订单新界面 -->
         <activity
-            android:name="com.huacheng.huiservers.shop.ConfirmOrderActivity"
+            android:name="com.huacheng.huiservers.ui.shop.ConfirmOrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <!-- 查看全部订单界面 -->
         <activity
-            android:name="com.huacheng.huiservers.shop.SeeAllOrderActivity"
+            android:name="com.huacheng.huiservers.ui.shop.SeeAllOrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 查看全部评价界面 -->
         <activity
-            android:name="com.huacheng.huiservers.shop.SeeAllPingActivity"
+            android:name="com.huacheng.huiservers.ui.shop.SeeAllPingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-            android:name="com.huacheng.huiservers.shop.ShopCartActivityTwo"
+            android:name="com.huacheng.huiservers.ui.shop.ShopCartActivityTwo"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.shop.ShopListActivity"
+            android:name="com.huacheng.huiservers.ui.shop.ShopListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--限时抢购-->
         <activity
-            android:name="com.huacheng.huiservers.shop.ShopXS4TimeListActivity"
+            android:name="com.huacheng.huiservers.ui.shop.ShopXSTimeListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
-        <!-- 查看全部评价界面 -->
-        <!--
-        <activity
-            android:name="com.huacheng.huiservers.photo.PhotoMainActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-          <activity android:name="com.lzy.imagepicker.ui.ImageBaseActivity" />
-        <activity
-            android:name="com.lzy.imagepicker.ui.ImageGridActivity"
-            android:theme="@style/ImagePickerTheme" />
-        <activity
-            android:name="com.lzy.imagepicker.ui.ImageCropActivity"
-            android:theme="@style/ImagePickerTheme" />
-        <activity
-            android:name="com.lzy.imagepicker.ui.ImagePreviewActivity"
-            android:theme="@style/ImagePickerThemeFullScreen" />
-        -->
         <!-- 测试相册的activity -->
         <activity
-            android:name="com.huacheng.huiservers.huodong.ImagePagerActivity"
+            android:name="com.huacheng.huiservers.ui.index.huodong.ImagePagerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
@@ -716,86 +608,60 @@
             android:theme="@style/notitle" />
         <!-- 我的装修 -->
         <activity
-            android:name="com.huacheng.huiservers.center.MyRenvationActivity"
+            android:name="com.huacheng.huiservers.ui.center.MyRenvationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <!-- 销售方式  验证页面 -->
-        <!--
-             <activity
-            android:name="com.huacheng.huiservers.center.electronic.SalesMethodVerfityActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        -->
-        <!-- 业主小区列表 -->
 
+        <!-- 业主小区列表 -->
         <activity android:name="com.bestpay.app.H5PayActivity" />
 
-        <!-- 新增0928 -->
         <!--服务下单-->
-        <activity
-            android:name="com.huacheng.huiservers.geren.ServiceXiaDanActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--订单提交成功-->
-        <activity
-            android:name="com.huacheng.huiservers.geren.OrderSuccessActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--广电有线电视缴费-->
         <activity
-            android:name="com.huacheng.huiservers.geren.CableTelIndexActivity"
+            android:name="com.huacheng.huiservers.ui.center.geren.WiredIndexActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--广电有线电视确认订单-->
         <activity
-            android:name="com.huacheng.huiservers.geren.WiredConfirmActivity"
+            android:name="com.huacheng.huiservers.ui.center.geren.WiredConfirmActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--广电有线电视缴费历史记录-->
         <activity
-            android:name="com.huacheng.huiservers.geren.CabletelPaymentHistoryActivity"
+            android:name="com.huacheng.huiservers.ui.center.geren.WiredHistoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
 
         <activity
-            android:name="com.huacheng.huiservers.center.ServiceParticipateActivity"
+            android:name="com.huacheng.huiservers.ui.center.ServiceParticipateActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <!-- 物业新界面 -->
-        <!-- 个人中心新界面 -->
-        <!--<activity
-            android:name="com.huacheng.huiservers.center.NewCenterActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />-->
         <!-- 购物订单新界面 -->
-        <activity
-            android:name="com.huacheng.huiservers.center.New_Shop_OrderActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 购物订单新订单详情界面 -->
         <activity
-            android:name="com.huacheng.huiservers.center.New_Shop_Order_DetailActivity"
+            android:name="com.huacheng.huiservers.ui.center.NewShopOrderDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 评价新界面 -->
         <activity
-            android:name="com.huacheng.huiservers.shop.NewPingJiaActivity"
+            android:name="com.huacheng.huiservers.ui.shop.NewPingJiaActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 退款新界面 -->
         <activity
-            android:name="com.huacheng.huiservers.shop.NewTuikuanActivity"
+            android:name="com.huacheng.huiservers.ui.shop.NewTuikuanActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 地址新界面 -->
         <activity
-            android:name="com.huacheng.huiservers.center.New_AddressActivity"
+            android:name="com.huacheng.huiservers.ui.center.NewAddressActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 地址添加新界面 -->
         <activity
-            android:name="com.huacheng.huiservers.center.New_AddAddressActivity"
+            android:name="com.huacheng.huiservers.ui.center.NewAddAddressActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 图片显示新界面 -->
@@ -805,24 +671,24 @@
 
         <!--维修订单详情-->
         <activity
-            android:name="com.huacheng.huiservers.center.LifeDetailActivity2"
+            android:name="com.huacheng.huiservers.ui.center.LifeDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--个人信息验证界面-->
         <activity
-            android:name="com.huacheng.huiservers.center.NameVerfityActivity"
+            android:name="com.huacheng.huiservers.ui.center.NameVerfityActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.center.NamenickVerfityActivity"
+            android:name="com.huacheng.huiservers.ui.center.NamenickVerfityActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.center.ChangePwdVerfityActivity"
+            android:name="com.huacheng.huiservers.ui.center.ChangePwdVerifyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.center.SexVerfityActivity"
+            android:name="com.huacheng.huiservers.ui.center.SexVerfityActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
@@ -830,7 +696,7 @@
         <!--注册-->
         <!--验证码登录-->
         <activity
-            android:name="com.huacheng.huiservers.login.LoginVerifyCode1Activity"
+            android:name="com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
@@ -847,123 +713,95 @@
 
         <!--一卡通支付-->
         <activity
-            android:name="com.huacheng.huiservers.geren.CardPayActivity"
+            android:name="com.huacheng.huiservers.ui.center.geren.CardPayActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--获取物业小区-->
         <activity
-            android:name="com.huacheng.huiservers.wuye.WuyeXioaquActivity"
+            android:name="com.huacheng.huiservers.ui.index.wuye.WuyeXioaquActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--根据小区获取楼号-->
         <activity
-            android:name="com.huacheng.huiservers.wuye.ChooseBudlingActivity"
+            android:name="com.huacheng.huiservers.ui.index.wuye.ChooseBudlingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--根据单元获取房间号-->
         <activity
-            android:name="com.huacheng.huiservers.wuye.ChooseFloorActivity"
+            android:name="com.huacheng.huiservers.ui.index.wuye.ChooseFloorActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--根据楼号获取单元-->
         <activity
-            android:name="com.huacheng.huiservers.wuye.ChooseUnitActivity"
+            android:name="com.huacheng.huiservers.ui.index.wuye.ChooseUnitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--一卡通支付-->
 
         <activity
-            android:name="com.huacheng.huiservers.cricle.Circle2DetailsActivity"
+            android:name="com.huacheng.huiservers.ui.circle.CircleDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <!--认证-->
-        <activity
-            android:name="com.huacheng.huiservers.house.MyZhuZhaiRZActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--房屋详情-->
-        <activity
-            android:name="com.huacheng.huiservers.house.HousePersonInfoActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
         <!--展示房屋信息-->
         <activity
-            android:name="com.huacheng.huiservers.house.HouseGuideActivity"
+            android:name="com.huacheng.huiservers.ui.center.house.HouseInviteActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.house.HouseSelectActivity"
+            android:name="com.huacheng.huiservers.ui.index.openDoor.OpenLanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.house.HouseFamilyBillActivity"
+            android:name="com.huacheng.huiservers.ui.center.house.HousePassActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.house.HouseInviteActivity"
-            android:launchMode="singleTask"
+            android:name="com.huacheng.huiservers.ui.center.house.ZhuangXiuItemActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.openDoor.OpenLanActivity"
-            android:launchMode="singleTask"
+            android:name="com.huacheng.huiservers.ui.center.house.HouseOpenKeepActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.house.HousePassActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name="com.huacheng.huiservers.house.ZhuangXiuItemActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name="com.huacheng.huiservers.house.HouseBillRecordingActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name="com.huacheng.huiservers.house.HouseOpenKeepActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name="com.huacheng.huiservers.house.HouseCodeActivity"
+            android:name="com.huacheng.huiservers.ui.center.house.HouseCodeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--新房手册 列表-->
         <activity
-            android:name="com.huacheng.huiservers.house.New_House_HandbookActivity"
+            android:name="com.huacheng.huiservers.ui.center.house.NewHouseHandbookActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--备忘录-->
         <activity
-            android:name="com.huacheng.huiservers.house.HouseMemorandumActivity"
+            android:name="com.huacheng.huiservers.ui.center.house.HouseMemorandumActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--当面付首页-->
         <activity
-            android:name="com.huacheng.huiservers.facepay.FacepayIndexActivity"
+            android:name="com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--当面付选择商铺-->
         <activity
-            android:name="com.huacheng.huiservers.facepay.FacePayStoreActivity"
+            android:name="com.huacheng.huiservers.ui.index.facepay.FacePayStoreActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-            android:name="com.huacheng.huiservers.facepay.FacepayPaymentHistoryActivity"
+            android:name="com.huacheng.huiservers.ui.index.facepay.FacepayHistoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-            android:name=".openDoor.CalledActivity"
+            android:name=".ui.index.openDoor.CalledActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
@@ -975,7 +813,7 @@
 
         <!--当面付,确认信息付款-->
         <activity
-            android:name="com.huacheng.huiservers.facepay.FacepayConfirmPaymentActivity"
+            android:name="com.huacheng.huiservers.ui.index.facepay.FacepayConfirmPaymentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
@@ -983,107 +821,196 @@
         <!--测试页-->
         <!--居家养老首页-->
         <activity
-            android:name="com.huacheng.huiservers.oldhome.OldHomeActivity"
+            android:name="com.huacheng.huiservers.ui.index.oldhome.OldHomeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--居家养老列表首页-->
         <activity
-            android:name="com.huacheng.huiservers.oldhome.OldHomeListActivity"
+            android:name="com.huacheng.huiservers.ui.index.oldhome.OldHomeListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--扫码支付-->
         <activity
-            android:name=".property.PropertyMyHomeActivity"
+            android:name=".ui.index.property.PropertyMyHomeActivity"
             android:screenOrientation="portrait"></activity>
 
         <!--0803物业列表 -->
         <!--单个缴费界面-->
         <activity
-            android:name=".property.PropertyHomeListActivity"
+            android:name=".ui.index.property.PropertyHomeListActivity"
             android:screenOrientation="portrait"></activity>
 
         <!--多个缴费界面-->
         <activity
-            android:name=".property.PropertyHomeNewJFActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        />
-
-        <!-- <activity android:name="com.huacheng.huiservers.fragment.activity.ScanActivity"></activity>-->
-        <activity
-            android:name="com.huacheng.huiservers.property.PropertyFrimOrderActivity"
+            android:name=".ui.index.property.PropertyHomeNewJFActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.property.PropertyPaymentActivity"
+            android:name="com.huacheng.huiservers.ui.index.property.PropertyFrimOrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.property.PropertyNewActivity"
+            android:name="com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.property.PropertyNewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <!--用户协议-->
         <activity
-            android:name=".fragment.activity.HomeArticleWebviewActivity"
+            android:name=".ui.index.HomeArticleWebviewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.huacheng.huiservers.servicenew.ui.shop.ServiceStoreActivity"
+            android:name="com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.huacheng.huiservers.servicenew.ui.order.ServiceOrderDetailActivity"
+            android:name="com.huacheng.huiservers.ui.servicenew.ui.order.ServiceOrderDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.huacheng.huiservers.servicenew.ui.ServiceDetailActivity"
+            android:name="com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".servicenew.ui.ServiceConfirmOrderActivity"
+            android:name=".ui.servicenew.ui.ServiceConfirmOrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".servicenew.ui.order.ServiceOrderDetailCommonActivity"
+            android:name=".ui.servicenew.ui.order.ServiceOrderDetailCommonActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".servicenew.ui.order.FragmentOrderListActivity"
+            android:name=".ui.servicenew.ui.order.FragmentOrderListActivity"
             android:screenOrientation="portrait" />
         <!--商家、服务搜索-->
         <activity
-            android:name="com.huacheng.huiservers.servicenew.ui.search.ServicexSearchActivity"
+            android:name="com.huacheng.huiservers.ui.servicenew.ui.search.ServicexSearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".servicenew.ui.ServiceCommentActivity"
+            android:name=".ui.servicenew.ui.ServiceCommentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".servicenew.ui.search.ServiceClassifyActivity"
+            android:name=".ui.servicenew.ui.search.ServiceClassifyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".servicenew.ui.MerchantServiceListActivity"
+            android:name=".ui.servicenew.ui.MerchantServiceListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".servicenew.ui.search.SearchServiceResultActivity"
+            android:name=".ui.servicenew.ui.search.SearchServiceResultActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".center.ShopOrderListActivity"
+            android:name=".ui.center.ShopOrderListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".center.ALLWebviewActivity"
+            android:name=".ui.center.ALLWebViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".servicenew.ui.scan.CustomCaptureActivity"
+            android:name=".ui.servicenew.ui.scan.CustomCaptureActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".property.PropertyBindHomeActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:name=".ui.index.property.PropertyBindHomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".ui.index.property.SelectCommunityActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".property.SelectCommunityActivity"
+            android:name=".ui.index.property.SelectCommonActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".property.SelectCommonActivity"
+            android:name=".ui.index.houserent.HouserentDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.index.houserent.HouseRentListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <!--租售委托-->
+        <activity
+            android:name=".ui.index.houserent.RentSellCommissionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <!--发布房源-->
+        <activity
+            android:name=".ui.index.houserent.RentSellReleaseActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <!--我的房产-->
+        <activity
+            android:name=".ui.index.houserent.MyHousePropertyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.index.houserent.HouseRentTipsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.PhotoViewPagerAcitivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.index.workorder.commit.PersonalWorkOrderCommitActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.index.workorder.commit.PublicWorkOrderCommitActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="me.nereo.multi_image_selector.PhotoPagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.index.workorder.commit.SelectHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.index.workorder.WorkOrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <!--工单列表（订单中心）-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkCatActivity"
+            android:screenOrientation="portrait" />
+        <!--工单评价-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.workorder.WorkEvaluateActivity"
+            android:screenOrientation="portrait" />
+        <!--工单评价成功页-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.workorder.WorkEvaluateSuccessActivity"
+            android:screenOrientation="portrait" />
+        <!--自用部位详情界面-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.workorder.WorkCateDescActivtiy"
+            android:screenOrientation="portrait" />
+
+        <!--测试Activity-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.TestActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <!--7.0相机权限-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.huacheng.huiservers.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
     </application>
+
+
 
 </manifest>

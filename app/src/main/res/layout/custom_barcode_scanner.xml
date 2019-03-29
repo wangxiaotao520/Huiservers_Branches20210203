@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.huacheng.huiservers.servicenew.ui.scan.CustomViewfinderView
+    <com.huacheng.huiservers.ui.servicenew.ui.scan.CustomViewfinderView
         android:id="@+id/zxing_viewfinder_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -21,7 +21,7 @@
         android:gravity="center"
         android:layout_marginTop="130dp"
         android:background="@color/zxing_transparent"
-        android:text="@string/zxing_msg_default_status1"
+        android:text="@string/zxing_msg_default_status"
         android:textColor="@color/zxing_status_text" />
 
 </FrameLayout>

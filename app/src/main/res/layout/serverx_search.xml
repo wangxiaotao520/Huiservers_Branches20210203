@@ -18,8 +18,10 @@
         app:tabIndicatorColor="@color/orange"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/orange"
-        app:tabTextAppearance="@style/TabLayoutStyleText16"
-        app:tabTextColor="#9a9a9a">
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        app:tabTextAppearance="@style/TabLayoutStyleText15"
+        app:tabTextColor="@color/text_color">
 
     </android.support.design.widget.TabLayout>
 

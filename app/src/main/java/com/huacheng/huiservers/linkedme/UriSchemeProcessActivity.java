@@ -28,12 +28,10 @@ public class UriSchemeProcessActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // TODO: 5/9/18 lipeng 无条件限制-start
         // App打开后无广告展示及登录等条件限制，直接在此处调用以下方法跳转到具体页面，若有条件限制请参考Demo
 //        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
 //            LinkedME.getInstance().setImmediate(true);
 //        }
-        // TODO: 5/9/18 lipeng 无条件限制-end
 
         // 防止唤起后台App后一直停留在该页面
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {

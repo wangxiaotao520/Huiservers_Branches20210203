@@ -197,6 +197,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/margin_5"
+                android:paddingLeft="5dp"
                 android:paddingTop="@dimen/margin_5">
 
                 <LinearLayout
@@ -259,7 +260,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin"
-                        android:text="1斤"
+                        android:text=""
                         android:textColor="@color/gray4"
                         android:textSize="@dimen/t_12sp" />
 

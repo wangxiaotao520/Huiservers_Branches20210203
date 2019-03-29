@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.utils;
 
-import com.huacheng.libraryservice.http.ApiHttpClient;
+
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 
 /**
  * Description: 登录工具类

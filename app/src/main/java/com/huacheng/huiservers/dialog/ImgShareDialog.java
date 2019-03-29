@@ -10,10 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.utils.MyCookieStore;
 import com.umeng.socialize.UMShareAPI;
 
 /**

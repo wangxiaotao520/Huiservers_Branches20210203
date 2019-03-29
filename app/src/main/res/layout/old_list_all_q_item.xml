@@ -78,7 +78,7 @@
                     android:id="@+id/iv_head"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:background="@drawable/facehead1"/>
+                    android:background="@drawable/ic_default_head"/>
 
 
                 <TextView
@@ -119,7 +119,7 @@
                         android:layout_height="15dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="5dp"
-                        android:src="@drawable/ic_eye51"/>
+                        android:src="@drawable/ic_eye"/>
 
                     <TextView
                         android:id="@+id/tv_circleViews"
@@ -145,7 +145,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginRight="5dp"
-                        android:src="@drawable/ic_comment51"/>
+                        android:src="@drawable/ic_comment"/>
 
                     <TextView
                         android:id="@+id/tv_circleReply"

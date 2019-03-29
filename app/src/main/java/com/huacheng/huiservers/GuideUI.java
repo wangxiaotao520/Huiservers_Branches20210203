@@ -9,14 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.huacheng.huiservers.center.XiaoquActivity;
-import com.huacheng.huiservers.login.LoginVerifyCode1Activity;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.CacheUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.ToastUtils;
-import com.huacheng.libraryservice.base.BaseActivity;
-import com.huacheng.libraryservice.http.ApiHttpClient;
-import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.ArrayList;
 import java.util.List;

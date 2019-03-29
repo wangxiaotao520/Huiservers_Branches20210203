@@ -9,13 +9,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.shop.ShopWBActivity;
-import com.huacheng.huiservers.utils.ShareUtils;
 import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 
 /**
  * Created by hwh on 2017/12/28.

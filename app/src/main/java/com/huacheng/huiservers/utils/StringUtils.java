@@ -12,6 +12,8 @@ import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
 import com.google.gson.Gson;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -182,7 +184,6 @@ public class StringUtils {
         try {
             c.setTime(format.parse(pTime));
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         if (c.get(Calendar.DAY_OF_WEEK) == 1) {
@@ -214,34 +215,38 @@ public class StringUtils {
     /*时间戳转换成字符窜*/
     public static String getDateToString(String time, String type) {
         long mTime;
-        if (time == null) {
+        if (NullUtil.isStringEmpty(time)) {
             return "无";
         } else {
-            Long lon = Long.parseLong(time);
-            mTime = lon * 1000;
-            if (time.equals("0000") || time == "0000") {
-                return "无数据";
-            } else if (type.equals("1")) {
-                sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            } else if (type.equals("2")) {
-                sdf = new SimpleDateFormat("yyyy-MM-dd");
-            } else if (type.equals("3")) {
-                sdf = new SimpleDateFormat("MM-dd HH:mm");
-            } else if (type.equals("4")) {
-                sdf = new SimpleDateFormat("HH:mm");
-            } else if (type.equals("5")) {
-                sdf = new SimpleDateFormat("HH:mm ss''");
-            } else if (type.equals("6")) {
-                sdf = new SimpleDateFormat("MM-dd HH:mm");
-            } else if (type.equals("7")) {
-                sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-            } else if (type.equals("8")) {
-                sdf = new SimpleDateFormat("yyyy.MM.dd");
+            try {
+                Long lon = Long.parseLong(time);
+                mTime = lon * 1000;
+                if (time.equals("0000") || time == "0000") {
+                    return "无数据";
+                } else if (type.equals("1")) {
+                    sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                } else if (type.equals("2")) {
+                    sdf = new SimpleDateFormat("yyyy-MM-dd");
+                } else if (type.equals("3")) {
+                    sdf = new SimpleDateFormat("MM-dd HH:mm");
+                } else if (type.equals("4")) {
+                    sdf = new SimpleDateFormat("HH:mm");
+                } else if (type.equals("5")) {
+                    sdf = new SimpleDateFormat("HH:mm ss''");
+                } else if (type.equals("6")) {
+                    sdf = new SimpleDateFormat("MM-dd HH:mm");
+                } else if (type.equals("7")) {
+                    sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                } else if (type.equals("8")) {
+                    sdf = new SimpleDateFormat("yyyy.MM.dd");
+                }
+                String date = sdf.format(mTime);
+                return date;
+            }catch (NumberFormatException e){
+                e.printStackTrace();
             }
-            String date = sdf.format(mTime);
-            return date;
+            return "";
         }
-
 
     }
 
@@ -546,6 +551,9 @@ public class StringUtils {
      * @return
      */
     public static String getImgUrl(String imgUrl) {
+        if (NullUtil.isStringEmpty(imgUrl)){
+            return "";
+        }
         String url = null;
         if (imgUrl.indexOf("http") != -1) {
             url = imgUrl;
@@ -602,4 +610,6 @@ public class StringUtils {
             return false;
         }
     }
+
+
 }

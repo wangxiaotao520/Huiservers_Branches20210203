@@ -9,6 +9,8 @@ import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Display;
@@ -39,6 +41,9 @@ public class ToolUtils {
 
     Context mContext;
     View mView;
+
+    public ToolUtils() {
+    }
 
     public ToolUtils(View v, Context context) {
         this.mView = v;
@@ -445,8 +450,7 @@ public class ToolUtils {
     /**
      * 计算剩余日期
      *
-     * @param remainTime
-     * @return
+     * @return @param remainTime
      */
     public static String calculationRemainTime(String endTime, long countDown) {
 
@@ -616,8 +620,7 @@ public class ToolUtils {
     /**
      * 检查当前网络是否可用
      *
-     * @param context
-     * @return
+     * @return @param context
      */
 
     public static boolean isNetworkAvailable(Activity activity) {
@@ -713,7 +716,6 @@ public class ToolUtils {
             return isOpen;
 
         } catch (Exception e) {
-            // TODO: handle exception
 
             System.out.println("得到移动数据状态出错");
             return false;
@@ -749,8 +751,10 @@ public class ToolUtils {
             imm.hideSoftInputFromWindow(mView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
     /**
      * 输入价格
+     *
      * @param editText
      */
     public static void setPriceInput(final EditText editText) {
@@ -792,10 +796,11 @@ public class ToolUtils {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
 
             }
 
         });
     }
+
+
 }

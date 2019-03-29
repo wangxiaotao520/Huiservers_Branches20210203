@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.huacheng.huiservers.widget.FlowTag.FlowTagLayout
+                    <com.huacheng.huiservers.view.widget.FlowTag.FlowTagLayout
                         android:id="@+id/size_flow_layout"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content" />

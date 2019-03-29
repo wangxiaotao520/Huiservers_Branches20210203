@@ -26,7 +26,7 @@
                 android:id="@+id/sdv_merchantlogo"
                 android:layout_width="@dimen/margin_50"
                 android:layout_height="@dimen/margin_50"
-                fresco:placeholderImage="@drawable/facehead1"
+                fresco:placeholderImage="@drawable/ic_default_head"
                 fresco:roundAsCircle="true"
 
                 fresco:roundingBorderWidth="1dp" />
@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="榆次富家家政公司"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 

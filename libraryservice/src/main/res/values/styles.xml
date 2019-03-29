@@ -31,7 +31,7 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
-
+        <item name="android:windowIsTranslucent">false</item>
         <!-- Actionbar color -->
         <!--<item name="colorPrimary">@color/colorPrimary</item>-->
         <!--Status bar color-->
@@ -42,5 +42,20 @@
     <!-- 弹出菜单 -->
     <style name="popUpwindow_anim">
         <item name="android:windowEnterAnimation">@anim/push_up_in</item>
+    </style>
+
+    <style name="AppTheme.Slide" parent="@style/AppCompatTheme.Base">
+        <!--Required-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--window透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AppTheme.Slide.Animation</item>
+    </style>
+
+    <style name="AppTheme.Slide.Animation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_slide_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_slide_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_slide_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_slide_out</item>
     </style>
 </resources>

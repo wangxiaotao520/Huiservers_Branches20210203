@@ -274,7 +274,7 @@
                         android:layout_height="fill_parent"
                         android:background="@null"
                         android:hint="备注留言(选填)"
-                        android:textColorHint="@color/text_color"
+                        android:textColorHint="@color/text_color_hint"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/t_14sp"
                         android:textColor="@color/c_title"/>

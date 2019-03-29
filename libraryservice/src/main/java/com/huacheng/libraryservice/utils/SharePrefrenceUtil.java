@@ -44,7 +44,7 @@ public class SharePrefrenceUtil {
 
     //首页选择的小区id
     public String getXiaoQuId() {
-        return sharedPreferences.getString("xiaoqu_id", "1");
+        return sharedPreferences.getString("xiaoqu_id", "");
     }
 
     public void setXiaoQuId(String xiaoqu_id) {

@@ -224,6 +224,8 @@ public class StringUtils {
                 sdf = new SimpleDateFormat("MM-dd HH:mm");
             } else if (type.equals("7")) {
                 sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+            } else if (type.equals("8")) {
+                sdf = new SimpleDateFormat("MM/dd HH:mm");
             }
             String date = sdf.format(mTime);
             return date;

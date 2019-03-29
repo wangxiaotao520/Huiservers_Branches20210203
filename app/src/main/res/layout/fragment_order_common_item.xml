@@ -3,6 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:fresco="http://schemas.android.com/tools"
               android:background="@color/white"
               android:descendantFocusability="blocksDescendants"
               android:orientation="vertical">
@@ -24,7 +25,8 @@
                 android:id="@+id/sinple_icon"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                app:placeholderImage="@drawable/ic_goods_bg" />
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:placeholderImage="@drawable/ic_default_rectange" />
 
             <LinearLayout
                 android:layout_width="match_parent"

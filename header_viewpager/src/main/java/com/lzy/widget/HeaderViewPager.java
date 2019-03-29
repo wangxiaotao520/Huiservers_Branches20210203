@@ -37,6 +37,8 @@ public class HeaderViewPager extends LinearLayout {
     private OnScrollListener onScrollListener;   //滚动的监听
     private HeaderScrollHelper mScrollable;
 
+    private boolean can_scroll=true;//设置是否可以滑动
+
     public interface OnScrollListener {
         void onScroll(int currentY, int maxY);
     }
@@ -134,7 +136,9 @@ public class HeaderViewPager extends LinearLayout {
                 mLastY = currentY;
                 if (shiftX > mTouchSlop && shiftX > shiftY) {
                     //水平滑动
+                    //TODO
                     verticalScrollFlag = false;
+               //     verticalScrollFlag = true;
                 } else if (shiftY > mTouchSlop && shiftY > shiftX) {
                     //垂直滑动
                     verticalScrollFlag = true;
@@ -144,11 +148,14 @@ public class HeaderViewPager extends LinearLayout {
                  * 头部没有固定，允许滑动的View处于第一条可见，当前按下的点在头部区域
                  * 三个条件满足一个即表示需要滚动当前布局，否者不处理，将事件交给子View去处理
                  */
-                if (verticalScrollFlag && (!isStickied() || mScrollable.isTop() || isClickHead)) {
-                    //如果是向下滑，则deltaY小于0，对于scrollBy来说
-                    //正值为向上和向左滑，负值为向下和向右滑，这里要注意
-                    scrollBy(0, (int) (deltaY + 0.5));
-                    invalidate();
+                if (can_scroll){//设置是否可以滑动，有些下方分类没数据的情况
+                    //todo verticalScrollFlag&&给去掉了 老夫真的尽力了
+                    if ((!isStickied() || mScrollable.isTop() || isClickHead)) {
+                        //如果是向下滑，则deltaY小于0，对于scrollBy来说
+                        //正值为向上和向左滑，负值为向下和向右滑，这里要注意
+                        scrollBy(0, (int) (deltaY + 0.5));
+                        invalidate();
+                    }
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -224,18 +231,20 @@ public class HeaderViewPager extends LinearLayout {
                 }
             } else {
                 // 手势向下划，内部View已经滚动到顶了，需要滚动外层的View
-                if (mScrollable.isTop() || isClickHead) {
-                    int deltaY = (currY - mLastScrollerY);
-                    int toY = getScrollY() + deltaY;
-                    scrollTo(0, toY);
-                    if (mCurY <= minY) {
-                        mScroller.abortAnimation();
-                        return;
+                if (can_scroll){//TODO
+                    if (mScrollable.isTop() || isClickHead) {
+                        int deltaY = (currY - mLastScrollerY);
+                        int toY = getScrollY() + deltaY;
+                        scrollTo(0, toY);
+                        if (mCurY <= minY) {
+                            mScroller.abortAnimation();
+                            return;
+                        }
                     }
+                    //向下滑动时，初始状态可能不在顶部，所以要一直重绘，让computeScroll一直调用
+                    //确保代码能进入上面的if判断
+                    invalidate();
                 }
-                //向下滑动时，初始状态可能不在顶部，所以要一直重绘，让computeScroll一直调用
-                //确保代码能进入上面的if判断
-                invalidate();
             }
             mLastScrollerY = currY;
         }
@@ -310,4 +319,9 @@ public class HeaderViewPager extends LinearLayout {
     public void setCurrentScrollableContainer(HeaderScrollHelper.ScrollableContainer scrollableContainer) {
         mScrollable.setCurrentScrollableContainer(scrollableContainer);
     }
+
+    public void setCan_scroll(boolean can_scroll) {
+        this.can_scroll = can_scroll;
+    }
+
 }

@@ -5,12 +5,14 @@
     android:background="@color/view_background"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <include layout="@layout/titlebar_center" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
@@ -27,11 +29,5 @@
         <include layout="@layout/no_data" />
 
     </RelativeLayout>
-    <!--<com.huacheng.huiservers.view.Zks_FL_ListView-->
-        <!--android:id="@+id/list_center"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:divider="@null" >-->
-    <!--</com.huacheng.huiservers.view.Zks_FL_ListView>-->
 
 </LinearLayout>

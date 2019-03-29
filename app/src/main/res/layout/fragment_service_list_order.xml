@@ -4,7 +4,7 @@
               android:id="@+id/ll_parent"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/white"
+              android:background="@color/windowbackground"
               android:orientation="vertical">
 
     <include layout="@layout/titlebar_center"/>
@@ -17,13 +17,17 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tl_tab"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        app:tabBackground="@color/windowbackground"
+        android:layout_height="45dp"
+        app:tabBackground="@color/white"
         app:tabIndicatorColor="@color/orange"
         app:tabSelectedTextColor="@color/orange"
-        app:tabTextAppearance="@style/TabLayoutStyleText16"
-        app:tabTextColor="@color/grey96"
+        app:tabTextAppearance="@style/TabLayoutStyleText15"
+        app:tabTextColor="@color/text_color"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5px"
+        android:background="#EDEDED" />
     <!--  android:background="@drawable/bg_gradient_order_blue"-->
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_pager"

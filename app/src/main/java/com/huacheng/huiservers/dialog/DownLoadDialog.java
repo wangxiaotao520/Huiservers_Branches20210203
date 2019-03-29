@@ -1,8 +1,5 @@
 package com.huacheng.huiservers.dialog;
 
-import java.io.File;
-import java.text.DecimalFormat;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DownloadManager;
@@ -23,13 +20,15 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.utils.DownloadManagerPro;
-import com.huacheng.huiservers.utils.ToastUtils;
 import com.huacheng.huiservers.utils.XToast;
+
+import java.io.File;
+import java.text.DecimalFormat;
 
 public class DownLoadDialog extends Activity {
 
 
-    public static final String DOWNLOAD_FOLDER_NAME = "Trinea";
+    public static final String DOWNLOAD_FOLDER_NAME = "hui_download";
     public static  String DOWNLOAD_FILE_NAME = "hui.apk";
 
     public static  String APK_URL = "http://m.hui-shenghuo.cn/data/upload/apk/HuiServers.apk";
@@ -55,6 +54,11 @@ public class DownLoadDialog extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.dialog_download);
+
+//        File file_download = new File(Environment.getExternalStorageDirectory() + "/hui_download");
+//        if (file_download.exists()&&file_download.isDirectory()){
+//            ToolUtils.delAllFile(file_download.getPath());
+//        }
 
         handler = new MyHandler();
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -158,6 +162,10 @@ public class DownLoadDialog extends Activity {
                     "application/vnd.android.package-archive");
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
+            //TODO 有新版本就把补丁删掉
+//            if (BuildConfig.TINKER_ENABLE){
+//                TinkerPatch.with().cleanAll();
+//            }
             return true;
         }
         return false;
@@ -198,6 +206,7 @@ public class DownLoadDialog extends Activity {
                             .append(File.separator).append(DOWNLOAD_FILE_NAME)
                             .toString();
                     install(context, apkFilePath);
+                    DownLoadDialog.this.setResult(RESULT_OK);
                     finish();
                 }
             }
@@ -303,7 +312,6 @@ public class DownLoadDialog extends Activity {
     		XToast.makeText(DownLoadDialog.this, "正在下载，请耐心等待", XToast.LENGTH_SHORT).show();
 			return true;   
 		}
-    	// TODO Auto-generated method stub
     	return super.onKeyDown(keyCode, event);
     }
 

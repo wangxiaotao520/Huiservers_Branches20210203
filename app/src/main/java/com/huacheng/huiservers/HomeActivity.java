@@ -19,24 +19,26 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.huacheng.huiservers.center.AboutActivity;
-import com.huacheng.huiservers.fragment.CircleFragment5;
-import com.huacheng.huiservers.fragment.HomeIndexFrament;
-import com.huacheng.huiservers.fragment.MyFragmentNew;
-import com.huacheng.huiservers.fragment.ShopFragment4;
-import com.huacheng.huiservers.geren.ZhifuActivity;
+import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.login.LoginVerifyCode1Activity;
-import com.huacheng.huiservers.servicenew.FragmentServiceNew;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.model.ModelEventHome;
+import com.huacheng.huiservers.model.ModelLoginOverTime;
+import com.huacheng.huiservers.ui.base.ActivityStackManager;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.center.AboutActivity;
+import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
+import com.huacheng.huiservers.ui.fragment.CircleFragment;
+import com.huacheng.huiservers.ui.fragment.HomeFragment;
+import com.huacheng.huiservers.ui.fragment.MyFragmentNew;
+import com.huacheng.huiservers.ui.fragment.ServiceFragment;
+import com.huacheng.huiservers.ui.fragment.ShopFragment;
+import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
-import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.ToastUtils;
 import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.libraryservice.base.ActivityStackManager;
-import com.huacheng.libraryservice.http.ApiHttpClient;
-import com.huacheng.libraryservice.model.ModelLoginOverTime;
 import com.huacheng.libraryservice.utils.TDevice;
+import com.huacheng.libraryservice.utils.ToastUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -57,9 +59,8 @@ import static com.huacheng.huiservers.Jump.PHONE_STATE_REQUEST_CODE;
 /**
  * 主页Activity
  */
-public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
+public class HomeActivity extends BaseActivityOld implements OnCheckedChangeListener {
     DefaultHttpClient dh;// session相关
-    private SharePrefrenceUtil sharePrefrenceUtil;
     private String login_type;
     private SharedPreferences preferencesLogin;
     HttpUtils utils = new HttpUtils();// xUtils网络框架
@@ -71,6 +72,7 @@ public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
     public long times = 0;// 存储当前时间
     int finishs = 0;// 点击返回的次数， 与times配合使用 点击两次并且时间间隔�?s之内就�?出应�?
     private int current_fragment=0;
+    private RadioButton[] rb;
 
     /**
      * 点击切换fragment
@@ -104,7 +106,6 @@ public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
         //提交事务
         fragmentTransaction.commit();
 
-
     }
 
     /**
@@ -113,18 +114,12 @@ public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
 
     public void addFragment() {
 
-        // fragments.add(new HomeFrament());
-        fragments.add(new HomeIndexFrament());
-        // fragments.add(new ShopFragment3());
-        fragments.add(new ShopFragment4());
-        fragments.add(new FragmentServiceNew());
-        // fragments.add(new ServiceFragment());
-//		fragments.add(new CircleFragment3());
-        fragments.add(new CircleFragment5());
-        //    fragments.add(new MyFragment());
+        fragments.add(new HomeFragment());
+        fragments.add(new ShopFragment());
+        fragments.add(new ServiceFragment());
+        fragments.add(new CircleFragment());
         fragments.add(new MyFragmentNew());
 
-        //fragments.add(new HomeFrament2());
     }
 
     @Override
@@ -181,28 +176,23 @@ public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
         super.onCreate(savedInstanceState);
         instant = this;
         //SetTransStatus.GetStatus(this);
-        View view = View.inflate(this, R.layout.activity_home1, null);
+        View view = View.inflate(this, R.layout.activity_home, null);
         ViewUtils.inject(this, view);// 引入注解
         setContentView(view);
 
         fragments = new ArrayList<Fragment>();
-        sharePrefrenceUtil = new SharePrefrenceUtil(this);
         addFragment();
 
         preferencesLogin = this.getSharedPreferences("login", 0);
         login_type = preferencesLogin.getString("login_type", "");
 
-        String xiaoquID = sharePrefrenceUtil.getXiaoQuId();
-      /*  if (sharePrefrenceUtil.getIsNew().equals("1")) {
-            switchFragment(4);
-        } else {*/
         switchFragment(0);
         // }
         mRadioGroup.setOnCheckedChangeListener(this);// 给定监听不解�?
         mRadioGroup.check(R.id.rb_content_fragment_home);// 默认选择第一�?
 
         //定义RadioButton数组用来装RadioButton，改变drawableTop大小
-        RadioButton[] rb = new RadioButton[5];
+        rb = new RadioButton[5];
         //将RadioButton装进数组中
         rb[0] = (RadioButton) findViewById(R.id.rb_content_fragment_home);
         rb[1] = (RadioButton) findViewById(R.id.rb_content_fragment_shop);
@@ -234,11 +224,7 @@ public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
         login_type = preferencesLogin.getString("login_type", "");
         switch (checkedId) {
             case R.id.rb_content_fragment_home:
-               /* if (sharePrefrenceUtil.getIsNew().equals("1")) {
-                    switchFragment(4);
-                } else {*/
                 switchFragment(0);
-                // }
                 current_fragment=0;
                 break;
             case R.id.rb_content_fragment_shop:
@@ -259,7 +245,7 @@ public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
                     Editor editor = preferencesLogin.edit();
                     editor.putString("login_shop", "shop_login");
                     editor.commit();
-                    startActivity(new Intent(this, LoginVerifyCode1Activity.class));
+                    startActivity(new Intent(this, LoginVerifyCodeActivity.class));
                     mRadioGroup.check(R.id.rb_content_fragment_home);
                 } else {
                     switchFragment(4);
@@ -288,10 +274,6 @@ public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
                 XToast.makeText(this, "再按一次退出程序", XToast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
-               /* finish();
-                BaseUI.finishAll();
-                BaseUI.destoryActivity();
-                System.exit(0);*/
                 removeALLActivity();//执行移除所以Activity方法
 
             }
@@ -311,13 +293,16 @@ public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
         com.huacheng.libraryservice.utils.ToastUtils.showShort(this,"登录失效");
         HttpHelper.tokenSecret=null;
         HttpHelper.token=null;
-        BaseUI.finishAll();
-        BaseUI.destoryActivity();
+        BaseActivityOld.finishAll();
+        BaseActivityOld.destoryActivity();
         ActivityStackManager.getActivityStackManager().finishAllActivity();
         finish();
         startActivity( new Intent(this, HomeActivity.class));
-        startActivity(new Intent(this, LoginVerifyCode1Activity.class));
-
+        startActivity(new Intent(this, LoginVerifyCodeActivity.class));
+        //清除数据库
+        UserSql.getInstance().clear();
+        //    ActivityStackManager.getActivityStackManager().finishAllActivity();
+        BaseApplication.setUser(null);
     }
 
     @Override
@@ -339,7 +324,7 @@ public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
                 preferencesLogin = this.getSharedPreferences("login", 0);
                 login_type = preferencesLogin.getString("login_type", "");
                 if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
-                    Intent intent = new Intent(this, LoginVerifyCode1Activity.class);
+                    Intent intent = new Intent(this, LoginVerifyCodeActivity.class);
                     this.startActivity(intent);
                 } else {
                     if (login_type.equals("1")) {//个人
@@ -360,17 +345,26 @@ public class HomeActivity extends BaseUI implements OnCheckedChangeListener {
                 // Permission Denied
                 Toast.makeText(this, "无法打开东森易购,请获取手机权限", Toast.LENGTH_SHORT).show();
             }
-        } /*else if (requestCode == CAMERA_STATE_REQUEST_CODE) {
-            if (PermissionUtils.checkPermissionGranted(this, Manifest.permission.CAMERA)) {
-                IntentIntegrator intentIntegrator = new IntentIntegrator(this)
-                        .setOrientationLocked(false);
-
-                intentIntegrator.setCaptureActivity(CustomCaptureActivity.class);
-                        *//*intentIntegrator.setPrompt("将服务师傅的二维码放入框内\n" +
-                            "即可扫描付款");*//*
-                // 设置自定义的activity是ScanActivity
-                intentIntegrator.initiateScan(); // 初始化扫描
-            }
-        }*/
+        }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventbus(ModelEventHome model) {
+        if (model!=null){
+            if (model.getType()==0){
+                if (rb!=null&&rb.length>0){
+                    rb[3].toggle();
+                }
+
+            }else if (model.getType()==1){
+                if (rb!=null&&rb.length>0){
+                    rb[3].toggle();
+                }
+            }else if (model.getType()==2){
+                //销毁当前页
+                finish();
+            }
+        }
+    }
+
 }

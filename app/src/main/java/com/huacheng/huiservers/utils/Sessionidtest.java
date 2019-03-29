@@ -9,6 +9,7 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
 import com.huacheng.huiservers.BaseApplication;
+import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.getCookie;
 
 public class Sessionidtest {

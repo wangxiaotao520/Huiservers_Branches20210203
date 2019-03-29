@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout
-    android:id="@+id/refreshLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,8 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/windowbackground"
-            android:paddingBottom="50dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                         android:layout_height="67dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="25dp"
-                        fresco:placeholderImage="@drawable/facehead1"
+                        fresco:placeholderImage="@drawable/ic_default_head"
                         fresco:roundAsCircle="true" />
 
                     <LinearLayout
@@ -59,6 +59,7 @@
                                 tools:text="王雅倩" />
 
                         </LinearLayout>
+
                         <TextView
                             android:id="@+id/tv_user_phone"
                             android:layout_width="wrap_content"
@@ -68,14 +69,15 @@
                             android:textSize="13sp"
                             android:textStyle="normal"
                             tools:text="15864586527" />
+
                         <TextView
                             android:id="@+id/tv_user_identify"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
                             android:textColor="@color/text_color"
                             android:textSize="13sp"
-                            android:layout_marginTop="5dp"
                             android:textStyle="normal"
                             tools:text="请绑定住宅 >" />
 
@@ -103,17 +105,19 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:orientation="vertical">
+
                         <ImageView
-                            android:layout_gravity="center_horizontal"
                             android:layout_width="28dp"
                             android:layout_height="28dp"
+                            android:layout_gravity="center_horizontal"
                             android:background="@mipmap/ic_shenghuozhangdang" />
+
                         <TextView
-                            android:textColor="@color/text_color"
-                            android:layout_marginTop="11dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="生活账单" />
+                            android:layout_marginTop="11dp"
+                            android:text="生活账单"
+                            android:textColor="@color/text_color" />
                     </LinearLayout>
                 </RelativeLayout>
                 <!--保修账单-->
@@ -128,17 +132,19 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:orientation="vertical">
+
                         <ImageView
-                            android:layout_gravity="center_horizontal"
                             android:layout_width="28dp"
                             android:layout_height="28dp"
+                            android:layout_gravity="center_horizontal"
                             android:background="@mipmap/ic_baoxiudingdan" />
+
                         <TextView
-                            android:textColor="@color/text_color"
-                            android:layout_marginTop="11dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="物业工单" />
+                            android:layout_marginTop="11dp"
+                            android:text="物业工单"
+                            android:textColor="@color/text_color" />
                     </LinearLayout>
                 </RelativeLayout>
                 <!--服务订单-->
@@ -153,17 +159,19 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:orientation="vertical">
+
                         <ImageView
-                            android:layout_gravity="center_horizontal"
                             android:layout_width="28dp"
                             android:layout_height="28dp"
+                            android:layout_gravity="center_horizontal"
                             android:background="@mipmap/ic_fuwudingdan" />
+
                         <TextView
-                            android:textColor="@color/text_color"
-                            android:layout_marginTop="11dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="服务订单" />
+                            android:layout_marginTop="11dp"
+                            android:text="服务订单"
+                            android:textColor="@color/text_color" />
                     </LinearLayout>
                 </RelativeLayout>
                 <!--商城订单-->
@@ -178,29 +186,32 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:orientation="vertical">
+
                         <ImageView
-                            android:layout_gravity="center_horizontal"
                             android:layout_width="28dp"
                             android:layout_height="28dp"
+                            android:layout_gravity="center_horizontal"
                             android:background="@mipmap/ic_shangchengdingdan" />
+
                         <TextView
-                            android:textColor="@color/text_color"
-                            android:layout_marginTop="11dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="商城订单" />
+                            android:layout_marginTop="11dp"
+                            android:text="商城订单"
+                            android:textColor="@color/text_color" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginBottom="25dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginBottom="25dp"
-                android:background="@color/white">
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/ry_fang"
@@ -215,7 +226,7 @@
                         android:layout_height="25dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="14dp"
-                        android:src="@drawable/fangkeyaoqing2x"/>
+                        android:src="@drawable/fangkeyaoqing2x" />
 
                     <TextView
                         android:id="@+id/tv1"
@@ -226,7 +237,7 @@
                         android:layout_toRightOf="@id/img1"
                         android:text="访客邀请"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/t_16sp"/>
+                        android:textSize="@dimen/t_16sp" />
 
                     <TextView
                         android:id="@+id/tv_guest_num"
@@ -238,7 +249,7 @@
                         android:layout_marginRight="20dp"
                         android:text=""
                         android:textColor="@color/orange_jain"
-                        android:textSize="@dimen/t_14sp"/>
+                        android:textSize="@dimen/t_14sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -246,25 +257,25 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="right"
-                        android:background="@drawable/jiantou_you"
                         android:layout_marginRight="8dp"
-                        />
+                        android:background="@drawable/jiantou_you" />
 
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"
                     android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp" />
+                    android:layout_marginRight="9dp"
+                    android:background="@color/line" />
 
 
                 <RelativeLayout
                     android:id="@+id/rel_coupon"
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
-                    android:background="@color/white"
-                    android:layout_marginLeft="8dp">
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/white">
 
                     <ImageView
                         android:id="@+id/img7"
@@ -272,7 +283,7 @@
                         android:layout_height="25dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="14dp"
-                        android:src="@drawable/ic_coupon2x"/>
+                        android:src="@drawable/ic_coupon2x" />
 
                     <TextView
                         android:id="@+id/tv7"
@@ -283,7 +294,7 @@
                         android:layout_toRightOf="@id/img7"
                         android:text="优惠券"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/t_16sp"/>
+                        android:textSize="@dimen/t_16sp" />
 
                     <TextView
                         android:id="@+id/tv_coupon_num"
@@ -295,7 +306,7 @@
                         android:layout_marginRight="20dp"
                         android:text=""
                         android:textColor="@color/orange_jain"
-                        android:textSize="@dimen/t_14sp"/>
+                        android:textSize="@dimen/t_14sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -303,19 +314,74 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="right"
-                        android:background="@drawable/jiantou_you"
                         android:layout_marginRight="8dp"
-                        />
+                        android:background="@drawable/jiantou_you" />
                 </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"
                     android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp" />
+                    android:layout_marginRight="9dp"
+                    android:background="@color/line" />
 
                 <RelativeLayout
+                    android:id="@+id/rel_house"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/img70"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="14dp"
+                        android:src="@mipmap/ic_house_property" />
+
+                    <TextView
+                        android:id="@+id/tv70"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="29dp"
+                        android:layout_toRightOf="@id/img70"
+                        android:text="我的房产"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/t_16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_house_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginRight="20dp"
+                        android:text=""
+                        android:textColor="@color/orange_jain"
+                        android:textSize="@dimen/t_14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/jiantou_you" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="9dp"
+                    android:background="@color/line" />
+
+                <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/ry_my_renvation"
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
@@ -328,7 +394,7 @@
                         android:layout_height="25dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="14dp"
-                        android:src="@drawable/zhuangxiu2x"/>
+                        android:src="@drawable/zhuangxiu2x" />
 
                     <TextView
                         android:id="@+id/tv2"
@@ -339,7 +405,7 @@
                         android:layout_toRightOf="@id/img2"
                         android:text="我的装修"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/t_16sp"/>
+                        android:textSize="@dimen/t_16sp" />
 
                     <TextView
                         android:id="@+id/tv_decoration_num"
@@ -351,7 +417,7 @@
                         android:layout_marginRight="20dp"
                         android:text=""
                         android:textColor="@color/orange_jain"
-                        android:textSize="@dimen/t_14sp"/>
+                        android:textSize="@dimen/t_14sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -359,24 +425,24 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="right"
-                        android:background="@drawable/jiantou_you"
                         android:layout_marginRight="8dp"
-                        />
+                        android:background="@drawable/jiantou_you" />
                 </RelativeLayout>
 
                 <View
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"
                     android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp" />
+                    android:layout_marginRight="9dp"
+                    android:background="@color/line" />
 
                 <RelativeLayout
                     android:id="@+id/rel_myCircle"
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
-                    android:background="@color/white"
-                    android:layout_marginLeft="8dp">
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/white">
 
                     <ImageView
                         android:id="@+id/img8"
@@ -384,7 +450,7 @@
                         android:layout_height="25dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="14dp"
-                        android:src="@drawable/wodequanzi2x_13"/>
+                        android:src="@drawable/wodequanzi2x_13" />
 
                     <TextView
                         android:id="@+id/tv8"
@@ -395,7 +461,7 @@
                         android:layout_toRightOf="@id/img8"
                         android:text="我的邻里"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/t_16sp"/>
+                        android:textSize="@dimen/t_16sp" />
 
                     <TextView
                         android:id="@+id/tv_social_num"
@@ -407,7 +473,7 @@
                         android:layout_marginRight="20dp"
                         android:text=""
                         android:textColor="@color/orange_jain"
-                        android:textSize="@dimen/t_14sp"/>
+                        android:textSize="@dimen/t_14sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -415,23 +481,23 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="right"
-                        android:background="@drawable/jiantou_you"
                         android:layout_marginRight="8dp"
-                        />
+                        android:background="@drawable/jiantou_you" />
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"
                     android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp" />
+                    android:layout_marginRight="9dp"
+                    android:background="@color/line" />
 
                 <RelativeLayout
                     android:id="@+id/rel_gouwuche"
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
-                    android:background="@color/white"
-                    android:layout_marginLeft="8dp">
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/white">
 
                     <ImageView
                         android:id="@+id/img4"
@@ -439,7 +505,7 @@
                         android:layout_height="25dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="14dp"
-                        android:src="@drawable/gouwuche2x_07"/>
+                        android:src="@drawable/gouwuche2x_07" />
 
                     <TextView
                         android:id="@+id/tv4"
@@ -450,7 +516,7 @@
                         android:layout_toRightOf="@id/img4"
                         android:text="购物车"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/t_16sp"/>
+                        android:textSize="@dimen/t_16sp" />
 
                     <TextView
                         android:id="@+id/tv_cart_num"
@@ -462,7 +528,7 @@
                         android:layout_marginRight="20dp"
                         android:text=""
                         android:textColor="@color/orange_jain"
-                        android:textSize="@dimen/t_14sp"/>
+                        android:textSize="@dimen/t_14sp" />
 
 
                     <ImageView
@@ -471,25 +537,24 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="right"
-                        android:background="@drawable/jiantou_you"
                         android:layout_marginRight="8dp"
-                        />
+                        android:background="@drawable/jiantou_you" />
                 </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"
                     android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp" />
+                    android:layout_marginRight="9dp"
+                    android:background="@color/line" />
 
 
                 <RelativeLayout
                     android:id="@+id/rel_xiaofejilu"
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
-                    android:background="@color/white"
-                    android:layout_marginLeft="8dp">
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/white">
 
                     <ImageView
                         android:id="@+id/img5"
@@ -497,7 +562,7 @@
                         android:layout_height="25dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="14dp"
-                        android:src="@drawable/xiaofeijilu_11"/>
+                        android:src="@drawable/xiaofeijilu_11" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -507,7 +572,7 @@
                         android:layout_toRightOf="@id/img5"
                         android:text="消费记录"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/t_16sp"/>
+                        android:textSize="@dimen/t_16sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -515,26 +580,25 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="right"
-                        android:background="@drawable/jiantou_you"
                         android:layout_marginRight="8dp"
-                        />
+                        android:background="@drawable/jiantou_you" />
                 </RelativeLayout>
 
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/line"
                     android:layout_marginLeft="9dp"
-                    android:layout_marginRight="9dp" />
+                    android:layout_marginRight="9dp"
+                    android:background="@color/line" />
 
 
                 <RelativeLayout
                     android:id="@+id/ry_set"
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
-                    android:background="@color/white"
-                    android:layout_marginLeft="8dp">
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/white">
 
                     <ImageView
                         android:id="@+id/img10"
@@ -542,7 +606,7 @@
                         android:layout_height="25dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="14dp"
-                        android:src="@drawable/shezhi2x_15"/>
+                        android:src="@drawable/shezhi2x_15" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -552,7 +616,7 @@
                         android:layout_toRightOf="@id/img10"
                         android:text="设置"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/t_16sp"/>
+                        android:textSize="@dimen/t_16sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -560,9 +624,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="right"
-                        android:background="@drawable/jiantou_you"
                         android:layout_marginRight="8dp"
-                        />
+                        android:background="@drawable/jiantou_you" />
                 </RelativeLayout>
 
 

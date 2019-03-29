@@ -1,22 +1,19 @@
 package com.huacheng.huiservers.utils;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.center.ShopOrderListActivity;
-import com.huacheng.huiservers.fragment.bean.ShopIndexBean;
+import com.huacheng.huiservers.dialog.SmallDialog;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.protocol.CommonProtocol;
-import com.huacheng.huiservers.protocol.ShopProtocol;
-import com.huacheng.huiservers.shop.ShopCartActivityTwo;
-import com.huacheng.huiservers.shop.bean.ShopDetailBean;
-import com.huacheng.huiservers.shop.bean.XGBean;
-import com.huacheng.libraryservice.dialog.SmallDialog;
-import com.huacheng.libraryservice.http.ApiHttpClient;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.model.protocol.CommonProtocol;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
+import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -33,9 +30,9 @@ import org.json.JSONObject;
 
 public class CommonMethod {
 
-    public static XGBean mXgBean;
+    //public static XGBean mXgBean;
 
-    public static ShopIndexBean mShopIndexBean;
+    public static ModelShopIndex mShopIndexBean;
 
     public static Context mContext;
 
@@ -44,13 +41,13 @@ public class CommonMethod {
 
     TextView tv;
 
-    public CommonMethod(ShopIndexBean shopIndexBean, Context context) {
+    public CommonMethod(ModelShopIndex shopIndexBean, Context context) {
         this.mShopIndexBean = shopIndexBean;
         this.mContext = context;
         smallDialog=new SmallDialog(mContext);
     }
 
-    public CommonMethod(ShopIndexBean shopIndexBean, TextView tv, Context context) {
+    public CommonMethod(ModelShopIndex shopIndexBean, TextView tv, Context context) {
         this.mShopIndexBean = shopIndexBean;
         this.mContext = context;
         prefrenceUtil = new SharePrefrenceUtil(mContext);
@@ -74,6 +71,7 @@ public class CommonMethod {
         RequestParams params = new RequestParams();
         params.addBodyParameter("p_id", mShopIndexBean.getId());
         params.addBodyParameter("tagid", mShopIndexBean.getTagid());
+        params.addBodyParameter("num","1");
         new HttpHelper(info.shop_limit, params, mContext) {
 
             @Override
@@ -81,55 +79,25 @@ public class CommonMethod {
                 try {
                     JSONObject obj = new JSONObject(json);
                     String status = obj.getString("status");
-//                    WaitDIalog.closeDialog(WaitDialog);
+//                    WaitDialog.closeDialog(WaitDialog);
                     if (status.equals("1")) {
-                        mXgBean = new ShopProtocol().getAGNum(json);
+                     //   mXgBean = new ShopProtocol().getAGNum(json);
                         if (TextUtils.isEmpty(mShopIndexBean.getInventory()) || 0 >= Integer.valueOf(mShopIndexBean.getInventory()) ) {
                             if (smallDialog!=null){
                                 smallDialog.dismiss();
                             }
                             XToast.makeText(context, "商品已售罄", XToast.LENGTH_SHORT).show();
                         } else {
-                            if (mXgBean.getLimit().equals("0")) {
-                                /*if (strtag.equals("1")) {//tag值为1是立即购买
-                                    getSubmiter();
-                                } else if (strtag.equals("2")) {//tag值为2是加入购物车
-                                    getAddShop();
-                                }*/
-                                getAddShop(mShopIndexBean);
 
-                            } else {
-                                if (smallDialog!=null){
-                                    smallDialog.dismiss();
-                                }
-                                int intAll = Integer.valueOf(mXgBean.getCart_num()) + Integer.valueOf(mXgBean.getOrder_num());
-                                if (intAll >= Integer.valueOf(mXgBean.getLimit())) {
-                                    //XToast.makeText(context, "此商品限购数量为" + xgBean.getLimit(), XToast.LENGTH_SHORT).show();
+                            getAddShop(mShopIndexBean);
 
-                                    if (Integer.valueOf(mXgBean.getCart_num()) > 0) {
-                                        Intent intent = new Intent(context, ShopCartActivityTwo.class);
-                                        context.startActivity(intent);
-                                    } else {
-                                        Intent intent = new Intent(context, ShopOrderListActivity.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("type", "type_zf_dfk");
-                                        intent.putExtras(bundle);
-                                        context.startActivity(intent);
-                                    }
-                                } else {
-                                    int all = Integer.valueOf(mXgBean.getLimit()) - intAll;
-                                    if (1 > all) {
-                                        if (smallDialog!=null){
-                                            smallDialog.dismiss();
-                                        }
-                                        XToast.makeText(context, "此商品剩余限购数量为" + all, XToast.LENGTH_SHORT).show();
-                                    } else {
-                                        getAddShop(mShopIndexBean);
-                                    }
-
-                                }
-                            }
                         }
+                    }else {
+                        if (smallDialog!=null){
+                            smallDialog.dismiss();
+                        }
+                        String msg = obj.getString("msg");
+                        XToast.makeText(context, msg+"", XToast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     if (smallDialog!=null){
@@ -151,7 +119,7 @@ public class CommonMethod {
 
     }
 
-    private void getAddShop(ShopIndexBean detail) {//加入购物车
+    private void getAddShop(ModelShopIndex detail) {//加入购物车
         Url_info info = new Url_info(mContext);
         RequestParams params = new RequestParams();
         params.addBodyParameter("p_id", detail.getId());
@@ -208,7 +176,7 @@ public class CommonMethod {
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 ShopDetailBean cartnum = new ShopProtocol().getCartNum(responseInfo.result);
                 if (cartnum != null) {
-                    if (cartnum.getCart_num().equals("0")) {
+                    if ("0".equals(cartnum.getCart_num())) {
                         tv.setVisibility(View.GONE);
                     } else {
                         tv.setVisibility(View.VISIBLE);

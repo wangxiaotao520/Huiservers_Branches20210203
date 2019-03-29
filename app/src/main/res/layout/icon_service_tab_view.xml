@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_5"
         android:text="商城"
-        android:textColor="@color/grey96"
-        android:textSize="13sp"/>
+        android:gravity="center"
+        android:textColor="@color/text_color"
+        android:textSize="15sp"/>
 
 </LinearLayout>

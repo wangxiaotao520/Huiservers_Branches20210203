@@ -173,6 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/margin_5"
+                android:paddingLeft="5dp"
                 android:paddingTop="@dimen/margin_5">
 
                 <LinearLayout

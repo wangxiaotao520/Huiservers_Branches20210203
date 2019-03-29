@@ -35,10 +35,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_centerInParent="true"
-                app:tabIndicatorColor="@color/transparents"
+                app:tabIndicatorColor="@color/orange"
                 app:tabSelectedTextColor="@color/orange"
-                app:tabTextAppearance="@style/TabLayoutStyleText16"
-                app:tabTextColor="#ADADAD" />
+                app:tabTextAppearance="@style/TabLayoutStyleText15"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                app:tabTextColor="@color/text_color" />
 
         </LinearLayout>
 

@@ -27,7 +27,7 @@
                 android:textColor="#fe2221"/>
 
 
-            <com.huacheng.huiservers.openDoor.RippleView
+            <com.huacheng.huiservers.ui.index.openDoor.RippleView
                 android:id="@+id/rv_circle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

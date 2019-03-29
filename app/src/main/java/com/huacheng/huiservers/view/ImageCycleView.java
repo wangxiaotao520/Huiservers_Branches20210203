@@ -14,15 +14,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.shop.bean.BannerBean;
+import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.huacheng.huiservers.R.drawable.view;
-import static com.huacheng.huiservers.R.id.imageView;
 
 /**
  * 广告图片自动轮播控件</br>

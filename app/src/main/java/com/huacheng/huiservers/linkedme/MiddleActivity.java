@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.huacheng.huiservers.servicenew.ui.ServiceDetailActivity;
-import com.huacheng.huiservers.servicenew.ui.shop.ServiceStoreActivity;
-import com.huacheng.huiservers.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.microquation.linkedme.android.LinkedME;
 import com.microquation.linkedme.android.indexing.LMUniversalObject;
 import com.microquation.linkedme.android.util.LinkProperties;

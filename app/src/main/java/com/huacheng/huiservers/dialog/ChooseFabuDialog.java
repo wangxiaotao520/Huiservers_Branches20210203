@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.protocol.ShopProtocol;
-import com.huacheng.huiservers.shop.bean.BannerBean;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.Url_info;
+import com.huacheng.huiservers.http.Url_info;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;

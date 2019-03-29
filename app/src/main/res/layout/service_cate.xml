@@ -13,6 +13,6 @@
         android:paddingLeft="@dimen/margin"
         android:paddingRight="@dimen/margin"
         android:paddingTop="@dimen/margin_5"
-        android:text="昆仑山交罚款三等奖"
+        android:text=""
         android:textSize="@dimen/t_14sp"/>
 </LinearLayout>

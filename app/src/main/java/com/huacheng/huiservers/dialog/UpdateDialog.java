@@ -8,7 +8,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.utils.AppUpdate;
+import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 
 /**
  * 类：
@@ -22,13 +22,15 @@ public class UpdateDialog extends AlertDialog implements View.OnClickListener {
     Context mContext;
     ScrollView scroll;
     String msg;
+    PayInfoBean infoBean;
 
-    public UpdateDialog(Context context, int type, String msg, OnCustomDialogListener customDialogListener) {
+    public UpdateDialog(Context context, int type, PayInfoBean infoBean, OnCustomDialogListener customDialogListener) {
         super(context, R.style.Dialog_down);
         this.mContext = context;
         this.mOnCustomDialogListener = customDialogListener;
         this.type = type;
-        this.msg = msg;
+        this.msg = infoBean.getMgs();
+        this.infoBean=infoBean;
     }
 
 
@@ -58,7 +60,8 @@ public class UpdateDialog extends AlertDialog implements View.OnClickListener {
             tv_update_no.setVisibility(View.VISIBLE);
         }
         tv_msg.setText(msg);
-        tv_version.setText(AppUpdate.getVersionName(mContext) + "版本");
+     //   tv_version.setText(AppUpdate.getVersionName(mContext) + "版本");
+        tv_version.setText(infoBean.getVersion() + "版本");
         tv_update_no.setOnClickListener(this);
         tv_update_yes.setOnClickListener(this);
     }

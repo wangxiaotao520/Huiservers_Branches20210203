@@ -12,10 +12,9 @@
         android:layout_width="242dp"
         android:layout_height="114dp"
         android:layout_marginRight="@dimen/margin"
-        fresco:placeholderImage="@drawable/ic_goods_bg"
+        fresco:placeholderImage="@drawable/ic_default_rectange"
         fresco:placeholderImageScaleType="centerCrop"
-        fresco:roundedCornerRadius="15dp"
-        />
+        fresco:roundedCornerRadius="15dp" />
 
     <LinearLayout
         android:layout_width="242dp"

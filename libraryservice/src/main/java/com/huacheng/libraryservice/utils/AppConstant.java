@@ -10,5 +10,6 @@ public class AppConstant {
     public static final int SHARE_APP = 61;	//分享APP
 
     public static final int SHARE_COMMON = 70;//通用分享方法，用于返回标题，描述，图标，网址四个内容时的分享
+    public static final int SHARE_IMAGE = 71;//分享图片
 
 }

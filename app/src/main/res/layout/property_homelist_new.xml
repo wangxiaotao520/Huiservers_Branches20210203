@@ -165,7 +165,7 @@
 
                 </com.huacheng.huiservers.view.MyListView>
 
-                <include layout="@layout/property_second123_item" />
+                <include layout="@layout/property_second_item" />
 
                 <include layout="@layout/no_data" />
 

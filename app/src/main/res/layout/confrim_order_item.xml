@@ -187,39 +187,7 @@
                 app:sb_show_indicator="false"/>
 
         </LinearLayout>
-        <!--
-                <RadioGroup
-                    android:id="@+id/rg_colleague"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/radio1"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/txt_back_bottom"
-                        android:button="@null"
-                        android:checked="true"
-                        android:gravity="center"
-                        android:padding="@dimen/margin_5"
-                        android:text="送货上门"
-                        android:textColor="@drawable/txt_color_bottom"
-                        android:textSize="@dimen/t_14sp"/>
-
-                    <RadioButton
-                        android:id="@+id/radio2"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_5"
-                        android:layout_marginRight="@dimen/margin_5"
-                        android:background="@drawable/txt_back_bottom"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:padding="@dimen/margin_5"
-                        android:text="自提"
-                        android:textColor="@drawable/txt_color_bottom"
-                        android:textSize="@dimen/t_14sp"/>
-                </RadioGroup>-->
     </LinearLayout>
 
     <View

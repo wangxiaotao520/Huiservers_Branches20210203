@@ -15,52 +15,45 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
-import com.huacheng.huiservers.center.ALLWebviewActivity;
-import com.huacheng.huiservers.center.AboutActivity;
-import com.huacheng.huiservers.center.Coupon40ListActivity;
-import com.huacheng.huiservers.center.Coupon40ToshopUseActivity;
-import com.huacheng.huiservers.cricle.Circle2DetailsActivity;
-import com.huacheng.huiservers.dialog.IsCallDialog;
-import com.huacheng.huiservers.dialog.WaitDIalog;
-import com.huacheng.huiservers.facepay.FacepayIndexActivity;
-import com.huacheng.huiservers.geren.CableTelIndexActivity;
-import com.huacheng.huiservers.geren.ServiceXiaDanActivity;
-import com.huacheng.huiservers.geren.bean.GerenBean;
-import com.huacheng.huiservers.house.HouseBean;
-import com.huacheng.huiservers.house.HouseFamilyBillActivity;
-import com.huacheng.huiservers.house.HouseGuideActivity;
-import com.huacheng.huiservers.house.HouseSelectActivity;
-import com.huacheng.huiservers.house.New_House_HandbookActivity;
+import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.huodong.EducationActivity2;
-import com.huacheng.huiservers.huodong.EducationListActivity;
-import com.huacheng.huiservers.login.LoginVerifyCode1Activity;
-import com.huacheng.huiservers.oldhome.OldHomeActivity;
-import com.huacheng.huiservers.openDoor.OpenLanActivity;
-import com.huacheng.huiservers.property.PropertyNewActivity;
-import com.huacheng.huiservers.protocol.GerenProtocol;
-import com.huacheng.huiservers.protocol.HouseProtocol;
-import com.huacheng.huiservers.protocol.ShopProtocol;
-import com.huacheng.huiservers.servicenew.ui.MerchantServiceListActivity;
-import com.huacheng.huiservers.servicenew.ui.ServiceDetailActivity;
-import com.huacheng.huiservers.servicenew.ui.shop.ServiceStoreActivity;
-import com.huacheng.huiservers.shop.ShopDetailActivity;
-import com.huacheng.huiservers.shop.ShopListActivity;
-import com.huacheng.huiservers.shop.ShopWBActivity;
-import com.huacheng.huiservers.shop.ShopXS4TimeListActivity;
-import com.huacheng.huiservers.shop.bean.ShopDetailBean;
-import com.huacheng.huiservers.utils.MyCookieStore;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelLogin;
+import com.huacheng.huiservers.ui.center.ALLWebViewActivity;
+import com.huacheng.huiservers.ui.center.AboutActivity;
+import com.huacheng.huiservers.ui.center.CouponListActivity;
+import com.huacheng.huiservers.ui.center.CouponToShopUseActivity;
+import com.huacheng.huiservers.ui.center.geren.WiredIndexActivity;
+import com.huacheng.huiservers.ui.center.house.NewHouseHandbookActivity;
+import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
+import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
+import com.huacheng.huiservers.ui.index.huodong.EducationActivity;
+import com.huacheng.huiservers.ui.index.huodong.EducationListActivity;
+import com.huacheng.huiservers.ui.index.oldhome.OldHomeActivity;
+import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
+import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
+import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
+import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopListActivity;
+import com.huacheng.huiservers.ui.shop.ShopWBActivity;
+import com.huacheng.huiservers.ui.shop.ShopXSTimeListActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.Url_info;
 import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.libraryservice.dialog.CommomDialog;
-import com.huacheng.libraryservice.http.ApiHttpClient;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -74,20 +67,16 @@ import static com.huacheng.huiservers.utils.UIUtils.startActivity;
 
 public class Jump {
 
-    public static final int PHONE_STATE_REQUEST_CODE = 101;//获取读取手机权限，回调在 A中
-    private Context mContext;
-    private String url_type, login_uid, phone, urlh5, urlh5Btn, type;
-    private IsCallDialog isCallDialog;
-    private GerenProtocol protocol = new GerenProtocol();
-    private GerenBean bean = new GerenBean();
     @ViewInject(R.id.rg_content_fragment)
     public static RadioGroup mRadioGroup;// 下面的radioGroup
+
+    private Context mContext;
     private SharePrefrenceUtil sharePrefrenceUtil;
     private SharedPreferences preferencesLogin;
-    private String login_type, is_wuye, id, title, content, img, call_link, login_mobile, push_id;
-    ShopDetailBean detailBean = new ShopDetailBean();
-    ShopProtocol shopprotocol = new ShopProtocol();
 
+    public static final int PHONE_STATE_REQUEST_CODE = 101;//获取读取手机权限，回调在 A中
+    private String phone, urlh5, url_type, login_uid, type;
+    private String login_type, id, title, content, img, call_link, login_mobile, is_wuye;
 
     public Jump(final Context context, String type, String url, String img, String name) {//url 不能为空
 
@@ -105,22 +94,16 @@ public class Jump {
             if (!type.equals("26")) {
                 url = MyCookieStore.SERVERADDRESS + url;
             }
-
             if (type.equals("index")) {//跳转到app首页
                 Intent intent = new Intent(mContext, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             } else if (type.equals("1")) {//跳转到商城列表
-               /* Intent intent = new Intent(mContext, ShopZhuanquActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("url", url);
-                intent.putExtra("isbool", "zhuanqu");
-                mContext.startActivity(intent);*/
                 if (url.indexOf("is_limit") != -1) {//接口中包含限购字段
                     System.out.println("包含");
                     String cateid = url.substring(url.lastIndexOf("/") + 1, url.length());
                     System.out.println("jump1*******" + cateid);
-                    Intent intent = new Intent(mContext, ShopXS4TimeListActivity.class);
+                    Intent intent = new Intent(mContext, ShopXSTimeListActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("cateID", cateid);
                     intent.putExtras(bundle);
@@ -133,7 +116,6 @@ public class Jump {
                     mContext.startActivity(intent);
                 }
 
-
             } else if (type.equals("2")) {//跳转到商城详情
                 //跳转到详情页
                 final String strurl = url;
@@ -141,16 +123,8 @@ public class Jump {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("url", url);
                 mContext.startActivity(intent);
-                //String url = MyCookieStore.SERVERADDRESS + "shop/goods_details/id/" + mList.get(position).getId();
 
             } else if (type.equals("3")) {//跳转到活动列表
-                /*url = url + "/m_id/" + sharePrefrenceUtil.getXiaoQuId();
-                Intent intent = new Intent();
-                intent.setClass(mContext, CampaignListActivity.class);
-                intent.putExtra("url", url);
-                intent.putExtra("name", name);
-                intent.putExtra("temp", "1");
-                mContext.startActivity(intent);*/
                 String urlnew = url;
                 url = url + "/m_id/" + sharePrefrenceUtil.getXiaoQuId();
                 Intent intent = new Intent();
@@ -162,7 +136,7 @@ public class Jump {
                 mContext.startActivity(intent);
             } else if (type.equals("4")) {//跳转到活动详情
                 Intent intent = new Intent();
-                intent.setClass(mContext, EducationActivity2.class);
+                intent.setClass(mContext, EducationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("url", url);
                 intent.putExtra("name", name);
@@ -170,17 +144,34 @@ public class Jump {
             } else if (type.equals("5")) { //跳转到维修
                 preferencesLogin = mContext.getSharedPreferences("login", 0);
                 login_type = preferencesLogin.getString("login_type", "");
-                if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Intent intent = new Intent();
-                    intent.setClass(mContext, LoginVerifyCode1Activity.class);
+                    intent.setClass(mContext, LoginVerifyCodeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
-                    //  mContext.startActivity(new Intent(mContext, LoginVerifyCode1Activity.class));
                 } else {
-                    Intent intent = new Intent(mContext, ServiceXiaDanActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("name", name);
-                    mContext.startActivity(intent);
+                    //判断是否物业绑定
+                    MyOkHttp.get().post(ApiHttpClient.CHECK_BIND_PROPERTY, null, new JsonResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, JSONObject response) {
+                            if (JsonUtil.getInstance().isSuccess(response)) {
+                                ModelLogin bean = (ModelLogin) JsonUtil.getInstance().parseJsonFromResponse(response, ModelLogin.class);
+                                if (bean != null && bean.getIs_bind_property().equals("2")) {
+                                    Intent intent = new Intent(mContext, PublicWorkOrderCommitActivity.class);
+                                    mContext.startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(mContext, PropertyBindHomeActivity.class);
+                                    intent.putExtra("wuye_type", "person_repair");
+                                    mContext.startActivity(intent);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, String error_msg) {
+                            XToast.makeText(mContext, "网络异常,请检查网络设置", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             } else if (type.equals("6")) {//跳转到优惠券
                 urlh5 = url;
@@ -201,21 +192,18 @@ public class Jump {
                             dialog.dismiss();
                         }
                     }
-                }).show();//.setTitle("提示")
-              /*  isCallDialog = new IsCallDialog((Activity) context, phone);
-                isCallDialog.show();*/
+                }).show();
             } else if (type.equals("8")) {//个人中心优惠券列表
                 preferencesLogin = mContext.getSharedPreferences("login", 0);
                 login_type = preferencesLogin.getString("login_type", "");
-                if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Intent intent = new Intent();
-                    intent.setClass(mContext, LoginVerifyCode1Activity.class);
+                    intent.setClass(mContext, LoginVerifyCodeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
-                    //  mContext.startActivity(new Intent(mContext, LoginVerifyCode1Activity.class));
                 } else {
                     Intent intent = new Intent();
-                    intent.setClass(mContext, Coupon40ListActivity.class);
+                    intent.setClass(mContext, CouponListActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("url", url);
                     intent.putExtra("tag", "jump");
@@ -224,15 +212,15 @@ public class Jump {
             } else if (type.equals("9")) {//跳转个人中心优惠券详情
                 preferencesLogin = mContext.getSharedPreferences("login", 0);
                 login_type = preferencesLogin.getString("login_type", "");
-                if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Intent intent = new Intent();
-                    intent.setClass(mContext, LoginVerifyCode1Activity.class);
+                    intent.setClass(mContext, LoginVerifyCodeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
-                    //  mContext.startActivity(new Intent(mContext, LoginVerifyCode1Activity.class));
+                    ;
                 } else {
                     Intent intent = new Intent();
-                    intent.setClass(mContext, Coupon40ToshopUseActivity.class);
+                    intent.setClass(mContext, CouponToShopUseActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     id = url.substring(url.lastIndexOf("/") + 1, url.length());
                     intent.putExtra("coupon_id", id);
@@ -244,7 +232,7 @@ public class Jump {
                 getShare(context, id, "1");
 
             } else if (type.equals("11")) {
-                // TODO: 2018/8/20  现在不做任何作用
+                // : 2018/8/20  现在不做任何作用
                /* id = url.substring(url.lastIndexOf("/") + 1, url.length());
                 Intent intent = new Intent(mContext, ZhengWuDetailActivity.class);
                 Bundle bundle = new Bundle();
@@ -255,7 +243,7 @@ public class Jump {
                 mContext.startActivity(intent);*/
 
             } else if (type.equals("12")) {//圈子列表
-                // CircleFragment5 fragment=new CircleFragment5();
+                // CircleFragment fragment=new CircleFragment();
                /* FragmentManager fmanger=getSupportFragmentManager();
                 FragmentTransaction transaction=fmanger.beginTransaction();
                 transaction.replace(R.id.rb_content_fragment_quanzi,new CircleFragment5());
@@ -263,7 +251,7 @@ public class Jump {
 
             } else if (type.equals("13")) {//圈子详情
                 id = url.substring(url.lastIndexOf("/") + 1, url.length());
-                Intent intent = new Intent(mContext, Circle2DetailsActivity.class);
+                Intent intent = new Intent(mContext, CircleDetailsActivity.class);
                 Bundle bundle = new Bundle();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 bundle.putString("id", id);
@@ -279,8 +267,8 @@ public class Jump {
                     uuid = TDevice.getIMEI(mContext);
                     preferencesLogin = mContext.getSharedPreferences("login", 0);
                     login_type = preferencesLogin.getString("login_type", "");
-                    if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
-                        Intent intent = new Intent(mContext, LoginVerifyCode1Activity.class);
+                    if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                        Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                         mContext.startActivity(intent);
                     } else {
                         if (login_type.equals("1")) {//个人
@@ -359,7 +347,7 @@ public class Jump {
             } else if (type.equals("26")) {//所有直接展示webview的
 
                 Intent intent = new Intent();
-                intent.setClass(mContext, ALLWebviewActivity.class);
+                intent.setClass(mContext, ALLWebViewActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("url", url);
                 intent.putExtra("name", name);
@@ -393,12 +381,12 @@ public class Jump {
 
         } else if (type.equals("15")) { //有线缴费
 
-            if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
-                Intent intent = new Intent(mContext, LoginVerifyCode1Activity.class);
+            if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             } else if (login_type.equals("1")) {
-                Intent intent = new Intent(mContext, CableTelIndexActivity.class);
+                Intent intent = new Intent(mContext, WiredIndexActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             } else {
@@ -406,40 +394,29 @@ public class Jump {
             }
 
         } else if (type.equals("16")) {//物业缴费
-            if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
-                Intent intent = new Intent(mContext, LoginVerifyCode1Activity.class);
+            if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                 startActivity(intent);
             } else {
-                if (login_type.equals("1")) {//个人
-                    //获取我的住宅列表来判断住宅有几条
-                    //getHouseList("2");//2 为物业交费  家庭账单
-                    // openPopupWindolw(v);
-                    // }
-                    startActivity(new Intent(mContext, PropertyNewActivity.class));
+                Intent intent = new Intent(mContext, PropertyNewActivity.class);
+                intent.putExtra("wuye_type", "property");
+                startActivity(intent);
 
-                } else {//
-                    XToast.makeText(mContext, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
-                }
             }
 
         } else if (type.equals("17")) {//一健开门
-            if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
-                Intent intent = new Intent(mContext, LoginVerifyCode1Activity.class);
+            if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                 mContext.startActivity(intent);
             } else {
-                if (login_type.equals("1")) {//个人
-                    //获取我的住宅列表来判断住宅有几条
-                    getHouseList("1");//1 为一健开门
-                    // openPopupWindow(v);
-                    // }
-                } else {//
-                    XToast.makeText(mContext, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(mContext, PropertyNewActivity.class);
+                intent.putExtra("wuye_type", "open_door");
+                startActivity(intent);
             }
 
         } else if (type.equals("18")) {//当面付
-            if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
-                Intent intent = new Intent(mContext, LoginVerifyCode1Activity.class);
+            if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             } else {
@@ -452,16 +429,13 @@ public class Jump {
             }
 
         } else if (type.equals("19")) {//居家养老
-
             Intent intent = new Intent(mContext, OldHomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
-
-
         } else if (type.equals("20")) {//东森易购
 
-            if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
-                Intent intent = new Intent(mContext, LoginVerifyCode1Activity.class);
+            if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                 mContext.startActivity(intent);
             } else {
                 if (login_type.equals("1")) {//个人
@@ -481,12 +455,12 @@ public class Jump {
             }
 
         } else if (type.equals("21")) {//新房手册
-            Intent intent = new Intent(mContext, New_House_HandbookActivity.class);
+            Intent intent = new Intent(mContext, NewHouseHandbookActivity.class);
             mContext.startActivity(intent);
 
         } else if (type.equals("26")) {//所有直接展示webview的
             Intent intent = new Intent();
-            intent.setClass(mContext, ALLWebviewActivity.class);
+            intent.setClass(mContext, ALLWebViewActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("url", url);
             intent.putExtra("name", name);
@@ -579,7 +553,7 @@ public class Jump {
         login_type = preferencesLogin.getString("login_type", "");
 
         id = urlh5.substring(urlh5.lastIndexOf("/") + 1, urlh5.length());
-        if(!StringUtils.isEmpty(id)){
+        if (!StringUtils.isEmpty(id)) {
             getShare(context, id, type);
 
         }
@@ -640,7 +614,6 @@ public class Jump {
 
                     }
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -651,141 +624,6 @@ public class Jump {
             }
         };
     }
-
-    HouseProtocol mHouseProtocol = new HouseProtocol();
-    List<HouseBean> mHouseBeanList = new ArrayList<>();
-    Dialog WaitDialog;
-
-    private void getHouseList(final String type_str) {//获取我的住宅
-        WaitDialog = WaitDIalog.createLoadingDialog(mContext, "正在加载...");
-        Url_info info = new Url_info(mContext);
-        RequestParams params = new RequestParams();
-        HttpHelper hh = new HttpHelper(info.binding_community, params, mContext) {
-
-            @Override
-            protected void setData(String json) {
-                try {
-                    JSONObject jsonObject = new JSONObject(json);
-                    String status = jsonObject.getString("status");
-                    if (status.equals("1")) {
-                        mHouseBeanList = mHouseProtocol.getHouseList(json);
-                        if (mHouseBeanList.size() == 1) {//当数量为1时直接跳转到家庭成员信息界面
-
-                            getResult(mHouseBeanList.get(0).getRoom_id(), type_str);
-
-                        } else {//否则跳转选择房屋绑定界面
-                            //getResult(mHouseBeanList.get(0).getRoom_id(), type_str, "22");
-                            Intent intent1 = new Intent(mContext, HouseSelectActivity.class);
-                            if (type_str.equals("1")) {//蓝牙
-                                intent1.putExtra("wuye_type", "fw_lanya");//为fw_invite时 选择小区完成后跳转到蓝牙
-                            } else {
-                                intent1.putExtra("wuye_type", "family");//为family时 选择小区完成后跳转到家庭账单
-                            }
-                            startActivity(intent1);
-                        }
-
-                    } else {
-                        //如果状态为0   直接跳未绑定界面让其绑定,缓存值为1
-                        //临时文件存储
-                        SharedPreferences preferences1 = mContext.getSharedPreferences("login", 0);
-                        SharedPreferences.Editor editor = preferences1.edit();
-                        editor.putString("is_wuye", "1");
-                        editor.commit();
-                        Intent intent = new Intent(mContext, HouseGuideActivity.class);
-                        startActivity(intent);
-                    }
-                    WaitDIalog.closeDialog(WaitDialog);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            protected void requestFailure(Exception error, String msg) {
-                WaitDIalog.closeDialog(WaitDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
-            }
-        };
-    }
-
-    private String room_id, mobile, community, building, room_code;
-
-    private void getResult(final String room_id, final String tag_str) {
-        Url_info info = new Url_info(mContext);
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("room_id", room_id);
-        HttpHelper hh = new HttpHelper(info.checkIsAjb, params, mContext) {
-
-
-            @Override
-            protected void setData(String json) {
-                JSONObject jsonObject, jsonData;
-                try {
-                    jsonObject = new JSONObject(json);
-                    String data = jsonObject.getString("data");
-                    String status = jsonObject.getString("status");
-                    if (status.equals("1")) {
-                        jsonData = new JSONObject(data);
-                        mobile = jsonData.getString("mobile");
-                        community = jsonData.getString("community");
-                        building = jsonData.getString("building");
-                        room_code = jsonData.getString("room_code");
-                        if (tag_str.equals("1")) {
-                            Intent intent;
-                            intent = new Intent(mContext, OpenLanActivity.class);
-                            intent.putExtra("room_id", room_id);
-
-                            startActivity(intent);
-                        } else {
-                            Intent intent = new Intent(mContext, HouseFamilyBillActivity.class);
-                            intent.putExtra("room_id", room_id);
-                            startActivity(intent);
-                        }
-
-                    } else {
-                        XToast.makeText(mContext, jsonObject.getString("msg"), XToast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            protected void requestFailure(Exception error, String msg) {
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
-            }
-        };
-    }
-
-   /* public void getDetail(String url, final String img) {//详情数据
-        RequestParams params = new RequestParams();
-        HttpHelper hh = new HttpHelper(url, params, mContext) {
-            @Override
-            protected void setData(String json) {
-                bean = protocol.geRenManger(json, mContext);
-                if (bean.getTopclass() != null && !TextUtils.isEmpty(bean.getTopclass().get(0).getId())) {
-                    Intent intent = new Intent(mContext, ServiceXiaDanActivity.class);
-                    Bundle bundle = new Bundle();
-//					bundle.putString("id", bean.getTopclass().get(0).getId());
-                    bundle.putString("name", bean.getTopclass().get(0).getName());
-                    *//*bundle.putString("pay", bean.getPrepay());
-                    bundle.putString("img", MyCookieStore.URL+bean.getTopclass().get(0).getIcon());
-					if(bean.getAddress()!=null){
-						bundle.putString("address", bean.getAddress().getRegion_cn()+
-								bean.getAddress().getCommunity_cn()+
-								bean.getAddress().getDoorplate());
-						bundle.putString("conanct", bean.getAddress().getConsignee_name());
-						bundle.putString("phone", bean.getAddress().getConsignee_mobile());
-					}*//*
-                    intent.putExtras(bundle);
-                    mContext.startActivity(intent);
-                }
-            }
-        };
-    }*/
 
 
 }

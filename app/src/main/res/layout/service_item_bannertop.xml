@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.huacheng.libraryservice.widget.FunctionAdvertise
+        <com.huacheng.huiservers.view.widget.FunctionAdvertise
             android:id="@+id/fc_ads"
             android:layout_width="match_parent"
             android:layout_height="175dp"

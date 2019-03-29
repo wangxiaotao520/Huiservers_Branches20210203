@@ -3,8 +3,8 @@ package com.huacheng.huiservers.wxapi;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.huacheng.huiservers.login.bean.LoginBean;
-import com.huacheng.huiservers.protocol.LoginProtocol;
+import com.huacheng.huiservers.model.ModelLogin;
+import com.huacheng.huiservers.model.protocol.LoginProtocol;
 import com.huacheng.huiservers.utils.WXConstants;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -18,7 +18,7 @@ import cn.sharesdk.wechat.utils.WechatHandlerActivity;
 public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEventHandler {
 
     String push_id;
-    LoginBean loginBean = new LoginBean();
+    ModelLogin loginBean = new ModelLogin();
     LoginProtocol protocol = new LoginProtocol();
 
     @Override

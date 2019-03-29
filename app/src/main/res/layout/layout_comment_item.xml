@@ -22,7 +22,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            fresco:placeholderImage="@drawable/facehead1"
+            fresco:placeholderImage="@drawable/ic_default_head"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:roundAsCircle="true"
             android:layout_marginTop="90dp"
@@ -41,8 +41,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#9a9a9a"
                 android:textSize="13sp"
-                tools:text="用户名七个字" />
-
+                tools:text="" />
 
             <com.example.xlhratingbar_lib.XLHRatingBar
                 android:layout_marginTop="8dp"
@@ -68,7 +67,7 @@
             android:textColor="#9a9a9a"
             android:textSize="13sp"
             android:layout_marginTop="8dp"
-            tools:text="2018.09.04" />
+            tools:text="" />
     </LinearLayout>
     <TextView
         android:id="@+id/tv_content"
@@ -80,7 +79,7 @@
         android:layout_marginRight="5dp"
         android:textColor="@color/text_color"
         android:textSize="13sp"
-        tools:text="不好意思忘记评价了，第二次购买了，质量特别的好，物超所值，所以又来回购了，这次又拍了三件白色的和老妈分了，衣服面料舒适透气有弹性，穿起来很显身材，又好搭配衣服，有需要的还会推荐朋友来买的，很满意的一次购物" />
+        tools:text="" />
     <TextView
         android:id="@+id/tv_reply"
         android:layout_marginTop="13dp"
@@ -96,7 +95,7 @@
         android:textColor="#929292"
         android:textSize="13sp"
         android:maxLines="5"
-        tools:text="客服回复:不好意思忘记评价了，第显身材，又好搭配衣服，有需要的还会推荐朋友来买的，很满意的一次购物" />
+        tools:text="" />
     <View
         android:layout_width="match_parent"
         android:layout_marginRight="15dp"

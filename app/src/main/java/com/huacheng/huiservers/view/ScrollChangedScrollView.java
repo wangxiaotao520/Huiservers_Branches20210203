@@ -68,32 +68,6 @@ public class ScrollChangedScrollView extends ScrollView {
         if (scrollViewListener != null) {
             scrollViewListener.onScrollChanged(this, x, y, oldx, oldy);
         }
-
-      /*  View childAt = getChildAt(0);
-        if (childAt.getMeasuredHeight() <= getHeight() + getScrollY()) {
-            count++;
-            if (count == 1) {
-//                Log.i("myscrollview", "开始加载更多");
-                if (onScrollToBottom != null) {
-                    onScrollToBottom.onScrollBottomListener(true);
-                    count = 0;
-                }
-            }
-//            Log.i("myscrollview", "开始加载更多1");
-            *//*LayoutInflater inflater = LayoutInflater.from(getContext());
-            final View view = inflater.inflate(R.layout.refresh_view, null);
-            final ImageView iv_img = (ImageView) view.findViewById(R.id.iv_img);
-            iv_img.setVisibility(View.VISIBLE);*//*
-//			Toast.makeText(getContext(),"加载更多1",Toast.LENGTH_SHORT).show();
-        } else {
-            count = 0;
-            if (onScrollToBottom != null) {
-                onScrollToBottom.onScrollBottomListener(false);
-            }
-//            Log.i("myscrollview", "开始加载更多2");
-        }*/
-
-
     }
 
 
