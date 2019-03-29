@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparents"
+    android:orientation="vertical">
+
+    <ListView
+    android:id="@+id/listview_tag"
+    android:listSelector="@null"
+    android:divider="#00000000"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+        android:scrollbars="vertical"
+    android:layout_height="200dp"/>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_tag_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp"-->
+        <!--android:background="@color/white"-->
+        <!--android:orientation="vertical">-->
+
+
+    <!--</LinearLayout>-->
+    <LinearLayout
+        android:id="@+id/ll_custom_search"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="自定义"
+            android:textColor="@color/text_color"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edt_low_price"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/allshape_gray"
+            android:gravity="center"
+            android:hint="最低价"
+            android:inputType="number"
+            android:padding="3dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_color_hint"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="—"
+            android:textColor="@color/text_color"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edt_high_price"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/allshape_gray"
+            android:gravity="center"
+            android:hint="最高价"
+            android:inputType="number"
+            android:padding="3dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/text_color_hint"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="元"
+            android:textColor="@color/text_color"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/allshape_gray"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:text="确定"
+            android:textColor="@color/text_color"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_trans"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#33000000" />
+</LinearLayout>
