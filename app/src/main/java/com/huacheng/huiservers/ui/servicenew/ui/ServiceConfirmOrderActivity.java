@@ -208,7 +208,7 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
             case R.id.ly_noaddress:
                 Intent intent = new Intent(this, NewAddressActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("address", "");//shopyes
+                bundle.putString("address", "serviceyes");//shopyes
                 bundle.putString("type", "order");
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 200);

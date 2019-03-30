@@ -3,6 +3,7 @@ package com.huacheng.huiservers.ui.shop;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +42,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 确认订单
+ */
 public class ConfirmOrderActivity extends BaseActivityOld implements OnClickListener {
     private LinearLayout lin_left, lin_jiesuan, lin_noadress, lin_yesaddress;
     private RelativeLayout title_rel;
@@ -135,7 +139,6 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                 if (ButtonUtils.isFastDoubleClick(R.id.lin_jiesuan)){
                     break;
                 }
-                System.out.println("MyCookieStore.Confirmlist.size()--" + MyCookieStore.Confirmlist.size());
                 strlist.clear();
                 for (int i = 0; i < MyCookieStore.Confirmlist.size(); i++) {
                     String str = MyCookieStore.Confirmlist.get(i).getId() + "." + MyCookieStore.Confirmlist.get(i).getStyle();
@@ -213,49 +216,66 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
             protected void setData(String json) {
                 hideDialog(smallDialog);
                 bean = protocol.getShopOrder(json);
-                System.out.println("bean-----" + bean);
-                if (bean != null) {
-                    if (TextUtils.isEmpty(bean.getContact()) && TextUtils.isEmpty(bean.getMobile()) &&
-                            TextUtils.isEmpty(bean.getAddress())) {
-                        lin_noadress.setVisibility(View.VISIBLE);
-                        lin_yesaddress.setVisibility(View.GONE);
-                    } else {
-                        lin_noadress.setVisibility(View.GONE);
-                        lin_yesaddress.setVisibility(View.VISIBLE);
-                        txt_address.setText(bean.getAddress());
-                        person_address_id = bean.getAddress_id();
-                        txt_name.setText(bean.getContact());
-                        txt_mobile.setText(bean.getMobile());
-                    }
-                    txt_peisongmoney.setText("¥" + bean.getSend_amount());
-                    txt_fenpei.setText("您的包裹将分成" + bean.getPro_num() + "个包裹配送给您");
+                try {
+                    JSONObject jsonObject = new JSONObject(json);
+                    String status = jsonObject.getString("status");
+                    String msg = jsonObject.getString("msg");
+                    if ("1".equals(status)){
+                        if (bean != null) {
+                            if (TextUtils.isEmpty(bean.getContact()) && TextUtils.isEmpty(bean.getMobile()) &&
+                                    TextUtils.isEmpty(bean.getAddress())) {
+                                lin_noadress.setVisibility(View.VISIBLE);
+                                lin_yesaddress.setVisibility(View.GONE);
+                            } else {
+                                lin_noadress.setVisibility(View.GONE);
+                                lin_yesaddress.setVisibility(View.VISIBLE);
+                                txt_address.setText(bean.getAddress());
+                                person_address_id = bean.getAddress_id();
+                                txt_name.setText(bean.getContact());
+                                txt_mobile.setText(bean.getMobile());
+                            }
+                            txt_peisongmoney.setText("¥" + bean.getSend_amount());
+                            txt_fenpei.setText("您的包裹将分成" + bean.getPro_num() + "个包裹配送给您");
 
 
-                    if (!bean.getAmount().equals("null") && !TextUtils.isEmpty(bean.getAmount())) {
-                        all_money = Double.parseDouble(bean.getAmount());
-                        txt_all_money.setText("¥" + bean.getAmount());
-                    } else {
-                        txt_all_money.setText("¥0");
-                        all_money = 0.00;
-                    }
-                    shop_id_str = bean.getShop_id_str();
-                    shop_cou_Amount = bean.getAmount();
+                            if (bean.getAmount()!=null && !TextUtils.isEmpty(bean.getAmount())) {
+                                all_money = Double.parseDouble(bean.getAmount());
+                                txt_all_money.setText("¥" + bean.getAmount());
+                            } else {
+                                txt_all_money.setText("¥0");
+                                all_money = 0.00;
+                            }
+                            shop_id_str = bean.getShop_id_str();
+                            shop_cou_Amount = bean.getAmount();
 
-                    if (bean.getIs_coupon().equals("1")) {
-                        txt_youhuiquan.setText("选择使用优惠券");
-                        txt_youhuiquan.setOnClickListener(ConfirmOrderActivity.this);
-                    } else {
-                        txt_youhuiquan.setText("暂无可用优惠券");
+                            if (bean.getIs_coupon().equals("1")) {
+                                txt_youhuiquan.setText("选择使用优惠券");
+                                txt_youhuiquan.setOnClickListener(ConfirmOrderActivity.this);
+                            } else {
+                                txt_youhuiquan.setText("暂无可用优惠券");
+                            }
+                            for (int i = 0; i < bean.getPro_data().size(); i++) {
+                                String str = bean.getPro_data().get(i).getMerchant_id();
+                                list_id.add(str);
+                            }
+                            adapter = new ConfirmShopListAdapter(ConfirmOrderActivity.this, bean.getPro_data(),
+                                    pro);
+                            list_order_group.setAdapter(adapter);
+                        }
+                    }else {
+                        UIUtils.showToastSafe(msg);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        },1500);
                     }
-                    for (int i = 0; i < bean.getPro_data().size(); i++) {
-                        String str = bean.getPro_data().get(i).getMerchant_id();
-                        list_id.add(str);
-                    }
-                    System.out.println("list_id-------" + list_id);
-                    adapter = new ConfirmShopListAdapter(ConfirmOrderActivity.this, bean.getPro_data(),
-                            pro);
-                    list_order_group.setAdapter(adapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
 
             }
 

@@ -10,20 +10,21 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.adapter.NewAddressAdapter;
 import com.huacheng.huiservers.dialog.DeleteAddressDialog;
-import com.huacheng.huiservers.ui.center.geren.bean.GerenBean;
 import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.GerenProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.center.adapter.NewAddressAdapter;
+import com.huacheng.huiservers.ui.center.geren.bean.GerenBean;
+import com.huacheng.huiservers.ui.servicenew.ui.ServiceConfirmOrderActivity;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.List;
 
@@ -92,12 +93,10 @@ public class NewAddressActivity extends BaseActivityOld {
                 }
             }
             tag_id = new String(sbs);
-            System.out.println("tag----" + tag_id);
         }
         getdata();
         listonclick();
-        if (type.equals("center")) {
-            mListAddress.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        mListAddress.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int i, long l) {
                     final String addressid = beans.getCom_list().get(i).getId();
@@ -119,10 +118,10 @@ public class NewAddressActivity extends BaseActivityOld {
                         }
                     });
                     deleteAddressDialog.show();
-                    return false;
+                    return true;
                 }
             });
-        }
+
         mRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,12 +160,10 @@ public class NewAddressActivity extends BaseActivityOld {
                 String str = beans.getCom_list().get(arg2).getRegion_cn().replaceAll(",", "");
                 person_address = str + beans.getCom_list().get(arg2).getCommunity_cn()
                         + beans.getCom_list().get(arg2).getDoorplate();
-                System.out.println("-----[" + edit_id);
-                System.out.println("-----[" + person_name + person_mobile + person_address);
-                if (address.equals("shopyes")) {//判断当前地址是否可选
+
+                if ("shopyes".equals(address)) {
+                    //判断当前地址是否可选
                     if (beans.getCom_list().get(arg2).getIs_select().equals("0")) {
-                        //	ToastUtils.showShort(AddressListActivity.this, "该地址不可选");
-                        //	Toast.makeText(AddressListActivity.this, "该地址不可选", Toast.LENGTH_SHORT).show();
                         XToast.makeText(NewAddressActivity.this, "您选择的地址不在当前小区配送范围内，请返回APP首页选择和您地址相符合的小区", XToast.LENGTH_SHORT).show();
                     } else {
                         Intent intent = new Intent(NewAddressActivity.this, ConfirmOrderActivity.class);
@@ -179,6 +176,16 @@ public class NewAddressActivity extends BaseActivityOld {
                         setResult(200, intent);
                         finish();
                     }
+                }else if ("serviceyes".equals(address)){
+                    Intent intent = new Intent(NewAddressActivity.this, ServiceConfirmOrderActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("person_name", person_name);
+                    bundle.putString("person_mobile", person_mobile);
+                    bundle.putString("address", person_address);
+                    bundle.putString("address_id", edit_id);
+                    intent.putExtras(bundle);
+                    setResult(200, intent);
+                    finish();
                 }
             }
         });
