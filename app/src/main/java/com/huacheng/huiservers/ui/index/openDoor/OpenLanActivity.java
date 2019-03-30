@@ -161,7 +161,7 @@ public class OpenLanActivity extends BaseActivityOld implements UnLockCallBack {
             @Override
             public void onCallBack(BleCodeRsp bleCodeRsp) {
                 if (bleCodeRsp.status) {
-                    textView.setVisibility(View.VISIBLE);
+                    textView.setVisibility(View.GONE);
                     textView.setText(huose+"==="+bleCodeRsp.msg + "==" + bleCodeRsp.code + "==" );
                     Log.i("sdasdaa", bleCodeRsp.msg + "==" + bleCodeRsp.code + "==" + bleCodeRsp.data.get(0));
                     bleCodes = bleCodeRsp.data;
@@ -216,7 +216,7 @@ public class OpenLanActivity extends BaseActivityOld implements UnLockCallBack {
 
     @Override
     public void onUnlockResult(int i) {
-        Toast.makeText(OpenLanActivity.this, "########" + i, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(OpenLanActivity.this, "########" + i, Toast.LENGTH_SHORT).show();
         if (i == 1 || i == 5) {
             //textView.setVisibility(View.VISIBLE);
             new Thread() {
