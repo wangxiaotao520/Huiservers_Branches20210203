@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import cn.magicwindow.Session;
 
 /**
  * 所有activity的父类
@@ -112,7 +111,6 @@ public class BaseActivityOld extends AppCompatActivity {
             addDestoryActivity(mForegroundActivity);
         }
         //messageDialog = new MessageDialog(this);
-        Session.onResume(this);
         super.onResume();
         MobclickAgent.onResume(this);
     }
@@ -131,7 +129,6 @@ public class BaseActivityOld extends AppCompatActivity {
     @Override
     protected void onPause() {
         mForegroundActivity = null;
-        Session.onPause(this);
         super.onPause();
         MobclickAgent.onPause(this);
     }

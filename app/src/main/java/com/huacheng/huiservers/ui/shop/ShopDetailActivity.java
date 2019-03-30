@@ -65,9 +65,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
-import cn.magicwindow.mlink.annotation.MLinkRouter;
 
-@MLinkRouter(keys = "goods_details")//second为mLink的key
+//second为mLink的key
 public class ShopDetailActivity extends BaseActivityOld implements OnClickListener {
     // /
     private TabLayout tab_tagContainer;

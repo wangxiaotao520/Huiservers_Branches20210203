@@ -49,8 +49,7 @@ import java.util.List;
 
 import cn.com.chinatelecom.account.lib.auth.CtAuth;
 import cn.jpush.android.api.JPushInterface;
-import cn.magicwindow.MWConfiguration;
-import cn.magicwindow.MagicWindowSDK;
+
 
 
 public class BaseApplication extends Application {
@@ -103,11 +102,6 @@ public class BaseApplication extends Application {
         mInstance = this;
         mContext = this.getApplicationContext();
         oList = new ArrayList<Activity>();
-
-        MWConfiguration config = new MWConfiguration(this);
-        config.setDebugModel(true);
-        config.setLogEnable(true);//打开魔窗Log信息
-        MagicWindowSDK.initSDK(config);
 
      /*   UMShareAPI.get(this);//初始化sdk
         //开启debug模式，方便定位错误，具体错误检查方式可以查看http://dev.umeng.com/social/android/quick-integration的报错必看，正式发布，请关闭该模式
