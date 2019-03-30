@@ -30,7 +30,7 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.huiservers.view.MyListView;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.ArrayList;
 import java.util.List;

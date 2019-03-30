@@ -23,7 +23,7 @@ import com.huacheng.huiservers.ui.shop.NewPingJiaActivity;
 import com.huacheng.huiservers.ui.shop.NewTuikuanActivity;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.XToast;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.List;
 

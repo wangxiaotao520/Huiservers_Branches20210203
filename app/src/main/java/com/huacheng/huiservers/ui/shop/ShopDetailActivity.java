@@ -24,15 +24,19 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.AddShopDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
+import com.huacheng.huiservers.jpush.MyReceiver;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.adapter.ShopDetailListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
@@ -46,19 +50,12 @@ import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.ImageCycleView.ImageCycleViewListener;
 import com.huacheng.huiservers.view.MyListView;
-import com.huacheng.huiservers.jpush.MyReceiver;
 import com.huacheng.huiservers.view.ScrollChangedScrollView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 import com.microquation.linkedme.android.referral.LMError;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -1025,34 +1022,14 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
 
 
     private void getCartNum() {// 购物车商品数量
-       /* Url_info info=new Url_info(this);
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
-        HttpHelper hh = new HttpHelper( info.cart_num, params, this) {
-
-            @Override
-            protected void setData(String json) {
-                cartnum = protocol.getCartNum(json);
-                if (cartnum.getCart_num().equals("0")) {
-                    txt_shop_num.setVisibility(View.GONE);
-                } else {
-                    txt_shop_num.setVisibility(View.VISIBLE);
-                }
-            }
-        };*/
         Url_info info = new Url_info(this);
-        HttpUtils utils = new HttpUtils();
         RequestParams params = new RequestParams();
         params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
-        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
-            params.addBodyParameter("token", ApiHttpClient.TOKEN + "");
-            params.addBodyParameter("tokenSecret", ApiHttpClient.TOKEN_SECRET + "");
-        }
-        utils.configCookieStore(MyCookieStore.cookieStore);
-        utils.send(HttpRequest.HttpMethod.POST, info.cart_num, params, new RequestCallBack<String>() {
+
+        MyOkHttp.get().post(info.cart_num, params.getParams(), new RawResponseHandler() {
             @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                cartnum = protocol.getCartNum(responseInfo.result);
+            public void onSuccess(int statusCode, String response) {
+                cartnum = protocol.getCartNum(response);
                 if (cartnum != null) {
                     if ("0".equals(cartnum.getCart_num())) {
                         txt_shop_num.setVisibility(View.GONE);
@@ -1060,11 +1037,10 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                         txt_shop_num.setVisibility(View.VISIBLE);
                     }
                 }
-
             }
 
             @Override
-            public void onFailure(HttpException e, String s) {
+            public void onFailure(int statusCode, String error_msg) {
                 UIUtils.showToastSafe("网络异常，请检查网络设置");
             }
         });

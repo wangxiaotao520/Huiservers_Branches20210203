@@ -20,7 +20,7 @@ import com.huacheng.huiservers.model.protocol.WuYeProtocol;
 import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.http.Url_info;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.ArrayList;
 import java.util.List;

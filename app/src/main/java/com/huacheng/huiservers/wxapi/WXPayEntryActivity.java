@@ -32,7 +32,7 @@ import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.XToast;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;

@@ -20,7 +20,6 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.huacheng.huiservers.db.UserSql;
-import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.ModelLoginOverTime;
@@ -291,8 +290,6 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
         ApiHttpClient.setTokenInfo(null, null);
        // XToast.makeText(this, "登录失效", XToast.LENGTH_SHORT).show();
         com.huacheng.libraryservice.utils.ToastUtils.showShort(this,"登录失效");
-        HttpHelper.tokenSecret=null;
-        HttpHelper.token=null;
         BaseActivityOld.finishAll();
         BaseActivityOld.destoryActivity();
         ActivityStackManager.getActivityStackManager().finishAllActivity();

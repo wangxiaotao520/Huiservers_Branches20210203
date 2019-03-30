@@ -7,16 +7,16 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
+import com.huacheng.huiservers.model.protocol.CenterProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.adapter.CouponRecordingAdapter;
 import com.huacheng.huiservers.ui.center.bean.CouponBean;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.view.MyListView;
-import com.lidroid.xutils.http.RequestParams;
 
 import java.util.List;
 
@@ -64,12 +64,11 @@ public class CouponRecordingActivity extends BaseActivityOld {
     private void couponRecording() {
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
-        new HttpHelper(info.coupon_over_40, new RequestParams(), this, waitDialog) {
-
+        MyOkHttp.get().post(info.coupon_over_40, null, new RawResponseHandler() {
             @Override
-            protected void setData(String json) {
+            public void onSuccess(int statusCode, String response) {
                 hideDialog(smallDialog);
-                coupons = new CenterProtocol().getCoupon40Recording(json);
+                coupons = new CenterProtocol().getCoupon40Recording(response);
                 if (coupons != null) {
                     if (coupons.size() > 0) {
                         scrollView.setVisibility(View.VISIBLE);
@@ -86,15 +85,14 @@ public class CouponRecordingActivity extends BaseActivityOld {
                     relNoData.setVisibility(View.VISIBLE);
 
                 }
-
             }
 
             @Override
-            protected void requestFailure(Exception error, String msg) {
+            public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
                 UIUtils.showToastSafe("网络异常，请检查网络设置");
             }
-        };
+        } );
     }
 
     @OnClick(R.id.lin_left)

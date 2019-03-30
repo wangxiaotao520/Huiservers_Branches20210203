@@ -36,7 +36,7 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.ClearEditText;
 import com.huacheng.huiservers.ui.index.wuye.WuyeXioaquActivity;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;

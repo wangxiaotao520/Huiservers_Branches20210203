@@ -39,7 +39,7 @@ import com.huacheng.huiservers.view.widget.FlowTag.OnTagSelectListener;
 import com.huacheng.huiservers.view.widget.FlowTag.TagAdapter;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.json.JSONObject;
 

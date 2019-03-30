@@ -7,19 +7,14 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.dialog.SmallDialog;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.protocol.CommonProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -163,18 +158,14 @@ public class CommonMethod {
 
     public void getCartNum() {// 购物车商品数量
         Url_info info = new Url_info(mContext);
-        HttpUtils utils = new HttpUtils();
+
         RequestParams params = new RequestParams();
         params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
-        if (ApiHttpClient.TOKEN!=null&&ApiHttpClient.TOKEN_SECRET!=null){
-            params.addBodyParameter("token",ApiHttpClient.TOKEN+"");
-            params.addBodyParameter("tokenSecret",ApiHttpClient.TOKEN_SECRET+"");
-        }
-        utils.configCookieStore(MyCookieStore.cookieStore);
-        utils.send(HttpRequest.HttpMethod.POST, info.cart_num, params, new RequestCallBack<String>() {
+
+        MyOkHttp.get().post(info.cart_num, params.getParams(), new RawResponseHandler() {
             @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                ShopDetailBean cartnum = new ShopProtocol().getCartNum(responseInfo.result);
+            public void onSuccess(int statusCode, String response) {
+                ShopDetailBean cartnum = new ShopProtocol().getCartNum(response);
                 if (cartnum != null) {
                     if ("0".equals(cartnum.getCart_num())) {
                         tv.setVisibility(View.GONE);
@@ -182,13 +173,11 @@ public class CommonMethod {
                         tv.setVisibility(View.VISIBLE);
                     }
                 }
-
             }
 
             @Override
-            public void onFailure(HttpException e, String s) {
+            public void onFailure(int statusCode, String error_msg) {
                 UIUtils.showToastSafe("网络异常，请检查网络设置");
-
             }
         });
     }

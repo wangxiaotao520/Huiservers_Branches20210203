@@ -33,7 +33,7 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.XToast;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.ArrayList;
 import java.util.List;

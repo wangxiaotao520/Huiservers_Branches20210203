@@ -8,21 +8,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.XToast;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -120,53 +115,33 @@ public class NamenickVerfityActivity extends BaseActivityOld implements OnClickL
     private void getMyinfo(final String param) {
         showDialog(smallDialog);
         Url_info info=new Url_info(this);
-        HttpUtils http = new HttpUtils();
         RequestParams params = new RequestParams();
         params.addBodyParameter("nickname", param);
-       /* if (file.exists()) {
-            params.addBodyParameter("avatars", file);
-        }
-        params.addBodyParameter("sex", currentSelected);
-        params.addBodyParameter("birthday", txt_time.getText().toString());
-        */
-        if (ApiHttpClient.TOKEN!=null&&ApiHttpClient.TOKEN_SECRET!=null){
-            params.addBodyParameter("token",ApiHttpClient.TOKEN+"");
-            params.addBodyParameter("tokenSecret",ApiHttpClient.TOKEN_SECRET+"");
-        }
-        http.configCookieStore(MyCookieStore.cookieStore);
-        http.send(HttpRequest.HttpMethod.POST,info.edit_center, params,new RequestCallBack<String>() {
 
-                    @Override
-                    public void onFailure(HttpException arg0, String arg1) {
-                        hideDialog(smallDialog);
-                        UIUtils.showToastSafe("网络异常，请检查网络设置");
-                    }
+        MyOkHttp.get().post(info.edit_center, params.getParams(), new RawResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, String response) {
+                hideDialog(smallDialog);
+                ShopProtocol protocol = new ShopProtocol();
+                String str = protocol.setShop(response);
+                if (str.equals("1")) {
+                    closeInputMethod();
+                    EventBus.getDefault().post(new PersoninfoBean());
+                    finish();
+                    XToast.makeText(NamenickVerfityActivity.this, "修改成功", XToast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    XToast.makeText(NamenickVerfityActivity.this, str, XToast.LENGTH_SHORT).show();
+                }
+            }
 
-                    @Override
-                    public void onSuccess(ResponseInfo<String> arg0) {
-                        hideDialog(smallDialog);
-                        ShopProtocol protocol = new ShopProtocol();
-                        String str = protocol.setShop(arg0.result);
-                        if (str.equals("1")) {
-                            closeInputMethod();
-                            EventBus.getDefault().post(new PersoninfoBean());
-                          //  MyCookieStore.My_info = 1;
-//                            Intent intent = new Intent(NamenickVerfityActivity.this, MyInfoActivity.class);
-                            /*Bundle bundle = new Bundle();
-                            bundle.putString("name", param);
-                            intent.putExtras(bundle);
-                            setResult(11, intent);*/
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                UIUtils.showToastSafe("网络异常，请检查网络设置");
+            }
+        });
 
-                            /*MyCookieStore.My_info = 1;
-                            */
-                            finish();
-                            XToast.makeText(NamenickVerfityActivity.this, "修改成功", XToast.LENGTH_SHORT)
-                                    .show();
-                        } else {
-                            XToast.makeText(NamenickVerfityActivity.this, str, XToast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
     }
 
     /**

@@ -20,23 +20,19 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.utils.uploadimage.GlideImageLoader;
 import com.huacheng.huiservers.utils.uploadimage.ImagePickerAdapter;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.ToastUtils;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
@@ -48,6 +44,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -274,52 +271,26 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
     private void getsubmint() {//提交退款
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
-        HttpUtils utils = new HttpUtils();
         RequestParams params = new RequestParams();
         params.addBodyParameter("oid", o_id);//订单id
         params.addBodyParameter("order_info_id", p_info_id);//商品信息id
         params.addBodyParameter("pic_num", selImageList.size() + "");
         params.addBodyParameter("cancel_reason", mEdtContent.getText().toString());
-        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
-            params.addBodyParameter("token", ApiHttpClient.TOKEN + "");
-            params.addBodyParameter("tokenSecret", ApiHttpClient.TOKEN_SECRET + "");
-        }
-        // 以for循环方式上传多张图片， Bimp.tempSelectBitmap为存放图片集合
-//        for (int i = 0; i < selImageList.size(); i++) {
-//            String path = selImageList.get(i).path;
-//            File filepaths = new File(path);
-//            try {
-//                ToolUtils.compressBmpToFile(Bimp.revitionImageSize(path), filepaths);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            params.addBodyParameter("refundimg" + i, filepaths);
-//
-//        }
+
+        HashMap<String, File> params_file = new HashMap<>();
         //添加新压缩
         if (images_submit.size()>0){
             for (int i1 = 0; i1 < images_submit.size(); i1++) {
-                params.addBodyParameter("refundimg"+i1,images_submit.get(i1));
+                params_file.put("refundimg"+i1,images_submit.get(i1));
             }
         }
-        utils.configCookieStore(MyCookieStore.cookieStore);
-        utils.configCurrentHttpCacheExpiry(1000 * 10);
-        utils.configTimeout(1000 * 5);
-        utils.send(HttpMethod.POST, info.shop_refund, params, new RequestCallBack<String>() {
-
+        MyOkHttp.get().upload(info.shop_refund, params.getParams(), params_file, new RawResponseHandler() {
             @Override
-            public void onFailure(HttpException arg0, String arg1) {
-                hideDialog(smallDialog);
-                mTxtBin.setText("提交中");
-                mTxtBin.setClickable(true);
-            }
-
-            @Override
-            public void onSuccess(ResponseInfo<String> arg0) {
+            public void onSuccess(int statusCode, String response) {
                 hideDialog(smallDialog);
                 JSONObject jsonObject;
                 try {
-                    jsonObject = new JSONObject(arg0.result);
+                    jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
                     String data = jsonObject.getString("data");
                     String strmsg = jsonObject.getString("msg");
@@ -336,6 +307,13 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                mTxtBin.setText("提交中");
+                mTxtBin.setClickable(true);
             }
         });
     }

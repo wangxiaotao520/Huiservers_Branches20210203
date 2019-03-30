@@ -24,19 +24,20 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.huacheng.huiservers.BaseApplication;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
-import com.huacheng.huiservers.http.okhttp.MyCookieStore_New;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.huiservers.model.protocol.LoginProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
@@ -45,12 +46,6 @@ import com.huacheng.huiservers.utils.WXConstants;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.mob.MobSDK;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -78,11 +73,12 @@ import cn.com.chinatelecom.account.lib.auth.AuthResultListener;
 import cn.com.chinatelecom.account.lib.auth.CtAuth;
 import cn.com.chinatelecom.account.lib.model.AuthResultModel;
 
-import static com.huacheng.huiservers.http.Url_info.free_login;
-
+/**
+ * 登录页
+ */
 public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickListener {
     private TextView txt_btn, txt_getcode, txt_shengming, tv_txt2, tv_txt1, tv_txt3;
-    HttpUtils utils = new HttpUtils();
+   // HttpUtils utils = new HttpUtils();
     private EditText et_mobile, et_getcode, et_yq;
     private LinearLayout ly_back, ly_bottom;
     private ImageView iv_mm, iv_wx;
@@ -333,7 +329,6 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
     //获取用户信息 -> 电信免密登录
     private void getUserInfo() {
         showDialog(smallDialog);
-        MyCookieStore.home_notify = 1;
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
         params.addBodyParameter("accessToken", sharePrefrenceUtil.getAcceessToken());
@@ -393,7 +388,6 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
 
     //登录/注册接口 -> 电信免密登录
     private void getFreeLogin(final String tel) {
-        MyCookieStore.home_notify = 0;
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
         params.addBodyParameter("username", tel);
@@ -407,24 +401,18 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
         params.addBodyParameter("ApiSmstoken", jmStr);// 加密字符串
         params.addBodyParameter("community_id",sharePrefrenceUtil.getXiaoQuId());
 
-        utils.send(HttpMethod.POST, free_login, params, new RequestCallBack<String>() {
+        MyOkHttp.get().post(info.free_login, params.getParams(), new RawResponseHandler() {
             @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
+            public void onSuccess(int statusCode, String response) {
                 sharePrefrenceUtil.setLoginType("0");
-                dh = (DefaultHttpClient) utils.getHttpClient();
-                MyCookieStore.cookieStore = dh.getCookieStore();
-                MyCookieStore_New.cookieStore = dh.getCookieStore();
-                //List<Cookie> cookies = MyCookieStore.cookieStore.getCookies();
-                String res = responseInfo.result;
-                System.out.println("res=========" + res);
+                String res = response;
                 loginBean = protocol.DataState(res);
-                System.out.println("lpgin===" + loginBean.getUid());
                 Intent intent = null;
                 if (loginBean.getUid() != null) {
                     // 临时文件存储
                     SharedPreferences preferences1 = LoginVerifyCodeActivity.this.getSharedPreferences("login", 0);
                     SharedPreferences.Editor editor = preferences1.edit();
-                  //  editor.putString("login_type", loginBean.getUtype());
+                    //  editor.putString("login_type", loginBean.getUtype());
                     editor.putString("login_type", "1");
                     editor.putString("login_username", tel);
                     editor.putString("login_password", "");
@@ -484,7 +472,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                 }
                 //保存到modelUser中
                 try {
-                    JSONObject respose = new JSONObject(responseInfo.result);
+                    JSONObject respose = new JSONObject(response);
                     if (JsonUtil.getInstance().isSuccess(respose)) {
                         ModelUser user = (ModelUser) JsonUtil.getInstance().parseJsonFromResponse(respose, ModelUser.class);
                         if (user!=null){
@@ -500,12 +488,12 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
             }
 
             @Override
-            public void onFailure(HttpException error, String msg) {
+            public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
                 txt_btn.setText("登录");
                 txt_btn.setClickable(true);
-                XToast.makeText(LoginVerifyCodeActivity.this, msg, XToast.LENGTH_SHORT).show();
-                System.out.println("error---" + error);
+                XToast.makeText(LoginVerifyCodeActivity.this, error_msg, XToast.LENGTH_SHORT).show();
+
             }
         });
     }

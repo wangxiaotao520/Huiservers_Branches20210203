@@ -30,7 +30,7 @@ import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.update.AppUpdate;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -275,8 +275,6 @@ public class SetActivity extends BaseActivityOld implements OnClickListener {
                     HomeActivity.instant.finish();
                     BaseApplication.removeALLActivity_();
                     ApiHttpClient.setTokenInfo(null,null);
-                    HttpHelper.tokenSecret=null;
-                    HttpHelper.token=null;
                     Intent intent = new Intent(SetActivity.this, HomeActivity.class);
                     startActivity(intent);
                     XToast.makeText(SetActivity.this, "退出登录", XToast.LENGTH_SHORT).show();

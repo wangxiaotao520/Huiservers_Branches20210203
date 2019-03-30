@@ -12,13 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.NewAddressActivity;
 import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
@@ -32,10 +33,7 @@ import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.ButtonUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.lidroid.xutils.http.RequestParams;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -204,12 +202,11 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         Url_info info = new Url_info(this);
         Gson gson = new Gson();
         gson.toJson(pro);
-        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>();
+
         RequestParams params = new RequestParams();
         params.addBodyParameter("para_amount", allPrice);
         params.addBodyParameter("m_id", prefrenceUtil.getXiaoQuId());
-        nameValuePair.add(new BasicNameValuePair("products", gson.toJson(pro)));
-        params.addBodyParameter(nameValuePair);
+        params.addBodyParameter("products",gson.toJson(pro)+"");
         HttpHelper hh = new HttpHelper(info.submit_order_before, params, ConfirmOrderActivity.this) {
 
             @Override
@@ -275,19 +272,17 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         Url_info info = new Url_info(this);
         Gson gson = new Gson();
         gson.toJson(pro);
-        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>();
         RequestParams params = new RequestParams();
-        params.addBodyParameter("address_id", person_address_id);
-        params.addBodyParameter("address", txt_address.getText().toString());
-        params.addBodyParameter("contact", txt_name.getText().toString());
-        params.addBodyParameter("mobile", txt_mobile.getText().toString());
-        params.addBodyParameter("m_c_id", coupon_id);
-        params.addBodyParameter("m_c_name", coupon_name);
-        params.addBodyParameter("m_c_amount", coupon_price);
-        params.addBodyParameter("description", edt_liuyan.getText().toString());
-        params.addBodyParameter("type", sb.toString());
-        nameValuePair.add(new BasicNameValuePair("products", gson.toJson(pro)));
-        params.addBodyParameter(nameValuePair);
+        params.addBodyParameter("address_id", person_address_id+"");
+        params.addBodyParameter("address", txt_address.getText().toString()+"");
+        params.addBodyParameter("contact", txt_name.getText().toString()+"");
+        params.addBodyParameter("mobile", txt_mobile.getText().toString()+"");
+        params.addBodyParameter("m_c_id", coupon_id+"");
+        params.addBodyParameter("m_c_name", coupon_name+"");
+        params.addBodyParameter("m_c_amount", coupon_price+"");
+        params.addBodyParameter("description", edt_liuyan.getText().toString()+"");
+        params.addBodyParameter("type", sb.toString()+"");
+        params.addBodyParameter("products", gson.toJson(pro)+"");
         HttpHelper hh = new HttpHelper(info.submit_order, params, ConfirmOrderActivity.this) {
 
             @Override

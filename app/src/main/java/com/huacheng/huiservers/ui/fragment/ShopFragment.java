@@ -49,7 +49,7 @@ import com.huacheng.huiservers.view.widget.FunctionAdvertise;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.widget.CustomScrollViewPager;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.lzy.widget.HeaderViewPager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

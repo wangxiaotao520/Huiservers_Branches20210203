@@ -54,7 +54,7 @@ import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 import org.json.JSONException;

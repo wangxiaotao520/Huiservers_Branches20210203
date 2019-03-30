@@ -69,7 +69,7 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
     PropertyWYInfoAdapter wyInfoAdapter;
     ModelPropertyWyInfo propertyInfo;
     List<List<ModelWuye>> wyListData = new ArrayList<>();
-    private Double total_wuye_price;//选中的物业费
+    private float total_wuye_price;//选中的物业费
 
     @Override
     protected void initView() {
@@ -254,7 +254,7 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                     }
                 }
                 //计算选中的物业费
-                total_wuye_price = 0.00;
+                total_wuye_price = 0;
                 for (int i = 0; i < selected_price_list.size(); i++) {
                     total_wuye_price += selected_price_list.get(i);
                 }
@@ -270,7 +270,7 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
         }
     }
 
-    private double setFloat(Double totalPrice) {//保留两位小数点
+    private float setFloat(float totalPrice) {//保留两位小数点
         BigDecimal b = new BigDecimal(totalPrice);
         return b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
     }

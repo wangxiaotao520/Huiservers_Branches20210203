@@ -7,19 +7,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.shop.adapter.SeeAllOrderListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
-import com.lidroid.xutils.http.RequestParams;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,12 +67,10 @@ public class SeeAllOrderActivity extends BaseActivityOld implements OnClickListe
 		Url_info info=new Url_info(this);
 		Gson gson=new Gson();
 		gson.toJson(pro);
-		List<NameValuePair> nameValuePair= new ArrayList<NameValuePair>();
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("m_id",m_id );
-		nameValuePair.add(new BasicNameValuePair("products", gson.toJson(pro)));  
-		params.addBodyParameter(nameValuePair);
-		System.out.println("======="+gson.toJson(pro));
+		params.addBodyParameter("products",gson.toJson(pro));
+
 		HttpHelper hh=new HttpHelper(info.order_info,params,SeeAllOrderActivity.this) {
 
 			@Override

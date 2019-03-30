@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
@@ -28,7 +30,7 @@ import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -141,15 +143,16 @@ public class MyCircleActivity extends BaseActivityOld {
         Url_info info = new Url_info(this);
         String url = info.get_user_Social + "community_id/" + sharePrefrenceUtil.getXiaoQuId()+"/p/"+page;
         RequestParams requestParams = new RequestParams();
-        new HttpHelper(url,requestParams , this, null) {
+
+        MyOkHttp.get().post(url, null, new RawResponseHandler() {
             @Override
-            protected void setData(String json) {
+            public void onSuccess(int statusCode, String response) {
                 is_Requesting=false;
                 hideDialog(smallDialog);
                 if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false);
                 }
-                bean = protocol.getWoSocial(json);
+                bean = protocol.getWoSocial(response);
                 if (bean.size() > 0) {
                     rel_no_data.setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.VISIBLE);
@@ -204,12 +207,10 @@ public class MyCircleActivity extends BaseActivityOld {
                         }
                     }
                 }
-
-
             }
 
             @Override
-            protected void requestFailure(Exception error, String msg) {
+            public void onFailure(int statusCode, String error_msg) {
                 is_Requesting=false;
                 hideDialog(smallDialog);
                 if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
@@ -217,7 +218,10 @@ public class MyCircleActivity extends BaseActivityOld {
                 }
                 UIUtils.showToastSafe("网络异常，请检查网络设置");
             }
-        };
+        });
+
+
+
     }
 
     /**

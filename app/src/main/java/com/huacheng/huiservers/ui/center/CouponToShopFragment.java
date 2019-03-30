@@ -22,7 +22,7 @@ import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyListView;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.List;
 

@@ -22,15 +22,17 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.ImgDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.UIUtils;
@@ -41,11 +43,6 @@ import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.UriUtils;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.yalantis.ucrop.UCrop;
 
@@ -59,6 +56,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 import io.reactivex.functions.Consumer;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
@@ -250,44 +248,31 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
     private void getMyinfoBirthDay(final String param) {
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
-        HttpUtils http = new HttpUtils();
+
         RequestParams params = new RequestParams();
         params.addBodyParameter("birthday", param);
-       /* if (file.exists()) {
-            params.addBodyParameter("avatars", file);
-        }
-        System.out.println("currentSelected-----" + currentSelected);
-        params.addBodyParameter("sex", currentSelected);
-        params.addBodyParameter("birthday", txt_time.getText().toString());
-        */
-        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
-            params.addBodyParameter("token", ApiHttpClient.TOKEN + "");
-            params.addBodyParameter("tokenSecret", ApiHttpClient.TOKEN_SECRET + "");
-        }
-        http.configCookieStore(MyCookieStore.cookieStore);
-        http.send(HttpRequest.HttpMethod.POST, info.edit_center, params,
-                new RequestCallBack<String>() {
 
-                    @Override
-                    public void onFailure(HttpException arg0, String arg1) {
-                        hideDialog(smallDialog);
-                        UIUtils.showToastSafe("网络异常，请检查网络设置");
-                    }
+        MyOkHttp.get().post(info.edit_center, params.getParams(), new RawResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, String response) {
+                ShopProtocol protocol = new ShopProtocol();
+                String str = protocol.setShop(response);
+                if ("1".equals(str)) {
+                    getinfo();
+                    //   XToast.makeText(MyInfoActivity.this, "修改成功", XToast.LENGTH_SHORT).show();
+                } else {
+                    hideDialog(smallDialog);
+                    XToast.makeText(MyInfoActivity.this, str, XToast.LENGTH_SHORT).show();
+                }
+            }
 
-                    @Override
-                    public void onSuccess(ResponseInfo<String> arg0) {
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                UIUtils.showToastSafe("网络异常，请检查网络设置");
+            }
+        });
 
-                        ShopProtocol protocol = new ShopProtocol();
-                        String str = protocol.setShop(arg0.result);
-                        if ("1".equals(str)) {
-                            getinfo();
-                         //   XToast.makeText(MyInfoActivity.this, "修改成功", XToast.LENGTH_SHORT).show();
-                        } else {
-                            hideDialog(smallDialog);
-                            XToast.makeText(MyInfoActivity.this, str, XToast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
     }
 
     public void data() {
@@ -453,47 +438,33 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
     private void uploadCameraAvatar(File file) {
         showDialog(smallDialog);
         HttpUtils http = new HttpUtils();
-        RequestParams params = new RequestParams();
-//        if (mFile.exists()) {
-//            params.addBodyParameter("avatars", mFile);
-//        }
-        if (file!=null){
-            params.addBodyParameter("avatars", file);
-        }
-        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
-            params.addBodyParameter("token", ApiHttpClient.TOKEN + "");
-            params.addBodyParameter("tokenSecret", ApiHttpClient.TOKEN_SECRET + "");
-        }
-        http.configCookieStore(MyCookieStore.cookieStore);
-        http.send(HttpRequest.HttpMethod.POST, MyCookieStore.SERVERADDRESS + "userCenter/edit_center/", params,
-                new RequestCallBack<String>() {
+        HashMap<String,File> params_file = new HashMap<>();
+        params_file.put("avatars",file);
+        MyOkHttp.get().upload(MyCookieStore.SERVERADDRESS + "userCenter/edit_center/", params_file, new RawResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, String response) {
+                ShopProtocol protocol = new ShopProtocol();
+                String str = protocol.setShop(response);
+                if (str.equals("1")) {
+                    getinfo();
+                    //删除缓存文件夹中的图片
 
-                    @Override
-                    public void onSuccess(ResponseInfo<String> arg0) {
-                        ShopProtocol protocol = new ShopProtocol();
-                        String str = protocol.setShop(arg0.result);
-                        if (str.equals("1")) {
-                            getinfo();
-                            //删除缓存文件夹中的图片
+                    ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
 
-                            ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
+                    EventBus.getDefault().post(new PersoninfoBean());
+                } else {
+                    hideDialog(smallDialog);
+                    XToast.makeText(MyInfoActivity.this, str, XToast.LENGTH_SHORT).show();
+                }
+            }
 
-                            EventBus.getDefault().post(new PersoninfoBean());
-                        } else {
-                            hideDialog(smallDialog);
-                            XToast.makeText(MyInfoActivity.this, str, XToast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(HttpException arg0, String arg1) {
-                        hideDialog(smallDialog);
-                        XToast.makeText(MyInfoActivity.this, arg1, XToast.LENGTH_SHORT)
-                                .show();
-                    }
-                });
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                XToast.makeText(MyInfoActivity.this, error_msg, XToast.LENGTH_SHORT).show();
+            }
+        });
     }
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

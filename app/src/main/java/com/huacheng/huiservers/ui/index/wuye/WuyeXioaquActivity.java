@@ -28,7 +28,7 @@ import com.huacheng.huiservers.view.ClearEditText;
 import com.huacheng.huiservers.view.Cn2Spell;
 import com.huacheng.huiservers.view.PinyinComparator;
 import com.huacheng.huiservers.view.SideBar;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.ArrayList;
 import java.util.Collections;

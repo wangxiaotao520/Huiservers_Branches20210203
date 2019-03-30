@@ -50,7 +50,7 @@ import com.huacheng.huiservers.view.ExpandableTextView;
 import com.huacheng.huiservers.jpush.MyReceiver;
 import com.huacheng.huiservers.view.StretchyTextView;
 import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;

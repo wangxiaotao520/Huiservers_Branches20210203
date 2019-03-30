@@ -36,7 +36,7 @@ import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;

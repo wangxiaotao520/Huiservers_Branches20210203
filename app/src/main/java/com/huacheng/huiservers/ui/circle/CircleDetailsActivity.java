@@ -41,7 +41,7 @@ import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;

@@ -37,7 +37,7 @@ import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import com.huacheng.huiservers.view.ShadowLayout;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.json.JSONException;

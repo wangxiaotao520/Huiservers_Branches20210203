@@ -19,16 +19,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.shop.bean.DataBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
@@ -39,12 +40,6 @@ import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 
 import org.json.JSONObject;
 
@@ -677,28 +672,21 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
             str = strBuilder.substring(0, lastIndex) + strBuilder.substring(lastIndex + 1, strBuilder.length());
 //            Log.e("ShopCateStr", "===" + str);
         }
-        HttpUtils utils = new HttpUtils();
         RequestParams params = new RequestParams();
         params.addBodyParameter("cart_id_str", str);
-        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
-            params.addBodyParameter("token", ApiHttpClient.TOKEN + "");
-            params.addBodyParameter("tokenSecret", ApiHttpClient.TOKEN_SECRET + "");
-        }
-        utils.configCookieStore(MyCookieStore.cookieStore);
-        utils.send(HttpRequest.HttpMethod.POST, info.edit_shopping_cart, params, new RequestCallBack<String>() {
+        MyOkHttp.get().post(info.edit_shopping_cart, params.getParams(), new RawResponseHandler() {
             @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                str = protocol.setShop(responseInfo.result);
+            public void onSuccess(int statusCode, String response) {
+                str = protocol.setShop(response);
                 if (str.equals("1")) {
                 }
             }
 
             @Override
-            public void onFailure(HttpException e, String s) {
+            public void onFailure(int statusCode, String error_msg) {
 
             }
         });
-
 
     }
 

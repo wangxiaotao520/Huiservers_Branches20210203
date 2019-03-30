@@ -18,7 +18,7 @@ import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
-import com.lidroid.xutils.http.RequestParams;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.ArrayList;
 import java.util.List;

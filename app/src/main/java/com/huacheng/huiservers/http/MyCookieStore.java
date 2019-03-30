@@ -22,7 +22,6 @@ public class MyCookieStore {
     public static String o_id = null;//微信支付返回订单id
     //public static String coupon_id = null;//微信支付返回优惠券id
     public static int is_notify = 0;//返回刷新
-    public static int home_notify = 0;//首页下拉刷新
     public static int Activity_notity = 0;//活动微信返回刷新
     public static int Index_notify = 0;//商城选择id
     public static int Choose_id = 0;//圈子选择id

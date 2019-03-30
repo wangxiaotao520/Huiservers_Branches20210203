@@ -17,11 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.ChooseFabuDialog;
 import com.huacheng.huiservers.http.MyCookieStore;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.circle.bean.ModelRefreshCircle;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -30,12 +32,6 @@ import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.uploadimage.GlideImageLoader;
 import com.huacheng.huiservers.utils.uploadimage.ImagePickerAdapter;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
@@ -49,6 +45,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -331,83 +328,63 @@ public class FaBuActivity extends BaseActivityOld implements ImagePickerAdapter.
     private void getSubmit() throws IOException {// 发布圈子
         showDialog(smallDialog);
         txt_right1.setEnabled(false);
-        HttpUtils utils = new HttpUtils();
         RequestParams params = new RequestParams();
         String content = Base64.encodeToString(et_content.getText().toString().getBytes(), Base64.DEFAULT);
         params.addBodyParameter("community_id", sharePrefrenceUtil.getXiaoQuId());
         params.addBodyParameter("c_id", circle_id);
         params.addBodyParameter("img_num", selImageList.size() + "");
         params.addBodyParameter("content", content);
-        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
-            params.addBodyParameter("token", ApiHttpClient.TOKEN + "");
-            params.addBodyParameter("tokenSecret", ApiHttpClient.TOKEN_SECRET + "");
-        }
-//        // 以for循环方式上传多张图片， Bimp.tempSelectBitmap为存放图片集合
-//        for (int i = 0; i < selImageList.size(); i++) {
-//            String path = selImageList.get(i).path;
-//            File filepaths = new File(path);
-//            ToolUtils.compressBmpToFile(Bimp.revitionImageSize(path), filepaths);
-//            params.addBodyParameter("img" + i, filepaths);
-//
-//        }
         // 换了一种压缩图片的方式
         //添加新压缩
+        HashMap<String, File> params_file = new HashMap<>();
+
         if (images_submit.size()>0){
             for (int i1 = 0; i1 < images_submit.size(); i1++) {
-                params.addBodyParameter("img"+i1,images_submit.get(i1));
+                params_file.put("img"+i1,images_submit.get(i1));
             }
         }
-
-        utils.configCookieStore(MyCookieStore.cookieStore);
-        utils.configCurrentHttpCacheExpiry(1000 * 10);
-        utils.configTimeout(1000 * 5);
-        utils.send(HttpRequest.HttpMethod.POST, MyCookieStore.SERVERADDRESS + "social/social_save/", params,
-                new RequestCallBack<String>() {
-
-                    @Override
-                    public void onFailure(HttpException arg0, String arg1) {
+        MyOkHttp.get().upload(MyCookieStore.SERVERADDRESS + "social/social_save/", params.getParams(), params_file, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                try {
+//
+                    String status = response.getString("status");
+                    String msg = response.getString("msg");
+//                            String data = jsonObject.getString("data");
+                    if (StringUtils.isEquals(status, "1")) {
+                        MyCookieStore.Circle_notify = 1;
+                        ModelRefreshCircle modelRefreshCircle = new ModelRefreshCircle();
+                        modelRefreshCircle.setTab_id(circle_id);
+                        EventBus.getDefault().post(modelRefreshCircle);
+                        // startActivity(new Intent(NewReleaseActivity.this, ServiceParticipateActivity.class));
+                        finish();
                         hideDialog(smallDialog);
                         txt_right1.setEnabled(true);
-                        UIUtils.showToastSafe("网络异常，请检查网络设置");
-                       /* txt_right.setText("提交");
-                        txt_right.setClickable(true);*/
-                    }
-
-                    @Override
-                    public void onSuccess(ResponseInfo<String> arg0) {
-                        try {
-//                            txt_right.setClickable(false);
-                            JSONObject jsonObject = new JSONObject(arg0.result);
-                            String status = jsonObject.getString("status");
-                            String msg = jsonObject.getString("msg");
-//                            String data = jsonObject.getString("data");
-                            if (StringUtils.isEquals(status, "1")) {
-                                MyCookieStore.Circle_notify = 1;
-                                ModelRefreshCircle modelRefreshCircle = new ModelRefreshCircle();
-                                modelRefreshCircle.setTab_id(circle_id);
-                                EventBus.getDefault().post(modelRefreshCircle);
-                                // startActivity(new Intent(NewReleaseActivity.this, ServiceParticipateActivity.class));
-                                finish();
-                                hideDialog(smallDialog);
-                                txt_right1.setEnabled(true);
-                                // 删除文件夹下的文件
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        delFolder(getPath());
-                                    }
-                                }).start();
-                            } else {
-                                XToast.makeText(FaBuActivity.this, msg, XToast.LENGTH_SHORT).show();
+                        // 删除文件夹下的文件
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                delFolder(getPath());
                             }
-                        } catch (JSONException e) {
-                            hideDialog(smallDialog);
-                            txt_right1.setEnabled(false);
-                            e.printStackTrace();
-
-                        }
+                        }).start();
+                    } else {
+                        XToast.makeText(FaBuActivity.this, msg, XToast.LENGTH_SHORT).show();
                     }
-                });
+                } catch (JSONException e) {
+                    hideDialog(smallDialog);
+                    txt_right1.setEnabled(false);
+                    e.printStackTrace();
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                txt_right1.setEnabled(true);
+                UIUtils.showToastSafe("网络异常，请检查网络设置");
+            }
+        });
     }
 
     /**
