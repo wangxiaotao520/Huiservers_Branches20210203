@@ -15,6 +15,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.ajb.call.utlis.CommonUtils;
+import com.coder.zzq.smartshow.toast.SmartToast;
+import com.coder.zzq.smartshow.toast.core.SmartShow;
 import com.huacheng.huiservers.linkedme.MiddleActivity;
 import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
@@ -134,6 +136,11 @@ public class BaseApplication extends Application {
         initLinkedME();
         //TODO 初始化tinker
         initTinkerPatch();
+        //初始化smartshow
+        SmartShow.init(this);
+        SmartToast.setting()
+//                .backgroundColorRes(R.color.colorPrimary)
+                .dismissOnLeave(false);
     }
     /**
      * 我们需要确保至少对主进程跟patch进程初始化 TinkerPatch

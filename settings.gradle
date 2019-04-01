@@ -1,1 +1,1 @@
-include ':app',  ':libraryservice',':header_viewpager',':base-adapter-library', ':baseadapter-recyclerview',':library-luban',':multi-image-selector',':ucrop'
+include ':app',  ':libraryservice',':header_viewpager',':base-adapter-library', ':baseadapter-recyclerview',':library-luban',':multi-image-selector',':ucrop',':smart-toast'

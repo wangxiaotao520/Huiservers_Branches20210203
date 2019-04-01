@@ -18,6 +18,8 @@ anim design_bottom_sheet_slide_out
 anim design_snackbar_in
 anim design_snackbar_out
 anim push_up_in
+anim type_info_toast_enter
+anim type_info_toast_exit
 animator design_appbar_state_list_animator
 animator design_fab_hide_motion_spec
 animator design_fab_show_motion_spec
@@ -1253,10 +1255,19 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable smart_show_type_info_toast_bg
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 drawable transparent
 drawable transparent_background
+drawable type_info_complete
+drawable type_info_error
+drawable type_info_fail
+drawable type_info_forbid
+drawable type_info_normal
+drawable type_info_success
+drawable type_info_waiting
+drawable type_info_warning
 drawable widget_edit_block_bg_normal
 id FixedBehind
 id FixedFront
@@ -1309,6 +1320,7 @@ id contentPanel
 id coordinator
 id custom
 id customPanel
+id custom_toast_msg
 id decor_content_parent
 id default_activity_button
 id design_bottom_sheet
@@ -1473,6 +1485,8 @@ id tv_share_app_to_qq
 id tv_share_app_to_qzone
 id tv_share_app_to_weichat
 id tv_share_app_to_weichatfav
+id type_info_icon
+id type_info_message
 id uniform
 id unlabeled
 id up
@@ -1551,8 +1565,10 @@ layout dialog_custom_sevice
 layout header_ads
 layout header_ads1
 layout layout_small_dialog
+layout layout_type_info
 layout mtrl_layout_snackbar
 layout mtrl_layout_snackbar_include
+layout my_layout_type_info
 layout notification_action
 layout notification_action_tombstone
 layout notification_media_action
@@ -2361,6 +2377,8 @@ style Widget_Support_CoordinatorLayout
 style my_dialog
 style my_dialog_DimEnabled
 style popUpwindow_anim
+style smart_show_virtual_toast_dialog
+style type_info_toast_anim
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
 styleable ActionMenuItemView android_minWidth

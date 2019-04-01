@@ -53,4 +53,5 @@ dependencies {
     api 'com.hyman:flowlayout-lib:1.1.2'
     //星星评价
     api 'com.xingliuhua:xlhratingbar_lib:1.0.1'
+    api project(':smart-toast')
 }

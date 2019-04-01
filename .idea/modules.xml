@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/library-luban/library-luban.iml" filepath="$PROJECT_DIR$/library-luban/library-luban.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraryservice/libraryservice.iml" filepath="$PROJECT_DIR$/libraryservice/libraryservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" filepath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/smart-toast/smart-toast.iml" filepath="$PROJECT_DIR$/smart-toast/smart-toast.iml" />
       <module fileurl="file://$PROJECT_DIR$/ucrop/ucrop.iml" filepath="$PROJECT_DIR$/ucrop/ucrop.iml" />
     </modules>
   </component>

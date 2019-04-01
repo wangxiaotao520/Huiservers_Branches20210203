@@ -15,8 +15,8 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.huacheng.huiservers.db.UserSql;
@@ -156,7 +156,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                                 //其他
                             } else {
                                 //
-                                XToast.makeText(this, "二维码扫描不正确", XToast.LENGTH_SHORT).show();
+                                SmartToast.showInfo("二维码扫描不正确");
                             }
                         }
 
@@ -324,7 +324,6 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                     Intent intent = new Intent(this, LoginVerifyCodeActivity.class);
                     this.startActivity(intent);
                 } else {
-                    if (login_type.equals("1")) {//个人
                         String login_mobile = preferencesLogin.getString("login_username", "");
                         String sign = "hshObj";
                         Intent intent = new Intent(this, AboutActivity.class);
@@ -334,13 +333,11 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                                 "http://www.dsyg42.com/ec/app_index?username=" + login_mobile + "&sign=" + sign + "&uuid=" + uuid);
                         intent.putExtras(bundle);
                         this.startActivity(intent);
-                    } else {
-                        XToast.makeText(this, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
-                    }
                 }
             } else {
                 // Permission Denied
-                Toast.makeText(this, "无法打开东森易购,请获取手机权限", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(this, "无法打开东森易购,请获取手机权限", Toast.LENGTH_SHORT).show();
+                SmartToast.showInfo("无法打开东森易购,请获取手机权限");
             }
         }
     }
