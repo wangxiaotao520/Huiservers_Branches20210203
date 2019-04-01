@@ -6,8 +6,8 @@ import java.util.regex.Pattern
  * TODO: 请按自己的需求修改为适应自己工程的参数
  */
 def bakPath = file("${buildDir}/bakApk/")
-def baseInfo = "app-4.1.3-0330-18-25-27"
-def variantName = "debug"
+def baseInfo = "app-4.1.4-0330-18-25-27"
+def variantName = "release"
 
 /**
  * 对于插件各参数的详细解析请参考
@@ -15,7 +15,7 @@ def variantName = "debug"
  */
 tinkerpatchSupport {
     /** 可以在debug的时候关闭 tinkerPatch, isRelease() 可以判断BuildType是否为Release **/
-    tinkerEnable = false
+    tinkerEnable = true
     reflectApplication = true
     /**
      * 是否开启加固模式，只能在APK将要进行加固时使用，否则会patch失败。
@@ -33,7 +33,7 @@ tinkerpatchSupport {
     appKey = "82ddaafa1257f9fb"
 
     /** 注意: 若发布新的全量包, appVersion一定要更新 **/
-    appVersion = "4.1.3"
+    appVersion = "4.1.4"
 
     def pathPrefix = "${bakPath}/${baseInfo}/${variantName}/"
     def name = "${project.name}-${variantName}"
