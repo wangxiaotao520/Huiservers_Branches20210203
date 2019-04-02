@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Display;
 import android.view.KeyEvent;
-import android.view.Window;
 import android.view.WindowManager;
 
 import com.huacheng.huiservers.db.UserSql;
@@ -71,10 +70,11 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        isStatusBar=true;
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppCompatTheme_Base);
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {

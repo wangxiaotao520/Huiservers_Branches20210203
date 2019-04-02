@@ -19,16 +19,16 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.UMShareDialog;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.jpush.MyReceiver;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
-import com.huacheng.huiservers.utils.OSUtils;
 import com.huacheng.huiservers.utils.Sessionidtest;
 import com.huacheng.huiservers.utils.ShareUtils;
-import com.huacheng.huiservers.jpush.MyReceiver;
+import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 

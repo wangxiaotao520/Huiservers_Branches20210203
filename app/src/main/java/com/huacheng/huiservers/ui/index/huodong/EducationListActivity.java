@@ -19,22 +19,22 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.jpush.MyReceiver;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.ServiceParticipateActivity;
 import com.huacheng.huiservers.ui.fragment.listener.EndlessRecyclerOnScrollListener;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
-import com.huacheng.huiservers.utils.OSUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.utils.UIUtils;
+import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import com.huacheng.huiservers.view.MyListView;
-import com.huacheng.huiservers.jpush.MyReceiver;
 
 import java.util.ArrayList;
 import java.util.List;

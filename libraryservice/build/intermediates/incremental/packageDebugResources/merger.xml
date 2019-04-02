@@ -343,7 +343,7 @@ function login(form){
         
         
         
-       <item name="colorPrimaryDark">@color/status_bar_color</item>
+       <item name="colorPrimaryDark">@color/white</item>
         
         <item name="android:windowBackground">@color/windowbackground</item>
     </style><style name="popUpwindow_anim">

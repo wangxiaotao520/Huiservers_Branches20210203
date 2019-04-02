@@ -28,8 +28,13 @@
         <include layout="@layout/no_data"></include>
 
     </RelativeLayout>
-
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/white"/>
     <RelativeLayout
+        android:layout_below="@id/status_bar"
         android:id="@+id/rel_menu_top"
         android:layout_width="match_parent"
         android:layout_height="45dp">

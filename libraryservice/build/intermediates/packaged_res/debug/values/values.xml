@@ -560,7 +560,7 @@ function login(form){
         <!-- Actionbar color -->
         <!--<item name="colorPrimary">@color/colorPrimary</item>-->
         <!--Status bar color-->
-       <item name="colorPrimaryDark">@color/status_bar_color</item>
+       <item name="colorPrimaryDark">@color/white</item>
         <!--Window color-->
         <item name="android:windowBackground">@color/windowbackground</item>
     </style>

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -82,6 +83,9 @@ public class HouserentDetailActivity extends BaseActivity {
     int HouseRentType;
     String url_detail, id;
     private HouseRentListAdapter houseRentListAdapter;
+    View headerView;
+    private int nHeight;
+    private int width1;
 
 
     @Override
@@ -90,14 +94,15 @@ public class HouserentDetailActivity extends BaseActivity {
 
         mStatusBar = findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
+        mStatusBar.setAlpha(0.6f);
         //添加list头布局
-        View view = LayoutInflater.from(this).inflate(R.layout.activity_houserentdetail_header, null);
-        mList.addHeaderView(view);
-        headerViewHolder = new HeaderViewHolder(view);
+        headerView = LayoutInflater.from(this).inflate(R.layout.activity_houserentdetail_header, null);
+        mList.addHeaderView(headerView);
+        headerViewHolder = new HeaderViewHolder(headerView);
 
         WindowManager wm1 = this.getWindowManager();
-        int width1 = wm1.getDefaultDisplay().getWidth();
-        int nHeight = (int) (width1 / 3 * 2);
+        width1 = wm1.getDefaultDisplay().getWidth();
+        nHeight = (int) (width1 / 3 * 2);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);
         headerViewHolder.mBanner1.setLayoutParams(layoutParams);
 
@@ -315,8 +320,35 @@ public class HouserentDetailActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-    }
+        mList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                scroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
+            }
+        });
+    }
+    private void scroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if (headerView != null) {
+            //设置其透明度
+            float alpha = 0;
+            //向上滑动的距离
+            int scollYHeight = -headerView.getTop();
+            if (scollYHeight >= nHeight ) {
+                alpha = 1;//滑上去就一直显示
+            } else {
+                alpha = scollYHeight / ((nHeight ) * 1.0f);
+            }
+            if (alpha < 0.6f) {
+                alpha = 0.6f;
+            }
+            mStatusBar.setAlpha(alpha);
+        }
+    }
     @Override
     protected int getLayoutId() {
         return R.layout.activity_houserentdetail_list;

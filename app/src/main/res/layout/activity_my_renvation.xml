@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:backgroundTint="#a3a3a3"
               android:clipToPadding="false"
-              android:fitsSystemWindows="true"
+             android:fitsSystemWindows="false"
               android:orientation="vertical">
 
     <include layout="@layout/titlebar_center"/>

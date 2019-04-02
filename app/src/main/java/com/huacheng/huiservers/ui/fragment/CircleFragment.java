@@ -12,15 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.protocol.CircleProtocol;
 import com.huacheng.huiservers.ui.base.BaseFragmentOld;
@@ -34,7 +35,7 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.PopupWindowUtil;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.libraryservice.utils.TDevice;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,6 +64,8 @@ public class CircleFragment extends BaseFragmentOld implements View.OnClickListe
 
     MyFragmentPagerAdapter pager;
 
+    View mStatusBar;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
@@ -71,13 +74,15 @@ public class CircleFragment extends BaseFragmentOld implements View.OnClickListe
 
     @Override
     protected void initView() {
-        //    SetTransStatus.GetStatus(getActivity());
-        MyCookieStore.CircleOwn_notify = 0;
         //
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         rel_editText = (RelativeLayout) findViewById(R.id.rel_editText);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        //状态栏
+        mStatusBar=findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
+        mStatusBar.setAlpha((float)1);
         initData();
     }
 

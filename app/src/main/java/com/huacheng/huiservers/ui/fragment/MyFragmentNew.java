@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,6 +36,7 @@ import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -66,6 +69,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
     SharedPreferences preferencesLogin;
     private String login_type;
     PersoninfoBean bean;
+    View mStatusBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,6 +105,10 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
         rel_xiaofejilu = view.findViewById(R.id.rel_xiaofejilu);
         ry_set = view.findViewById(R.id.ry_set);
         refreshLayout.setEnableLoadMore(false);
+        //状态栏
+        mStatusBar=view.findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
+        mStatusBar.setAlpha((float)1);
 
     }
 

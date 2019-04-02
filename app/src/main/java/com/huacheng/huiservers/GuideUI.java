@@ -36,7 +36,7 @@ public class GuideUI extends BaseActivity implements OnPageChangeListener {
 
     @Override
     protected void initView() {
-        isStatusBar = true;
+      //  isStatusBar = true;
         sharePrefrenceUtil = new SharePrefrenceUtil(this);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 

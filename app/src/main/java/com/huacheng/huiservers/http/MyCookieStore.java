@@ -29,7 +29,6 @@ public class MyCookieStore {
     public static int add_YZ = 0;//添加住宅成员返回刷新
     public static int Shop_notify = 0;//商城选择id
     public static int Circle_notify = 0;//圈子刷新
-    public static int CircleOwn_notify = 0;//圈子刷新0
     public static int My_notify = 0;//我的刷新
     public static int shopcar_notify = 0;//列表页每次加载的条数
 

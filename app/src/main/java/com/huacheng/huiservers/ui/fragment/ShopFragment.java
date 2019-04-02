@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelAds;
 import com.huacheng.huiservers.model.ModelShopNew;
@@ -47,9 +49,9 @@ import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.huiservers.view.widget.FunctionAdvertise;
 import com.huacheng.libraryservice.utils.DeviceUtils;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.widget.CustomScrollViewPager;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.lzy.widget.HeaderViewPager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -95,7 +97,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private LinearLayout ll_grid_cate;
     private float alpha;  //透明度 标志滑动到的位置状态
     private RelativeLayout rl_more_goods_title;
-
+    View mStatusBar;
     @Override
     public void initView(View view) {
         ly_top = view.findViewById(R.id.ly_top);
@@ -108,14 +110,19 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         refreshLayout.setEnableLoadMore(false);
         scrollableLayout = view.findViewById(R.id.scrollableLayout);
         //设置偏移量，只能在这里设置
-        scrollableLayout.setTopOffset(DeviceUtils.dip2px(mContext, 48));
+        scrollableLayout.setTopOffset(DeviceUtils.dip2px(mContext, 48)+TDevice.getStatuBarHeight(mActivity));
 
         prefrenceUtil = new SharePrefrenceUtil(mActivity);
 
         mTabLayout = view.findViewById(R.id.tl_tab);
         mViewPager = view.findViewById(R.id.vp_pager);
         ll_grid_cate = view.findViewById(R.id.ll_grid_cate);
-        ly_top.setAlpha((float)0.7);
+        ly_top.setAlpha((float)0.6);
+
+        //设置statusbar
+        mStatusBar=view.findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
+        mStatusBar.setAlpha((float)0.6);
 
     }
 
@@ -228,8 +235,10 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                 // 设置渐变到多少后不渐变
                 if (alpha < 0.6f) {
                     ly_top.setAlpha((float) 0.6f);
+                    mStatusBar.setAlpha(0.6f);
                 } else {
                     ly_top.setAlpha(alpha);
+                    mStatusBar.setAlpha(alpha);
                 }
 
                 //注意头部局的颜色也需要改变
@@ -240,9 +249,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 //请求完以后，刷新当前fragment
                 is_Refresh = true;
-                if (getLinshi()) {// 登陆之后获取数量
-                    getCartNum();
-                }
+
                 requestData();
 
             }
@@ -396,6 +403,9 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                         }
 
                     }
+                    if (getLinshi()) {// 登陆之后获取数量
+                        getCartNum();
+                    }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "");
                     XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
@@ -418,9 +428,6 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initData(Bundle savedInstanceState) {
         //请求数据
-        if (getLinshi()) {// 登陆之后获取数量
-            getCartNum();
-        }
 
         showDialog(smallDialog);
         requestData();

@@ -18,6 +18,7 @@ import com.huacheng.huiservers.dialog.SmallDialog;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.utils.ThreadManager;
 import com.huacheng.huiservers.utils.UIUtils;
+import com.huacheng.huiservers.utils.statusbar.StatusBarUtil;
 import com.huacheng.libraryservice.widget.SlidingLayout;
 import com.umeng.analytics.MobclickAgent;
 
@@ -47,6 +48,10 @@ public class BaseActivityOld extends AppCompatActivity {
     protected SmallDialog smallDialog;//等待对话框
 
     // SpotsDialog dialog;
+    /**
+     * 是否沉浸状态栏
+     **/
+    protected boolean isStatusBar = false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -59,6 +64,24 @@ public class BaseActivityOld extends AppCompatActivity {
         }else {
             setTheme(com.huacheng.libraryservice.R.style.AppCompatTheme_Base);
         }
+        StatusBarUtil.setRootViewFitsSystemWindows(this,false);
+        //设置状态栏透明
+     //   StatusBarUtil.setTranslucentStatus(this);
+        //设置状态栏的颜色
+
+        if (isStatusBar){
+            StatusBarUtil.setTranslucentStatus(this);
+            if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
+                StatusBarUtil.setStatusBarColor(this,0x55000000);
+            }
+        }else {
+            if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
+                //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+                //这样半透明+白=灰, 状态栏的文字能看得清
+                StatusBarUtil.setStatusBarColor(this,0x55000000);
+            }
+        }
+
         smallDialog=new SmallDialog(this);
         smallDialog.setCanceledOnTouchOutside(false);
         // dialog = new SpotsDialog(this);

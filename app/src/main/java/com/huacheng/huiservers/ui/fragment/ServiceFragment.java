@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.fragment;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,11 +32,13 @@ import com.huacheng.huiservers.ui.servicenew.ui.search.ServicexSearchActivity;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.SharePrefrenceUtil;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.json.JSONObject;
 
@@ -46,6 +49,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.functions.Consumer;
 
 /**
  * Description: 新版服务页面
@@ -75,8 +79,7 @@ public class ServiceFragment extends BaseFragment implements View.OnClickListene
     List<ModelItem> data = new ArrayList<>();
     int page = 2;
     int totalPage = 2;
-
-
+    View mStatusBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
@@ -108,6 +111,10 @@ public class ServiceFragment extends BaseFragment implements View.OnClickListene
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(false);
 
+        //设置statusbar
+        mStatusBar=view.findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
+        mStatusBar.setAlpha((float)0);
     }
 
     @Override
@@ -146,9 +153,11 @@ public class ServiceFragment extends BaseFragment implements View.OnClickListene
                 int position = layoutManager.findFirstVisibleItemPosition();
                 if (position > 0) {
                     relMenuTop.setBackgroundColor(getResources().getColor(R.color.white));
+                    mStatusBar.setAlpha(1);
 ////                    setAlpha(1);
                 } else {
                     relMenuTop.setBackgroundColor(getResources().getColor(R.color.transparents));
+                    mStatusBar.setAlpha(0);
                   /*  View firstView = layoutManager.findViewByPosition(position);
                     int top = firstView.getTop();
                     int height = relMenuTop.getHeight();
@@ -452,21 +461,25 @@ public class ServiceFragment extends BaseFragment implements View.OnClickListene
                 if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
                     startActivity(new Intent(mActivity, LoginVerifyCodeActivity.class));
                 } else {
-//                    !ActivityCompat.shouldShowRequestPermissionRationale(mActivity, Manifest.permission.CAMERA)
-//                   以下方法 判断是否开启相机无效 0928
-                   /* if (!PermissionUtils.checkPermissionGranted(mActivity, Manifest.permission.CAMERA)) {
-                        ActivityCompat.requestPermissions(mActivity,
-                                new String[]{Manifest.permission.CAMERA}, CAMERA_STATE_REQUEST_CODE);
-                    } else {
-                    }*/
 
-                    IntentIntegrator intentIntegrator = new IntentIntegrator(mActivity)
-                            .setOrientationLocked(false);
-                    intentIntegrator.setCaptureActivity(CustomCaptureActivity.class);
+                   new RxPermissions(mActivity).request( Manifest.permission.CAMERA)
+                .subscribe(new Consumer<Boolean>() {
+                        @Override
+                        public void accept(Boolean isGranted) throws Exception {
+                            if (isGranted) {
+                                IntentIntegrator intentIntegrator = new IntentIntegrator(mActivity)
+                                        .setOrientationLocked(false);
+                                intentIntegrator.setCaptureActivity(CustomCaptureActivity.class);
                         /*intentIntegrator.setPrompt("将服务师傅的二维码放入框内\n" +
                             "即可扫描付款");*/
-                    // 设置自定义的activity是ScanActivity
-                    intentIntegrator.initiateScan(); // 初始化扫描
+                                // 设置自定义的activity是ScanActivity
+                                intentIntegrator.initiateScan(); // 初始化扫描
+                            } else {
+
+                            }
+                        }
+                    });;
+
                 }
                 break;
             case R.id.lin_s_search:

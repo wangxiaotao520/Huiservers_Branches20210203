@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -66,6 +67,7 @@ import com.huacheng.huiservers.view.widget.FunctionAdvertise;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.widget.GridViewNoScroll;
@@ -143,7 +145,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private View view_alpha;
     PropertyPrester mPrester;
 
-
+    View mStatusBar;
     @Override
     public void initView(View view) {
         mPrester = new PropertyPrester(mActivity, this);
@@ -159,15 +161,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         view_alpha.setAlpha(0.6f);
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setEnableRefresh(true);
-        //    recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        //    adapter = new HomeRecyclerAdapter<ModelHomeItem>(mContext, modelHome, mDatas);
-        //    initHeader();
-        //      initLoadMoreFooter();
-        //      recyclerView.setAdapter(mLoadMoreWrapper);
+
         initHeaderView();
         adapter = new HomeListViewAdapter(mActivity, R.layout.shop_list_item, mDatas, this);
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
+        //设置statusbar
+        mStatusBar=view.findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
+        mStatusBar.setAlpha(0.6f);
     }
 
     /**
@@ -270,7 +272,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
-                view_alpha.setAlpha(0);
+              //  view_alpha.setAlpha(0);
+            //    mStatusBar.setAlpha(0);
                 requestData();
             }
         });
@@ -318,6 +321,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 alpha = 0.6f;
             }
             view_alpha.setAlpha(alpha);
+            mStatusBar.setAlpha(alpha);
         }
     }
 

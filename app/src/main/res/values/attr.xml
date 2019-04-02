@@ -194,4 +194,11 @@
             <flag name="bottom" value="0x1000"/>
         </attr>
     </declare-styleable>
+    <declare-styleable name="StatusBarHeightView">
+        <attr name="use_type" format="integer">
+            <enum name="use_height" value="0" />
+            <enum name="use_padding_top" value="1" />
+        </attr>
+    </declare-styleable>
+
 </resources>

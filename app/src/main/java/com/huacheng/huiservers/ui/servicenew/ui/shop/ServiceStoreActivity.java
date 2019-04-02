@@ -1,17 +1,13 @@
 package com.huacheng.huiservers.ui.servicenew.ui.shop;
 
-import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,6 +26,7 @@ import com.huacheng.huiservers.ui.servicenew.model.CategoryBean;
 import com.huacheng.huiservers.ui.servicenew.model.ModelStore;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
 import com.huacheng.huiservers.utils.XToast;
+import com.huacheng.huiservers.utils.statusbar.SystemBarTintManager;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.TDevice;
@@ -85,27 +82,12 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-        }
-        tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(android.R.color.transparent);  //设置上方状态栏透明
+
+        isStatusBar=true;
         super.onCreate(savedInstanceState);
     }
 
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
+
     @Override
     protected void initView() {
         rl_head = findViewById(R.id.rl_head);

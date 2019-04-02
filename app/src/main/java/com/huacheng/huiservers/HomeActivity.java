@@ -38,12 +38,10 @@ import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.ToastUtils;
-import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.microquation.linkedme.android.LinkedME;
 
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -59,20 +57,16 @@ import static com.huacheng.huiservers.Jump.PHONE_STATE_REQUEST_CODE;
  * 主页Activity
  */
 public class HomeActivity extends BaseActivityOld implements OnCheckedChangeListener {
-    DefaultHttpClient dh;// session相关
     private String login_type;
     private SharedPreferences preferencesLogin;
-    HttpUtils utils = new HttpUtils();// xUtils网络框架
     public static HomeActivity instant;
     @ViewInject(R.id.rg_content_fragment)
     public static RadioGroup mRadioGroup;// 下面的radioGroup
     private ArrayList<Fragment> fragments;
 
-    public long times = 0;// 存储当前时间
-    int finishs = 0;// 点击返回的次数， 与times配合使用 点击两次并且时间间隔�?s之内就�?出应�?
     private int current_fragment=0;
     private RadioButton[] rb;
-
+    View mStatusBar;
     /**
      * 点击切换fragment
      *
@@ -106,6 +100,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
         fragmentTransaction.commit();
 
     }
+
 
     /**
      * 创建fragment实例并把他们加入集合
@@ -172,7 +167,9 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         //    requestWindowFeature(Window.FEATURE_NO_TITLE);// 去标�?
+        isStatusBar=true;
         super.onCreate(savedInstanceState);
+        //设置状态栏字体
         instant = this;
         //SetTransStatus.GetStatus(this);
         View view = View.inflate(this, R.layout.activity_home, null);

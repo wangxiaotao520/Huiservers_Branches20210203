@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.utils.StatusBarUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
@@ -39,7 +38,6 @@ public class CustomCaptureActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         isStatusBar = true;
-        StatusBarUtil.setTransparent(this);
         super.onCreate(savedInstanceState);
 
         mCaptureManager = new CustomCaptureManager(this, mBarcodeView);

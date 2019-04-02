@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+   android:fitsSystemWindows="false"
     android:background="@color/windowbackground"
     android:orientation="vertical">
 
@@ -306,7 +307,7 @@
             android:id="@+id/status_bar"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@color/status_bar_color"/>
+            android:background="@color/white"/>
 
         <LinearLayout
             android:id="@+id/title_rel"

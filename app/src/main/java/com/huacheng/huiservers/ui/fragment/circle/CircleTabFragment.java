@@ -16,13 +16,13 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.WaitDIalog;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.CommonProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
 import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
-import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.fragment.adapter.CircleAdapter;
 import com.huacheng.huiservers.ui.fragment.listener.EndlessRecyclerOnScrollListener;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
@@ -33,7 +33,6 @@ import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -99,7 +98,6 @@ public class CircleTabFragment extends BaseFragmentOld {
 
     @Override
     protected void initView() {
-        MyCookieStore.CircleOwn_notify = 0;
         lin_circle5 = (LinearLayout) findViewById(R.id.lin_circle5);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
@@ -331,7 +329,6 @@ public class CircleTabFragment extends BaseFragmentOld {
                 hideDialog(smallDialog);
                 String result = new CommonProtocol().getResult(json);
                 if (result.equals("1")) {
-                    MyCookieStore.CircleOwn_notify = 1;
                     //    onResume();
                     //删除
                     BannerBean bannerBean_del = null;

@@ -1,20 +1,4 @@
-/*
- * Copyright (C) 2013 readyState Software Ltd
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package com.huacheng.huiservers.ui.servicenew.ui.shop;
+package com.huacheng.huiservers.utils.statusbar;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -34,13 +18,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout.LayoutParams;
-
 import java.lang.reflect.Method;
 
-/**
- * Class to manage status and navigation bar tint effects when using KitKat
- * translucent system UI modes.
- */
 public class SystemBarTintManager {
 
     static {
@@ -58,6 +37,7 @@ public class SystemBarTintManager {
             }
         }
     }
+
 
     /**
      * The default system bar tint color value.
@@ -81,6 +61,7 @@ public class SystemBarTintManager {
      *
      * @param activity The host activity.
      */
+    @SuppressLint("ResourceType")
     @TargetApi(19)
     public SystemBarTintManager(Activity activity) {
 
@@ -89,7 +70,8 @@ public class SystemBarTintManager {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // check theme attrs
-            int[] attrs = {android.R.attr.windowTranslucentStatus, android.R.attr.windowTranslucentNavigation};
+            int[] attrs = {android.R.attr.windowTranslucentStatus,
+                    android.R.attr.windowTranslucentNavigation};
             TypedArray a = activity.obtainStyledAttributes(attrs);
             try {
                 mStatusBarAvailable = a.getBoolean(0, false);
@@ -97,7 +79,6 @@ public class SystemBarTintManager {
             } finally {
                 a.recycle();
             }
-
             // check window flags
             WindowManager.LayoutParams winParams = win.getAttributes();
             int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
@@ -127,6 +108,7 @@ public class SystemBarTintManager {
 
     /**
      * Enable tinting of the system status bar.
+     *
      * If the platform is running Jelly Bean or earlier, or translucent system
      * UI modes have not been enabled in either the theme or via window flags,
      * then this method does nothing.
@@ -142,6 +124,7 @@ public class SystemBarTintManager {
 
     /**
      * Enable tinting of the system navigation bar.
+     *
      * If the platform does not have soft navigation keys, is running Jelly Bean
      * or earlier, or translucent system UI modes have not been enabled in either
      * the theme or via window flags, then this method does nothing.
@@ -331,7 +314,7 @@ public class SystemBarTintManager {
         mNavBarTintView = new View(context);
         LayoutParams params;
         if (mConfig.isNavigationAtBottom()) {
-            params = new LayoutParams(LayoutParams.MATCH_PARENT, mConfig.getNavigationBarHeight());
+            params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mConfig.getNavigationBarHeight());
             params.gravity = Gravity.BOTTOM;
         } else {
             params = new LayoutParams(mConfig.getNavigationBarWidth(), LayoutParams.MATCH_PARENT);
@@ -346,6 +329,7 @@ public class SystemBarTintManager {
     /**
      * Class which describes system bar sizing and other characteristics for the current
      * device configuration.
+     *
      */
     public static class SystemBarConfig {
 
@@ -452,7 +436,7 @@ public class SystemBarTintManager {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 activity.getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
             } else {
-                //  this is not correct, but we don't really care pre-kitkat
+                // TODO this is not correct, but we don't really care pre-kitkat
                 activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
             }
             float widthDp = metrics.widthPixels / metrics.density;

@@ -5,7 +5,7 @@
               android:layout_height="match_parent"
               android:background="@color/all_gray"
               android:clipToPadding="false"
-              android:fitsSystemWindows="true"
+             android:fitsSystemWindows="false"
               android:orientation="vertical">
     <View
         android:layout_width="match_parent"

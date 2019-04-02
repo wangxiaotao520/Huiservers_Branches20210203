@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp">
@@ -300,19 +300,23 @@
 
 
         </com.lzy.widget.HeaderViewPager>
-
+        <View
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/white"/>
         <LinearLayout
+            android:layout_below="@id/status_bar"
             android:id="@+id/ly_top"
             android:layout_width="fill_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:background="#ffffff"
             android:elevation="1dp"
             android:orientation="horizontal">
-
             <LinearLayout
                 android:id="@+id/lin_cate"
                 android:layout_width="0dp"
-                android:layout_height="fill_parent"
+                android:layout_height="48dp"
                 android:layout_weight="1.5"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -408,6 +412,6 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
+    </RelativeLayout>
 
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>
