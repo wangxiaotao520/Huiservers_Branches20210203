@@ -9,19 +9,19 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
 import com.huacheng.huiservers.ui.shop.bean.CardPayBean;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.umeng.socialize.sina.helper.MD5;
 
 import org.json.JSONException;
@@ -89,7 +89,7 @@ public class CardPayActivity extends BaseActivityOld implements View.OnClickList
                 break;
             case R.id.txt_getcode:
                 if (et_cardno.getText().toString().equals("")) {
-                    XToast.makeText(this, "请输入卡号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入卡号");
                 } else {
                     // 获取当前网络时间戳//耗时操作 需放在子线程中
                     new Thread(new Runnable() {
@@ -124,12 +124,12 @@ public class CardPayActivity extends BaseActivityOld implements View.OnClickList
                 break;
             case R.id.txt_enter_pay:
                 if (et_cardno.getText().toString().equals("")) {
-                    XToast.makeText(this, "请输入卡号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入卡号");
                 } else if (et_getcode.getText().toString().equals("")) {
-                    XToast.makeText(this, "请输入验证码", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入验证码");
                 } else {
                     getPayInfo();
-//                    XToast.makeText(this, "Stop", XToast.LENGTH_SHORT);
+
                 }
                 break;
 
@@ -205,13 +205,13 @@ public class CardPayActivity extends BaseActivityOld implements View.OnClickList
                     String jsonmsg = jsonObject.getString("msg");
                     CardPayBean payBean = protocol2.getHCCard(json);
                     if (payBean != null) {
-                        XToast.makeText(CardPayActivity.this, jsonmsg, XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(jsonmsg);
                         key = payBean.getKey();
                         msg = new Message();
                         msg.what = 1;
                         handler.sendMessage(msg);
                     } else {
-                        XToast.makeText(CardPayActivity.this, jsonmsg, XToast.LENGTH_SHORT).show();//"获取验证码失败"
+                        SmartToast.showInfo(jsonmsg); //"获取验证码失败"
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -221,7 +221,7 @@ public class CardPayActivity extends BaseActivityOld implements View.OnClickList
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 
@@ -255,7 +255,7 @@ public class CardPayActivity extends BaseActivityOld implements View.OnClickList
                         finish();
 
                     } else {
-                        XToast.makeText(CardPayActivity.this, msg, XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(msg);
                     }
                 } catch (Exception e) {
                     LogUtils.e(e);
@@ -265,7 +265,7 @@ public class CardPayActivity extends BaseActivityOld implements View.OnClickList
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

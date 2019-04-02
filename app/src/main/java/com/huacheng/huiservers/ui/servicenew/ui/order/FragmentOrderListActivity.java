@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -16,7 +17,6 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -134,7 +134,7 @@ public class FragmentOrderListActivity extends BaseActivity {
                     getcate();
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    XToast.makeText(FragmentOrderListActivity.this, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -142,7 +142,7 @@ public class FragmentOrderListActivity extends BaseActivity {
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(FragmentOrderListActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
 
             }
         });

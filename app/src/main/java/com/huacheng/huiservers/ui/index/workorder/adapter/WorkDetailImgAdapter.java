@@ -9,12 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelWorkDetail;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -59,7 +59,7 @@ public class WorkDetailImgAdapter extends CommonAdapter<ModelWorkDetail.Send_Dis
                                         + item.getPhone()));
                                 mContext. startActivity(intent);
                             }else {
-                                ToastUtils.showShort(mContext,"该员工未录入手机号");
+                                SmartToast.showInfo("该员工未录入手机号");
                             }
                             dialog.dismiss();
                         }

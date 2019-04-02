@@ -14,14 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.WuYeProtocol;
-import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.protocol.WuYeProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +111,7 @@ public class ChooseBudlingActivity extends BaseActivityOld implements OnClickLis
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
 
             }
         };

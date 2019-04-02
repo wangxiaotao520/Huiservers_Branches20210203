@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.example.xlhratingbar_lib.XLHRatingBar;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
@@ -23,9 +24,7 @@ import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.ImgAdapter;
 import com.huacheng.huiservers.ui.index.workorder.adapter.WorkDetailImgAdapter;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.widget.GridViewNoScroll;
 
@@ -171,14 +170,14 @@ public class WorkOrderDetailActivity extends BaseActivity {
                    inflateContent(info);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "");
-                    XToast.makeText(WorkOrderDetailActivity.this, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(WorkOrderDetailActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -488,7 +487,7 @@ public class WorkOrderDetailActivity extends BaseActivity {
                 String msg = "";
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求成功");
-                    ToastUtils.showShort(WorkOrderDetailActivity.this,msg);
+                    SmartToast.showInfo(msg);
                     EventBusWorkOrderModel model = new EventBusWorkOrderModel();
                     model.setEvent_type(0);
                     model.setWo_id(work_id);
@@ -503,12 +502,12 @@ public class WorkOrderDetailActivity extends BaseActivity {
                 } else {
                     msg = JsonUtil.getInstance().getMsgFromResponse(response, "数据获取失败");
                 }
-                XToast.makeText(WorkOrderDetailActivity.this, msg, XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo(msg);
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                XToast.makeText(WorkOrderDetailActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
 
         });

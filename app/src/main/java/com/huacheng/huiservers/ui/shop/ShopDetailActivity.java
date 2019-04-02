@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.AddShopDialog;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -544,7 +545,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -818,14 +819,14 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
 
                 } else if (login_type.equals("1")) {
                     if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
-                        XToast.makeText(this, "当前时间不在派送时间范围内", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("当前时间不在派送时间范围内");
                     } else {
 
                         getTag("1");
                     }
 
                 } else {
-                    XToast.makeText(this, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("当前账号不是个人账号");
                 }
                 break;
             case R.id.lin_left:// 返回
@@ -843,7 +844,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                     intent = new Intent(this, ShopCartActivityTwo.class);
                     startActivity(intent);
                 } else {
-                    XToast.makeText(this, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("当前账号不是个人账号");
                 }
                 break;
             case R.id.lin_add_ss:// 加入购物车
@@ -856,13 +857,13 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                     editor.commit();
                 }else if (login_type.equals("1")) {
                     if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
-                        XToast.makeText(this, "当前时间不在派送时间范围内", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("当前时间不在派送时间范围内");
                     } else {
                         getTag("2");
                     }
 
                 } else {
-                    XToast.makeText(this, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("当前账号不是个人账号");
                 }
                 break;
             case R.id.rel_pingjia:// 查看全部评价、
@@ -897,21 +898,21 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
 				dialog.show();*/
                     if (!TextUtils.isEmpty(txt_time_type)) {
                         if (txt_time_type.equals("距开始")) {
-                            XToast.makeText(this, "活动即将开始", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("活动即将开始");
 
                         } else if (txt_time_type.equals("已结束")) {
-                            XToast.makeText(this, "活动已结束", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("活动已结束");
 
                         } else {
                             if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
-                                XToast.makeText(this, "当前时间不在派送时间范围内", XToast.LENGTH_SHORT).show();
+                                SmartToast.showInfo("当前时间不在派送时间范围内");
                             } else {
                                 getTag("2");
                             }
                         }
                     } else {
                         if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
-                            XToast.makeText(this, "当前时间不在派送时间范围内", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("当前时间不在派送时间范围内");
                         } else {
 
                             getTag("2");
@@ -927,7 +928,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                     editor.putString("login_shop", "shop_login");
                     editor.commit();
                 } else {
-                    XToast.makeText(this, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("当前账号不是个人账号");
                 }
                 break;
             case R.id.ly_share://分享
@@ -954,7 +955,6 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                             showSharePop(share_title, share_desc, share_icon, share_url_new);
                         } else {
                             //可以看报错
-                           // XToast.makeText(ShopDetailActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                             String share_url_new = share_url + "?linkedme=" + "";
                             showSharePop(share_title, share_desc, share_icon, share_url_new);
                         }
@@ -1014,7 +1014,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -1040,7 +1040,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 

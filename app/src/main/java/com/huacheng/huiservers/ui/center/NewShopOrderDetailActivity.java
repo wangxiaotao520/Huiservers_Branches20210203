@@ -14,24 +14,22 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
 import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.shop.NewPingJiaActivity;
 import com.huacheng.huiservers.ui.shop.NewTuikuanActivity;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyListView;
-import com.huacheng.libraryservice.utils.ToastUtils;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -132,7 +130,7 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
             case R.id.txt_pay://支付
                 for (int i = 0; i < XorderDetailBean.size(); i++) {
                     if (XorderDetailBean.get(i).getIs_shop().equals("1")) {
-                        XToast.makeText(NewShopOrderDetailActivity.this, "该订单含有已下架商品，请重新下单", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("该订单含有已下架商品，请重新下单");
                     } else {
                         MyCookieStore.item_delete_id = item_id;
                         intent = new Intent(NewShopOrderDetailActivity.this, ZhifuActivity.class);
@@ -249,7 +247,7 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 
@@ -269,7 +267,7 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
                 hideDialog(smallDialog);
                 shopstr = mShopProtocol.setShop(json);
                 if (shopstr.equals("1")) {
-                    ToastUtils.showShort(NewShopOrderDetailActivity.this,"删除成功");
+                    SmartToast.showInfo("删除成功");
                     XorderDetailBean XorderDetail = new XorderDetailBean();
                     XorderDetail.setId(order_id);
                     XorderDetail.setBack_type(1);
@@ -278,14 +276,15 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
 
                     finish();
                 } else {
-                    XToast.makeText(context, shopstr, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(shopstr);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
+
             }
         };
     }
@@ -631,7 +630,7 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
                                 //XorderDetailBean.remove(pos);
 
                             }
-                            XToast.makeText(context, "删除成功", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("删除成功");
                         } else {
                             finish();
                             // MyCookieStore.Sh_notify = 1;
@@ -640,18 +639,18 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
                             XorderDetail1.setBack_type(3);//收货
                             EventBus.getDefault().post(XorderDetail1);
                             // notifyDataSetChanged();
-                            XToast.makeText(context, "确认收货成功", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("确认收货成功");
                         }
 
                     } else {
-                        XToast.makeText(context, shopstr, XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(shopstr);
                     }
                 }
 
                 @Override
                 protected void requestFailure(Exception error, String msg) {
                     hideDialog(smallDialog);
-                    UIUtils.showToastSafe("网络异常，请检查网络设置");
+                    SmartToast.showInfo("网络异常，请检查网络设置");
                 }
             };
         }

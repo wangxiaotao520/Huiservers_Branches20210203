@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.ajb.call.service.KeepAliveService;
 import com.ajb.call.utlis.CommonUtils;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
@@ -29,11 +30,9 @@ import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-
+import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -207,7 +206,7 @@ public class MyReceiver extends BroadcastReceiver {
                             setBadgeOfHuaWei(context, Integer.parseInt(num));
                         }
                     } else {
-                        XToast.makeText(context, "类型异常", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("类型异常");
                     }
                 } else {
 

@@ -10,21 +10,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * 意见反馈
- *
  */
 
 public class YiJianActivity extends BaseActivityOld implements View.OnClickListener {
@@ -38,7 +35,7 @@ public class YiJianActivity extends BaseActivityOld implements View.OnClickListe
     protected void init() {
         super.init();
         setContentView(R.layout.activity_yijian);
-  //      SetTransStatus.GetStatus(this);
+        //      SetTransStatus.GetStatus(this);
 
         lin_left = (LinearLayout) findViewById(R.id.lin_left);
         rel_ti = (RelativeLayout) findViewById(R.id.rel_ti);
@@ -60,7 +57,7 @@ public class YiJianActivity extends BaseActivityOld implements View.OnClickListe
                 break;
             case R.id.rel_ti:
                 if (TextUtils.isEmpty(editText.getText().toString().trim())) {
-                    XToast.makeText(this, "请填写内容", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请填写内容");
                 } else {
                     getResult();
                 }
@@ -87,11 +84,10 @@ public class YiJianActivity extends BaseActivityOld implements View.OnClickListe
                     jsonObject = new JSONObject(json);
                     String status = jsonObject.getString("status");
                     if (status.equals("1")) {
-                      //  XToast.makeText(YiJianActivity.this, "提交成功", XToast.LENGTH_SHORT).show();
-                        ToastUtils.showShort(YiJianActivity.this,"提交成功");
+                        SmartToast.showInfo("提交成功");
                         finish();
                     } else {
-                        XToast.makeText(YiJianActivity.this, jsonObject.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(jsonObject.getString("msg"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -101,7 +97,7 @@ public class YiJianActivity extends BaseActivityOld implements View.OnClickListe
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

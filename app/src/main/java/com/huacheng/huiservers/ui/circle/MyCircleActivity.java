@@ -12,25 +12,24 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.http.okhttp.MyOkHttp;
-import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.protocol.CommonProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
 import com.huacheng.huiservers.ui.fragment.adapter.CircleAdapter;
 import com.huacheng.huiservers.ui.fragment.listener.EndlessRecyclerOnScrollListener;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -216,7 +215,7 @@ public class MyCircleActivity extends BaseActivityOld {
                 if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false);
                 }
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -264,15 +263,14 @@ public class MyCircleActivity extends BaseActivityOld {
                     }
 
                 } else {
-
-                    XToast.makeText(MyCircleActivity.this, "删除失败", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("删除失败");
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

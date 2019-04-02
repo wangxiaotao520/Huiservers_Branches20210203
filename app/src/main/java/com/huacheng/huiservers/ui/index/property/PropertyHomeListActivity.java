@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -17,7 +18,6 @@ import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
 import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -113,14 +113,14 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                         getWuyeInfo();
                     }
                 } else {
-                    XToast.makeText(PropertyHomeListActivity.this, "获取失败", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("获取失败");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(PropertyHomeListActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -162,12 +162,12 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                     break;
                 }
                 if (propertyInfo.getIs_property() == 1) {
-                    XToast.makeText(PropertyHomeListActivity.this, propertyInfo.getIs_property_cn(), XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(propertyInfo.getIs_property_cn());
                     break;
                 }
                 if (propertyInfo.getWuye() != null) {
                     if (selected_price_list.size() == 0 || total_wuye_price == 0) {
-                        XToast.makeText(this, "请先选择缴费项", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("请先选择缴费项");
                         break;
                     }
                     Intent intent = new Intent(PropertyHomeListActivity.this, PropertyFrimOrderActivity.class);
@@ -175,7 +175,7 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                     intent.putExtra("bill_id", sb_bill_ids.toString());
                     startActivity(intent);
                 } else {
-                    XToast.makeText(PropertyHomeListActivity.this, "费用已缴清", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("费用已缴清");
                 }
 
 

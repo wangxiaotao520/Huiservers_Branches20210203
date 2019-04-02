@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.example.xlhratingbar_lib.XLHRatingBar;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -13,7 +14,6 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -132,13 +132,13 @@ public class WorkEvaluateActivity extends BaseActivity {
                     finish();
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    ToastUtils.showShort(mContext.getApplicationContext(), msg);
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                ToastUtils.showShort(mContext.getApplicationContext(), "网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -152,7 +152,7 @@ public class WorkEvaluateActivity extends BaseActivity {
     private boolean valid() {
         content = etContent.getText().toString();
         if (StringUtils.isEmpty(content)) {
-            ToastUtils.showShort(this, "请输入评价");
+            SmartToast.showInfo("请输入评价");
             return false;
         }
         return true;

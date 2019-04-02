@@ -17,9 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.WaitDIalog;
@@ -27,21 +26,21 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.CircleProtocol;
 import com.huacheng.huiservers.model.protocol.CommonProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.circle.adapter.CircleDetailListAdapter;
 import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.lidroid.xutils.BitmapUtils;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -322,7 +321,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -354,14 +353,14 @@ public class CircleDetailsActivity extends BaseActivityOld {
                     mCirclebean.setType(1);
                     EventBus.getDefault().post(mCirclebean);
                 } else {
-                    XToast.makeText(CircleDetailsActivity.this, "删除失败", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("删除失败");
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -386,7 +385,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                     if (StringUtils.isEquals(status, "1")) {
                         WaitDIalog.closeDialog(WaitDialog);
 //                        MyCookieStore.Circle_refresh = 1;
-                        XToast.makeText(context, "评论成功", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("评论成功");
                         mLinImg.removeAllViews();
                         SCROLLtag = "1";
                         getdata();
@@ -396,7 +395,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                         EventBus.getDefault().post(mCirclebean);
                     } else {
                         WaitDIalog.closeDialog(WaitDialog);
-                        XToast.makeText(CircleDetailsActivity.this, jsonObject.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(jsonObject.getString("msg"));
                     }
                 } catch (Exception e) {
                     LogUtils.e(e);
@@ -406,7 +405,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -461,7 +460,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                 } else {
 
                     if (TextUtils.isEmpty(mEtInput.getText().toString().trim())) {
-                        XToast.makeText(CircleDetailsActivity.this, "请输入您要说的话", Toast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("请输入您要说的话");
                     } else {
 
                         String str_count = Base64.encodeToString(getStringNoBlank(mEtInput.getText().toString().trim()).getBytes(), Base64.DEFAULT);

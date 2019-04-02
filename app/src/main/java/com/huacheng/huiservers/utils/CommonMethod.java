@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.dialog.SmallDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
@@ -81,7 +82,7 @@ public class CommonMethod {
                             if (smallDialog!=null){
                                 smallDialog.dismiss();
                             }
-                            XToast.makeText(context, "商品已售罄", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("商品已售罄");
                         } else {
 
                             getAddShop(mShopIndexBean);
@@ -92,7 +93,7 @@ public class CommonMethod {
                             smallDialog.dismiss();
                         }
                         String msg = obj.getString("msg");
-                        XToast.makeText(context, msg+"", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(msg+"");
                     }
                 } catch (JSONException e) {
                     if (smallDialog!=null){
@@ -107,8 +108,7 @@ public class CommonMethod {
                 if (smallDialog!=null){
                     smallDialog.dismiss();
                 }
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
-
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 
@@ -135,12 +135,12 @@ public class CommonMethod {
                 LogJson.d(json);
                 str = new CommonProtocol().getResult(json);
                 if (str.equals("1")) {
-                    XToast.makeText(context, "加入购物车成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("加入购物车成功");
                     if (tv != null) {
                         getCartNum();
                     }
                 } else {
-                    XToast.makeText(context, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
 
                 }
             }
@@ -150,7 +150,7 @@ public class CommonMethod {
                 if (smallDialog!=null){
                     smallDialog.dismiss();
                 }
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
 
             }
         };
@@ -177,7 +177,7 @@ public class CommonMethod {
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

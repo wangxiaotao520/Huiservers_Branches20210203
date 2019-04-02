@@ -11,13 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.libraryservice.utils.StringUtils;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -301,67 +301,67 @@ public class RentSellReleaseActivity extends BaseActivity {
         sellUnitPrice = etReleSellUnitPrice.getText().toString();
         sellPrice = etReleSellPrice.getText().toString();
         if (StringUtils.isEmpty(contact)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入联系人姓名");
+            SmartToast.showInfo("请输入联系人姓名");
             return false;
         }
         if (StringUtils.isEmpty(phoneNum)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入手机号");
+            SmartToast.showInfo("请输入手机号");
             return false;
         }
         if (!ToolUtils.isMobileNO(phoneNum)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入正确的手机号");
+            SmartToast.showInfo("请输入正确的手机号");
             return false;
         }
         if (StringUtils.isEmpty(communityName)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入小区名字");
+            SmartToast.showInfo("请输入小区名字");
             return false;
         }
 
         //室、厅、厨、卫
         if (StringUtils.isEmpty(strRoom)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入室");
+            SmartToast.showInfo("请输入室");
             return false;
         }
         if (StringUtils.isEmpty(strHall)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入厅");
+            SmartToast.showInfo("请输入厅");
             return false;
         }
         if (StringUtils.isEmpty(strKitChen)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入厨");
+            SmartToast.showInfo("请输入厨");
             return false;
         }
         if (StringUtils.isEmpty(strGrard)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入卫");
+            SmartToast.showInfo("请输入卫");
             return false;
         }
 
 
         if (StringUtils.isEmpty(floor)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入楼层");
+            SmartToast.showInfo("请输入楼层");
             return false;
         }
         if (StringUtils.isEmpty(floor_total)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入总楼层");
+            SmartToast.showInfo("请输入总楼层");
             return false;
         }
 
         if (StringUtils.isEmpty(area)) {
-            ToastUtils.showShort(this.getApplicationContext(), "请输入房屋面积");
+            SmartToast.showInfo("请输入房屋面积");
             return false;
         }
 
         if (type == 1) {
             if (StringUtils.isEmpty(rentPrice)) {
-                ToastUtils.showShort(this.getApplicationContext(), "请输入租金");
+                SmartToast.showInfo("请输入租金");
                 return false;
             }
         } else {
             if (StringUtils.isEmpty(sellUnitPrice)) {
-                ToastUtils.showShort(this.getApplicationContext(), "请输入出售单价");
+                SmartToast.showInfo("请输入出售单价");
                 return false;
             }
             if (StringUtils.isEmpty(sellPrice)) {
-                ToastUtils.showShort(this.getApplicationContext(), "自动计算售价异常");
+                SmartToast.showInfo("自动计算售价异常");
                 return false;
             }
 
@@ -428,14 +428,14 @@ public class RentSellReleaseActivity extends BaseActivity {
                     finish();
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    ToastUtils.showShort(mContext.getApplicationContext(), msg);
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                ToastUtils.showShort(mContext.getApplicationContext(), "网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 

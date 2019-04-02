@@ -1,9 +1,9 @@
 package com.huacheng.huiservers.model.protocol;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
 
 import org.json.JSONObject;
 public class LoginProtocol {
@@ -18,7 +18,8 @@ public class LoginProtocol {
 			String msg = jsonObject.getString("msg");
 			if (data.equals("")) {
 				loginbean.setUid(null);
-				UIUtils.showToastSafe(msg);	
+				SmartToast.showInfo(msg);
+
 			}else {
 				if (StringUtils.isEquals(status, "1")) {
 					System.out.println("000000000");
@@ -33,7 +34,7 @@ public class LoginProtocol {
 					loginbean.setCommunity_id(obj.getString("community_id"));
 				}else if(StringUtils.isEquals(msg, "0")) {
 					System.out.println("----"+msg);
-					UIUtils.showToastSafe(msg);	
+					SmartToast.showInfo(msg);
 				}
 			}
 			

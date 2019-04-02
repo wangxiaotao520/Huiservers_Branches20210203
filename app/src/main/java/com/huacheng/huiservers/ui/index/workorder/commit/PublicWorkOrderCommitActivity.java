@@ -2,12 +2,12 @@ package com.huacheng.huiservers.ui.index.workorder.commit;
 
 import android.view.View;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.dialog.AddPublicRepairTagDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelCommonCat;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -75,14 +75,14 @@ public class PublicWorkOrderCommitActivity  extends BaseWorkOrderCommitActivity 
                     tagDialog.show();
                 }else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    ToastUtils.showShort(PublicWorkOrderCommitActivity.this, msg);
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                ToastUtils.showShort(PublicWorkOrderCommitActivity.this, "网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

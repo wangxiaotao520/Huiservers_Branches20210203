@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -35,6 +34,7 @@ import com.amap.api.location.AMapLocationQualityReport;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.gson.Gson;
 import com.huacheng.huiservers.dialog.CustomServiceDialog;
 import com.huacheng.huiservers.dialog.IsChooseXiaoquDialog;
@@ -57,14 +57,12 @@ import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.TextPinyinUtil;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.ClearEditText;
 import com.huacheng.huiservers.view.Cn2Spell;
 import com.huacheng.huiservers.view.PinyinComparator;
 import com.huacheng.huiservers.view.SideBar;
 import com.huacheng.huiservers.view.SideBar.OnTouchingLetterChangedListener;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -125,7 +123,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                     break;
                 case MSG_LOAD_FAILED:
                     hideDialog(smallDialog);
-                    Toast.makeText(XiaoquActivity.this, "解析失败", Toast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("解析失败");
                     break;
                 default:
                     break;
@@ -250,7 +248,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(XiaoquActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -290,7 +288,8 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                                 });
                             }
                         } else {
-                            XToast.makeText(XiaoquActivity.this, "暂无该小区", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("暂无该小区");
+
                         }
                     }
                 }
@@ -299,7 +298,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(XiaoquActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -375,9 +374,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                     text_city.setText(jsonBean.get(options1).getS_list().get(option2).getRegion_name() + "  " +
                             jsonBean.get(options1).getS_list().get(option2).getSs_list().get(options3).getRegion_name());
                     getloactionCommunity(jsonBean.get(options1).getS_list().get(option2).getSs_list().get(options3).getRegion_id() + "", 2);
-//                    XToast.makeText(XiaoquActivity.this, "" + jsonBean.get(options1).getRegion_name() +
-//                            jsonBean.get(options1).getS_list().get(option2).getRegion_name() +
-//                            jsonBean.get(options1).getS_list().get(option2).getSs_list().get(options3).getRegion_name(), Toast.LENGTH_SHORT).show();
+
                 }
             }
         }).setSubmitColor(this.getResources().getColor(R.color.orange))//确定按钮文字颜色
@@ -571,7 +568,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                     }
                 }else if (status==-1){
                     //网络错误
-                    ToastUtils.showShort(XiaoquActivity.this.getApplicationContext(),"网络错误，请检查网络设置");
+                    SmartToast.showInfo("网络错误，请检查网络设置");
                 }
             }
         });
@@ -909,7 +906,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                 startLocation();
             } else {
                 // Permission Denied
-                Toast.makeText(this, "不能打开定位", Toast.LENGTH_SHORT).show();
+                SmartToast.showInfo("不能打开定位");
             }
         }
     }

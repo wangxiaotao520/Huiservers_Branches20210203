@@ -13,17 +13,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
 import com.huacheng.huiservers.ui.shop.NewPingJiaActivity;
 import com.huacheng.huiservers.ui.shop.NewTuikuanActivity;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.List;
 
@@ -205,20 +205,20 @@ public class New_ShopOrderDetailAdapter extends BaseAdapter {
                 shopstr = mShopProtocol.setShop(json);
                 if (shopstr.equals("1")) {
                     if (type.equals("1")) {
-                        XToast.makeText(context, "删除成功", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("删除成功");
                     } else {
-                        XToast.makeText(context, "确认收货成功", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("确认收货成功");
                     }
                     // XorderDetailBean.remove(pos);
                     notifyDataSetChanged();
                 } else {
-                    XToast.makeText(context, shopstr, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(shopstr);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

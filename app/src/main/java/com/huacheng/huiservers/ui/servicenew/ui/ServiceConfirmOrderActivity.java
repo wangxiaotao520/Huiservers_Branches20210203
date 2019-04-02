@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -26,7 +27,6 @@ import com.huacheng.huiservers.ui.servicenew.ui.dialog.ServiceSuccessDialog;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -138,14 +138,14 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
                     }
 
                 } else {
-                    XToast.makeText(ServiceConfirmOrderActivity.this, "获取失败", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("获取失败");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(ServiceConfirmOrderActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -215,7 +215,7 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
                 break;
             case R.id.tv_btn:
                 if (mLyNoaddress.getVisibility() == View.VISIBLE) {
-                    XToast.makeText(this, "地址不能为空", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("地址不能为空");
                     return;
                 }
                 getsubmit();
@@ -261,14 +261,14 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
 
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    XToast.makeText(ServiceConfirmOrderActivity.this, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(ServiceConfirmOrderActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 

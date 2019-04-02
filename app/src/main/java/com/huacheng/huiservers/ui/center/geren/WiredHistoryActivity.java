@@ -8,16 +8,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.protocol.FacePayProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.geren.adapter.WiredHistoryAdapter;
 import com.huacheng.huiservers.ui.center.geren.bean.WiredBean;
 import com.huacheng.huiservers.ui.fragment.listener.EndlessRecyclerOnScrollListener;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.FacePayProtocol;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +149,7 @@ public class WiredHistoryActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 

@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
@@ -134,14 +135,14 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
                     inflateContent(modelStore);
                 }else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败");
-                    XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(mContext, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -328,7 +329,6 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
                         String share_url_new = share_url + "?linkedme=" + url;
                         showSharePop(share_title, share_desc, share_icon, share_url_new);
                     } else {
-                     //   XToast.makeText(ServiceStoreActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                         String share_url_new = share_url + "?linkedme=" + "";
                         showSharePop(share_title, share_desc, share_icon, share_url_new);
                     }

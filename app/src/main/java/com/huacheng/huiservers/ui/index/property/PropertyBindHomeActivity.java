@@ -10,8 +10,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -23,7 +23,6 @@ import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyInfo;
 import com.huacheng.huiservers.ui.index.property.bean.ModelSelectCommon;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -171,7 +170,7 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
             case R.id.ll_user_cate:
                 // 选择住户类型
                 if (NullUtil.isStringEmpty(community_id)) {
-                    XToast.makeText(this, "请选择小区", Toast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择小区");
                     return;
                 }
                 intent = new Intent(this, SelectCommonActivity.class);
@@ -183,14 +182,9 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
             case R.id.ll_shop:
                 // 选择商户编号
                 if (NullUtil.isStringEmpty(community_id)) {
-                    XToast.makeText(this, "请选择小区", Toast.LENGTH_SHORT).show();
-
+                    SmartToast.showInfo("请选择小区");
                     return;
                 }
-//                if (NullUtil.isStringEmpty(houses_type)) {
-//                    XToast.makeText(this, "请选择住户类型", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
                 intent = new Intent(this, SelectCommonActivity.class);
                 intent.putExtra("name", "选择商户编号");
                 intent.putExtra("type", 5);
@@ -201,14 +195,9 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
             case R.id.ll_floor:
                 // 选择楼号
                 if (NullUtil.isStringEmpty(community_id)) {
-                    XToast.makeText(this, "请选择小区", Toast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择小区");
                     return;
                 }
-//                if (NullUtil.isStringEmpty(houses_type)) {
-//                    XToast.makeText(this, "请选择住户类型", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-
                 intent = new Intent(this, SelectCommonActivity.class);
                 intent.putExtra("name", "选择楼号");
                 intent.putExtra("type", 2);
@@ -219,16 +208,12 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
             case R.id.ll_unit:
                 // 选择单元号
                 if (NullUtil.isStringEmpty(community_id)) {
-                    XToast.makeText(this, "请选择小区", Toast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择小区");
                     return;
                 }
-//                if (NullUtil.isStringEmpty(houses_type)) {
-//                    XToast.makeText(this, "请选择住户类型", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
 
                 if (NullUtil.isStringEmpty(buildsing_id)) {
-                    XToast.makeText(this, "请选择楼号", Toast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择楼号");
                     return;
                 }
                 intent = new Intent(this, SelectCommonActivity.class);
@@ -242,19 +227,15 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
             case R.id.ll_room:
                 // 选择房间号
                 if (NullUtil.isStringEmpty(community_id)) {
-                    XToast.makeText(this, "请选择小区", Toast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择小区");
                     return;
                 }
-//                if (NullUtil.isStringEmpty(houses_type)) {
-//                    XToast.makeText(this, "请选择住户类型", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
                 if (NullUtil.isStringEmpty(buildsing_id)) {
-                    XToast.makeText(this, "请选择楼号", Toast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择楼号");
                     return;
                 }
                 if (NullUtil.isStringEmpty(unit)) {
-                    XToast.makeText(this, "请选择单元号", Toast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择单元号");
                     return;
                 }
                 intent = new Intent(this, SelectCommonActivity.class);
@@ -299,7 +280,7 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
                     }
                 } else {
                     hideDialog(smallDialog);
-                    XToast.makeText(PropertyBindHomeActivity.this, "验证错误", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("验证错误");
 
                 }
             }
@@ -307,7 +288,7 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(PropertyBindHomeActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -377,14 +358,14 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
                     EventBus.getDefault().post(new PersoninfoBean());
                     finish();
                 } else {
-                    XToast.makeText(PropertyBindHomeActivity.this, "绑定失败", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("绑定失败");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(PropertyBindHomeActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -393,36 +374,32 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
     private boolean checkReady() {
         //抄表
         if (NullUtil.isStringEmpty(community_id)) {
-            XToast.makeText(this, "请选择小区", Toast.LENGTH_SHORT).show();
+            SmartToast.showInfo("请选择小区");
             return false;
         }
-//        if (NullUtil.isStringEmpty(houses_type)) {
-//            XToast.makeText(this, "请选择住户类型", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
         if ("2".equals(houses_type)) {
             if (NullUtil.isStringEmpty(shopCode)) {
-                XToast.makeText(this, "请选择商铺门牌号", Toast.LENGTH_SHORT).show();
+                SmartToast.showInfo("请选择商铺门牌号");
                 return false;
             }
         } else {
             if (NullUtil.isStringEmpty(buildsing_id)) {
-                XToast.makeText(this, "请选择楼号", Toast.LENGTH_SHORT).show();
+                SmartToast.showInfo("请选择楼号");
                 return false;
             }
             if (NullUtil.isStringEmpty(unit)) {
-                XToast.makeText(this, "请选择单元号", Toast.LENGTH_SHORT).show();
+                SmartToast.showInfo("请选择单元号");
                 return false;
             }
             if (NullUtil.isStringEmpty(code)) {
-                XToast.makeText(this, "请选择门牌号", Toast.LENGTH_SHORT).show();
+                SmartToast.showInfo("请选择门牌号");
                 return false;
             }
         }
         name_phone = et_verifyID.getText().toString().trim();
 
         if (NullUtil.isStringEmpty(name_phone)) {
-            XToast.makeText(this, "请输入业主姓名或手机号", Toast.LENGTH_SHORT).show();
+            SmartToast.showInfo("请输入业主姓名或手机号");
             return false;
         }
         return true;

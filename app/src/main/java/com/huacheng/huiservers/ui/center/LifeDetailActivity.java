@@ -13,24 +13,24 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.index.huodong.ImagePagerActivity;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.protocol.CenterProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.adapter.RepairDetailImgsAdapter;
 import com.huacheng.huiservers.ui.center.bean.Imgs;
 import com.huacheng.huiservers.ui.center.bean.PropertyRepairBean;
 import com.huacheng.huiservers.ui.center.bean.PropertyRepairDetailBean;
 import com.huacheng.huiservers.ui.center.bean.ReplyBean;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.CenterProtocol;
-import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.ui.index.huodong.ImagePagerActivity;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.huiservers.view.MyListView;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -193,7 +193,7 @@ public class LifeDetailActivity extends BaseActivityOld implements OnClickListen
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

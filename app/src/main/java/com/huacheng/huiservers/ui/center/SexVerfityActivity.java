@@ -8,6 +8,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -16,8 +17,6 @@ import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,7 +31,7 @@ public class SexVerfityActivity extends BaseActivityOld implements OnClickListen
     @Override
     protected void init() {
         super.init();
- //       SetTransStatus.GetStatus(this);
+        //       SetTransStatus.GetStatus(this);
         setContentView(R.layout.verify_sex_new);
         title_name = (TextView) findViewById(R.id.title_name);
         right = (TextView) findViewById(R.id.right);
@@ -98,7 +97,7 @@ public class SexVerfityActivity extends BaseActivityOld implements OnClickListen
                     setResult(3, intent);
                     finish();*/
                 } else {
-                    XToast.makeText(this, "性别为空", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("性别为空");
                 }
                 break;
             case R.id.lin_left:
@@ -128,18 +127,17 @@ public class SexVerfityActivity extends BaseActivityOld implements OnClickListen
                 ShopProtocol protocol = new ShopProtocol();
                 String str = protocol.setShop(response);
                 if (str.equals("1")) {
-                    //    XToast.makeText(SexVerfityActivity.this, "修改成功", XToast.LENGTH_SHORT) .show();
                     EventBus.getDefault().post(new PersoninfoBean());
                     finish();
                 } else {
-                    XToast.makeText(SexVerfityActivity.this, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

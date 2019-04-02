@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -15,7 +16,6 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.HeaderViewPagerFragment;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -143,7 +143,7 @@ public class FragmentShopCommon extends HeaderViewPagerFragment implements ShopC
 
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    XToast.makeText(mActivity, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -151,7 +151,7 @@ public class FragmentShopCommon extends HeaderViewPagerFragment implements ShopC
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
                 listView.setIsLoading(false);
-                XToast.makeText(mActivity, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     setEnableLoadMore(false);
                 }
@@ -239,7 +239,7 @@ public class FragmentShopCommon extends HeaderViewPagerFragment implements ShopC
         } else {
 
             if (mDatas.get(position).getExist_hours().equals("2")) {
-                XToast.makeText(mContext, "当前时间不在派送时间范围内", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("当前时间不在派送时间范围内");
             } else {
                 if (mDatas.get(position) != null) {
                     new CommonMethod(mDatas.get(position), null, mContext).getShopLimitTag();

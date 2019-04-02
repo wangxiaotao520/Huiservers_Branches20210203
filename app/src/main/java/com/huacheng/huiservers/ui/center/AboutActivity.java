@@ -28,12 +28,12 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.WaitDIalog;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.libraryservice.utils.ToastUtils;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 
 import org.apache.http.cookie.Cookie;
 
@@ -268,7 +268,7 @@ public class AboutActivity extends BaseActivityOld implements OnClickListener, A
 
         } else {
 //            hideDialog(smallDialog);
-            ToastUtils.showShort(this, "定位失败...");
+            SmartToast.showInfo("定位失败...");
         }
     }
 

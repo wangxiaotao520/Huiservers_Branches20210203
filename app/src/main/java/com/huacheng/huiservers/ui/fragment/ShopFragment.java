@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -44,8 +45,6 @@ import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.huiservers.view.widget.FunctionAdvertise;
 import com.huacheng.libraryservice.utils.DeviceUtils;
@@ -408,7 +407,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "");
-                    XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -419,7 +418,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                     scrollableLayout.setVisibility(View.INVISIBLE);
                 }
                 refreshLayout.finishRefresh();
-                XToast.makeText(mContext, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -508,7 +507,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
 
             @Override
             protected void requestFailure(Exception error, String msg) {
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 

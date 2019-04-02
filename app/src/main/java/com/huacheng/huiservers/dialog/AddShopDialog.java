@@ -19,11 +19,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivity;
@@ -32,14 +34,11 @@ import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
 import com.huacheng.huiservers.ui.shop.bean.XGBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.widget.FlowTag.FlowTagLayout;
 import com.huacheng.huiservers.view.widget.FlowTag.OnTagSelectListener;
 import com.huacheng.huiservers.view.widget.FlowTag.TagAdapter;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lidroid.xutils.BitmapUtils;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.json.JSONObject;
 
@@ -207,7 +206,6 @@ public class AddShopDialog extends Dialog implements OnClickListener {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (TextUtils.isEmpty(edit_num.getText().toString())) {
-                    // XToast.makeText(context, "数量不能为空", XToast.LENGTH_SHORT).show();
                     edit_num.setText("0");
                 }
 
@@ -280,10 +278,10 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                 }
                 if (("0").equals(invenyory)) {
                     edit_num.setText("0");
-                    XToast.makeText(context, "已售罄", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("已售罄");
                 } else {
                     if (Integer.valueOf(invenyory) <= (Integer.valueOf(edit_num.getText().toString().trim()))) {
-                        XToast.makeText(context, "已售罄", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("已售罄");
                     } else {
                         type=0;
                         getShopLimit();
@@ -293,10 +291,10 @@ public class AddShopDialog extends Dialog implements OnClickListener {
             case R.id.txt_btn://加入购物车,立即购买
                 if (isbool == true) {
                     if ("0".equals(invenyory)) {
-                        XToast.makeText(context, "已售罄", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("已售罄");
                     } else {
                         if (Integer.valueOf(invenyory) < (Integer.valueOf(edit_num.getText().toString().trim()))) {
-                            XToast.makeText(context, "已售罄", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("已售罄");
                         } else {
 
                             if (strtag.equals("1")) {//tag值为1是立即购买
@@ -308,7 +306,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                         }
                     }
                 } else {
-                    XToast.makeText(context, "请选择产品类型", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择产品类型");
                 }
                 break;
             default:
@@ -338,7 +336,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
 
     private void getex() {//判断商品是否在派送范围时间
         if (strExist_hours.equals("2")) {
-            XToast.makeText(context, "当前时间不在派送时间范围内", XToast.LENGTH_SHORT).show();
+            SmartToast.showInfo("当前时间不在派送时间范围内");
         } else {
             Intent intent = new Intent(context, ConfirmOrderActivity.class);
             Bundle bundle = new Bundle();
@@ -374,11 +372,11 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                     smallDialog.dismiss();
                 }
                 if ("1".equals(str)) {
-                    XToast.makeText(context, "加入购物车成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("加入购物车成功");
                     AddShopDialog.this.dismiss();
                     getCartNum();
                 } else {
-                    XToast.makeText(context, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
@@ -387,7 +385,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                 if (smallDialog != null) {
                     smallDialog.dismiss();
                 }
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -410,7 +408,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
 
             @Override
             protected void requestFailure(Exception error, String msg) {
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -460,7 +458,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                         smallDialog.dismiss();
                     }
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response,"超出限购");
-                    XToast.makeText(context, msg , XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
 
             }
@@ -470,7 +468,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                 if (smallDialog!=null){
                     smallDialog.dismiss();
                 }
-                XToast.makeText(context, "网络异常，请检查网络设置" , XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

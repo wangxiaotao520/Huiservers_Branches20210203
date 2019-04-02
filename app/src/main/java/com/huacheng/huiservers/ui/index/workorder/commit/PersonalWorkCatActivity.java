@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -16,7 +17,6 @@ import com.huacheng.huiservers.model.ModelPersonalWorkCat;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -112,14 +112,14 @@ public class PersonalWorkCatActivity extends BaseActivity {
                     inflateContent();
                 }else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "");
-                    XToast.makeText(PersonalWorkCatActivity.this, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(PersonalWorkCatActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 

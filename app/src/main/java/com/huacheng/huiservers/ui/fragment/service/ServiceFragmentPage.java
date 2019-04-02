@@ -8,17 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.protocol.CenterProtocol;
+import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.center.adapter.ServiceLifeOrderAdapter;
 import com.huacheng.huiservers.ui.center.bean.ListBean;
 import com.huacheng.huiservers.ui.center.bean.PropertyRepairBean;
-import com.huacheng.huiservers.ui.base.BaseFragmentOld;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.CenterProtocol;
-import com.huacheng.huiservers.http.MyCookieStore;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -192,7 +192,7 @@ public class ServiceFragmentPage extends BaseFragmentOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

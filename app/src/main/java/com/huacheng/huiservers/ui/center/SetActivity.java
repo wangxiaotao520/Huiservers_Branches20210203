@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.HomeActivity;
 import com.huacheng.huiservers.R;
@@ -23,14 +24,13 @@ import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.update.AppUpdate;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -246,14 +246,14 @@ public class SetActivity extends BaseActivityOld implements OnClickListener {
                         }
                     }).show();//.setTitle("提示")
                 } else {
-                    XToast.makeText(SetActivity.this, "当前已是最新版本", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("当前已是最新版本");
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -277,22 +277,21 @@ public class SetActivity extends BaseActivityOld implements OnClickListener {
                     ApiHttpClient.setTokenInfo(null,null);
                     Intent intent = new Intent(SetActivity.this, HomeActivity.class);
                     startActivity(intent);
-                    XToast.makeText(SetActivity.this, "退出登录", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("退出登录");
                     //清除数据库
                     UserSql.getInstance().clear();
                     //    ActivityStackManager.getActivityStackManager().finishAllActivity();
                     BaseApplication.setUser(null);
 
                 } else {
-                    XToast.makeText(SetActivity.this, str, XToast.LENGTH_SHORT).show();
-                    System.out.println("str=========" + str);
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

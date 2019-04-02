@@ -15,17 +15,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.shop.adapter.SearchHistoryAdapter;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.FlowLayout;
 import com.huacheng.huiservers.view.MyListView;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -124,7 +123,7 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -238,7 +237,7 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
                 break;
             case R.id.txt_search:
                 if (input.getText().toString().trim().equals("")) {
-                    XToast.makeText(this, "请输入关键字", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入关键字");
 
                 } else {
                     intent.setClass(SearchShopActivity.this, SearchResultActivity.class);
@@ -294,7 +293,6 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
         mHistoryKeywords.clear();
         histroyAdapter.notifyDataSetChanged();
         mSearchHistoryLl.setVisibility(View.GONE);
-//        XToast.makeText(this, "清楚搜索历史成功", Toast.LENGTH_LONG).show();
     }
 
     /**

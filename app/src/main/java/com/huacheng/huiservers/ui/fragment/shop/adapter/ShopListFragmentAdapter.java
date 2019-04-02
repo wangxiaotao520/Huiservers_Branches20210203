@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -23,7 +24,6 @@ import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 
 import java.util.List;
@@ -145,7 +145,7 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
                 @Override
                 public void onClick(View v) {
                     if (mDatas.get(position).getInventory().equals("0") || TextUtils.isEmpty(mDatas.get(position).getInventory())) {
-                        XToast.makeText(mContext, "商品已售罄", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("商品已售罄");
                     } else {
                         Intent intent = new Intent(mContext, ShopDetailActivity.class);
                         Bundle bundle = new Bundle();
@@ -183,11 +183,11 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
                         editor.commit();
                     } else if (login_type.equals("1")) {
                         if (mDatas.get(position).getInventory().equals("0") || TextUtils.isEmpty(mDatas.get(position).getInventory())) {
-                            XToast.makeText(mContext, "商品已售罄", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("商品已售罄");
                         } else {
 //                            mOnItemCarListener.onCarClick(position);
                             if (mDatas.get(position).getExist_hours().equals("2")) {
-                                XToast.makeText(mContext, "当前时间不在派送时间范围内", XToast.LENGTH_SHORT).show();
+                                SmartToast.showInfo("当前时间不在派送时间范围内");
                             } else {
                                 if (mDatas.get(position) != null) {
                                     if (mtvShopCar != null) {
@@ -199,7 +199,7 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
                             }
                         }
                     } else {
-                        XToast.makeText(mContext, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("当前账号不是个人账号");
                     }
                 }
 

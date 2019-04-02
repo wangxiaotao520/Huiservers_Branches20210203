@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
@@ -31,7 +32,6 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.houserent.adapter.HouseRentListAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
@@ -139,7 +139,7 @@ public class HouserentDetailActivity extends BaseActivity {
 
                 } else {
                     try {
-                        XToast.makeText(HouserentDetailActivity.this, response.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(response.getString("msg"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -150,7 +150,7 @@ public class HouserentDetailActivity extends BaseActivity {
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
                 mTvBtnCall.setEnabled(false);
-                XToast.makeText(HouserentDetailActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -438,7 +438,7 @@ public class HouserentDetailActivity extends BaseActivity {
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(HouserentDetailActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

@@ -19,10 +19,10 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.dialog.SmallDialog;
 import com.huacheng.libraryservice.R;
 import com.huacheng.libraryservice.utils.AppConstant;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.mob.MobSDK;
 
 import java.util.List;
@@ -171,13 +171,13 @@ public class PopupWindowShare implements OnClickListener {
             startShare(WechatMoments.NAME);
         }else if (view.getId()==R.id.tv_share_app_to_qq){
             if (!isQQClientInstalled(context)){
-                ToastUtils.showShort(context, "您没有安装QQ客户端~");
+                SmartToast.showInfo("您没有安装QQ客户端~");
                 return;
             }
             startShare(QQ.NAME);
         }else  if (view.getId()==R.id.tv_share_app_to_qzone){
             if (!isQQClientInstalled(context)){
-                ToastUtils.showShort(context, "您没有安装QQ客户端~");
+                SmartToast.showInfo("您没有安装QQ客户端~");
                 return;
             }
             startShare(QZone.NAME);

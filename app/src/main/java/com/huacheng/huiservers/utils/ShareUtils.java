@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
@@ -53,9 +53,9 @@ public class ShareUtils {
                             @Override
                             public void run() {
                                 if (share_media.name().equals("WEIXIN_FAVORITE")) {
-                                    Toast.makeText(activity, share_media + " 收藏成功", Toast.LENGTH_SHORT).show();
+                                    SmartToast.showInfo(share_media + " 收藏成功");
                                 } else {
-                                    Toast.makeText(activity, share_media + " 分享成功", Toast.LENGTH_SHORT).show();
+                                    SmartToast.showInfo(share_media + " 分享成功");
                                     if (!TextUtils.isEmpty(call_link)){
                                         getShare(activity, id,call_link);
                                     }
@@ -72,7 +72,7 @@ public class ShareUtils {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(activity, share_media + " 分享失败", Toast.LENGTH_SHORT).show();
+                                SmartToast.showInfo(share_media + " 分享失败");
 
                             }
                         });
@@ -83,7 +83,7 @@ public class ShareUtils {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(activity, share_media + " 分享取消", Toast.LENGTH_SHORT).show();
+                                SmartToast.showInfo(share_media + " 分享取消");
                             }
                         });
                     }
@@ -110,9 +110,9 @@ public class ShareUtils {
                             @Override
                             public void run() {
                                 if (share_media.name().equals("WEIXIN_FAVORITE")) {
-                                    Toast.makeText(activity, share_media + " 收藏成功", Toast.LENGTH_SHORT).show();
+                                    SmartToast.showInfo(share_media +"收藏成功");
                                 } else {
-                                    Toast.makeText(activity, share_media + " 分享成功", Toast.LENGTH_SHORT).show();
+                                    SmartToast.showInfo(share_media + " 分享成功");
                                 }
                             }
                         });
@@ -126,7 +126,7 @@ public class ShareUtils {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(activity, share_media + " 分享失败", Toast.LENGTH_SHORT).show();
+                                SmartToast.showInfo(share_media + " 分享失败");
 
                             }
                         });
@@ -137,7 +137,7 @@ public class ShareUtils {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(activity, share_media + " 分享取消", Toast.LENGTH_SHORT).show();
+                                SmartToast.showInfo(share_media + " 分享取消");
                             }
                         });
                     }
@@ -175,7 +175,7 @@ public class ShareUtils {
 
             @Override
             protected void requestFailure(Exception error, String msg) {
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

@@ -154,48 +154,6 @@ public class ShopOrderListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    //0417
-  /*  private void getdatas(final String type, String id, final int arg0) {
-          Url_info info = new Url_info(New_Shop_OrderActivity.this);
-          //删除订单中商品与确认收货接口   type为1  是删除 订单 2是确认收货
-          RequestParams params = new RequestParams();
-          if (type.equals("1")) {
-              jiekouName = info.del_order;
-          } else if (type.equals("2")) {
-              //jiekouName = "personal/order_confirm/";
-              jiekouName = info.shop_order_accept;
-          }
-          params.addBodyParameter("id", id);
-          System.out.println("order_id====" + id);
-          showDialog(smallDialog);
-          new HttpHelper(jiekouName, params, mContext) {
-
-              @Override
-              protected void setData(String json) {
-                  hideDialog(smallDialog);
-                  String shopstr = mShopProtocol.setShop(json);
-                  if (shopstr.equals("1")) {
-                      if (type.equals("1")) {
-                          XToast.makeText(context, "删除成功", XToast.LENGTH_SHORT).show();
-                      } else {
-                          XToast.makeText(context, "确认收货成功", XToast.LENGTH_SHORT).show();
-                      }
-                      list_info_id.clear();
-                      adbeanTypes.remove(arg0);
-                      new_shop_orderAdapter.notifyDataSetChanged();
-                  } else {
-                      XToast.makeText(context, shopstr, XToast.LENGTH_SHORT).show();
-                  }
-              }
-
-              @Override
-              protected void requestFailure(Exception error, String msg) {
-                  hideDialog(smallDialog);
-                  UIUtils.showToastSafe("网络异常，请检查网络设置");
-              }
-          };
-      }
-  */
     private class ViewHolder {
 
         HorizontalListView hor_scroll;

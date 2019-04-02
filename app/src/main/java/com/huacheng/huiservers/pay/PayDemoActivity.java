@@ -1,7 +1,5 @@
 package com.huacheng.huiservers.pay;
 
-import java.util.Map;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -16,8 +14,10 @@ import android.view.View;
 
 import com.alipay.sdk.app.AuthTask;
 import com.alipay.sdk.app.PayTask;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.utils.XToast;
+
+import java.util.Map;
 
 /**
  *  重要说明:
@@ -58,10 +58,10 @@ public class PayDemoActivity extends FragmentActivity {
 				// 判断resultStatus 为9000则代表支付成功
 				if (TextUtils.equals(resultStatus, "9000")) {
 					// 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-					XToast.makeText(PayDemoActivity.this,"支付成功", XToast.LENGTH_SHORT).show();
+					SmartToast.showInfo("支付成功");
 				} else {
 					// 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-					XToast.makeText(PayDemoActivity.this,"支付失败", XToast.LENGTH_SHORT).show();
+					SmartToast.showInfo("支付失败");
 				}
 				break;
 			}
@@ -75,14 +75,12 @@ public class PayDemoActivity extends FragmentActivity {
 				if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
 					// 获取alipay_open_id，调支付时作为参数extern_token 的value
 					// 传入，则支付账户为该授权账户
-					XToast.makeText(PayDemoActivity.this,"授权成功\n" + String.format("authCode:%s", 
-							authResult.getAuthCode()), XToast.LENGTH_SHORT).show();
-					;
+					SmartToast.showInfo("授权成功\n" + String.format("authCode:%s",
+							authResult.getAuthCode()));
 				} else {
 					// 其他状态值则为授权失败
-					XToast.makeText(PayDemoActivity.this,"授权失败" + 	String.format("authCode:%s",
-							authResult.getAuthCode()), XToast.LENGTH_SHORT).show();
-
+					SmartToast.showInfo("授权失败" + 	String.format("authCode:%s",
+							authResult.getAuthCode()));
 				}
 				break;
 			}
@@ -201,7 +199,7 @@ public class PayDemoActivity extends FragmentActivity {
 	public void getSDKVersion() {
 		PayTask payTask = new PayTask(this);
 		String version = payTask.getVersion();
-		XToast.makeText(PayDemoActivity.this,version, XToast.LENGTH_SHORT).show();
+		SmartToast.showInfo(version);
 	}
 
 	/**

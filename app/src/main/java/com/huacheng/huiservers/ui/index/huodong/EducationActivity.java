@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -45,8 +46,6 @@ import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.GsonTools;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import com.huacheng.huiservers.view.ExpandableTextView;
 import com.huacheng.huiservers.view.StretchyTextView;
@@ -203,7 +202,7 @@ public class EducationActivity extends BaseActivityOld implements View.OnClickLi
                 }
                 break;
             case R.id.tv_yu:
-                if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     intent = new Intent(this, LoginVerifyCodeActivity.class);
                     startActivity(intent);
                 } else if (login_type.equals("1")) {//个人
@@ -239,7 +238,7 @@ public class EducationActivity extends BaseActivityOld implements View.OnClickLi
         } else {
             switch (resultCode) {
                 case 2001:
-//                    XToast.makeText(EducationActivity.this, "支付成功", XToast.LENGTH_SHORT).show();//"获取验证码失败"
+//
                     Intent intent1 = new Intent(EducationActivity.this, ServiceParticipateActivity.class);
                     Bundle bundle1 = new Bundle();
                     intent1.putExtra("type", "1");
@@ -472,13 +471,13 @@ public class EducationActivity extends BaseActivityOld implements View.OnClickLi
                                 .into(iv_img);
                         gettime();
                     } else if (StringUtils.isEquals(status, "0")) {
-                        XToast.makeText(context, jsonObject.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(jsonObject.getString("msg"));
 
                     }
                 } catch (JSONException e) {
                     hideDialog(smallDialog);
                     rel_container.setVisibility(View.GONE);
-                    UIUtils.showToastSafe("网络异常，请检查网络设置");
+                    SmartToast.showInfo("网络异常，请检查网络设置");
                     e.printStackTrace();
                 }
             }
@@ -487,7 +486,7 @@ public class EducationActivity extends BaseActivityOld implements View.OnClickLi
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
                 rel_container.setVisibility(View.GONE);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 
@@ -554,7 +553,6 @@ public class EducationActivity extends BaseActivityOld implements View.OnClickLi
                 hideDialog(smallDialog);
                 EnrollModel model = GsonTools.getVo(json.toString(), EnrollModel.class);
                 if (model.getStatus() == 1) {
-                    //XToast.makeText(EducationActivity.this, model.getMsg(), XToast.LENGTH_SHORT).show();
                     mPopupWindow.dismiss();
                     if (cost.equals("0.00")) {
                         tv_yu.setText("已报名");
@@ -575,14 +573,14 @@ public class EducationActivity extends BaseActivityOld implements View.OnClickLi
                     }
 
                 } else if (model.getStatus() == 0) {
-                    XToast.makeText(EducationActivity.this, model.getMsg(), XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(model.getMsg());
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 
@@ -701,14 +699,14 @@ public class EducationActivity extends BaseActivityOld implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(et_name.getText().toString().trim())) {
-                    XToast.makeText(EducationActivity.this, "请输入名字", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入名字");
                 } else if (TextUtils.isEmpty(et_phone.getText().toString().trim())) {
-                    XToast.makeText(EducationActivity.this, "请输入电话", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入电话");
                 } else {
                     if (ToolUtils.isMobileNO(et_phone.getText().toString().trim())) {
                         enroll(et_name.getText().toString().trim(), et_phone.getText().toString().trim());
                     } else {
-                        XToast.makeText(EducationActivity.this, "请输入正确的手机号", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("请输入正确的手机号");
                     }
                 }
             }
@@ -718,9 +716,9 @@ public class EducationActivity extends BaseActivityOld implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(et_name.getText().toString().trim())) {
-                    XToast.makeText(EducationActivity.this, "请输入电话", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入电话");
                 } else if (!ToolUtils.isMobileNO(et_phone.getText().toString().trim())) {
-                    XToast.makeText(EducationActivity.this, "请输入正确的手机号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入正确的手机号");
                 } else {
                     enroll(et_name.getText().toString().trim(), et_phone.getText().toString().trim());
                 }

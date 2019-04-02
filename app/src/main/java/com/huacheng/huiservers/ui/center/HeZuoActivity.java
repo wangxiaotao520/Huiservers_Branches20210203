@@ -10,15 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.utils.ToolUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,13 +59,13 @@ public class HeZuoActivity extends BaseActivityOld implements View.OnClickListen
 
             case R.id.rel_ti:
                 if (TextUtils.isEmpty(et_name.getText().toString().trim())) {
-                    XToast.makeText(this, "请填写姓名", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请填写姓名");
                 } else if (TextUtils.isEmpty(et_phone.getText().toString().trim())) {
-                    XToast.makeText(this, "请填写电话", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请填写电话");
                 } else if (!ToolUtils.isMobileNO(et_phone.getText().toString().trim())) {
-                    XToast.makeText(this, "手机号码格式不正确", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("手机号码格式不正确");
                 } else if (TextUtils.isEmpty(et_content.getText().toString().trim())) {
-                    XToast.makeText(this, "请填写内容", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请填写内容");
                 } else {
                     getResult();
                 }
@@ -95,12 +93,10 @@ public class HeZuoActivity extends BaseActivityOld implements View.OnClickListen
                     jsonObject = new JSONObject(json);
                     String status = jsonObject.getString("status");
                     if (status.equals("1")) {
-                      //  XToast.makeText(HeZuoActivity.this, "提交成功", XToast.LENGTH_SHORT).show();
-                        ToastUtils.showShort(HeZuoActivity.this,"提交成功");
+                        SmartToast.showInfo("提交成功");
                         finish();
                     } else {
-
-                        XToast.makeText(HeZuoActivity.this, jsonObject.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(jsonObject.getString("msg"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -110,7 +106,7 @@ public class HeZuoActivity extends BaseActivityOld implements View.OnClickListen
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

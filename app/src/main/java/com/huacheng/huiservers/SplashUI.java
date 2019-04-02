@@ -16,6 +16,7 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.dialog.DownLoadDialog;
 import com.huacheng.huiservers.dialog.SignOnDialog;
@@ -32,7 +33,6 @@ import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tinkerpatch.sdk.TinkerPatch;
 
@@ -135,7 +135,6 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                         if (isGranted) {
                             getUpdate();
                         } else {
-                            //  Toast.makeText(SplashUI.this, "", Toast.LENGTH_SHORT).show();
                             goOn(isFirstOpen);
                         }
                     }
@@ -239,7 +238,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 
                             }else if (status==-1){
                                 //网络错误
-                                ToastUtils.showShort(SplashUI.this.getApplicationContext(),"网络错误，请检查网络设置");
+                                SmartToast.showInfo("网络错误，请检查网络设置");
                             }
                         }
                     });
@@ -269,7 +268,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                             }
                         }else if (status==-1){
                             //网络错误
-                            ToastUtils.showShort(SplashUI.this.getApplicationContext(),"网络错误，请检查网络设置");
+                            SmartToast.showInfo("网络错误，请检查网络设置");
                         }
                     }
                 });

@@ -24,19 +24,19 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.index.facepay.adapter.FacepayIndexAdapter;
 import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.FacePayProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.index.facepay.adapter.FacepayIndexAdapter;
+import com.huacheng.huiservers.ui.index.wuye.WuyeXioaquActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.ClearEditText;
-import com.huacheng.huiservers.ui.index.wuye.WuyeXioaquActivity;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +47,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/** 当面付首页 页面
+/**
+ * 当面付首页 页面
  * Created by Administrator on 2018/3/22.
  */
 
@@ -115,7 +116,7 @@ public class FacepayIndexActivity extends BaseActivityOld {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-     //   SetTransStatus.GetStatus(this);
+        //   SetTransStatus.GetStatus(this);
     }
 
     private static final int DECIMAL_DIGITS = 2;//小数的位数
@@ -125,9 +126,9 @@ public class FacepayIndexActivity extends BaseActivityOld {
         super.init();
         setContentView(R.layout.facepay_index);
         ButterKnife.bind(this);
-   //     SetTransStatus.GetStatus(this);
+        //     SetTransStatus.GetStatus(this);
         sFacePayIndex = this;
-    //    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         facepayPref = getSharedPreferences("facepay", 0);
         facepayShared = facepayPref.edit();
         final View decorView = getWindow().getDecorView();
@@ -332,7 +333,7 @@ public class FacepayIndexActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -403,17 +404,17 @@ public class FacepayIndexActivity extends BaseActivityOld {
             case R.id.tv_indexNext://下一步
                 inputPrice = cetInputPrice.getText().toString();
                 if (inputPrice.equals("")) {
-                    XToast.makeText(this, "请输入金额", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入金额");
                 } else if (Double.parseDouble(inputPrice) == 0) {
-                    XToast.makeText(this, "缴费金额不能是0元", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("缴费金额不能是0元");
                 } else if (StringUtils.isEmpty(selectStr)) {
-                    XToast.makeText(this, "请选择缴费项目", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择缴费项目");
                 } else if (face.getSign().equals("1")) {
                     facepayNote = etFacepayNote.getText().toString();
 
                     String yourHouse = tv_yourHouse.getText().toString();
                     if (StringUtils.isEmpty(yourHouse)) {
-                        XToast.makeText(this, "请选择房屋", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("请选择房屋");
                     } else {
                         submitFacepay(face.getSign());
                     }
@@ -422,7 +423,7 @@ public class FacepayIndexActivity extends BaseActivityOld {
                     //selectStr.equals("保险") || selectStr.equals("其他")
                     facepayNote = etFacepayNote.getText().toString();
                     if (facepayNote.equals("")) {
-                        XToast.makeText(this, "请填写备注", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("请填写备注");
                     } else {
                         submitFacepay(face.getSign());
                     }
@@ -430,9 +431,9 @@ public class FacepayIndexActivity extends BaseActivityOld {
                     //selectStr.equals("保险") || selectStr.equals("其他")
                     facepayNote = etFacepayNote.getText().toString();
                     if (facepayNote.equals("")) {
-                        XToast.makeText(this, "请填写备注", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("请填写备注");
                     } else if (StringUtils.isEmpty(mTvShops.getText().toString().trim())) {
-                        XToast.makeText(this, "请选择商铺", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("请选择商铺");
                     } else {
                         submitFacepay(face.getSign());
                     }
@@ -521,7 +522,7 @@ public class FacepayIndexActivity extends BaseActivityOld {
                         intent.putExtra("sign", type);
                         startActivityForResult(intent, 1000);
                     } else {
-                        XToast.makeText(FacepayIndexActivity.this, jsonmsg, XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(jsonmsg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -532,7 +533,7 @@ public class FacepayIndexActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -576,18 +577,16 @@ public class FacepayIndexActivity extends BaseActivityOld {
                 hideDialog(smallDialog);
                 String str = protocol2.setShop(json);
                 if (str.equals("1")) {
-                    XToast.makeText(FacepayIndexActivity.this, str,
-                            XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 } else {
-                    XToast.makeText(FacepayIndexActivity.this, str,
-                            XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 
@@ -668,7 +667,7 @@ public class FacepayIndexActivity extends BaseActivityOld {
                 if (!StringUtils.isEmpty(typeCB) && !StringUtils.isEmpty(o_idCB)) {
                     facepayCallBack(typeCB, o_idCB);
                 } else {
-                    XToast.makeText(this, "回调type+o_id异常", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("回调type+o_id异常");
                 }
                 break;
             case 200://商户选择返回
@@ -712,7 +711,7 @@ public class FacepayIndexActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

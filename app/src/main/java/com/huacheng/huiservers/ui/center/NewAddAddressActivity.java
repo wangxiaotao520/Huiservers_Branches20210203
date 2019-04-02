@@ -7,18 +7,18 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.XiaoquActivity;
-import com.huacheng.huiservers.ui.center.geren.bean.AddressBean;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.GerenProtocol;
 import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.protocol.GerenProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.center.geren.bean.AddressBean;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,7 +57,7 @@ public class NewAddAddressActivity extends BaseActivityOld {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_add_address);
         ButterKnife.bind(this);
-  //      SetTransStatus.GetStatus(this);//系统栏默认为黑色
+        //      SetTransStatus.GetStatus(this);//系统栏默认为黑色
         TextView mTitleName = (TextView) findViewById(R.id.title_name);
         TextView mRight = (TextView) findViewById(R.id.right);
         mRight.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -77,15 +77,15 @@ public class NewAddAddressActivity extends BaseActivityOld {
             @Override
             public void onClick(View v) {
                 if (mEdtName.getText().toString().equals("")) {
-                    XToast.makeText(NewAddAddressActivity.this, "请输入联系人", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入联系人");
                 } else if (mTxtAddress.getText().toString().equals("")) {
-                    XToast.makeText(NewAddAddressActivity.this, "请选择您所在的小区", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择您所在的小区");
                 } else if (mEdtMenpai.getText().toString().equals("")) {
-                    XToast.makeText(NewAddAddressActivity.this, "请输入您的详细地址", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入您的详细地址");
                 } else if (mEdtMobile.getText().toString().equals("")) {
-                    XToast.makeText(NewAddAddressActivity.this, "请输入联系电话", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入联系电话");
                 } else if (!ToolUtils.isMobileNO(mEdtMobile.getText().toString())) {
-                    XToast.makeText(NewAddAddressActivity.this, "请输入正确的手机号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入正确的手机号");
                 } else {
                     getdata();
                     NewAddAddressActivity.this.mRight.setClickable(false);
@@ -135,22 +135,19 @@ public class NewAddAddressActivity extends BaseActivityOld {
                 hideDialog(smallDialog);
                 str = protocol.addSuss(json);
                 if (str.equals("1")) {
-                    //ToastUtils.showShort(Add_addressActivity.this, "成功");
-                    //Toast.makeText(Add_addressActivity.this, "成功", Toast.LENGTH_SHORT).show();
                     UIUtils.closeInputMethod(NewAddAddressActivity.this, mEdtName);
-
-                    XToast.makeText(NewAddAddressActivity.this, "成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("成功");
                     finish();
                 } else {
                     mRight.setClickable(true);
-                    XToast.makeText(NewAddAddressActivity.this, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -169,7 +166,7 @@ public class NewAddAddressActivity extends BaseActivityOld {
                     String status = jsonObject.getString("status");
                     String data = jsonObject.getString("data");
                     String msg = jsonObject.getString("msg");
-                    if ("1".equals(status)){
+                    if ("1".equals(status)) {
                         beans = protocol.addressDetail(json);
                         mEdtName.setText(beans.getConsignee_name());
                         mEdtMobile.setText(beans.getConsignee_mobile());
@@ -179,8 +176,8 @@ public class NewAddAddressActivity extends BaseActivityOld {
                         a_name = beans.getRegion_cn();
                         xiaoqu_id = beans.getCommunity_id();
                         xiaoqu_name = beans.getCommunity_cn();
-                    }else {
-                        UIUtils.showToastSafe(msg+"");
+                    } else {
+                        SmartToast.showInfo(msg + "");
                     }
 
                 } catch (JSONException e) {
@@ -194,7 +191,7 @@ public class NewAddAddressActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

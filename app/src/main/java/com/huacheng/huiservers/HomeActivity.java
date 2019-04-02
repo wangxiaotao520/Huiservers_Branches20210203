@@ -35,8 +35,8 @@ import com.huacheng.huiservers.ui.fragment.ShopFragment;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.TDevice;
+import com.lidroid.xutils.HttpUtils;
 import com.huacheng.libraryservice.utils.ToastUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -123,7 +123,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                 IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 if (intentResult != null) {
                     if (intentResult.getContents() == null) {
-                        ToastUtils.showShort(this.getApplicationContext().getApplicationContext(), "内容为空");
+                        SmartToast.showInfo("内容为空");
                     } else {
                         String ScanResult = intentResult.getContents();
 
@@ -267,7 +267,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
-                XToast.makeText(this, "再按一次退出程序", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("再按一次退出程序");
                 exitTime = System.currentTimeMillis();
             } else {
                 removeALLActivity();//执行移除所以Activity方法
@@ -285,8 +285,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
         SharedPreferences preferences1 = this.getSharedPreferences("login", 0);
         preferences1.edit().clear().commit();
         ApiHttpClient.setTokenInfo(null, null);
-       // XToast.makeText(this, "登录失效", XToast.LENGTH_SHORT).show();
-        com.huacheng.libraryservice.utils.ToastUtils.showShort(this,"登录失效");
+        SmartToast.showInfo("登录失效");
         BaseActivityOld.finishAll();
         BaseActivityOld.destoryActivity();
         ActivityStackManager.getActivityStackManager().finishAllActivity();
@@ -333,7 +332,6 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                 }
             } else {
                 // Permission Denied
-              //  Toast.makeText(this, "无法打开东森易购,请获取手机权限", Toast.LENGTH_SHORT).show();
                 SmartToast.showInfo("无法打开东森易购,请获取手机权限");
             }
         }

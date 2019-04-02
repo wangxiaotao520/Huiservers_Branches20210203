@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -17,7 +17,6 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.FragmentOrderAdapter;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -103,7 +102,7 @@ public class FragmentOrderCommon extends BaseFragment implements View.OnClickLis
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (datas.get(position).getStatus().equals("6")) {
-                    Toast.makeText(mActivity, "订单已取消", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("订单已取消");
                 } else {
                     //   详情跳转
                     ModelOrderList modelOrderList = datas.get(position);
@@ -146,7 +145,7 @@ public class FragmentOrderCommon extends BaseFragment implements View.OnClickLis
                     inflateContent(modelOrderList);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    XToast.makeText(mActivity, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -156,7 +155,7 @@ public class FragmentOrderCommon extends BaseFragment implements View.OnClickLis
                 hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
                 refreshLayout.finishLoadMore();
-                XToast.makeText(mActivity, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     refreshLayout.setEnableLoadMore(false);
                 }

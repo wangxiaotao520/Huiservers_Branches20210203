@@ -12,16 +12,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListFragmentAdapter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import com.huacheng.huiservers.view.ShadowLayout;
 
@@ -136,7 +136,7 @@ public class ShopListFragment extends BaseFragmentOld {
                 @Override
                 protected void requestFailure(Exception error, String msg) {
                     is_Requesting=false;
-                    UIUtils.showToastSafe("网络异常，请检查网络设置");
+                    SmartToast.showInfo("网络异常，请检查网络设置");
                     if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
                         swipeRefreshLayout.setRefreshing(false);
                     }

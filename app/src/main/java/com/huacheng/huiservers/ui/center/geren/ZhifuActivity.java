@@ -17,24 +17,25 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alipay.sdk.app.PayTask;
 import com.bestpay.app.PaymentTask;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
 import com.huacheng.huiservers.model.ModelEventWX;
-import com.huacheng.huiservers.pay.PayResult;
 import com.huacheng.huiservers.model.protocol.GerenProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.pay.PayResult;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.ui.center.geren.adapter.PayAdapter;
@@ -53,10 +54,7 @@ import com.huacheng.huiservers.ui.shop.bean.BestpayMerchant;
 import com.huacheng.huiservers.utils.ParamsUtil;
 import com.huacheng.huiservers.utils.StreamUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -152,7 +150,6 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                         getRelust();
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        //*  XToast.makeText(ZhifuActivity.this, "支付失败",
                         getRelust();
                     }
                     break;
@@ -222,8 +219,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                     if (isWeixinAvilible(ZhifuActivity.this)) {
                         getPayInfo(type, mTypeBeen.get(position).getTypename());
                     } else {
-                        XToast.makeText(ZhifuActivity.this, "您还没有安装微信，请先安装微信客户端",
-                                XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("您还没有安装微信，请先安装微信客户端");
                     }
 
                 } else { //支付宝 翼支付
@@ -263,7 +259,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -344,8 +340,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                             }
                         }
                     } else {  //status !=0
-                        XToast.makeText(ZhifuActivity.this, message,
-                                XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(message);
                     }
                 } catch (JSONException e1) {
                     e1.printStackTrace();
@@ -355,7 +350,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -570,8 +565,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
 
                     }
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "支付成功");
-                    XToast.makeText(ZhifuActivity.this, msg,
-                            XToast.LENGTH_LONG).show();
+                    SmartToast.showInfo(msg);
                 } else {
                     if (result_check_count < 4) {//支付失败轮询服务器三次
                         new Handler().postDelayed(new Runnable() {
@@ -597,7 +591,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                             }
                         }, 1600);
 
-                    }  else if (type.equals("facepay")) {// 当面付
+                    } else if (type.equals("facepay")) {// 当面付
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -620,15 +614,14 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                         }, 1600);
                     }
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "支付失败");
-                    XToast.makeText(ZhifuActivity.this, msg,
-                            XToast.LENGTH_LONG).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -679,14 +672,13 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                 if (strWL.equals("1")) {
                     System.out.println("********支付完成物流分配请求成功");
                 } else {
-                    /*XToast.makeText(ZhifuActivity.this, strWL,
-                            XToast.LENGTH_SHORT).show();*/
+
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -721,14 +713,13 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                     }
                     System.out.println("^^^^^^^^支付完成推送接口请求成功");
                 } else {
-                    XToast.makeText(ZhifuActivity.this, str_push,
-                            XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str_push);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -811,8 +802,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                         if (type.equals("facepay")) {// 当面付
                             finish();
                         }
-                        Toast.makeText(ZhifuActivity.this, "下单失败",
-                                Toast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("下单失败");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

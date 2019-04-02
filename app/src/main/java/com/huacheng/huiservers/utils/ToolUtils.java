@@ -23,6 +23,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -566,7 +568,7 @@ public class ToolUtils {
                 selectStart = edit.getSelectionStart();
                 selectEnd = edit.getSelectionEnd();
                 if (temp.length() > num) {
-                    XToast.makeText(context, "最大字数不超过50字", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("最大字数不超过50字");
                     s.delete(selectStart - 1, selectEnd);
                     int tempSelection = selectStart;
                     edit.setText(s);

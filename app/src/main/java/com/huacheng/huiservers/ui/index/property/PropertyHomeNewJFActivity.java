@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -26,7 +27,6 @@ import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener;
 import com.huacheng.huiservers.ui.index.wuye.bean.ProperyGetOrderBean;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -223,7 +223,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     }
                 } else {
                     try {
-                        XToast.makeText(PropertyHomeNewJFActivity.this, response.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(response.getString("msg"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -233,7 +233,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(PropertyHomeNewJFActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -334,13 +334,13 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     break;
                 }
                 if (propertyInfo.getIs_property() == 1) {
-                    XToast.makeText(PropertyHomeNewJFActivity.this, propertyInfo.getIs_property_cn(), XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(propertyInfo.getIs_property_cn());
                     break;
                 }
                 if (type == 0) {//缴物业费
                     if (propertyInfo.getWuye() != null) {
                         if (selected_price_list.size() == 0 || total_wuye_price == 0) {
-                            XToast.makeText(PropertyHomeNewJFActivity.this, "请先选择缴费项", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("请先选择缴费项");
                             break;
                         }
                         Intent intent = new Intent(PropertyHomeNewJFActivity.this, PropertyFrimOrderActivity.class);
@@ -348,7 +348,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                         intent.putExtra("bill_id", sb_bill_ids.toString());
                         startActivity(intent);
                     } else {
-                        XToast.makeText(PropertyHomeNewJFActivity.this, "物业费已缴清", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("物业费已缴清");
                     }
 
                 } else if (type == 1) {//充值水费
@@ -364,15 +364,15 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                                     //立即生成支付订单
                                     getSubmitOrder(propertyInfo.getRoom_info(), propertyInfo.getShuifei().getType(), propertyInfo.getShuifei().getType_cn());
                                 } else {
-                                    XToast.makeText(PropertyHomeNewJFActivity.this, "您剩余充值金额上限为：" + (aDouble1 - aDouble2) + "元", XToast.LENGTH_SHORT).show();
+                                    SmartToast.showInfo("您剩余充值金额上限为：" + (aDouble1 - aDouble2) + "元");
                                 }
                             }
                         } else {
-                            XToast.makeText(PropertyHomeNewJFActivity.this, "请输入充值金额", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("请输入充值金额");
                         }
 
                     } else {
-                        XToast.makeText(PropertyHomeNewJFActivity.this, propertyInfo.getIs_available_cn(), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(propertyInfo.getIs_available_cn());
                     }
 
                 } else {
@@ -390,14 +390,14 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                                     //立即生成支付订单
                                     getSubmitOrder(propertyInfo.getRoom_info(), propertyInfo.getDianfei().getType(), propertyInfo.getDianfei().getType_cn());
                                 } else {
-                                    XToast.makeText(PropertyHomeNewJFActivity.this, "您剩余充值金额上限为：" + (aDouble1 - aDouble2) + "元", XToast.LENGTH_SHORT).show();
+                                    SmartToast.showInfo("您剩余充值金额上限为：" + (aDouble1 - aDouble2) + "元");
                                 }
                             }
                         } else {
-                            XToast.makeText(PropertyHomeNewJFActivity.this, "请输入充值金额", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("请输入充值金额");
                         }
                     } else {
-                        XToast.makeText(PropertyHomeNewJFActivity.this, propertyInfo.getIs_available_cn(), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(propertyInfo.getIs_available_cn());
                     }
 
                 }
@@ -437,14 +437,14 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
-                    XToast.makeText(PropertyHomeNewJFActivity.this, "提交失败", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("提交失败");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(PropertyHomeNewJFActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
                 llPayment.setVisibility(View.GONE);
             }
         });

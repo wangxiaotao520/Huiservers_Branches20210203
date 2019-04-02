@@ -17,8 +17,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.YuFuDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -32,10 +32,8 @@ import com.huacheng.huiservers.ui.index.workorder.JpushWorkPresenter;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
 import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -133,7 +131,7 @@ public class BaseWorkOrderCommitActivity extends BaseActivity {
                                 if (isGranted) {
                                     jumpToImageSelector(position);
                                 } else {
-                                    Toast.makeText(BaseWorkOrderCommitActivity.this, "未打开摄像头权限", Toast.LENGTH_LONG).show();
+                                    SmartToast.showInfo("未打开摄像头权限");
                                 }
                             }
                         });
@@ -187,26 +185,25 @@ public class BaseWorkOrderCommitActivity extends BaseActivity {
      */
     private boolean checkReady() {
         if (NullUtil.isStringEmpty(type_id)) {
-            XToast.makeText(this, "请选择分类", XToast.LENGTH_SHORT).show();
+            SmartToast.showInfo("请选择分类");
             return false;
         }
         if (NullUtil.isStringEmpty(contact)) {
-            XToast.makeText(this, "联系人不能为空", XToast.LENGTH_SHORT).show();
+            SmartToast.showInfo("联系人不能为空");
             return false;
         }
         if (NullUtil.isStringEmpty(userphone)) {
-            XToast.makeText(this, "联系电话不能为空", XToast.LENGTH_SHORT).show();
+            SmartToast.showInfo("联系电话不能为空");
             return false;
         }
         if (selected_house == null) {
-            XToast.makeText(this, "房屋不能为空", XToast.LENGTH_SHORT).show();
+            SmartToast.showInfo("房屋不能为空");
             return false;
         }
         if (NullUtil.isStringEmpty(address)) {
-            XToast.makeText(this, "房屋不能为空", XToast.LENGTH_SHORT).show();
+            SmartToast.showInfo("房屋不能为空");
             return false;
         }
-
         return true;
     }
 
@@ -263,7 +260,7 @@ public class BaseWorkOrderCommitActivity extends BaseActivity {
                                 params.put("type", "1");
                                 new JpushWorkPresenter().userToWorkerSubmitJpush(params);
 
-                                ToastUtils.showShort(BaseWorkOrderCommitActivity.this, msg);
+                                SmartToast.showInfo(msg);
                                 startActivity(new Intent(BaseWorkOrderCommitActivity.this, WorkOrderListActivity.class));
                                 finish();
                             } else {
@@ -302,7 +299,7 @@ public class BaseWorkOrderCommitActivity extends BaseActivity {
                         new JpushWorkPresenter().userToWorkerSubmitJpush(params);
 
                         //公共报修
-                        ToastUtils.showShort(BaseWorkOrderCommitActivity.this, msg);
+                        SmartToast.showInfo(msg);
                         // 跳转到列表页
                         startActivity(new Intent(BaseWorkOrderCommitActivity.this, WorkOrderListActivity.class));
                         finish();
@@ -311,14 +308,14 @@ public class BaseWorkOrderCommitActivity extends BaseActivity {
                     ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交失败");
-                    XToast.makeText(BaseWorkOrderCommitActivity.this, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(BaseWorkOrderCommitActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
 
             @Override
@@ -378,7 +375,7 @@ public class BaseWorkOrderCommitActivity extends BaseActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                XToast.makeText(BaseWorkOrderCommitActivity.this, "图片压缩失败", Toast.LENGTH_SHORT).show();
+                                SmartToast.showInfo("图片压缩失败");
                                 hideDialog(smallDialog);
                             }
                         });

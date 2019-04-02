@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -11,7 +12,6 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectHouseAdapter;
 import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -62,19 +62,18 @@ public class SelectHouseActivity extends BaseListActivity {
                         mRelNoData.setVisibility(View.VISIBLE);
                     }
 
-                    } else{
+                } else {
                     mRelNoData.setVisibility(View.VISIBLE);
-                        String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                        XToast.makeText(SelectHouseActivity.this, msg, XToast.LENGTH_SHORT).show();
-                        //  ToastUtils.showShort(SelectHouseActivity.this, msg);
-                    }
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
                 }
+            }
+
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
                 mRefreshLayout.finishRefresh();
-              //  ToastUtils.showShort(context.getApplicationContext(), "网络异常，请检查网络设置");
-                XToast.makeText(SelectHouseActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -83,8 +82,8 @@ public class SelectHouseActivity extends BaseListActivity {
     protected void onListViewItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         WuYeBean model_house = mDatas.get(position);
         Intent intent = new Intent();
-        intent.putExtra("model_house",model_house);
-        setResult(RESULT_OK,intent);
+        intent.putExtra("model_house", model_house);
+        setResult(RESULT_OK, intent);
         finish();
     }
 

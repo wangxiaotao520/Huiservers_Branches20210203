@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 
@@ -139,7 +140,7 @@ public class UIUtils {
     private static void showToast(String str) {
         BaseActivityOld frontActivity = BaseActivityOld.getForegroundActivity();
         if (frontActivity != null) {
-            XToast.makeText(frontActivity, str, XToast.LENGTH_SHORT).show();
+            SmartToast.showInfo(str);
         }
     }
 

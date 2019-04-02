@@ -16,18 +16,18 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.house.ZhuangXiuItemActivity;
 import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.center.house.ZhuangXiuItemActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -100,7 +100,7 @@ public class MyRenvationActivity extends BaseActivityOld implements View.OnClick
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 
@@ -127,7 +127,7 @@ public class MyRenvationActivity extends BaseActivityOld implements View.OnClick
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

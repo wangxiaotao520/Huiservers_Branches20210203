@@ -15,8 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.ChooseFabuDialog;
 import com.huacheng.huiservers.http.MyCookieStore;
@@ -27,8 +27,6 @@ import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.circle.bean.ModelRefreshCircle;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.uploadimage.GlideImageLoader;
 import com.huacheng.huiservers.utils.uploadimage.ImagePickerAdapter;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -125,7 +123,7 @@ public class FaBuActivity extends BaseActivityOld implements ImagePickerAdapter.
                                 if (isGranted){
                                     jumpToImageSelector(position);
                                 }else {
-                                    Toast.makeText(FaBuActivity.this, "未打开摄像头权限", Toast.LENGTH_SHORT).show();
+                                    SmartToast.showInfo("未打开摄像头权限");
                                 }
                             }
                         });
@@ -227,9 +225,9 @@ public class FaBuActivity extends BaseActivityOld implements ImagePickerAdapter.
                 break;
             case R.id.txt_right1:
                 if (TextUtils.isEmpty(et_content.getText().toString().trim())) {
-                    XToast.makeText(this, "请填写内容", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请填写内容");
                 } else if (TextUtils.isEmpty(circle_id)) {
-                    XToast.makeText(this, "请选择发布栏目", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请选择发布栏目");
                 } else {
                     // 换了一种压缩图片的方式
                     try {
@@ -308,7 +306,7 @@ public class FaBuActivity extends BaseActivityOld implements ImagePickerAdapter.
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                XToast.makeText(FaBuActivity.this,"图片压缩失败", Toast.LENGTH_SHORT).show();
+                                SmartToast.showInfo("图片压缩失败");
                                 hideDialog(smallDialog);
                             }
                         });
@@ -368,7 +366,7 @@ public class FaBuActivity extends BaseActivityOld implements ImagePickerAdapter.
                             }
                         }).start();
                     } else {
-                        XToast.makeText(FaBuActivity.this, msg, XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(msg);
                     }
                 } catch (JSONException e) {
                     hideDialog(smallDialog);
@@ -382,7 +380,7 @@ public class FaBuActivity extends BaseActivityOld implements ImagePickerAdapter.
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
                 txt_right1.setEnabled(true);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

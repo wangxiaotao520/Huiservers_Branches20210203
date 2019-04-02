@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -20,9 +21,7 @@ import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyInfo;
 import com.huacheng.huiservers.ui.index.wuye.WuyeXioaquActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -114,15 +113,14 @@ public class PropertyMyHomeActivity extends BaseActivity {
 
                     }
                 } else {
-                    XToast.makeText(PropertyMyHomeActivity.this, "验证错误", XToast.LENGTH_SHORT).show();
-
+                    SmartToast.showInfo("验证错误");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(PropertyMyHomeActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -176,13 +174,13 @@ public class PropertyMyHomeActivity extends BaseActivity {
                     //刷新个人中心
                     EventBus.getDefault().post(new PersoninfoBean());
                 } else {
-                    XToast.makeText(PropertyMyHomeActivity.this, "绑定失败", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("绑定失败");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                XToast.makeText(PropertyMyHomeActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -226,7 +224,7 @@ public class PropertyMyHomeActivity extends BaseActivity {
                 house = tvHouse.getText().toString();
                 verifyID = mEtVerifyID.getText().toString();
                 if (NullUtil.isStringEmpty(house)) {
-                    ToastUtils.showShort(this, "请选择房屋");
+                    SmartToast.showInfo("请选择房屋");
                     return;
                 }
                 //验证身份是否正确

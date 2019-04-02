@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -17,7 +18,6 @@ import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
 import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -167,14 +167,14 @@ public class PropertyFrimOrderActivity extends BaseActivity {
 
                     }
                 } else {
-                    XToast.makeText(PropertyFrimOrderActivity.this, "获取失败", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("获取失败");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(PropertyFrimOrderActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

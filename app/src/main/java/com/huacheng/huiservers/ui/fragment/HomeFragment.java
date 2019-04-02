@@ -17,8 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.XiaoquActivity;
@@ -59,7 +59,6 @@ import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.huiservers.view.MyListView;
@@ -257,7 +256,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (NullUtil.isStringEmpty(mDatas.get((int) id).getInventory()) || 0 >= Integer.valueOf(mDatas.get((int) id).getInventory())) {
-                    XToast.makeText(mContext, "商品已售罄", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("商品已售罄");
                 } else {
                     Intent intent = new Intent(mContext, ShopDetailActivity.class);
                     Bundle bundle = new Bundle();
@@ -350,7 +349,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                     getIndexData(modelHome);
                 } else {
                     try {
-                        XToast.makeText(mActivity, response.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(response.getString("msg"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -364,7 +363,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 }
                 view_alpha.setAlpha(0.6f);
                 hideDialog(smallDialog);
-                XToast.makeText(mActivity, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -652,7 +651,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         if (item != null) {
             if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
                 if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {
-                    XToast.makeText(mContext, "商品已售罄", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("商品已售罄");
                 } else {
                     new CommonMethod(item, mContext).getShopLimitTag();
                 }
@@ -729,7 +728,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 }
             }
         } else {
-            XToast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            SmartToast.showInfo(msg);
         }
     }
 //    /**

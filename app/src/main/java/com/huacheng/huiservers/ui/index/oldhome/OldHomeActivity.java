@@ -12,16 +12,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.OldProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopCardPagerGgAdapter;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.fragment.card.IndexShadowTransformer;
+import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopCardPagerGgAdapter;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListFragmentAdapter;
 import com.huacheng.huiservers.ui.index.oldhome.adapter.OldListQzAdapter;
 import com.huacheng.huiservers.ui.index.oldhome.bean.Oldbean;
@@ -30,13 +32,11 @@ import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.view.ImageCycleView;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -167,7 +167,7 @@ public class OldHomeActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 //       hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -202,7 +202,7 @@ public class OldHomeActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 //        hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -240,7 +240,7 @@ public class OldHomeActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
 
             }
         };

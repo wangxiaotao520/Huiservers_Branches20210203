@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.utils.XToast;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -91,7 +91,7 @@ public class ImageDetailFragment extends Fragment {
 					message = "未知的错误";
 					break;
 				}
-				XToast.makeText(getActivity(),  message, XToast.LENGTH_SHORT).show();
+				SmartToast.showInfo(message);
 				progressBar.setVisibility(View.GONE);
 			}
 

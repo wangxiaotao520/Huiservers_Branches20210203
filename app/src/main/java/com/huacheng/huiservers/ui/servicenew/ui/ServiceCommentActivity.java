@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -15,7 +16,6 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceDetail;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.item.ServiceCommentAdapter;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -139,7 +139,7 @@ public class ServiceCommentActivity extends BaseActivity {
 
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -148,7 +148,7 @@ public class ServiceCommentActivity extends BaseActivity {
                 hideDialog(smallDialog);
                 mRefreshLayout.finishRefresh();
                 mRefreshLayout.finishLoadMore();
-                XToast.makeText(mContext, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     mRefreshLayout.setEnableLoadMore(false);
                 }

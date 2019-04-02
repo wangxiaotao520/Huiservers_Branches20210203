@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -16,7 +17,6 @@ import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.shop.adapter.SeeAllOrderListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
-import com.huacheng.huiservers.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +85,7 @@ public class SeeAllOrderActivity extends BaseActivityOld implements OnClickListe
 			@Override
 			protected void requestFailure(Exception error, String msg) {
 				hideDialog(smallDialog);
-				UIUtils.showToastSafe("网络异常，请检查网络设置");
+				SmartToast.showInfo("网络异常，请检查网络设置");
 			}
 		};
 	}

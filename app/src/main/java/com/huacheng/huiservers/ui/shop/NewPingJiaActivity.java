@@ -18,10 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
@@ -30,12 +30,10 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.utils.uploadimage.GlideImageLoader;
 import com.huacheng.huiservers.utils.uploadimage.ImagePickerAdapter;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
@@ -109,8 +107,7 @@ public class NewPingJiaActivity extends BaseActivityOld implements ImagePickerAd
                     intent.putExtras(bundle);
                     setResult(5, intent);
                     finish();
-                 //   XToast.makeText(NewPingJiaActivity.this, "评价成功", XToast.LENGTH_SHORT).show();
-                    ToastUtils.showShort(NewPingJiaActivity.this,"评价成功");
+                    SmartToast.showInfo("评价成功");
                     //删除缓存文件夹中的图片
                     ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
                     break;
@@ -118,7 +115,7 @@ public class NewPingJiaActivity extends BaseActivityOld implements ImagePickerAd
                     mTxtBin.setText("提交");
                     mTxtBin.setClickable(true);
                     String strmsg = (String) msg.obj;
-                    XToast.makeText(NewPingJiaActivity.this, strmsg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(strmsg);
                     break;
                 default:
                     break;
@@ -256,7 +253,7 @@ public class NewPingJiaActivity extends BaseActivityOld implements ImagePickerAd
                 break;
             case R.id.txt_bin://提交
                 if (rating1==0.0) {
-                    XToast.makeText(this, "评价星级不能为空", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("评价星级不能为空");
                 } else {
                   //  WaitDialog = WaitDIalog.createLoadingDialog(this, "正在加载...");
 
@@ -321,7 +318,7 @@ public class NewPingJiaActivity extends BaseActivityOld implements ImagePickerAd
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                XToast.makeText(NewPingJiaActivity.this,"图片压缩失败", Toast.LENGTH_SHORT).show();
+                                SmartToast.showInfo("图片压缩失败");
                                 hideDialog(smallDialog);
                             }
                         });
@@ -391,7 +388,7 @@ public class NewPingJiaActivity extends BaseActivityOld implements ImagePickerAd
                                 if (isGranted){
                                     jumpToImageSelector(position);
                                 }else {
-                                    Toast.makeText(NewPingJiaActivity.this, "未打开摄像头权限", Toast.LENGTH_SHORT).show();
+                                    SmartToast.showInfo("未打开摄像头权限");
                                 }
                             }
                         });

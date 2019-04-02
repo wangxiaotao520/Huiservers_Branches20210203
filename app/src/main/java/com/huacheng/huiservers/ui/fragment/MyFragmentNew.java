@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
@@ -33,8 +34,6 @@ import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityTwo;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
@@ -162,7 +161,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                     inflateContent(bean);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    UIUtils.showToastSafe(msg);
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -170,7 +169,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
             public void onFailure(int statusCode, String error_msg) {
                 refreshLayout.finishRefresh();
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -223,7 +222,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
-                        intent.putExtra("wuye_type","bind");
+                        intent.putExtra("wuye_type", "bind");
                         startActivity(intent);
 
                     }
@@ -248,7 +247,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.rl_community_bill_list:// 生活账单
                 intent = new Intent(getActivity(), PropertyNewActivity.class);
-                intent.putExtra("wuye_type","property");
+                intent.putExtra("wuye_type", "property");
                 startActivity(intent);
                 break;
             case R.id.rl_baoxiu_order_list:// 报修账单
@@ -289,7 +288,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 if (prefrenceUtil.getIsNew().equals("1")) {
                     startActivity(new Intent(getActivity(), MyRenvationActivity.class));
                 } else {
-                    XToast.makeText(getActivity(), "该小区暂未开启此功能", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("该小区暂未开启此功能");
                 }
 
                 break;
@@ -300,7 +299,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 } else {
 
                     Intent intent1 = new Intent(mContext, PropertyNewActivity.class);
-                    intent1.putExtra("wuye_type","house_invite");
+                    intent1.putExtra("wuye_type", "house_invite");
                     startActivity(intent1);
                 }
                 break;

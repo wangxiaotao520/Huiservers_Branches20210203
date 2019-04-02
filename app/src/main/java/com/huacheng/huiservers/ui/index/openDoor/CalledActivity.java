@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.ajb.call.api.ICallView;
 import com.ajb.call.api.TalkClient;
 import com.ajb.call.utlis.CommonUtils;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.utils.PermissionUtils;
 
@@ -326,7 +327,7 @@ public class CalledActivity extends Activity implements ICallView {
                 //    Toast.makeText(this, ""+this, Toast.LENGTH_SHORT).show();
             } else {
                 // Permission Denied
-                Toast.makeText(this, "权限被禁止,无法开门", Toast.LENGTH_SHORT).show();
+                SmartToast.showInfo("权限被禁止,无法开门");
                 finish();
             }
         }

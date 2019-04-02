@@ -16,10 +16,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
@@ -27,12 +27,10 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.utils.uploadimage.GlideImageLoader;
 import com.huacheng.huiservers.utils.uploadimage.ImagePickerAdapter;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
@@ -90,7 +88,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
     private int maxImgCount = 4;//允许选择图片最大数
 
     public static final int ACT_SELECT_PHOTO = 111;//选择图片
-    private ArrayList<File> images_submit=new ArrayList<>();
+    private ArrayList<File> images_submit = new ArrayList<>();
     private RxPermissions rxPermission;
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -104,8 +102,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                     intent.putExtras(bundle);
                     setResult(4, intent);
                     finish();
-                //    XToast.makeText(NewTuikuanActivity.this, "提交成功，请耐心等待", XToast.LENGTH_SHORT).show();
-                    ToastUtils.showShort(NewTuikuanActivity.this,"提交成功，请耐心等待");
+                    SmartToast.showInfo("提交成功，请耐心等待");
                     //删除缓存文件夹中的图片
                     ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
                     break;
@@ -113,7 +110,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                     mTxtBin.setText("提交申请");
                     mTxtBin.setClickable(true);
                     String strmsg = (String) msg.obj;
-                    XToast.makeText(NewTuikuanActivity.this, strmsg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(strmsg);
                     break;
                 default:
                     break;
@@ -126,7 +123,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_tuikuan);
         ButterKnife.bind(this);
- //       SetTransStatus.GetStatus(this);
+        //       SetTransStatus.GetStatus(this);
         mTitleName.setText("退款");
         o_id = this.getIntent().getExtras().getString("o_id");
         p_info_id = this.getIntent().getExtras().getString("p_info_id");
@@ -145,7 +142,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
         mTvPrice.setText("¥" + price);
         initImagePicker();
         initWidget();
-        rxPermission=new RxPermissions(this);
+        rxPermission = new RxPermissions(this);
     }
 
     private void initImagePicker() {
@@ -190,13 +187,13 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                 break;
             case R.id.txt_bin:
                 if (NullUtil.isStringEmpty(mEdtContent.getText().toString())) {
-                    XToast.makeText(NewTuikuanActivity.this, "描述不能为空", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("描述不能为空");
                 } else {
 
-                    if (selImageList.size()>0) {
+                    if (selImageList.size() > 0) {
                         showDialog(smallDialog);
                         compressImg();
-                    }else {
+                    } else {
                         getsubmint();
                     }
                     mTxtBin.setText("提交中");
@@ -205,6 +202,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                 break;
         }
     }
+
     /**
      * 压缩图片（git）
      */
@@ -228,13 +226,14 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                 })
                 .setCompressListener(new OnCompressListener() {
                     @Override
-                    public void onStart() { }
+                    public void onStart() {
+                    }
 
                     @Override
                     public void onSuccess(File file) {
                         //这个方法重复调用
                         images_submit.add(file);
-                        if (images_submit.size()==selImageList.size()){
+                        if (images_submit.size() == selImageList.size()) {
                             //完成了
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -246,12 +245,13 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
 
                         }
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                XToast.makeText(NewTuikuanActivity.this,"图片压缩失败", Toast.LENGTH_SHORT).show();
+                                SmartToast.showInfo("图片压缩失败");
                                 hideDialog(smallDialog);
                             }
                         });
@@ -260,6 +260,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                 }).launch();
 
     }
+
     private String getPath() {
         String path = Environment.getExternalStorageDirectory() + "/huiservers/image/";
         File file = new File(path);
@@ -268,6 +269,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
         }
         return path;
     }
+
     private void getsubmint() {//提交退款
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
@@ -279,9 +281,9 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
 
         HashMap<String, File> params_file = new HashMap<>();
         //添加新压缩
-        if (images_submit.size()>0){
+        if (images_submit.size() > 0) {
             for (int i1 = 0; i1 < images_submit.size(); i1++) {
-                params_file.put("refundimg"+i1,images_submit.get(i1));
+                params_file.put("refundimg" + i1, images_submit.get(i1));
             }
         }
         MyOkHttp.get().upload(info.shop_refund, params.getParams(), params_file, new RawResponseHandler() {
@@ -353,10 +355,10 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                         .subscribe(new Consumer<Boolean>() {
                             @Override
                             public void accept(Boolean isGranted) throws Exception {
-                                if (isGranted){
+                                if (isGranted) {
                                     jumpToImageSelector(position);
-                                }else {
-                                    Toast.makeText(NewTuikuanActivity.this, "未打开摄像头权限", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    SmartToast.showInfo("未打开摄像头权限");
                                 }
                             }
                         });
@@ -371,6 +373,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                 break;
         }
     }
+
     private void jumpToImageSelector(int position) {
         Intent imageIntent = new Intent(this, MultiImageSelectorActivity.class);
         // 是否显示相机
@@ -392,6 +395,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
         imageIntent.putExtra(MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, list_jump);
         startActivityForResult(imageIntent, ACT_SELECT_PHOTO);
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -440,7 +444,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                         for (int i = 0; i < backList.size(); i++) {
                             String back_path = backList.get(i);
                             ImageItem item = new ImageItem();
-                            item.path=back_path;
+                            item.path = back_path;
                             selImageList.add(item);
                         }
                         if (adapter != null) {
@@ -453,7 +457,7 @@ public class NewTuikuanActivity extends BaseActivityOld implements ImagePickerAd
                 default:
                     break;
             }
-        }else if (resultCode == ImagePicker.RESULT_CODE_BACK){
+        } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
             //预览图片返回
             if (data != null && requestCode == REQUEST_CODE_PREVIEW) {
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);

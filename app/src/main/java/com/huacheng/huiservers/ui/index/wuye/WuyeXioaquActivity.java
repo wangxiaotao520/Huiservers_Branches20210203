@@ -12,23 +12,23 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.protocol.WuYeProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.adapter.XiaoquAdapter;
 import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.WuYeProtocol;
 import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.TextPinyinUtil;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.view.ClearEditText;
 import com.huacheng.huiservers.view.Cn2Spell;
 import com.huacheng.huiservers.view.PinyinComparator;
 import com.huacheng.huiservers.view.SideBar;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -120,7 +120,7 @@ public class WuyeXioaquActivity extends BaseActivityOld implements View.OnClickL
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
 
             }
         };

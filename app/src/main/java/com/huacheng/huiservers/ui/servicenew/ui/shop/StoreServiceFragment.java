@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -26,7 +27,6 @@ import com.huacheng.huiservers.ui.servicenew.model.CategoryBean;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceItem;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.ServiceFragmentAdapter;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -290,7 +290,7 @@ public class StoreServiceFragment extends BaseFragment implements View.OnClickLi
                     }
                 }else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败");
-                    XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -302,7 +302,7 @@ public class StoreServiceFragment extends BaseFragment implements View.OnClickLi
                     refreshLayout.finishLoadMore();
                     refreshLayout.finishRefresh();
                 }
-                XToast.makeText(mContext, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

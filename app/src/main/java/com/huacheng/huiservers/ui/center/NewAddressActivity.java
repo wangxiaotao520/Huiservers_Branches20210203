@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.DeleteAddressDialog;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -23,8 +24,6 @@ import com.huacheng.huiservers.ui.center.geren.bean.GerenBean;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceConfirmOrderActivity;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 
 import java.util.List;
 
@@ -110,10 +109,9 @@ public class NewAddressActivity extends BaseActivityOld {
                                 bundle.putString("tag", "edit");
                                 intent.putExtras(bundle);
                                 startActivity(intent);
-                                // XToast.makeText(NewAddressActivity.this, "编辑成功", XToast.LENGTH_SHORT).show();
                             } else if (name.equals("2")) {
                                 getdelete(addressid, i);
-                                //XToast.makeText(NewAddressActivity.this, "删除成功", XToast.LENGTH_SHORT).show();
+
                             }
                         }
                     });
@@ -125,18 +123,12 @@ public class NewAddressActivity extends BaseActivityOld {
         mRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if (beans.getCommunity_cn() == null || beans.getCom_list().size() < 5) {
                 Intent intent = new Intent(NewAddressActivity.this, NewAddAddressActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", "");
                 bundle.putString("tag", "add");
                 intent.putExtras(bundle);
                 startActivity(intent);
-               /* } else {
-                    XToast.makeText(NewAddressActivity.this, "地址最多添加5个", XToast.LENGTH_SHORT).show();
-                }*/
-                /*intent = new Intent(this, NewAddAddressActivity.class);
-                startActivity(intent);*/
             }
         });
 
@@ -164,7 +156,7 @@ public class NewAddressActivity extends BaseActivityOld {
                 if ("shopyes".equals(address)) {
                     //判断当前地址是否可选
                     if (beans.getCom_list().get(arg2).getIs_select().equals("0")) {
-                        XToast.makeText(NewAddressActivity.this, "您选择的地址不在当前小区配送范围内，请返回APP首页选择和您地址相符合的小区", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("您选择的地址不在当前小区配送范围内，请返回APP首页选择和您地址相符合的小区");
                     } else {
                         Intent intent = new Intent(NewAddressActivity.this, ConfirmOrderActivity.class);
                         Bundle bundle = new Bundle();
@@ -229,7 +221,7 @@ public class NewAddressActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -249,16 +241,16 @@ public class NewAddressActivity extends BaseActivityOld {
                 if (str.equals("1")) {
                     beans.getCom_list().remove(arg0);
                     new_addressAdapter.notifyDataSetChanged();
-                    XToast.makeText(context, "删除成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("删除成功");
                 } else {
-                    XToast.makeText(context, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

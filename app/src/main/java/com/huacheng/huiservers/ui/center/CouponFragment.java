@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
 import com.huacheng.huiservers.ui.center.bean.CouponBean;
@@ -20,7 +21,6 @@ import com.huacheng.huiservers.ui.shop.ShopListActivity;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 
@@ -163,7 +163,7 @@ public class CouponFragment extends BaseFragmentOld {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     couponAdd(unusedCouponlist.get(position).getId());
-//                                    XToast.makeText(getActivity(), "Click item" + position, XToast.LENGTH_SHORT).show();
+//
                                 }
                             });
 
@@ -189,7 +189,7 @@ public class CouponFragment extends BaseFragmentOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -218,7 +218,6 @@ public class CouponFragment extends BaseFragmentOld {
             }
         } else {
             coupon_id = couponBean.getM_c_id();
-//            XToast.makeText(getActivity(), "这次不选择优惠券，coupon_id-m_c_id=" + coupon_id, XToast.LENGTH_SHORT).show();
             getCoupon();
         }
     }
@@ -238,16 +237,16 @@ public class CouponFragment extends BaseFragmentOld {
                     getdata();
                     unusedAdapter.notifyDataSetChanged();
 //                    myAdapter.notifyDataSetChanged();
-                    XToast.makeText(getActivity(), "领取优惠券成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("领取优惠券成功");
                 } else {
-                    XToast.makeText(getActivity(), str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -275,7 +274,7 @@ public class CouponFragment extends BaseFragmentOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

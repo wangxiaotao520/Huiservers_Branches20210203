@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.example.xlhratingbar_lib.XLHRatingBar;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
@@ -208,14 +209,14 @@ public class ServiceDetailActivity extends BaseActivity {
                     inflateContent(mModelOrdetDetail);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    XToast.makeText(ServiceDetailActivity.this, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(ServiceDetailActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -302,7 +303,7 @@ public class ServiceDetailActivity extends BaseActivity {
 
                 SharedPreferences preferencesLogin = ServiceDetailActivity.this.getSharedPreferences("login", 0);
                 String login_type = preferencesLogin.getString("login_type", "");
-                if (login_type.equals("1")&& ApiHttpClient.TOKEN!=null&&ApiHttpClient.TOKEN_SECRET!=null) {
+                if (login_type.equals("1") && ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
                     if (tagListBeans != null && tagListBeans.size() > 0) {
                         intent = new Intent(this, ServiceConfirmOrderActivity.class);
                         intent.putExtra("service_id", mModelOrdetDetail.getId());
@@ -313,7 +314,7 @@ public class ServiceDetailActivity extends BaseActivity {
                         startActivity(intent);
 
                     } else {
-                        XToast.makeText(mContext, "分类不能为空", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("分类不能为空");
                     }
                 } else {
                     intent = new Intent(this, LoginVerifyCodeActivity.class);
@@ -357,7 +358,7 @@ public class ServiceDetailActivity extends BaseActivity {
                 share_desc = "我在社区慧生活发现了一个优质服务,快过来看看吧";
                 share_icon = ApiHttpClient.IMG_SERVICE_URL + mModelOrdetDetail.getTitle_img();
                 // 分享路径
-                share_url = ApiHttpClient.API_URL_SHARE+"home/service/service_details/id/" + mModelOrdetDetail.getId();
+                share_url = ApiHttpClient.API_URL_SHARE + "home/service/service_details/id/" + mModelOrdetDetail.getId();
                 HashMap<String, String> params = new HashMap<>();
                 params.put("type", "service_detail");
                 params.put("id", mModelOrdetDetail.getId());
@@ -370,7 +371,7 @@ public class ServiceDetailActivity extends BaseActivity {
                             String share_url_new = share_url + "?linkedme=" + url;
                             showSharePop(share_title, share_desc, share_icon, share_url_new);
                         } else {
-                          //  XToast.makeText(ServiceDetailActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                            // SmartToast.showInfo(error.getMessage());
                             String share_url_new = share_url + "?linkedme=" + "";
                             showSharePop(share_title, share_desc, share_icon, share_url_new);
                         }

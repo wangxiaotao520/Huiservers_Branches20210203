@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.WaitDIalog;
@@ -29,8 +30,6 @@ import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -263,8 +262,6 @@ public class CircleTabFragment extends BaseFragmentOld {
                                 }
                             }
                         }else {
-                          //  String msg = JsonUtil.getInstance().getMsgFromResponse(response,"数据错误");
-                          //  UIUtils.showToastSafe(msg);
                             if (page == 1) {
                                 mRecyclerView.setVisibility(View.GONE);
                                 rel_no_data.setVisibility(View.VISIBLE);
@@ -296,7 +293,7 @@ public class CircleTabFragment extends BaseFragmentOld {
                     if (isFirst.equals("2")) {
                         isFirst = "";
                     }
-                    UIUtils.showToastSafe("网络异常，请检查网络设置");
+                    SmartToast.showInfo("网络异常，请检查网络设置");
                 }
             };
         } else {
@@ -345,14 +342,14 @@ public class CircleTabFragment extends BaseFragmentOld {
                         }
                     }
                 } else {
-                    XToast.makeText(getActivity(), "删除失败", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("删除失败");
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

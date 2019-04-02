@@ -16,16 +16,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.CustomProgressBar;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
 
@@ -227,7 +226,7 @@ public class ShopXSListYesAdapter extends RecyclerView.Adapter<RecyclerView.View
                 @Override
                 public void onClick(View v) {
                     if (mBeanList.get(position).getInventory().equals("0") || TextUtils.isEmpty(mBeanList.get(position).getInventory())) {
-                        XToast.makeText(mContext, "商品已售罄", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("商品已售罄");
                     } else {
                         Intent intent = new Intent(mContext, ShopDetailActivity.class);
                         Bundle bundle = new Bundle();
@@ -333,13 +332,13 @@ public class ShopXSListYesAdapter extends RecyclerView.Adapter<RecyclerView.View
             mProgressBar.setOnFinishedListener(new CustomProgressBar.OnFinishedListener() {
                 @Override
                 public void onFinish() {
-                    Toast.makeText(mContext, "done!", Toast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("done!");
                 }
             });
             mProgressBar.setOnAnimationEndListener(new CustomProgressBar.OnAnimationEndListener() {
                 @Override
                 public void onAnimationEnd() {
-                    Toast.makeText(mContext, "animation end!", Toast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("animation end!");
                 }
             });
             // mProgressBar.setProgressDesc("剩余");

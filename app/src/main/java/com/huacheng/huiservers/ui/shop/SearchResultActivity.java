@@ -19,17 +19,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListSearchAdapter;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 
 import java.util.ArrayList;
@@ -156,7 +155,7 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
         switch (arg0.getId()) {
             case R.id.txt_search:
                 if (StringUtils.isEmpty(et_search.getText().toString())) {
-                    XToast.makeText(this, "请输入关键字", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入关键字");
                 } else {
                     page = 1;
                     beans.clear();
@@ -224,7 +223,7 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
                     searchAdapter.setLoadState(searchAdapter.LOADING_COMPLETE);
                 }
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

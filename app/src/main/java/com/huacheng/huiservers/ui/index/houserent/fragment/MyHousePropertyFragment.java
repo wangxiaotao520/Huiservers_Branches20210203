@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -22,7 +23,6 @@ import com.huacheng.huiservers.ui.index.houserent.HouserentDetailActivity;
 import com.huacheng.huiservers.ui.index.houserent.adapter.MyHouseRentListAdapter;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.StringUtils;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -260,7 +260,7 @@ public class MyHousePropertyFragment extends BaseFragmentOld {
 //                    listView.setHasMoreItems(true);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    ToastUtils.showShort(context.getApplicationContext(), msg);
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -268,7 +268,7 @@ public class MyHousePropertyFragment extends BaseFragmentOld {
             public void onFailure(int statusCode, String error_msg) {
 //                listView.setIsLoading(false);
                 listView.setHasMoreItems(false);
-                ToastUtils.showShort(context.getApplicationContext(), "网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 

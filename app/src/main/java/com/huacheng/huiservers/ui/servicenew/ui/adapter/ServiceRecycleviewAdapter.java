@@ -249,7 +249,6 @@ public class ServiceRecycleviewAdapter extends RecyclerView.Adapter<RecyclerView
                             rel_merchant_card.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    //  ToastUtils.showShort(mContext, "this is " + finalI);
                                     String store_id = info.getId();
                                     Intent intent = new Intent(mContext, ServiceStoreActivity.class);
                                     intent.putExtra("store_id", store_id + "");

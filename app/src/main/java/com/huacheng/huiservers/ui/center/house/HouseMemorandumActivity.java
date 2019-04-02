@@ -7,17 +7,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.HouseProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.HouseBean;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,7 +88,7 @@ public class HouseMemorandumActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -107,7 +106,7 @@ public class HouseMemorandumActivity extends BaseActivityOld {
                 STRContent = mShopProtocol.setShop(json);
                 if (STRContent.equals("1")) {
                     mRight.setText("完成");
-                    XToast.makeText(HouseMemorandumActivity.this, "编辑成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("编辑成功");
                     getmem();
 
                 } else {
@@ -116,7 +115,7 @@ public class HouseMemorandumActivity extends BaseActivityOld {
                     mIdExpandTextview.setFocusable(true);
                     mIdExpandTextview.requestFocus();
                     mRight.setText("编辑");
-                    XToast.makeText(HouseMemorandumActivity.this, STRContent, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(STRContent);
                 }
 
             }
@@ -124,7 +123,7 @@ public class HouseMemorandumActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -149,7 +148,7 @@ public class HouseMemorandumActivity extends BaseActivityOld {
                 } else if (mRight.getText().toString().equals("完成")) {
 
                     if (mIdExpandTextview.getText().toString().equals("")) {
-                        XToast.makeText(this, "内容不能为空", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("内容不能为空");
                     } else {
                         getADDmem();
                     }

@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -17,7 +18,6 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.center.adapter.ShopOrderListAdapter;
 import com.huacheng.huiservers.ui.center.bean.ShopOrderBeanTypeBean;
 import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -183,7 +183,7 @@ public class ShopOrderListCommon extends BaseFragment implements ShopOrderListAd
                     inflateContent(modelOrderList);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    XToast.makeText(mActivity, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -193,7 +193,7 @@ public class ShopOrderListCommon extends BaseFragment implements ShopOrderListAd
                 hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
                 refreshLayout.finishLoadMore();
-                XToast.makeText(mActivity, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     refreshLayout.setEnableLoadMore(false);
                 }
@@ -309,10 +309,10 @@ public class ShopOrderListCommon extends BaseFragment implements ShopOrderListAd
                         }
                     }
                     new_shop_orderAdapter.notifyDataSetChanged();
-                    XToast.makeText(mActivity, "删除成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("删除成功");
                 } else {
                     try {
-                        XToast.makeText(mActivity, response.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(response.getString("msg"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -322,7 +322,7 @@ public class ShopOrderListCommon extends BaseFragment implements ShopOrderListAd
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(mActivity, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

@@ -472,7 +472,7 @@ public class MyOkHttp {
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                  //  ToastUtils.showShort(BaseApplication.getContext(), "登录失效，请重新登录");
+                                   // SmartToast.showInfo( "登录失效，请重新登录");
                                     EventBus.getDefault().post(new ModelLoginOverTime());
                                 }
                             });

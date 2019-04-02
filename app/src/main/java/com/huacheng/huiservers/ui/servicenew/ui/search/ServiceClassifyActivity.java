@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -13,7 +14,6 @@ import com.huacheng.huiservers.ui.servicenew.model.ModelServiceCat;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.ServiceCatAdapter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -61,14 +61,14 @@ public class ServiceClassifyActivity extends BaseActivity implements ServiceCatA
                     adapter.notifyDataSetChanged();
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(mContext, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
 
             }
         });

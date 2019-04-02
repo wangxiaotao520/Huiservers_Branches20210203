@@ -11,15 +11,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.utils.ToolUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -152,17 +151,14 @@ public class ChangePwdVerifyActivity extends BaseActivityOld implements OnClickL
 //                String old_pwd = et_old_pwd.getText().toString();
                 String new_pwd = et_new_pwd.getText().toString();
                 String enter_pwd = et_enter_pwd.getText().toString();
-               /* if (old_pwd.equals("")) {
-                    XToast.makeText(this, "请输入旧密码", XToast.LENGTH_SHORT).show();
-                } else*/
                 if (new_pwd.equals("")) {
-                    XToast.makeText(this, "请输入新密码", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入新密码");
                 } else if (!ToolUtils.isReguPwd(new_pwd)) {
-                    XToast.makeText(this, "新密码的格式至少要6位，且包含数字和字母", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("新密码的格式至少要6位，且包含数字和字母");
                 } else if (enter_pwd.equals("")) {
-                    XToast.makeText(this, "请输入确认密码", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入确认密码");
                 } else if (!new_pwd.equals(enter_pwd)) {
-                    XToast.makeText(this, "新密码与确认密码不一致，请重新填写", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("新密码与确认密码不一致，请重新填写");
                 } else {
                     getpass();
                 }
@@ -197,17 +193,17 @@ public class ChangePwdVerifyActivity extends BaseActivityOld implements OnClickL
                 str = protocol.setShop(json);
                 if (str.equals("1")) {
                     closeInputMethod();
-                    XToast.makeText(ChangePwdVerifyActivity.this, "修改成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("修改成功");
                     finish();
                 } else {
-                    XToast.makeText(ChangePwdVerifyActivity.this, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

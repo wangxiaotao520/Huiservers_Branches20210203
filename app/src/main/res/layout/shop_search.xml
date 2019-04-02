@@ -29,6 +29,7 @@
                 android:paddingLeft="15dp"
                 android:paddingTop="15dp"
                 android:text="热门搜索"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/t_14sp" />
 
             <com.huacheng.huiservers.view.FlowLayout
@@ -61,6 +62,7 @@
                     android:paddingTop="@dimen/margin_15"
                     android:paddingLeft="@dimen/margin_15"
                     android:text="搜索历史"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/t_14sp" />
 
                 <TextView

@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -19,7 +20,6 @@ import com.huacheng.huiservers.model.ModelWorkOrderList;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterWorkOrder;
 import com.huacheng.libraryservice.utils.StringUtils;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -159,7 +159,7 @@ public class FragmentWorkOrder extends BaseFragment {
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    ToastUtils.showShort(mContext.getApplicationContext(), msg);
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -168,7 +168,7 @@ public class FragmentWorkOrder extends BaseFragment {
                 hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
                 refreshLayout.finishLoadMore();
-                ToastUtils.showShort(mContext.getApplicationContext(), "网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     refreshLayout.setEnableLoadMore(false);
                 }

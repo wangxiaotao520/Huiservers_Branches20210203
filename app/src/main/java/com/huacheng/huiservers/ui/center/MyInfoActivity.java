@@ -17,11 +17,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.ImgDialog;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -35,8 +35,6 @@ import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -125,7 +123,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
         rl_changepwd.setOnClickListener(this);
         //请求数据
         getinfo();
-        rxPermission=new RxPermissions(this);
+        rxPermission = new RxPermissions(this);
     }
 
     public static final int ACT_SELECT_PHOTO = 111;//选择图片
@@ -147,10 +145,10 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                                     .subscribe(new Consumer<Boolean>() {
                                         @Override
                                         public void accept(Boolean isGranted) throws Exception {
-                                            if (isGranted){
+                                            if (isGranted) {
                                                 ImgCropUtil.openCamera(MyInfoActivity.this);
-                                            }else {
-                                                Toast.makeText(MyInfoActivity.this, "未打开摄像头权限", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                SmartToast.showInfo("未打开摄像头权限");
                                             }
                                         }
                                     });
@@ -160,10 +158,10 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                                     .subscribe(new Consumer<Boolean>() {
                                         @Override
                                         public void accept(Boolean isGranted) throws Exception {
-                                            if (isGranted){
+                                            if (isGranted) {
                                                 jumpToImageSelector();
-                                            }else {
-                                                Toast.makeText(MyInfoActivity.this, "未打开摄像头权限", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                SmartToast.showInfo("未打开摄像头权限");
                                             }
                                         }
                                     });
@@ -227,6 +225,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                 break;
         }
     }
+
     private void jumpToImageSelector() {
         Intent imageIntent = new Intent(this, MultiImageSelectorActivity.class);
         // 是否显示相机
@@ -259,17 +258,16 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                 String str = protocol.setShop(response);
                 if ("1".equals(str)) {
                     getinfo();
-                    //   XToast.makeText(MyInfoActivity.this, "修改成功", XToast.LENGTH_SHORT).show();
                 } else {
                     hideDialog(smallDialog);
-                    XToast.makeText(MyInfoActivity.this, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -285,7 +283,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-      //  getinfo();
+        //  getinfo();
     }
 
     private void getinfo() {// 个人信息
@@ -350,10 +348,11 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -366,12 +365,12 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                     if (data != null) {
                         ArrayList<String> backList = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
                         Uri uri = UriUtils.pathToUri(this, backList.get(0));
-                        ImgCropUtil.startUCrop(this,uri,1,1);
+                        ImgCropUtil.startUCrop(this, uri, 1, 1);
                     }
                     break;
 
                 case UCrop.REQUEST_CROP://裁剪返回
-                    Uri resultUri=UCrop.getOutput(data);
+                    Uri resultUri = UCrop.getOutput(data);
                     // 压缩头像
                     compressImage(resultUri);
                     break;
@@ -400,25 +399,27 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                 })
                 .setCompressListener(new OnCompressListener() {
                     @Override
-                    public void onStart() { }
+                    public void onStart() {
+                    }
 
                     @Override
                     public void onSuccess(final File file) {
-                            //完成了
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    uploadCameraAvatar(file);
-                                }
-                            });
+                        //完成了
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                uploadCameraAvatar(file);
+                            }
+                        });
 
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                XToast.makeText(MyInfoActivity.this,"图片压缩失败", Toast.LENGTH_SHORT).show();
+                                SmartToast.showInfo("图片压缩失败");
                                 hideDialog(smallDialog);
                             }
                         });
@@ -426,6 +427,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                     }
                 }).launch();
     }
+
     private String getPath() {
         String path = Environment.getExternalStorageDirectory() + "/huiservers/image/";
         File file = new File(path);
@@ -438,8 +440,8 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
     private void uploadCameraAvatar(File file) {
         showDialog(smallDialog);
         HttpUtils http = new HttpUtils();
-        HashMap<String,File> params_file = new HashMap<>();
-        params_file.put("avatars",file);
+        HashMap<String, File> params_file = new HashMap<>();
+        params_file.put("avatars", file);
         MyOkHttp.get().upload(MyCookieStore.SERVERADDRESS + "userCenter/edit_center/", params_file, new RawResponseHandler() {
             @Override
             public void onSuccess(int statusCode, String response) {
@@ -454,14 +456,14 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                     EventBus.getDefault().post(new PersoninfoBean());
                 } else {
                     hideDialog(smallDialog);
-                    XToast.makeText(MyInfoActivity.this, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(MyInfoActivity.this, error_msg, XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo(error_msg);
             }
         });
     }
@@ -471,8 +473,9 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
     public void update(PersoninfoBean bean) {
         //1.绑定房屋后刷新
         //2.更换个人信息后刷新
-       getinfo();
+        getinfo();
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {

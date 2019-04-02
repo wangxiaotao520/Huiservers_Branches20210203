@@ -9,20 +9,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.protocol.CenterProtocol;
+import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
 import com.huacheng.huiservers.ui.center.adapter.CouponListToShopAdapter;
 import com.huacheng.huiservers.ui.center.bean.CouponBean;
-import com.huacheng.huiservers.ui.base.BaseFragmentOld;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivity;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyListView;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.List;
 
@@ -135,7 +135,7 @@ public class CouponToShopFragment extends BaseFragmentOld {
                             listview_unusedCoupon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                                    XToast.makeText(getActivity(), "remove" + unusedCouponlist.get(position).getId(), XToast.LENGTH_SHORT).show();
+//                               st.LENGTH_SHORT).show();
                                     //点击领取
                                     couponAdd(unusedCouponlist.get(position).getId());
                                 }
@@ -158,7 +158,7 @@ public class CouponToShopFragment extends BaseFragmentOld {
 
             @Override
             protected void requestFailure(Exception error, String msg) {
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 
@@ -180,7 +180,6 @@ public class CouponToShopFragment extends BaseFragmentOld {
             startActivityForResult(intent, 100);
         } else {
             coupon_id = myCoupon40list.get(position).getM_c_id();
-//            XToast.makeText(getActivity(), "这次不选择优惠券，coupon_id=" + coupon_id, XToast.LENGTH_SHORT).show();
             getCoupon();
         }
 
@@ -222,7 +221,7 @@ public class CouponToShopFragment extends BaseFragmentOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -241,17 +240,17 @@ public class CouponToShopFragment extends BaseFragmentOld {
                 if ("1".equals(str)) {
                     getdata();
                     toShopUnusedAdapter.notifyDataSetChanged();
-//                    toShopMyAdapter.notifyDataSetChanged();
-                    XToast.makeText(getActivity(), "领取到店优惠券成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("领取到店优惠券成功");
+
                 } else {
-                    XToast.makeText(getActivity(), str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

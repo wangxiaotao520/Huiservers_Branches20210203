@@ -11,13 +11,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ajb.opendoor.UnLockCallBack;
 import com.ajb.opendoor.UnlockHelper;
 import com.ajb.opendoor.data.api.AjbInterface;
 import com.ajb.opendoor.data.api.BleCodeCallBack;
 import com.ajb.opendoor.data.bean.BleCodeRsp;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
@@ -25,8 +25,6 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.utils.AesUtils;
 import com.huacheng.huiservers.utils.PermissionUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.statusbar.StatusBarUtil;
 
 import org.json.JSONException;
@@ -115,12 +113,11 @@ public class OpenLanActivity extends BaseActivityOld implements UnLockCallBack {
                         building = jsonData.getString("building");
                         room_code = jsonData.getString("room_code");
                         huose = community + building + room_code;
-                        //Toast.makeText(OpenLanActivity.this, "########" + huose, Toast.LENGTH_SHORT).show();
                         System.out.println("**********" + huose);
                         getUnlockCode();
 
                     } else {
-                        XToast.makeText(OpenLanActivity.this, jsonObject.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(jsonObject.getString("msg"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -130,7 +127,7 @@ public class OpenLanActivity extends BaseActivityOld implements UnLockCallBack {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -209,14 +206,12 @@ public class OpenLanActivity extends BaseActivityOld implements UnLockCallBack {
 
     private void unlockCode() {
         if (bleCodes != null && bleCodes.size() > 0) {
-            // Toast.makeText(OpenLanActivity.this, "ok****************", Toast.LENGTH_SHORT).show();
             unlockHelper.unLock(bleCodes);
         }
     }
 
     @Override
     public void onUnlockResult(int i) {
-       // Toast.makeText(OpenLanActivity.this, "########" + i, Toast.LENGTH_SHORT).show();
         if (i == 1 || i == 5) {
             //textView.setVisibility(View.VISIBLE);
             new Thread() {
@@ -246,7 +241,7 @@ public class OpenLanActivity extends BaseActivityOld implements UnLockCallBack {
                 unlockHelper.startBleScan();
             } else {
                 // Permission Denied
-                Toast.makeText(this, "不能打开定位，无法进行开门", Toast.LENGTH_SHORT).show();
+                SmartToast.showInfo("不能打开定位，无法进行开门");
             }
         }
     }

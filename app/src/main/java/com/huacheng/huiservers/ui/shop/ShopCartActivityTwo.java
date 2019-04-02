@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -34,8 +35,6 @@ import com.huacheng.huiservers.ui.shop.bean.DataBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -187,7 +186,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -324,7 +323,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
                 if (str.equals("1")) {
                     mListData.remove(arg0);
                     mListAdapter.notifyDataSetChanged();
-                    XToast.makeText(context, "删除成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("删除成功");
                     //	getShopList();
                     mSelectState.delete(id);
                     mSelectNum.setText("已选" + mSelectState.size() + "件商品");
@@ -332,14 +331,14 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
                     //mPriceAll.setText("¥" + totalPrice +"");
                     doDelete1(String.valueOf(id));
                 } else {
-                    XToast.makeText(context, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("str");
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -380,7 +379,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
                 mListData = result.list;
             } else {
                 mListData.addAll(result.list);
-                XToast.makeText(ShopCartActivityTwo.this, "添加成功！", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("添加成功");
             }
             refreshListView();
         }
@@ -432,11 +431,8 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
 
                 @Override
                 public void onClick(View v) {
-                 /*   if (TextUtils.isEmpty(mListData.get(position).getInventory()) || 0 >= Integer.valueOf(mListData.get(position).getInventory())) {
-                        XToast.makeText(ShopCartActivityTwo.this, "此商品已超出库存数量", XToast.LENGTH_SHORT).show();
-                    } else {*/
                     if (Integer.valueOf(mListData.get(position).getInventory()) < Integer.valueOf(mListData.get(position).getNumber() + 1)) {
-                        XToast.makeText(ShopCartActivityTwo.this, "此商品已超出库存数量", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("此商品已超出库存数量");
                     } else {
 
                         //加入购物车
@@ -548,21 +544,22 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
 
         }
     }
+
     /**
      * 获取商品限购数量(0.4.1)（购物车+）
      * wangxiaotao
      */
     private void getShopLimit(final int position) {
         showDialog(smallDialog);
-        HashMap<String ,String> params = new HashMap<String,String>();
+        HashMap<String, String> params = new HashMap<String, String>();
         params.put("p_id", mListData.get(position).getP_id());
-        params.put("tagid",  mListData.get(position).getTagid());
-        params.put("num",(mListData.get(position).getNumber() + 1)+"");
+        params.put("tagid", mListData.get(position).getTagid());
+        params.put("num", (mListData.get(position).getNumber() + 1) + "");
 
         MyOkHttp.get().post(Url_info.shop_limit, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-                if (JsonUtil.getInstance().isSuccess(response)){
+                if (JsonUtil.getInstance().isSuccess(response)) {
                     hideDialog(smallDialog);
                     mListData.get(position).setNumber(mListData.get(position).getNumber() + 1);
                     mListAdapter.notifyDataSetChanged();
@@ -574,25 +571,26 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
                         setFloat();
                         mPriceAll.setText("¥" + totalPrice + "");
                     }
-                }else {
-                    if (smallDialog!=null){
+                } else {
+                    if (smallDialog != null) {
                         smallDialog.dismiss();
                     }
-                    String msg = JsonUtil.getInstance().getMsgFromResponse(response,"超出限购");
-                    XToast.makeText(ShopCartActivityTwo.this, msg , XToast.LENGTH_SHORT).show();
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "超出限购");
+                    SmartToast.showInfo(msg);
                 }
 
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                if (smallDialog!=null){
+                if (smallDialog != null) {
                     smallDialog.dismiss();
                 }
-                XToast.makeText(ShopCartActivityTwo.this, "网络异常，请检查网络设置" , XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -632,7 +630,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
 
             case R.id.tv_cart_buy_or_del://结算
                 if (getSelectedIds().size() == 0) {
-                    XToast.makeText(this, "无结算商品", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("无结算商品");
                 } else {
                     getxiadan();
                 }

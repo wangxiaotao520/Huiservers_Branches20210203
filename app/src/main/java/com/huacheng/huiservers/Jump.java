@@ -15,14 +15,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.ui.center.ALLWebViewActivity;
@@ -50,11 +51,9 @@ import com.huacheng.huiservers.ui.shop.ShopXSTimeListActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 import org.json.JSONException;
@@ -169,7 +168,7 @@ public class Jump {
 
                         @Override
                         public void onFailure(int statusCode, String error_msg) {
-                            XToast.makeText(mContext, "网络异常,请检查网络设置", Toast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("网络异常,请检查网络设置");
                         }
                     });
                 }
@@ -281,7 +280,8 @@ public class Jump {
                             intent.putExtras(bundle);
                             mContext.startActivity(intent);
                         } else {
-                            XToast.makeText(mContext, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("当前账号不是个人账号");
+
                         }
                     }
                 }
@@ -390,7 +390,7 @@ public class Jump {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             } else {
-                XToast.makeText(mContext, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("当前账号不是个人账号");
             }
 
         } else if (type.equals("16")) {//物业缴费
@@ -424,7 +424,7 @@ public class Jump {
                     Intent intent = new Intent(mContext, FacepayIndexActivity.class);
                     mContext.startActivity(intent);
                 } else {//
-                    XToast.makeText(mContext, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("当前账号不是个人账号");
                 }
             }
 
@@ -450,7 +450,7 @@ public class Jump {
                     intent.putExtras(bundle);
                     mContext.startActivity(intent);
                 } else {
-                    XToast.makeText(mContext, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("当前账号不是个人账号");
                 }
             }
 
@@ -620,7 +620,7 @@ public class Jump {
 
             @Override
             protected void requestFailure(Exception error, String msg) {
-//                UIUtils.showToastSafe("网络异常，请检查网络设置");
+
             }
         };
     }

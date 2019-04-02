@@ -10,23 +10,22 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.bean.HouseBean;
 import com.huacheng.huiservers.ui.center.house.HouseInviteActivity;
 import com.huacheng.huiservers.ui.index.openDoor.OpenLanActivity;
 import com.huacheng.huiservers.ui.index.property.adapter.NewPropertyAdapter;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -108,7 +107,7 @@ public class PropertyNewActivity extends BaseActivity implements NewPropertyAdap
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(PropertyNewActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -176,7 +175,7 @@ public class PropertyNewActivity extends BaseActivity implements NewPropertyAdap
                         intent.putExtra("room_id", room_id);
                         startActivity(intent);
                     } else {
-                        XToast.makeText(PropertyNewActivity.this, jsonObject.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(jsonObject.getString("msg"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -186,7 +185,7 @@ public class PropertyNewActivity extends BaseActivity implements NewPropertyAdap
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -318,14 +317,14 @@ public class PropertyNewActivity extends BaseActivity implements NewPropertyAdap
                     propertyAdapter.notifyDataSetChanged();
                 }else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    XToast.makeText(PropertyNewActivity.this, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(PropertyNewActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 

@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.db.UserSql;
@@ -41,10 +42,7 @@ import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.WXConstants;
-import com.huacheng.huiservers.utils.XToast;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.mob.MobSDK;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -213,12 +211,11 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                 WXConstants.wx_api = WXAPIFactory.createWXAPI(this, WXConstants.APP_ID, true);
                 WXConstants.wx_api.registerApp(WXConstants.APP_ID);
                 if (!WXConstants.wx_api.isWXAppInstalled()) {
-                    XToast.makeText(this, "您还没有安装微信，请先安装微信客户端",
-                            XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("您还没有安装微信，请先安装微信客户端");
+
                 } else {
                     if (!ToolUtils.isNetworkAvailable(this)) {
-                        XToast.makeText(this, "网络异常，请检查网络设置",
-                                XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("网络异常，请检查网络设置");
                         return;
                     }
                     showDialog(smallDialog);
@@ -232,7 +229,6 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
             case R.id.iv_mm://免密
                 //如果移动数据未开启，提示开启
                 if (ToolUtils.getMobileDataState(this, null)) {
-//                    XToast.makeText(this,"ok",XToast.LENGTH_SHORT).show();
                     ctAuth.openAuthActivity(LoginVerifyCodeActivity.this, "", accessTokenList, new AuthResultListener() {
                         @Override
                         public void onSuccess(AuthResultModel entity) {
@@ -258,15 +254,13 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                         }
                     });
                 } else {
-                    XToast.makeText(this, "使用免密登录，需要开启数据流量！", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("使用免密登录，需要开启数据流量！");
                 }
                 break;
             case R.id.txt_getcode:// 获取验证码
                 if (et_mobile.getText().toString().equals("")) {
-                    XToast.makeText(LoginVerifyCodeActivity.this, "请输入手机号", XToast.LENGTH_SHORT).show();
-                }/* else if (!ToolUtils.isMobileNO(et_mobile.getText().toString())) {
-                    XToast.makeText(LoginVerifyCodeActivity.this, "请输入正确的手机格式", XToast.LENGTH_SHORT).show();
-                } */ else {
+                    SmartToast.showInfo("请输入手机号");
+                } else {
                     // 获取当前网络时间戳//耗时操作 需放在子线程中
                     new Thread(new Runnable() {
                         @Override
@@ -300,11 +294,9 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                 break;
             case R.id.txt_btn:// 登录
                 if (et_mobile.getText().toString().equals("")) {
-                    XToast.makeText(this, "请输入手机号", XToast.LENGTH_SHORT).show();
-                } /*else if (!ToolUtils.isMobileNO(et_mobile.getText().toString())) {
-                    XToast.makeText(this, "手机格式不正确，请重新输入", XToast.LENGTH_SHORT).show();
-                }*/ else if (et_getcode.getText().toString().trim().equals("")) {
-                    XToast.makeText(this, "请输入验证码", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入手机号");
+                } else if (et_getcode.getText().toString().trim().equals("")) {
+                    SmartToast.showInfo("请输入验证码");
                 } else {
                     txt_btn.setTextColor(getResources().getColor(R.color.white2new));
                     txt_btn.setBackground(getResources().getDrawable(R.drawable.corners_bg_transparent_primary));
@@ -380,7 +372,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
 
             }
         };
@@ -434,7 +426,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                             closeInputMethod();
                             MyCookieStore.Circle_notify = 3;
                             finish();
-                            XToast.makeText(LoginVerifyCodeActivity.this, "登录成功", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("登录成功");
                            /* if (dialog_type.equals("shanghu")) {
                                 intent = new Intent(LoginVerifyCodeActivity.this, ElectronicMerchantActivity.class);
                                 startActivity(intent);
@@ -445,13 +437,13 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                         } else {// 企业
                             txt_btn.setText("登录");
                             txt_btn.setClickable(true);
-                            XToast.makeText(LoginVerifyCodeActivity.this, "当前账号不是个人账号,请重新登录", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("当前账号不是个人账号,请重新登录");
                         }
                     } else {
                         if (loginBean.getUtype().equals("1")) {// 个人登陆成功后获取物业验证字段。。目前现在没有首页暂不获取
                             closeInputMethod();
                             finish();
-                            XToast.makeText(LoginVerifyCodeActivity.this, "登录成功", XToast.LENGTH_SHORT).show();
+                           SmartToast.showInfo("登录成功");
                             //     BaseActivityOld.destoryActivity();
                           /*  if (dialog_type.equals("shanghu")) {
                                 intent = new Intent(LoginVerifyCodeActivity.this, ElectronicMerchantActivity.class);
@@ -463,7 +455,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                         } else {// 企业
                             txt_btn.setText("登录");
                             txt_btn.setClickable(true);
-                            XToast.makeText(LoginVerifyCodeActivity.this, "当前账号不是个人账号,请重新登录", XToast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("当前账号不是个人账号,请重新登录");
                         }
                     }
                 } else {
@@ -492,7 +484,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                 hideDialog(smallDialog);
                 txt_btn.setText("登录");
                 txt_btn.setClickable(true);
-                XToast.makeText(LoginVerifyCodeActivity.this, error_msg, XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo(error_msg);
 
             }
         });
@@ -516,13 +508,13 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                     String str = response.getString("status");
                     String json = response.getString("msg");
                     if (str.equals("1")) {
-                        XToast.makeText(LoginVerifyCodeActivity.this, json, XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(json);
                         msg = new Message();
                         msg.what = 1;
                         handler.sendMessage(msg);
                     } else {
                         txt_getcode.setEnabled(true);
-                        XToast.makeText(LoginVerifyCodeActivity.this, json, XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(json);
                         System.out.println("json--------" + json);
                     }
                 } catch (JSONException e) {
@@ -532,7 +524,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                XToast.makeText(LoginVerifyCodeActivity.this, error_msg, XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo(error_msg);
             }
         });
     }
@@ -593,7 +585,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                         txt_btn.setEnabled(true);
                         txt_btn.setTextColor(getResources().getColor(R.color.white));
                         txt_btn.setBackground(getResources().getDrawable(R.drawable.allshape_orange_10));
-                        XToast.makeText(LoginVerifyCodeActivity.this, msg, XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -607,7 +599,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                 txt_btn.setEnabled(true);
                 txt_btn.setTextColor(getResources().getColor(R.color.white));
                 txt_btn.setBackground(getResources().getDrawable(R.drawable.allshape_orange_10));
-                XToast.makeText(LoginVerifyCodeActivity.this, "网络异常，请检查网络错误", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络错误");
             }
         });
     }
@@ -635,7 +627,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                ToastUtils.showShort(LoginVerifyCodeActivity.this, "网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -718,7 +710,6 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                         get_community_id(loginBean.getCommunity_id());
                         closeInputMethod();
                         finish();
-                     //   XToast.makeText(LoginVerifyCodeActivity.this, "绑定成功", XToast.LENGTH_SHORT).show();
                         //保存到modelUser中
                         ModelUser user = (ModelUser) JsonUtil.getInstance().parseJsonFromResponse(response, ModelUser.class);
                         // 把数据保存在数据库中
@@ -728,7 +719,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                             BaseApplication.setUser(user);
                         }
                     } else {
-                        XToast.makeText(LoginVerifyCodeActivity.this, response.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(response.getString("msg"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -738,7 +729,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                ToastUtils.showShort(LoginVerifyCodeActivity.this, "网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -799,7 +790,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                         }
                         // }
                     } else {
-                        XToast.makeText(LoginVerifyCodeActivity.this, response.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(response.getString("msg"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -810,7 +801,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                ToastUtils.showShort(LoginVerifyCodeActivity.this, "网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

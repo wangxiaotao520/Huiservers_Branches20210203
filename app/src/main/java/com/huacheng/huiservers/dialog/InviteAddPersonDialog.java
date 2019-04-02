@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.utils.XToast;
 
 /**
  * 类：
@@ -49,7 +49,7 @@ public class InviteAddPersonDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 if (edt_name.getText().toString().equals("")) {
-                    XToast.makeText(mContext, "请输入访客姓名", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入访客姓名");
                 } else {
                     if (bind_type.equals("1")) {
                         listener.back("1",edt_name.getText().toString().trim());

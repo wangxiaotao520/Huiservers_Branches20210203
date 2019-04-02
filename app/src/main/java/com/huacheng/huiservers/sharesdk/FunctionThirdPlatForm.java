@@ -6,10 +6,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
-import com.huacheng.libraryservice.utils.ToastUtils;
 
 import java.util.HashMap;
 
@@ -99,8 +98,7 @@ public class FunctionThirdPlatForm {
                         if(onShareListener!=null){
                             onShareListener.shareSuccess();
                         }else{
-                           // Toast.makeText(mContext.getApplicationContext(), "分享成功", Toast.LENGTH_SHORT).show();
-                            ToastUtils.showToastShare(mContext.getApplicationContext(),"分享成功");
+                            SmartToast.showInfo("分享成功");
                         }
                         break;
                     case MSG_ERR:// 失败
@@ -109,16 +107,16 @@ public class FunctionThirdPlatForm {
                         if ("WechatClientNotExistException".equals(expName)
                                 || "WechatTimelineNotSupportedException".equals(expName)
                                 || "WechatFavoriteNotSupportedException".equals(expName)) {
-                            Toast.makeText(mContext, "请安装微信客户端", Toast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("请安装微信客户端");
                         }else{
-                            Toast.makeText(mContext, "分享失败" , Toast.LENGTH_SHORT).show();
+                            SmartToast.showInfo("分享失败");
                             if(onShareListener!=null){
                                 onShareListener.shareError();
                             }
                         }
                         break;
                     case MSG_CANCEL:// 取消
-                        Toast.makeText(mContext, "取消分享", Toast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("取消分享");
                         break;
                 }
 

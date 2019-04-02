@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -29,7 +30,6 @@ import com.huacheng.huiservers.ui.servicenew.ui.adapter.ServiceRecycleviewAdapte
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.search.ServicexSearchActivity;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.TDevice;
@@ -213,7 +213,7 @@ public class ServiceFragment extends BaseFragment implements View.OnClickListene
                     refreshLayout.finishRefresh();
                 }
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -264,7 +264,7 @@ public class ServiceFragment extends BaseFragment implements View.OnClickListene
                     refreshLayout.finishRefresh();
                 }
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -348,7 +348,7 @@ public class ServiceFragment extends BaseFragment implements View.OnClickListene
                     refreshLayout.finishRefresh();
                 }
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
 
@@ -429,14 +429,14 @@ public class ServiceFragment extends BaseFragment implements View.OnClickListene
                         }
                     } else {
                         String msg = JsonUtil.getInstance().getMsgFromResponse(response, "数据获取失败");
-                        ToastUtils.showShort(mContext.getApplicationContext(), msg);
+                        SmartToast.showInfo(msg);
                     }
                 }
 
                 @Override
                 public void onFailure(int statusCode, String error_msg) {
                     hideDialog(smallDialog);
-                    ToastUtils.showShort(mContext.getApplicationContext(), "网络异常，请检查网络设置");
+                    SmartToast.showInfo("网络异常，请检查网络设置");
                 }
             });
         } else {

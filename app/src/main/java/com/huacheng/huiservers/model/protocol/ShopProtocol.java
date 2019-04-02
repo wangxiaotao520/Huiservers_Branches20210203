@@ -2,6 +2,8 @@ package com.huacheng.huiservers.model.protocol;
 
 import android.text.TextUtils;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
+import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.BestpayMerchant;
@@ -13,9 +15,7 @@ import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopMainBean;
 import com.huacheng.huiservers.ui.shop.bean.XGBean;
 import com.huacheng.huiservers.utils.LogUtils;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 
 import org.json.JSONArray;
@@ -572,7 +572,7 @@ public class ShopProtocol {
                 info.setAmount(obj.getString("amount"));
 
             } else {
-                UIUtils.showToastSafe(jsonObject.getString("msg"));
+                SmartToast.showInfo(jsonObject.getString("msg"));
             }
         } catch (Exception e) {
             LogUtils.e(e);

@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -16,8 +17,6 @@ import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -89,7 +88,7 @@ public class NameVerfityActivity extends BaseActivityOld implements OnClickListe
                 if (!name.equals("")) {
                     getMyinfo(name);
                 } else {
-                    XToast.makeText(this, "名称不能为空", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("名称不能为空");
                 }
                 break;
             case R.id.lin_left:
@@ -137,17 +136,17 @@ public class NameVerfityActivity extends BaseActivityOld implements OnClickListe
                     EventBus.getDefault().post(new PersoninfoBean());
 //
                     finish();
-                    XToast.makeText(NameVerfityActivity.this, "修改成功", XToast.LENGTH_SHORT)
-                            .show();
+                    SmartToast.showInfo("修改成功");
+
                 } else {
-                    XToast.makeText(NameVerfityActivity.this, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

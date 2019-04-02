@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.example.xlhratingbar_lib.XLHRatingBar;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -20,9 +21,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderDetailCommon;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.OrderDetailCommonAdapter;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -142,14 +141,14 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
                     adapter.notifyDataSetChanged();
                 }else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败");
-                    XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(mContext, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -199,8 +198,7 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
                 if (type==0){
                     String content = et_live_content.getText().toString().trim();
                     if (model_seleced==null&&NullUtil.isStringEmpty(content)) {
-                        XToast.makeText(mContext, "取消原因不可为空", XToast.LENGTH_SHORT).show();
-                       // ToastUtils.show(mContext,"取消原因不可为空", Toast.LENGTH_SHORT);
+                        SmartToast.showInfo("取消原因不可为空");
                         return;
                     }
 
@@ -208,16 +206,14 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
                 }else if (type==1){
                     String content = et_live_content.getText().toString().trim();
                     if (model_seleced==null&&NullUtil.isStringEmpty(content)) {
-                        XToast.makeText(mContext, "取消原因不可为空", XToast.LENGTH_SHORT).show();
-                      //  ToastUtils.show(mContext,"举报原因不可为空", Toast.LENGTH_SHORT);
+                        SmartToast.showInfo("举报原因不可为空");
                         return;
                     }
                     commitJubao(content);
                 }else {
                     String content = et_live_content.getText().toString().trim();
                     if (NullUtil.isStringEmpty(content)){
-                        XToast.makeText(mContext, "内容不可为空", XToast.LENGTH_SHORT).show();
-                     //   ToastUtils.show(mContext,"内容不可为空", Toast.LENGTH_SHORT);
+                        SmartToast.showInfo("内容不可为空");
                         return;
                     }
                     commitPingJia(content);
@@ -285,7 +281,7 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "评价成功");
-                    ToastUtils.showShort(mContext,msg);
+                    SmartToast.showInfo(msg);
 
                     // 评价成功后也得发eventbus,把服务列表页和详情页的状态改一下
                     ModelOrderList modelOrderList = new ModelOrderList();
@@ -302,14 +298,14 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
                     EventBus.getDefault().post(modelOrderList);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "评价失败");
-                    XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(mContext, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -332,18 +328,18 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "举报成功");
-                    ToastUtils.showShort(mContext,msg);
+                    SmartToast.showInfo(msg);
                     finish();
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "举报失败");
-                    XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(mContext, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -367,7 +363,7 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "取消成功");
-                    ToastUtils.showShort(mContext,msg);
+                    SmartToast.showInfo(msg);
                     finish();
                     //得写 EVENTBUS
                     ModelOrderList modelOrderList = new ModelOrderList();
@@ -376,14 +372,14 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
                     EventBus.getDefault().post(modelOrderList);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "取消失败");
-                    XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(mContext, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

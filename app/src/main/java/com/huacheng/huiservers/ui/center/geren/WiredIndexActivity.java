@@ -13,19 +13,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.geren.bean.WiredBean;
 import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.FacePayProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.center.geren.bean.WiredBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.ClearEditText;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,7 +66,7 @@ public class WiredIndexActivity extends BaseActivityOld {
         super.init();
         setContentView(R.layout.wired_index);
         instant = this;
-    //    SetTransStatus.GetStatus(this);
+        //    SetTransStatus.GetStatus(this);
         ButterKnife.bind(this);
         titleName.setText("有线电视缴费");
         linRight.setVisibility(View.VISIBLE);
@@ -165,13 +165,13 @@ public class WiredIndexActivity extends BaseActivityOld {
             case R.id.tv_indexNext:
 
                 if (cetCabetelID.getText().toString().trim().equals("")) {
-                    XToast.makeText(WiredIndexActivity.this, "请输入有线电视卡号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入有线电视卡号");
                 } else if (cetCabetelName.getText().toString().trim().equals("")) {
-                    XToast.makeText(WiredIndexActivity.this, "请输入您的姓名", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入您的姓名");
                 } else if (cetCabetelPrice.getText().toString().trim().equals("")) {
-                    XToast.makeText(WiredIndexActivity.this, "请输入缴费金额", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("请输入缴费金额");
                 } else if (Double.parseDouble(cetCabetelPrice.getText().toString()) == 0) {
-                    XToast.makeText(this, "缴费金额不能是0元", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("缴费金额不能是0元");
                 } else {
                     getSubmit();
                 }
@@ -214,7 +214,7 @@ public class WiredIndexActivity extends BaseActivityOld {
                         startActivityForResult(intent, 1);
 
                     } else {
-                        XToast.makeText(WiredIndexActivity.this, jsonObject.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(jsonObject.getString("msg"));
                     }
 
                 } catch (JSONException e) {
@@ -225,7 +225,7 @@ public class WiredIndexActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -242,7 +242,7 @@ public class WiredIndexActivity extends BaseActivityOld {
                 if (!StringUtils.isEmpty(typeCB) && !StringUtils.isEmpty(o_idCB)) {
                     facepayCallBack(typeCB, o_idCB);
                 } else {
-                    XToast.makeText(this, "回调type+o_id异常", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("回调type+o_id异常");
                 }
                 break;
         }
@@ -289,18 +289,18 @@ public class WiredIndexActivity extends BaseActivityOld {
                 hideDialog(smallDialog);
                 String str = protocol2.setShop(json);
                 if (str.equals("1")) {
-                    XToast.makeText(WiredIndexActivity.this, str,
-                            XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
+
                 } else {
-                    XToast.makeText(WiredIndexActivity.this, str,
-                            XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
+
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 

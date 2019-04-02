@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -30,7 +31,6 @@ import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.ShadowLayout;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -131,7 +131,6 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
             case R.id.txt_search:
                 if (StringUtils.isEmpty(et_search.getText().toString())) {
                     return;
-//                    XToast.makeText(this, "请输入关键字", XToast.LENGTH_SHORT).show();
                 } else {
                     String keyWords2 = et_search.getText().toString();
                     page = 1;
@@ -205,7 +204,7 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    ToastUtils.showShort(mContext.getApplicationContext(), msg);
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -215,7 +214,7 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
 //                hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
                 refreshLayout.finishLoadMore();
-                ToastUtils.showShort(mContext.getApplicationContext(), "网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     refreshLayout.setEnableLoadMore(false);
                 }
@@ -265,7 +264,7 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    ToastUtils.showShort(mContext.getApplicationContext(), msg);
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -275,7 +274,7 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
 //                hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
                 refreshLayout.finishLoadMore();
-                ToastUtils.showShort(mContext.getApplicationContext(), "网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     refreshLayout.setEnableLoadMore(false);
                 }

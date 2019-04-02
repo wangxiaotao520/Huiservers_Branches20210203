@@ -17,13 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
 import com.huacheng.huiservers.ui.fragment.shop.ShopListFragment;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListFragmentAdapter;
@@ -33,11 +35,8 @@ import com.huacheng.huiservers.ui.shop.bean.CateBean;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import com.huacheng.huiservers.view.ShadowLayout;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.json.JSONException;
@@ -179,7 +178,7 @@ public class ShopListActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 
@@ -355,7 +354,7 @@ public class ShopListActivity extends BaseActivityOld {
                         fragmentShopListAdapter.setLoadState(fragmentShopListAdapter.LOADING_COMPLETE);
                     }
                     hideDialog(smallDialog);
-                    UIUtils.showToastSafe("网络异常，请检查网络设置");
+                    SmartToast.showInfo("网络异常，请检查网络设置");
                 }
             };
         } else {
@@ -491,7 +490,7 @@ public class ShopListActivity extends BaseActivityOld {
                     intent = new Intent(this, ShopCartActivityTwo.class);
                     startActivityForResult(intent, 1);
                 } else {
-                    XToast.makeText(this, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("当前账号不是个人账号");
                 }
                 break;
             case R.id.shadow_backtop:

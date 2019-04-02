@@ -13,19 +13,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
 import com.huacheng.huiservers.ui.fragment.listener.EndlessRecyclerOnScrollListener;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.shop.adapter.ShopXSListNoAdapter;
 import com.huacheng.huiservers.ui.shop.bean.CateBean;
 import com.huacheng.huiservers.ui.shop.bean.ModelSeckill;
 import com.huacheng.huiservers.ui.shop.inter.OnTabSelectListener;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -237,8 +237,6 @@ public class ShopXSReadyFragment extends BaseFragmentOld implements OnTabSelectL
                             }
                         }
                     }else {
-//                        String msg = JsonUtil.getInstance().getMsgFromResponse(jsonObject, "数据错误");
-//                     //   UIUtils.showToastSafe(msg);
                         if (page==1){
                             mRecyclerView.setVisibility(View.GONE);
                             rel_no_data.setVisibility(View.VISIBLE);
@@ -262,7 +260,7 @@ public class ShopXSReadyFragment extends BaseFragmentOld implements OnTabSelectL
                 if (mNoAdapter!=null){
                     mNoAdapter.setLoadState(mNoAdapter.LOADING_COMPLETE);
                 }
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

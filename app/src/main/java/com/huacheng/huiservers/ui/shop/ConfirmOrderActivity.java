@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
@@ -28,8 +29,6 @@ import com.huacheng.huiservers.ui.shop.adapter.ConfirmShopListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.ButtonUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -72,7 +71,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
     protected void init() {
         super.init();
         setContentView(R.layout.confrim_order);
- //       SetTransStatus.GetStatus(this);//系统栏默认为黑色
+        //       SetTransStatus.GetStatus(this);//系统栏默认为黑色
         prefrenceUtil = new SharePrefrenceUtil(this);
         pro = (List<SubmitOrderBean>) getIntent().getExtras().getSerializable("pro");
         allPrice = getIntent().getExtras().getString("all");
@@ -136,7 +135,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                 startActivityForResult(intent, 200);
                 break;
             case R.id.lin_jiesuan://立即支付
-                if (ButtonUtils.isFastDoubleClick(R.id.lin_jiesuan)){
+                if (ButtonUtils.isFastDoubleClick(R.id.lin_jiesuan)) {
                     break;
                 }
                 strlist.clear();
@@ -154,7 +153,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                 }
                 if (lin_noadress.getVisibility() == View.VISIBLE || TextUtils.isEmpty(txt_address.getText().toString()) || TextUtils.isEmpty(txt_mobile.getText().toString())
                         || TextUtils.isEmpty(txt_name.getText().toString())) {
-                    XToast.makeText(ConfirmOrderActivity.this, "地址不能为空", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("地址不能为空");
 
                 } else {
 
@@ -172,7 +171,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                                     intent.putExtras(bundle);
                                     startActivityForResult(intent, 100);
                                     dialog.dismiss();
-                                }else {
+                                } else {
                                     dialog.dismiss();
                                     getShopconfirm();//立即生成支付订单
                                 }
@@ -209,7 +208,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         RequestParams params = new RequestParams();
         params.addBodyParameter("para_amount", allPrice);
         params.addBodyParameter("m_id", prefrenceUtil.getXiaoQuId());
-        params.addBodyParameter("products",gson.toJson(pro)+"");
+        params.addBodyParameter("products", gson.toJson(pro) + "");
         HttpHelper hh = new HttpHelper(info.submit_order_before, params, ConfirmOrderActivity.this) {
 
             @Override
@@ -220,7 +219,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                     JSONObject jsonObject = new JSONObject(json);
                     String status = jsonObject.getString("status");
                     String msg = jsonObject.getString("msg");
-                    if ("1".equals(status)){
+                    if ("1".equals(status)) {
                         if (bean != null) {
                             if (TextUtils.isEmpty(bean.getContact()) && TextUtils.isEmpty(bean.getMobile()) &&
                                     TextUtils.isEmpty(bean.getAddress())) {
@@ -238,7 +237,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                             txt_fenpei.setText("您的包裹将分成" + bean.getPro_num() + "个包裹配送给您");
 
 
-                            if (bean.getAmount()!=null && !TextUtils.isEmpty(bean.getAmount())) {
+                            if (bean.getAmount() != null && !TextUtils.isEmpty(bean.getAmount())) {
                                 all_money = Double.parseDouble(bean.getAmount());
                                 txt_all_money.setText("¥" + bean.getAmount());
                             } else {
@@ -262,14 +261,14 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                                     pro);
                             list_order_group.setAdapter(adapter);
                         }
-                    }else {
-                        UIUtils.showToastSafe(msg);
+                    } else {
+                        SmartToast.showInfo(msg);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 finish();
                             }
-                        },1500);
+                        }, 1500);
                     }
 
                 } catch (JSONException e) {
@@ -282,7 +281,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -293,25 +292,25 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         Gson gson = new Gson();
         gson.toJson(pro);
         RequestParams params = new RequestParams();
-        params.addBodyParameter("address_id", person_address_id+"");
-        params.addBodyParameter("address", txt_address.getText().toString()+"");
-        params.addBodyParameter("contact", txt_name.getText().toString()+"");
-        params.addBodyParameter("mobile", txt_mobile.getText().toString()+"");
-        params.addBodyParameter("m_c_id", coupon_id+"");
-        params.addBodyParameter("m_c_name", coupon_name+"");
-        params.addBodyParameter("m_c_amount", coupon_price+"");
-        params.addBodyParameter("description", edt_liuyan.getText().toString()+"");
-        params.addBodyParameter("type", sb.toString()+"");
-        params.addBodyParameter("products", gson.toJson(pro)+"");
+        params.addBodyParameter("address_id", person_address_id + "");
+        params.addBodyParameter("address", txt_address.getText().toString() + "");
+        params.addBodyParameter("contact", txt_name.getText().toString() + "");
+        params.addBodyParameter("mobile", txt_mobile.getText().toString() + "");
+        params.addBodyParameter("m_c_id", coupon_id + "");
+        params.addBodyParameter("m_c_name", coupon_name + "");
+        params.addBodyParameter("m_c_amount", coupon_price + "");
+        params.addBodyParameter("description", edt_liuyan.getText().toString() + "");
+        params.addBodyParameter("type", sb.toString() + "");
+        params.addBodyParameter("products", gson.toJson(pro) + "");
         HttpHelper hh = new HttpHelper(info.submit_order, params, ConfirmOrderActivity.this) {
 
             @Override
             protected void setData(String json) {
                 hideDialog(smallDialog);
-                if (!NullUtil.isStringEmpty(json)){
+                if (!NullUtil.isStringEmpty(json)) {
                     try {
                         JSONObject response = new JSONObject(json);
-                        if (JsonUtil.getInstance().isSuccess(response)){
+                        if (JsonUtil.getInstance().isSuccess(response)) {
                             beanzhifu = protocol.getShopConfirm(json);
                             Intent intent = new Intent(ConfirmOrderActivity.this, ZhifuActivity.class);
                             Bundle bundle = new Bundle();
@@ -323,13 +322,13 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                             intent.putExtras(bundle);
                             startActivity(intent);
                             finish();
-                        }else {
+                        } else {
                             String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交失败");
-                            UIUtils.showToastSafe(msg);
+                            SmartToast.showInfo(msg);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        UIUtils.showToastSafe("提交失败");
+                        SmartToast.showInfo("提交失败");
                     }
 
 
@@ -339,7 +338,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

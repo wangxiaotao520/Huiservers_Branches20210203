@@ -25,6 +25,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.HouseRentDetail;
 import com.huacheng.huiservers.model.HouseRentTagListBean;
@@ -34,7 +35,6 @@ import com.huacheng.huiservers.ui.index.houserent.adapter.HouseRentTagAdapter;
 import com.huacheng.huiservers.ui.index.houserent.presenter.HouseListInterface;
 import com.huacheng.huiservers.ui.index.houserent.presenter.HouseRentListPresenter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -459,7 +459,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                     if (!NullUtil.isStringEmpty(low_price)&&!NullUtil.isStringEmpty(high_price)){
                         try {
                             if (Integer.parseInt(high_price)-Integer.parseInt(low_price)<0) {
-                                XToast.makeText(this, "低价不能大于高价", XToast.LENGTH_SHORT).show();
+                                SmartToast.showInfo("低价不能大于高价");
                                 return;
                             }
                             money="";
@@ -501,7 +501,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                     if (!NullUtil.isStringEmpty(low_acreage)&&!NullUtil.isStringEmpty(high_acreage)){
                         try {
                             if (Integer.parseInt(high_acreage)-Integer.parseInt(low_acreage)<0) {
-                                XToast.makeText(this, "小面积不能大于大面积", XToast.LENGTH_SHORT).show();
+                                SmartToast.showInfo("小面积不能大于大面积");
                                 return;
                             }
                             acreage="";
@@ -714,7 +714,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                 }
             }
         }else {
-            XToast.makeText(this, msg, XToast.LENGTH_SHORT).show();
+            SmartToast.showInfo(msg);
         }
     }
 
@@ -746,7 +746,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                 listView.setHasMoreItems(false);
             }
         }else {
-            XToast.makeText(this, msg, XToast.LENGTH_SHORT).show();
+            SmartToast.showInfo(msg);
         }
     }
 

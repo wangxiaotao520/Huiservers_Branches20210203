@@ -18,9 +18,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.utils.DownloadManagerPro;
-import com.huacheng.huiservers.utils.XToast;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -308,8 +308,8 @@ public class DownLoadDialog extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-    	if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){   
-    		XToast.makeText(DownLoadDialog.this, "正在下载，请耐心等待", XToast.LENGTH_SHORT).show();
+    	if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            SmartToast.showInfo("正在下载，请耐心等待");
 			return true;   
 		}
     	return super.onKeyDown(keyCode, event);

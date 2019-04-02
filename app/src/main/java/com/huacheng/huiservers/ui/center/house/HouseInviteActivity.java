@@ -7,14 +7,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.InviteAddPersonDialog;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.utils.UIUtils;
 
 import org.json.JSONObject;
 
@@ -86,7 +86,7 @@ public class HouseInviteActivity extends BaseActivityOld {
                         building = jsonData.getString("building");
                         room_code = jsonData.getString("room_code");
                     } else {
-                        XToast.makeText(HouseInviteActivity.this, jsonObject.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(jsonObject.getString("msg"));
                     }
                 } catch (org.json.JSONException e) {
                     e.printStackTrace();
@@ -97,7 +97,7 @@ public class HouseInviteActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

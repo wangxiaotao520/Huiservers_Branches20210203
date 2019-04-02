@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ajb.opendoor.UnLockCallBack;
 import com.ajb.opendoor.UnlockHelper;
@@ -18,9 +17,10 @@ import com.ajb.opendoor.data.api.BleCodeCallBack;
 import com.ajb.opendoor.data.api.GusetCodeCallBack;
 import com.ajb.opendoor.data.bean.BleCodeRsp;
 import com.ajb.opendoor.data.bean.GuestCodeRsp;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.utils.AesUtils;
 import com.huacheng.huiservers.utils.ShareUtils;
 import com.huacheng.libraryservice.utils.AppConstant;
@@ -108,7 +108,7 @@ public class HousePassActivity extends BaseActivityOld {
         unlockHelper.setOnUnlockListener(new UnLockCallBack() {
             @Override
             public void onUnlockResult(int i) {
-                Toast.makeText(HousePassActivity.this, "" + i, Toast.LENGTH_SHORT).show();
+                SmartToast.showInfo("" + i);
             }
         });
         unlockHelper.init();

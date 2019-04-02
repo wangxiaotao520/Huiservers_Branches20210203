@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
@@ -20,7 +21,6 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceOrderDetail;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -109,14 +109,14 @@ public class ServiceOrderDetailActivity extends BaseActivity implements View.OnC
                     inflateContent(model);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败");
-                    XToast.makeText(mContext, msg, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(mContext, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }
@@ -164,7 +164,7 @@ public class ServiceOrderDetailActivity extends BaseActivity implements View.OnC
                 tv_tousu.setVisibility(View.VISIBLE);
                 tv_pingjia.setVisibility(View.GONE);
             }else if ("5".equals(status)){
-                XToast.makeText(mContext, "订单已取消", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("订单已取消");
             }
         }
     }

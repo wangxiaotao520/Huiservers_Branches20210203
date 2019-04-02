@@ -9,21 +9,20 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.adapter.CouponToShopUseAdapter;
 import com.huacheng.huiservers.ui.center.bean.CouponBean;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.MyListView;
 import com.lidroid.xutils.BitmapUtils;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,9 +77,8 @@ public class CouponToShopUseActivity extends BaseActivityOld {
         if (!StringUtils.isEmpty(couponID)) {
             getDetail(couponID);
         } else {
-            XToast.makeText(this, "couponID不允许为空", XToast.LENGTH_SHORT).show();
+            SmartToast.showInfo("couponID不允许为空");
         }
-
     }
 
 
@@ -184,7 +182,7 @@ public class CouponToShopUseActivity extends BaseActivityOld {
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
 
@@ -204,16 +202,16 @@ public class CouponToShopUseActivity extends BaseActivityOld {
                 if ("1".equals(str)) {
                     coupon = null;
                     getDetail(couponID);
-                    XToast.makeText(CouponToShopUseActivity.this, "领取到店优惠券成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("领取到店优惠券成功");
                 } else {
-                    XToast.makeText(CouponToShopUseActivity.this, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }
@@ -232,20 +230,20 @@ public class CouponToShopUseActivity extends BaseActivityOld {
                 String str = new CenterProtocol().setStatus(json);
                 if (str.equals("1")) {
 
-                    XToast.makeText(CouponToShopUseActivity.this, "使用成功", XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo("使用成功");
                     Intent intent = new Intent(CouponToShopUseActivity.this, CouponRecordingActivity.class);
                     startActivity(intent);
                     finish();
 
                 } else {
-                    XToast.makeText(CouponToShopUseActivity.this, str, XToast.LENGTH_SHORT).show();
+                    SmartToast.showInfo(str);
                 }
             }
 
             @Override
             protected void requestFailure(Exception error, String msg) {
                 hideDialog(smallDialog);
-                UIUtils.showToastSafe("网络异常，请检查网络设置");
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
     }

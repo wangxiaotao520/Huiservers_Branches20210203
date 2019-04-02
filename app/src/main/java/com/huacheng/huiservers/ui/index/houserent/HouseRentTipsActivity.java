@@ -5,13 +5,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.HouseRentDetail;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONException;
@@ -101,7 +101,7 @@ public class HouseRentTipsActivity extends BaseActivity {
                     }
                 } else {
                     try {
-                        XToast.makeText(HouseRentTipsActivity.this, response.getString("msg"), XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo(response.getString("msg"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -111,7 +111,7 @@ public class HouseRentTipsActivity extends BaseActivity {
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(HouseRentTipsActivity.this, "网络异常，请检查网络设置", XToast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
     }

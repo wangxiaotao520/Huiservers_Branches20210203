@@ -5,15 +5,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.property.adapter.SelectCommonAdapter;
 import com.huacheng.huiservers.ui.index.property.bean.ModelSelectCommon;
 import com.huacheng.huiservers.ui.index.property.inter.SelectCommonInterface;
 import com.huacheng.huiservers.ui.index.property.presenter.SelectCommonPresenter;
-import com.huacheng.huiservers.utils.XToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -172,7 +171,7 @@ public class SelectCommonActivity extends BaseActivity implements SelectCommonPr
                 }
             }
         }else {
-            XToast.makeText(this,msg, Toast.LENGTH_SHORT).show();
+            SmartToast.showInfo(msg);
         }
     }
 }

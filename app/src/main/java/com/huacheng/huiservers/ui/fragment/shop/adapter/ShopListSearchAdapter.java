@@ -16,13 +16,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
-import com.huacheng.huiservers.utils.XToast;
 
 import java.util.List;
 
@@ -165,7 +165,7 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
                         }
                     } else {
-                        XToast.makeText(mContext, "当前账号不是个人账号", XToast.LENGTH_SHORT).show();
+                        SmartToast.showInfo("当前账号不是个人账号");
                     }
 
                 }

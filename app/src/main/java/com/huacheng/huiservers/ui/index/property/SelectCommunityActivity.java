@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -21,7 +21,6 @@ import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
 import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.TextPinyinUtil;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.Cn2Spell;
 import com.huacheng.huiservers.view.PinyinComparator;
 import com.huacheng.huiservers.view.SideBar;
@@ -124,7 +123,7 @@ public class SelectCommunityActivity extends BaseActivity implements View.OnClic
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                XToast.makeText(SelectCommunityActivity.this, "网络错误，请检查网络设置", Toast.LENGTH_SHORT).show();
+                SmartToast.showInfo("网络错误，请检查网络设置");
             }
         });
 
@@ -195,7 +194,6 @@ public class SelectCommunityActivity extends BaseActivity implements View.OnClic
             public void onItemClick(AdapterView<?> arg0, View arg1, final int position,
                                     long arg3) {
 //                String name = SourceDateList.get(position).getName();
-//                ToastUtils.showShort(SelectCommunityActivity.this,name);
                 Intent intent = new Intent();
                 intent.putExtra("community", SourceDateList.get(position));
                 setResult(RESULT_OK, intent);
