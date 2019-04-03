@@ -33,7 +33,6 @@ import com.huacheng.huiservers.ui.servicenew.ui.search.ServicexSearchActivity;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.TDevice;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -111,10 +110,11 @@ public class ServiceFragment extends BaseFragment implements View.OnClickListene
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(false);
 
+        relMenuTop.setAlpha(0.6f);
         //设置statusbar
         mStatusBar=view.findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
-        mStatusBar.setAlpha((float)0);
+        mStatusBar.setAlpha((float)0.6f);
     }
 
     @Override
@@ -153,16 +153,14 @@ public class ServiceFragment extends BaseFragment implements View.OnClickListene
                 int position = layoutManager.findFirstVisibleItemPosition();
                 if (position > 0) {
                     relMenuTop.setBackgroundColor(getResources().getColor(R.color.white));
+                    relMenuTop.setAlpha(1);
                     mStatusBar.setAlpha(1);
 ////                    setAlpha(1);
                 } else {
-                    relMenuTop.setBackgroundColor(getResources().getColor(R.color.transparents));
-                    mStatusBar.setAlpha(0);
-                  /*  View firstView = layoutManager.findViewByPosition(position);
-                    int top = firstView.getTop();
-                    int height = relMenuTop.getHeight();
-                    int firstHeight = firstView.getHeight();
-                    setAlpha(Math.min(1f, (float) -top / (float) (firstHeight - height)));*/
+                    relMenuTop.setBackgroundColor(getResources().getColor(R.color.white));
+                    relMenuTop.setAlpha(0.6f);
+                    mStatusBar.setAlpha(0.6f);
+
                 }
 
             }

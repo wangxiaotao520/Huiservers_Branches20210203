@@ -97,9 +97,12 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private float alpha;  //透明度 标志滑动到的位置状态
     private RelativeLayout rl_more_goods_title;
     View mStatusBar;
+    private View view_alpha;
+
     @Override
     public void initView(View view) {
         ly_top = view.findViewById(R.id.ly_top);
+        view_alpha = view.findViewById(R.id.view_alpha);
         initTopView(view);
         headerView = view.findViewById(R.id.rl_head);
         initHeaderView();
@@ -116,7 +119,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         mTabLayout = view.findViewById(R.id.tl_tab);
         mViewPager = view.findViewById(R.id.vp_pager);
         ll_grid_cate = view.findViewById(R.id.ll_grid_cate);
-        ly_top.setAlpha((float)0.6);
+        view_alpha.setAlpha((float)0.6);
 
         //设置statusbar
         mStatusBar=view.findViewById(R.id.status_bar);
@@ -233,10 +236,10 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
          //       mViewPager.setIsCanScroll(alpha ==1?true:false);
                 // 设置渐变到多少后不渐变
                 if (alpha < 0.6f) {
-                    ly_top.setAlpha((float) 0.6f);
+                    view_alpha.setAlpha((float) 0.6f);
                     mStatusBar.setAlpha(0.6f);
                 } else {
-                    ly_top.setAlpha(alpha);
+                    view_alpha.setAlpha(alpha);
                     mStatusBar.setAlpha(alpha);
                 }
 
