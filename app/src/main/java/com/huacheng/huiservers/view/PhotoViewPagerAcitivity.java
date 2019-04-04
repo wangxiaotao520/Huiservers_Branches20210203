@@ -1,5 +1,7 @@
 package com.huacheng.huiservers.view;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -28,6 +30,13 @@ public class PhotoViewPagerAcitivity extends BaseActivity {
     private ViewPager viewPager;
     private int current_position;
     private TextView tv_position;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar=true;
+        isFullScreen=true;
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initView() {

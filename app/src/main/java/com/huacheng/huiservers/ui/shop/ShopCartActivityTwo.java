@@ -138,7 +138,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
             refreshListView();
             mPriceAll.setText("¥" + 0.00 + "");
             mSelectNum.setText("已选" + 0 + "件商品");
-            mListView.setAdapter(mListAdapter);
+          //  mListView.setAdapter(mListAdapter);
             mListAdapter.notifyDataSetChanged();
             initListener();//事件监听
             loadData();
@@ -162,9 +162,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
                     if (datas != null && datas.size() > 0) {
                         mListData.addAll(listlBean.getList());
                         if (mListData != null && mListData.size() > 0) {
-                            mListAdapter = new ListAdapter(mListData);
-                            mListView.setAdapter(mListAdapter);
-                            mListView.setOnItemClickListener(mListAdapter);
+                            mListAdapter.notifyDataSetChanged();
                             rel_no_data.setVisibility(View.GONE);
                             bottom_bar.setVisibility(View.VISIBLE);
 
@@ -274,6 +272,9 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
         mSelectNum = (TextView) findViewById(R.id.tv_cart_select_num);
         mDelete = (TextView) findViewById(R.id.tv_cart_buy_or_del);
         mListView = (MyListView) findViewById(R.id.listview);
+        mListAdapter = new ListAdapter(mListData);
+        mListView.setAdapter(mListAdapter);
+        mListView.setOnItemClickListener(mListAdapter);
         grid_view = (MyGridview) findViewById(R.id.grid_view);
         //mListView.setSelector(R.drawable.list_selector);
         mDelete.setOnClickListener(this);
@@ -291,9 +292,9 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
 
     private void refreshListView() {
         if (mListData != null && mListData.size() > 0) {
-            mListAdapter = new ListAdapter(mListData);
-            mListView.setAdapter(mListAdapter);
-            mListView.setOnItemClickListener(mListAdapter);
+            if (mListAdapter!=null) {
+                mListAdapter.notifyDataSetChanged();
+            }
             rel_no_data.setVisibility(View.GONE);
         } else {
             totalPrice = (float) 0;

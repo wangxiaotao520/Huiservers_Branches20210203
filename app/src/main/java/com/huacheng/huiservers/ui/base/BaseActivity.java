@@ -86,6 +86,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        screenManager = ScreenManager.getInstance();
+        screenManager.setFullScreen(isFullScreen, this);
+        screenManager.setStatusBar(isStatusBar, this);
+        screenManager.setScreenRoate(isScreenRoate, this);
+
         super.onCreate(savedInstanceState);
        // setTheme(R.style.AppCompatTheme_Base);
         if (enableSliding()) {
@@ -95,10 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }else {
             setTheme(R.style.AppCompatTheme_Base);
         }
-        screenManager = ScreenManager.getInstance();
-        screenManager.setStatusBar(isStatusBar, this);
-        screenManager.setScreenRoate(isScreenRoate, this);
-        screenManager.setFullScreen(isFullScreen, this);
+
         setContentView(getLayoutId());
         mContext = this;
         smallDialog = new SmallDialog(mContext);

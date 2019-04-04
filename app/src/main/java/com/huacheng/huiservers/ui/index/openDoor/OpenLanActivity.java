@@ -25,7 +25,6 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.utils.AesUtils;
 import com.huacheng.huiservers.utils.PermissionUtils;
-import com.huacheng.huiservers.utils.statusbar.StatusBarUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,7 +64,7 @@ public class OpenLanActivity extends BaseActivityOld implements UnLockCallBack {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_lan);
         ButterKnife.bind(this);
-        StatusBarUtil.setTranslucentStatus(this);
+     //   StatusBarUtil.setTranslucentStatus(this);
         mTitleName.setText("蓝牙开门");
         Intent intent = getIntent();
         room_id = intent.getStringExtra("room_id");
