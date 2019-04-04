@@ -105,6 +105,7 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
         mLinLeft.setOnClickListener(this);
         mTxtPay.setOnClickListener(this);
         mTxtDelete.setOnClickListener(this);
+
     }
 
 
@@ -131,17 +132,17 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
                 for (int i = 0; i < XorderDetailBean.size(); i++) {
                     if (XorderDetailBean.get(i).getIs_shop().equals("1")) {
                         SmartToast.showInfo("该订单含有已下架商品，请重新下单");
-                    } else {
-                        MyCookieStore.item_delete_id = item_id;
-                        intent = new Intent(NewShopOrderDetailActivity.this, ZhifuActivity.class);
-                        bundle.putString("o_id", XorderDetailBean.get(0).getOid());
-                        bundle.putString("price", shi_price + "");
-                        bundle.putString("type", "shop");
-                        bundle.putString("order_type", "gw");
-                        intent.putExtras(bundle);
-                        startActivityForResult(intent, 22222);
+                        return;
                     }
                 }
+                MyCookieStore.item_delete_id = item_id;
+                intent = new Intent(NewShopOrderDetailActivity.this, ZhifuActivity.class);
+                bundle.putString("o_id", XorderDetailBean.get(0).getOid());
+                bundle.putString("price", shi_price + "");
+                bundle.putString("type", "shop");
+                bundle.putString("order_type", "gw");
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 22222);
                 break;
             case R.id.txt_delete://删除
                 MyCookieStore.item_delete_id = item_id;
@@ -237,6 +238,7 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
                     setFloat2();
                     mTvAllPrice.setText("商品总金额：¥" + totalPrice);
                     mTvShiPrice.setText("实付：¥" + shi_price);
+
                     new_shopOrderDetailAdapter = new New_ShopOrderDetailAdapter(NewShopOrderDetailActivity.this, XorderDetailBean);
                     mShopList.setAdapter(new_shopOrderDetailAdapter);
 
