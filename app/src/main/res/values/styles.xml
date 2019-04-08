@@ -173,7 +173,7 @@
     </style>
 
     <style name="rent_release_text">
-        <item name="android:textColor">@color/gray_55</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">@dimen/t_16sp</item>
     </style>
 
