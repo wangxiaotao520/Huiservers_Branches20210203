@@ -359,12 +359,17 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
                                 double aDouble1 = Double.valueOf(propertyInfo.getShuifei().getInfo().getUpper_limit());
                                 double aDouble2 = Double.valueOf(propertyInfo.getShuifei().getInfo().getSMay_acc());
-
-                                if (Double.valueOf(mEtPrice.getText().toString().trim()) <= (aDouble1 - aDouble2)) {
-                                    //立即生成支付订单
-                                    getSubmitOrder(propertyInfo.getRoom_info(), propertyInfo.getShuifei().getType(), propertyInfo.getShuifei().getType_cn());
+                                //如果所剩余额大于等于上限的金额
+                                if (aDouble2 >= aDouble1) {
+                                    SmartToast.showInfo("您剩余充值金额上限为：0元");
                                 } else {
-                                    SmartToast.showInfo("您剩余充值金额上限为：" + (aDouble1 - aDouble2) + "元");
+                                    //输入的金额小于等于上限金额减去所剩金额的差
+                                    if (Double.valueOf(mEtPrice.getText().toString().trim()) <= (aDouble1 - aDouble2)) {
+                                        //立即生成支付订单
+                                        getSubmitOrder(propertyInfo.getRoom_info(), propertyInfo.getShuifei().getType(), propertyInfo.getShuifei().getType_cn());
+                                    } else {
+                                        SmartToast.showInfo("您剩余充值金额上限为：" + (aDouble1 - aDouble2) + "元");
+                                    }
                                 }
                             }
                         } else {
@@ -385,12 +390,17 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
                                 double aDouble1 = Double.valueOf(propertyInfo.getDianfei().getInfo().getUpper_limit());
                                 double aDouble2 = Double.valueOf(propertyInfo.getDianfei().getInfo().getDMay_acc());
-
-                                if (Double.valueOf(mEtPrice.getText().toString().trim()) <= (aDouble1 - aDouble2)) {
-                                    //立即生成支付订单
-                                    getSubmitOrder(propertyInfo.getRoom_info(), propertyInfo.getDianfei().getType(), propertyInfo.getDianfei().getType_cn());
+                                //如果所剩余额大于等于上限的金额
+                                if (aDouble2 >= aDouble1) {
+                                    SmartToast.showInfo("您剩余充值金额上限为：0元");
                                 } else {
-                                    SmartToast.showInfo("您剩余充值金额上限为：" + (aDouble1 - aDouble2) + "元");
+                                    //输入的金额小于等于上限金额减去所剩金额的差
+                                    if (Double.valueOf(mEtPrice.getText().toString().trim()) <= (aDouble1 - aDouble2)) {
+                                        //立即生成支付订单
+                                        getSubmitOrder(propertyInfo.getRoom_info(), propertyInfo.getDianfei().getType(), propertyInfo.getDianfei().getType_cn());
+                                    } else {
+                                        SmartToast.showInfo("您剩余充值金额上限为：" + (aDouble1 - aDouble2) + "元");
+                                    }
                                 }
                             }
                         } else {
@@ -484,7 +494,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     }
                 }
                 //计算选中的物业费
-                total_wuye_price =(float) 0;
+                total_wuye_price = (float) 0;
                 for (int i = 0; i < selected_price_list.size(); i++) {
                     total_wuye_price += selected_price_list.get(i);
                 }
