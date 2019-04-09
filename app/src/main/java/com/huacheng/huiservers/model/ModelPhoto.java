@@ -22,6 +22,9 @@ public class ModelPhoto implements Serializable {
     String path;//新修改的图片路径
     String house_imgs_name; //图片名称
 
+
+    int position;
+
     public String getHouse_imgs() {
         return house_imgs;
     }
@@ -78,6 +81,13 @@ public class ModelPhoto implements Serializable {
         this.house_imgs_name = house_imgs_name;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
 }
 

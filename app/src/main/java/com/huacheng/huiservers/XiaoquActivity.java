@@ -74,6 +74,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 首页 选择小区页面
+ */
 public class XiaoquActivity extends BaseActivityOld implements OnClickListener, AMapLocationListener {
     private TextView txt_dialog, txt_search, text_city;
     private ListView list_center;

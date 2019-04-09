@@ -82,15 +82,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract int getLayoutId();
 
 
-    private ScreenManager screenManager;
+    protected ScreenManager screenManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         screenManager = ScreenManager.getInstance();
-        screenManager.setFullScreen(isFullScreen, this);
-        screenManager.setStatusBar(isStatusBar, this);
-        screenManager.setScreenRoate(isScreenRoate, this);
-
+        initScreenConfig();
         super.onCreate(savedInstanceState);
        // setTheme(R.style.AppCompatTheme_Base);
         if (enableSliding()) {
@@ -112,6 +109,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         //各种初始化：方法初始化、通用配置、
         ActivityStackManager.getActivityStackManager().pushActivity(this);
     }
+
+    /**
+     * 初始化屏幕相关配置
+     */
+    protected  void initScreenConfig(){
+        screenManager.setFullScreen(isFullScreen, this);
+        screenManager.setStatusBar(isStatusBar, this);
+        screenManager.setScreenRoate(isScreenRoate, this);
+    }
+
     /**
      * 是否允许右滑退出
      * @return
