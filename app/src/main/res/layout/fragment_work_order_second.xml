@@ -16,10 +16,6 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:divider="@null"
-            android:layout_marginTop="@dimen/margin"
-            android:layout_marginRight="@dimen/margin_15"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:dividerHeight="@dimen/margin"
             android:fastScrollEnabled="false"
             android:listSelector="@android:color/transparent"
             android:smoothScrollbar="true" />
