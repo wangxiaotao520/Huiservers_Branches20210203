@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.index.workorder_second;
+package com.huacheng.huiservers.ui.index.workorder_second.commit;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -58,6 +58,7 @@ public class PublicWorkOrderCommitActivity extends BaseActivity implements View.
     private TextView tv_confirm;
     public static final int ACT_SELECT_PHOTO = 111;//选择图片
     public static final int ACT_REQUEST_COMMUNITY = 112;//选择小区
+    public static final int ACT_SELECT_TYPE = 222;//选择分类
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
@@ -211,11 +212,13 @@ public class PublicWorkOrderCommitActivity extends BaseActivity implements View.
                 break;
             case R.id.rel_select_tag:
                 //TODO 选择报修类型
+                Intent intent = new Intent(this, WorkTypeListActivity.class);
+                startActivityForResult(intent,ACT_SELECT_TYPE);
                 break;
             case R.id.rel_community:
                 //TODO 选择小区
-                Intent intent = new Intent(this, SelectCommunityActivity.class);
-                startActivityForResult(intent, ACT_REQUEST_COMMUNITY);
+                Intent intent1 = new Intent(this, SelectCommunityActivity.class);
+                startActivityForResult(intent1, ACT_REQUEST_COMMUNITY);
                 break;
 
             case R.id.rel_emergency:

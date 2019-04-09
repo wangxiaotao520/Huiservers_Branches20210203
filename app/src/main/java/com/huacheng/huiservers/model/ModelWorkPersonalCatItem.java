@@ -17,6 +17,8 @@ public class ModelWorkPersonalCatItem implements Serializable{
     private String type_content;
     private String entry_fee;
 
+    //第二版工单
+
     public String getId() {
         return id;
     }

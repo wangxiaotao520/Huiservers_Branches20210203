@@ -991,9 +991,6 @@
             android:screenOrientation="portrait" />
 
         <!--测试Activity-->
-        <activity
-            android:name="com.huacheng.huiservers.ui.index.TestActivity"
-            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -1011,13 +1008,19 @@
         </provider>
 
         <activity
-            android:name=".ui.index.workorder_second.PersonalWorkOrderCommitActivity"
+            android:name=".ui.index.workorder_second.commit.PersonalWorkOrderCommitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.index.workorder_second.PublicWorkOrderCommitActivity"
+            android:name=".ui.index.workorder_second.commit.PublicWorkOrderCommitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.index.workorder_second.commit.WorkTypeListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.index.workorder_second.commit.HouseListActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 

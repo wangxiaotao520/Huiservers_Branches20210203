@@ -8,7 +8,7 @@
 
     <color name="white">#ffffff</color>
     <color name="view_background">#EEEEEE</color>
-    <color name="all_gray">#f4f7f8</color>
+    <color name="all_gray">#f8f8f8</color>
     <!--<color name="all_gray">#f3f9ff</color>-->
     <color name="graycc">#cccccc</color>
     <color name="transparents">#00000000</color>

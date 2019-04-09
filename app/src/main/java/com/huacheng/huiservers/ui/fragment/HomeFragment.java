@@ -48,7 +48,8 @@ import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
-import com.huacheng.huiservers.ui.index.workorder_second.PersonalWorkOrderCommitActivity;
+import com.huacheng.huiservers.ui.index.workorder_second.commit.PersonalWorkOrderCommitActivity;
+import com.huacheng.huiservers.ui.index.workorder_second.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.ui.shop.adapter.MyGridViewAdpter;
@@ -713,7 +714,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                         Intent intent = new Intent(mActivity, PersonalWorkOrderCommitActivity.class);
                         startActivity(intent);
                     } else {//公共报修
-                        Intent intent = new Intent(mActivity, com.huacheng.huiservers.ui.index.workorder_second.PublicWorkOrderCommitActivity.class);
+                        Intent intent = new Intent(mActivity, PublicWorkOrderCommitActivity.class);
                         startActivity(intent);
                     }
                 } else {

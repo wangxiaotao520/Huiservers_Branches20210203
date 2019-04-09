@@ -3,8 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <!--<color name="windowbackground">#F8F8F8</color>-->
-    <color name="windowbackground">#f4f7f8</color>
+    <color name="windowbackground">#F8F8F8</color>
+    <!--<color name="windowbackground">#f4f7f8</color>-->
     <color name="line">#DEDEDE</color>
     <color name="status_bar_color">#474747</color>
     <color name="text_color">#666666</color>

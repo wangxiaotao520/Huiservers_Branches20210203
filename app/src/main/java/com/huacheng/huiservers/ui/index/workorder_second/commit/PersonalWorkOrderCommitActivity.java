@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.index.workorder_second;
+package com.huacheng.huiservers.ui.index.workorder_second.commit;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -59,9 +59,12 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
     private ChooseWorkTimeDialog chooseWorkTimeDialog;
     String[] emergencyLists = {"紧急", "普通"};
     public static final int ACT_SELECT_PHOTO = 111;//选择图片
+    public static final int ACT_SELECT_TYPE = 222;//选择分类
+    public static final int ACT_SELECT_HOUSE = 333;//选择房屋
     private LinearLayout ll_address;
     private TextView tv_confirm;
     private TextView tv_address;
+    private LinearLayout ll_price_list;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,7 +103,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
             tv_nickname.setText(""+BaseApplication.getUser().getNickname());
             tv_phone.setText(""+BaseApplication.getUser().getUsername());
         }
-
+        ll_price_list = findViewById(R.id.ll_price_list);
     }
 
     @Override
@@ -163,6 +166,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
         });
         ll_address.setOnClickListener(this);
         tv_confirm.setOnClickListener(this);
+        ll_price_list.setOnClickListener(this);
     }
 
     /**
@@ -265,6 +269,8 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
                 break;
             case R.id.rel_select_tag:
                 //TODO 选择报修类型
+                Intent intent = new Intent(this, WorkTypeListActivity.class);
+                startActivityForResult(intent,ACT_SELECT_TYPE);
                 break;
             case R.id.rel_time:
                 if (chooseWorkTimeDialog==null){
@@ -283,7 +289,11 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
                 break;
             case R.id.ll_address:
                 //TODO 跳转地址
+                Intent intent_house = new Intent(this, HouseListActivity.class);
+                startActivityForResult(intent_house,ACT_SELECT_HOUSE);
                 break;
+            case R.id.ll_price_list:
+              //TODO 报修价目表
             case R.id.tv_confirm:
                commit();
                 break;
