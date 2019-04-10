@@ -1018,27 +1018,25 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name="com.huacheng.huiservers.ui.index.workorder_second.commit.WorkTypeListActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <!--新工单评价-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.workorder_second.WorkOrderPingjiaActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <!--新工单取消-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.workorder_second.WorkOrderCancelActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <!--新工单列表-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.workorder_second.WorkOrderListActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <!--新工单详情-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.workorder_second.WorkOrderDetailActivity"
-            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.workorder_second.commit.WorkPriceListActivity"
             android:screenOrientation="portrait"/>
     </application>
 

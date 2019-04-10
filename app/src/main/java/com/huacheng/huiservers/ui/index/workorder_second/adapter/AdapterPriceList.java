@@ -1,0 +1,157 @@
+package com.huacheng.huiservers.ui.index.workorder_second.adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.TextView;
+
+import com.huacheng.huiservers.R;
+
+/**
+ * Description:
+ * created by wangxiaotao
+ * 2019/4/10 0010 下午 3:14
+ */
+public class AdapterPriceList extends BaseExpandableListAdapter {
+    private Context mcontext;
+    public String[] groupString = {"射手", "辅助", "坦克", "法师"};
+    public String[][] childString = {
+            {"孙尚香", "后羿", "马可波罗", "狄仁杰"},
+            {"孙膑", "蔡文姬", "鬼谷子", "杨玉环"},
+            {"张飞", "廉颇", "牛魔", "项羽"},
+            {"诸葛亮", "王昭君", "安琪拉", "干将"}
+
+    };
+    public float[][] childPrice={
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0},
+        {0, 0, 0, 0}};
+
+
+    public AdapterPriceList(Context mcontext) {
+        this.mcontext = mcontext;
+        //TODO 重写构造，把数据传进来
+    }
+
+    @Override
+    // 获取分组的个数
+    public int getGroupCount() {
+        return groupString.length;
+    }
+
+    //获取指定分组中的子选项的个数
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return childString[groupPosition].length;
+    }
+
+    //        获取指定的分组数据
+    @Override
+    public Object getGroup(int groupPosition) {
+        return groupString[groupPosition];
+    }
+
+    //获取指定分组中的指定子选项数据
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+        return childString[groupPosition][childPosition];
+    }
+
+    //获取指定分组的ID, 这个ID必须是唯一的
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    //获取子选项的ID, 这个ID必须是唯一的
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
+    }
+
+    //分组和子选项是否持有稳定的ID, 就是说底层数据的改变会不会影响到它们
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+    /**
+     *
+     * 获取显示指定组的视图对象
+     *
+     * @param groupPosition 组位置
+     * @param isExpanded 该组是展开状态还是伸缩状态
+     * @param convertView 重用已有的视图对象
+     * @param parent 返回的视图对象始终依附于的视图组
+     */
+// 获取显示指定分组的视图
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        GroupViewHolder groupViewHolder;
+        if (convertView == null){
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_work_type,parent,false);
+            groupViewHolder = new GroupViewHolder();
+            groupViewHolder.tv_title = (TextView)convertView.findViewById(R.id.tv_title);
+            groupViewHolder.tv_statard = (TextView)convertView.findViewById(R.id.tv_statard);
+            groupViewHolder.view_line = convertView.findViewById(R.id.view_line);
+            convertView.setTag(groupViewHolder);
+        }else {
+            groupViewHolder = (GroupViewHolder)convertView.getTag();
+        }
+        groupViewHolder.tv_title.setText(groupString[groupPosition]);
+        groupViewHolder.view_line.setVisibility(View.VISIBLE);
+        return convertView;
+    }
+    /**
+     *
+     * 获取一个视图对象，显示指定组中的指定子元素数据。
+     *
+     * @param groupPosition 组位置
+     * @param childPosition 子元素位置
+     * @param isLastChild 子元素是否处于组中的最后一个
+     * @param convertView 重用已有的视图(View)对象
+     * @param parent 返回的视图(View)对象始终依附于的视图组
+     * @return
+     * @see android.widget.ExpandableListAdapter#getChildView(int, int, boolean, android.view.View,
+     *      android.view.ViewGroup)
+     */
+
+    //取得显示给定分组给定子位置的数据用的视图
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        ChildViewHolder childViewHolder;
+        if (convertView==null){
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_item_work_price,parent,false);
+            childViewHolder = new ChildViewHolder();
+            childViewHolder.tv_name = (TextView)convertView.findViewById(R.id.tv_name);
+            childViewHolder.tv_price = (TextView)convertView.findViewById(R.id.tv_price);
+            convertView.setTag(childViewHolder);
+
+        }else {
+            childViewHolder = (ChildViewHolder) convertView.getTag();
+        }
+        childViewHolder.tv_name.setText(childString[groupPosition][childPosition]);
+        childViewHolder.tv_price.setText("¥ "+childPrice[groupPosition][childPosition]);
+        return convertView;
+    }
+
+    //指定位置上的子元素是否可选中
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return true;
+    }
+
+    static class GroupViewHolder {
+        TextView tv_title;
+        TextView tv_statard;
+        View view_line;
+    }
+
+    static class ChildViewHolder {
+        TextView tv_name;
+        TextView tv_price;
+
+    }
+}

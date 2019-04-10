@@ -3,34 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <View
-        android:id="@+id/view_line"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/windowbackground"
-        android:visibility="gone"
-        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_45"
         android:background="@color/white"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="4dp"
-            android:layout_height="9dp"
-            android:background="@drawable/allshape_orange_10"
-            android:layout_marginLeft="15dp"
-            android:layout_gravity="center_vertical" />
+
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_name"
             android:textColor="@color/title_color"
             android:layout_width="wrap_content"
             android:textStyle="normal"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="30dp"
             android:layout_gravity="center_vertical"
-            android:text="家电维修"
+            android:text="换电线"
             android:textSize="16sp" />
         <View
             android:layout_width="0dp"
@@ -38,20 +27,14 @@
             android:layout_weight="1"
             />
         <TextView
-            android:id="@+id/tv_statard"
-            android:textColor="@color/orange"
+            android:id="@+id/tv_price"
+            android:textColor="@color/text_color"
             android:layout_width="wrap_content"
             android:textStyle="normal"
             android:layout_height="wrap_content"
-           android:layout_marginRight="15dp"
+            android:layout_marginRight="15dp"
             android:layout_gravity="center_vertical"
-            android:text="服务标准"
+            android:text="¥ 300"
             android:textSize="16sp" />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/line"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp" />
 </LinearLayout>

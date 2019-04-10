@@ -294,6 +294,9 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
                 break;
             case R.id.ll_price_list:
               //TODO 报修价目表
+                Intent intent_price = new Intent(this, WorkPriceListActivity.class);
+                startActivity(intent_price);
+                break;
             case R.id.tv_confirm:
                commit();
                 break;
