@@ -13,8 +13,8 @@ import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
+import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.DeviceUtils;
-import com.huacheng.libraryservice.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 
 import java.util.List;

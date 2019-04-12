@@ -830,9 +830,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <!--扫码支付-->
-        <activity
-            android:name=".ui.index.property.PropertyMyHomeActivity"
-            android:screenOrientation="portrait"></activity>
 
         <!--0803物业列表 -->
         <!--单个缴费界面-->

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.ModelWorkOrderList;
-import com.huacheng.libraryservice.utils.StringUtils;
+import com.huacheng.huiservers.utils.StringUtils;
 
 import java.util.List;
 

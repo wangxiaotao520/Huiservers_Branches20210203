@@ -17,8 +17,8 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.libraryservice.utils.StringUtils;
-import com.huacheng.libraryservice.utils.ToolUtils;
+import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -380,7 +380,7 @@ public class RentSellReleaseActivity extends BaseActivity {
                 }
                 break;
             case R.id.lin_left:
-                ToolUtils.closeInputMethod(this, etReleContant);
+               new  ToolUtils(etReleContant,this ).closeInputMethod();
                 finish();
                 break;
         }

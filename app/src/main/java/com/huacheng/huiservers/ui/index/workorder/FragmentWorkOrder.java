@@ -19,7 +19,7 @@ import com.huacheng.huiservers.model.ModelWorkOrder;
 import com.huacheng.huiservers.model.ModelWorkOrderList;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterWorkOrder;
-import com.huacheng.libraryservice.utils.StringUtils;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

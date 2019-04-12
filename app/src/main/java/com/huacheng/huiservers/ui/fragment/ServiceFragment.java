@@ -30,8 +30,8 @@ import com.huacheng.huiservers.ui.servicenew.ui.adapter.ServiceRecycleviewAdapte
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.search.ServicexSearchActivity;
+import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.MyListView;
-import com.huacheng.libraryservice.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

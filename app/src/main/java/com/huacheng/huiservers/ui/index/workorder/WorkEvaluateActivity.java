@@ -14,7 +14,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.libraryservice.utils.ToolUtils;
+import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -52,7 +52,7 @@ public class WorkEvaluateActivity extends BaseActivity {
         lin_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ToolUtils(WorkEvaluateActivity.this, etContent).closeInputMethod();
+                new ToolUtils(etContent,WorkEvaluateActivity.this ).closeInputMethod();
                 finish();
             }
         });

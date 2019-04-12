@@ -21,8 +21,8 @@ import com.huacheng.huiservers.model.HouseListBean;
 import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.index.houserent.HouserentDetailActivity;
 import com.huacheng.huiservers.ui.index.houserent.adapter.MyHouseRentListAdapter;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
-import com.huacheng.libraryservice.utils.StringUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;

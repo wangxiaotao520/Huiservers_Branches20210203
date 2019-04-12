@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.base.BaseFragment;
+import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.ToolUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +95,7 @@ public class ServicexSearchActivity extends BaseActivity {
         findViewById(R.id.search_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ToolUtils(ServicexSearchActivity.this, editText).closeInputMethod();
+                new ToolUtils( editText,ServicexSearchActivity.this).closeInputMethod();
                 finish();
             }
         });

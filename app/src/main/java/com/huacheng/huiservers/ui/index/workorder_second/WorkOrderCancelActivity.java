@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.libraryservice.utils.ToolUtils;
+import com.huacheng.huiservers.utils.ToolUtils;
 
 /**
  * 类描述：
@@ -38,7 +38,7 @@ public class WorkOrderCancelActivity extends BaseActivity {
         lin_left .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ToolUtils(WorkOrderCancelActivity.this, et_content).closeInputMethod();
+                new ToolUtils( et_content,WorkOrderCancelActivity.this).closeInputMethod();
                 finish();
             }
         });

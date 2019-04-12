@@ -21,7 +21,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceOrderDetail;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
-import com.huacheng.libraryservice.utils.ToolUtils;
+import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
