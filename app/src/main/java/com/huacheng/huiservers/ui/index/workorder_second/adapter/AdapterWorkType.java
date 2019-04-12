@@ -25,12 +25,13 @@ public class AdapterWorkType extends CommonAdapter<ModelWorkPersonalCatItem> {
     }
 
     @Override
-    protected void convert(ViewHolder viewHolder, ModelWorkPersonalCatItem item, int position) {
+    protected void convert(ViewHolder viewHolder, final ModelWorkPersonalCatItem item, int position) {
         viewHolder.<TextView>getView(R.id.tv_statard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new WorkOrderCatStatardDialog(mContext,"ajdfasjkfdjaks;ljkfdljfls;").show();
+                new WorkOrderCatStatardDialog(mContext,item.getContent()+"").show();
             }
         });
+        viewHolder.<TextView>getView(R.id.tv_title).setText(item.getName()+"");
     }
 }

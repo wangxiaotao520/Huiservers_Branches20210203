@@ -236,20 +236,30 @@
             android:paddingBottom="15dp"
             android:paddingLeft="@dimen/margin_15"
             android:paddingRight="@dimen/margin_15">
-
-
+            <TextView
+                android:id="@+id/tv_text_limit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#e10611"
+                android:textSize="10sp"
+                android:text="超出字数范围限制"
+                android:layout_marginTop="2dp"
+                android:gravity="right"
+                android:visibility="gone"
+                />
             <EditText
                 android:id="@+id/et_beizhu"
                 style="@style/rent_release_text"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_alignParentRight="true"
                 android:layout_marginTop="10dp"
+                android:layout_alignParentRight="true"
                 android:background="@color/white"
                 android:gravity="top"
                 android:hint="请输入维修备注"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:text=""
+                android:maxLength="100"
                 android:textColorHint="@color/gray_9c" />
 
         </LinearLayout>

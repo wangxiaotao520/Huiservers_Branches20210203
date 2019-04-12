@@ -8,6 +8,11 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.WorkOrderCatStatardDialog;
+import com.huacheng.huiservers.model.ModelWorkPersonalCatItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description:
@@ -16,48 +21,50 @@ import com.huacheng.huiservers.R;
  */
 public class AdapterPriceList extends BaseExpandableListAdapter {
     private Context mcontext;
-    public String[] groupString = {"射手", "辅助", "坦克", "法师"};
-    public String[][] childString = {
-            {"孙尚香", "后羿", "马可波罗", "狄仁杰"},
-            {"孙膑", "蔡文姬", "鬼谷子", "杨玉环"},
-            {"张飞", "廉颇", "牛魔", "项羽"},
-            {"诸葛亮", "王昭君", "安琪拉", "干将"}
+    List<ModelWorkPersonalCatItem> mDatas = new ArrayList<>();
+//    public String[] groupString = {"射手", "辅助", "坦克", "法师"};
+//    public String[][] childString = {
+//            {"孙尚香", "后羿", "马可波罗", "狄仁杰"},
+//            {"孙膑", "蔡文姬", "鬼谷子", "杨玉环"},
+//            {"张飞", "廉颇", "牛魔", "项羽"},
+//            {"诸葛亮", "王昭君", "安琪拉", "干将"}
+//
+//    };
+//    public float[][] childPrice={
+//        {0, 0, 0, 0},
+//        {0, 0, 0, 0},
+//        {0, 0, 0, 0},
+//        {0, 0, 0, 0}};
 
-    };
-    public float[][] childPrice={
-        {0, 0, 0, 0},
-        {0, 0, 0, 0},
-        {0, 0, 0, 0},
-        {0, 0, 0, 0}};
 
-
-    public AdapterPriceList(Context mcontext) {
+    public AdapterPriceList(Context mcontext,List<ModelWorkPersonalCatItem> mDatas) {
         this.mcontext = mcontext;
-        //TODO 重写构造，把数据传进来
+        // 重写构造，把数据传进来
+        this.mDatas=mDatas;
     }
 
     @Override
     // 获取分组的个数
     public int getGroupCount() {
-        return groupString.length;
+        return mDatas.size();
     }
 
     //获取指定分组中的子选项的个数
     @Override
     public int getChildrenCount(int groupPosition) {
-        return childString[groupPosition].length;
+        return mDatas.get(groupPosition).getLists().size();
     }
 
     //        获取指定的分组数据
     @Override
     public Object getGroup(int groupPosition) {
-        return groupString[groupPosition];
+        return  mDatas.get(groupPosition);
     }
 
     //获取指定分组中的指定子选项数据
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return childString[groupPosition][childPosition];
+        return mDatas.get(groupPosition).getLists().get(childPosition);
     }
 
     //获取指定分组的ID, 这个ID必须是唯一的
@@ -88,7 +95,7 @@ public class AdapterPriceList extends BaseExpandableListAdapter {
      */
 // 获取显示指定分组的视图
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         GroupViewHolder groupViewHolder;
         if (convertView == null){
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_work_type,parent,false);
@@ -100,7 +107,14 @@ public class AdapterPriceList extends BaseExpandableListAdapter {
         }else {
             groupViewHolder = (GroupViewHolder)convertView.getTag();
         }
-        groupViewHolder.tv_title.setText(groupString[groupPosition]);
+        groupViewHolder.tv_title.setText(mDatas.get(groupPosition).getName());
+        groupViewHolder.tv_statard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new WorkOrderCatStatardDialog(mcontext,mDatas.get(groupPosition).getContent()+"").show();
+            }
+        });
+        groupViewHolder.tv_statard.setTextColor(mcontext.getResources().getColor(R.color.text_color_hint));
         groupViewHolder.view_line.setVisibility(View.VISIBLE);
         return convertView;
     }
@@ -132,8 +146,8 @@ public class AdapterPriceList extends BaseExpandableListAdapter {
         }else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-        childViewHolder.tv_name.setText(childString[groupPosition][childPosition]);
-        childViewHolder.tv_price.setText("¥ "+childPrice[groupPosition][childPosition]);
+        childViewHolder.tv_name.setText(mDatas.get(groupPosition).getLists().get(childPosition).getName());
+        childViewHolder.tv_price.setText("¥ "+mDatas.get(groupPosition).getLists().get(childPosition).getPrice());
         return convertView;
     }
 

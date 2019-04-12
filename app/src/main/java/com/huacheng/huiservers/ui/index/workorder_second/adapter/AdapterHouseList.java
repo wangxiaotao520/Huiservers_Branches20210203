@@ -1,7 +1,9 @@
 package com.huacheng.huiservers.ui.index.workorder_second.adapter;
 
 import android.content.Context;
+import android.widget.TextView;
 
+import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -20,6 +22,6 @@ public class AdapterHouseList extends CommonAdapter<GroupMemberBean> {
 
     @Override
     protected void convert(ViewHolder viewHolder, GroupMemberBean item, int position) {
-
+        viewHolder.<TextView>getView(R.id.tv_community_address).setText(item.getCommunity_address()+"");
     }
 }

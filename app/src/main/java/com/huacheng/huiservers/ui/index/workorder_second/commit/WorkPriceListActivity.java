@@ -4,13 +4,21 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelWorkPersonalCatItem;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.workorder_second.adapter.AdapterPriceList;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -36,17 +44,46 @@ public class WorkPriceListActivity extends BaseActivity{
 
         mRefreshLayout.setEnableRefresh(false);
         mRefreshLayout.setEnableLoadMore(false);
-        //TODO 设置数据
-        adapterPriceList = new AdapterPriceList(this);
+        // 设置数据
+        adapterPriceList = new AdapterPriceList(this,mDatas);
         mListview.setAdapter(adapterPriceList);
     }
 
     @Override
     protected void initData() {
-   //     第一次加载就展开所有的子类
-        for (int i = 0; i < adapterPriceList.getGroupCount(); i++) {
-            mListview.expandGroup(i);
-        }
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        MyOkHttp.get().post(ApiHttpClient.MARKED_PRICE, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)){
+                    List <ModelWorkPersonalCatItem>data = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelWorkPersonalCatItem.class);
+                    mDatas.clear();
+                    mDatas.addAll(data);
+                    adapterPriceList.notifyDataSetChanged();
+                    //     第一次加载就展开所有的子类
+                    for (int i = 0; i < adapterPriceList.getGroupCount(); i++) {
+                        mListview.expandGroup(i);
+                    }
+                    if (mDatas.size()==0){
+                        mRelNoData.setVisibility(View.VISIBLE);
+                    }
+                }else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
+
+
     }
 
     @Override

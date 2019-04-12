@@ -213,13 +213,21 @@ public class ApiHttpClient {
     //检查是否绑定房屋
     public static  String CHECK_BIND_PROPERTY = API_URL+ API_VERSION + "index/check_binding";
 
+
     /**
-     *  新物业工单
+     *  4.2.0 新物业工单
      */
     //工单详情
     public static  String GET_WORK_DETAIL = API_URL+ API_VERSION + "propertyWork/work_details";
-
-
+    //
+    //获取工单服务分类接口
+    public static  String GET_WORK_TYPE_LIST = API_URL+ API_VERSION + "propertyWork/get_work_type_list";
+    //获取房屋地址接口
+    public static  String GET_WORK_HOUSE_ADDRESS = API_URL+ API_VERSION + "propertyWork/getWorkAddress";
+    //价目表列表接口
+    public static  String MARKED_PRICE = API_URL+ API_VERSION + "propertyWork/marked_price";
+    //提交工单
+    public static  String SBMMIT_WORK = API_URL+ API_VERSION + "propertyWork/submit_work";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -301,5 +309,9 @@ public class ApiHttpClient {
          USERTOWORKERSUBMIT = API_URL+ API_VERSION + "Jpush/userToWorkerSubmit";
          CHECK_BIND_PROPERTY = API_URL+ API_VERSION + "index/check_binding";
          GET_WORK_DETAIL = API_URL+ API_VERSION + "propertyWork/work_details";
+         GET_WORK_TYPE_LIST = API_URL+ API_VERSION + "propertyWork/get_work_type_list";
+         GET_WORK_HOUSE_ADDRESS = API_URL+ API_VERSION + "propertyWork/getWorkAddress";
+         MARKED_PRICE = API_URL+ API_VERSION + "propertyWork/marked_price";
+        SBMMIT_WORK = API_URL+ API_VERSION + "propertyWork/submit_work";
     }
 }

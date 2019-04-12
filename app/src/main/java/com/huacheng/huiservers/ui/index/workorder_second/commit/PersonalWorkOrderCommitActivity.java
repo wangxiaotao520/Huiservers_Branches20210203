@@ -4,7 +4,11 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -18,17 +22,28 @@ import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.ChooseWorkTimeDialog;
 import com.huacheng.huiservers.dialog.CommonChooseDialog;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelPhoto;
+import com.huacheng.huiservers.model.ModelWorkPersonalCatItem;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
+import com.huacheng.huiservers.ui.index.workorder_second.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.workorder_second.inter.OnChooseTimeListener;
+import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,6 +52,9 @@ import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * Description: 物业工单 提交页面
@@ -65,6 +83,22 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
     private TextView tv_confirm;
     private TextView tv_address;
     private LinearLayout ll_price_list;
+    private com.huacheng.huiservers.utils.SharePrefrenceUtil sharePrefrenceUtil;
+
+    //提交
+    private String cate_pid="";//报修类型一级id
+    private String cate_pid_cn=""; //报修类型一级名称
+    private String degree=""; //紧急
+    private String appointime=""; //预约时间
+    private String nickname=""; //昵称
+    private String username=""; //联系方式
+    private String address=""; //地址
+    private String community_id=""; //小区id
+    private String community_cn=""; //小区名称
+    private String company_id=""; //公司id
+    private String room_id=""; //房间id
+    private TextView tv_text_limit;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +108,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
 
     @Override
     protected void initView() {
+        sharePrefrenceUtil = new SharePrefrenceUtil(this);
         smallDialog.setCanceledOnTouchOutside(false);
         rxPermission = new RxPermissions(this);
         findTitleViews();
@@ -89,6 +124,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
         tv_select_time = findViewById(R.id.tv_select_time);
         et_beizhu = findViewById(R.id.et_beizhu);
         et_beizhu.setOnTouchListener(this);
+        tv_text_limit = findViewById(R.id.tv_text_limit);
         gridview_imgs = findViewById(R.id.gridview_imgs);
         gridviewImgsAdapter = new SelectImgAdapter(this, photoList);
         //todo 是否显示删除
@@ -102,6 +138,8 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
         if (BaseApplication.getUser()!=null){
             tv_nickname.setText(""+BaseApplication.getUser().getNickname());
             tv_phone.setText(""+BaseApplication.getUser().getUsername());
+            nickname=BaseApplication.getUser().getNickname();
+            username=BaseApplication.getUser().getUsername();
         }
         ll_price_list = findViewById(R.id.ll_price_list);
     }
@@ -167,6 +205,28 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
         ll_address.setOnClickListener(this);
         tv_confirm.setOnClickListener(this);
         ll_price_list.setOnClickListener(this);
+        et_beizhu.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s!=null){
+                    if (s.length()>=100){
+                        tv_text_limit.setVisibility(View.VISIBLE);
+                    }else {
+                        tv_text_limit.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     /**
@@ -264,12 +324,14 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tv_right:
-                //TODO 工单中心
+            case R.id.txt_right1:
+                // 工单中心
+                startActivity(new Intent(PersonalWorkOrderCommitActivity.this, WorkOrderListActivity.class));
                 break;
             case R.id.rel_select_tag:
-                //TODO 选择报修类型
+                // 选择报修类型
                 Intent intent = new Intent(this, WorkTypeListActivity.class);
+                intent.putExtra("type","1");
                 startActivityForResult(intent,ACT_SELECT_TYPE);
                 break;
             case R.id.rel_time:
@@ -282,18 +344,24 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
                 new CommonChooseDialog(this, emergencyLists, new CommonChooseDialog.OnClickItemListener() {
                    @Override
                    public void onClickItem(int position) {
+
                      tv_select_emergency.setText(emergencyLists[position]);
-                     //TODO 获取紧急提交字段
+                     // 获取紧急提交字段
+                       if (position==1){
+                           degree="0" ;
+                       }else {
+                           degree="1" ;
+                       }
                    }
                }).show();
                 break;
             case R.id.ll_address:
-                //TODO 跳转地址
+                // 跳转地址
                 Intent intent_house = new Intent(this, HouseListActivity.class);
                 startActivityForResult(intent_house,ACT_SELECT_HOUSE);
                 break;
             case R.id.ll_price_list:
-              //TODO 报修价目表
+              // 报修价目表
                 Intent intent_price = new Intent(this, WorkPriceListActivity.class);
                 startActivity(intent_price);
                 break;
@@ -309,9 +377,181 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
      * 提交
      */
     private void commit() {
-        //todo 提交
+        // 提交
+        if (checkReady()){
+            HashMap<String, String> params = new HashMap<>();
+            params.put("work_type",  "1");
+            params.put("community_id", community_id);
+            params.put("community_cn", community_cn);
+            String content = et_beizhu.getText().toString().trim();
+            if (!NullUtil.isStringEmpty(content)){
+                params.put("content", content);
+            }
+            params.put("cate_pid", cate_pid);
+            params.put("cate_pid_cn", cate_pid_cn);
+            params.put("degree", degree);
+            this.company_id=sharePrefrenceUtil.getCommanyId();
+            params.put("company_id", company_id);
+            params.put("username", username);
+            params.put("nickname", nickname);
+            params.put("address", address);
+            params.put("room_id", room_id);
+            params.put("appointime", appointime);
+            if (StringUtils.getStringToTimills(appointime,"1")-System.currentTimeMillis()<0){
+                SmartToast.showInfo("预约时间不可小于当前时间");
+                return;
+            }
+            if (photoList.size() > 0) {
+                // 压缩图片
+                showDialog(smallDialog);
+                smallDialog.setTipTextView("压缩中...");
+                zipPhoto(params);
+            } else {
+                showDialog(smallDialog);
+                smallDialog.setTipTextView("提交中...");
+                commitIndeed(params, null);
+            }
+        }
     }
 
+    private void commitIndeed(HashMap<String, String> params, Map<String, File> params_file) {
+        if (params_file != null && params_file.size() > 0) {
+            params.put("img_num", params_file.size() + "");
+        }
+        MyOkHttp.get().upload(this, ApiHttpClient.SBMMIT_WORK, params, params_file, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交成功");
+                    SmartToast.showInfo(msg);
+                    startActivity(new Intent(PersonalWorkOrderCommitActivity.this, WorkOrderListActivity.class));
+                    finish();
+                        //自用报修
+//                        final ModelWorkCommitSuccess modelWorkCommitSuccess = (ModelWorkCommitSuccess) JsonUtil.getInstance().parseJsonFromResponse(response, ModelWorkCommitSuccess.class);
+//                        if (modelWorkCommitSuccess != null) {
+//                            if (modelWorkCommitSuccess.getEntry_fee() == 0) {
+//                                //给物业端管理角色推送,用户提交维修信息
+//                                HashMap<String, String> params = new HashMap<>();
+//                                params.put("id", modelWorkCommitSuccess.getId());
+//                                params.put("type", "1");
+//                                new JpushWorkPresenter().userToWorkerSubmitJpush(params);
+//
+//
+//                            }
+//
+//
+//                    }
+                    //删除缓存文件夹中的图片
+                    ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+
+            @Override
+            public void onProgress(long currentBytes, long totalBytes) {
+                super.onProgress(currentBytes, totalBytes);
+            }
+        });
+    }
+    //压缩图片
+    private void zipPhoto(final HashMap<String, String> params) {
+
+        ArrayList<File> files = new ArrayList<>();
+        for (int i1 = 0; i1 < photoList.size(); i1++) {
+            File file = new File(photoList.get(i1).getLocal_path());
+            files.add(file);
+        }
+        Luban.with(this)
+                .load(files)
+                .ignoreBy(100)
+                .setTargetDir(getPath())
+                .setFocusAlpha(false)
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                })
+                .setCompressListener(new OnCompressListener() {
+                    int count = 0;
+
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        //这个方法重复调用
+                        images_submit.put("img" + count, file);
+                        if (images_submit.size() == photoList.size()) {
+                            //完成了
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    smallDialog.setTipTextView("提交中...");
+                                    commitIndeed(params, images_submit);
+                                }
+                            });
+
+                        } else {
+                            count++;
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SmartToast.showInfo("图片压缩失败");
+                                hideDialog(smallDialog);
+                            }
+                        });
+
+                    }
+                }).launch();
+    }
+
+    private String getPath() {
+        String path = Environment.getExternalStorageDirectory() + "/huiservers/image/";
+        File file = new File(path);
+        if (file.mkdirs()) {
+            return path;
+        }
+        return path;
+    }
+    /**
+     * 检查合法
+     */
+    private boolean checkReady() {
+        if (NullUtil.isStringEmpty(cate_pid)) {
+            SmartToast.showInfo("请选择报修类型");
+            return false;
+        }
+        if (NullUtil.isStringEmpty(degree)) {
+            SmartToast.showInfo("请选择紧急程度");
+            return false;
+        }
+        if (NullUtil.isStringEmpty(appointime)) {
+            SmartToast.showInfo("请选择维修时间");
+            return false;
+        }
+
+        if (NullUtil.isStringEmpty(address)) {
+            SmartToast.showInfo("请选择地址");
+            return false;
+        }
+        return true;
+    }
     /**
      * 选择时间的回调
      * @param result_commit
@@ -320,7 +560,9 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
     @Override
     public void onClickTime(String result_commit, String result_show) {
         tv_select_time.setText(result_show);
-        //TODO 获取时间提提交字段result_commit
+        // 获取时间提提交字段result_commit
+        appointime=result_commit;
+
     }
 
     @Override
@@ -347,7 +589,24 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
 
                     }
                     break;
-
+                case ACT_SELECT_TYPE:
+                    if (data != null) {
+                        ModelWorkPersonalCatItem item = (ModelWorkPersonalCatItem) data.getSerializableExtra("type_data");
+                        cate_pid=item.getId();
+                        cate_pid_cn=item.getName();
+                        tv_select_tag.setText(cate_pid_cn);
+                    }
+                    break;
+                case ACT_SELECT_HOUSE:
+                    if (data != null) {
+                        GroupMemberBean item = (GroupMemberBean) data.getSerializableExtra("community");
+                        community_id=item.getCommunity_id();
+                        community_cn=item.getCommunity_name();
+                        address=item.getCommunity_address();
+                        room_id=item.getRoom_id();
+                        tv_address.setText(item.getCommunity_address());
+                    }
+                    break;
                 default:
                     break;
             }

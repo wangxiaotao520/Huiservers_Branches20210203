@@ -237,7 +237,16 @@
             android:paddingBottom="15dp"
             android:paddingLeft="@dimen/margin_15"
             android:paddingRight="@dimen/margin_15">
-
+            <TextView
+                android:id="@+id/tv_text_limit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#e10611"
+                android:textSize="10sp"
+                android:text="超出字数范围限制"
+                android:layout_marginTop="2dp"
+                android:gravity="right"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/et_beizhu"
@@ -249,6 +258,7 @@
                 android:background="@color/white"
                 android:gravity="top"
                 android:hint="请输入维修备注"
+                android:maxLength="100"
                 android:text=""
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textColorHint="@color/gray_9c" />
@@ -306,6 +316,113 @@
                 android:numColumns="4"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_45"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="4dp"
+                android:layout_height="9dp"
+                android:background="@drawable/allshape_orange_10"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center_vertical" />
+            <TextView
+                android:textColor="@color/title_color"
+                android:layout_width="wrap_content"
+                android:textStyle="normal"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:text="联系方式"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line" />
+        <LinearLayout
+            android:id="@+id/ll_house"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/ll_name"
+                    android:layout_width="87dp"
+                    android:layout_height="@dimen/margin_45"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/rent_release_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="联系人:"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    style="@style/rent_release_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:hint=""
+                    android:layout_marginLeft="10dp"
+                    android:textColorHint="@color/text_color_hint"
+                    android:textColor="@color/text_color" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/line"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/ll_phone"
+                    android:layout_width="87dp"
+                    android:layout_height="@dimen/margin_45"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/rent_release_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="联系方式:"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/rent_release_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:hint=""
+                    android:layout_marginLeft="10dp"
+                    android:textColorHint="@color/text_color_hint"
+                    android:textColor="@color/text_color" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
