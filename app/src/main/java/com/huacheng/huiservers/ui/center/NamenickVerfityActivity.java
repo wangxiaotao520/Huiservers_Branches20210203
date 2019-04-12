@@ -9,11 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
+import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
@@ -25,13 +28,13 @@ import java.util.TimerTask;
 
 public class NamenickVerfityActivity extends BaseActivityOld implements OnClickListener {
 
-    TextView title_name,tv_description, tv_flag, right;
+    TextView title_name, tv_description, tv_flag, right;
     EditText et_content;
 
     @Override
     protected void init() {
         super.init();
-   //     SetTransStatus.GetStatus(this);
+        //     SetTransStatus.GetStatus(this);
         setContentView(R.layout.verify_editxt_new);
         title_name = (TextView) findViewById(R.id.title_name);
         right = (TextView) findViewById(R.id.right);
@@ -113,7 +116,7 @@ public class NamenickVerfityActivity extends BaseActivityOld implements OnClickL
      */
     private void getMyinfo(final String param) {
         showDialog(smallDialog);
-        Url_info info=new Url_info(this);
+        Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
         params.addBodyParameter("nickname", param);
 
@@ -127,6 +130,10 @@ public class NamenickVerfityActivity extends BaseActivityOld implements OnClickL
                     closeInputMethod();
                     EventBus.getDefault().post(new PersoninfoBean());
                     finish();
+                    //更改昵称更新数据库
+                    ModelUser modelUser = BaseApplication.getUser();
+                    modelUser.setNickname(param);
+                    UserSql.getInstance().updateObject(modelUser);
                     SmartToast.showInfo("修改成功");
                 } else {
                     SmartToast.showInfo(str);
