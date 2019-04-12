@@ -1,99 +1,87 @@
 package com.huacheng.huiservers.ui.index.workorder_second;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.model.ModelWorkOrderList;
+import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.workorder_second.adapter.WorkOrderDetailAdapter;
 import com.huacheng.huiservers.utils.HiddenAnimUtils;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
+import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static cn.jiguang.d.a.i;
 
 /**
  * 类描述：
  * 时间：2019/4/9 09:03
  * created by DFF
  */
-public class WorkOrderDetailActivity extends BaseActivity {
-    LinearLayout mlinear_repair_person, mlinear_repair_photo, mlinear_photo, linear_visibility, ly_btn, linear_other_info;
+public class WorkOrderDetailActivity extends BaseActivity implements WorkOrderDetailAdapter.OnclickImg {
+    LinearLayout mlinear_repair_person, mlinear_repair_photo, mlinear_photo, linear_visibility, ly_btn, linear_other_info, ly_all;
     WorkOrderDetailAdapter mWorkOrderDetailAdapter;
-    List<ModelWorkOrderList> mDatas = new ArrayList<>();
+    List<ModelNewWorkOrder.WorkLogBean> mlistLog = new ArrayList<>();
     MyListView mListView;
     ImageView iv_up;
-    TextView tv_bianhao, tv_repair_time, tv_baoxiu_type, tv_jinji, tv_user_name, tv_baoxiu_content, tv_user_address, tv_user_photo, tv_up_name;
-    int type;
+    TextView tv_bianhao, tv_repair_date, tv_baoxiu_type, tv_jinji, tv_user_name, tv_baoxiu_content, tv_user_address, tv_user_photo, tv_up_name, tv_none;
+    String work_id = "";//工单id
     private int height = 0;
+    ModelNewWorkOrder mNewWorkOrder;
 
     @Override
     protected void initView() {
         findTitleViews();
         titleName.setText("工单详情");
 
+        ly_all = findViewById(R.id.ly_all);
         mlinear_repair_person = findViewById(R.id.linear_repair_person);
         mlinear_repair_photo = findViewById(R.id.linear_repair_photo);
         linear_other_info = findViewById(R.id.linear_other_info);
         mlinear_photo = findViewById(R.id.linear_photo);
         tv_bianhao = findViewById(R.id.tv_bianhao);
-        tv_repair_time = findViewById(R.id.tv_repair_time);
+        tv_repair_date = findViewById(R.id.tv_repair_date);
         tv_baoxiu_type = findViewById(R.id.tv_baoxiu_type);
         tv_jinji = findViewById(R.id.tv_jinji);
         tv_baoxiu_content = findViewById(R.id.tv_baoxiu_content);
         tv_user_name = findViewById(R.id.tv_user_name);
         tv_user_address = findViewById(R.id.tv_user_address);
         tv_user_photo = findViewById(R.id.tv_user_photo);
+        tv_none = findViewById(R.id.tv_none);
         linear_visibility = findViewById(R.id.linear_visibility);
         tv_up_name = findViewById(R.id.tv_up_name);
         iv_up = findViewById(R.id.iv_up);
         ly_btn = findViewById(R.id.ly_btn);
         mListView = findViewById(R.id.mListView);
         tv_user_photo.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-        repairAddView();
 
-        mDatas.add(new ModelWorkOrderList());
-        mDatas.add(new ModelWorkOrderList());
-        mDatas.add(new ModelWorkOrderList());
-        mWorkOrderDetailAdapter = new WorkOrderDetailAdapter(this, R.layout.activity_workorder_detail_item_list, mDatas);
+        mWorkOrderDetailAdapter = new WorkOrderDetailAdapter(this, R.layout.activity_workorder_detail_item_list, mlistLog, this);
         mListView.setAdapter(mWorkOrderDetailAdapter);
-    }
-
-    /**
-     * 维修人员view
-     */
-    private void repairAddView() {
-        //维修人员信息
-        mlinear_repair_person.removeAllViews();
-        for (int i = 0; i < 3; i++) {
-            View view = LayoutInflater.from(this).inflate(R.layout.activity_workorder_detail_item_view, null);
-            SimpleDraweeView iv_repair_head = view.findViewById(R.id.iv_repair_head);
-            TextView tv_repair_person = view.findViewById(R.id.tv_repair_person);
-            TextView tv_repair = view.findViewById(R.id.tv_repair);
-            TextView tv_repair_time = view.findViewById(R.id.tv_repair_time);
-            ImageView iv_call = view.findViewById(R.id.iv_call);
-            mlinear_repair_person.addView(view);
-        }
-        //维修人员不为空
-        mlinear_photo.setVisibility(View.VISIBLE);
-        mlinear_repair_photo.removeAllViews();
-        for (int i = 0; i < 4; i++) {
-            ImageView imageView = new ImageView(this);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,
-                    100);//两个50分别为添加图片的大小
-            imageView.setImageResource(R.drawable.ic_launcher);
-            imageView.setPadding(0, 0, 30, 0);
-            imageView.setLayoutParams(params);
-            mlinear_repair_photo.addView(imageView);
-        }
-
     }
 
     @Override
@@ -106,21 +94,7 @@ public class WorkOrderDetailActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        //待服务：待派单、待增派、待服务，
-        //服务中：服务中，
-        //待支付：待支付，
-        //已完成：已完成 待评价、已完成 已评价、已取消
-
-        if (type == 0) { //待服务 待派单  待增派
-            //待派单 无维修师傅信息
-            //待增派 有维修师傅信息
-            //下方有取消工单按钮
-        } else if (type == 1) {//服务中  待服务
-            //无按钮 有派修人员
-
-        }
-        //有表单信息
-
+        getDetail();
     }
 
     @Override
@@ -146,11 +120,165 @@ public class WorkOrderDetailActivity extends BaseActivity {
         ly_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WorkOrderDetailActivity.this, WorkOrderCancelActivity.class);
+                Intent intent = new Intent(WorkOrderDetailActivity.this, WorkOrderPingjiaActivity.class);
                 startActivity(intent);
             }
         });
     }
+
+    /**
+     * 请求数据
+     */
+    private void getDetail() {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", work_id);
+        MyOkHttp.get().post(ApiHttpClient.GET_WORK_DETAIL, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    ly_all.setVisibility(View.VISIBLE);
+                    ModelNewWorkOrder modelNewWorkOrder = (ModelNewWorkOrder) JsonUtil.getInstance().parseJsonFromResponse(response, ModelNewWorkOrder.class);
+                    inflateContent(modelNewWorkOrder);
+
+                } else {
+                    try {
+                        SmartToast.showInfo(response.getString("msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
+    /**
+     * 填充数据
+     */
+    private void inflateContent(final ModelNewWorkOrder modelNewWorkOrder) {
+        if (modelNewWorkOrder != null) {
+            this.mNewWorkOrder = modelNewWorkOrder;
+            //维修人员信息
+            if (modelNewWorkOrder.getWork_user() != null && modelNewWorkOrder.getWork_user().size() > 0) {
+                mlinear_repair_person.removeAllViews();
+                for (int i = 0; i < modelNewWorkOrder.getWork_user().size(); i++) {
+                    View view = LayoutInflater.from(this).inflate(R.layout.activity_workorder_detail_item_view, null);
+                    SimpleDraweeView iv_repair_head = view.findViewById(R.id.iv_repair_head);
+                    TextView tv_repair_person = view.findViewById(R.id.tv_repair_person);
+                    TextView tv_repair = view.findViewById(R.id.tv_repair);
+                    TextView tv_repair_time = view.findViewById(R.id.tv_repair_time);
+                    ImageView iv_call = view.findViewById(R.id.iv_call);
+
+                    FrescoUtils.getInstance().setImageUri(iv_repair_head, ApiHttpClient.IMG_URL + modelNewWorkOrder.getWork_user().get(i).getHead_img());
+                    tv_repair_person.setText(modelNewWorkOrder.getWork_user().get(i).getName());
+                    tv_repair.setText(modelNewWorkOrder.getWork_user().get(i).getAttribute());
+                    tv_repair_time.setText(StringUtils.getDateToString(modelNewWorkOrder.getWork_user().get(i).getAcceptime(), "1"));
+
+                    final int finalI = i;
+                    iv_call.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认拨打电话给师傅？", new CommomDialog.OnCloseListener() {
+                                @Override
+                                public void onClick(Dialog dialog, boolean confirm) {
+                                    if (confirm) {
+                                        Intent intent = new Intent();
+                                        intent.setAction(Intent.ACTION_DIAL);
+                                        intent.setData(Uri.parse("tel:"
+                                                + modelNewWorkOrder.getWork_user().get(finalI).getPhone()));
+                                        startActivity(intent);
+                                        dialog.dismiss();
+                                    }
+                                }
+                            }).show();
+                        }
+                    });
+                    mlinear_repair_person.addView(view);
+                }
+            }
+            //工单信息及下单人信息
+            tv_bianhao.setText(modelNewWorkOrder.getOrder_number());
+            if (!NullUtil.isStringEmpty(modelNewWorkOrder.getAppointime())) {
+                tv_repair_date.setText(modelNewWorkOrder.getAppointime());
+            } else {
+                tv_repair_date.setText("--");
+            }
+            tv_baoxiu_type.setText(modelNewWorkOrder.getCate_pid_cn());
+            if (modelNewWorkOrder.getDegree().equals("1")) {
+                tv_jinji.setText("紧急");
+            } else {
+                tv_jinji.setText("普通");
+            }
+            if (!NullUtil.isStringEmpty(modelNewWorkOrder.getContent())) {
+                tv_baoxiu_content.setText(modelNewWorkOrder.getContent());
+            } else {
+                tv_baoxiu_content.setText("--");
+            }
+            tv_user_name.setText(modelNewWorkOrder.getNickname());
+            tv_user_address.setText(modelNewWorkOrder.getAddress());
+            tv_user_photo.setText(modelNewWorkOrder.getUsername());
+            //故障照片
+            if (modelNewWorkOrder.getImg_list() != null && modelNewWorkOrder.getImg_list().size() > 0) {
+                tv_none.setVisibility(View.GONE);
+                mlinear_repair_photo.setVisibility(View.VISIBLE);
+
+                mlinear_repair_photo.removeAllViews();
+                for (int i = 0; i < modelNewWorkOrder.getImg_list().size(); i++) {
+                    ImageView imageView = new ImageView(this);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,
+                            100);//两个50分别为添加图片的大小
+                    // imageView.setImageResource(R.drawable.ic_launcher);
+                    GlideUtils.getInstance().glideLoad(WorkOrderDetailActivity.this, ApiHttpClient.IMG_URL + modelNewWorkOrder.getImg_list().get(i).getImg_path()
+                            + modelNewWorkOrder.getImg_list().get(i).getImg_name(), imageView, R.drawable.ic_default_head);
+                    params.setMargins(0, 0, 20, 0);
+                    imageView.setLayoutParams(params);
+                    //点击图片放大
+                    final int finalI = i;
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //点击图片
+                            ArrayList<String> imgs = new ArrayList<>();
+                            for (int i = 0; i < modelNewWorkOrder.getImg_list().size(); i++) {
+                                //只要localpath不为空则说明是刚选上的
+                                imgs.add(ApiHttpClient.IMG_URL + modelNewWorkOrder.getImg_list().get(i).getImg_path()
+                                        + modelNewWorkOrder.getImg_list().get(i).getImg_name());
+
+                            }
+                            Intent intent = new Intent(WorkOrderDetailActivity.this, PhotoViewPagerAcitivity.class);
+                            intent.putExtra("img_list", imgs);
+                            intent.putExtra("position", finalI);
+                            intent.putExtra("isShowDelete", false);
+                            startActivity(intent);
+                        }
+                    });
+                    mlinear_repair_photo.addView(imageView);
+                }
+            } else {
+                tv_none.setVisibility(View.VISIBLE);
+                mlinear_repair_photo.setVisibility(View.GONE);
+            }
+
+            //报修流程
+            if (modelNewWorkOrder.getWork_log() != null && modelNewWorkOrder.getWork_log().size() > 0) {
+                mlistLog.clear();
+                mlistLog.addAll(modelNewWorkOrder.getWork_log());
+            }
+
+            // if (modelNewWorkOrder.getWork_type().equals("1"))
+
+        }
+
+    }
+
 
     @Override
     protected int getLayoutId() {
@@ -159,8 +287,7 @@ public class WorkOrderDetailActivity extends BaseActivity {
 
     @Override
     protected void initIntentData() {
-        //请求到数据删除type
-        type = getIntent().getIntExtra("type", 0);
+        work_id = getIntent().getStringExtra("id");
 
     }
 
@@ -171,6 +298,30 @@ public class WorkOrderDetailActivity extends BaseActivity {
 
     @Override
     protected void initFragment() {
+
+    }
+
+    /**
+     * 回调师傅上传的图片
+     *
+     * @param mListimg
+     */
+    @Override
+    public void lickImg(List<ModelNewWorkOrder.ImgListBean> mListimg) {
+        if (mListimg != null && mListimg.size() > 0) {
+            //点击图片
+            ArrayList<String> imgs = new ArrayList<>();
+            for (int i = 0; i < mListimg.size(); i++) {
+                imgs.add(ApiHttpClient.IMG_URL + mListimg.get(i).getImg_path()
+                        + mListimg.get(i).getImg_name());
+
+            }
+            Intent intent = new Intent(WorkOrderDetailActivity.this, PhotoViewPagerAcitivity.class);
+            intent.putExtra("img_list", imgs);
+            intent.putExtra("position", i);
+            intent.putExtra("isShowDelete", false);
+            startActivity(intent);
+        }
 
     }
 }

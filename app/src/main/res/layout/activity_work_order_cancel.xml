@@ -24,8 +24,10 @@
                 android:layout_height="160dp"
                 android:background="@color/white"
                 android:gravity="top"
+                android:textColor="@color/text_color"
                 android:hint="请输入操作说明（选填）"
                 android:padding="@dimen/margin"
+                android:textSize="@dimen/t_15sp"
                 android:textColorHint="@color/graycc"
                 android:textCursorDrawable="@drawable/color_cursor"/>
         </LinearLayout>

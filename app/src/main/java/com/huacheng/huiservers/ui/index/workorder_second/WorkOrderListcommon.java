@@ -85,7 +85,7 @@ public class WorkOrderListcommon extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(mActivity, WorkOrderDetailActivity.class);
-                intent.getIntExtra("type",type);
+                intent.putExtra("id", "25");
                 startActivity(intent);
             }
         });
@@ -102,13 +102,13 @@ public class WorkOrderListcommon extends BaseFragment {
                 refreshLayout.autoRefresh();
             }
         }
-        if (type==0){//待服务
+        if (type == 0) {//待服务
 
-        }else if (type==1){//服务中
+        } else if (type == 1) {//服务中
 
-        }else if (type==2){//待支付
+        } else if (type == 2) {//待支付
 
-        }else if (type==3){//已完成
+        } else if (type == 3) {//已完成
 
         }
     }
