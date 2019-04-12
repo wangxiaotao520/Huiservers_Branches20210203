@@ -383,7 +383,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                     startActivity(intent);
 
                 } else if ("workorder_pay".equals(type)) {//工单支付
-                    Intent intent = new Intent(ZhifuActivity.this, WorkOrderListActivity.class);
+                    Intent intent = new Intent(ZhifuActivity.this, com.huacheng.huiservers.ui.index.workorder_second.WorkOrderListActivity.class);
                     startActivity(intent);
 
                 }
@@ -559,8 +559,8 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                             }
                         }, 1600);
                         EventBusWorkOrderModel eventBusModel = new EventBusWorkOrderModel();
-                        eventBusModel.setWo_id(o_id);
-                        eventBusModel.setEvent_type(2);
+                        eventBusModel.setWork_id(o_id);
+                        eventBusModel.setEvent_back_type(2);
                         EventBus.getDefault().post(eventBusModel);
 
                     }

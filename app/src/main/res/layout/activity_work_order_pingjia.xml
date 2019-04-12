@@ -4,7 +4,8 @@
     xmlns:xlhRatingBar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <include layout="@layout/titlebar_center"/>
 
@@ -46,7 +47,7 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="20dp"
                     xlhRatingBar:canEdit="true"
-                    xlhRatingBar:countSelected="3"
+                    xlhRatingBar:countSelected="5"
                     xlhRatingBar:differentSize="false"
                     xlhRatingBar:dividerWidth="5dp"
                     xlhRatingBar:starCount="5"
@@ -54,10 +55,11 @@
                     xlhRatingBar:widthAndHeight="20dp"/>
 
                 <TextView
+                    android:id="@+id/tv_score_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_15"
-                    android:text="满意"
+                    android:text="非常满意"
                     android:textColor="@color/text_color_hint"
                     android:textSize="@dimen/t_14sp"
                     />
@@ -80,12 +82,12 @@
                     android:layout_height="66dp"
                     android:background="@color/white"
                     android:gravity="top"
-                    android:textSize="@dimen/t_14sp"
-                    android:textColor="@color/text_color"
                     android:hint="请输服务评价"
                     android:padding="@dimen/margin"
+                    android:textColor="@color/text_color"
                     android:textColorHint="@color/graycc"
-                    android:textCursorDrawable="@drawable/color_cursor"/>
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:textSize="@dimen/t_14sp"/>
             </LinearLayout>
 
 

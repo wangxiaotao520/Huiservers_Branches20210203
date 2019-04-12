@@ -147,7 +147,6 @@
                 android:id="@+id/ly_none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_15"
                 android:layout_marginTop="@dimen/margin_15"
                 android:layout_marginBottom="@dimen/margin_15"
                 android:orientation="horizontal">

@@ -36,9 +36,47 @@ public class ModelNewWorkOrder implements Serializable {
     private String username;
     private String nickname;
     private String address;
+    private String evaluate_status;
     private List<ImgListBean> img_list;
     private List<WorkUserBean> work_user;
     private List<WorkLogBean> work_log;
+    /**
+     * work_status : 1
+     * community_cn : 安宁新村
+     * work_status_cn : 待派单
+     * address_cn : 安宁新村1-1-101
+     */
+
+    private String work_status;
+    private String community_cn;
+    private String work_status_cn;
+    private String address_cn;
+    private int totalPages;
+    private List<ModelNewWorkOrder> list;
+
+    public String getEvaluate_status() {
+        return evaluate_status;
+    }
+
+    public void setEvaluate_status(String evaluate_status) {
+        this.evaluate_status = evaluate_status;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
+
+    public List<ModelNewWorkOrder> getList() {
+        return list;
+    }
+
+    public void setList(List<ModelNewWorkOrder> list) {
+        this.list = list;
+    }
 
     public String getId() {
         return id;
@@ -142,6 +180,38 @@ public class ModelNewWorkOrder implements Serializable {
 
     public void setWork_log(List<WorkLogBean> work_log) {
         this.work_log = work_log;
+    }
+
+    public String getWork_status() {
+        return work_status;
+    }
+
+    public void setWork_status(String work_status) {
+        this.work_status = work_status;
+    }
+
+    public String getCommunity_cn() {
+        return community_cn;
+    }
+
+    public void setCommunity_cn(String community_cn) {
+        this.community_cn = community_cn;
+    }
+
+    public String getWork_status_cn() {
+        return work_status_cn;
+    }
+
+    public void setWork_status_cn(String work_status_cn) {
+        this.work_status_cn = work_status_cn;
+    }
+
+    public String getAddress_cn() {
+        return address_cn;
+    }
+
+    public void setAddress_cn(String address_cn) {
+        this.address_cn = address_cn;
     }
 
     public static class ImgListBean {

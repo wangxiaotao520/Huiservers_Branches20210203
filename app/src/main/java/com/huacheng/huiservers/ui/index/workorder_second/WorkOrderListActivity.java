@@ -1,14 +1,20 @@
 package com.huacheng.huiservers.ui.index.workorder_second;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.model.EventBusWorkOrderModel;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.base.BaseFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +30,12 @@ public class WorkOrderListActivity extends BaseActivity {
     TabLayout mTabLayout;
     ViewPager mViewPager;
     WorkOrderListcommon currentFragment;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initView() {
@@ -62,6 +74,7 @@ public class WorkOrderListActivity extends BaseActivity {
         currentFragment = (WorkOrderListcommon) mFragments.get(0);
 
     }
+
     ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -80,6 +93,7 @@ public class WorkOrderListActivity extends BaseActivity {
         public void onPageScrollStateChanged(int state) {
         }
     };
+
     @Override
     protected void initData() {
 
@@ -108,5 +122,27 @@ public class WorkOrderListActivity extends BaseActivity {
     @Override
     protected void initFragment() {
 
+    }
+
+    /**
+     * 全部跳转到已完成
+     * @param model
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshLIst(EventBusWorkOrderModel model) {
+        if (model != null) {
+            if (model.getEvent_back_type() == 0) {//取消订单跳转到已完成
+                mViewPager.setCurrentItem(3);
+               // mFragments.
+            }else  if (model.getEvent_back_type() == 1) {//评价订单跳转到已完成
+                mViewPager.setCurrentItem(3);
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 }

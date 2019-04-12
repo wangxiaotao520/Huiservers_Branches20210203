@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +21,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.index.workorder_second.adapter.WorkOrderDetailAdapter;
 import com.huacheng.huiservers.utils.HiddenAnimUtils;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -43,14 +46,16 @@ import static cn.jiguang.d.a.i;
  * 时间：2019/4/9 09:03
  * created by DFF
  */
-public class WorkOrderDetailActivity extends BaseActivity implements WorkOrderDetailAdapter.OnclickImg {
+public class WorkOrderDetailActivity extends BaseActivity implements View.OnClickListener, WorkOrderDetailAdapter.OnclickImg {
     LinearLayout mlinear_repair_person, mlinear_repair_photo, mlinear_photo, linear_visibility, ly_btn, linear_other_info, ly_all;
     WorkOrderDetailAdapter mWorkOrderDetailAdapter;
     List<ModelNewWorkOrder.WorkLogBean> mlistLog = new ArrayList<>();
     MyListView mListView;
     ImageView iv_up;
-    TextView tv_bianhao, tv_repair_date, tv_baoxiu_type, tv_jinji, tv_user_name, tv_baoxiu_content, tv_user_address, tv_user_photo, tv_up_name, tv_none;
+    TextView tv_bianhao, tv_repair_date, tv_baoxiu_type, tv_jinji, tv_user_name, tv_baoxiu_content, tv_user_address, tv_user_photo, tv_up_name,
+            tv_none, tv_btn;
     String work_id = "";//工单id
+    String work_status = "";//工单状态
     private int height = 0;
     ModelNewWorkOrder mNewWorkOrder;
 
@@ -77,6 +82,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements WorkOrderDe
         tv_up_name = findViewById(R.id.tv_up_name);
         iv_up = findViewById(R.id.iv_up);
         ly_btn = findViewById(R.id.ly_btn);
+        tv_btn = findViewById(R.id.tv_btn);
         mListView = findViewById(R.id.mListView);
         tv_user_photo.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 
@@ -100,30 +106,9 @@ public class WorkOrderDetailActivity extends BaseActivity implements WorkOrderDe
     @Override
     protected void initListener() {
         //缩放按钮
-        linear_visibility.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (linear_other_info.getVisibility() == View.VISIBLE) {
-                    iv_up.setBackgroundResource(R.mipmap.icon_workorder_detail_down);
-                    tv_up_name.setText("展开");
+        linear_visibility.setOnClickListener(this);
+        ly_btn.setOnClickListener(this);
 
-                } else {
-                    iv_up.setBackgroundResource(R.mipmap.icon_workorder_detail_up);
-                    tv_up_name.setText("收起");
-                }
-
-                HiddenAnimUtils.newInstance(WorkOrderDetailActivity.this, linear_other_info, linear_visibility, height / 2).toggle();
-
-            }
-        });
-
-        ly_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WorkOrderDetailActivity.this, WorkOrderPingjiaActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     /**
@@ -272,8 +257,27 @@ public class WorkOrderDetailActivity extends BaseActivity implements WorkOrderDe
                 mlistLog.clear();
                 mlistLog.addAll(modelNewWorkOrder.getWork_log());
             }
+            //工单状态（1待派单，2已派单,待接单，3未增派,待服务，4待增派，5已增派,待接单，6已增派,待服务，7服务中，8待付款，9已完成，10已取消）
+            if (work_status.equals("7")) {//服务中
+                ly_btn.setVisibility(View.GONE);
+            } else if (work_status.equals("8")) {//待支付
+                ly_btn.setVisibility(View.VISIBLE);
+                tv_btn.setText("支付");
+            } else if (work_status.equals("9")) {//已完成
+                if (modelNewWorkOrder.getEvaluate_status().equals("0")) {//未评价
+                    ly_btn.setVisibility(View.VISIBLE);
+                    tv_btn.setText("评价");
+                } else {
+                    ly_btn.setVisibility(View.GONE);
+                }
+            } else if (work_status.equals("10")) {//已取消
 
-            // if (modelNewWorkOrder.getWork_type().equals("1"))
+                ly_btn.setVisibility(View.GONE);
+
+            } else {//待服务
+                ly_btn.setVisibility(View.VISIBLE);
+                tv_btn.setText("取消工单");
+            }
 
         }
 
@@ -288,6 +292,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements WorkOrderDe
     @Override
     protected void initIntentData() {
         work_id = getIntent().getStringExtra("id");
+        work_status = getIntent().getStringExtra("work_status");
 
     }
 
@@ -324,4 +329,56 @@ public class WorkOrderDetailActivity extends BaseActivity implements WorkOrderDe
         }
 
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ly_btn://取消 付款 评价
+                if (work_status.equals("8")) {//待支付
+                    Intent intent = new Intent(WorkOrderDetailActivity.this, ZhifuActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("o_id", work_id);
+                    bundle.putString("price", "");
+                    bundle.putString("type", "workorder_pay");
+                    bundle.putString("order_type", "wo");
+                    startActivity(intent);
+                } else if (work_status.equals("9")) {//已完成
+                    if (mNewWorkOrder.getEvaluate_status().equals("0")) {//未评价
+                        Intent intent = new Intent(WorkOrderDetailActivity.this, WorkOrderPingjiaActivity.class);
+                        intent.putExtra("work_id", work_id);
+                        startActivityForResult(intent, 22);
+                    }
+                } else {//待服务
+                    Intent intent = new Intent(WorkOrderDetailActivity.this, WorkOrderCancelActivity.class);
+                    intent.putExtra("work_id", work_id);
+                    startActivityForResult(intent, 11);
+                }
+
+                break;
+            case R.id.linear_visibility://缩放按钮
+                if (linear_other_info.getVisibility() == View.VISIBLE) {
+                    iv_up.setBackgroundResource(R.mipmap.icon_workorder_detail_down);
+                    tv_up_name.setText("展开");
+
+                } else {
+                    iv_up.setBackgroundResource(R.mipmap.icon_workorder_detail_up);
+                    tv_up_name.setText("收起");
+                }
+                HiddenAnimUtils.newInstance(WorkOrderDetailActivity.this, linear_other_info, linear_visibility, height / 2).toggle();
+
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            finish();
+        }
+    }
+
 }
