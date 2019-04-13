@@ -364,7 +364,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                     iv_up.setBackgroundResource(R.mipmap.icon_workorder_detail_up);
                     tv_up_name.setText("收起");
                 }
-                HiddenAnimUtils.newInstance(WorkOrderDetailActivity.this, linear_other_info, linear_visibility, height / 2).toggle();
+                HiddenAnimUtils.newInstance(WorkOrderDetailActivity.this, linear_other_info, linear_visibility, height ).toggle();
 
                 break;
             default:

@@ -43,7 +43,8 @@ public class HiddenAnimUtils {
         this.hideView = hideView;
         this.down = down;
         float mDensity = context.getResources().getDisplayMetrics().density;
-        mHeight = (int) (mDensity * height + 0.5);//伸展高度
+      //  mHeight = (int) (mDensity * height + 0.5);//伸展高度
+        mHeight=height+5;
     }
 
     /**
