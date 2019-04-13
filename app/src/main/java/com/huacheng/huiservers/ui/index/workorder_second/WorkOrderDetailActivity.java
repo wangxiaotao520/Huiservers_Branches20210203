@@ -107,7 +107,6 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
     protected void initListener() {
         //缩放按钮
         linear_visibility.setOnClickListener(this);
-        ly_btn.setOnClickListener(this);
 
     }
 
@@ -124,6 +123,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ly_all.setVisibility(View.VISIBLE);
+                    ly_btn.setOnClickListener(WorkOrderDetailActivity.this);
                     ModelNewWorkOrder modelNewWorkOrder = (ModelNewWorkOrder) JsonUtil.getInstance().parseJsonFromResponse(response, ModelNewWorkOrder.class);
                     inflateContent(modelNewWorkOrder);
 
