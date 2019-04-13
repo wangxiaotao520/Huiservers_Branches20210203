@@ -94,8 +94,11 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         //获取平铺布局的高度
-        height = linear_other_info.getHeight();
-        linear_other_info.setVisibility(View.GONE);
+        if (height==0){
+            height = linear_other_info.getHeight();
+            linear_other_info.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -338,9 +341,10 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent(WorkOrderDetailActivity.this, ZhifuActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("o_id", work_id);
-                    bundle.putString("price", "");
+                    bundle.putString("price", mNewWorkOrder.getTotal_fee()+"");
                     bundle.putString("type", "workorder_pay");
                     bundle.putString("order_type", "wo");
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 } else if (work_status.equals("9")) {//已完成
                     if (mNewWorkOrder.getEvaluate_status().equals("0")) {//未评价
@@ -364,7 +368,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                     iv_up.setBackgroundResource(R.mipmap.icon_workorder_detail_up);
                     tv_up_name.setText("收起");
                 }
-                HiddenAnimUtils.newInstance(WorkOrderDetailActivity.this, linear_other_info, linear_visibility, height ).toggle();
+                HiddenAnimUtils.newInstance(WorkOrderDetailActivity.this, linear_other_info, linear_visibility, height).toggle();
 
                 break;
             default:

@@ -36,6 +36,7 @@ public class ModelNewWorkOrder implements Serializable {
     private String username;
     private String nickname;
     private String address;
+    private String total_fee;
     private String evaluate_status;
     private List<ImgListBean> img_list;
     private List<WorkUserBean> work_user;
@@ -53,6 +54,14 @@ public class ModelNewWorkOrder implements Serializable {
     private String address_cn;
     private int totalPages;
     private List<ModelNewWorkOrder> list;
+
+    public String getTotal_fee() {
+        return total_fee;
+    }
+
+    public void setTotal_fee(String total_fee) {
+        this.total_fee = total_fee;
+    }
 
     public String getEvaluate_status() {
         return evaluate_status;
