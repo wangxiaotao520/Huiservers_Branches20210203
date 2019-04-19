@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.index.workorder_second;
+package com.huacheng.huiservers.ui.index.workorder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
 import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.ui.base.BaseFragment;
-import com.huacheng.huiservers.ui.index.workorder_second.adapter.WorkOrderListSecondAdapter;
+import com.huacheng.huiservers.ui.index.workorder.adapter.WorkOrderListSecondAdapter;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

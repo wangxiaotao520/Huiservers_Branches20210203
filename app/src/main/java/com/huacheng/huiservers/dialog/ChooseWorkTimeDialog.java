@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.ModelWorkTime;
-import com.huacheng.huiservers.ui.index.workorder_second.adapter.AdapterChooseWorkTime;
-import com.huacheng.huiservers.ui.index.workorder_second.inter.OnChooseTimeListener;
+import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterChooseWorkTime;
+import com.huacheng.huiservers.ui.index.workorder.inter.OnChooseTimeListener;
 import com.huacheng.huiservers.utils.StringUtils;
 
 import java.util.ArrayList;

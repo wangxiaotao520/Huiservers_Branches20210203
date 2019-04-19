@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.index.workorder_second.commit;
+package com.huacheng.huiservers.ui.index.workorder.commit;
 
 import android.content.Intent;
 import android.view.View;
@@ -11,7 +11,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
 import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
-import com.huacheng.huiservers.ui.index.workorder_second.adapter.AdapterHouseList;
+import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterHouseList;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;

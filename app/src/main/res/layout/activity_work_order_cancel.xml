@@ -44,6 +44,7 @@
         android:background="@drawable/allshape_orange"
         android:gravity="center"
         android:text="确认"
+        android:textSize="@dimen/t_18sp"
         android:textColor="@color/white"/>
 
 </LinearLayout>

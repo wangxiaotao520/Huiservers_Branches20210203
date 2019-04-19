@@ -20,7 +20,7 @@ import java.util.List;
  * created by wangxiaotao
  * 2018/12/12 0012 上午 11:39
  */
-public class SelectImgAdapter <T>extends BaseAdapter{
+public class SelectImgAdapter<T>extends BaseAdapter{
     private static final int TYPE_NORMAL = 0;
     private static final int TYPE_ADD = 1;
     OnClickItemIconListener listener;

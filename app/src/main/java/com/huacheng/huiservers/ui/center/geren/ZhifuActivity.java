@@ -383,7 +383,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                     startActivity(intent);
 
                 } else if ("workorder_pay".equals(type)) {//工单支付
-                    Intent intent = new Intent(ZhifuActivity.this, com.huacheng.huiservers.ui.index.workorder_second.WorkOrderListActivity.class);
+                    Intent intent = new Intent(ZhifuActivity.this, com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity.class);
                     startActivity(intent);
 
                 }

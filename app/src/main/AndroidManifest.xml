@@ -946,46 +946,16 @@
             android:name=".view.PhotoViewPagerAcitivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.index.workorder.commit.PersonalWorkOrderCommitActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity
-            android:name=".ui.index.workorder.commit.PublicWorkOrderCommitActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
             android:configChanges="orientation|screenSize"/>
         <activity
             android:name="me.nereo.multi_image_selector.PhotoPagerActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.index.workorder.commit.SelectHouseActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.index.workorder.WorkOrderDetailActivity"
-            android:screenOrientation="portrait"/>
         <!--工单列表（订单中心）-->
-        <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
 
-        <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkCatActivity"
-            android:screenOrientation="portrait"/>
         <!--工单评价-->
-        <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder.WorkEvaluateActivity"
-            android:screenOrientation="portrait"/>
         <!--工单评价成功页-->
-        <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder.WorkEvaluateSuccessActivity"
-            android:screenOrientation="portrait"/>
         <!--自用部位详情界面-->
-        <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder.WorkCateDescActivtiy"
-            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -1002,42 +972,42 @@
                 android:resource="@xml/file_paths"/>
         </provider>
         <activity
-            android:name=".ui.index.workorder_second.commit.PersonalWorkOrderCommitActivity"
+            android:name=".ui.index.workorder.commit.PersonalWorkOrderCommitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".ui.index.workorder_second.commit.PublicWorkOrderCommitActivity"
+            android:name=".ui.index.workorder.commit.PublicWorkOrderCommitActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".ui.index.workorder_second.commit.HouseListActivity"
+            android:name=".ui.index.workorder.commit.HouseListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder_second.commit.WorkTypeListActivity"
+            android:name="com.huacheng.huiservers.ui.index.workorder.commit.WorkTypeListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <!--新工单评价-->
         <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder_second.WorkOrderPingjiaActivity"
+            android:name="com.huacheng.huiservers.ui.index.workorder.WorkOrderPingjiaActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"/>
         <!--新工单取消-->
         <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder_second.WorkOrderCancelActivity"
+            android:name="com.huacheng.huiservers.ui.index.workorder.WorkOrderCancelActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"/>
         <!--新工单列表-->
         <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder_second.WorkOrderListActivity"
+            android:name="com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <!--新工单详情-->
         <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder_second.WorkOrderDetailActivity"
+            android:name="com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.huacheng.huiservers.ui.index.workorder_second.commit.WorkPriceListActivity"
+            android:name="com.huacheng.huiservers.ui.index.workorder.commit.WorkPriceListActivity"
             android:screenOrientation="portrait"/>
     </application>
 

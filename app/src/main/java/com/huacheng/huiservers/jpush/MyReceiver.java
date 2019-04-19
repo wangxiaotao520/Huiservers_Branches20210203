@@ -30,9 +30,10 @@ import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.ToolUtils;
+import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.huacheng.huiservers.utils.statusbar.OSUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

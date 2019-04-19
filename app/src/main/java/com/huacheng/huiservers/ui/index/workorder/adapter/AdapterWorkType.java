@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.index.workorder_second.adapter;
+package com.huacheng.huiservers.ui.index.workorder.adapter;
 
 import android.content.Context;
 import android.view.View;

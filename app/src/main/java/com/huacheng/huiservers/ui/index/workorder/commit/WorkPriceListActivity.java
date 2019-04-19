@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.index.workorder_second.commit;
+package com.huacheng.huiservers.ui.index.workorder.commit;
 
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -11,7 +11,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelWorkPersonalCatItem;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.index.workorder_second.adapter.AdapterPriceList;
+import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterPriceList;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
