@@ -104,7 +104,6 @@ public class WorkOrderListcommon extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(mActivity, WorkOrderDetailActivity.class);
                 intent.putExtra("id", mDatas.get(position).getId());
-                intent.putExtra("work_status", mDatas.get(position).getWork_status());
                 startActivity(intent);
             }
         });
