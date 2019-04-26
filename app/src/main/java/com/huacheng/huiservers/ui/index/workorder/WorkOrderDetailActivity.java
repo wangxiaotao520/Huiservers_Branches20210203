@@ -53,7 +53,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
     MyListView mListView;
     ImageView iv_up;
     TextView tv_bianhao, tv_repair_date, tv_baoxiu_type, tv_jinji, tv_user_name, tv_baoxiu_content, tv_user_address, tv_user_photo, tv_up_name,
-            tv_none, tv_btn;
+            tv_none, tv_btn, tv_price;
     String work_id = "";//工单id
     //String work_status = "";//工单状态
     private int height = 0;
@@ -70,6 +70,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
         linear_other_info = findViewById(R.id.linear_other_info);
         mlinear_photo = findViewById(R.id.linear_photo);
         tv_bianhao = findViewById(R.id.tv_bianhao);
+        tv_price = findViewById(R.id.tv_price);
         tv_repair_date = findViewById(R.id.tv_repair_date);
         tv_baoxiu_type = findViewById(R.id.tv_baoxiu_type);
         tv_jinji = findViewById(R.id.tv_jinji);
@@ -94,7 +95,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         //获取平铺布局的高度
-        if (height==0){
+        if (height == 0) {
             height = linear_other_info.getHeight();
             linear_other_info.setVisibility(View.GONE);
         }
@@ -275,6 +276,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
             } else if (modelNewWorkOrder.getWork_status().equals("8")) {//待支付
                 ly_btn.setVisibility(View.VISIBLE);
                 tv_btn.setText("支付");
+                tv_price.setText("待支付" + modelNewWorkOrder.getTotal_fee() + "");
             } else if (modelNewWorkOrder.getWork_status().equals("9")) {//已完成
                 if (modelNewWorkOrder.getEvaluate_status().equals("0")) {//未评价
                     ly_btn.setVisibility(View.VISIBLE);
@@ -282,6 +284,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                 } else {
                     ly_btn.setVisibility(View.GONE);
                 }
+                tv_price.setText("已支付" + modelNewWorkOrder.getTotal_fee() + "");
             } else if (modelNewWorkOrder.getWork_status().equals("10")) {//已取消
 
                 ly_btn.setVisibility(View.GONE);
@@ -350,7 +353,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                     Intent intent = new Intent(WorkOrderDetailActivity.this, ZhifuActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("o_id", work_id);
-                    bundle.putString("price", mNewWorkOrder.getTotal_fee()+"");
+                    bundle.putString("price", mNewWorkOrder.getTotal_fee() + "");
                     bundle.putString("type", "workorder_pay");
                     bundle.putString("order_type", "wo");
                     intent.putExtras(bundle);
