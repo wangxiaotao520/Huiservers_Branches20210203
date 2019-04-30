@@ -985,17 +985,14 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name="com.huacheng.huiservers.ui.index.workorder.commit.WorkTypeListActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <!--新工单评价-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.workorder.WorkOrderPingjiaActivity"
-            android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"/>
         <!--新工单取消-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.workorder.WorkOrderCancelActivity"
-            android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"/>
         <!--新工单列表-->
         <activity
@@ -1009,7 +1006,10 @@
         <activity
             android:name="com.huacheng.huiservers.ui.index.workorder.commit.WorkPriceListActivity"
             android:screenOrientation="portrait"/>
+        <receiver android:name=".jpush.NotificationClickReceiver">
+            <intent-filter>
+                <action android:name="notification_clicked"/>
+            </intent-filter>
+        </receiver>
     </application>
-
-
 </manifest>

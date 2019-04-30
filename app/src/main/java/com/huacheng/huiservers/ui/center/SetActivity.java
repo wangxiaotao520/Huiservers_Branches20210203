@@ -29,7 +29,6 @@ import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 
 import java.io.File;
@@ -277,7 +276,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener {
                     ApiHttpClient.setTokenInfo(null,null);
                     Intent intent = new Intent(SetActivity.this, HomeActivity.class);
                     startActivity(intent);
-                    SmartToast.showInfo("退出登录");
+                //    SmartToast.showInfo("退出登录");
                     //清除数据库
                     UserSql.getInstance().clear();
                     //    ActivityStackManager.getActivityStackManager().finishAllActivity();

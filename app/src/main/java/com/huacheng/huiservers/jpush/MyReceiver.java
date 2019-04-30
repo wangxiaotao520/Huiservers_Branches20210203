@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -30,6 +31,10 @@ import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.ToolUtils;
+import com.huacheng.huiservers.utils.notifacation.ChannelEntity;
+import com.huacheng.huiservers.utils.notifacation.Constants;
+import com.huacheng.huiservers.utils.notifacation.ImportanceType;
+import com.huacheng.huiservers.utils.notifacation.NotifyManager;
 import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -67,6 +72,7 @@ public class MyReceiver extends BroadcastReceiver {
     private SharePrefrenceUtil sharePrefrenceUtil;
     private String token;
     private String tokenSecret;
+    private NotifyManager notifyManager;//8.0以后适配
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -123,6 +129,9 @@ public class MyReceiver extends BroadcastReceiver {
 
     private void skip(Context context, Bundle bundle) {
         String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+        if (NullUtil.isStringEmpty(extras)){
+            return;
+        }
         message = bundle.getString(JPushInterface.EXTRA_ALERT);
         try {
             JSONObject jsonObject = new JSONObject(extras);
@@ -141,16 +150,17 @@ public class MyReceiver extends BroadcastReceiver {
 
                     if (hasLoginUser()) {//判断是否登录
                         //极光推送 工单处理
-                        ModelJpushNotifaction modelJpushNotifaction = (ModelJpushNotifaction) JsonUtil.getInstance().parseJson(extras, ModelJpushNotifaction.class);
-                        if (modelJpushNotifaction != null) {
-                            String work_id = modelJpushNotifaction.getData().getId();
+                        if (!TextUtils.isEmpty(extras)) {
+                            ModelJpushNotifaction modelJpushNotifaction = (ModelJpushNotifaction) JsonUtil.getInstance().parseJson(extras, ModelJpushNotifaction.class);
+                            if (modelJpushNotifaction != null) {
+                                String work_id = modelJpushNotifaction.getData().getId();
 
-                            Intent intent = new Intent(context, WorkOrderDetailActivity.class);
-                            intent.putExtra("work_id", work_id);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent);
+                                Intent intent = new Intent(context, WorkOrderDetailActivity.class);
+                                intent.putExtra("work_id", work_id);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent);
+                            }
                         }
-
                     } else {
                         Intent intent = new Intent();
                         intent.setClass(context, LoginVerifyCodeActivity.class);
@@ -189,16 +199,20 @@ public class MyReceiver extends BroadcastReceiver {
 
     private void processCustomMessage(Context context, Bundle bundle) {
         String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-
         if (!TextUtils.isEmpty(extras)) {
             JSONObject jsonObject;
             try {
 
                 ModelJpushNotifaction modelJpushNotifaction = (ModelJpushNotifaction) JsonUtil.getInstance().parseJson(extras, ModelJpushNotifaction.class);
                 if (modelJpushNotifaction != null) {
-                    showNotifaction(context, bundle);
+                    //推送消息
+                    if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT){
+                        //8.0通知
+                        showNotifactionAndroidO(context, bundle);
+                    }else {
+                        showNotifaction(context, bundle);
+                    }
                 }
-
                 jsonObject = new JSONObject(extras);
                 if (!jsonObject.optString("badge").equals("")) {
                     String num = jsonObject.getString("badge");
@@ -220,9 +234,85 @@ public class MyReceiver extends BroadcastReceiver {
 
 
     }
-
     /**
-     * 显示通知栏
+     * 8.0通知消息
+     * @param context
+     * @param bundle
+     */
+    private void showNotifactionAndroidO(Context context, Bundle bundle) {
+        notifyManager = new NotifyManager(context);
+        ChannelEntity chatChannel = new ChannelEntity(Constants.CHANNEL_NORMMAL, "新通知消息", ImportanceType.IMPORTANCE_HIGH);
+        chatChannel.setDescription("物业发来的通知");
+        notifyManager.createNotificationGroupWithChannel(Constants.GROUP_NORMMAL, "通知消息", chatChannel);
+
+        if (!notifyManager.areNotificationsEnabled()) {
+            //   Toast.makeText(context, "通知被关闭", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (!notifyManager.areChannelsEnabled(Constants.CHANNEL_CHAT)) {
+                //   Toast.makeText(context, "当前渠道通知被关闭", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        NotificationCompat.Builder builder = notifyManager.getDefaultBuilder(Constants.CHANNEL_NORMMAL);
+        //Ticker是状态栏显示的提示
+        builder.setTicker(bundle.getString(JPushInterface.EXTRA_TITLE));
+        //第一行内容  通常作为通知栏标题
+        builder.setContentTitle(bundle.getString(JPushInterface.EXTRA_TITLE));
+        //第二行内容 通常是通知正文
+        builder.setContentText(bundle.getString(JPushInterface.EXTRA_MESSAGE));
+        //可以点击通知栏的删除按钮删除
+        builder.setAutoCancel(true);
+        //系统状态栏显示的小图标
+        builder.setSmallIcon(R.drawable.app_logo);
+        notification = builder.build();
+
+//        String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+//        if (!TextUtils.isEmpty(extras)) {
+//
+//            ModelJpushNotifaction modelJpushNotifaction = (ModelJpushNotifaction) JsonUtil.getInstance().parseJson(extras, ModelJpushNotifaction.class);
+//            if (modelJpushNotifaction != null) {
+//                String sound_type = modelJpushNotifaction.getData().getSound_type();
+//                //sound_type 为 1 表示使用系统音，2 表示录音
+//                if ("1".equals(sound_type)) {
+//                    Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//                    notification.sound = uri;
+//                } else {
+//                    notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.push_sound);
+//                }
+//            }
+//        } else {
+//            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//            notification.sound = uri;
+//        }
+        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        notification.sound = uri; //Uri.parse("android.resource://" + context.getPackageName() + "/" + Notification.DEFAULT_SOUND);
+
+        builder.setDefaults(NotificationCompat.DEFAULT_VIBRATE | NotificationCompat.DEFAULT_LIGHTS);
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+//        Intent clickIntent = new Intent(); //点击通知之后要发送的广播
+//        int id = (int) (System.currentTimeMillis() / 1000);
+//        // 这块儿是原先写的三星手机 oppo手机有问题
+//        clickIntent.addCategory(BaseApplication.getApplication().getPackageName());
+//        clickIntent.setAction(JPushInterface.ACTION_NOTIFICATION_OPENED);
+//        clickIntent.putExtra(JPushInterface.EXTRA_EXTRA, bundle.getString(JPushInterface.EXTRA_EXTRA));
+//        PendingIntent contentIntent = PendingIntent.getBroadcast(context, id, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent contentIntent =new Intent (context,NotificationClickReceiver.class);
+        int id = (int) (System.currentTimeMillis() / 1000);
+        contentIntent.addCategory(BaseApplication.getApplication().getPackageName());
+        contentIntent.setAction("notification_clicked");
+        contentIntent.putExtra(JPushInterface.EXTRA_EXTRA, bundle.getString(JPushInterface.EXTRA_EXTRA));
+        PendingIntent pendingIntent =PendingIntent.getBroadcast(context, id, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+        notification.contentIntent = pendingIntent;
+        notifyManager.notifyNotify(notification);
+    }
+    /**
+     * 显示通知栏8.0以下
      *
      * @param context
      * @param bundle
@@ -248,13 +338,22 @@ public class MyReceiver extends BroadcastReceiver {
         builder.setDefaults(NotificationCompat.DEFAULT_VIBRATE | NotificationCompat.DEFAULT_LIGHTS);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
-        Intent clickIntent = new Intent(); //点击通知之后要发送的广播
+//        Intent clickIntent = new Intent(); //点击通知之后要发送的广播
+//        int id = (int) (System.currentTimeMillis() / 1000);
+//        clickIntent.addCategory(BaseApplication.getApplication().getPackageName());
+//        clickIntent.setAction(JPushInterface.ACTION_NOTIFICATION_OPENED);
+//        clickIntent.putExtra(JPushInterface.EXTRA_EXTRA, bundle.getString(JPushInterface.EXTRA_EXTRA));
+//        PendingIntent contentIntent = PendingIntent.getBroadcast(context, id, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        notification.contentIntent = contentIntent;
+
+        Intent contentIntent =new Intent (context,NotificationClickReceiver.class);
         int id = (int) (System.currentTimeMillis() / 1000);
-        clickIntent.addCategory(BaseApplication.getApplication().getPackageName());
-        clickIntent.setAction(JPushInterface.ACTION_NOTIFICATION_OPENED);
-        clickIntent.putExtra(JPushInterface.EXTRA_EXTRA, bundle.getString(JPushInterface.EXTRA_EXTRA));
-        PendingIntent contentIntent = PendingIntent.getBroadcast(context, id, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.contentIntent = contentIntent;
+        contentIntent.addCategory(BaseApplication.getApplication().getPackageName());
+        contentIntent.setAction("notification_clicked");
+        contentIntent.putExtra(JPushInterface.EXTRA_EXTRA, bundle.getString(JPushInterface.EXTRA_EXTRA));
+        PendingIntent pendingIntent =PendingIntent.getBroadcast(context, id, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+        notification.contentIntent = pendingIntent;
 
         NotificationManager manger = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         manger.notify(id, notification);

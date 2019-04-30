@@ -247,7 +247,6 @@ public class ApiHttpClient {
 
         DEFAULT_ADDRESS = API_URL + API_VERSION + "site/default_address";
         APP_UPDATE = API_URL_FINAL + "Api/Version/version_update";
-        ;
         PUSH_INS = API_URL + API_VERSION + "Jpush/service_order_toIns_push";
         INDEX = API_URL + API_VERSION + "index/index";
         WX_LOGIN = API_URL + API_VERSION + "site/wx_login";

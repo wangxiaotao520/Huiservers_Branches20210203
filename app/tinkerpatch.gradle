@@ -6,7 +6,7 @@ import java.util.regex.Pattern
  * TODO: 请按自己的需求修改为适应自己工程的参数
  */
 def bakPath = file("${buildDir}/bakApk/")
-def baseInfo = "app-4.1.4-0404-09-09-44"
+def baseInfo = "app-4.1.4-0411-09-37-10"
 def variantName = "release"
 
 /**

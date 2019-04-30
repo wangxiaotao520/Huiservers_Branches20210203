@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.huacheng.huiservers"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 27
         versionName "4.1.4"
         multiDexEnabled true

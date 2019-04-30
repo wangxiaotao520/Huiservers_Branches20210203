@@ -67,7 +67,7 @@ public class MultiImageSelectorActivity extends FragmentActivity implements Mult
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+    //    requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_default);
 
         Intent intent = getIntent();

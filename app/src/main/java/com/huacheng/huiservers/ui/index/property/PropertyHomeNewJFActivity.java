@@ -306,7 +306,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 mTvTypeName.setText("电费");
                 mTvCzName.setText("电费充值：");
                 if (propertyInfo.getDianfei() != null) {
-                    if (!TextUtils.isEmpty(propertyInfo.getDianfei().getInfo().getDMay_acc())) {
+                    if (propertyInfo.getDianfei().getInfo()!=null&&!TextUtils.isEmpty(propertyInfo.getDianfei().getInfo().getDMay_acc())) {
                         mTvPrice.setText("¥ " + propertyInfo.getDianfei().getInfo().getDMay_acc());
                     } else {
                         mTvPrice.setText("¥ 0.00");
