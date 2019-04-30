@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ly_all"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
@@ -56,11 +57,21 @@
                         android:background="@drawable/allshape_orange_2"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin"
+                        android:layout_weight="1"
                         android:text="工单信息"
                         android:textColor="@color/title_color"
+                        android:textSize="@dimen/t_15sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_15"
+                        android:text=""
+                        android:textColor="@color/red_ed"
                         android:textSize="@dimen/t_15sp"/>
 
                 </LinearLayout>
@@ -342,7 +353,7 @@
                 android:id="@+id/mListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_15"
+                android:layout_marginBottom="50dp"
                 android:layout_marginTop="@dimen/margin_15"
                 android:dividerHeight="@dimen/margin_15">
 

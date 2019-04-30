@@ -28,6 +28,7 @@ public class ModelNewWorkOrder implements Serializable {
 
     private String id;
     private String work_type;
+    private String work_stutas;
     private String order_number;
     private String appointime;
     private String cate_pid_cn;
@@ -54,6 +55,14 @@ public class ModelNewWorkOrder implements Serializable {
     private String address_cn;
     private int totalPages;
     private List<ModelNewWorkOrder> list;
+
+    public String getWork_stutas() {
+        return work_stutas;
+    }
+
+    public void setWork_stutas(String work_stutas) {
+        this.work_stutas = work_stutas;
+    }
 
     public String getTotal_fee() {
         return total_fee;

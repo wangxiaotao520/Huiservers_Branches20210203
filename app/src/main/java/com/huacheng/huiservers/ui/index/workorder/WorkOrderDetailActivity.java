@@ -53,9 +53,9 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
     MyListView mListView;
     ImageView iv_up;
     TextView tv_bianhao, tv_repair_date, tv_baoxiu_type, tv_jinji, tv_user_name, tv_baoxiu_content, tv_user_address, tv_user_photo, tv_up_name,
-            tv_none, tv_btn;
+            tv_none, tv_btn, tv_price;
     String work_id = "";//工单id
-    String work_status = "";//工单状态
+    //String work_status = "";//工单状态
     private int height = 0;
     ModelNewWorkOrder mNewWorkOrder;
 
@@ -70,6 +70,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
         linear_other_info = findViewById(R.id.linear_other_info);
         mlinear_photo = findViewById(R.id.linear_photo);
         tv_bianhao = findViewById(R.id.tv_bianhao);
+        tv_price = findViewById(R.id.tv_price);
         tv_repair_date = findViewById(R.id.tv_repair_date);
         tv_baoxiu_type = findViewById(R.id.tv_baoxiu_type);
         tv_jinji = findViewById(R.id.tv_jinji);
@@ -94,7 +95,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         //获取平铺布局的高度
-        if (height==0){
+        if (height == 0) {
             height = linear_other_info.getHeight();
             linear_other_info.setVisibility(View.GONE);
         }
@@ -270,19 +271,21 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                 mWorkOrderDetailAdapter.notifyDataSetChanged();
             }
             //工单状态（1待派单，2已派单,待接单，3未增派,待服务，4待增派，5已增派,待接单，6已增派,待服务，7服务中，8待付款，9已完成，10已取消）
-            if (work_status.equals("7")) {//服务中
+            if (modelNewWorkOrder.getWork_status().equals("7")) {//服务中
                 ly_btn.setVisibility(View.GONE);
-            } else if (work_status.equals("8")) {//待支付
+            } else if (modelNewWorkOrder.getWork_status().equals("8")) {//待支付
                 ly_btn.setVisibility(View.VISIBLE);
                 tv_btn.setText("支付");
-            } else if (work_status.equals("9")) {//已完成
+                tv_price.setText("待支付" + modelNewWorkOrder.getTotal_fee() + "");
+            } else if (modelNewWorkOrder.getWork_status().equals("9")) {//已完成
                 if (modelNewWorkOrder.getEvaluate_status().equals("0")) {//未评价
                     ly_btn.setVisibility(View.VISIBLE);
                     tv_btn.setText("评价");
                 } else {
                     ly_btn.setVisibility(View.GONE);
                 }
-            } else if (work_status.equals("10")) {//已取消
+                tv_price.setText("已支付" + modelNewWorkOrder.getTotal_fee() + "");
+            } else if (modelNewWorkOrder.getWork_status().equals("10")) {//已取消
 
                 ly_btn.setVisibility(View.GONE);
 
@@ -304,7 +307,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
     @Override
     protected void initIntentData() {
         work_id = getIntent().getStringExtra("id");
-        work_status = getIntent().getStringExtra("work_status");
+
 
     }
 
@@ -346,16 +349,16 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ly_btn://取消 付款 评价
-                if (work_status.equals("8")) {//待支付
+                if (mNewWorkOrder.getWork_status().equals("8")) {//待支付
                     Intent intent = new Intent(WorkOrderDetailActivity.this, ZhifuActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("o_id", work_id);
-                    bundle.putString("price", mNewWorkOrder.getTotal_fee()+"");
+                    bundle.putString("price", mNewWorkOrder.getTotal_fee() + "");
                     bundle.putString("type", "workorder_pay");
                     bundle.putString("order_type", "wo");
                     intent.putExtras(bundle);
                     startActivity(intent);
-                } else if (work_status.equals("9")) {//已完成
+                } else if (mNewWorkOrder.getWork_status().equals("9")) {//已完成
                     if (mNewWorkOrder.getEvaluate_status().equals("0")) {//未评价
                         Intent intent = new Intent(WorkOrderDetailActivity.this, WorkOrderPingjiaActivity.class);
                         intent.putExtra("work_id", work_id);
