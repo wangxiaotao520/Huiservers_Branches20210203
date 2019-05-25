@@ -212,11 +212,11 @@ public class SelectCommonPresenter {
      *
      * @param community_id
      */
-    public void getShops(String community_id, String houses_type) {
+    public void getShops(String community_id, String houses_type,String buildsing_id) {
         HashMap<String, String> params = new HashMap<>();
-      params.put("community_id", community_id);
+        params.put("community_id", community_id);
       //  params.put("houses_type", houses_type);
-
+        params.put("buildsing_id", buildsing_id);
         MyOkHttp.get().post(ApiHttpClient.GET_ROOM, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {

@@ -85,7 +85,7 @@ public class SelectCommunityActivity extends BaseActivity implements View.OnClic
         MyOkHttp.get().post(Url_info.get_pro_com, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-                hideDialog(smallDialog);
+
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     List<WuYeBean> cityBeanList = (List<WuYeBean>) JsonUtil.getInstance().getDataArrayByName(response, "data", WuYeBean.class);
 
@@ -99,6 +99,7 @@ public class SelectCommunityActivity extends BaseActivity implements View.OnClic
                             SourceDateList.addAll(SourceDateList_new);
                             // 根据a-z进行排序源数据
                             Collections.sort(SourceDateList, pinyinComparator);
+                            hideDialog(smallDialog);
                             if (adapter == null) {
                                 adapter = new XiaoquAdapter(SelectCommunityActivity.this, SourceDateList);
                                 list_center.setAdapter(adapter);
@@ -107,6 +108,7 @@ public class SelectCommunityActivity extends BaseActivity implements View.OnClic
                             }
                             //      mFirstIn_region_id = cityBean.getCommunity_list().get(0).getRegion_id();
                         } else {
+                            hideDialog(smallDialog);
                             rel_no_data.setVisibility(View.VISIBLE);
                             sideBar.setVisibility(View.GONE);
                             txt_dialog.setVisibility(View.GONE);
@@ -116,6 +118,8 @@ public class SelectCommunityActivity extends BaseActivity implements View.OnClic
                             }
                             //        mFirstIn_region_id = 0 + "";
                         }
+                    }else {
+                        hideDialog(smallDialog);
                     }
                 }
             }
