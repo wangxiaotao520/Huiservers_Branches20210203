@@ -447,7 +447,8 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
-                    SmartToast.showInfo("提交失败");
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response,"提交失败");
+                    SmartToast.showInfo(msg);
                 }
             }
 

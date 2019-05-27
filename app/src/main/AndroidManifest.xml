@@ -1011,5 +1011,17 @@
                 <action android:name="notification_clicked"/>
             </intent-filter>
         </receiver>
+        <!--投诉建议-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.request.RequesDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.request.RequestListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.request.CommitRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            />
     </application>
 </manifest>

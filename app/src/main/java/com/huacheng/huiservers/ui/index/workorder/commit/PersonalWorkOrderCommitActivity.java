@@ -127,7 +127,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
         tv_text_limit = findViewById(R.id.tv_text_limit);
         gridview_imgs = findViewById(R.id.gridview_imgs);
         gridviewImgsAdapter = new SelectImgAdapter(this, photoList);
-        //todo 是否显示删除
+        // 是否显示删除
         gridviewImgsAdapter.setShowDelete(true);//不显示删除
         gridview_imgs.setAdapter(gridviewImgsAdapter);
         TextView tv_nickname = findViewById(R.id.tv_nickname);

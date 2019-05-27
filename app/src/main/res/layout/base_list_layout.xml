@@ -6,7 +6,9 @@
     android:orientation="vertical">
 
 
-    <include layout="@layout/titlebar_center"/>
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/titlebar_center"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
