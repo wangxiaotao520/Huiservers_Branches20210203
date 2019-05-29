@@ -18,14 +18,21 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
 import com.huacheng.huiservers.ui.index.workorder.commit.HouseListActivity;
+import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,10 +64,6 @@ public class CommitRequestActivity extends BaseActivity {
     private static final int REQUEST_CAMERA = 100;
     private File mTmpFile;
     private TextView tv_commit;
-    private String id = "";//任务id
-
-    int jump_type = 1 ; //巡检 //2巡更
-
     private LinearLayout ll_address;
     private TextView tv_address;
     public static final int ACT_SELECT_HOUSE = 333;//选择房屋
@@ -70,6 +73,7 @@ public class CommitRequestActivity extends BaseActivity {
     private String community_cn=""; //小区名称
     private String company_id=""; //公司id
     private String room_id=""; //房间id
+    private TextView tv_nickname;
 
     @Override
     protected void initView() {
@@ -178,25 +182,28 @@ public class CommitRequestActivity extends BaseActivity {
      */
     private void commit() {
 
+
+        if (NullUtil.isStringEmpty(address)){
+            SmartToast.showInfo("请选择地址");
+            return;
+        }
+        String content = et_content.getText().toString().trim();
+        if (NullUtil.isStringEmpty(content)){
+            SmartToast.showInfo("请输入内容");
+            return;
+        }
         if (photoList.size()==0){
             SmartToast.showInfo("请上传图片");
             return;
         }
         HashMap<String, String> params = new HashMap<>();
-        if (jump_type==1){//巡检
-            params.put("id",id);
-        }else {//巡更
-            params.put("task_id",id);
+        if (BaseApplication.getUser()!=null){
+            params.put("nickname",BaseApplication.getUser().getNickname());
+            params.put("phone",BaseApplication.getUser().getUsername());
         }
-        String content = et_content.getText().toString().trim();
-        if (!NullUtil.isStringEmpty(content)){
+        params.put("address",address);
+        params.put("content",content);
 
-            if (jump_type==1){
-                params.put("reason",content);//巡检
-            }else {
-                params.put("operation",content);//巡更
-            }
-        }
         // 提交
         if (photoList.size() > 0) {
             // 压缩图片
@@ -276,45 +283,37 @@ public class CommitRequestActivity extends BaseActivity {
         if (params_file != null && params_file.size() > 0) {
             params.put("img_num", params_file.size() + "");
         }
-//        String url = "";
-//        if (jump_type==1){
-//            url =  ApiHttpClient.INSPECT_CANCEL;
-//        }else {
-//            url =  ApiHttpClient.PATROL_CANCEL;
-//        }
-//        MyOkHttp.get().upload(this, url, params, params_file, new JsonResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, JSONObject response) {
-//                hideDialog(smallDialog);
-//                if (JsonUtil.getInstance().isSuccess(response)) {
-//                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交成功");
-//                    SmartToast.showInfo(msg);
-//                    //   startActivity(new Intent(PublicWorkOrderCommitActivity.this, WorkOrderListActivity.class));
-//                    ModelInspetionEvent event=new ModelInspetionEvent();
-//                    event.setTask_id(id);
-//                    EventBus.getDefault().post(event);
-//                    setResult(RESULT_OK);
-//                    finish();
-//
-//                    //删除缓存文件夹中的图片
-//                    ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
-//                } else {
-//                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交失败");
-//                    SmartToast.showInfo(msg);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, String error_msg) {
-//                hideDialog(smallDialog);
-//                SmartToast.showInfo("网络异常，请检查网络设置");
-//            }
-//
-//            @Override
-//            public void onProgress(long currentBytes, long totalBytes) {
-//                super.onProgress(currentBytes, totalBytes);
-//            }
-//        });
+        String url = ApiHttpClient.FEED_BACK_ADD;
+
+        MyOkHttp.get().upload(this, url, params, params_file, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交成功");
+                    SmartToast.showInfo(msg);
+                    startActivity(new Intent(CommitRequestActivity.this, RequestListActivity.class));
+                    finish();
+
+                    //删除缓存文件夹中的图片
+                    ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+
+            @Override
+            public void onProgress(long currentBytes, long totalBytes) {
+                super.onProgress(currentBytes, totalBytes);
+            }
+        });
     }
     /**
      * 跳转到照相机
@@ -358,8 +357,6 @@ public class CommitRequestActivity extends BaseActivity {
 
     @Override
     protected void initIntentData() {
-        this.id=  this.getIntent().getStringExtra("id");
-        this.jump_type= this.getIntent().getIntExtra("jump_type",1);
 
     }
 

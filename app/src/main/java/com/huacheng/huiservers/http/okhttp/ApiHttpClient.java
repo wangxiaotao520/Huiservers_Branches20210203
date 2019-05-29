@@ -234,6 +234,10 @@ public class ApiHttpClient {
     public static String MARKED_PRICE = API_URL + API_VERSION + "propertyWork/marked_price";
     //提交工单
     public static String SBMMIT_WORK = API_URL + API_VERSION + "propertyWork/submit_work";
+    //投诉建议提交
+    public static String FEED_BACK_ADD = API_URL + API_VERSION + "feedback/feedbackAdd";
+    //投诉建议列表
+    public static String FEED_BACK_LIST = API_URL + API_VERSION + "feedback/feedbacklist";
 
     /**
      * 刷新接口
