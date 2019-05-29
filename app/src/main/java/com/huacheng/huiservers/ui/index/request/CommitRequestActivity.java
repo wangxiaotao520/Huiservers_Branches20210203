@@ -203,6 +203,7 @@ public class CommitRequestActivity extends BaseActivity {
         }
         params.put("address",address);
         params.put("content",content);
+        params.put("c_id",community_id);
 
         // 提交
         if (photoList.size() > 0) {
