@@ -2,7 +2,6 @@ package com.huacheng.huiservers.ui.index.request.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Base64;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
@@ -25,8 +24,8 @@ public class AdapterRequestList extends CommonAdapter<ModelRequest> {
 
     @Override
     protected void convert(ViewHolder viewHolder, ModelRequest item, int position) {
-        byte[] bytes = Base64.decode(item.getContent(), Base64.DEFAULT);
-        viewHolder.<TextView>getView(R.id.tv_title).setText(new String(bytes));
+     //   byte[] bytes = Base64.decode(item.getContent(), Base64.DEFAULT);
+     viewHolder.<TextView>getView(R.id.tv_title).setText(item.getContent());
         viewHolder.<TextView>getView(R.id.tv_name).setText(item.getNickname());
         if (item.getStatus()==1){
             viewHolder.<TextView>getView(R.id.tv_status).setText("未处理");

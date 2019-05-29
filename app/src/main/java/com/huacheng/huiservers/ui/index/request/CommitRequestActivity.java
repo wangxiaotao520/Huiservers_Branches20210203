@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -191,8 +190,8 @@ public class CommitRequestActivity extends BaseActivity {
             return;
         }
         String content = et_content.getText().toString().trim();
-        String str_count = Base64.encodeToString(getStringNoBlank(content).getBytes(), Base64.DEFAULT);
-        if (NullUtil.isStringEmpty(str_count)){
+    //    String str_count = Base64.encodeToString(getStringNoBlank(content).getBytes(), Base64.DEFAULT);
+        if (NullUtil.isStringEmpty(content)){
             SmartToast.showInfo("请输入内容");
             return;
         }
@@ -206,7 +205,7 @@ public class CommitRequestActivity extends BaseActivity {
             params.put("phone",BaseApplication.getUser().getUsername());
         }
         params.put("address",address);
-        params.put("content",str_count);
+        params.put("content",content);
         params.put("c_id",community_id);
 
         // 提交
