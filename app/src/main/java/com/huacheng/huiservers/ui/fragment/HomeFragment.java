@@ -48,6 +48,7 @@ import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
+import com.huacheng.huiservers.ui.index.request.CommitRequestActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
@@ -531,8 +532,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 break;
 
             case R.id.ly_houseRent://租房
-                intent = new Intent(mActivity, HouseRentListActivity.class);
-                intent.putExtra("jump_type", 1);
+                intent = new Intent(mActivity, CommitRequestActivity.class);
+                //intent.putExtra("jump_type", 1);
                 startActivity(intent);
                 break;
             case R.id.ly_houseSell://售房

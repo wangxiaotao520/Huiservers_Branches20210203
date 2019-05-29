@@ -20,6 +20,51 @@ public class ModelRequest implements Serializable{
     private int status;
     private String nickname;
     private String phone;
+    private String complaint_number;
+    private String address;
+    private String reply_content;
+    private String img;
+    private List<ModelRequest> img_list ;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getComplaint_number() {
+        return complaint_number;
+    }
+
+    public void setComplaint_number(String complaint_number) {
+        this.complaint_number = complaint_number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getReply_content() {
+        return reply_content;
+    }
+
+    public void setReply_content(String reply_content) {
+        this.reply_content = reply_content;
+    }
+
+    public List<ModelRequest> getImg_list() {
+        return img_list;
+    }
+
+    public void setImg_list(List<ModelRequest> img_list) {
+        this.img_list = img_list;
+    }
 
     public int getTotalPages() {
         return totalPages;

@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -39,6 +40,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.reactivex.functions.Consumer;
 import me.nereo.multi_image_selector.utils.FileUtils;
@@ -188,7 +191,8 @@ public class CommitRequestActivity extends BaseActivity {
             return;
         }
         String content = et_content.getText().toString().trim();
-        if (NullUtil.isStringEmpty(content)){
+        String str_count = Base64.encodeToString(getStringNoBlank(content).getBytes(), Base64.DEFAULT);
+        if (NullUtil.isStringEmpty(str_count)){
             SmartToast.showInfo("请输入内容");
             return;
         }
@@ -202,7 +206,7 @@ public class CommitRequestActivity extends BaseActivity {
             params.put("phone",BaseApplication.getUser().getUsername());
         }
         params.put("address",address);
-        params.put("content",content);
+        params.put("content",str_count);
         params.put("c_id",community_id);
 
         // 提交
@@ -213,6 +217,17 @@ public class CommitRequestActivity extends BaseActivity {
             zipPhoto(params);
         }
 
+    }
+    public static String getStringNoBlank(String str) {//去除首尾空格 换行符
+        if (str != null && !"".equals(str)) {
+            str.replaceAll("\n", "");
+            Pattern p = Pattern.compile("(^\\s*)|(\\s*$)");
+            Matcher m = p.matcher(str);
+            String strNoBlank = m.replaceAll("");
+            return strNoBlank;
+        } else {
+            return "";
+        }
     }
     private void zipPhoto(final HashMap<String, String> params) {
 

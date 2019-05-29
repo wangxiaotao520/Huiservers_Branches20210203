@@ -238,6 +238,8 @@ public class ApiHttpClient {
     public static String FEED_BACK_ADD = API_URL + API_VERSION + "feedback/feedbackAdd";
     //投诉建议列表
     public static String FEED_BACK_LIST = API_URL + API_VERSION + "feedback/feedbacklist";
+    //投诉建议列表
+    public static String FEED_BACK_DETAIL = API_URL + API_VERSION + "feedback/feedbackSee";
 
     /**
      * 刷新接口
@@ -327,5 +329,6 @@ public class ApiHttpClient {
         GET_WORK_LIST = API_URL + API_VERSION + "propertyWork/get_work_list";
         GET_WORK_SCORE = API_URL + API_VERSION + "propertyWork/WorkScore";
         GET_WORK_CANCEL = API_URL + API_VERSION + "propertyWork/work_cancel";
+        FEED_BACK_DETAIL = API_URL + API_VERSION + "feedback/feedbackSee";
     }
 }

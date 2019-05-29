@@ -1,18 +1,30 @@
 package com.huacheng.huiservers.ui.index.request;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.os.IBinder;
-import android.view.MotionEvent;
+import android.content.Intent;
+import android.util.Base64;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelRequest;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
+import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -20,10 +32,10 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
  * 时间：2019/5/8 08:55
  * created by DFF
  */
-public class RequesDetailActivity extends BaseActivity implements View.OnClickListener {
+public class RequesDetailActivity extends BaseActivity {
 
     private LinearLayout ly_all;
-    private LinearLayout mlinear_repair_photo, lin_comment, ly_btn;
+    private LinearLayout mlinear_repair_photo;
     private LinearLayout mlinear_photo;
     private LinearLayout ly_detail;
     private LinearLayout ly_reply;
@@ -34,13 +46,9 @@ public class RequesDetailActivity extends BaseActivity implements View.OnClickLi
     private TextView tv_user_name;
     private TextView tv_user_address;
     private TextView tv_none;
-    private TextView tv_user_photo;
+    private TextView tv_user_phone;
     private TextView tv_detail_content;
     private TextView tv_reply_content;
-    private TextView tv_reply;
-    private TextView tv_jiejue;
-    private TextView tv_send;
-    private EditText et_input;
 
     private String id = "";
 
@@ -55,7 +63,7 @@ public class RequesDetailActivity extends BaseActivity implements View.OnClickLi
         tv_time = findViewById(R.id.tv_time);
         tv_user_name = findViewById(R.id.tv_user_name);
         tv_user_address = findViewById(R.id.tv_user_address);
-        tv_user_photo = findViewById(R.id.tv_user_photo);
+        tv_user_phone = findViewById(R.id.tv_user_phone);
         mlinear_repair_photo = findViewById(R.id.linear_repair_photo);
         mlinear_photo = findViewById(R.id.linear_photo);
         tv_none = findViewById(R.id.tv_none);
@@ -63,27 +71,121 @@ public class RequesDetailActivity extends BaseActivity implements View.OnClickLi
         tv_detail_content = findViewById(R.id.tv_detail_content);
         ly_reply = findViewById(R.id.ly_reply);
         tv_reply_content = findViewById(R.id.tv_reply_content);
-        tv_reply = findViewById(R.id.tv_reply);
-        tv_jiejue = findViewById(R.id.tv_jiejue);
-        lin_comment = findViewById(R.id.lin_comment);
-        et_input = findViewById(R.id.et_input);
-        ly_btn = findViewById(R.id.ly_btn);
-        tv_send = findViewById(R.id.tv_send);
 
 
     }
 
     @Override
     protected void initData() {
-
+        getRequest();
     }
 
     @Override
     protected void initListener() {
-        tv_reply.setOnClickListener(this);
-        tv_jiejue.setOnClickListener(this);
-        tv_send.setOnClickListener(this);
 
+
+    }
+
+    /**
+     * 请求数据
+     */
+    private void getRequest() {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", id);
+        MyOkHttp.get().post(ApiHttpClient.FEED_BACK_DETAIL, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    ModelRequest modelRequest = (ModelRequest) JsonUtil.getInstance().parseJsonFromResponse(response, ModelRequest.class);
+                    inflateContent(modelRequest);
+
+                } else {
+                    try {
+                        SmartToast.showInfo(response.getString("msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
+    /**
+     * 填充数据
+     */
+    private void inflateContent(final ModelRequest modelRequest) {
+        if (modelRequest != null) {
+            tv_danhao.setText(modelRequest.getComplaint_number());
+            tv_time.setText(StringUtils.getDateToString(modelRequest.getAddtime(), "7"));
+            tv_user_name.setText(modelRequest.getNickname());
+            tv_user_phone.setText(modelRequest.getPhone());
+            tv_user_address.setText(modelRequest.getAddress());
+            //对详情内容进行解密
+            byte[] bytes = Base64.decode(modelRequest.getContent(), Base64.DEFAULT);
+            tv_detail_content.setText(new String(bytes));
+            if (!NullUtil.isStringEmpty(modelRequest.getReply_content())) {
+                ly_reply.setVisibility(View.VISIBLE);
+                byte[] bytes1 = Base64.decode(modelRequest.getReply_content(), Base64.DEFAULT);
+                tv_reply_content.setText(new String(bytes1));
+            } else {
+                ly_reply.setVisibility(View.GONE);
+            }
+            if (modelRequest.getStatus() == 1) {
+                tv_status.setText("未处理");
+                tv_status.setTextColor(this.getResources().getColor(R.color.red_ed));
+            } else {
+                tv_status.setText("已处理");
+                tv_status.setTextColor(this.getResources().getColor(R.color.gray_66));
+            }
+            //故障照片
+            if (modelRequest.getImg_list() != null && modelRequest.getImg_list().size() > 0) {
+                tv_none.setVisibility(View.GONE);
+                mlinear_repair_photo.setVisibility(View.VISIBLE);
+
+                mlinear_repair_photo.removeAllViews();
+                for (int i = 0; i < modelRequest.getImg_list().size(); i++) {
+                    ImageView imageView = new ImageView(this);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,
+                            100);//两个50分别为添加图片的大小
+                    // imageView.setImageResource(R.drawable.ic_launcher);
+                    GlideUtils.getInstance().glideLoad(RequesDetailActivity.this, ApiHttpClient.IMG_URL
+                            + modelRequest.getImg_list().get(i).getImg(), imageView, R.drawable.ic_default_head);
+                    params.setMargins(0, 0, 20, 0);
+                    imageView.setLayoutParams(params);
+                    //点击图片放大
+                    final int finalI = i;
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //点击图片
+                            ArrayList<String> imgs = new ArrayList<>();
+                            for (int i = 0; i < modelRequest.getImg_list().size(); i++) {
+                                //只要localpath不为空则说明是刚选上的
+                                imgs.add(ApiHttpClient.IMG_URL
+                                        + modelRequest.getImg_list().get(i).getImg());
+
+                            }
+                            Intent intent = new Intent(RequesDetailActivity.this, PhotoViewPagerAcitivity.class);
+                            intent.putExtra("img_list", imgs);
+                            intent.putExtra("position", finalI);
+                            intent.putExtra("isShowDelete", false);
+                            startActivity(intent);
+                        }
+                    });
+                    mlinear_repair_photo.addView(imageView);
+                }
+            }
+
+        }
     }
 
     @Override
@@ -107,98 +209,4 @@ public class RequesDetailActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_reply://回复
-                lin_comment.setVisibility(View.VISIBLE);
-                ly_btn.setVisibility(View.GONE);
-                et_input.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                imm.showSoftInput(et_input, InputMethodManager.SHOW_IMPLICIT);
-                // showInput(tv_reply);
-                break;
-            case R.id.tv_send:
-                lin_comment.setVisibility(View.GONE);
-                ly_btn.setVisibility(View.VISIBLE);
-                hideInput();
-                break;
-            case R.id.tv_jiejue://已解决
-                new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "是否确认已解决该条信息", new CommomDialog.OnCloseListener() {
-                    @Override
-                    public void onClick(Dialog dialog, boolean confirm) {
-                        if (confirm) {
-                            // TODO: 2019/5/6  请求解决数据
-                            dialog.dismiss();
-                        }
-
-                    }
-                }).show();//.setTitle("提示")
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            View v = getCurrentFocus();
-            if (isShouldHideKeyboard(v, ev)) {
-                hideKeyboard(v.getWindowToken());
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    /**
-     * 根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘，因为当用户点击EditText时则不能隐藏
-     *
-     * @param v
-     * @param event
-     * @return
-     */
-    private boolean isShouldHideKeyboard(View v, MotionEvent event) {
-        if (v != null && (v instanceof EditText)) {
-            int[] l = {0, 0};
-            v.getLocationInWindow(l);
-            int left = l[0],
-                    top = l[1],
-                    bottom = top + v.getHeight(),
-                    right = left + v.getWidth();
-            if (event.getX() > left && event.getX() < right
-                    && event.getY() > top && event.getY() < bottom) {
-                // 点击EditText的事件，忽略它。
-                return false;
-            } else {
-                return true;
-            }
-        }
-        // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditText上，和用户用轨迹球选择其他的焦点
-        return false;
-    }
-
-    /**
-     * 获取InputMethodManager，隐藏软键盘
-     * @param token
-     */
-    private void hideKeyboard(IBinder token) {
-        lin_comment.setVisibility(View.GONE);
-        ly_btn.setVisibility(View.VISIBLE);
-        if (token != null) {
-            InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
-    /**
-     * 隐藏键盘
-     */
-    protected void hideInput() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        View v = getWindow().peekDecorView();
-        if (null != v) {
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        }
-    }
 }
