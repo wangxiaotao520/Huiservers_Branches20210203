@@ -219,7 +219,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                 tv_baoxiu_content.setText("--");
             }
             tv_user_name.setText(modelNewWorkOrder.getNickname());
-            tv_user_address.setText(modelNewWorkOrder.getAddress_cn());
+            tv_user_address.setText(modelNewWorkOrder.getAddress());
             tv_user_photo.setText(modelNewWorkOrder.getUsername());
             //故障照片
             if (modelNewWorkOrder.getImg_list() != null && modelNewWorkOrder.getImg_list().size() > 0) {
