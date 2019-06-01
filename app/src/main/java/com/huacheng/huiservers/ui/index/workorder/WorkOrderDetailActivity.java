@@ -23,7 +23,6 @@ import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.WorkOrderDetailAdapter;
-import com.huacheng.huiservers.utils.HiddenAnimUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
@@ -91,7 +90,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
         mListView.setAdapter(mWorkOrderDetailAdapter);
     }
 
-    @Override
+  /*  @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         //获取平铺布局的高度
@@ -100,7 +99,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
             linear_other_info.setVisibility(View.GONE);
         }
 
-    }
+    }*/
 
     @Override
     protected void initData() {
@@ -127,6 +126,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ly_all.setVisibility(View.VISIBLE);
+                    linear_other_info.setVisibility(View.GONE);
                     ly_btn.setOnClickListener(WorkOrderDetailActivity.this);
                     ModelNewWorkOrder modelNewWorkOrder = (ModelNewWorkOrder) JsonUtil.getInstance().parseJsonFromResponse(response, ModelNewWorkOrder.class);
                     inflateContent(modelNewWorkOrder);
@@ -375,12 +375,14 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                 if (linear_other_info.getVisibility() == View.VISIBLE) {
                     iv_up.setBackgroundResource(R.mipmap.icon_workorder_detail_down);
                     tv_up_name.setText("展开");
+                    linear_other_info.setVisibility(View.GONE);
 
                 } else {
                     iv_up.setBackgroundResource(R.mipmap.icon_workorder_detail_up);
                     tv_up_name.setText("收起");
+                    linear_other_info.setVisibility(View.VISIBLE);
                 }
-                HiddenAnimUtils.newInstance(WorkOrderDetailActivity.this, linear_other_info, linear_visibility, height).toggle();
+               // HiddenAnimUtils.newInstance(WorkOrderDetailActivity.this, linear_other_info, linear_visibility, height).toggle();
 
                 break;
             default:
