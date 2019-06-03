@@ -19,6 +19,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
+import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -80,6 +81,17 @@ public class RentSellReleaseActivity extends BaseActivity {
     @BindView(R.id.et_rele_floor_total)
     EditText etReleFloorTotal;
 
+    @BindView(R.id.et_building)
+    EditText et_building;
+    @BindView(R.id.et_unit)
+    EditText et_unit;
+    @BindView(R.id.et_room)
+    EditText et_room;
+    @BindView(R.id.ll_rent_time_container)
+    LinearLayout ll_rent_time_container;
+    @BindView(R.id.et_rent_time)
+    EditText et_rent_time;
+
     private int type = 0;
     private String contact = "";
     private String phoneNum = "";
@@ -101,7 +113,10 @@ public class RentSellReleaseActivity extends BaseActivity {
 
     private String post_rent = "";
 
-
+    private String buildsing_name = "";
+    private String unit = "";
+    private String code = "";
+    private String lease_term = "";//租期
     @Override
     protected void initView() {
         titleName.setText("发布房源信息");
@@ -256,11 +271,13 @@ public class RentSellReleaseActivity extends BaseActivity {
         type = getIntent().getIntExtra("type", 0);
         if (type == 1) {
             rlContainerSentPrice.setVisibility(View.VISIBLE);
+            ll_rent_time_container.setVisibility(View.VISIBLE);
             llContainerSell.setVisibility(View.GONE);
 
         } else if (type == 2) {
             llContainerSell.setVisibility(View.VISIBLE);
             rlContainerSentPrice.setVisibility(View.GONE);
+            ll_rent_time_container.setVisibility(View.GONE);
         }
 
 
@@ -300,6 +317,13 @@ public class RentSellReleaseActivity extends BaseActivity {
 
         sellUnitPrice = etReleSellUnitPrice.getText().toString();
         sellPrice = etReleSellPrice.getText().toString();
+
+        buildsing_name = et_building.getText().toString().trim();
+        unit = et_unit.getText().toString().trim();
+        code = et_room.getText().toString().trim();
+        lease_term = et_rent_time.getText().toString().trim();
+
+
         if (StringUtils.isEmpty(contact)) {
             SmartToast.showInfo("请输入联系人姓名");
             return false;
@@ -310,6 +334,19 @@ public class RentSellReleaseActivity extends BaseActivity {
         }
         if (!ToolUtils.isMobileNO(phoneNum)) {
             SmartToast.showInfo("请输入正确的手机号");
+            return false;
+        }
+
+        if (StringUtils.isEmpty(buildsing_name)) {
+            ToastUtils.showShort(this.getApplicationContext(), "请输入楼号");
+            return false;
+        }
+        if (StringUtils.isEmpty(unit)) {
+            ToastUtils.showShort(this.getApplicationContext(), "请输入单元号");
+            return false;
+        }
+        if (StringUtils.isEmpty(code)) {
+            ToastUtils.showShort(this.getApplicationContext(), "请输入房间号");
             return false;
         }
         if (StringUtils.isEmpty(communityName)) {
@@ -353,6 +390,10 @@ public class RentSellReleaseActivity extends BaseActivity {
         if (type == 1) {
             if (StringUtils.isEmpty(rentPrice)) {
                 SmartToast.showInfo("请输入租金");
+                return false;
+            }
+            if (StringUtils.isEmpty(lease_term)) {
+                SmartToast.showInfo("请输入租期");
                 return false;
             }
         } else {
@@ -402,9 +443,15 @@ public class RentSellReleaseActivity extends BaseActivity {
         params.put("house_floor", floor);//所在楼层
         params.put("floor", floor_total);//总楼层
 
+
+        params.put("buildsing_name",buildsing_name );//楼号
+        params.put("unit", unit);//单元号
+        params.put("code", code);//房间号
+
         params.put("area", area);
         if (type == 1) {//租房
             params.put("unit_price", rentPrice);
+            params.put("lease_term", lease_term);//租期
             post_rent = ApiHttpClient.HOUSESLEASEADDDO;
 
         } else if (type == 2) { //售房

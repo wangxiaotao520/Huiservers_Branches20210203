@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.libraryservice.R;
 
 /**
@@ -30,7 +31,8 @@ public class ToastUtils {
      * @param message 显示msg
      */
     public static void showShort(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        SmartToast.showInfo(message);
     }
 
     /**
