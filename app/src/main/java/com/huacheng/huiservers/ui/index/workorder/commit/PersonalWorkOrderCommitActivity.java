@@ -25,10 +25,12 @@ import com.huacheng.huiservers.dialog.CommonChooseDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.model.ModelWorkPersonalCatItem;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
+import com.huacheng.huiservers.ui.index.workorder.JpushWorkPresenter;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
 import com.huacheng.huiservers.ui.index.workorder.inter.OnChooseTimeListener;
@@ -86,17 +88,17 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
     private com.huacheng.huiservers.utils.SharePrefrenceUtil sharePrefrenceUtil;
 
     //提交
-    private String cate_pid="";//报修类型一级id
-    private String cate_pid_cn=""; //报修类型一级名称
-    private String degree=""; //紧急
-    private String appointime=""; //预约时间
-    private String nickname=""; //昵称
-    private String username=""; //联系方式
-    private String address=""; //地址
-    private String community_id=""; //小区id
-    private String community_cn=""; //小区名称
-    private String company_id=""; //公司id
-    private String room_id=""; //房间id
+    private String cate_pid = "";//报修类型一级id
+    private String cate_pid_cn = ""; //报修类型一级名称
+    private String degree = ""; //紧急
+    private String appointime = ""; //预约时间
+    private String nickname = ""; //昵称
+    private String username = ""; //联系方式
+    private String address = ""; //地址
+    private String community_id = ""; //小区id
+    private String community_cn = ""; //小区名称
+    private String company_id = ""; //公司id
+    private String room_id = ""; //房间id
     private TextView tv_text_limit;
 
 
@@ -135,11 +137,11 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
         ll_address = findViewById(R.id.ll_address);
         tv_address = findViewById(R.id.tv_address);
         tv_confirm = findViewById(R.id.tv_confirm);
-        if (BaseApplication.getUser()!=null){
-            tv_nickname.setText(""+BaseApplication.getUser().getNickname());
-            tv_phone.setText(""+BaseApplication.getUser().getUsername());
-            nickname=BaseApplication.getUser().getNickname();
-            username=BaseApplication.getUser().getUsername();
+        if (BaseApplication.getUser() != null) {
+            tv_nickname.setText("" + BaseApplication.getUser().getNickname());
+            tv_phone.setText("" + BaseApplication.getUser().getUsername());
+            nickname = BaseApplication.getUser().getNickname();
+            username = BaseApplication.getUser().getUsername();
         }
         ll_price_list = findViewById(R.id.ll_price_list);
     }
@@ -195,9 +197,9 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
                     }
                 }
                 Intent intent = new Intent(PersonalWorkOrderCommitActivity.this, PhotoViewPagerAcitivity.class);
-                intent.putExtra("img_list",imgs);
-                intent.putExtra("position",position);
-                intent.putExtra("isShowDelete",true);
+                intent.putExtra("img_list", imgs);
+                intent.putExtra("position", position);
+                intent.putExtra("isShowDelete", true);
                 startActivity(intent);
 
             }
@@ -213,10 +215,10 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s!=null){
-                    if (s.length()>=100){
+                if (s != null) {
+                    if (s.length() >= 100) {
                         tv_text_limit.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         tv_text_limit.setVisibility(View.GONE);
                     }
                 }
@@ -231,6 +233,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
 
     /**
      * 跳转到图片选择页
+     *
      * @param position
      */
     private void jumpToImageSelector(int position) {
@@ -257,16 +260,18 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
 
     /**
      * 删除图片
+     *
      * @param photo
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onDeletePhoto(ModelPhoto photo){
-        if (photo!=null){
+    public void onDeletePhoto(ModelPhoto photo) {
+        if (photo != null) {
             int position = photo.getPosition();
             photoList.remove(position);
             gridviewImgsAdapter.notifyDataSetChanged();
         }
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_personal_workorder_commit;
@@ -286,6 +291,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
     protected void initFragment() {
 
     }
+
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         //触摸的是EditText并且当前EditText可以滚动则将事件交给EditText处理；否则将事件交由其父类处理
@@ -323,7 +329,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.txt_right1:
                 // 工单中心
                 startActivity(new Intent(PersonalWorkOrderCommitActivity.this, WorkOrderListActivity.class));
@@ -331,45 +337,45 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
             case R.id.rel_select_tag:
                 // 选择报修类型
                 Intent intent = new Intent(this, WorkTypeListActivity.class);
-                intent.putExtra("type","1");
-                startActivityForResult(intent,ACT_SELECT_TYPE);
+                intent.putExtra("type", "1");
+                startActivityForResult(intent, ACT_SELECT_TYPE);
                 break;
             case R.id.rel_time:
-                if (chooseWorkTimeDialog==null){
-                    chooseWorkTimeDialog = new ChooseWorkTimeDialog(this,this);
+                if (chooseWorkTimeDialog == null) {
+                    chooseWorkTimeDialog = new ChooseWorkTimeDialog(this, this);
                 }
                 chooseWorkTimeDialog.show();
                 break;
             case R.id.rel_emergency:
                 new CommonChooseDialog(this, emergencyLists, new CommonChooseDialog.OnClickItemListener() {
-                   @Override
-                   public void onClickItem(int position) {
+                    @Override
+                    public void onClickItem(int position) {
 
-                     tv_select_emergency.setText(emergencyLists[position]);
-                     // 获取紧急提交字段
-                       if (position==1){
-                           degree="0" ;
-                       }else {
-                           degree="1" ;
-                       }
-                   }
-               }).show();
+                        tv_select_emergency.setText(emergencyLists[position]);
+                        // 获取紧急提交字段
+                        if (position == 1) {
+                            degree = "0";
+                        } else {
+                            degree = "1";
+                        }
+                    }
+                }).show();
                 break;
             case R.id.ll_address:
                 // 跳转地址
                 Intent intent_house = new Intent(this, HouseListActivity.class);
-                startActivityForResult(intent_house,ACT_SELECT_HOUSE);
+                startActivityForResult(intent_house, ACT_SELECT_HOUSE);
                 break;
             case R.id.ll_price_list:
-              // 报修价目表
+                // 报修价目表
                 Intent intent_price = new Intent(this, WorkPriceListActivity.class);
                 startActivity(intent_price);
                 break;
             case R.id.tv_confirm:
-               commit();
+                commit();
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
     }
 
@@ -378,26 +384,26 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
      */
     private void commit() {
         // 提交
-        if (checkReady()){
+        if (checkReady()) {
             HashMap<String, String> params = new HashMap<>();
-            params.put("work_type",  "1");
+            params.put("work_type", "1");
             params.put("community_id", community_id);
             params.put("community_cn", community_cn);
             String content = et_beizhu.getText().toString().trim();
-            if (!NullUtil.isStringEmpty(content)){
+            if (!NullUtil.isStringEmpty(content)) {
                 params.put("content", content);
             }
             params.put("cate_pid", cate_pid);
             params.put("cate_pid_cn", cate_pid_cn);
             params.put("degree", degree);
-            this.company_id=sharePrefrenceUtil.getCommanyId();
+            this.company_id = sharePrefrenceUtil.getCommanyId();
             params.put("company_id", company_id);
             params.put("username", username);
             params.put("nickname", nickname);
             params.put("address", address);
             params.put("room_id", room_id);
             params.put("appointime", appointime);
-            if (StringUtils.getStringToTimills(appointime,"1")-System.currentTimeMillis()<0){
+            if (StringUtils.getStringToTimills(appointime, "1") - System.currentTimeMillis() < 0) {
                 SmartToast.showInfo("预约时间不可小于当前时间");
                 return;
             }
@@ -423,11 +429,21 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交成功");
-                    SmartToast.showInfo(msg);
-                    startActivity(new Intent(PersonalWorkOrderCommitActivity.this, WorkOrderListActivity.class));
-                    finish();
-                        //自用报修
+                    ModelNewWorkOrder modelNewWorkOrder = (ModelNewWorkOrder) JsonUtil.getInstance().parseJsonFromResponse(response, ModelNewWorkOrder.class);
+                    if (modelNewWorkOrder!=null){
+                        //用户下单给管理员推送
+                        HashMap<String, String> params = new HashMap<>();
+                        params.put("work_id",modelNewWorkOrder.getId());
+                        new JpushWorkPresenter().setToManage(params);
+
+                        String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交成功");
+                        SmartToast.showInfo(msg);
+                        startActivity(new Intent(PersonalWorkOrderCommitActivity.this, WorkOrderListActivity.class));
+                        finish();
+
+                    }
+
+                    //自用报修
 //                        final ModelWorkCommitSuccess modelWorkCommitSuccess = (ModelWorkCommitSuccess) JsonUtil.getInstance().parseJsonFromResponse(response, ModelWorkCommitSuccess.class);
 //                        if (modelWorkCommitSuccess != null) {
 //                            if (modelWorkCommitSuccess.getEntry_fee() == 0) {
@@ -462,6 +478,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
             }
         });
     }
+
     //压缩图片
     private void zipPhoto(final HashMap<String, String> params) {
 
@@ -529,6 +546,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
         }
         return path;
     }
+
     /**
      * 检查合法
      */
@@ -552,8 +570,10 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
         }
         return true;
     }
+
     /**
      * 选择时间的回调
+     *
      * @param result_commit
      * @param result_show
      */
@@ -561,7 +581,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
     public void onClickTime(String result_commit, String result_show) {
         tv_select_time.setText(result_show);
         // 获取时间提提交字段result_commit
-        appointime=result_commit;
+        appointime = result_commit;
 
     }
 
@@ -592,18 +612,18 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
                 case ACT_SELECT_TYPE:
                     if (data != null) {
                         ModelWorkPersonalCatItem item = (ModelWorkPersonalCatItem) data.getSerializableExtra("type_data");
-                        cate_pid=item.getId();
-                        cate_pid_cn=item.getName();
+                        cate_pid = item.getId();
+                        cate_pid_cn = item.getName();
                         tv_select_tag.setText(cate_pid_cn);
                     }
                     break;
                 case ACT_SELECT_HOUSE:
                     if (data != null) {
                         GroupMemberBean item = (GroupMemberBean) data.getSerializableExtra("community");
-                        community_id=item.getCommunity_id();
-                        community_cn=item.getCommunity_name();
-                        address=item.getCommunity_address();
-                        room_id=item.getRoom_id();
+                        community_id = item.getCommunity_id();
+                        community_cn = item.getCommunity_name();
+                        address = item.getCommunity_address();
+                        room_id = item.getRoom_id();
                         tv_address.setText(item.getCommunity_address());
                     }
                     break;

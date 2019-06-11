@@ -45,7 +45,6 @@ import com.huacheng.huiservers.ui.index.facepay.FacepayHistoryActivity;
 import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
-import com.huacheng.huiservers.ui.index.workorder.JpushWorkPresenter;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
@@ -546,10 +545,10 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                         EventBus.getDefault().post(eventBusModel);
 
                         //给物业端管理角色推送,用户提交维修信息
-                        HashMap<String, String> params = new HashMap<>();
+                     /*   HashMap<String, String> params = new HashMap<>();
                         params.put("id", o_id);
                         params.put("type", "1");
-                        new JpushWorkPresenter().userToWorkerSubmitJpush(params);
+                        new JpushWorkPresenter().userToWorkerSubmitJpush(params);*/
 
                     } else if (type.equals("workorder_pay")) {//工单
                         new Handler().postDelayed(new Runnable() {

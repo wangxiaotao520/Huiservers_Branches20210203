@@ -3,7 +3,6 @@ package com.huacheng.huiservers.ui.index.workorder;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
-import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
 
@@ -20,14 +19,17 @@ public class JpushWorkPresenter {
      * 用户提交/取消工单推送接口
      * @param params
      */
-    public void userToWorkerSubmitJpush(HashMap<String, String> params) {
-        MyOkHttp.get().post(ApiHttpClient.USERTOWORKERSUBMIT, params, new JsonResponseHandler() {
+    /**
+     * 下单推送给管理
+     *
+     * @param params
+     */
+    public void setToManage(HashMap<String, String> params) {
+
+        MyOkHttp.get().post(ApiHttpClient.PUSH_TO_MANAGE, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-                if (JsonUtil.getInstance().isSuccess(response)) {
-
-                }else{
-
+                if (com.huacheng.huiservers.utils.json.JsonUtil.getInstance().isSuccess(response)) {
                 }
             }
 

@@ -156,7 +156,7 @@ public class MyReceiver extends BroadcastReceiver {
                                 String work_id = modelJpushNotifaction.getData().getId();
 
                                 Intent intent = new Intent(context, WorkOrderDetailActivity.class);
-                                intent.putExtra("work_id", work_id);
+                                intent.putExtra("id", work_id);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
                             }

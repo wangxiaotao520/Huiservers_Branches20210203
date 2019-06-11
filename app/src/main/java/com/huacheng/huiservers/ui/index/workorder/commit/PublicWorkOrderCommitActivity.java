@@ -23,11 +23,13 @@ import com.huacheng.huiservers.dialog.CommonChooseDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.model.ModelWorkPersonalCatItem;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
 import com.huacheng.huiservers.ui.index.property.SelectCommunityActivity;
+import com.huacheng.huiservers.ui.index.workorder.JpushWorkPresenter;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
@@ -352,10 +354,19 @@ public class PublicWorkOrderCommitActivity extends BaseActivity implements View.
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交成功");
-                    SmartToast.showInfo(msg);
-                    startActivity(new Intent(PublicWorkOrderCommitActivity.this, WorkOrderListActivity.class));
-                    finish();
+                    ModelNewWorkOrder modelNewWorkOrder = (ModelNewWorkOrder) JsonUtil.getInstance().parseJsonFromResponse(response, ModelNewWorkOrder.class);
+                    if (modelNewWorkOrder!=null){
+                        //用户下单给管理员推送
+                        HashMap<String, String> params = new HashMap<>();
+                        params.put("work_id",modelNewWorkOrder.getId());
+                        new JpushWorkPresenter().setToManage(params);
+
+                        String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交成功");
+                        SmartToast.showInfo(msg);
+                        startActivity(new Intent(PublicWorkOrderCommitActivity.this, WorkOrderListActivity.class));
+                        finish();
+
+                    }
                     //自用报修
 //                        final ModelWorkCommitSuccess modelWorkCommitSuccess = (ModelWorkCommitSuccess) JsonUtil.getInstance().parseJsonFromResponse(response, ModelWorkCommitSuccess.class);
 //                        if (modelWorkCommitSuccess != null) {

@@ -6,7 +6,7 @@ package com.huacheng.huiservers.http.okhttp;
  * 谨记在下方定义完接口后要在下方invalidate中再写一遍
  */
 public class ApiHttpClient {
-//    public static  String API_VERSION = "apk41/";
+    //    public static  String API_VERSION = "apk41/";
     public static String API_VERSION = "apk42/";
     //测试
     public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
@@ -240,6 +240,12 @@ public class ApiHttpClient {
     public static String FEED_BACK_LIST = API_URL + API_VERSION + "feedback/feedbacklist";
     //投诉建议详情
     public static String FEED_BACK_DETAIL = API_URL + API_VERSION + "feedback/feedbackSee";
+    /*
+     * 推送
+     *
+     * */
+    //推送接口 用户下单推送给管理
+    public static String PUSH_TO_MANAGE = API_URL + API_VERSION + "Jpush/hui_jpush_guanli";
 
     /**
      * 刷新接口
@@ -332,5 +338,6 @@ public class ApiHttpClient {
         FEED_BACK_ADD = API_URL + API_VERSION + "feedback/feedbackAdd";
         FEED_BACK_LIST = API_URL + API_VERSION + "feedback/feedbacklist";
         FEED_BACK_DETAIL = API_URL + API_VERSION + "feedback/feedbackSee";
+        PUSH_TO_MANAGE = API_URL + API_VERSION + "Jpush/hui_jpush_guanli";
     }
 }
