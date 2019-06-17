@@ -149,6 +149,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
         HashMap<String, String> mParams = new HashMap<>();
         mParams.put("version", "v" + AppUpdate.getVersionName(this));
         mParams.put("type", "1");
+        mParams.put("app_type", "1");
         updateprester.getUpdate(mParams);
     }
 

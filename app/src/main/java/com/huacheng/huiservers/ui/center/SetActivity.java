@@ -30,15 +30,17 @@ import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.utils.update.AppUpdate;
+import com.huacheng.huiservers.utils.update.Updateprester;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 
-public class SetActivity extends BaseActivityOld implements OnClickListener {
+public class SetActivity extends BaseActivityOld implements OnClickListener, Updateprester.UpdateListener {
     ShopProtocol protocol2 = new ShopProtocol();
     PayInfoBean infoBean = new PayInfoBean();
     CenterProtocol protocol = new CenterProtocol();
@@ -50,6 +52,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener {
 
 
     private Handler myHandler = new myHandler();
+    Updateprester updateprester;
 
     class myHandler extends Handler {
 
@@ -119,7 +122,9 @@ public class SetActivity extends BaseActivityOld implements OnClickListener {
     @Override
     protected void init() {
         super.init();
+
         setContentView(R.layout.set_info);
+        updateprester = new Updateprester(this, this);
         //     SetTransStatus.GetStatus(this);
         lin_left = (LinearLayout) findViewById(R.id.lin_left);
         lin_left.setOnClickListener(this);
@@ -205,7 +210,8 @@ public class SetActivity extends BaseActivityOld implements OnClickListener {
 
                 break;
             case R.id.rel_gengxin:// 更新版本
-                getResult();// 获取是否有新版本
+                //getResult();// 获取是否有新版本
+                getUpdate();
                 break;
             case R.id.rl_changepwd:
                 intent = new Intent(this, ChangePwdVerifyActivity.class);
@@ -216,47 +222,81 @@ public class SetActivity extends BaseActivityOld implements OnClickListener {
         }
     }
 
-    private void getResult() {// 版本更新接口
-        showDialog(smallDialog);
-        Url_info info = new Url_info(this);
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("version", "v" + AppUpdate.getVersionName(SetActivity.this));
-        System.out.println("version-------" + "v" + AppUpdate.getVersionName(SetActivity.this));
-        params.addBodyParameter("type", "1");
-        HttpHelper hh = new HttpHelper(info.version_update, params, SetActivity.this) {
-
-            @Override
-            protected void setData(String json) {
-                hideDialog(smallDialog);
-                infoBean = protocol.getApk(json);
-                System.out.println("info-------" + infoBean);
-                System.out.println("infos-------" + infoBean.getPath());
-                if (infoBean.getPath() != null) {
-                    System.out.println("77777777777");
-                    apkpath = infoBean.getPath();
-                    new CommomDialog(SetActivity.this, R.style.my_dialog_DimEnabled, "发现有新版本，是否立即更新？", new CommomDialog.OnCloseListener() {
-                        @Override
-                        public void onClick(Dialog dialog, boolean confirm) {
-                            if (confirm) {
-                                downLoadApk();
-                                dialog.dismiss();
-                            }
-
-                        }
-                    }).show();//.setTitle("提示")
-                } else {
-                    SmartToast.showInfo("当前已是最新版本");
-                }
-            }
-
-            @Override
-            protected void requestFailure(Exception error, String msg) {
-                hideDialog(smallDialog);
-                SmartToast.showInfo("网络异常，请检查网络设置");
-            }
-        };
+    /**
+     * 更新接口
+     */
+    private void getUpdate() {
+        HashMap<String, String> mParams = new HashMap<>();
+        mParams.put("version", "v" + AppUpdate.getVersionName(this));
+        mParams.put("type", "1");
+        mParams.put("app_type", "1");
+        updateprester.getUpdate(mParams);
     }
 
+    @Override
+    public void onUpdate(int status, PayInfoBean info, String msg) {
+        if (status == 1) {
+            if (info != null) {
+                apkpath = infoBean.getPath();
+                new CommomDialog(SetActivity.this, R.style.my_dialog_DimEnabled, "发现有新版本，是否立即更新？", new CommomDialog.OnCloseListener() {
+                    @Override
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        if (confirm) {
+                            downLoadApk();
+                            dialog.dismiss();
+                        }
+
+                    }
+                }).show();//.setTitle("提示")
+            } else {
+                SmartToast.showInfo("当前已是最新版本");
+            }
+
+        }
+    }
+
+    /*  private void getResult() {// 版本更新接口
+          showDialog(smallDialog);
+          Url_info info = new Url_info(this);
+          RequestParams params = new RequestParams();
+          params.addBodyParameter("version", "v" + AppUpdate.getVersionName(SetActivity.this));
+          System.out.println("version-------" + "v" + AppUpdate.getVersionName(SetActivity.this));
+          params.addBodyParameter("type", "1");
+          params.addBodyParameter("app_type", "1");
+          HttpHelper hh = new HttpHelper(info.version_update, params, SetActivity.this) {
+
+              @Override
+              protected void setData(String json) {
+                  hideDialog(smallDialog);
+                  infoBean = protocol.getApk(json);
+                  System.out.println("info-------" + infoBean);
+                  System.out.println("infos-------" + infoBean.getPath());
+                  if (infoBean.getPath() != null) {
+                      System.out.println("77777777777");
+                      apkpath = infoBean.getPath();
+                      new CommomDialog(SetActivity.this, R.style.my_dialog_DimEnabled, "发现有新版本，是否立即更新？", new CommomDialog.OnCloseListener() {
+                          @Override
+                          public void onClick(Dialog dialog, boolean confirm) {
+                              if (confirm) {
+                                  downLoadApk();
+                                  dialog.dismiss();
+                              }
+
+                          }
+                      }).show();//.setTitle("提示")
+                  } else {
+                      SmartToast.showInfo("当前已是最新版本");
+                  }
+              }
+
+              @Override
+              protected void requestFailure(Exception error, String msg) {
+                  hideDialog(smallDialog);
+                  SmartToast.showInfo("网络异常，请检查网络设置");
+              }
+          };
+      }
+  */
     private void getsiteout() {// 退出登陆
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
@@ -273,10 +313,10 @@ public class SetActivity extends BaseActivityOld implements OnClickListener {
                     preferences1.edit().clear().commit();
                     HomeActivity.instant.finish();
                     BaseApplication.removeALLActivity_();
-                    ApiHttpClient.setTokenInfo(null,null);
+                    ApiHttpClient.setTokenInfo(null, null);
                     Intent intent = new Intent(SetActivity.this, HomeActivity.class);
                     startActivity(intent);
-                //    SmartToast.showInfo("退出登录");
+                    //    SmartToast.showInfo("退出登录");
                     //清除数据库
                     UserSql.getInstance().clear();
                     //    ActivityStackManager.getActivityStackManager().finishAllActivity();
