@@ -397,7 +397,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                                 scrollableLayout.setCan_scroll(true);
                                 initTabLayout();
                             }else {
-                                //todo 没数据的情况
+                                // 没数据的情况
                                 rl_more_goods_title.setVisibility(View.GONE);
                                 //设置不可滑动
                                 scrollableLayout.setCan_scroll(false);
