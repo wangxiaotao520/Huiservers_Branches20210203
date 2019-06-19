@@ -9,13 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ll_myhouse_property"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/all_gray"
-            android:orientation="vertical">
-
             <com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView
                 android:id="@+id/listView"
                 android:layout_width="match_parent"
@@ -24,8 +17,6 @@
                 android:dividerHeight="@dimen/margin" />
 
             <include layout="@layout/no_data" />
-
-        </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
