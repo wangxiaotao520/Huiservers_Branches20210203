@@ -276,7 +276,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
             } else if (modelNewWorkOrder.getWork_status().equals("8")) {//待支付
                 ly_btn.setVisibility(View.VISIBLE);
                 tv_btn.setText("支付");
-                tv_price.setText("待支付" + modelNewWorkOrder.getTotal_fee() + "");
+                tv_price.setText("待支付：" + modelNewWorkOrder.getTotal_fee() + "");
             } else if (modelNewWorkOrder.getWork_status().equals("9")) {//已完成
                 if (modelNewWorkOrder.getEvaluate_status().equals("0")) {//未评价
                     ly_btn.setVisibility(View.VISIBLE);
