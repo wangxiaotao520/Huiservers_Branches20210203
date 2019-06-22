@@ -10,11 +10,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.ajb.call.service.KeepAliveService;
+import com.huacheng.huiservers.HomeActivity;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.model.ModelJpushNotifaction;
-import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
-import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -64,20 +63,50 @@ public class NotificationClickReceiver extends BroadcastReceiver {
                         if (!TextUtils.isEmpty(extras)) {
                             ModelJpushNotifaction modelJpushNotifaction = (ModelJpushNotifaction) JsonUtil.getInstance().parseJson(extras, ModelJpushNotifaction.class);
                             if (modelJpushNotifaction != null) {
+
                                 String work_id = modelJpushNotifaction.getData().getId();
 
-                                Intent intent = new Intent(context, WorkOrderDetailActivity.class);
-                                intent.putExtra("id", work_id);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(intent);
+//                                Intent intent = new Intent(context, WorkOrderDetailActivity.class);
+//                                intent.putExtra("id", work_id);
+//                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                context.startActivity(intent);
+
+                                if (!isRun(context)) {
+                                    Intent intentt = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+                                    intentt.putExtra("from", "jpush");
+                                    intentt.putExtra("type", "1");
+                                    intentt.putExtra("url_type", url_type);   //推给管理和师傅 1是列表 2是详情 推给慧生活用这个 27是详情
+
+                                    intentt.putExtra("j_id", work_id);
+                                    intentt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(intentt);
+                                } else {
+                                    i = new Intent(context, HomeActivity.class);
+                                    i.putExtra("from", "jpush");
+                                    i.putExtra("type", "1");
+                                    i.putExtra("url_type", url_type);
+
+                                    i.putExtra("j_id", work_id);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(i);
+                                }
+
                             }
                         }
 
                     } else {
-                        Intent intent = new Intent();
-                        intent.setClass(context, LoginVerifyCodeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+                        //没登录就让它跳到首页算求
+                        if (!isRun(context)) {
+                            Intent intentt = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+                            intentt.putExtra("from", "");
+                            intentt.putExtra("type", "");
+                            intentt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intentt);
+                        } else {
+                            i = new Intent(context, HomeActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(i);
+                        }
                     }
                 } else {
                     String url_link = jsonObject.getString("url_link");
@@ -93,11 +122,17 @@ public class NotificationClickReceiver extends BroadcastReceiver {
         }
     }
 
+
+    /**
+     * 判断app是否在前台运行
+     * @param context
+     * @return
+     */
     private static boolean isAppForeground(Context context) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Service.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfoList = activityManager.getRunningAppProcesses();
         if (runningAppProcessInfoList == null) {
-          //  Log.d(TAG, "runningAppProcessInfoList is null!");
+            //  Log.d(TAG, "runningAppProcessInfoList is null!");
             return false;
         }
 
@@ -108,6 +143,26 @@ public class NotificationClickReceiver extends BroadcastReceiver {
             }
         }
         return false;
+    }
+
+    /**
+     * 判断app是否运行
+     * @param context
+     * @return
+     */
+    public boolean isRun(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(100);
+        boolean isAppRunning = false;
+        String MY_PKG_NAME = "com.huacheng.huiservers";
+        //100表示取的最大的任务数，info.topActivity表示当前正在运行的Activity，info.baseActivity表系统后台有此进程在运行
+        for (ActivityManager.RunningTaskInfo info : list) {
+            if (info.topActivity.getPackageName().equals(MY_PKG_NAME) || info.baseActivity.getPackageName().equals(MY_PKG_NAME)) {
+                isAppRunning = true;
+                break;
+            }
+        }
+        return isAppRunning;
     }
 
 }
