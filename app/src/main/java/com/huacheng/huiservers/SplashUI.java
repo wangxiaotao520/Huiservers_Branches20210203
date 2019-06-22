@@ -264,6 +264,15 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                                 //保存企业id
                                 sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id()+"");
                                 Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+                                Intent intent_come = getIntent();
+                                if (intent_come != null && intent_come.hasExtra("from")) {
+                                    intent.putExtra("from", "jpush");
+                                    if (intent_come.hasExtra("type")) {
+                                        intent.putExtra("url_type", intent_come.getStringExtra("url_type"));
+                                        // intentTo.putExtra("type", intent_come.getStringExtra("type"));
+                                        intent.putExtra("j_id", intent_come.getStringExtra("j_id"));
+                                    }
+                                }
                                 startActivity(intent);
                                 finish();
                             }
