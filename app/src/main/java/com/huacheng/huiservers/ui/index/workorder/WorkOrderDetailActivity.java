@@ -23,7 +23,6 @@ import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.WorkOrderDetailAdapter;
-import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -176,7 +175,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                     } else if (modelNewWorkOrder.getWork_user().get(i).getAttribute().equals("4")) {
                         tv_repair.setText("工单派发");
                     }
-                    tv_repair_time.setText(StringUtils.getDateToString(modelNewWorkOrder.getWork_user().get(i).getAcceptime(), "1"));
+                    tv_repair_time.setText(modelNewWorkOrder.getWork_user().get(i).getAcceptime());
 
                     final int finalI = i;
                     iv_call.setOnClickListener(new View.OnClickListener() {
