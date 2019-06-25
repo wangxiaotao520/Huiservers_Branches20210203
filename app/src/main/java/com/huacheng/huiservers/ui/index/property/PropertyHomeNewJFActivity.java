@@ -269,7 +269,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 mTvAccountPrice.setText("¥ 0.00");
                 mTvTypeName.setText("水费");
                 mTvCzName.setText("水费充值：");
-                if (propertyInfo != null && propertyInfo.getShuifei() != null) {
+                if (propertyInfo != null && propertyInfo.getShuifei() != null&&propertyInfo.getShuifei().getInfo()!=null) {
                     if (!TextUtils.isEmpty(propertyInfo.getShuifei().getInfo().getSMay_acc())) {
                         mTvPrice.setText("¥ " + propertyInfo.getShuifei().getInfo().getSMay_acc());
                     } else {
@@ -355,7 +355,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
                     if (propertyInfo.getIs_available() == 0) {//值为0 可以充值水费
                         if (!TextUtils.isEmpty(mEtPrice.getText().toString().trim())) {
-                            if (propertyInfo.getShuifei() != null) {
+                            if (propertyInfo.getShuifei() != null&&propertyInfo.getShuifei().getInfo()!=null) {
 
                                 double aDouble1 = Double.valueOf(propertyInfo.getShuifei().getInfo().getUpper_limit());
                                 double aDouble2 = Double.valueOf(propertyInfo.getShuifei().getInfo().getSMay_acc());
@@ -386,7 +386,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     if (propertyInfo.getIs_available() == 0) {//值为0 可以充值电费
 
                         if (!TextUtils.isEmpty(mEtPrice.getText().toString().trim())) {
-                            if (propertyInfo.getDianfei() != null) {
+                            if (propertyInfo.getDianfei() != null&&propertyInfo.getDianfei().getInfo()!=null) {
 
                                 double aDouble1 = Double.valueOf(propertyInfo.getDianfei().getInfo().getUpper_limit());
                                 double aDouble2 = Double.valueOf(propertyInfo.getDianfei().getInfo().getDMay_acc());

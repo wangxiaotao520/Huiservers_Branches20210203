@@ -46,8 +46,6 @@ import com.huacheng.huiservers.ui.shop.bean.ShopMainBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import com.huacheng.huiservers.view.ImageCycleView.ImageCycleViewListener;
 import com.huacheng.huiservers.view.MyListView;
@@ -773,8 +771,9 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                     View view = LinearLayout.inflate(ShopDetailActivity.this, R.layout.shop_detail_goodstag_item, null);
                     ImageView img1 = (ImageView) view.findViewById(R.id.img_1);
                     TextView tag1 = (TextView) view.findViewById(R.id.txt_tag1);
-                    Glide.with(ShopDetailActivity.this).load(detailBean.getGoods_tag().get(i).getC_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .placeholder(R.drawable.icon_px).error(R.drawable.icon_px).into(img1);
+//                    Glide.with(ShopDetailActivity.this).load(detailBean.getGoods_tag().get(i).getC_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
+//                            .placeholder(R.drawable.icon_px).error(R.drawable.icon_px).into(img1);
+                    GlideUtils.getInstance().glideLoad(this,detailBean.getGoods_tag().get(i).getC_img()+"",img1,R.drawable.icon_px);
                     //bitmapUtils.display(img1, detailBean.getGoods_tag().get(i).getC_img());
                     tag1.setText(detailBean.getGoods_tag().get(i).getC_name());
                     lin_goodsTag.addView(view);
