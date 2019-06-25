@@ -268,27 +268,35 @@ public class MyReceiver extends BroadcastReceiver {
         builder.setSmallIcon(R.drawable.app_logo);
         notification = builder.build();
 
-//        String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-//        if (!TextUtils.isEmpty(extras)) {
-//
-//            ModelJpushNotifaction modelJpushNotifaction = (ModelJpushNotifaction) JsonUtil.getInstance().parseJson(extras, ModelJpushNotifaction.class);
-//            if (modelJpushNotifaction != null) {
-//                String sound_type = modelJpushNotifaction.getData().getSound_type();
-//                //sound_type 为 1 表示使用系统音，2 表示录音
-//                if ("1".equals(sound_type)) {
-//                    Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//                    notification.sound = uri;
-//                } else {
-//                    notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.push_sound);
-//                }
-//            }
-//        } else {
-//            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//            notification.sound = uri;
-//        }
-        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+        if (!TextUtils.isEmpty(extras)) {
 
-        notification.sound = uri; //Uri.parse("android.resource://" + context.getPackageName() + "/" + Notification.DEFAULT_SOUND);
+            ModelJpushNotifaction modelJpushNotifaction = (ModelJpushNotifaction) JsonUtil.getInstance().parseJson(extras, ModelJpushNotifaction.class);
+            if (modelJpushNotifaction != null) {
+                String sound_type = modelJpushNotifaction.getData().getSound_type();
+                //sound_type 1没有  2是铃声 3是您有新的工单，请及时处理  4您的工单 请求增派 5是您的增派请求已接受 6是您的增派请求已拒绝
+                if ("1".equals(sound_type)) {
+
+                } else if("2".equals(sound_type)) {
+                    Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    notification.sound = uri;
+                } else if("3".equals(sound_type)) {
+                    notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.push_new);
+                } else if("4".equals(sound_type)) {
+                    notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.push_zp);
+                } else if("5".equals(sound_type)) {
+                    notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.push_jieshou);
+                } else if("6".equals(sound_type)) {
+                    notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.push_refuse);
+                }
+            }
+        } else {
+            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            notification.sound = uri;
+        }
+//        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//
+//        notification.sound = uri; //Uri.parse("android.resource://" + context.getPackageName() + "/" + Notification.DEFAULT_SOUND);
 
         builder.setDefaults(NotificationCompat.DEFAULT_VIBRATE | NotificationCompat.DEFAULT_LIGHTS);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
@@ -332,9 +340,34 @@ public class MyReceiver extends BroadcastReceiver {
         builder.setSmallIcon(R.drawable.app_logo);
         notification = builder.build();
 
-        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+        if (!TextUtils.isEmpty(extras)) {
 
-        notification.sound = uri; //Uri.parse("android.resource://" + context.getPackageName() + "/" + Notification.DEFAULT_SOUND);
+            ModelJpushNotifaction modelJpushNotifaction = (ModelJpushNotifaction) JsonUtil.getInstance().parseJson(extras, ModelJpushNotifaction.class);
+            if (modelJpushNotifaction != null) {
+                String sound_type = modelJpushNotifaction.getData().getSound_type();
+                //sound_type 1没有  2是铃声 3是您有新的工单，请及时处理  4您的工单 请求增派 5是您的增派请求已接受 6是您的增派请求已拒绝
+                if ("1".equals(sound_type)) {
+
+                } else if("2".equals(sound_type)) {
+                    Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    notification.sound = uri;
+                } else if("3".equals(sound_type)) {
+                    notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.push_new);
+                } else if("4".equals(sound_type)) {
+                    notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.push_zp);
+                } else if("5".equals(sound_type)) {
+                    notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.push_jieshou);
+                } else if("6".equals(sound_type)) {
+                    notification.sound = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.push_refuse);
+                }
+            }
+        } else {
+            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            notification.sound = uri;
+        }
+
+
         builder.setDefaults(NotificationCompat.DEFAULT_VIBRATE | NotificationCompat.DEFAULT_LIGHTS);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
