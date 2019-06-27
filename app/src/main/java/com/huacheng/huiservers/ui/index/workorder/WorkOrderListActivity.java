@@ -134,7 +134,7 @@ public class WorkOrderListActivity extends BaseActivity {
             if (model.getEvent_back_type() == 0) {//取消订单跳转到已完成
                 mViewPager.setCurrentItem(3);
                // mFragments.
-            }else  if (model.getEvent_back_type() == 1) {//评价订单跳转到已完成
+            }else  if (model.getEvent_back_type() == 1||model.getEvent_back_type() == 2) {//评价订单跳转到已完成 支付完成
                 mViewPager.setCurrentItem(3);
             }
         }

@@ -209,15 +209,23 @@ public class WorkOrderListcommon extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshWorkOrder(EventBusWorkOrderModel model) {
         if (model != null) {
-            ModelNewWorkOrder model_change = null;
-            for (int i = 0; i < mDatas.size(); i++) {
-                if (model.getWork_id().equals(mDatas.get(i).getId())) {
-                    model_change = mDatas.get(i);
+            if (model.getEvent_back_type()==2){//支付返回
+                if (type==2||type==3){
+                    if (refreshLayout != null) {
+                        refreshLayout.autoRefresh();
+                    }
                 }
-            }
-            if (model_change != null) {
-                if (refreshLayout != null) {
-                    refreshLayout.autoRefresh();
+            }else {
+                ModelNewWorkOrder model_change = null;
+                for (int i = 0; i < mDatas.size(); i++) {
+                    if (model.getWork_id().equals(mDatas.get(i).getId())) {
+                        model_change = mDatas.get(i);
+                    }
+                }
+                if (model_change != null) {
+                    if (refreshLayout != null) {
+                        refreshLayout.autoRefresh();
+                    }
                 }
             }
         }

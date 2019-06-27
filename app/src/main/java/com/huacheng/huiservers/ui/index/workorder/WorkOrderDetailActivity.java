@@ -19,6 +19,7 @@ import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.EventBusWorkOrderModel;
 import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
@@ -30,6 +31,9 @@ import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,6 +60,12 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
     //String work_status = "";//工单状态
     private int height = 0;
     ModelNewWorkOrder mNewWorkOrder;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initView() {
@@ -397,5 +407,25 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
             finish();
         }
     }
+    /**
+     * 取消工单 评价 支付返回
+     *
+     * @param model
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshWorkOrder(EventBusWorkOrderModel model) {
+        if (model != null) {
+            if (model.getEvent_back_type()==2){//支付返回
+                finish();
+            }else {
 
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 }

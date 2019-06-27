@@ -588,7 +588,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             group.removeAllViews();
             for (int i = 0; i < catePage; i++) {
                 //循坏加入点点图片组
-                ivPoints[i] = new ImageView(getActivity());
+                ivPoints[i] = new ImageView(mActivity);
                 if (i == 0) {
                     ivPoints[i].setImageResource(R.drawable.page_focuese);
                 } else {
