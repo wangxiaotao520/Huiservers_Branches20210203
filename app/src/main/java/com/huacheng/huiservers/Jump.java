@@ -39,6 +39,7 @@ import com.huacheng.huiservers.ui.index.huodong.EducationListActivity;
 import com.huacheng.huiservers.ui.index.oldhome.OldHomeActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
+import com.huacheng.huiservers.ui.index.request.CommitRequestActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
@@ -88,7 +89,7 @@ public class Jump {
         is_wuye = preferencesLogin.getString("is_wuye", "");
         login_mobile = preferencesLogin.getString("login_username", "");
         //没有绑定跳转绑定界面
-        if (!url.equals("")) {
+        if (!"".equals(url)) {
             phone = url;
             if (!type.equals("26")) {
                 url = MyCookieStore.SERVERADDRESS + url;
@@ -466,6 +467,11 @@ public class Jump {
             intent.putExtra("name", name);
             mContext.startActivity(intent);
 
+        }else if (type.equals("28")){//投诉建议
+            Intent intent = new Intent();
+            intent.setClass(mContext, CommitRequestActivity.class);
+
+            mContext.startActivity(intent);
         }
     }
 

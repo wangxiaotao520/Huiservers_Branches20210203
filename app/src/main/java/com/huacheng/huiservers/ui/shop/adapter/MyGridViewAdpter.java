@@ -88,7 +88,7 @@ public class MyGridViewAdpter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 String type = lists.get(pos).getUrl_type();
-                String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26"};
+                String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28"};
                 if (Arrays.asList(typeStr).contains(type)) {
                     Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
                             lists.get(pos).getUrl_type_cn());
