@@ -468,10 +468,14 @@ public class Jump {
             mContext.startActivity(intent);
 
         }else if (type.equals("28")){//投诉建议
-            Intent intent = new Intent();
-            intent.setClass(mContext, CommitRequestActivity.class);
-
-            mContext.startActivity(intent);
+            if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                mContext.startActivity(intent);
+            } else {
+                Intent intent = new Intent();
+                intent.setClass(mContext, CommitRequestActivity.class);
+                mContext.startActivity(intent);
+            }
         }
     }
 

@@ -129,8 +129,8 @@ public class RequesDetailActivity extends BaseActivity {
             tv_user_phone.setText(modelRequest.getPhone());
             tv_user_address.setText(modelRequest.getAddress());
             //对详情内容进行解密
-            byte[] bytes = Base64.decode(modelRequest.getContent(), Base64.DEFAULT);
-            tv_detail_content.setText(new String(bytes));
+          //  byte[] bytes = Base64.decode(modelRequest.getContent(), Base64.DEFAULT);
+            tv_detail_content.setText(modelRequest.getContent());
             if (!NullUtil.isStringEmpty(modelRequest.getReply_content())) {
                 ly_reply.setVisibility(View.VISIBLE);
                 byte[] bytes1 = Base64.decode(modelRequest.getReply_content(), Base64.DEFAULT);
