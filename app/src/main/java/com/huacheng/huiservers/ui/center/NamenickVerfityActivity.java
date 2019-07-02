@@ -38,6 +38,7 @@ public class NamenickVerfityActivity extends BaseActivityOld implements OnClickL
         setContentView(R.layout.verify_editxt_new);
         title_name = (TextView) findViewById(R.id.title_name);
         right = (TextView) findViewById(R.id.right);
+        right.setVisibility(View.VISIBLE);
         tv_description = (TextView) findViewById(R.id.tv_description);
         tv_flag = (TextView) findViewById(R.id.tv_flag);
         et_content = (EditText) findViewById(R.id.et_content);

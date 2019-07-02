@@ -39,6 +39,7 @@ public class SexVerfityActivity extends BaseActivityOld implements OnClickListen
         title_name.setText("性别");
         right.setTextColor(getResources().getColor(R.color.rednew));
         right.setText("提交");
+        right.setVisibility(View.VISIBLE);
         radiogroup = (RadioGroup) findViewById(R.id.radiogroup);
         radio_nan = (RadioButton) findViewById(R.id.radio_nan);
         radio_nv = (RadioButton) findViewById(R.id.radio_nv);
