@@ -15,7 +15,7 @@ def variantName = "release"
  */
 tinkerpatchSupport {
     /** 可以在debug的时候关闭 tinkerPatch, isRelease() 可以判断BuildType是否为Release **/
-    tinkerEnable = false
+    tinkerEnable = true
     reflectApplication = true
     /**
      * 是否开启加固模式，只能在APK将要进行加固时使用，否则会patch失败。
