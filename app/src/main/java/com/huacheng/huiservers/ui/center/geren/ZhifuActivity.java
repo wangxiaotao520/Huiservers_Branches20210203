@@ -35,6 +35,7 @@ import com.huacheng.huiservers.model.ModelEventWX;
 import com.huacheng.huiservers.model.protocol.GerenProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.pay.PayResult;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
@@ -180,6 +181,13 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
         type = this.getIntent().getExtras().getString("type");
         order_type = this.getIntent().getExtras().getString("order_type");
         payprice = this.getIntent().getExtras().getString("price");
+        //TODO 跳转到 新的支付页
+        Intent intent = new Intent(this, UnifyPayActivity.class);
+        intent.putExtra("o_id",o_id);
+        intent.putExtra("type",type);
+        intent.putExtra("price",payprice);
+        startActivity(intent);
+        finish();
 
 
         MyCookieStore.ConfirmWuye = wuYeBean;

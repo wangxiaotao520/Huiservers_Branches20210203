@@ -18,8 +18,8 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.index.property.adapter.PropertyWYInfoAdapter;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
@@ -438,7 +438,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ProperyGetOrderBean orderBean = (ProperyGetOrderBean) JsonUtil.getInstance().parseJsonFromResponse(response, ProperyGetOrderBean.class);
-                    Intent intent = new Intent(PropertyHomeNewJFActivity.this, ZhifuActivity.class);
+                    Intent intent = new Intent(PropertyHomeNewJFActivity.this, UnifyPayActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("o_id", orderBean.getOid());
                     bundle.putString("price", mEtPrice.getText().toString().trim());

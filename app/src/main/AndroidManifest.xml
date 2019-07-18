@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.huacheng.huiservers">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.huacheng.huiservers">
 
     <!--<uses-sdk-->
     <!--android:minSdkVersion="19"-->
@@ -81,6 +82,12 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc.hce"/>
+    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD" />
+
+
     <!-- 百度配置结束 -->
 
     <application
@@ -90,7 +97,10 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:resizeableActivity="true"
-        android:theme="@style/AppCompatTheme.Base">
+        android:theme="@style/AppCompatTheme.Base"
+        tools:replace="android:name,android:theme"
+
+        >
         <!-- 高德地图app_key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -103,7 +113,9 @@
             android:value="GlideModule"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="fuktQmEMFp3GCPaGCvaNhGHqvyEmtQzy"/>
+            android:value="fuktQmEMFp3GCPaGCvaNhGHqvyEmtQzy"
+            tools:replace="android:value"
+            />
         <meta-data
             android:name="linkedme.sdk.key"
             android:value="817e5ae11eb4f963ff1420af31477867"/>
@@ -1023,5 +1035,35 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             />
+        <!--******************************银联支付********************************-->
+        <meta-data
+            android:name="CurrentEnvironment"
+            android:value="PROD" ><!--PROD or TEST-->
+        </meta-data>
+
+        <meta-data
+            android:name="PPPaySDK"
+            android:value="true" />
+
+        <uses-library
+            android:name="org.simalliance.openmobileapi"
+            android:required="false"/>
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name="com.unionpay.UPPayWapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name="com.huacheng.huiservers.pay.chinaums.UnifyPayActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <!--******************************银联支付********************************-->
     </application>
 </manifest>

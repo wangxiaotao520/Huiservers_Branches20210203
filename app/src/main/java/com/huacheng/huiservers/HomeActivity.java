@@ -23,10 +23,10 @@ import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.ModelLoginOverTime;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.ActivityStackManager;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.AboutActivity;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.fragment.CircleFragment;
 import com.huacheng.huiservers.ui.fragment.HomeFragment;
 import com.huacheng.huiservers.ui.fragment.MyFragmentNew;
@@ -136,7 +136,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                                     String price = jsonObj.getString("price");
                                     String order_type = jsonObj.getString("order_type");
                                     //type = "service_new_pay"
-                                    Intent intent = new Intent(this, ZhifuActivity.class);
+                                    Intent intent = new Intent(this, UnifyPayActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("o_id", oid);
                                     bundle.putString("price", price);

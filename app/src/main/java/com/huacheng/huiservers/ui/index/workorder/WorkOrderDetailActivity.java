@@ -21,8 +21,8 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
 import com.huacheng.huiservers.model.ModelNewWorkOrder;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.WorkOrderDetailAdapter;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
@@ -359,7 +359,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.ly_btn://取消 付款 评价
                 if (mNewWorkOrder.getWork_status().equals("8")) {//待支付
-                    Intent intent = new Intent(WorkOrderDetailActivity.this, ZhifuActivity.class);
+                    Intent intent = new Intent(WorkOrderDetailActivity.this, UnifyPayActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("o_id", work_id);
                     bundle.putString("price", mNewWorkOrder.getTotal_fee() + "");

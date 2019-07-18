@@ -7,9 +7,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -129,7 +129,7 @@ public class FacepayConfirmPaymentActivity extends BaseActivityOld {
      * 确认订单
      */
     private void againLookOrder() {
-        Intent intent = new Intent(this, ZhifuActivity.class);
+        Intent intent = new Intent(this, UnifyPayActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("o_id", id);
         bundle.putString("price", money);

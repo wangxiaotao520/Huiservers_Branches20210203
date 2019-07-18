@@ -7,7 +7,7 @@ package com.huacheng.huiservers.http.okhttp;
  */
 public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
-    public static String API_VERSION = "apk42/";
+    public static String API_VERSION = "apk43/";
     //测试
     public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
     public static String API_URL = "http://test.hui-shenghuo.cn/";
@@ -246,7 +246,17 @@ public class ApiHttpClient {
      * */
     //推送接口 用户下单推送给管理
     public static String PUSH_TO_MANAGE = API_URL + API_VERSION + "Jpush/hui_jpush_guanli";
-
+    //新支付
+    //购物订单支付要素
+    public static String PAY_SHOPPING_ORDER = API_URL + API_VERSION + "payment/pay_shopping_order";
+    //工单订单支付要素
+    public static String PAY_WORK_ORDER_NEW = API_URL + API_VERSION + "payment/pay_work_order";
+    //物业账单支付要素
+    public static String PAY_PROPERTY_ORDER_NEW = API_URL + API_VERSION + "payment/pay_property_order";
+    //服务支付要素
+    public static String PAY_SERVICE_ORDER_NEW = API_URL + API_VERSION + "payment/pay_service_order";
+    //支付确认
+    public static String CONFIRM_ORDER_PAYMENT = API_URL + API_VERSION + "payment/confirm_order_payment";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -339,5 +349,10 @@ public class ApiHttpClient {
         FEED_BACK_LIST = API_URL + API_VERSION + "feedback/feedbacklist";
         FEED_BACK_DETAIL = API_URL + API_VERSION + "feedback/feedbackSee";
         PUSH_TO_MANAGE = API_URL + API_VERSION + "Jpush/hui_jpush_guanli";
+        PAY_SHOPPING_ORDER = API_URL + API_VERSION + "payment/pay_shopping_order";
+        CONFIRM_ORDER_PAYMENT = API_URL + API_VERSION + "payment/confirm_order_payment";
+        PAY_WORK_ORDER_NEW = API_URL + API_VERSION + "payment/pay_work_order";
+        PAY_PROPERTY_ORDER_NEW = API_URL + API_VERSION + "payment/pay_property_order";
+        PAY_SERVICE_ORDER_NEW = API_URL + API_VERSION + "payment/pay_service_order";
     }
 }

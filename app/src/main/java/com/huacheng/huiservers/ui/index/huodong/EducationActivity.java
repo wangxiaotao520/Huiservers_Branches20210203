@@ -37,10 +37,10 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.jpush.MyReceiver;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.ServiceParticipateActivity;
 import com.huacheng.huiservers.ui.center.bean.EnrollModel;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.GsonTools;
@@ -207,7 +207,7 @@ public class EducationActivity extends BaseActivityOld implements View.OnClickLi
                     startActivity(intent);
                 } else if (login_type.equals("1")) {//个人
                     if (pay_over.equals("1")) {//报名成功未支付
-                        intent = new Intent(EducationActivity.this, ZhifuActivity.class);
+                        intent = new Intent(EducationActivity.this, UnifyPayActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("o_id", order_id);
                         bundle.putString("price", cost);
@@ -561,7 +561,7 @@ public class EducationActivity extends BaseActivityOld implements View.OnClickLi
                         tv_yu.setText("去支付");
                         pay_over = "1";
                         order_id = model.getData().getOrder_id();
-                        Intent intent = new Intent(EducationActivity.this, ZhifuActivity.class);
+                        Intent intent = new Intent(EducationActivity.this, UnifyPayActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("o_id", model.getData().getOrder_id() + "");
                         bundle.putString("price", cost);

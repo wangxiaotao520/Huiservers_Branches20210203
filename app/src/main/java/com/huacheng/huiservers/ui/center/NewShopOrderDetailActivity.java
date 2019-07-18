@@ -23,9 +23,9 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.shop.NewPingJiaActivity;
 import com.huacheng.huiservers.ui.shop.NewTuikuanActivity;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -136,7 +136,7 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
                     }
                 }
                 MyCookieStore.item_delete_id = item_id;
-                intent = new Intent(NewShopOrderDetailActivity.this, ZhifuActivity.class);
+                intent = new Intent(NewShopOrderDetailActivity.this, UnifyPayActivity.class);
                 bundle.putString("o_id", XorderDetailBean.get(0).getOid());
                 bundle.putString("price", shi_price + "");
                 bundle.putString("type", "shop");

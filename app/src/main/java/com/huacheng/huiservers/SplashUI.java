@@ -128,7 +128,8 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 
         rxPermission = new RxPermissions(this);
         rxPermission.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
+                Manifest.permission.READ_EXTERNAL_STORAGE
+                ,Manifest.permission.READ_PHONE_STATE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean isGranted) throws Exception {

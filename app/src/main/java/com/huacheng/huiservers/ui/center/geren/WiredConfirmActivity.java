@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.center.geren.bean.WiredBean;
@@ -78,7 +79,7 @@ public class WiredConfirmActivity extends BaseActivityOld {
                 finish();
                 break;
             case R.id.tv_confirmInfo:
-                intent=new Intent(this, ZhifuActivity.class);
+                intent=new Intent(this, UnifyPayActivity.class);
                 bundle.putString("o_id", mWiredBean.getId());
                 bundle.putString("price", mWiredBean.getAmount());
                 bundle.putString("type", "wired");

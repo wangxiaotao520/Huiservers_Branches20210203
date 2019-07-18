@@ -12,6 +12,13 @@ public class PayTypeBean {
     private String icon;
     private String app_id;
     private String p_introduction;
+    private int recommend;
+
+    private int obvious;
+
+
+
+    private boolean isSelected;
 
     public String getId() {
         return id;
@@ -59,5 +66,29 @@ public class PayTypeBean {
 
     public void setP_introduction(String p_introduction) {
         this.p_introduction = p_introduction;
+    }
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+
+    public int getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(int recommend) {
+        this.recommend = recommend;
+    }
+
+    public int getObvious() {
+        return obvious;
+    }
+
+    public void setObvious(int obvious) {
+        this.obvious = obvious;
     }
 }
