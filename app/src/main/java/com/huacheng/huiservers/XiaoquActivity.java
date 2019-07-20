@@ -443,12 +443,15 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                         public void onClick(String data) {
                             //获取域名
                             getDomainConfig(SourceDateList.get(arg2).getId(), SourceDateList.get(arg2).getName(),SourceDateList.get(arg2).getIs_new());
+
+                            getsubmitCommunityId(SourceDateList.get(arg2).getId());
                         }
                     }).show();
                 } else if (type.equals("home")) {
                     new IsChooseXiaoquDialog(XiaoquActivity.this, type, new IsChooseXiaoquDialog.LeaveMeetingDialogListener() {
                         @Override
                         public void onClick(String data) {
+
                             getDomainConfig(SourceDateList.get(arg2).getId(), SourceDateList.get(arg2).getName(),SourceDateList.get(arg2).getIs_new());
 //                            sharePrefrenceUtil.setIsChooseXiaoqu("1");
 //                            sharePrefrenceUtil.setXiaoQuId(SourceDateList.get(arg2).getId());
@@ -458,6 +461,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
 //                            intentXiaoQuA = new Intent(XiaoquActivity.this, HomeActivity.class);
 //                            startActivity(intentXiaoQuA);
 //                            finish();
+                            getsubmitCommunityId(SourceDateList.get(arg2).getId());
                         }
                     }).show();
                 } else {
@@ -494,6 +498,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                         @Override
                         public void onClick(String data) {
                             getDomainConfig("66","智慧小区","0");
+                            getsubmitCommunityId("66");
 //                            sharePrefrenceUtil.setIsChooseXiaoqu("1");
 //                            sharePrefrenceUtil.setXiaoQuId("66");
 //                            sharePrefrenceUtil.setXiaoQuName("智慧小区");
@@ -508,6 +513,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                         @Override
                         public void onClick(String data) {
                             getDomainConfig("66","智慧小区","0");
+                            getsubmitCommunityId("66");
 //                            sharePrefrenceUtil.setIsChooseXiaoqu("1");
 //                            sharePrefrenceUtil.setXiaoQuId("66");
 //                            sharePrefrenceUtil.setXiaoQuName("智慧小区");
@@ -542,7 +548,23 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
             }
         });
     }
+    //提交小区id
+    private void getsubmitCommunityId(String community_id) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("community_id", community_id+"");
 
+        MyOkHttp.get().post(ApiHttpClient.SELECT_COMMUNITY, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
     /**
      * 获取域名
      */

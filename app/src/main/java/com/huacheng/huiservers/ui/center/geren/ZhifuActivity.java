@@ -181,7 +181,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
         type = this.getIntent().getExtras().getString("type");
         order_type = this.getIntent().getExtras().getString("order_type");
         payprice = this.getIntent().getExtras().getString("price");
-        //TODO 跳转到 新的支付页
+        // 跳转到 新的支付页
         Intent intent = new Intent(this, UnifyPayActivity.class);
         intent.putExtra("o_id",o_id);
         intent.putExtra("type",type);
