@@ -19,7 +19,7 @@
         android:layout_height="190dp"
         android:background="#fff"
         android:padding="@dimen/margin"
-       >
+        >
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager_cate"
@@ -42,7 +42,7 @@
         android:layout_height="70dp"
         android:background="@drawable/bg_gradient_vbanner"
         android:orientation="horizontal"
-       >
+        >
 
         <FrameLayout
             android:layout_width="70dp"
@@ -176,16 +176,16 @@
             android:layout_margin="@dimen/margin_15"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ly_property_payment"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@drawable/bg_stroke_grey_home"
-                android:gravity="center"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_5"
                 android:orientation="horizontal"
-                android:padding="@dimen/margin_5"
-                android:paddingRight="@dimen/margin">
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -212,28 +212,30 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:layout_alignParentRight="true"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_marginRight="@dimen/margin_5"
                     android:background="@mipmap/ic_home_jiaofei"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ly_person_repair"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="7dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_stroke_grey_home"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/margin_5"
-                android:paddingRight="@dimen/margin">
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/margin_5">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -257,21 +259,22 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
                     android:background="@mipmap/ic_home_repair"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ly_public_repair"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="7dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_stroke_grey_home"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/margin_5"
-                android:paddingRight="@dimen/margin">
+                android:paddingLeft="@dimen/margin_5"
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -300,9 +303,10 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
                     android:background="@mipmap/ic_home_baoxiu"/>
 
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
 
@@ -730,9 +734,9 @@
     </LinearLayout>
     <!--精选服务-->
     <LinearLayout
-        android:layout_marginTop="@dimen/margin_15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_15"
         android:orientation="vertical">
 
         <LinearLayout

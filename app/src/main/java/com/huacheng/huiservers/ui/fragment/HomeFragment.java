@@ -109,7 +109,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private MyGridview gridView_article;
     private MyListView listview_article;
     private ViewPager viewpager_cate;
-    private LinearLayout ly_property_payment, ly_person_repair, ly_public_repair, ly_circle_onclick, ly_circle_more, ly_houseRent, ly_houseSell, ly_houseCommit;
+    private RelativeLayout ly_property_payment,ly_person_repair,ly_public_repair;
+    private LinearLayout ly_circle_onclick, ly_circle_more, ly_houseRent, ly_houseSell, ly_houseCommit;
     private ImageView iv_img;
     private TextView tv_time, tv_name, tv_content, tv_circleViews, tv_circleReply, tv_title;
     private CircularImage iv_head;
