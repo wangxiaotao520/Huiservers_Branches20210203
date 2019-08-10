@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -155,20 +157,45 @@ public class DownLoadDialog extends Activity {
      * @return whether apk exist
      */
     public static boolean install(Context context, String filePath) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
+//        Intent i = new Intent(Intent.ACTION_VIEW);
+//        File file = new File(filePath);
+//        if (file != null && file.length() > 0 && file.exists() && file.isFile()) {
+//            i.setDataAndType(Uri.parse("file://" + filePath),
+//                    "application/vnd.android.package-archive");
+//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(i);
+//            //TODO 有新版本就把补丁删掉
+////            if (BuildConfig.TINKER_ENABLE){
+////                TinkerPatch.with().cleanAll();
+////            }
+//            return true;
+//        }
+//        return false;
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri data;
         File file = new File(filePath);
         if (file != null && file.length() > 0 && file.exists() && file.isFile()) {
-            i.setDataAndType(Uri.parse("file://" + filePath),
-                    "application/vnd.android.package-archive");
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(i);
-            //TODO 有新版本就把补丁删掉
-//            if (BuildConfig.TINKER_ENABLE){
-//                TinkerPatch.with().cleanAll();
-//            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //版本大于等于7.0
+                //在清单文件中配置的authorities
+                data = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
+                // 给目标应用一个临时授权
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            } else {
+                data = Uri.fromFile(file);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            }
+            intent.setDataAndType(data, "application/vnd.android.package-archive");
+            context.startActivity(intent);
             return true;
         }
         return false;
+
+
+
     }
 
     class DownloadChangeObserver extends ContentObserver {

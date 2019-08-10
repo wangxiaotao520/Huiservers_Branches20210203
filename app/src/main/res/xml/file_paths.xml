@@ -9,4 +9,6 @@
             name="camera_photos"
             path="" />
     </paths>
+
+    <external-path name="cache_download" path="hui_download" />
 </paths>

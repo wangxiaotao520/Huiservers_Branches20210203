@@ -86,6 +86,7 @@
     <uses-permission android:name="android.permission.NFC" />
     <uses-feature android:name="android.hardware.nfc.hce"/>
     <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
 
     <!-- 百度配置结束 -->
@@ -973,7 +974,7 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <!--7.0相机权限-->
+        <!--7.0调用系统安装-->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.huacheng.huiservers.fileprovider"

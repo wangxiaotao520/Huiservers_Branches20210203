@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Display;
@@ -30,12 +31,14 @@ import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.utils.CacheUtils;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tinkerpatch.sdk.TinkerPatch;
 
+import java.io.File;
 import java.util.HashMap;
 
 import cn.jpush.android.api.JPushInterface;
@@ -152,6 +155,9 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
         mParams.put("type", "1");
         mParams.put("app_type", "1");
         updateprester.getUpdate(mParams);
+        //删除原文件夹
+        ImgCropUtil.deleteCacheFile(new File(Environment.getExternalStorageDirectory()+"/hui_download/"));
+
     }
 
     @Override
@@ -172,6 +178,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                                 SignOnDialog d = new SignOnDialog(SplashUI.this, apkPath, "v" + info.getVersion() + ".apk");
                                 d.show();
                             } else {
+
                                 Intent intent = new Intent();
                                 intent.putExtra("file_name",  info.getVersion()+ ".apk");
                                 intent.putExtra("download_src", apkPath);
