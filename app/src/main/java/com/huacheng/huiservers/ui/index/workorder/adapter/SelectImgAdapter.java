@@ -20,7 +20,7 @@ import java.util.List;
  * created by wangxiaotao
  * 2018/12/12 0012 上午 11:39
  */
-public class SelectImgAdapter <T>extends BaseAdapter{
+public class SelectImgAdapter<T>extends BaseAdapter{
     private static final int TYPE_NORMAL = 0;
     private static final int TYPE_ADD = 1;
     OnClickItemIconListener listener;
@@ -28,6 +28,8 @@ public class SelectImgAdapter <T>extends BaseAdapter{
 
     Context mContext;
     private List<T> mDatas = new ArrayList<>();
+
+    private boolean isShowDelete=true;
 
     public SelectImgAdapter(Context mContext, List<T> mDatas) {
         this.mContext = mContext;
@@ -112,15 +114,19 @@ public class SelectImgAdapter <T>extends BaseAdapter{
                     }
                 }
             });
-            viewHolder.id_grid_del.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        listener.onClickDelete(final_position);
+            if (isShowDelete){
+                viewHolder.id_grid_del.setVisibility(View.VISIBLE);
+                viewHolder.id_grid_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (listener != null) {
+                            listener.onClickDelete(final_position);
+                        }
                     }
-                }
-            });
-
+                });
+            }else {
+                viewHolder.id_grid_del.setVisibility(View.INVISIBLE);
+            }
             return convertView;
         } else {
             ViewHolder viewHolder1 = null;
@@ -196,5 +202,15 @@ public class SelectImgAdapter <T>extends BaseAdapter{
 
         return R.layout.layout_grid_img_add;
     }
+
+
+    public boolean isShowDelete() {
+        return isShowDelete;
+    }
+
+    public void setShowDelete(boolean showDelete) {
+        isShowDelete = showDelete;
+    }
+
 }
 

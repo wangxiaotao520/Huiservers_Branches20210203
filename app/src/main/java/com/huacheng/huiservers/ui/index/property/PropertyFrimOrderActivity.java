@@ -11,8 +11,8 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.index.property.adapter.PropertyWYInfoAdapter;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
@@ -187,7 +187,7 @@ public class PropertyFrimOrderActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.txt_btn:
-                Intent intent = new Intent(PropertyFrimOrderActivity.this, ZhifuActivity.class);
+                Intent intent = new Intent(PropertyFrimOrderActivity.this, UnifyPayActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("o_id", oid);
                 bundle.putString("price", propertyInfo.getTot_sumvalue() + "");

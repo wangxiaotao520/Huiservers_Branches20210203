@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Display;
@@ -30,12 +31,14 @@ import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.utils.CacheUtils;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tinkerpatch.sdk.TinkerPatch;
 
+import java.io.File;
 import java.util.HashMap;
 
 import cn.jpush.android.api.JPushInterface;
@@ -128,7 +131,8 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 
         rxPermission = new RxPermissions(this);
         rxPermission.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
+                Manifest.permission.READ_EXTERNAL_STORAGE
+                ,Manifest.permission.READ_PHONE_STATE)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean isGranted) throws Exception {
@@ -149,7 +153,11 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
         HashMap<String, String> mParams = new HashMap<>();
         mParams.put("version", "v" + AppUpdate.getVersionName(this));
         mParams.put("type", "1");
+        mParams.put("app_type", "1");
         updateprester.getUpdate(mParams);
+        //删除原文件夹
+        ImgCropUtil.deleteCacheFile(new File(Environment.getExternalStorageDirectory()+"/hui_download/"));
+
     }
 
     @Override
@@ -170,6 +178,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                                 SignOnDialog d = new SignOnDialog(SplashUI.this, apkPath, "v" + info.getVersion() + ".apk");
                                 d.show();
                             } else {
+
                                 Intent intent = new Intent();
                                 intent.putExtra("file_name",  info.getVersion()+ ".apk");
                                 intent.putExtra("download_src", apkPath);
@@ -263,6 +272,15 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                                 //保存企业id
                                 sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id()+"");
                                 Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+                                Intent intent_come = getIntent();
+                                if (intent_come != null && intent_come.hasExtra("from")) {
+                                    intent.putExtra("from", "jpush");
+                                    if (intent_come.hasExtra("type")) {
+                                        intent.putExtra("url_type", intent_come.getStringExtra("url_type"));
+                                        // intentTo.putExtra("type", intent_come.getStringExtra("type"));
+                                        intent.putExtra("j_id", intent_come.getStringExtra("j_id"));
+                                    }
+                                }
                                 startActivity(intent);
                                 finish();
                             }

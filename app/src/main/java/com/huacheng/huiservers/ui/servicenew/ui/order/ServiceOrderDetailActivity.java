@@ -21,7 +21,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceOrderDetail;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
-import com.huacheng.libraryservice.utils.ToolUtils;
+import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -233,13 +233,6 @@ public class ServiceOrderDetailActivity extends BaseActivity implements View.OnC
 
                     }
                 }).show();
-//                // 测试支付
-//                Intent intent4 = new Intent(this, ZhifuActivity.class);
-//                intent4.putExtra("oid",order_id);
-//                intent4.putExtra("type","service_new_pay");
-//                intent4.putExtra("order_type","se");
-//                intent4.putExtra("price","0.01");
-//                startActivity(intent4);
                 break;
             case R.id.tv_pingjia:
                 //评价

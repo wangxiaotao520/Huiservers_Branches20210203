@@ -257,6 +257,8 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 intent1.putExtra("itag", "1");
                 startActivity(intent1);*/
 
+               /* intent = new Intent(getActivity(), WorkOrderListActivity.class);
+                startActivity(intent);*/
                 intent = new Intent(getActivity(), WorkOrderListActivity.class);
                 startActivity(intent);
                 break;

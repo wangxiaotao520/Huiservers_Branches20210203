@@ -279,13 +279,14 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="grey96">#969696</color>
     <color name="greyd2">#d2d2d2</color>
-    <color name="line">#EDEDED</color>
+    <color name="line">#DEDEDE</color>
     <color name="orange">#ff5722</color>
     <color name="status_bar_color">#474747</color>
-    <color name="text_color">#474747</color>
-    <color name="text_color_hint">#9c9c9c</color>
+    <color name="text_color">#666666</color>
+    <color name="text_color_hint">#999999</color>
+    <color name="title_color">#333333</color>
     <color name="white">#FFFFFF</color>
-    <color name="windowbackground">#f4f7f8</color>
+    <color name="windowbackground">#F8F8F8</color>
     <declare-styleable name="VerticalBannerView">
         <attr format="integer" name="gap"/>
         <attr format="integer" name="animDuration"/>

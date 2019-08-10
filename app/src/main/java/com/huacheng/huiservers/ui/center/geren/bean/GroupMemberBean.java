@@ -19,6 +19,12 @@ public class GroupMemberBean implements Serializable{
     private String department_id;
     private String department_name;
     private String houses_type;
+    //4.2.0工单选择小区(自用，公用还是用之前的)
+    private String community_id;
+    private String community_address;
+    private String community_name;
+    private String room_id;
+    private String address;
 
     public String getIs_ym() {
         return is_ym;
@@ -123,4 +129,42 @@ public class GroupMemberBean implements Serializable{
         this.houses_type = houses_type;
     }
 
+    public String getCommunity_address() {
+        return community_address;
+    }
+
+    public void setCommunity_address(String community_address) {
+        this.community_address = community_address;
+    }
+
+    public String getCommunity_id() {
+        return community_id;
+    }
+
+    public void setCommunity_id(String community_id) {
+        this.community_id = community_id;
+    }
+    public String getCommunity_name() {
+        return community_name;
+    }
+
+    public void setCommunity_name(String community_name) {
+        this.community_name = community_name;
+    }
+
+    public String getRoom_id() {
+        return room_id;
+    }
+
+    public void setRoom_id(String room_id) {
+        this.room_id = room_id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

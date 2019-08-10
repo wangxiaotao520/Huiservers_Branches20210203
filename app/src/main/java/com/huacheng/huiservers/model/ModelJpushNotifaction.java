@@ -13,6 +13,15 @@ public class ModelJpushNotifaction implements Serializable {
     String msg;
     ModelJpushNotifaction data;
     String id;
+    private String sound_type;
+
+    public String getSound_type() {
+        return sound_type;
+    }
+
+    public void setSound_type(String sound_type) {
+        this.sound_type = sound_type;
+    }
 
     public String getId() {
         return id;

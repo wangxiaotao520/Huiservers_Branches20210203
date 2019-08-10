@@ -132,7 +132,6 @@ public class CommonMethod {
                 if (smallDialog!=null){
                     smallDialog.dismiss();
                 }
-                LogJson.d(json);
                 str = new CommonProtocol().getResult(json);
                 if (str.equals("1")) {
                     SmartToast.showInfo("加入购物车成功");

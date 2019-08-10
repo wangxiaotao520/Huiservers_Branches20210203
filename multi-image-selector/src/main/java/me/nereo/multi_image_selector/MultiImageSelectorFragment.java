@@ -1,6 +1,7 @@
 package me.nereo.multi_image_selector;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -428,14 +430,22 @@ public class MultiImageSelectorFragment extends Fragment {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(cameraIntent.resolveActivity(getActivity().getPackageManager()) != null){
             // 设置系统相机拍照后的输出路径
-            // 创建临时文件
             try {
                 mTmpFile = FileUtils.createTmpFile(getActivity());
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            // 创建临时文件
             if(mTmpFile != null && mTmpFile.exists()) {
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
+                Uri uri = null;
+                if (Build.VERSION.SDK_INT >= 24) {
+                    ContentValues contentValues = new ContentValues(1);
+                    contentValues.put(MediaStore.Images.Media.DATA, mTmpFile.getAbsolutePath());
+                    uri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
+                } else {
+                    uri = Uri.fromFile(mTmpFile);
+                }
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 startActivityForResult(cameraIntent, REQUEST_CAMERA);
             }else{
                 Toast.makeText(getActivity(), "图片错误", Toast.LENGTH_SHORT).show();

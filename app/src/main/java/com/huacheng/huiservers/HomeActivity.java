@@ -23,21 +23,20 @@ import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.ModelLoginOverTime;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.ActivityStackManager;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.AboutActivity;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.fragment.CircleFragment;
 import com.huacheng.huiservers.ui.fragment.HomeFragment;
 import com.huacheng.huiservers.ui.fragment.MyFragmentNew;
 import com.huacheng.huiservers.ui.fragment.ServiceFragment;
 import com.huacheng.huiservers.ui.fragment.ShopFragment;
+import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.TDevice;
-import com.lidroid.xutils.HttpUtils;
-import com.huacheng.libraryservice.utils.ToastUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.microquation.linkedme.android.LinkedME;
@@ -137,7 +136,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                                     String price = jsonObj.getString("price");
                                     String order_type = jsonObj.getString("order_type");
                                     //type = "service_new_pay"
-                                    Intent intent = new Intent(this, ZhifuActivity.class);
+                                    Intent intent = new Intent(this, UnifyPayActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("o_id", oid);
                                     bundle.putString("price", price);
@@ -210,9 +209,35 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
             rb[i].setCompoundDrawables(null, drawables[1], null, null);
         }
         EventBus.getDefault().register(this);
-
+        initJpush();
     }
 
+    private void initJpush() {
+        Intent intent = this.getIntent();
+        if (intent != null) {
+            // String type = intent.getStringExtra("type");
+            String from = intent.getStringExtra("from");
+            //推给管理和师傅用这个 1是列表 2是详情 推给慧生活用这个 27是详情
+            if ("jpush".equals(from)) {
+                String url_type = intent.getStringExtra("url_type");
+                 if ("27".equals(url_type)) {//详情
+                    String j_id = intent.getStringExtra("j_id");
+                    if (!StringUtils.isEmpty(j_id)) {
+                        Intent it = new Intent();
+                        it.setClass(this, WorkOrderDetailActivity.class);
+                        it.putExtra("id", j_id);
+                        startActivity(it);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        initJpush();
+    }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {

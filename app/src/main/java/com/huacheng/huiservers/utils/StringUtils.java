@@ -212,7 +212,7 @@ public class StringUtils {
 
     private static SimpleDateFormat sdf = null;
 
-    /*时间戳转换成字符窜*/
+    /*字符窜转换成时间戳*/
     public static String getDateToString(String time, String type) {
         long mTime;
         if (NullUtil.isStringEmpty(time)) {
@@ -239,6 +239,8 @@ public class StringUtils {
                     sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
                 } else if (type.equals("8")) {
                     sdf = new SimpleDateFormat("yyyy.MM.dd");
+                }else if (type.equals("9")) {
+                    sdf = new SimpleDateFormat("MM月dd日");
                 }
                 String date = sdf.format(mTime);
                 return date;
@@ -249,7 +251,36 @@ public class StringUtils {
         }
 
     }
-
+    /*时间戳转换成字符窜*/
+    public static long getStringToTimills(String timeFormat , String type) {
+        long result= 0;
+        SimpleDateFormat sdf = null;
+        if (type.equals("1")) {
+            sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        } else if (type.equals("2")) {
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
+        } else if (type.equals("3")) {
+            sdf = new SimpleDateFormat("MM-dd HH:mm");
+        } else if (type.equals("4")) {
+            sdf = new SimpleDateFormat("HH:mm");
+        } else if (type.equals("5")) {
+            sdf = new SimpleDateFormat("HH:mm ss''");
+        } else if (type.equals("6")) {
+            sdf = new SimpleDateFormat("MM-dd HH:mm");
+        } else if (type.equals("7")) {
+            sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        } else if (type.equals("8")) {
+            sdf = new SimpleDateFormat("yyyy.MM.dd");
+        }else if (type.equals("9")) {
+            sdf = new SimpleDateFormat("MM月dd日");
+        }
+        try {
+            result= sdf.parse(timeFormat).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
     /*截取字符串,只要时间 例将2015-09-28截取为28(从最后一个"-"处截取)*/
     public static String getSubLastString(String time, String tag) {
         String timt = time.substring(time.lastIndexOf(tag) + 1, time.length());

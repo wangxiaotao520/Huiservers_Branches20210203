@@ -56,6 +56,7 @@ public class SelectCommonActivity extends BaseActivity implements SelectCommonPr
             unit=intent.getStringExtra("unit");
         }else if (type==5){
             //商铺号
+            buildsing_id=intent.getStringExtra("buildsing_id");
             community_id=intent.getStringExtra("community_id");
             houses_type=intent.getStringExtra("houses_type");
         }else if (type==6){
@@ -88,7 +89,7 @@ public class SelectCommonActivity extends BaseActivity implements SelectCommonPr
         }else if (type==4){
             selectCommonPresenter.getRoom(community_id,houses_type,buildsing_id,unit);
         }else if (type==5){
-            selectCommonPresenter.getShops(community_id,houses_type);
+            selectCommonPresenter.getShops(community_id,houses_type,buildsing_id);
         }else if (type==6){
             selectCommonPresenter.getCBType(community_id);
         }

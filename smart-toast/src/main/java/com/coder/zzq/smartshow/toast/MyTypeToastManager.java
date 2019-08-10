@@ -52,7 +52,7 @@ public class MyTypeToastManager extends BaseToastManager  {
 
     @Override
     protected int getToastType() {
-        //TODO
+        //
         return TYPE_TOAST;
       //  return CUSTOM_TOAST;
     }

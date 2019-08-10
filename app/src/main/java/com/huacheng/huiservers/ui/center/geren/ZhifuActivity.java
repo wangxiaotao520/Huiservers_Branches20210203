@@ -35,6 +35,7 @@ import com.huacheng.huiservers.model.ModelEventWX;
 import com.huacheng.huiservers.model.protocol.GerenProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.pay.PayResult;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
@@ -45,7 +46,6 @@ import com.huacheng.huiservers.ui.index.facepay.FacepayHistoryActivity;
 import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
-import com.huacheng.huiservers.ui.index.workorder.JpushWorkPresenter;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
@@ -181,6 +181,13 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
         type = this.getIntent().getExtras().getString("type");
         order_type = this.getIntent().getExtras().getString("order_type");
         payprice = this.getIntent().getExtras().getString("price");
+        // 跳转到 新的支付页
+        Intent intent = new Intent(this, UnifyPayActivity.class);
+        intent.putExtra("o_id",o_id);
+        intent.putExtra("type",type);
+        intent.putExtra("price",payprice);
+        startActivity(intent);
+        finish();
 
 
         MyCookieStore.ConfirmWuye = wuYeBean;
@@ -383,7 +390,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                     startActivity(intent);
 
                 } else if ("workorder_pay".equals(type)) {//工单支付
-                    Intent intent = new Intent(ZhifuActivity.this, WorkOrderListActivity.class);
+                    Intent intent = new Intent(ZhifuActivity.this, com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity.class);
                     startActivity(intent);
 
                 }
@@ -546,10 +553,10 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                         EventBus.getDefault().post(eventBusModel);
 
                         //给物业端管理角色推送,用户提交维修信息
-                        HashMap<String, String> params = new HashMap<>();
+                     /*   HashMap<String, String> params = new HashMap<>();
                         params.put("id", o_id);
                         params.put("type", "1");
-                        new JpushWorkPresenter().userToWorkerSubmitJpush(params);
+                        new JpushWorkPresenter().userToWorkerSubmitJpush(params);*/
 
                     } else if (type.equals("workorder_pay")) {//工单
                         new Handler().postDelayed(new Runnable() {
@@ -559,8 +566,8 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                             }
                         }, 1600);
                         EventBusWorkOrderModel eventBusModel = new EventBusWorkOrderModel();
-                        eventBusModel.setWo_id(o_id);
-                        eventBusModel.setEvent_type(2);
+                        eventBusModel.setWork_id(o_id);
+                        eventBusModel.setEvent_back_type(2);
                         EventBus.getDefault().post(eventBusModel);
 
                     }

@@ -69,6 +69,7 @@ public class NewAddressActivity extends BaseActivityOld {
         TextView mRight = (TextView) findViewById(R.id.right);
         mRight.setTextColor(this.getResources().getColor(R.color.colorPrimary));
         mRight.setText("添加");
+        mRight.setVisibility(View.VISIBLE);
         //       SetTransStatus.GetStatus(this);//系统栏默认为黑色
         address = this.getIntent().getExtras().getString("address");
         type = this.getIntent().getExtras().getString("type");

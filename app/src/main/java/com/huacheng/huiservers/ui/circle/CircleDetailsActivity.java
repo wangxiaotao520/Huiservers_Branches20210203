@@ -310,8 +310,10 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
                 if ("1".equals(mCirclebean.getIs_observe())) {
                     linComment.setVisibility(View.VISIBLE);
+                    mLinPinglun.setVisibility(View.VISIBLE);
                 } else {
                     linComment.setVisibility(View.GONE);
+                    mLinPinglun.setVisibility(View.GONE);
                 }
 
 //                linComment.setVisibility(View.GONE);

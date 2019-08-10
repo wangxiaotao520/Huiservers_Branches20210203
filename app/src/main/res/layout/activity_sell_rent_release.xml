@@ -51,7 +51,93 @@
                     android:textSize="@dimen/t_16sp" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_50"
+                android:background="@color/white"
+                android:gravity="center_vertical">
 
+                <LinearLayout
+                    android:layout_width="102dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/rent_release_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_15"
+                        android:text="房屋地址" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_building"
+                        style="@style/rent_release_text"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:text=""
+                        android:maxLength="3"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textColorHint="@color/gray_9c"
+                        android:theme="@style/MyEditText" />
+
+                    <TextView
+                        style="@style/rent_release_text"
+                        android:textColor="@color/gray4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—" />
+
+                    <EditText
+                        android:id="@+id/et_unit"
+                        style="@style/rent_release_text"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:text=""
+                        android:maxLength="2"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textColorHint="@color/gray_9c"
+                        android:theme="@style/MyEditText" />
+
+                    <TextView
+                        style="@style/rent_release_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray4"
+                        android:text="—" />
+
+                    <EditText
+                        android:id="@+id/et_room"
+                        style="@style/rent_release_text"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:maxLength="5"
+                        android:text=""
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textColorHint="@color/gray_9c"
+                        android:theme="@style/MyEditText" />
+
+                </LinearLayout>
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_50"
@@ -577,19 +663,80 @@
 
                 </LinearLayout>
 
-
-                <RelativeLayout
-                    android:id="@+id/rl_container_sent_price"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin_50"
-                    android:visibility="gone">
-
-                    <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/rl_container_sent_price"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/margin_50"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/margin_50"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="102dp"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    style="@style/rent_release_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/margin_15"
+                                    android:text="租金" />
+
+                            </LinearLayout>
+
+                            <EditText
+                                android:id="@+id/et_rele_sent_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:background="@null"
+                                android:hint="请输入租金"
+                                android:inputType="numberDecimal"
+                                android:singleLine="true"
+                                android:text=""
+                                android:maxLength="8"
+                                android:textColor="@color/gray_55"
+                                android:textColorHint="@color/gray_9c"
+                                android:textSize="@dimen/t_16sp" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="17dp"
+                            android:background="@color/white"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="元/月"
+                                android:textColor="@color/gray_55"
+                                android:textSize="@dimen/t_16sp" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_rent_time_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/margin_50"
+                        android:layout_marginTop="@dimen/margin_12"
                         android:background="@color/white"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:visibility="gone"
+                        android:gravity="center_vertical">
 
                         <LinearLayout
                             android:layout_width="102dp"
@@ -600,46 +747,27 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_15"
-                                android:text="租金" />
+                                android:text="房屋租期" />
 
                         </LinearLayout>
 
                         <EditText
-                            android:id="@+id/et_rele_sent_price"
+                            android:id="@+id/et_rent_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:background="@null"
-                            android:hint="请输入租金"
-                            android:inputType="numberDecimal"
+                            android:hint="请输入房屋租期"
+                            android:layout_marginRight="@dimen/margin_15"
                             android:singleLine="true"
                             android:text=""
-                            android:maxLength="8"
+                            android:maxLength="15"
                             android:textColor="@color/gray_55"
                             android:textColorHint="@color/gray_9c"
                             android:textSize="@dimen/t_16sp" />
 
                     </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="17dp"
-                        android:background="@color/white"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="元/月"
-                            android:textColor="@color/gray_55"
-                            android:textSize="@dimen/t_16sp" />
-
-                    </LinearLayout>
-
-                </RelativeLayout>
+                </LinearLayout>
 
             </FrameLayout>
 

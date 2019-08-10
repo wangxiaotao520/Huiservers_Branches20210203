@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
@@ -21,8 +20,8 @@ import com.huacheng.huiservers.model.HouseListBean;
 import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.index.houserent.HouserentDetailActivity;
 import com.huacheng.huiservers.ui.index.houserent.adapter.MyHouseRentListAdapter;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
-import com.huacheng.libraryservice.utils.StringUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -42,8 +41,7 @@ import butterknife.Unbinder;
  */
 public class MyHousePropertyFragment extends BaseFragmentOld {
 
-    @BindView(R.id.ll_myhouse_property)
-    LinearLayout llMyhouseProperty;
+
     @BindView(R.id.swipe_myhouse_property)
     SwipeRefreshLayout swipeMyhouseProperty;
     @BindView(R.id.listView)

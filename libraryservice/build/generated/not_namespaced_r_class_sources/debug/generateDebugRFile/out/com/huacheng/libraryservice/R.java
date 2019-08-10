@@ -907,10 +907,11 @@ public final class R {
         public static int switch_thumb_normal_material_light = 0x7f060089;
         public static int text_color = 0x7f06008a;
         public static int text_color_hint = 0x7f06008b;
-        public static int tooltip_background_dark = 0x7f06008c;
-        public static int tooltip_background_light = 0x7f06008d;
-        public static int white = 0x7f06008e;
-        public static int windowbackground = 0x7f06008f;
+        public static int title_color = 0x7f06008c;
+        public static int tooltip_background_dark = 0x7f06008d;
+        public static int tooltip_background_light = 0x7f06008e;
+        public static int white = 0x7f06008f;
+        public static int windowbackground = 0x7f060090;
     }
     public static final class dimen {
         private dimen() {}

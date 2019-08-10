@@ -44,6 +44,106 @@
                     android:layout_marginRight="16dp"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_floor"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@color/white">
+                <TextView
+                    android:id="@+id/tv_floor"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_marginLeft="12dp"
+                    android:textSize="15sp"
+                    android:hint="请选择楼号"
+                    android:textColorHint="@color/text_color_hint"
+                    android:text=""
+                    android:textColor="#555555" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/jiantou_you"
+                    android:layout_marginRight="16dp"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_person_cotainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:background="@color/white">
+                    <TextView
+                        android:id="@+id/tv_unit"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:layout_marginLeft="12dp"
+                        android:textSize="15sp"
+                        android:hint="请选择单元号"
+                        android:textColorHint="@color/text_color_hint"
+                        android:text=""
+                        android:textColor="#555555" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/jiantou_you"
+                        android:layout_marginRight="16dp"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:background="@color/white">
+                    <TextView
+                        android:id="@+id/tv_room"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:layout_marginLeft="12dp"
+                        android:textSize="15sp"
+                        android:hint="请选择房间号"
+                        android:textColorHint="@color/text_color_hint"
+                        android:text=""
+                        android:textColor="#555555" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/jiantou_you"
+                        android:layout_marginRight="16dp"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+            </LinearLayout>
             <!--住户类型-->
 
             <LinearLayout
@@ -52,7 +152,8 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:visibility="gone">
                 <TextView
                     android:id="@+id/tv_user_cate"
                     android:layout_gravity="center_vertical"
@@ -120,106 +221,7 @@
                     </LinearLayout>
                 </LinearLayout>
                 <!--住宅 公寓-->
-                <LinearLayout
-                    android:id="@+id/ll_person_cotainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="visible"
-                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/ll_floor"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white">
-                        <TextView
-                            android:id="@+id/tv_floor"
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="left"
-                            android:layout_marginLeft="12dp"
-                            android:textSize="15sp"
-                            android:hint="请选择楼号"
-                            android:textColorHint="@color/text_color_hint"
-                            android:text=""
-                            android:textColor="#555555" />
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1" />
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/jiantou_you"
-                            android:layout_marginRight="16dp"
-                            android:layout_gravity="center_vertical" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_unit"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal"
-                        android:background="@color/white">
-                        <TextView
-                            android:id="@+id/tv_unit"
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="left"
-                            android:layout_marginLeft="12dp"
-                            android:textSize="15sp"
-                            android:hint="请选择单元号"
-                            android:textColorHint="@color/text_color_hint"
-                            android:text=""
-                            android:textColor="#555555" />
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1" />
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/jiantou_you"
-                            android:layout_marginRight="16dp"
-                            android:layout_gravity="center_vertical" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_room"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal"
-                        android:background="@color/white">
-                        <TextView
-                            android:id="@+id/tv_room"
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="left"
-                            android:layout_marginLeft="12dp"
-                            android:textSize="15sp"
-                            android:hint="请选择房间号"
-                            android:textColorHint="@color/text_color_hint"
-                            android:text=""
-                            android:textColor="#555555" />
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1" />
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/jiantou_you"
-                            android:layout_marginRight="16dp"
-                            android:layout_gravity="center_vertical" />
-                    </LinearLayout>
-                </LinearLayout>
             </FrameLayout>
             <LinearLayout
                 android:id="@+id/ll_user_name"

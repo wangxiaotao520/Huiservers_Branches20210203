@@ -21,6 +21,7 @@ public class DaoManager {
     private static  final String  DB_NAME="myapplication.db";//数据库名称
     private volatile  static DaoManager mDaoManager;//多线程访问  
     private  static DaoMaster.DevOpenHelper mHelper;
+    private  static MyOpenHelper myOpenHelper;
     private static  DaoMaster mDaoMaster;  
     private static DaoSession mDaoSession;
     private static SQLiteDatabase db;
@@ -56,9 +57,13 @@ public class DaoManager {
      * @return 
      */  
     public DaoMaster getDaoMaster(){  
-        if (null == mDaoMaster){  
-            mHelper =  new DaoMaster.DevOpenHelper(context,DB_NAME,null);  
-            mDaoMaster = new DaoMaster(mHelper.getWritableDatabase());  
+        if (null == mDaoMaster){
+            //            mHelper =  new DaoMaster.DevOpenHelper(context,DB_NAME,null);
+//            mDaoMaster = new DaoMaster(mHelper.getWritableDatabase());
+
+            //TODO 数据库版本更新
+            myOpenHelper =  new MyOpenHelper(context,DB_NAME,null);
+            mDaoMaster = new DaoMaster(myOpenHelper.getWritableDatabase());
         }  
         return mDaoMaster;  
     }  
@@ -105,7 +110,11 @@ public class DaoManager {
         if (mHelper!=null){  
             mHelper.close();  
             mHelper = null;  
-        }  
+        }
+        if (myOpenHelper!=null){
+            myOpenHelper.close();
+            myOpenHelper = null;
+        }
     }  
   
 } 

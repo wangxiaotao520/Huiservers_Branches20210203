@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="270dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_round_white5"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_intro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:text="
+                            这
+是
+详
+细
+说
+明
+信
+息
+行间距38"
+        android:textColor="@color/text_color"
+        android:padding="15dp"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line"
+        />
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/orange"
+        android:textSize="18sp"
+        android:textStyle="normal" />
+
+
+
+</LinearLayout>

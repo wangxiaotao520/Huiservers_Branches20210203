@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Description: 自用工单类型分类列表
@@ -16,6 +17,14 @@ public class ModelWorkPersonalCatItem implements Serializable{
     private String type_price;
     private String type_content;
     private String entry_fee;
+
+    //第二版工单
+    private String name;
+    private String content;
+
+    private float price;
+    private List<ModelWorkPersonalCatItem> lists;
+
 
     public String getId() {
         return id;
@@ -72,4 +81,37 @@ public class ModelWorkPersonalCatItem implements Serializable{
     public void setEntry_fee(String entry_fee) {
         this.entry_fee = entry_fee;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public List<ModelWorkPersonalCatItem> getLists() {
+        return lists;
+    }
+
+    public void setLists(List<ModelWorkPersonalCatItem> lists) {
+        this.lists = lists;
+    }
+
 }

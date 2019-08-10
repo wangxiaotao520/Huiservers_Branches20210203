@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xlhRatingBar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/titlebar_center"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="@dimen/margin"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_15">
+
+
+                <TextView
+                    android:layout_width="4dp"
+                    android:layout_height="9dp"
+                    android:background="@drawable/allshape_orange_2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:text="服务评价"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_15sp"/>
+
+                <com.example.xlhratingbar_lib.XLHRatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="20dp"
+                    xlhRatingBar:canEdit="true"
+                    xlhRatingBar:countSelected="5"
+                    xlhRatingBar:differentSize="false"
+                    xlhRatingBar:dividerWidth="5dp"
+                    xlhRatingBar:starCount="5"
+                    xlhRatingBar:stateResId="@drawable/work_layer_rating_bar"
+                    xlhRatingBar:widthAndHeight="20dp"/>
+
+                <TextView
+                    android:id="@+id/tv_score_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:text="非常满意"
+                    android:textColor="@color/text_color_hint"
+                    android:textSize="@dimen/t_14sp"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/graynew4"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:hint="请输服务评价"
+                    android:padding="@dimen/margin"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/graycc"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:textSize="@dimen/t_14sp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/white">
+
+                <com.huacheng.libraryservice.widget.GridViewNoScroll
+                    android:id="@+id/gridview_imgs"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:fadingEdge="none"
+                    android:fastScrollEnabled="false"
+                    android:footerDividersEnabled="false"
+                    android:gravity="center"
+                    android:headerDividersEnabled="false"
+                    android:horizontalSpacing="5dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="10dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_commit"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/allshape_orange"
+                android:gravity="center"
+                android:text="确认"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

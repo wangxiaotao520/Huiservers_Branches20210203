@@ -16,8 +16,8 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
 import com.huacheng.huiservers.ui.servicenew.ui.order.ServiceOrderDetailCommonActivity;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.StringUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
 import java.util.List;

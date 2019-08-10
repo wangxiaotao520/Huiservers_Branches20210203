@@ -190,6 +190,7 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
                 intent.putExtra("type", 5);
                 intent.putExtra("community_id", community_id);
                 intent.putExtra("houses_type", houses_type);
+                intent.putExtra("buildsing_id", buildsing_id);
                 startActivityForResult(intent, REQUEST_SHOP);
                 break;
             case R.id.ll_floor:
@@ -378,6 +379,10 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
             return false;
         }
         if ("2".equals(houses_type)) {
+            if (NullUtil.isStringEmpty(buildsing_id)) {
+                SmartToast.showInfo("请选择楼号");
+                return false;
+            }
             if (NullUtil.isStringEmpty(shopCode)) {
                 SmartToast.showInfo("请选择商铺门牌号");
                 return false;
@@ -423,7 +428,7 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
                         is_ym = groupMemberBean.getIs_ym();
 
                         houses_type = groupMemberBean.getHouses_type();
-                        if ("2".equals(houses_type)||"4".equals(houses_type)){//商铺
+                        if ("2".equals(houses_type)){//商铺
                             ll_person_cotainer.setVisibility(View.GONE);
                             ll_shop_cotainer.setVisibility(View.VISIBLE);
                         }else {

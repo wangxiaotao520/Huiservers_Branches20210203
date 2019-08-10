@@ -18,8 +18,8 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.index.property.adapter.PropertyWYInfoAdapter;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
@@ -269,7 +269,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 mTvAccountPrice.setText("¥ 0.00");
                 mTvTypeName.setText("水费");
                 mTvCzName.setText("水费充值：");
-                if (propertyInfo != null && propertyInfo.getShuifei() != null) {
+                if (propertyInfo != null && propertyInfo.getShuifei() != null&&propertyInfo.getShuifei().getInfo()!=null) {
                     if (!TextUtils.isEmpty(propertyInfo.getShuifei().getInfo().getSMay_acc())) {
                         mTvPrice.setText("¥ " + propertyInfo.getShuifei().getInfo().getSMay_acc());
                     } else {
@@ -306,7 +306,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 mTvTypeName.setText("电费");
                 mTvCzName.setText("电费充值：");
                 if (propertyInfo.getDianfei() != null) {
-                    if (!TextUtils.isEmpty(propertyInfo.getDianfei().getInfo().getDMay_acc())) {
+                    if (propertyInfo.getDianfei().getInfo()!=null&&!TextUtils.isEmpty(propertyInfo.getDianfei().getInfo().getDMay_acc())) {
                         mTvPrice.setText("¥ " + propertyInfo.getDianfei().getInfo().getDMay_acc());
                     } else {
                         mTvPrice.setText("¥ 0.00");
@@ -355,7 +355,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
                     if (propertyInfo.getIs_available() == 0) {//值为0 可以充值水费
                         if (!TextUtils.isEmpty(mEtPrice.getText().toString().trim())) {
-                            if (propertyInfo.getShuifei() != null) {
+                            if (propertyInfo.getShuifei() != null&&propertyInfo.getShuifei().getInfo()!=null) {
 
                                 double aDouble1 = Double.valueOf(propertyInfo.getShuifei().getInfo().getUpper_limit());
                                 double aDouble2 = Double.valueOf(propertyInfo.getShuifei().getInfo().getSMay_acc());
@@ -386,7 +386,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     if (propertyInfo.getIs_available() == 0) {//值为0 可以充值电费
 
                         if (!TextUtils.isEmpty(mEtPrice.getText().toString().trim())) {
-                            if (propertyInfo.getDianfei() != null) {
+                            if (propertyInfo.getDianfei() != null&&propertyInfo.getDianfei().getInfo()!=null) {
 
                                 double aDouble1 = Double.valueOf(propertyInfo.getDianfei().getInfo().getUpper_limit());
                                 double aDouble2 = Double.valueOf(propertyInfo.getDianfei().getInfo().getDMay_acc());
@@ -438,7 +438,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ProperyGetOrderBean orderBean = (ProperyGetOrderBean) JsonUtil.getInstance().parseJsonFromResponse(response, ProperyGetOrderBean.class);
-                    Intent intent = new Intent(PropertyHomeNewJFActivity.this, ZhifuActivity.class);
+                    Intent intent = new Intent(PropertyHomeNewJFActivity.this, UnifyPayActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("o_id", orderBean.getOid());
                     bundle.putString("price", mEtPrice.getText().toString().trim());
@@ -447,7 +447,12 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
-                    SmartToast.showInfo("提交失败");
+                    //String msg = JsonUtil.getInstance().getMsgFromResponse(response,"提交失败");
+                    try {
+                        SmartToast.showInfo(response.getString("msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

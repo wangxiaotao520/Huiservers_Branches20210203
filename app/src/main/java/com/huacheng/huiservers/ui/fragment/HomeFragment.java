@@ -48,7 +48,7 @@ import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
-import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkCatActivity;
+import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
@@ -109,7 +109,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private MyGridview gridView_article;
     private MyListView listview_article;
     private ViewPager viewpager_cate;
-    private LinearLayout ly_property_payment, ly_person_repair, ly_public_repair, ly_circle_onclick, ly_circle_more, ly_houseRent, ly_houseSell, ly_houseCommit;
+    private RelativeLayout ly_property_payment,ly_person_repair,ly_public_repair;
+    private LinearLayout ly_circle_onclick, ly_circle_more, ly_houseRent, ly_houseSell, ly_houseCommit;
     private ImageView iv_img;
     private TextView tv_time, tv_name, tv_content, tv_circleViews, tv_circleReply, tv_title;
     private CircularImage iv_head;
@@ -588,7 +589,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             group.removeAllViews();
             for (int i = 0; i < catePage; i++) {
                 //循坏加入点点图片组
-                ivPoints[i] = new ImageView(getActivity());
+                ivPoints[i] = new ImageView(mActivity);
                 if (i == 0) {
                     ivPoints[i].setImageResource(R.drawable.page_focuese);
                 } else {
@@ -711,7 +712,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             if (bean != null) {
                 if (bean.getIs_bind_property().equals("2")) {
                     if (jump_type.equals("person")) {//家用报修
-                        Intent intent = new Intent(mActivity, PersonalWorkCatActivity.class);
+                        Intent intent = new Intent(mActivity, PersonalWorkOrderCommitActivity.class);
                         startActivity(intent);
                     } else {//公共报修
                         Intent intent = new Intent(mActivity, PublicWorkOrderCommitActivity.class);

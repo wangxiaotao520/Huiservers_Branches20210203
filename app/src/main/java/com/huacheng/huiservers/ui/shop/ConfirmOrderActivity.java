@@ -21,10 +21,10 @@ import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.NewAddressActivity;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.shop.adapter.ConfirmShopListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
@@ -312,7 +312,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                         JSONObject response = new JSONObject(json);
                         if (JsonUtil.getInstance().isSuccess(response)) {
                             beanzhifu = protocol.getShopConfirm(json);
-                            Intent intent = new Intent(ConfirmOrderActivity.this, ZhifuActivity.class);
+                            Intent intent = new Intent(ConfirmOrderActivity.this, UnifyPayActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("o_id", beanzhifu.getOrder_id());
                             //bundle.putString("coupon_id", coupon_id);

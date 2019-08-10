@@ -35,7 +35,7 @@
             android:singleLine="true"
             android:layout_centerVertical="true"
             android:text=""
-            android:textColor="@color/black"
+            android:textColor="@color/title_color"
             android:textSize="20sp" />
 
         <TextView
@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:textColor="@color/orange"
             android:padding="10dp"
             android:text=""
             android:textSize="15sp"

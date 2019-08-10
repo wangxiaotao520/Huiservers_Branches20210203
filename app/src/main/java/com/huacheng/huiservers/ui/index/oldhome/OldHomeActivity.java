@@ -286,10 +286,11 @@ public class OldHomeActivity extends BaseActivityOld {
 
                 break;
             case R.id.tv_oldShop_more://老年产品
-                intent = new Intent(OldHomeActivity.this, ShopListActivity.class);
-                intent.putExtra("cateID", mOldBean_p_url.getParam().getId());
-                startActivity(intent);
-
+                if (mOldBean_p_url!=null&&mOldBean_p_url.getParam()!=null){
+                    intent = new Intent(OldHomeActivity.this, ShopListActivity.class);
+                    intent.putExtra("cateID", mOldBean_p_url.getParam().getId());
+                    startActivity(intent);
+                }
                 break;
         }
     }

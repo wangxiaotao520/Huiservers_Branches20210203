@@ -36,7 +36,7 @@
             android:maxEms="10"
             android:singleLine="true"
             android:text=""
-            android:textColor="@color/c_title12"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/t_21sp" />
 
         <TextView
@@ -47,7 +47,9 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin"
             android:padding="@dimen/margin_5"
-            android:textColor="@color/white"
+            android:text=""
+            android:visibility="gone"
+            android:textColor="@color/text_color"
             android:textSize="@dimen/t_16sp" />
 
         <TextView
@@ -69,7 +71,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin"
             android:text="分享"
-            android:textColor="#333"
+            android:textColor="@color/orange"
             android:textSize="@dimen/t_16sp"
             android:visibility="gone" />
 

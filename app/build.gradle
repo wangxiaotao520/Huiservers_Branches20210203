@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.huacheng.huiservers"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 27
         versionName "4.1.4"
         multiDexEnabled true
@@ -166,4 +166,6 @@ android {
      //    implementation("com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.1.8") { changing = true }
      //无需引入tinker的任何库,使用tinkerpatch sdk即可
      implementation 'com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.2.11'
+
+     implementation(name: 'qmf-ppplugin-android-3.0.4', ext: 'aar')
  }

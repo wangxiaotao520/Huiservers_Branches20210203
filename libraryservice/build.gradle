@@ -47,8 +47,8 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-7'
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-7'
     api files('libs/org.apache.http.legacy.jar')
-    api 'com.squareup.okhttp3:okhttp:3.2.0'
-    api 'com.squareup.okio:okio:1.12.0'
+    api 'com.squareup.okhttp3:okhttp:3.8.1'
+    api 'com.squareup.okio:okio:1.13.0'
     api project(':header_viewpager')
     api 'com.hyman:flowlayout-lib:1.1.2'
     //星星评价

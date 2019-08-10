@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chinaums.pppay.unify.UnifyPayPlugin;
+import com.chinaums.pppay.unify.WXPayResultListener;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -29,7 +31,6 @@ import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
 import com.huacheng.huiservers.ui.index.facepay.FacepayHistoryActivity;
 import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
-import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -88,12 +89,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
     // 第三方应用发送到微信的请求处理后的响应结果，会回调到该方法
     @Override
     public void onResp(BaseResp resp) {
-        System.out.println("resp%%%%错误码=--------***" + resp.errCode);
+
         if (resp.errCode == 0) {
             MyCookieStore.WX_dialog = 1;
         } else if (resp.errCode == -2) {
             MyCookieStore.WX_dialog = 0;
-            System.out.println("mycookie--------***" + MyCookieStore.type);
         } else {
             MyCookieStore.WX_dialog = 0;
         }
@@ -102,6 +102,9 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
         EventBus.getDefault().post(modelEventWX);
         finish();
         // }
+        // 配置微信回调到onResult
+        WXPayResultListener wxListener = UnifyPayPlugin.getInstance(WXPayEntryActivity.this).getWXListener();
+        wxListener.onResponse(WXPayEntryActivity.this, resp);
     }
 
     @Override
@@ -258,22 +261,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
                         }, 1200);
                         // 调一下支付成功推送的接口
                         new JpushPresenter().paySuccessJpush(MyCookieStore.o_id);
-                    }
-                    if (MyCookieStore.type.equals("workorder_yufu")) {// 工单预付
-                        // 跳转到列表页
-                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        }, 1200);
-                        Intent intent = new Intent(WXPayEntryActivity.this, WorkOrderListActivity.class);
-                        startActivity(intent);
-                        EventBusWorkOrderModel eventBusModel = new EventBusWorkOrderModel();
-                        eventBusModel.setWo_id(MyCookieStore.o_id);
-                        eventBusModel.setEvent_type(1);
-                        EventBus.getDefault().post(eventBusModel);
-
                     }
                     if (MyCookieStore.type.equals("workorder_pay")) {
                         //支付跳转
