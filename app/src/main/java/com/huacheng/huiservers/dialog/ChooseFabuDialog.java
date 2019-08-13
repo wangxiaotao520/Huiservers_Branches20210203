@@ -98,7 +98,6 @@ public class ChooseFabuDialog extends Dialog implements View.OnClickListener {
 
             @Override
             protected void setData(String json) {
-                WaitDialog = WaitDIalog.createLoadingDialog(activity, "正在加载...");
                 bean = protocol.getSocialCategorys(json);
                 if (bean.size() != 0) {
                     String[] mVals = new String[bean.size()];
@@ -107,10 +106,8 @@ public class ChooseFabuDialog extends Dialog implements View.OnClickListener {
                 }
                     getTagFlowLayout(mVals);
                     lin_container.setVisibility(View.VISIBLE);
-                    WaitDIalog.closeDialog(WaitDialog);
                 } else {
                     lin_container.setVisibility(View.GONE);
-                    WaitDIalog.closeDialog(WaitDialog);
                 }
 
             }

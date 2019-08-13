@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
-import com.huacheng.huiservers.dialog.WaitDIalog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
@@ -385,7 +384,6 @@ public class CircleDetailsActivity extends BaseActivityOld {
                     JSONObject jsonObject = new JSONObject(json);
                     String status = jsonObject.getString("status");
                     if (StringUtils.isEquals(status, "1")) {
-                        WaitDIalog.closeDialog(WaitDialog);
 //                        MyCookieStore.Circle_refresh = 1;
                         SmartToast.showInfo("评论成功");
                         mLinImg.removeAllViews();
@@ -396,7 +394,6 @@ public class CircleDetailsActivity extends BaseActivityOld {
                         mCirclebean.setType(0);
                         EventBus.getDefault().post(mCirclebean);
                     } else {
-                        WaitDIalog.closeDialog(WaitDialog);
                         SmartToast.showInfo(jsonObject.getString("msg"));
                     }
                 } catch (Exception e) {

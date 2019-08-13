@@ -31,7 +31,6 @@ import com.amap.api.location.AMapLocationListener;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
-import com.huacheng.huiservers.dialog.WaitDIalog;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 
@@ -151,7 +150,7 @@ public class AboutActivity extends BaseActivityOld implements OnClickListener, A
                 if (tag.equals("dsyg")) {
                     if (isLoad) {
                         isLoad = false;
-                        WaitDialog = WaitDIalog.createLoadingDialog(AboutActivity.this, "正在加载...");
+                        showDialog(smallDialog);
 
                     }
                 }
@@ -163,7 +162,7 @@ public class AboutActivity extends BaseActivityOld implements OnClickListener, A
                 if (tag.equals("activity")) {
                     // WaitDialog.closeDialog(WaitDialog);
                 }
-                WaitDIalog.closeDialog(WaitDialog);
+                hideDialog(smallDialog);
             }
 
             @Override

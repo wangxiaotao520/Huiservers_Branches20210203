@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
-import com.huacheng.huiservers.dialog.WaitDIalog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
@@ -192,9 +191,6 @@ public class CircleTabFragment extends BaseFragmentOld {
      */
     private void getSocialList(String mCid, final int total_Page) {
         is_Requesting=true;
-        if (isFirst.equals("2")) {
-            waitDialog2 = WaitDIalog.createLoadingDialog(getActivity(), "正在加载...");
-        }
         Url_info info = new Url_info(getActivity());
 
         if (!StringUtils.isEmpty(mCid)) {

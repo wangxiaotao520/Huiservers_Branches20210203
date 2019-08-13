@@ -168,4 +168,5 @@ android {
      implementation 'com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.2.11'
 
      implementation(name: 'qmf-ppplugin-android-3.0.4', ext: 'aar')
+     implementation project(':banner')
  }

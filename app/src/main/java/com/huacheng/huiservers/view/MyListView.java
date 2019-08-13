@@ -7,7 +7,7 @@ import android.widget.ListView;
 public class MyListView  extends ListView{
 
 	/**
-	 * @param args
+	 * @param
 	 */
 	public MyListView(Context context) { 
 		super(context); 

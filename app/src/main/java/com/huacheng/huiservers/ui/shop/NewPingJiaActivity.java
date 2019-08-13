@@ -255,7 +255,6 @@ public class NewPingJiaActivity extends BaseActivityOld implements ImagePickerAd
                 if (rating1==0.0) {
                     SmartToast.showInfo("评价星级不能为空");
                 } else {
-                  //  WaitDialog = WaitDIalog.createLoadingDialog(this, "正在加载...");
 
                     // 换了一种压缩图片的方式
                         if (selImageList.size()>0) {
