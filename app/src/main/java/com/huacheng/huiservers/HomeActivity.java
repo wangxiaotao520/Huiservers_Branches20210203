@@ -30,12 +30,13 @@ import com.huacheng.huiservers.ui.center.AboutActivity;
 import com.huacheng.huiservers.ui.fragment.CircleFragment;
 import com.huacheng.huiservers.ui.fragment.HomeFragment;
 import com.huacheng.huiservers.ui.fragment.MyFragmentNew;
-import com.huacheng.huiservers.ui.fragment.ServiceFragment;
+import com.huacheng.huiservers.ui.fragment.OldFragment;
 import com.huacheng.huiservers.ui.fragment.ShopFragment;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -109,8 +110,10 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
 
         fragments.add(new HomeFragment());
         fragments.add(new ShopFragment());
-        fragments.add(new ServiceFragment());
+       // fragments.add(new ServiceFragment());
+        fragments.add(new OldFragment());
         fragments.add(new CircleFragment());
+
         fragments.add(new MyFragmentNew());
 
     }
@@ -202,7 +205,8 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
             //挨着给每个RadioButton加入drawable限制边距以控制显示大小
             Drawable[] drawables = rb[i].getCompoundDrawables();
             //获取drawables，2/5表示图片要缩小的比例
-            Rect r = new Rect(0, 0, drawables[1].getMinimumWidth() * 1 / 2, drawables[1].getMinimumHeight() * 1 / 2);
+           // Rect r = new Rect(0, 0, drawables[1].getMinimumWidth() * 1 / 2, drawables[1].getMinimumHeight() * 1 / 2);
+            Rect r = new Rect(0, 0, DeviceUtils.dip2px(this,21), DeviceUtils.dip2px(this,21));
             //定义一个Rect边界
             drawables[1].setBounds(r);
             //给每一个RadioButton设置图片大小

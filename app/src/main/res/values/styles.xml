@@ -35,11 +35,12 @@
 
     <style name="tab_style">
         <item name="android:layout_width">0dip</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:background">@null</item>
         <item name="android:button">@null</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:drawablePadding">2dp</item>
     </style>
 
     <style name="take_photo_anim" parent="android:Animation">
