@@ -14,6 +14,7 @@
     <color name="transparents">#00000000</color>
     <color name="down_color">#00000000</color>
     <color name="orange">#FF5722</color>
+    <color name="orange_bg">#ED8D37</color>
     <color name="orange_backg">#FF9845</color>
     <color name="orange_order">#FF9800</color>
     <color name="green">#34D76A</color>
