@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
-import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 

@@ -32,6 +32,7 @@ import com.huacheng.huiservers.ui.fragment.HomeFragment;
 import com.huacheng.huiservers.ui.fragment.MyFragmentNew;
 import com.huacheng.huiservers.ui.fragment.OldFragment;
 import com.huacheng.huiservers.ui.fragment.ShopFragment;
+import com.huacheng.huiservers.ui.index.oldservice.CalendarViewActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
@@ -214,6 +215,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
         }
         EventBus.getDefault().register(this);
         initJpush();
+
     }
 
     private void initJpush() {
@@ -259,6 +261,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
             case R.id.rb_content_fragment_service:
                 switchFragment(2);
                 current_fragment=2;
+                startActivity(new Intent(this, CalendarViewActivity.class));
                 break;
             case R.id.rb_content_fragment_quanzi:
                 switchFragment(3);

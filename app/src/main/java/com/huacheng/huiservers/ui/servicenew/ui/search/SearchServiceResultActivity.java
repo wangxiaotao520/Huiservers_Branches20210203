@@ -22,7 +22,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.servicenew.model.ModelMerchantList;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceItem;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.MerchantServicexAdapter;

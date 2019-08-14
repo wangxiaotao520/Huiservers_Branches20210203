@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.http.MyCookieStore;
-import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.BestpayMerchant;
 import com.huacheng.huiservers.ui.shop.bean.CardPayBean;

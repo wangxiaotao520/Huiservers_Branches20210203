@@ -20,7 +20,7 @@ import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelAds;
-import com.huacheng.huiservers.ui.fragment.bean.ModelServiceIndex;
+import com.huacheng.huiservers.model.ModelServiceIndex;
 import com.huacheng.huiservers.ui.servicenew.model.ModelCategory;
 import com.huacheng.huiservers.ui.servicenew.model.ModelCategoryService;
 import com.huacheng.huiservers.ui.servicenew.model.ModelInfo;

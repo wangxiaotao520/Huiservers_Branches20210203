@@ -169,4 +169,6 @@ android {
 
      implementation(name: 'qmf-ppplugin-android-3.0.4', ext: 'aar')
      implementation project(':banner')
+
+     implementation 'com.haibin:calendarview:3.6.4'
  }

@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.fragment.bean;
+package com.huacheng.huiservers.model;
 
 import java.util.List;
 

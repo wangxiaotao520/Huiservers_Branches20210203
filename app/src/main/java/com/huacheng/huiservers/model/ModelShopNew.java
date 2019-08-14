@@ -1,6 +1,5 @@
 package com.huacheng.huiservers.model;
 
-import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 
 

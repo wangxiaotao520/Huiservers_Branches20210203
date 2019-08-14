@@ -2,7 +2,7 @@ package com.huacheng.huiservers.model.protocol;
 
 import android.text.TextUtils;
 
-import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.index.oldhome.bean.Oldbean;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.LogUtils;

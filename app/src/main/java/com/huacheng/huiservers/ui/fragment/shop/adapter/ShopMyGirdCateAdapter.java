@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
-import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.shop.ShopCateActivity;
 import com.huacheng.huiservers.ui.shop.ShopListActivity;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;

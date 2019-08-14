@@ -14,7 +14,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
  * 时间：2019/8/13 16:35
  * created by DFF
  */
-public class OldUseractivity extends BaseActivity {
+public class OldUserActivity extends BaseActivity {
     private LinearLayout ly_user;
     private TextView tv_btn;
 

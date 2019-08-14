@@ -22,7 +22,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelAds;
 import com.huacheng.huiservers.ui.base.BaseFragment;
-import com.huacheng.huiservers.ui.fragment.bean.ModelServiceIndex;
+import com.huacheng.huiservers.model.ModelServiceIndex;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.model.ModelItem;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.MoreServiceAdapter;

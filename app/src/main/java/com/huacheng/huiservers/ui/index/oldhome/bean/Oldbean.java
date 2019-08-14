@@ -1,6 +1,6 @@
 package com.huacheng.huiservers.ui.index.oldhome.bean;
 
-import com.huacheng.huiservers.ui.fragment.bean.ModelShopIndex;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 
 import java.util.List;

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.index.HomeArticleWebviewActivity;
-import com.huacheng.huiservers.ui.fragment.bean.ModelIndex;
+import com.huacheng.huiservers.model.ModelIndex;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.lidroid.xutils.BitmapUtils;

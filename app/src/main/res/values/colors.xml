@@ -87,6 +87,7 @@
     <color name="red_ff">#FF3939</color>
     <color name="default_red">#FF2035</color>
     <color name="default_blue_a">#CC9EBFDB</color>
+    <color name="default_color">#F1F1F1</color>
 
 
 </resources>
