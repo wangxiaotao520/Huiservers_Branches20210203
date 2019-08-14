@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.index.oldservice;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,11 +18,13 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 public class OldUserActivity extends BaseActivity {
     private LinearLayout ly_user;
     private TextView tv_btn;
+    private TextView tv_right;
 
     @Override
     protected void initView() {
         findTitleViews();
         titleName.setText("切换用户");
+        tv_right = findViewById(R.id.txt_right1);
         tv_right.setText("编辑");
         tv_right.setVisibility(View.VISIBLE);
         tv_right.setTextColor(getResources().getColor(R.color.orange_bg));
@@ -56,6 +59,15 @@ public class OldUserActivity extends BaseActivity {
     @Override
     protected void initListener() {
         tv_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OldUserActivity.this, AddOldUserActivity.class);
+                intent.putExtra("type",1);
+                startActivity(intent);
+
+            }
+        });
+        tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

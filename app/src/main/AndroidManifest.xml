@@ -1045,6 +1045,16 @@
         <activity
             android:name="com.huacheng.huiservers.ui.index.oldservice.AddOldUserActivity"
             android:screenOrientation="portrait" />
+        <!--居家养老添加子女、老人界面-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.oldservice.AddOldRZUserActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+        <!--居家养老老人档案-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.oldservice.OldFileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
         <!--******************************银联支付********************************-->
         <meta-data
             android:name="CurrentEnvironment"
