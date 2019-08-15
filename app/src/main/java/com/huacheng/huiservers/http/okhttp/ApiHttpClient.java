@@ -14,6 +14,7 @@ public class ApiHttpClient {
     public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
     public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
+
 //    //正式
 //   public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
 //    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
