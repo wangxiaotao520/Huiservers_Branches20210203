@@ -120,7 +120,8 @@ public class CommitRequestActivity extends BaseActivity {
                             @Override
                             public void accept(Boolean isGranted) throws Exception {
                                 if (isGranted) {
-                                    jumpToCamera(position);
+                                    //jumpToCamera(position);
+                                    jumpToImageSelector(position);
                                 } else {
                                     SmartToast.showInfo("未打开摄像头权限");
                                 }
@@ -331,10 +332,37 @@ public class CommitRequestActivity extends BaseActivity {
         });
     }
     /**
-     * 跳转到照相机
+     * 跳转到图片选择页
+     *
      * @param position
      */
-    private void jumpToCamera(int position) {
+    private void jumpToImageSelector(int position) {
+        Intent imageIntent = new Intent(this, me.nereo.multi_image_selector.MultiImageSelectorActivity.class);
+        // 是否显示相机
+        imageIntent.putExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
+
+        // 单选多选 (MultiImageSelectorActivity.MODE_SINGLE OR MultiImageSelectorActivity.MODE_SINGLE)
+        imageIntent.putExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_SELECT_MODE, me.nereo.multi_image_selector.MultiImageSelectorActivity.MODE_MULTI);
+        // 默认选择
+
+        ArrayList<String> list_jump = new ArrayList<String>();
+        for (int i = 0; i < photoList.size(); i++) {
+            //只要localpath不为空则说明是刚选上的
+            if (!NullUtil.isStringEmpty(photoList.get(i).getLocal_path())) {
+                list_jump.add(photoList.get(i).getLocal_path());
+            }
+        }
+        imageIntent.putExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 4);
+
+        imageIntent.putExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, list_jump);
+        startActivityForResult(imageIntent, ACT_SELECT_PHOTO);
+    }
+    /**
+     * 跳转到照相机
+     *
+     * @param
+     */
+  /*  private void jumpToCamera(int position) {
         Intent fullIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(fullIntent.resolveActivity(getPackageManager()) != null){
             try {
@@ -363,7 +391,7 @@ public class CommitRequestActivity extends BaseActivity {
             SmartToast.showInfo("没有系统相机");
         }
 
-    }
+    }*/
 
     @Override
     protected int getLayoutId() {
@@ -390,7 +418,7 @@ public class CommitRequestActivity extends BaseActivity {
         if (resultCode != RESULT_OK)
             return;
         switch (requestCode) {
-            case REQUEST_CAMERA:
+        /*    case REQUEST_CAMERA:
                 String back_path = mTmpFile.getAbsolutePath();
                 ModelPhoto modelPhoto = new ModelPhoto();
                 modelPhoto.setLocal_path(back_path);
@@ -399,7 +427,26 @@ public class CommitRequestActivity extends BaseActivity {
                 if (gridviewImgsAdapter != null) {
                     gridviewImgsAdapter.notifyDataSetChanged();
                 }
-                break;
+                break;*/
+                case ACT_SELECT_PHOTO:
+                    if (data != null) {
+                        ArrayList<String> backList = data.getStringArrayListExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_RESULT);
+                        // 删除成功后判断哪些是新图，
+                        photoList.clear();
+
+                        for (int i = 0; i < backList.size(); i++) {
+                            String back_path = backList.get(i);
+                            ModelPhoto modelPhoto1 = new ModelPhoto();
+                            modelPhoto1.setLocal_path(back_path);
+                            photoList.add(modelPhoto1);
+                        }
+                        // 将新图上传
+                        if (gridviewImgsAdapter != null) {
+                            gridviewImgsAdapter.notifyDataSetChanged();
+                        }
+
+                    }
+                    break;
             case ACT_SELECT_HOUSE:
                 if (data != null) {
                     GroupMemberBean item = (GroupMemberBean) data.getSerializableExtra("community");
