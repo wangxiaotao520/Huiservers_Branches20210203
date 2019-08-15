@@ -279,7 +279,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="grey96">#969696</color>
     <color name="greyd2">#d2d2d2</color>
-    <color name="line">#DEDEDE</color>
+    <color name="line">#F5F5F9</color>
     <color name="orange">#ff5722</color>
     <color name="status_bar_color">#474747</color>
     <color name="text_color">#666666</color>

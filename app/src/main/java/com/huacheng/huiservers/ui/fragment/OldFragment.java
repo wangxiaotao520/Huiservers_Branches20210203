@@ -8,9 +8,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.fragment.old.FragmentOldArticle;
@@ -28,7 +31,7 @@ import java.util.List;
  * created by wangxiaotao
  * 2019/8/13 0013 上午 10:58
  */
-public class OldFragment extends BaseFragment{
+public class OldFragment extends BaseFragment implements View.OnClickListener {
 
     private TextView title_name;
     View mStatusBar;
@@ -40,6 +43,23 @@ public class OldFragment extends BaseFragment{
 
     private List<FragmentOldCommonImp> mFragments = new ArrayList<>();
     private FragmentOldCommonImp currentFragment;
+
+    private LinearLayout ll_header;
+    private RelativeLayout rl_title_container;
+    private RelativeLayout rl_healthy; //健康档案
+    private RelativeLayout rl_data;  //智能数据
+    private RelativeLayout rl_warm;  //亲情关怀
+    private RelativeLayout rl_medicine;  //用药提醒
+    private SimpleDraweeView sdv_head; //头像
+    private TextView tv_dad_mom; //身份
+    private TextView tv_name;  //姓名
+    private ImageView iv_sex;  //性别
+    private LinearLayout ll_age_address; //年龄地址
+    private TextView tv_age;  //年龄
+    private TextView tv_address; //地址
+    private TextView tv_change_person;  //切换长者
+    private LinearLayout ll_change_person;
+
     @Override
     public void initView(View view) {
         //状态栏
@@ -55,7 +75,7 @@ public class OldFragment extends BaseFragment{
 
         appBarLayout = view.findViewById(R.id.appbarlayout);
 
-
+        initHeader(view);
 
         mEnhanceTabLayout = view.findViewById(R.id.enhance_tab_layout);
         mViewPager =view. findViewById(R.id.vp_pager);
@@ -85,6 +105,37 @@ public class OldFragment extends BaseFragment{
         });
         mEnhanceTabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mEnhanceTabLayout.getTabLayout()));
+
+        currentFragment = mFragments.get(0);
+    }
+
+    /**
+     * 初始化头布局
+     */
+    private void initHeader(View view) {
+        ll_header = view.findViewById(R.id.ll_header);
+        rl_title_container = view.findViewById(R.id.rl_title_container);
+        sdv_head = view.findViewById(R.id.sdv_head);
+        tv_dad_mom = view.findViewById(R.id.tv_dad_mom);
+        tv_name = view.findViewById(R.id.tv_name);
+        iv_sex = view.findViewById(R.id.iv_sex);
+        ll_age_address = view.findViewById(R.id.ll_age_address);
+        tv_age = view.findViewById(R.id.tv_age);
+        tv_address = view.findViewById(R.id.tv_address);
+        ll_change_person = view.findViewById(R.id.ll_change_person);
+        tv_change_person = view.findViewById(R.id.tv_change_person);
+
+//        rl_title_container.setBackgroundResource(R.mipmap.bg_old_orange);
+//        ll_change_person.setBackgroundResource(R.drawable.all_shape_round_shadow_left_orange);
+        iv_sex.setVisibility(View.GONE);
+        tv_dad_mom.setVisibility(View.GONE);
+        ll_age_address.setVisibility(View.GONE);
+        tv_name.setText("暂未认证");
+
+        rl_healthy = view.findViewById(R.id.rl_healthy);
+        rl_data = view.findViewById(R.id.rl_data);
+        rl_warm = view.findViewById(R.id.rl_warm);
+        rl_medicine = view.findViewById(R.id.rl_medicine);
     }
 
     @Override
@@ -128,6 +179,10 @@ public class OldFragment extends BaseFragment{
 
             }
         });
+        rl_healthy.setOnClickListener(this);
+        rl_data.setOnClickListener(this);
+        rl_warm.setOnClickListener(this);
+        rl_medicine.setOnClickListener(this);
     }
 
     @Override
@@ -138,5 +193,21 @@ public class OldFragment extends BaseFragment{
     @Override
     public int getLayoutId() {
         return R.layout.fragment_old;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.rl_healthy:
+                break;
+            case R.id.rl_data:
+                break;
+            case R.id.rl_warm:
+                break;
+            case R.id.rl_medicine:
+                break;
+                default:
+                    break;
+        }
     }
 }
