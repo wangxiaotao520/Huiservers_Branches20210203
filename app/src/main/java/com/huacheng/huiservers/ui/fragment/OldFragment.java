@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -19,6 +20,8 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.fragment.old.FragmentOldArticle;
 import com.huacheng.huiservers.ui.fragment.old.FragmentOldCommonImp;
 import com.huacheng.huiservers.ui.fragment.old.FragmentOldHuodong;
+import com.huacheng.huiservers.ui.index.oldservice.CalendarViewActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldServiceWarmActivity;
 import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -203,8 +206,10 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
             case R.id.rl_data:
                 break;
             case R.id.rl_warm:
+                startActivity(new Intent(mActivity, OldServiceWarmActivity.class));
                 break;
             case R.id.rl_medicine:
+                startActivity(new Intent(mActivity, CalendarViewActivity.class));
                 break;
                 default:
                     break;

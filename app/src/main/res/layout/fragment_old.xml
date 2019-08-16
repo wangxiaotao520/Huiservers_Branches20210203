@@ -162,7 +162,7 @@
                             <ImageView
                                 android:layout_width="5dp"
                                 android:layout_height="9dp"
-                                android:background="@mipmap/ic_arrow_right"
+                                android:background="@mipmap/ic_arrow_right_white"
                                 android:layout_marginLeft="6dp"
                                 android:layout_gravity="center_vertical" />
                         </LinearLayout>
