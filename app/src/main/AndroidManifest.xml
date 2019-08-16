@@ -1088,5 +1088,8 @@
         <activity
             android:name=".ui.index.oldservice.CalendarViewActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.index.oldservice.OldServiceWarmActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

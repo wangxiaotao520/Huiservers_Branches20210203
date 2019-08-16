@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/windowbackground"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_head"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            fresco:placeholderImage="@drawable/ic_default_head"
+            fresco:roundAsCircle="true"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:actualImageScaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/sdv_head"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="社区管家-张无忌"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="#ed8d37"
+                android:textStyle="normal" />
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2018.06.01 14:22:22"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_hint"
+                android:layout_marginTop="3dp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_below="@id/sdv_head"
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:助理都很相似!蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:.."
+            android:textSize="16sp"
+            android:textColor="@color/title_color"
+            android:layout_marginTop="15dp"
+            android:textStyle="normal" />
+
+            <FrameLayout
+                android:layout_below="@id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+                <ImageView
+                    android:id="@+id/iv_single_img"
+                    android:layout_width="175dp"
+                    android:scaleType="centerCrop"
+                    android:layout_height="175dp" />
+                <com.huacheng.huiservers.ui.index.oldservice.adapter.MyNineGridLayout
+                    android:id="@+id/nine_grid_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:sapcing="4dp"
+                    />
+            </FrameLayout>
+    </RelativeLayout>
+
+</LinearLayout>
