@@ -111,7 +111,10 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
                 addOldAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_btn:
-                Intent intent = new Intent(OldUserActivity.this, AddOldUserActivity.class);
+               /* Intent intent = new Intent(OldUserActivity.this, AddOldUserActivity.class);
+                intent.putExtra("type", 1);
+                startActivity(intent);*/
+                Intent intent = new Intent(OldUserActivity.this, ChargeHistoryActivity.class);
                 intent.putExtra("type", 1);
                 startActivity(intent);
                 break;
