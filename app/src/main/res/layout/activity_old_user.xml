@@ -17,7 +17,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.huacheng.huiservers.view.MyListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15">
+
+            </com.huacheng.huiservers.view.MyListView>
+
+          <!--  <LinearLayout
                 android:id="@+id/ly_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -26,15 +35,15 @@
                 android:orientation="vertical">
 
             </LinearLayout>
-
+-->
             <TextView
                 android:id="@+id/tv_btn"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginBottom="35dp"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:layout_marginRight="@dimen/margin_15"
                 android:layout_marginTop="35dp"
-                android:layout_marginBottom="35dp"
                 android:background="@drawable/shape_stroke_orange_btn"
                 android:gravity="center"
                 android:text="添加长者"

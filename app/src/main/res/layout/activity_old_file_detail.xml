@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowbackground"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/titlebar_center"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="体检类型"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_tijian_type"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="体检时间"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_tijian_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="血压"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_xueya"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="血氧"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_xueyang"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="血糖"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_xuetang"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blue_bg"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="心率"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_xinlv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="心电图"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="287dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:background="@mipmap/ic_launcher"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:text="体检描述"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_tijian_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:gravity="center_vertical|right"
+                    android:text="心律不齐，患有轻微的新长辈啊啊啊啊啊啊啊啊啊啊"
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

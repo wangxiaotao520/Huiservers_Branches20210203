@@ -9,6 +9,7 @@
     >
 
     <RelativeLayout
+        android:id="@+id/ry_yinying"
         android:layout_marginTop="@dimen/margin"
         android:layout_width="match_parent"
         android:layout_height="90dp"
@@ -54,6 +55,7 @@
 
             <LinearLayout
                 android:id="@+id/ly_delete"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

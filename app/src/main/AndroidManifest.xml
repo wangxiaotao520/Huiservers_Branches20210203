@@ -1053,8 +1053,15 @@
         <!--居家养老老人档案-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.oldservice.OldFileActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:screenOrientation="portrait"/>
+        <!--居家养老老人档案体检记录-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.oldservice.OldFileDetailActivity"
+            android:screenOrientation="portrait"/>
+        <!--资讯详情-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.oldservice.ZXDetailActivity"
+            android:screenOrientation="portrait" />
         <!--******************************银联支付********************************-->
         <meta-data
             android:name="CurrentEnvironment"

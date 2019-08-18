@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowbackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_15"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin"
+        android:background="@drawable/allshape_white"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_orangebg_top_5"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_15">
+
+            <TextView
+                android:id="@+id/item_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="体检记录1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/t_14sp"/>
+
+
+            <LinearLayout
+                android:id="@+id/ly_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:gravity="center_vertical|right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="查看详情"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:background="@mipmap/ic_arrow_right_white"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/windowbackground"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="体检类型"
+                android:textColor="@color/gray_99"
+                android:textSize="@dimen/t_14sp"/>
+
+            <TextView
+                android:id="@+id/tv_tijian_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:gravity="center_vertical|right"
+                android:text="rtuyrturts"
+                android:textColor="@color/blackgray"
+                android:textSize="@dimen/t_14sp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/windowbackground"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="体检时间"
+                android:textColor="@color/gray_99"
+                android:textSize="@dimen/t_14sp"/>
+
+            <TextView
+                android:id="@+id/tv_tijian_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:gravity="center_vertical|right"
+                android:text="dgsdgsdgsd"
+                android:textColor="@color/blackgray"
+                android:textSize="@dimen/t_14sp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/windowbackground"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/margin_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="体检描述"
+                android:layout_gravity="top"
+                android:textColor="@color/gray_99"
+                android:textSize="@dimen/t_14sp"/>
+
+            <TextView
+                android:id="@+id/tv_tijian_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin"
+                android:gravity="center_vertical|right"
+                android:text="心律不齐，患有轻微的新长辈啊啊啊啊啊啊啊啊啊啊"
+                android:textColor="@color/blackgray"
+                android:textSize="@dimen/t_14sp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

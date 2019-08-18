@@ -21,7 +21,9 @@ import com.huacheng.huiservers.ui.fragment.old.FragmentOldArticle;
 import com.huacheng.huiservers.ui.fragment.old.FragmentOldCommonImp;
 import com.huacheng.huiservers.ui.fragment.old.FragmentOldHuodong;
 import com.huacheng.huiservers.ui.index.oldservice.CalendarViewActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldFileActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldServiceWarmActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldUserActivity;
 import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -186,6 +188,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         rl_data.setOnClickListener(this);
         rl_warm.setOnClickListener(this);
         rl_medicine.setOnClickListener(this);
+        ll_change_person.setOnClickListener(this);
     }
 
     @Override
@@ -202,6 +205,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rl_healthy:
+                startActivity(new Intent(mActivity, OldFileActivity.class));
                 break;
             case R.id.rl_data:
                 break;
@@ -210,6 +214,9 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.rl_medicine:
                 startActivity(new Intent(mActivity, CalendarViewActivity.class));
+                break;
+            case R.id.ll_change_person:
+                startActivity(new Intent(mActivity, OldUserActivity.class));
                 break;
                 default:
                     break;

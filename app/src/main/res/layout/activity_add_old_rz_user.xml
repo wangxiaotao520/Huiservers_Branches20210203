@@ -18,7 +18,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/ll_sf"
+                android:id="@+id/ly_sf"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+               >
 
                 <LinearLayout
                     android:id="@+id/ly_jigou"
@@ -130,6 +130,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ly_old_name"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_50"
                     android:background="@color/white"
@@ -194,6 +195,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ly_old_phobe"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_50"
                     android:background="@color/white"
@@ -230,9 +232,11 @@
                 android:id="@+id/ly_chlid_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
+                    android:id="@+id/ly_child_name"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_50"
                     android:background="@color/white"
@@ -264,8 +268,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ly_child_phone"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_50"
+                    android:layout_marginTop="1dp"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -279,7 +285,7 @@
                         android:textSize="@dimen/t_16sp"/>
 
                     <EditText
-                        android:id="@+id/et_old_phone"
+                        android:id="@+id/et_child_phone"
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="21dp"
@@ -295,8 +301,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ly_old_chengwei"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_50"
+                    android:layout_marginTop="1dp"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
