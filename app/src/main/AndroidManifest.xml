@@ -1114,5 +1114,8 @@
             android:name=".ui.index.charge.ChargeScanActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".ui.index.charge.ChargingActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

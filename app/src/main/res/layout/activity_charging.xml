@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/windowbackground">
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#61b3fe"/>
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="#61b3fe"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/lin_left"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:padding="15dp">
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="18dp"
+                android:background="@mipmap/arrow_left" />
+        </LinearLayout>
+
+        <TextView
+
+            android:id="@+id/title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:maxEms="10"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:text="慧充电"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#61b3fe"
+        android:paddingBottom="25dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.littlejie.circleprogress.DialProgress
+                android:id="@+id/dial_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="250dp"
+               android:layout_centerHorizontal="true"
+                app:animTime="2000"
+                app:arcColors="@array/gradient_arc_color"
+                app:arcWidth="@dimen/large"
+                app:dialIntervalDegree="3"
+                app:dialWidth="2dp"
+                app:maxValue="100"
+                app:startAngle="135"
+                app:dialColor="#61b3fe"
+                app:sweepAngle="270"
+                app:bgArcColor="@color/white"
+                app:unitSize="0dp"
+                app:valueSize="0dp" />
+
+            <TextView
+                android:id="@+id/tv_count_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="40sp"
+                android:text="00:00:00"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:layout_marginTop="95dp"
+                />
+            <TextView
+                android:id="@+id/tv_center"
+                android:layout_below="@id/tv_count_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="充电中..."
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:layout_marginTop="15dp"
+                />
+            <TextView
+                android:layout_below="@id/tv_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="联系客服"
+                android:layout_centerHorizontal="true"
+                android:textColor="#61B3FE"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/allshape_white_35"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:gravity="center"
+                />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

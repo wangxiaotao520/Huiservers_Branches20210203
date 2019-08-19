@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--刻度进度条渐变色，可以定制，这里设置成这个颜色-->
+    <integer-array name="gradient_arc_color">
+    <item>@color/arc_green</item>
+    <item>@color/arc_green</item>
+    <item>@color/arc_green</item>
+    </integer-array>
+</resources>

@@ -87,6 +87,64 @@ public class StringUtils {
             return s + "秒";
         }
     }
+    //将时间转成时分秒
+    public static String changeTime2(int second) {
+        int h = 0;
+        int d = 0;
+        int s = 0;
+        int temp = second % 3600;
+        if (second > 3600) {
+            h = second / 3600;
+            if (temp != 0) {
+                if (temp > 60) {
+                    d = temp / 60;
+                    if (temp % 60 != 0) {
+                        s = temp % 60;
+                    }
+                } else {
+                    s = temp;
+                }
+            }
+        } else {
+            d = second / 60;
+            if (second % 60 != 0) {
+                s = second % 60;
+            }
+        }
+        String h_return = "00";
+        String d_return = "00";
+        String s_return = "00";
+        if (h>0){
+            if (h<10){
+                h_return="0" +h;
+            }else {
+                h_return="" +h;
+            }
+
+        }
+        if (d>0){
+            if (d<10){
+                d_return="0" +d;
+            }else {
+                d_return="" +d;
+            }
+        }
+        if (s>0){
+            if (s<10){
+                s_return="0" +s;
+            }else {
+                s_return="" +s;
+            }
+        }
+//        if (h > 0) {
+//            return h + ":" + d + ":" + s ;
+//        } else if (d > 0) {
+//            return "00" + ":"+d + ":" + s ;
+//        } else {
+//            return "00" + ":"+ "00"+ ":"+s ;
+//        }
+        return ""+h_return + ":"+d_return + ":"+s_return;
+    }
 
     /**
      * px转换dip

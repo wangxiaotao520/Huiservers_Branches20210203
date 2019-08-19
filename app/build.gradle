@@ -171,4 +171,5 @@ android {
      implementation project(':banner')
 
      implementation 'com.haibin:calendarview:3.6.4'
+     implementation project(':circleprogress')
  }
