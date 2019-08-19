@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.index.oldservice;
+package com.huacheng.huiservers.ui.index.charge;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.ModelOldFile;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.index.oldservice.adapter.ChargeHistoryAdapter;
+import com.huacheng.huiservers.ui.index.charge.adapter.ChargeHistoryAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -35,6 +35,7 @@ public class ChargeHistoryActivity extends BaseActivity {
     @Override
     protected void initView() {
         findTitleViews();
+        titleName.setText("充电记录");
         mListview = findViewById(R.id.listview);
         mRefreshLayout = findViewById(R.id.refreshLayout);
         mRelNoData = findViewById(R.id.rel_no_data);
@@ -76,7 +77,8 @@ public class ChargeHistoryActivity extends BaseActivity {
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(ChargeHistoryActivity.this,ChargeDetailActivity.class);
+                //Intent intent=new Intent(ChargeHistoryActivity.this,ChargeDetailActivity.class);
+                Intent intent=new Intent(ChargeHistoryActivity.this,ChargeMessageActivity.class);
                 startActivity(intent);
             }
         });

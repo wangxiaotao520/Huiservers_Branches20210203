@@ -1064,11 +1064,15 @@
             android:screenOrientation="portrait" />
         <!--充电记录-->
         <activity
-            android:name="com.huacheng.huiservers.ui.index.oldservice.ChargeHistoryActivity"
+            android:name="com.huacheng.huiservers.ui.index.charge.ChargeHistoryActivity"
             android:screenOrientation="portrait" />
         <!--充电记录-->
         <activity
-            android:name="com.huacheng.huiservers.ui.index.oldservice.ChargeDetailActivity"
+            android:name="com.huacheng.huiservers.ui.index.charge.ChargeDetailActivity"
+            android:screenOrientation="portrait" />
+        <!--充电消息-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.charge.ChargeMessageActivity"
             android:screenOrientation="portrait" />
         <!--******************************银联支付********************************-->
         <meta-data

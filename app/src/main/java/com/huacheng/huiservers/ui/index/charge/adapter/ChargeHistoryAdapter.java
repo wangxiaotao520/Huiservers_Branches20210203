@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.index.oldservice.adapter;
+package com.huacheng.huiservers.ui.index.charge.adapter;
 
 import android.content.Context;
 import android.widget.TextView;
@@ -26,8 +26,8 @@ public class ChargeHistoryAdapter extends CommonAdapter<ModelOldFile> {
 
         viewHolder.<TextView>getView(R.id.tv_time).setText("时间");
         viewHolder.<TextView>getView(R.id.tv_status).setText("进行中");
-        viewHolder.<TextView>getView(R.id.tv_shichang).setText("充电时长    "+"05:44:22");
-        viewHolder.<TextView>getView(R.id.tv_price).setText("消费              "+"5元");
+        viewHolder.<TextView>getView(R.id.tv_shichang).setText("05:44:22");
+        viewHolder.<TextView>getView(R.id.tv_price).setText("5元");
 
     }
 }

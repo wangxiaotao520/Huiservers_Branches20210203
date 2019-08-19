@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_15"
-        android:background="@drawable/allshape_white"
+        android:background="@drawable/layer_shadow"
         android:orientation="vertical"
         android:padding="@dimen/margin_15">
 
@@ -49,15 +49,22 @@
             <ImageView
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:background="@mipmap/ic_launcher"/>
+                android:background="@mipmap/ic_charge_time"/>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:text="充电时长"
+                android:textColor="@color/gray_66"
+                android:textSize="@dimen/t_14sp"/>
 
             <TextView
                 android:id="@+id/tv_shichang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="@dimen/margin_15"
-                android:text="充电时长    05:44:22"
+                android:text="05:44:22"
                 android:textColor="@color/gray_66"
                 android:textSize="@dimen/t_14sp"/>
         </LinearLayout>
@@ -72,15 +79,24 @@
             <ImageView
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:background="@mipmap/ic_launcher"/>
+                android:background="@mipmap/ic_charge_money"/>
+
+            <TextView
+
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:text="消费"
+                android:textColor="@color/gray_66"
+                android:textSize="@dimen/t_14sp"/>
 
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="@dimen/margin_15"
-                android:text="消费              5元"
+                android:text="5元"
                 android:textColor="@color/gray_66"
                 android:textSize="@dimen/t_14sp"/>
         </LinearLayout>
