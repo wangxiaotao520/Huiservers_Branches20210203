@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 类描述：
+ * 类描述：所有充电消息记录列表
  * 时间：2019/8/19 08:56
  * created by DFF
  */

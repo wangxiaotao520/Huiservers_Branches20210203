@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.index.charge.ChargeHistoryActivity;
+import com.huacheng.huiservers.ui.index.charge.ChargeGridviewActivity;
 
 /**
  * 类描述：居家养老 关联账户/切换长者
@@ -120,8 +120,8 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
                /* Intent intent = new Intent(OldUserActivity.this, AddOldUserActivity.class);
                 intent.putExtra("type", 1);
                 startActivity(intent);*/
-                Intent intent = new Intent(OldUserActivity.this, ChargeHistoryActivity.class);
-                intent.putExtra("type", 1);
+                //  Intent intent = new Intent(OldUserActivity.this, ChargeHistoryActivity.class);
+                Intent intent = new Intent(OldUserActivity.this, ChargeGridviewActivity.class);
                 startActivity(intent);
                 break;
             default:

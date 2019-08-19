@@ -11,7 +11,7 @@ import com.zhy.adapter.abslistview.ViewHolder;
 import java.util.List;
 
 /**
- * 类描述：
+ * 类描述：充电记录adapter
  * 时间：2019/8/18 11:39
  * created by DFF
  */

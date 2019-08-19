@@ -1074,6 +1074,10 @@
         <activity
             android:name="com.huacheng.huiservers.ui.index.charge.ChargeMessageActivity"
             android:screenOrientation="portrait" />
+        <!--充电桩-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.charge.ChargeGridviewActivity"
+            android:screenOrientation="portrait" />
         <!--******************************银联支付********************************-->
         <meta-data
             android:name="CurrentEnvironment"
