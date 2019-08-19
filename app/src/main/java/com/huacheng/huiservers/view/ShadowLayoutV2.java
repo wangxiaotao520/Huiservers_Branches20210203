@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import com.huacheng.huiservers.R;
 
 /**
- * ShadowLayout.java
+ * ShadowLayout.java 这个不要用
  * <p>
  * Created by lijiankun on 17/8/11.
  */

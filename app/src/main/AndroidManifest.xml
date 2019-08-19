@@ -1106,6 +1106,9 @@
         <activity
             android:name=".ui.index.oldservice.OldServiceWarmActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.index.charge.ChargeScanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
     </application>
 </manifest>
