@@ -29,9 +29,15 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
-                fresco:placeholderImage="@color/windowbackground"
+                android:layout_marginBottom="10dp"
+                fresco:placeholderImage="@mipmap/bg_charge_banner"
+                fresco:placeholderImageScaleType="fitXY"
                 fresco:roundAsCircle="false"
-                fresco:roundedCornerRadius="5dp" />
+                fresco:roundedCornerRadius="5dp"
+                fresco:roundBottomRight="true"
+                fresco:roundBottomLeft="true"
+                fresco:roundTopLeft="true"
+                fresco:roundTopRight="true" />
         </FrameLayout>
 
         <FrameLayout
@@ -45,7 +51,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
                 <com.huacheng.huiservers.view.ShadowLayout
                     android:id="@+id/sl_message"

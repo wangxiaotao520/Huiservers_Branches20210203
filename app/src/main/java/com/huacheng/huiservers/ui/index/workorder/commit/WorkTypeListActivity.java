@@ -16,7 +16,6 @@ import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,9 +24,8 @@ import java.util.List;
  * created by wangxiaotao
  * 2019/4/9 0009 下午 5:22
  */
-public class WorkTypeListActivity extends BaseListActivity {
-    List <ModelWorkPersonalCatItem> mDatas = new ArrayList<>();
-    private AdapterWorkType adapterWorkType;
+public class WorkTypeListActivity extends BaseListActivity<ModelWorkPersonalCatItem> {
+
     private  String type="1";
 
     @Override
@@ -37,8 +35,8 @@ public class WorkTypeListActivity extends BaseListActivity {
         titleName.setText("选择分类");
         mRefreshLayout.setEnableRefresh(false);
         mRefreshLayout.setEnableLoadMore(false);
-        adapterWorkType = new AdapterWorkType(this, R.layout.item_work_type, mDatas);
-        mListview.setAdapter(adapterWorkType);
+        mAdapter = new AdapterWorkType(this, R.layout.item_work_type, mDatas);
+        mListview.setAdapter(mAdapter);
 
     }
 
@@ -54,7 +52,7 @@ public class WorkTypeListActivity extends BaseListActivity {
                     List <ModelWorkPersonalCatItem>data = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelWorkPersonalCatItem.class);
                     mDatas.clear();
                     mDatas.addAll(data);
-                    adapterWorkType.notifyDataSetChanged();
+                    mAdapter.notifyDataSetChanged();
                     if (mDatas.size()==0){
                         mRelNoData.setVisibility(View.VISIBLE);
                     }

@@ -1121,5 +1121,8 @@
         <activity
             android:name=".ui.index.charge.ChargingActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.index.oldservice.OldMessageActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

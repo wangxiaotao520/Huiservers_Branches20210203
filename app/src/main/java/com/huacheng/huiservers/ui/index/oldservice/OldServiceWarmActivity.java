@@ -8,31 +8,27 @@ import com.huacheng.huiservers.model.ModelItemServiceWarm;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
 import com.huacheng.huiservers.ui.index.oldservice.adapter.AdapterOldServiceWarm;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Description: 亲情关怀
  * created by wangxiaotao
  * 2019/8/15 0015 下午 5:51
  */
-public class OldServiceWarmActivity extends BaseListActivity{
-    private AdapterOldServiceWarm adapter;
-    private List<ModelItemServiceWarm> mDatas = new ArrayList<>();
+public class OldServiceWarmActivity extends BaseListActivity<ModelItemServiceWarm>{
+
 
     @Override
     protected void initView() {
         super.initView();
         titleName.setText("亲情关怀");
-        adapter = new AdapterOldServiceWarm(this,R.layout.item_service_warm,mDatas);
-        mListview.setAdapter(adapter);
+        mAdapter = new AdapterOldServiceWarm(this,R.layout.item_service_warm,mDatas);
+        mListview.setAdapter(mAdapter);
     }
 
     @Override
     protected void requestData() {
         //TODO 测试
         initListData();
-        adapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

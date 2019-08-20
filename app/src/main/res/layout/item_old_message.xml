@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:background="@color/windowbackground"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/allshape_white"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="15dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="18dp"
+            >
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="对方请求关联您的账号"
+                android:textColor="@color/title_color"
+                android:textSize="16sp" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="等待认证"
+                android:textColor="@color/gray_99"
+                android:layout_marginRight="15dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="5dp">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_head"
+                android:layout_width="57dp"
+                android:layout_height="57dp"
+                android:layout_gravity="center"
+                fresco:placeholderImage="@drawable/ic_default_head"
+                fresco:roundAsCircle="true"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:actualImageScaleType="centerCrop" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp">
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="韦一笑"
+                    android:textColor="@color/title_color"
+
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tv_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="慧生活账号：18257100691"
+                    android:textColor="@color/gray_66"
+                    android:layout_marginTop="2dp"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_agree_reject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            android:gravity="right">
+            <TextView
+                android:id="@+id/tv_agree"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:text="同意"
+                android:textColor="@color/title_color"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:background="@drawable/allshape_stroke_grey_old_message"
+                android:layout_marginRight="15dp" />
+            <TextView
+                android:id="@+id/tv_reject"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:text="拒绝"
+                android:gravity="center"
+                android:textColor="@color/title_color"
+                android:background="@drawable/allshape_stroke_grey_old_message"
+                android:layout_marginRight="15dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

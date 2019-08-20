@@ -7,22 +7,27 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.huacheng.huiservers.R;
-
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.zhy.adapter.abslistview.CommonAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 类描述：通用列表base
  * 时间：2018/12/12 16:08
  * created by DFF
  */
-public abstract class BaseListActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public abstract class BaseListActivity <T>extends BaseActivity implements AdapterView.OnItemClickListener {
     protected int page = 1;
     protected ListView mListview;
     protected SmartRefreshLayout mRefreshLayout;
     protected RelativeLayout mRelNoData;
+    protected List<T> mDatas = new ArrayList<>();
+    protected CommonAdapter mAdapter ;
 
     @Override
     protected void initView() {

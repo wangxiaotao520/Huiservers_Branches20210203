@@ -16,7 +16,6 @@ import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,9 +24,9 @@ import java.util.List;
  * created by wangxiaotao
  * 2019/4/9 0009 下午 5:46
  */
-public class HouseListActivity  extends BaseListActivity {
-    List<GroupMemberBean> mDatas = new ArrayList<>();
-    AdapterHouseList adapterHouseList ;
+public class HouseListActivity  extends BaseListActivity <GroupMemberBean>{
+
+
 
     @Override
     protected void initView() {
@@ -35,8 +34,8 @@ public class HouseListActivity  extends BaseListActivity {
         titleName.setText("选择房屋地址");
         mRefreshLayout.setEnableRefresh(false);
         mRefreshLayout.setEnableLoadMore(false);
-        adapterHouseList = new AdapterHouseList(this, R.layout.item_house_list,mDatas);
-        mListview.setAdapter(adapterHouseList);
+        mAdapter = new AdapterHouseList(this, R.layout.item_house_list,mDatas);
+        mListview.setAdapter(mAdapter);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class HouseListActivity  extends BaseListActivity {
                     List <GroupMemberBean>data = JsonUtil.getInstance().getDataArrayByName(response, "data", GroupMemberBean.class);
                     mDatas.clear();
                     mDatas.addAll(data);
-                    adapterHouseList.notifyDataSetChanged();
+                    mAdapter.notifyDataSetChanged();
                     if (mDatas.size()==0){
                         mRelNoData.setVisibility(View.VISIBLE);
                     }

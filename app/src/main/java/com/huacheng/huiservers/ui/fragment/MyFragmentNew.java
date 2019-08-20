@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.circle.MyCircleActivity;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
@@ -69,6 +71,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
     private String login_type;
     PersoninfoBean bean;
     View mStatusBar;
+    private ImageView iv_message;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,8 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
         mStatusBar.setAlpha((float)1);
 
+        iv_message = view.findViewById(R.id.iv_message);
+
     }
 
     @Override
@@ -139,6 +144,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 requestData();
             }
         });
+        iv_message.setOnClickListener(this);
 
     }
 
@@ -316,6 +322,10 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.rel_house://我的房产
                 intent = new Intent(mActivity, MyHousePropertyActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.iv_message://消息
+                intent = new Intent(mActivity, OldMessageActivity.class);
                 startActivity(intent);
                 break;
 

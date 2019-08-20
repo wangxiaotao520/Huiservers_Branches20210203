@@ -26,9 +26,9 @@
             android:padding="15dp">
 
             <ImageView
-                android:layout_width="17dp"
+                android:layout_width="12dp"
                 android:layout_height="18dp"
-                android:background="@mipmap/arrow_left" />
+                android:background="@mipmap/ic_arrow_left_white" />
         </LinearLayout>
 
         <TextView

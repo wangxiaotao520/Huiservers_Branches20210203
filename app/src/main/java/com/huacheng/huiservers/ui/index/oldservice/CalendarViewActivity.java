@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.index.oldservice;
 
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.MedicineNoticeDialog;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -96,6 +98,12 @@ public class CalendarViewActivity extends BaseActivity implements CalendarView.O
                 if (calendarView!=null) {
                     calendarView.scrollToNext();
                 }
+            }
+        });
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                new MedicineNoticeDialog(mContext).show();
             }
         });
     }
