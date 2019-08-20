@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/windowbackground">
+
     <View
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
@@ -31,7 +32,6 @@
         </LinearLayout>
 
         <TextView
-
             android:id="@+id/title_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,80 +44,202 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-
-
     </RelativeLayout>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#61b3fe"
-        android:paddingBottom="25dp">
-        <RelativeLayout
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.littlejie.circleprogress.DialProgress
-                android:id="@+id/dial_progress_bar"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_height="250dp"
-               android:layout_centerHorizontal="true"
-                app:animTime="2000"
-                app:arcColors="@array/gradient_arc_color"
-                app:arcWidth="@dimen/large"
-                app:dialIntervalDegree="3"
-                app:dialWidth="2dp"
-                app:maxValue="100"
-                app:startAngle="135"
-                app:dialColor="#61b3fe"
-                app:sweepAngle="270"
-                app:bgArcColor="@color/white"
-                app:unitSize="0dp"
-                app:valueSize="0dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#61b3fe"
+                android:paddingBottom="10dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.littlejie.circleprogress.DialProgress
+                        android:id="@+id/dial_progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_height="250dp"
+                        android:layout_centerHorizontal="true"
+                        app:animTime="2000"
+                        app:arcColors="@array/gradient_arc_color"
+                        app:arcWidth="@dimen/large"
+                        app:dialIntervalDegree="3"
+                        app:dialWidth="2dp"
+                        app:maxValue="100"
+                        app:startAngle="135"
+                        app:dialColor="#61b3fe"
+                        app:sweepAngle="270"
+                        app:bgArcColor="@color/white"
+                        app:unitSize="0dp"
+                        app:valueSize="0dp" />
+
+                    <TextView
+                        android:id="@+id/tv_count_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="40sp"
+                        android:text="00:00:00"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="95dp" />
+                    <TextView
+                        android:id="@+id/tv_center"
+                        android:layout_below="@id/tv_count_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="充电中..."
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="15dp" />
+                    <TextView
+                        android:id="@+id/tv_kefu"
+                        android:layout_below="@id/tv_center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:text="联系客服"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="#61B3FE"
+                        android:layout_marginTop="28dp"
+                        android:background="@drawable/allshape_white_35"
+                        android:paddingBottom="6dp"
+                        android:paddingTop="6dp"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp"
+                        android:gravity="center" />
+
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="85dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:text="预付金额"
+                                android:textSize="12sp" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center_horizontal">
+                                <TextView
+                                    android:id="@+id/tv_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:text="2"
+                                    android:textSize="30sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="元"
+                                    android:gravity="center"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="85dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:text="预充时长"
+                                android:textSize="12sp" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center_horizontal">
+                                <TextView
+                                    android:id="@+id/tv_time_long"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:text="06:00"
+                                    android:textSize="30sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="小时"
+                                    android:gravity="center"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </FrameLayout>
+
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_count_up"
+                android:id="@+id/tv_finish_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="40sp"
-                android:text="00:00:00"
-                android:layout_centerHorizontal="true"
+                android:text="结束充电"
                 android:textColor="@color/white"
-                android:layout_marginTop="95dp"
-                />
+                android:textSize="18sp"
+                android:paddingLeft="69dp"
+                android:paddingRight="69dp"
+                android:gravity="center_horizontal"
+                android:paddingTop="16dp"
+                android:background="@mipmap/bg_charge_finish"
+                android:layout_marginTop="65dp"
+                android:layout_gravity="center_horizontal" />
             <TextView
-                android:id="@+id/tv_center"
-                android:layout_below="@id/tv_count_up"
+                android:id="@+id/tv_equip_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="充电中..."
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:layout_marginTop="15dp"
-                />
-            <TextView
-                android:layout_below="@id/tv_center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="联系客服"
-                android:layout_centerHorizontal="true"
-                android:textColor="#61B3FE"
-                android:layout_marginTop="28dp"
-                android:background="@drawable/allshape_white_35"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
+                android:text="充电桩：4937511634；6号插座"
+                android:textColor="@color/gray_99"
+                android:textSize="14sp"
                 android:gravity="center"
-                />
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
 
-        </RelativeLayout>
+    </ScrollView>
 
 
-    </LinearLayout>
 
 </LinearLayout>

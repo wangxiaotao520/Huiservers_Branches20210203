@@ -37,12 +37,15 @@ public class ChargingActivity  extends BaseActivity implements View.OnClickListe
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (isMax){
-                        mDialProgress.setValue(1);
-                    }else {
-                        mDialProgress.setValue(mDialProgress.getMaxValue());
-                    }
+//                    if (isMax){
+//                        mDialProgress.setValue(1);
+//
+//                    }else {
+//                        mDialProgress.setValue(mDialProgress.getMaxValue());
+//                    }
                     isMax=!isMax;
+
+                    mDialProgress.startAnimator(0,1,2000);
                 }
             });
         }
@@ -61,7 +64,12 @@ public class ChargingActivity  extends BaseActivity implements View.OnClickListe
             super.handleMessage(msg);
         }
     };
-    private TextView tv_count_up;
+    private TextView tv_count_up;  //计时显示
+    private TextView tv_kefu;
+    private TextView tv_price;
+    private TextView tv_time_long;
+    private TextView tv_finish_btn;
+    private TextView tv_equip_id; //充电桩编号
 
 
     @Override
@@ -78,6 +86,12 @@ public class ChargingActivity  extends BaseActivity implements View.OnClickListe
         lin_left = findViewById(R.id.lin_left);
         mDialProgress=findViewById(R.id.dial_progress_bar);
         tv_count_up = findViewById(R.id.tv_count_up);
+
+        tv_kefu = findViewById(R.id.tv_kefu);
+        tv_price = findViewById(R.id.tv_price);
+        tv_time_long = findViewById(R.id.tv_time_long);
+        tv_finish_btn = findViewById(R.id.tv_finish_btn);
+        tv_equip_id = findViewById(R.id.tv_equip_id);
     }
 
     @Override
@@ -95,6 +109,8 @@ public class ChargingActivity  extends BaseActivity implements View.OnClickListe
     @Override
     protected void initListener() {
         lin_left.setOnClickListener(this);
+        tv_kefu.setOnClickListener(this);
+        tv_finish_btn.setOnClickListener(this);
     }
 
     @Override
@@ -122,6 +138,12 @@ public class ChargingActivity  extends BaseActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.lin_left:
                 finish();
+                break;
+            case R.id.tv_kefu:
+                //联系客服
+                break;
+            case R.id.tv_finish_btn:
+               //结束充电
                 break;
         }
     }

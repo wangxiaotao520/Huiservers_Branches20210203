@@ -313,7 +313,7 @@ public class DialProgress extends View {
         startAnimator(start, end, mAnimTime);
     }
 
-    private void startAnimator(float start, float end, long animTime) {
+    public void startAnimator(float start, float end, long animTime) {
         mAnimator = ValueAnimator.ofFloat(start, end);
         mAnimator.setDuration(animTime);
         mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
