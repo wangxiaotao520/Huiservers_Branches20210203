@@ -9,23 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_45"
         android:background="@drawable/shape_whtie_top_left_right"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/margin_15"
-        android:paddingRight="@dimen/margin_15">
 
+        >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/margin_15"
             android:text="收费详情"
             android:textColor="@color/gray_66"
             android:textSize="@dimen/t_16sp"/>
 
         <ImageView
             android:id="@+id/iv_delete"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/clear3"/>
+            android:layout_centerVertical="true"
+            android:background="@mipmap/ic_delete_charge"/>
 
     </RelativeLayout>
 

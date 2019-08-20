@@ -195,6 +195,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/ly_old_phobe"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_50"

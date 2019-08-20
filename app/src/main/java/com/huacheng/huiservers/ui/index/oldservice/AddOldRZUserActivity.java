@@ -25,8 +25,8 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
     private TextView tv_select_sf;
     private TextView tv_btn, tv_jigou;
     private ArrayList<String> options1Items = new ArrayList<>();
-    private LinearLayout ly_sf, ly_chlid_info, ly_old_info, ly_jigou, ly_old_name, ly_SF_ID, ly_old_phobe, ly_child_name, ly_child_phone, ly_old_chengwei;
-    private EditText et_old_name, et_sf_ID, et_phone, et_child_name, et_child_phone, et_old_chengwei;
+    private LinearLayout ly_sf, ly_chlid_info, ly_old_info, ly_jigou, ly_old_name, ly_SF_ID, ly_child_name, ly_child_phone, ly_old_chengwei;
+    private EditText et_old_name, et_sf_ID, et_child_name, et_child_phone, et_old_chengwei;
 
 
     @Override
@@ -46,8 +46,6 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
         et_old_name = findViewById(R.id.et_old_name);
         ly_SF_ID = findViewById(R.id.ly_SF_ID);
         et_sf_ID = findViewById(R.id.et_sf_ID);
-        ly_old_phobe = findViewById(R.id.ly_old_phobe);
-        et_phone = findViewById(R.id.et_phone);
         //选择子女显示的布局
         ly_child_name = findViewById(R.id.ly_child_name);
         et_child_name = findViewById(R.id.et_child_name);
@@ -55,7 +53,8 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
         et_child_phone = findViewById(R.id.et_child_phone);//子女填写老人手机号
         ly_old_chengwei = findViewById(R.id.ly_old_chengwei);
         et_old_chengwei = findViewById(R.id.et_old_chengwei);
-
+        //默认选中老人
+        tv_select_sf.setText("老人");
         options1Items.add("老人");
         options1Items.add("子女");
 
@@ -73,7 +72,7 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
         ly_jigou.setOnClickListener(this);
         ly_old_name.setOnClickListener(this);
         ly_SF_ID.setOnClickListener(this);
-        ly_old_phobe.setOnClickListener(this);
+        // ly_old_phobe.setOnClickListener(this);
     }
 
     @Override
@@ -145,10 +144,10 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
                         SmartToast.showInfo("请输入身份证号");
                         return;
                     }
-                    if (NullUtil.isStringEmpty(et_phone.getText().toString())) {
+                /*    if (NullUtil.isStringEmpty(et_phone.getText().toString())) {
                         SmartToast.showInfo("请输入社区慧生活绑定账号");
                         return;
-                    }
+                    }*/
 
                 } else {
                     if (NullUtil.isStringEmpty(et_child_name.getText().toString())) {
@@ -186,12 +185,12 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
                     return;
                 }
                 break;
-            case R.id.ly_old_phobe:
+           /* case R.id.ly_old_phobe:
                 if (NullUtil.isStringEmpty(tv_select_sf.getText().toString())) {
                     SmartToast.showInfo("请选择身份");
                     return;
                 }
-                break;
+                break;*/
             default:
                 break;
 

@@ -56,10 +56,11 @@
                             android:textColor="@color/orange_bg"
                             android:textSize="@dimen/t_16sp"/>
 
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:background="@mipmap/ic_launcher"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=">"
+                            android:textColor="@color/orange_bg"/>
 
                     </LinearLayout>
                 </LinearLayout>

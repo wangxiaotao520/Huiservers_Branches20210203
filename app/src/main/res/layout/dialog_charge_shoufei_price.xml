@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_whtie_top_left_right"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin_15">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/margin_15"
+                android:text="选择充电金额"
+                android:textColor="@color/gray_66"
+                android:textSize="@dimen/t_16sp"/>
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="@dimen/margin_15"
+                android:text="已选重充电座：7号"
+                android:textColor="@color/gray_66"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_15"
+            android:orientation="vertical">
+
+            <!--   <com.huacheng.huiservers.view.widget.FlowTag.FlowTagLayout
+                   android:id="@+id/size_flow_layout"
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"/>-->
+
+            <com.huacheng.huiservers.view.MyGridview
+                android:id="@+id/gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="4">
+
+            </com.huacheng.huiservers.view.MyGridview>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin"
+                android:text="说明：预付2元（最多可充12小时）结束后退还未使用金额"
+                android:textColor="@color/gray_66"
+                android:textSize="@dimen/t_14sp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/windowbackground"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:text="预付金额："
+                android:textColor="@color/blackgray"
+                android:textSize="@dimen/t_16sp"/>
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:text="￥2"
+                android:textColor="@color/blackgray"
+                android:textSize="@dimen/t_18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_btn"
+                android:layout_width="125dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@color/orange_bg"
+                android:gravity="center"
+                android:paddingRight="@dimen/margin_15"
+                android:text="开启充电"
+                android:textColor="@color/white"
+                android:textSize="@dimen/t_16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
