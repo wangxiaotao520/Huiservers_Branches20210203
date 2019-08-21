@@ -78,7 +78,7 @@ public class ChargeHistoryActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Intent intent=new Intent(ChargeHistoryActivity.this,ChargeDetailActivity.class);
-                Intent intent=new Intent(ChargeHistoryActivity.this,ChargeMessageActivity.class);
+                Intent intent=new Intent(ChargeHistoryActivity.this,ChargeDetailActivity.class);
                 startActivity(intent);
             }
         });

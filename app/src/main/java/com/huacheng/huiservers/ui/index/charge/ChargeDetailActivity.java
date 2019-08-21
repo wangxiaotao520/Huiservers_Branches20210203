@@ -17,7 +17,7 @@ public class ChargeDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         findTitleViews();
-        titleName.setText("消息");
+        titleName.setText("充电详情");
 
         tv_shifu = findViewById(R.id.tv_shifu);
         tv_yufu = findViewById(R.id.tv_yufu);

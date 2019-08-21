@@ -79,12 +79,17 @@ public class ChargeScanActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        Intent intent=null;
         switch (v.getId()){
             case R.id.sl_message:
                 //消息中心
+                intent=new Intent(this,ChargeMessageActivity.class);
+                startActivity(intent);
                 break;
             case R.id.sl_charge_record:
                 //充电记录
+                intent=new Intent(this,ChargeHistoryActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_scan:
                 //扫一扫
@@ -143,7 +148,8 @@ public class ChargeScanActivity extends BaseActivity implements View.OnClickList
                         SmartToast.showInfo("内容为空");
                     } else {
                         String ScanResult = intentResult.getContents();
-
+                        //todo 测试
+                        gotoChooseChargeEquipment();
 
                     }
                 }
@@ -153,4 +159,14 @@ public class ChargeScanActivity extends BaseActivity implements View.OnClickList
         }
 
     }
+
+    /**
+     * 选择充电桩
+     */
+    private void gotoChooseChargeEquipment() {
+        Intent intent = new Intent(this, ChargeGridviewActivity.class);
+        startActivity(intent);
+    }
+
+
 }

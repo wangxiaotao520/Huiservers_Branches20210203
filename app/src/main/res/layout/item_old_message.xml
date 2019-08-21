@@ -14,8 +14,7 @@
         android:background="@drawable/allshape_white"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:paddingBottom="15dp"
-        >
+        android:paddingBottom="15dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

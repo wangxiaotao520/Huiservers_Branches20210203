@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.fragment;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.XiaoquActivity;
@@ -29,7 +31,10 @@ import com.huacheng.huiservers.model.HouseRentDetail;
 import com.huacheng.huiservers.model.ModelAds;
 import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.ModelHome;
+import com.huacheng.huiservers.model.ModelHomeIndex;
+import com.huacheng.huiservers.model.ModelIndex;
 import com.huacheng.huiservers.model.ModelLogin;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.ModelVBaner;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
@@ -40,9 +45,6 @@ import com.huacheng.huiservers.ui.fragment.adapter.HomeArticleListAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeListViewAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.HouseRentSellAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.VBannerAdapter;
-import com.huacheng.huiservers.model.ModelHomeIndex;
-import com.huacheng.huiservers.model.ModelIndex;
-import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.fragment.presenter.PropertyPrester;
 import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
@@ -51,6 +53,7 @@ import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.ui.shop.adapter.MyGridViewAdpter;
 import com.huacheng.huiservers.ui.shop.adapter.MyViewPagerAdapter;
@@ -74,6 +77,7 @@ import com.huacheng.libraryservice.widget.verticalbannerview.VerticalBannerView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -84,6 +88,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 
 /**
@@ -146,6 +152,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     PropertyPrester mPrester;
 
     View mStatusBar;
+    private ImageView iv_scancode;
+
     @Override
     public void initView(View view) {
         mPrester = new PropertyPrester(mActivity, this);
@@ -170,6 +178,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mStatusBar=view.findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
         mStatusBar.setAlpha(0.6f);
+
+        iv_scancode = view.findViewById(R.id.iv_scancode);
     }
 
     /**
@@ -221,6 +231,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
         listView.addHeaderView(headerView);
         headerView.setVisibility(View.INVISIBLE);
+
+
 
     }
 
@@ -304,6 +316,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         });
         ry_onclick.setOnClickListener(this);
         ly_circle_more.setOnClickListener(this);
+        iv_scancode.setOnClickListener(this);
     }
 
     private void scroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
@@ -560,8 +573,34 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 modelEventHome.setType(1);
                 EventBus.getDefault().post(modelEventHome);
                 break;
+            case R.id.iv_scancode://扫二维码
+               scanCode();
+                break;
         }
 
+    }
+
+    /**
+     * 扫二维码
+     */
+    private void scanCode() {
+        new RxPermissions(mActivity).request( Manifest.permission.CAMERA)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean isGranted) throws Exception {
+                        if (isGranted) {
+                            IntentIntegrator intentIntegrator = new IntentIntegrator(mActivity)
+                                    .setOrientationLocked(false);
+                            intentIntegrator.setCaptureActivity(CustomCaptureActivity.class);
+                        /*intentIntegrator.setPrompt("将服务师傅的二维码放入框内\n" +
+                            "即可扫描付款");*/
+                            // 设置自定义的activity是ScanActivity
+                            intentIntegrator.initiateScan(); // 初始化扫描
+                        } else {
+
+                        }
+                    }
+                });;
     }
 
     //导航

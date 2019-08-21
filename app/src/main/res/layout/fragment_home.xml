@@ -78,13 +78,14 @@
 
         <ImageView
             android:id="@+id/iv_scancode"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
             android:layout_toLeftOf="@id/iv_right1"
-            android:background="@drawable/ic_scancode"
-            android:visibility="gone" />
+            android:background="@mipmap/ic_scan_code"
+            android:visibility="visible" />
 
 
     </RelativeLayout>
