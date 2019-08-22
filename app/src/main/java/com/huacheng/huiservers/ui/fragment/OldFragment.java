@@ -22,6 +22,7 @@ import com.huacheng.huiservers.ui.fragment.old.FragmentOldCommonImp;
 import com.huacheng.huiservers.ui.fragment.old.FragmentOldHuodong;
 import com.huacheng.huiservers.ui.index.oldservice.CalendarViewActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldFileActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldHardwareActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldServiceWarmActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldUserActivity;
 import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
@@ -208,6 +209,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(mActivity, OldFileActivity.class));
                 break;
             case R.id.rl_data:
+                startActivity(new Intent(mActivity, OldHardwareActivity.class));
                 break;
             case R.id.rl_warm:
                 startActivity(new Intent(mActivity, OldServiceWarmActivity.class));

@@ -19,8 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:layout_marginLeft="18dp"
-            >
+            android:layout_marginLeft="18dp">
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
@@ -94,16 +93,7 @@
             android:layout_marginTop="20dp"
             android:visibility="visible"
             android:gravity="right">
-            <TextView
-                android:id="@+id/tv_agree"
-                android:layout_width="75dp"
-                android:layout_height="30dp"
-                android:text="同意"
-                android:textColor="@color/title_color"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:background="@drawable/allshape_stroke_grey_old_message"
-                android:layout_marginRight="15dp" />
+
             <TextView
                 android:id="@+id/tv_reject"
                 android:layout_width="75dp"
@@ -114,6 +104,17 @@
                 android:background="@drawable/allshape_stroke_grey_old_message"
                 android:layout_marginRight="15dp"
                 android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_agree"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:text="同意"
+                android:textColor="@color/title_color"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:background="@drawable/allshape_stroke_grey_old_message"
+                android:layout_marginRight="15dp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

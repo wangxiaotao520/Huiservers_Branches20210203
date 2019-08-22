@@ -215,7 +215,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
         MyOkHttp.get().post(ApiHttpClient.GET_COMMUNITY_BYCITY, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-                hideDialog(smallDialog);
+              //  hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     CityBean cityBean = (CityBean) JsonUtil.getInstance().parseJsonFromResponse(response, CityBean.class);
                     if (cityBean != null) {
@@ -223,6 +223,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                             rel_no_data.setVisibility(View.GONE);
                             sideBar.setVisibility(View.VISIBLE);
                             List<GroupMemberBean> SourceDateList_new = filledData(cityBean.getCommunity_list());
+                            hideDialog(smallDialog);
                             SourceDateList.clear();
                             SourceDateList.addAll(SourceDateList_new);
                             // 根据a-z进行排序源数据
@@ -235,6 +236,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                             }
                             mFirstIn_region_id = cityBean.getCommunity_list().get(0).getRegion_id();
                         } else {
+                            hideDialog(smallDialog);
                             rel_no_data.setVisibility(View.VISIBLE);
                             sideBar.setVisibility(View.GONE);
                             txt_dialog.setVisibility(View.GONE);
