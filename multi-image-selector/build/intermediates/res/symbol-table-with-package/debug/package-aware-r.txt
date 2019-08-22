@@ -1,4 +1,5 @@
 me.nereo.multi_image_selector
+attr use_type
 color blue
 color default_text_color
 color folder_text_color
@@ -54,6 +55,8 @@ id preview
 id select_btn
 id size
 id title_bar
+id use_height
+id use_padding_top
 id vp_photos
 layout activity_default
 layout activity_photo_pager
@@ -76,3 +79,4 @@ string preview
 string tip_make_video
 string tip_native_video
 string tip_take_photo
+styleable StatusBarHeightView use_type

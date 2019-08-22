@@ -2,6 +2,12 @@
 <resources>
     <color name="blue">#ff17a0e9</color>
     <color name="pager_bg">#CA000000</color>
+    <declare-styleable name="StatusBarHeightView">
+        <attr format="integer" name="use_type">
+            <enum name="use_height" value="0"/>
+            <enum name="use_padding_top" value="1"/>
+        </attr>
+    </declare-styleable>
     <dimen name="folder_cover_size">72dp</dimen>
     <dimen name="image_size">120dp</dimen>
     <dimen name="space_size">2dp</dimen>

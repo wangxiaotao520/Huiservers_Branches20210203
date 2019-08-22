@@ -2,8 +2,8 @@ package me.nereo.multi_image_selector;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -15,10 +15,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.nereo.multi_image_selector.statusbar.ScreenManager;
+
 /**
  * Created by donglua on 15/6/24.
  */
-public class PhotoPagerActivity extends FragmentActivity {
+public class PhotoPagerActivity extends AppCompatActivity {
 
   private ImagePagerFragment pagerFragment;
   private LinearLayout ll_original;
@@ -33,6 +35,11 @@ public class PhotoPagerActivity extends FragmentActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+
+    ScreenManager screenManager = ScreenManager.getInstance();
+    screenManager.setFullScreen(true, this);
+    screenManager.setStatusBar(false, this);
+    screenManager.setScreenRoate(false, this);
     super.onCreate(savedInstanceState);
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     setContentView(R.layout.activity_photo_pager);

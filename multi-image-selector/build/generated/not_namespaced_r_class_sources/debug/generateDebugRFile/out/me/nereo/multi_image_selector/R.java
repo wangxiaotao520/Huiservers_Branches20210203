@@ -9,6 +9,11 @@ package me.nereo.multi_image_selector;
 public final class R {
     private R() {}
 
+    public static final class attr {
+        private attr() {}
+
+        public static int use_type = 0x7f040001;
+    }
     public static final class color {
         private color() {}
 
@@ -79,7 +84,9 @@ public final class R {
         public static int select_btn = 0x7f0c0015;
         public static int size = 0x7f0c0016;
         public static int title_bar = 0x7f0c0017;
-        public static int vp_photos = 0x7f0c0018;
+        public static int use_height = 0x7f0c0018;
+        public static int use_padding_top = 0x7f0c0019;
+        public static int vp_photos = 0x7f0c001a;
     }
     public static final class layout {
         private layout() {}
@@ -109,5 +116,11 @@ public final class R {
         public static int tip_make_video = 0x7f150007;
         public static int tip_native_video = 0x7f150008;
         public static int tip_take_photo = 0x7f150009;
+    }
+    public static final class styleable {
+        private styleable() {}
+
+        public static int[] StatusBarHeightView = { 0x7f040001 };
+        public static int StatusBarHeightView_use_type = 0;
     }
 }

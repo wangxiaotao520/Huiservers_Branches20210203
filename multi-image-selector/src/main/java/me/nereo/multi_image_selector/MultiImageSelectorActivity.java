@@ -7,12 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -20,12 +18,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.nereo.multi_image_selector.statusbar.ScreenManager;
+
 /**
  * 多图选择
  * Created by Nereo on 2015/4/7.
  * Updated by nereo on 2016/1/19.
  */
-public class MultiImageSelectorActivity extends FragmentActivity implements MultiImageSelectorFragment.Callback{
+public class MultiImageSelectorActivity extends AppCompatActivity implements MultiImageSelectorFragment.Callback{
 
     /** 最大图片选择次数，int类型，默认9 */
     public static final String EXTRA_SELECT_COUNT = "max_select_count";
@@ -62,12 +62,17 @@ public class MultiImageSelectorActivity extends FragmentActivity implements Mult
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        this.getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.getWindow().setFlags(
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+ //       this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        ScreenManager  screenManager = ScreenManager.getInstance();
+        screenManager.setFullScreen(false, this);
+        screenManager.setStatusBar(false, this);
+        screenManager.setScreenRoate(false, this);
+
         super.onCreate(savedInstanceState);
-    //    requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_default);
 
         Intent intent = getIntent();

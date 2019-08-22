@@ -1,3 +1,4 @@
+int attr use_type 0x7f040001
 int color blue 0x7f060001
 int color default_text_color 0x7f060002
 int color folder_text_color 0x7f060003
@@ -53,7 +54,9 @@ int id preview 0x7f0c0014
 int id select_btn 0x7f0c0015
 int id size 0x7f0c0016
 int id title_bar 0x7f0c0017
-int id vp_photos 0x7f0c0018
+int id use_height 0x7f0c0018
+int id use_padding_top 0x7f0c0019
+int id vp_photos 0x7f0c001a
 int layout activity_default 0x7f0f0001
 int layout activity_photo_pager 0x7f0f0002
 int layout cmp_customer_actionbar 0x7f0f0003
@@ -75,3 +78,5 @@ int string preview 0x7f150006
 int string tip_make_video 0x7f150007
 int string tip_native_video 0x7f150008
 int string tip_take_photo 0x7f150009
+int[] styleable StatusBarHeightView { 0x7f040001 }
+int styleable StatusBarHeightView_use_type 0
