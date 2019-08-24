@@ -17,13 +17,14 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.ModelLoginOverTime;
-import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
+import com.huacheng.huiservers.model.ModelQRCode;
 import com.huacheng.huiservers.ui.base.ActivityStackManager;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.AboutActivity;
@@ -36,6 +37,7 @@ import com.huacheng.huiservers.ui.index.charge.ChargeScanActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
+import com.huacheng.huiservers.utils.QRCodeUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.TDevice;
@@ -132,26 +134,36 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
 
                         if (!StringUtils.isEmpty(ScanResult)) {
                             if (StringUtils.isJsonValid(ScanResult)) {
+//                                try {
+//                                    //服务订单支付
+//                                    JSONObject jsonObj = new JSONObject(ScanResult);
+//                                    String type = jsonObj.getString("type");
+//                                    String oid = jsonObj.getString("o_id");
+//                                    String price = jsonObj.getString("price");
+//                                    String order_type = jsonObj.getString("order_type");
+//                                    //type = "service_new_pay"
+//                                    Intent intent = new Intent(this, UnifyPayActivity.class);
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putString("o_id", oid);
+//                                    bundle.putString("price", price);
+//                                    bundle.putString("type", type);
+//                                    bundle.putString("order_type", order_type);
+//                                    intent.putExtras(bundle);
+//                                    startActivity(intent);
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+                                //其他
                                 try {
-                                    //服务订单支付
                                     JSONObject jsonObj = new JSONObject(ScanResult);
-                                    String type = jsonObj.getString("type");
-                                    String oid = jsonObj.getString("o_id");
-                                    String price = jsonObj.getString("price");
-                                    String order_type = jsonObj.getString("order_type");
-                                    //type = "service_new_pay"
-                                    Intent intent = new Intent(this, UnifyPayActivity.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("o_id", oid);
-                                    bundle.putString("price", price);
-                                    bundle.putString("type", type);
-                                    bundle.putString("order_type", order_type);
-                                    intent.putExtras(bundle);
-                                    startActivity(intent);
+                                    int type = jsonObj.getInt("type");
+                                    ModelQRCode modelQRCode = new Gson().fromJson(jsonObj.getString("data"),ModelQRCode.class);
+                                    //调用二维码解析
+                                    QRCodeUtils.getInstance().parseQrCode(smallDialog,this,type,modelQRCode);
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                //其他
                             } else {
                                 //
                                 SmartToast.showInfo("二维码扫描不正确");
@@ -261,6 +273,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
             case R.id.rb_content_fragment_service:
                 switchFragment(2);
                 current_fragment=2;
+
                 break;
             case R.id.rb_content_fragment_quanzi:
                 switchFragment(3);

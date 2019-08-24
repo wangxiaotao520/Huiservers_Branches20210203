@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_5"
-                    android:text="￥0.00"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="34dp"/>
 
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15"
-                    android:text="退还金额￥2.00，已实时原路退还，特殊情况受银行系统影响，会延迟至3个工作日内"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="@dimen/t_14sp"/>
 
@@ -73,7 +73,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="实付金额"
+                        android:text="预付金额"
                         android:textColor="@color/white"
                         android:textSize="@dimen/t_14sp"/>
 
@@ -82,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="￥2.00"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/t_14sp"/>
 
@@ -118,7 +118,7 @@
                         android:id="@+id/tv_biaozhun"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1元/4小时"
+                        android:text=""
                         android:textColor="@color/blackgray"
                         android:textSize="@dimen/t_14sp"/>
 
@@ -141,7 +141,7 @@
                         android:id="@+id/tv_gonglv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1元/4小时"
+                        android:text=""
                         android:textColor="@color/blackgray"
                         android:textSize="@dimen/t_14sp"/>
 
@@ -164,7 +164,7 @@
                         android:id="@+id/tv_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1元/4小时"
+                        android:text=""
                         android:textColor="@color/blackgray"
                         android:textSize="@dimen/t_14sp"/>
 
@@ -187,7 +187,7 @@
                         android:id="@+id/tv_yuanyin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1元/4小时"
+                        android:text=""
                         android:textColor="@color/blackgray"
                         android:textSize="@dimen/t_14sp"/>
 
@@ -210,7 +210,7 @@
                         android:id="@+id/tv_bianhao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1元/4小时"
+                        android:text=""
                         android:textColor="@color/blackgray"
                         android:textSize="@dimen/t_14sp"/>
 
@@ -234,7 +234,7 @@
                         android:id="@+id/tv_zhandian"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4165465465"
+                        android:text=""
                         android:textColor="@color/blackgray"
                         android:textSize="@dimen/t_14sp"/>
 
@@ -257,7 +257,7 @@
                         android:id="@+id/tv_chongdianzhuang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4165465465"
+                        android:text=""
                         android:textColor="@color/blackgray"
                         android:textSize="@dimen/t_14sp"/>
 
@@ -280,7 +280,7 @@
                         android:id="@+id/tv_chongdianzuo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4165465465"
+                        android:text=""
                         android:textColor="@color/blackgray"
                         android:textSize="@dimen/t_14sp"/>
 
@@ -303,7 +303,7 @@
                         android:id="@+id/tv_kefu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4165465465"
+                        android:text=""
                         android:textColor="@color/blue"
                         android:textSize="@dimen/t_14sp"/>
 

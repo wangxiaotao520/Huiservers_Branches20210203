@@ -107,6 +107,8 @@ public class UnifyPayPresenter {
             url=ApiHttpClient.PAY_SERVICE_ORDER_NEW;
         }else if (type.equals(CanstantPay.PAY_PROPERTY)){//物业
             url=ApiHttpClient.PAY_PROPERTY_ORDER_NEW;
+        }else if (type.equals(CanstantPay.PAY_CHARGE_YX)){//充电桩
+            url=ApiHttpClient.PAY_YX_ORDER;
         }
         HashMap<String, String> params = new HashMap<>();
         params.put("id",id);

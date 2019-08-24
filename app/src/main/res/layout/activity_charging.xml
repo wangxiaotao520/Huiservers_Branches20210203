@@ -75,6 +75,7 @@
                         app:dialIntervalDegree="3"
                         app:dialWidth="2dp"
                         app:maxValue="100"
+                        app:value="0"
                         app:startAngle="135"
                         app:dialColor="#61b3fe"
                         app:sweepAngle="270"
@@ -151,7 +152,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/white"
-                                    android:text="2"
+                                    android:text=""
                                     android:textSize="30sp" />
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -193,7 +194,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/white"
-                                    android:text="06:00"
+                                    android:text=""
                                     android:textSize="30sp" />
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -230,7 +231,7 @@
                 android:id="@+id/tv_equip_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="充电桩：4937511634；6号插座"
+                android:text=""
                 android:textColor="@color/gray_99"
                 android:textSize="14sp"
                 android:gravity="center"

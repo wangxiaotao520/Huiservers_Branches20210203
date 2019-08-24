@@ -12,11 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.model.ModelChargeDetail;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,12 +34,14 @@ public class ChargeShouFeiDetailDialog extends Dialog implements View.OnClickLis
     List<String> list_string;
     Set<Integer> list_selected_position;
     OnClickEnsureListener listener;
+    private ModelChargeDetail modelChargeDetail;
 
-    public ChargeShouFeiDetailDialog(Context context) {
+    public ChargeShouFeiDetailDialog(Context context,ModelChargeDetail modelChargeDetail) {
         super(context, R.style.Dialog_down);
         this.mContext = context;
         // this.listener=listener;
         // this.mSelectListener = mSelectListener;
+        this.modelChargeDetail=modelChargeDetail;
     }
 
 
@@ -71,18 +73,11 @@ public class ChargeShouFeiDetailDialog extends Dialog implements View.OnClickLis
         params.height = params.WRAP_CONTENT;
         window.setAttributes(params);
 
-//        String[] mVals = new String[5];
-        list_string = new ArrayList<>();
         list_selected_position = new HashSet<>();
-        list_string.add("呵呵呵");
-        list_string.add("哈哈，你好");
-        list_string.add("嘿");
-        list_string.add("啦啦啦啦啦啦啦");
-        list_string.add("嗯嗯嗯嗯嗯嗯");
-        list_string.add("好的");
-        //getTagFlowLayout(mVals);
-        // getTagFlowLayout(list_string);
 
+        tv_address.setText(modelChargeDetail.getMc()+"");
+        tv_bianhao.setText("设备编号："+modelChargeDetail.getGtel());
+        tv_biaozhun.setText(""+modelChargeDetail.getPrice());
     }
 
     private void getTagFlowLayout(final List<String> list) {

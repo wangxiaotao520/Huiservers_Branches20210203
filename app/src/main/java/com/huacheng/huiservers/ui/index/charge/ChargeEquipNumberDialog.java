@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.huacheng.huiservers.R;
 
 /**
- * Description:
+ * Description:  输入设备编号
  * created by wangxiaotao
  * 2019/8/17 0017 下午 3:53
  */
@@ -34,10 +34,12 @@ public class ChargeEquipNumberDialog extends Dialog {
 
     private int mLastDiff = 0;
     private Button btn_confirm;
+    private OnClickConfirmListener listener;
 
-    public ChargeEquipNumberDialog(@NonNull Context context) {
+    public ChargeEquipNumberDialog(@NonNull Context context, OnClickConfirmListener listener) {
         super(context, R.style.my_dialog_DimEnabled);
         mContext=context;
+        this.listener = listener;
     }
 
     public ChargeEquipNumberDialog(@NonNull Context context, int themeResId) {
@@ -81,10 +83,17 @@ public class ChargeEquipNumberDialog extends Dialog {
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(listener!=null){
+                    String content = et_getcode.getText().toString().trim();
+                    listener.onClickEquipmentConfirm(ChargeEquipNumberDialog.this,content);
+                }
+
                 imm.showSoftInput(et_getcode, InputMethodManager.SHOW_FORCED);
                 imm.hideSoftInputFromWindow(et_getcode.getWindowToken(), 0);
                 et_getcode.setText("");
-                //TODO 请求数据
+                // 请求数据
+
                 dismiss();
             }
         });
@@ -101,7 +110,10 @@ public class ChargeEquipNumberDialog extends Dialog {
                             //imm.showSoftInput(messageTextView, InputMethodManager.SHOW_FORCED);
                             imm.hideSoftInputFromWindow(et_getcode.getWindowToken(), 0);
 //                            messageTextView.setText("");
-                            //TODO 请求数据
+                            if(listener!=null){
+                                String content = et_getcode.getText().toString().trim();
+                                listener.onClickEquipmentConfirm(ChargeEquipNumberDialog.this,content);
+                            }
                             dismiss();
                         } else {
                             //SmartToast.showInfo("内容为空");
@@ -176,5 +188,9 @@ public class ChargeEquipNumberDialog extends Dialog {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    public interface  OnClickConfirmListener{
+        void onClickEquipmentConfirm(Dialog dialog ,String equipment_code);
     }
 }

@@ -34,7 +34,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:paddingRight="@dimen/margin_15"
-                android:text="已选重充电座：7号"
+                android:text=""
                 android:textColor="@color/gray_66"/>
 
         </RelativeLayout>
@@ -59,10 +59,11 @@
             </com.huacheng.huiservers.view.MyGridview>
 
             <TextView
+                android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
-                android:text="说明：预付2元（最多可充12小时）结束后退还未使用金额"
+                android:text="说明："
                 android:textColor="@color/gray_66"
                 android:textSize="@dimen/t_14sp"/>
 
@@ -97,7 +98,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
-                android:text="￥2"
+                android:text=""
                 android:textColor="@color/blackgray"
                 android:textSize="@dimen/t_18sp"
                 android:textStyle="bold"/>

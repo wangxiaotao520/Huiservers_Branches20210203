@@ -154,7 +154,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_3"
-                            android:text="退款金额将在3个工作日内原路返回"
+                            android:text="退款金额:"
                             android:textColor="@color/orange_bg"
                             android:textSize="@dimen/t_14sp"/>
 
@@ -218,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"

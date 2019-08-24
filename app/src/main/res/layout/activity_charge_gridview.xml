@@ -22,21 +22,20 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="83dp"
-                android:background="@color/white"
-                >
+                android:background="@color/white">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/margin_15"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_unit_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1元/6小时"
+                        android:text=""
                         android:textColor="@color/blackgray"
                         android:textSize="@dimen/t_16sp"/>
 
@@ -66,6 +65,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_charge_center"
                     android:layout_width="83dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="请选择充电桩"
+                    android:text="请选择充电通道"
                     android:textColor="@color/gray_66"
                     android:textSize="@dimen/t_16sp"/>
 
@@ -158,28 +158,28 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_15"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="@dimen/margin_15"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:background="@color/fen_charge"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="10dp"-->
+                            <!--android:layout_height="10dp"-->
+                            <!--android:background="@color/fen_charge"/>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/margin_5"
-                            android:text="故障"
-                            android:textColor="@color/gray_66"
-                            android:textSize="@dimen/t_12sp"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:layout_marginLeft="@dimen/margin_5"-->
+                            <!--android:text="故障"-->
+                            <!--android:textColor="@color/gray_66"-->
+                            <!--android:textSize="@dimen/t_12sp"/>-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
 
                 </LinearLayout>

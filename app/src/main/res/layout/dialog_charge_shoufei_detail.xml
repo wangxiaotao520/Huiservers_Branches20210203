@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
-            android:text="迎宾小区车棚"
+            android:text=""
             android:textColor="@color/blackgray"
             android:textSize="@dimen/t_16sp"/>
 
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15"
-            android:text="设备编号：25464646546"
+            android:text="设备编号："
             android:textColor="@color/gray_99"
             android:textSize="@dimen/t_12sp"/>
 
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15"
-            android:text="1元/6小时"
+            android:text=""
             android:textColor="@color/blackgray"
             android:textSize="@dimen/t_12sp"/>
 

@@ -258,6 +258,26 @@ public class ApiHttpClient {
     public static String PAY_SERVICE_ORDER_NEW = API_URL + API_VERSION + "payment/pay_service_order";
     //支付确认
     public static String CONFIRM_ORDER_PAYMENT = API_URL + API_VERSION + "payment/confirm_order_payment";
+
+    //充电充电桩
+    //获取 充电桩信息
+    public static String GET_YX_INFO = API_URL + API_VERSION + "Yx/Yx_info";
+    //充电下单
+    public static String GET_CREAT_ORDER = API_URL + API_VERSION + "Yx/Yx_creat_order";
+    //充电支付接口
+    public static String PAY_YX_ORDER = API_URL + API_VERSION + "payment/pay_yx_order";
+    //开启充电通道
+    public static String PAY_CHARGE_START = API_URL + API_VERSION + "Yx/Yx_appcd_sta";
+    //充电记录详情充电中状态
+    public static String PAY_CHARGE_ING = API_URL + API_VERSION + "Yx/Yx_order_infoing";
+    //充电记录列表
+    public static String PAY_CHARGE_RECORD = API_URL + API_VERSION + "Yx/Yx_order_list";
+    //充电消息
+    public static String PAY_CHARGE_MESSAGE = API_URL + API_VERSION + "Yx/Yx_order_messge";
+    //充电记录详情
+    public static String PAY_CHARGE_RECORD_DETAIL = API_URL + API_VERSION + "Yx/Yx_order_info";
+    //结束充电
+    public static String PAY_CHARGE_END = API_URL + API_VERSION + "Yx/Yx_appcd_end";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -355,5 +375,15 @@ public class ApiHttpClient {
         PAY_WORK_ORDER_NEW = API_URL + API_VERSION + "payment/pay_work_order";
         PAY_PROPERTY_ORDER_NEW = API_URL + API_VERSION + "payment/pay_property_order";
         PAY_SERVICE_ORDER_NEW = API_URL + API_VERSION + "payment/pay_service_order";
+
+        GET_YX_INFO = API_URL + API_VERSION + "Yx/Yx_info";
+        GET_CREAT_ORDER = API_URL + API_VERSION + "Yx/Yx_creat_order";
+        PAY_YX_ORDER = API_URL + API_VERSION + "payment/pay_yx_order";
+        PAY_CHARGE_START = API_URL + API_VERSION + "Yx/Yx_appcd_sta";
+        PAY_CHARGE_ING = API_URL + API_VERSION + "Yx/Yx_order_infoing";
+        PAY_CHARGE_RECORD = API_URL + API_VERSION + "Yx/Yx_order_list";
+        PAY_CHARGE_MESSAGE = API_URL + API_VERSION + "Yx/Yx_order_messge";
+        PAY_CHARGE_RECORD_DETAIL = API_URL + API_VERSION + "Yx/Yx_order_info";
+        PAY_CHARGE_END = API_URL + API_VERSION + "Yx/Yx_appcd_end";
     }
 }

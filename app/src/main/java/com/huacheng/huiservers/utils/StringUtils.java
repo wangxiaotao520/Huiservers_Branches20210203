@@ -299,6 +299,8 @@ public class StringUtils {
                     sdf = new SimpleDateFormat("yyyy.MM.dd");
                 }else if (type.equals("9")) {
                     sdf = new SimpleDateFormat("MM月dd日");
+                }else if (type.equals("10")) {
+                    sdf = new SimpleDateFormat("MM.dd HH:mm");
                 }
                 String date = sdf.format(mTime);
                 return date;

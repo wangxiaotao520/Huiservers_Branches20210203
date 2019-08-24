@@ -30,6 +30,7 @@ import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.geren.bean.PayTypeBean;
+import com.huacheng.huiservers.ui.index.charge.ChargingActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
@@ -244,6 +245,8 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 type_params="activity";
             }else if(type.equals(CanstantPay.PAY_FACE)){
                 type_params="face";
+            }else if(type.equals(CanstantPay.PAY_CHARGE_YX)){
+                type_params="yxcd";
             }
             showDialog(smallDialog);
             payPresenter.confirmOrderPayment(order_id,type_params);
@@ -417,6 +420,12 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
 
             }else if(type.equals(CanstantPay.PAY_FACE)){
 
+            }else if(type.equals(CanstantPay.PAY_CHARGE_YX)){
+                Intent intent = new Intent(this, ChargingActivity.class);
+                intent.putExtra("jump_from","pay");
+                intent.putExtra("id",order_id);
+                startActivity(intent);
+                finish();
             }
             SmartToast.showInfo(msg);
         }else {

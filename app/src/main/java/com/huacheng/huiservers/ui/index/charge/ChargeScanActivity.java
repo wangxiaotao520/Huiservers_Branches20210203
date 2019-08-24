@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.index.charge;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.view.View;
 import android.view.WindowManager;
@@ -9,13 +10,26 @@ import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelChargeDetail;
+import com.huacheng.huiservers.model.ModelQRCode;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.ShadowLayout;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import io.reactivex.functions.Consumer;
 
@@ -24,7 +38,7 @@ import io.reactivex.functions.Consumer;
  * created by wangxiaotao
  * 2019/8/19 0019 上午 8:51
  */
-public class ChargeScanActivity extends BaseActivity implements View.OnClickListener{
+public class ChargeScanActivity extends BaseActivity implements View.OnClickListener,ChargeEquipNumberDialog.OnClickConfirmListener{
     private ChargeEquipNumberDialog dialog;
     private SimpleDraweeView sdv_title;
     private ShadowLayout sl_message;
@@ -41,7 +55,7 @@ public class ChargeScanActivity extends BaseActivity implements View.OnClickList
         sl_charge_record = findViewById(R.id.sl_charge_record);
         ll_scan = findViewById(R.id.ll_scan);
         tv_equip_num = findViewById(R.id.tv_equip_num);
-        dialog = new ChargeEquipNumberDialog(this);
+        dialog = new ChargeEquipNumberDialog(this,this);
     }
 
     @Override
@@ -148,8 +162,24 @@ public class ChargeScanActivity extends BaseActivity implements View.OnClickList
                         SmartToast.showInfo("内容为空");
                     } else {
                         String ScanResult = intentResult.getContents();
-                        //todo 测试
-                        gotoChooseChargeEquipment();
+                        if (StringUtils.isJsonValid(ScanResult)) {
+                            try {
+                                JSONObject jsonObj = new JSONObject(ScanResult);
+                                String type = jsonObj.getString("type");
+
+                                ModelQRCode modelQRCode = new Gson().fromJson(jsonObj.getString("data"),ModelQRCode.class);
+
+                                if ("1".equals(type)){
+                                    requestData(modelQRCode.getGtel()+"");
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            //其他
+                        } else {
+                            //
+                            SmartToast.showInfo("二维码扫描不正确");
+                        }
 
                     }
                 }
@@ -160,13 +190,52 @@ public class ChargeScanActivity extends BaseActivity implements View.OnClickList
 
     }
 
-    /**
-     * 选择充电桩
-     */
-    private void gotoChooseChargeEquipment() {
-        Intent intent = new Intent(this, ChargeGridviewActivity.class);
-        startActivity(intent);
+
+    @Override
+    public void onClickEquipmentConfirm(Dialog dialog, String equipment_code) {
+        //点击确定
+       // showDialog(smallDialog);
+        requestData(equipment_code);
     }
 
+    /**
+     * 获取充电通道
+     */
+    private void requestData(String equipment_code) {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type", "1");//充电模块传1
+        params.put("gtel", equipment_code + "");
 
+        MyOkHttp.get().post(ApiHttpClient.GET_YX_INFO, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    ModelChargeDetail model = (ModelChargeDetail) JsonUtil.getInstance().parseJsonFromResponse(response, ModelChargeDetail.class);
+                    if (model!=null){
+                        Intent intent = new Intent(ChargeScanActivity.this, ChargeGridviewActivity.class);
+                        intent.putExtra("model",model);
+                        intent.putExtra("response",response.toString());
+                        startActivity(intent);
+                    }else {
+                        SmartToast.showInfo("获取充电信息异常");
+                    }
+
+                } else {
+                    try {
+                        SmartToast.showInfo(response.getString("msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
 }

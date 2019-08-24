@@ -29,14 +29,31 @@ import java.util.List;
 public class ChargeSelectPriceDialog extends Dialog {
     Context mContext;
     private GridView gridview;
-    private TextView tv_price, tv_num;
+    private TextView tv_price, tv_num,tv_content;
     List<ShopDetailBean> beans = new ArrayList();
-    List<ModelChargeDetail> mdata = new ArrayList();
+    List<ModelChargeDetail.PriceListBean> mdata = new ArrayList();
     ChargeGridViewTagAdapter adapter;
+    private ModelChargeDetail modelChargeDetail;
+    private int position =1;
+    private int selected_order_position= 0; //选择金额的position
+    private OnClickEnsureListener listener ;
 
-    public ChargeSelectPriceDialog(@NonNull Context context) {
+
+    public ChargeSelectPriceDialog(@NonNull Context context,ModelChargeDetail modelChargeDetail,int position,OnClickEnsureListener listener) {
         super(context, R.style.Dialog_down);
         this.mContext = context;
+        this.modelChargeDetail=modelChargeDetail;
+        this.position=position;
+        for (int i = 0; i < modelChargeDetail.getPrice_list().size(); i++) {
+            ModelChargeDetail.PriceListBean priceListBean = modelChargeDetail.getPrice_list().get(i);
+            if (i==0){
+                priceListBean.setSelect(true);
+            }else {
+                priceListBean.setSelect(false);
+            }
+            mdata.add(priceListBean);
+        }
+        this.listener= listener;
     }
 
     public ChargeSelectPriceDialog(@NonNull Context context, int themeResId) {
@@ -54,10 +71,8 @@ public class ChargeSelectPriceDialog extends Dialog {
 
         tv_num = findViewById(R.id.tv_num);
         tv_price = findViewById(R.id.tv_price);
+        tv_content = findViewById(R.id.tv_content);
         gridview = findViewById(R.id.gridview);
-        for (int i = 0; i < 4; i++) {
-            mdata.add(new ModelChargeDetail());
-        }
         adapter = new ChargeGridViewTagAdapter(mContext, R.layout.dialog_charge_shoufei_price_item, mdata);
         gridview.setAdapter(adapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,6 +87,19 @@ public class ChargeSelectPriceDialog extends Dialog {
                     }
                 }
                 adapter.notifyDataSetChanged();
+
+                tv_content.setText("说明：预付"+modelChargeDetail.getPrice_list().get(position).getOrder_price()+"元（最多可充"+modelChargeDetail.getPrice_list().get(position).getTimes()+"小时）结束后退还未使用金额");
+                tv_price.setText("¥ "+modelChargeDetail.getPrice_list().get(position).getOrder_price());
+                selected_order_position=position;
+            }
+        });
+        TextView tv_btn = findViewById(R.id.tv_btn);
+        tv_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener!=null){
+                    listener.onClick(ChargeSelectPriceDialog.this,position,selected_order_position);
+                }
             }
         });
         Window window = getWindow();
@@ -86,5 +114,23 @@ public class ChargeSelectPriceDialog extends Dialog {
         //  params.width = params.WRAP_CONTENT;
         params.height = params.WRAP_CONTENT;
         window.setAttributes(params);
+
+        initData();
+    }
+
+    private void initData() {
+        if (modelChargeDetail!=null){
+            tv_num.setText("已选重充电座："+(position+1)+"号");
+            tv_content.setText("说明：预付"+modelChargeDetail.getPrice_list().get(0).getOrder_price()+"元（最多可充"+modelChargeDetail.getPrice_list().get(0).getTimes()+"小时）结束后退还未使用金额");
+            tv_price.setText("¥ "+modelChargeDetail.getPrice_list().get(0).getOrder_price());
+        }
+    }
+    public interface OnClickEnsureListener{
+        /**
+         *
+         * @param selected_pass_position 充电桩通道position
+         * @param selected_order_position 充电订单位置
+         */
+        void onClick(Dialog dialog1,int selected_pass_position,int selected_order_position);
     }
 }
