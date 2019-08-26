@@ -1,19 +1,28 @@
 package com.huacheng.huiservers.ui.fragment.old;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelArticle;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,11 +33,19 @@ import java.util.List;
 public class FragmentOldArticle extends FragmentOldCommonImp {
 
     private RecyclerView recyclerview;
-    private CommonAdapter<String> mAdapter;
-    private List<String> mDatas = new ArrayList<>();
+    private CommonAdapter<ModelArticle> mAdapter;
+    private List<ModelArticle> mDatas = new ArrayList<>();
     private HeaderAndFooterWrapper mHeaderAndFooterWrapper;
     private LoadMoreWrapper mLoadMoreWrapper;
+    private String par_uid= "";
+    private int page = 1;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Bundle arguments = getArguments();
+        par_uid = arguments.getString("par_uid");
+    }
     @Override
     public void initView(View view) {
       //  SmartRefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
@@ -36,15 +53,11 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
         recyclerview.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
        // recyclerview.setAdapter(new RecyclerviewAdapter());
 
-        for (int i = 0; i < 20; i++)
-        {
-            mDatas.add("Add:" + i);
-        }
 
-        mAdapter = new CommonAdapter<String>(mActivity, R.layout.item_article, mDatas)
+        mAdapter = new CommonAdapter<ModelArticle>(mActivity, R.layout.item_article, mDatas)
         {
             @Override
-            protected void convert(ViewHolder holder, String s, int position)
+            protected void convert(ViewHolder holder, ModelArticle s, int position)
             {
               //  holder.setText(R.id.tv_name, s + " : " + holder.getAdapterPosition() + " , " + holder.getLayoutPosition());
             }
@@ -52,25 +65,13 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
 
         initHeaderAndFooter();
         mLoadMoreWrapper = new LoadMoreWrapper(mHeaderAndFooterWrapper);
-        mLoadMoreWrapper.setLoadMoreView(R.layout.layout_refresh_footer);
+        mLoadMoreWrapper.setLoadMoreView(0);
         mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener()
         {
             @Override
             public void onLoadMoreRequested()
             {
-                new Handler().postDelayed(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        for (int i = 0; i < 10; i++)
-                        {
-                            mDatas.add("Add:" + i);
-                        }
-                        mLoadMoreWrapper.notifyDataSetChanged();
-
-                    }
-                }, 3000);
+                requestData();
             }
         });
 
@@ -110,10 +111,85 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
     @Override
     public void initData(Bundle savedInstanceState) {
         isInit = true;
+        page=1;
+        showDialog(smallDialog);
+        requestData();
     }
 
     @Override
     public int getLayoutId() {
         return R.layout.layout_recyclerview;
+    }
+
+    @Override
+    public void isRefresh(String par_uid) {
+            // super.isRefresh(par_uid);
+            if (!isInit){
+                page=1;
+                showDialog(smallDialog);
+                isInit=true;
+                requestData();
+            }else {
+                //资讯不需要判断参数,也没必要实时刷新，只需要在下拉刷新的时候刷新一下就可以了
+            }
+
+    }
+
+    private void requestData() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("p", page + "");
+        MyOkHttp.get().post(ApiHttpClient.PENSION_ZIXUN_LIST, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    ModelArticle info = (ModelArticle) JsonUtil.getInstance().parseJsonFromResponse(response, ModelArticle.class);
+                    if (info != null) {
+                        if (info.getList() != null && info.getList().size() > 0) {
+                            if (page == 1) {
+                                mDatas.clear();
+                            }
+                            mDatas.addAll(info.getList());
+                            page++;
+                            if (page > info.getTotalPages()) {
+                                mLoadMoreWrapper.setLoadMoreView(0);
+                            } else {
+                                mLoadMoreWrapper.setLoadMoreView(R.layout.layout_refresh_footer);
+
+                            }
+                            mLoadMoreWrapper.notifyDataSetChanged();
+                        } else {
+                            if (page == 1) {
+                                mDatas.clear();
+                            }
+                            mLoadMoreWrapper.setLoadMoreView(0);
+                            mLoadMoreWrapper.notifyDataSetChanged();
+                        }
+                    }
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+                if (page == 1) {
+                    mLoadMoreWrapper.setLoadMoreView(0);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void refreshIndeed(String par_uid) {
+        //直接刷新 不显示smallDialog
+        isInit=true;
+        page=1;
+        requestData();
     }
 }

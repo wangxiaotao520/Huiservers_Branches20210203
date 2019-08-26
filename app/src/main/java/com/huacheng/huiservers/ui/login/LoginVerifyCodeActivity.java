@@ -472,6 +472,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                             UserSql.getInstance().clear();
                             UserSql.getInstance().insertObject(user);
                             BaseApplication.setUser(user);
+                            EventBus.getDefault().post(loginBean);
                         }
                     }
                 } catch (JSONException e) {
@@ -579,6 +580,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                             UserSql.getInstance().clear();
                             UserSql.getInstance().insertObject(user);
                             BaseApplication.setUser(user);
+                            EventBus.getDefault().post(loginBean);
                         }
                     } else {
                         txt_btn.setText("登录");
@@ -717,6 +719,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                             UserSql.getInstance().clear();
                             UserSql.getInstance().insertObject(user);
                             BaseApplication.setUser(user);
+                            EventBus.getDefault().post(loginBean);
                         }
                     } else {
                         SmartToast.showInfo(response.getString("msg"));
@@ -787,6 +790,8 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                             UserSql.getInstance().clear();
                             UserSql.getInstance().insertObject(user);
                             BaseApplication.setUser(user);
+                            //发送eventbus
+                            EventBus.getDefault().post(loginBean);
                         }
                         // }
                     } else {

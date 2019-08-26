@@ -13,7 +13,7 @@ public class LoginUtils {
      * 判断用户是否登录（启动页不可以用）
      * @return
      */
-    public boolean hasLoginUser(){
+    public static boolean hasLoginUser(){
         if (ApiHttpClient.TOKEN_SECRET==null||ApiHttpClient.TOKEN==null){
             //只要token为空，就说明没有登录
             return false;

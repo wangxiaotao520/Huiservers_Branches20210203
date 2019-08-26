@@ -109,7 +109,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_toRightOf="@id/tv_dad_mom"
+                            android:layout_toRightOf="@id/fl_head"
                             android:layout_marginTop="5dp"
                             android:layout_marginLeft="20dp"
                             android:layout_below="@id/ll_name">
@@ -117,7 +117,7 @@
                                 android:id="@+id/tv_age"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                tools:text="年龄  78岁"
+                                tools:text=""
                                 android:gravity="center"
                                 android:textSize="12sp"
                                 android:textColor="@color/white" />

@@ -278,6 +278,14 @@ public class ApiHttpClient {
     public static String PAY_CHARGE_RECORD_DETAIL = API_URL + API_VERSION + "Yx/Yx_order_info";
     //结束充电
     public static String PAY_CHARGE_END = API_URL + API_VERSION + "Yx/Yx_appcd_end";
+
+    //慧生活养老
+    //首页上部接口
+    public static String PENSION_INDEXTOP = API_URL + API_VERSION + "pension/indexTop";
+    //下方活动接口
+    public static String PENSION_BOTTOM_ACTIVITY = API_URL + API_VERSION + "pension/indexBottomActivity";
+    //下方资讯列表接口
+    public static String PENSION_ZIXUN_LIST = API_URL + API_VERSION + "pension/pensionSocialList";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -385,5 +393,8 @@ public class ApiHttpClient {
         PAY_CHARGE_MESSAGE = API_URL + API_VERSION + "Yx/Yx_order_messge";
         PAY_CHARGE_RECORD_DETAIL = API_URL + API_VERSION + "Yx/Yx_order_info";
         PAY_CHARGE_END = API_URL + API_VERSION + "Yx/Yx_appcd_end";
+        PENSION_INDEXTOP = API_URL + API_VERSION + "pension/indexTop";
+        PENSION_BOTTOM_ACTIVITY = API_URL + API_VERSION + "pension/indexBottomActivity";
+        PENSION_ZIXUN_LIST = API_URL + API_VERSION + "pension/pensionSocialList";
     }
 }

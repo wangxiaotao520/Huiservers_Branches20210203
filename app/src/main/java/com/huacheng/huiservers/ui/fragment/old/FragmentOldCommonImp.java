@@ -11,6 +11,8 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
  * 2019/8/14 0014 下午 4:50
  */
 public class FragmentOldCommonImp extends BaseFragment{
+
+
     protected  boolean isInit=false;
     @Override
     public void initView(View view) {
@@ -40,9 +42,22 @@ public class FragmentOldCommonImp extends BaseFragment{
     /**
      * 刷新
      */
-    public void isRefresh() {
+    public void isRefresh(String par_uid) {
         if (!isInit){
             isInit=true;
+        }else {
+
         }
+    }
+    /**
+     * 刷新
+     */
+    public void refreshIndeed(String par_uid) {
+
+    }
+
+
+    public void setInit(boolean init) {
+        isInit = init;
     }
 }
