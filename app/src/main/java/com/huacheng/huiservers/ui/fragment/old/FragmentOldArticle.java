@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
@@ -13,6 +15,8 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelArticle;
+import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -60,6 +64,11 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
             protected void convert(ViewHolder holder, ModelArticle s, int position)
             {
               //  holder.setText(R.id.tv_name, s + " : " + holder.getAdapterPosition() + " , " + holder.getLayoutPosition());
+
+                GlideUtils.getInstance().glideLoad(mActivity,ApiHttpClient.IMG_URL+s.getImg(),holder.<ImageView>getView(R.id.iv_image),R.color.windowbackground);
+                holder.<TextView>getView(R.id.tv_title).setText(s.getTitle()+"");
+                holder.<TextView>getView(R.id.tv_read_count).setText(s.getClick()+"");
+                holder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(s.getAddtime(),"7"));
             }
         };
 
@@ -82,7 +91,7 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position)
             {
                 Toast.makeText(mActivity, "pos = " + position, Toast.LENGTH_SHORT).show();
-                mAdapter.notifyItemRemoved(position);
+              //  mAdapter.notifyItemRemoved(position);
             }
 
             @Override

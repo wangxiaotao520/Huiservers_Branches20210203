@@ -176,6 +176,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
 
             }
         }
+        super.onActivityResult(requestCode,resultCode,data);
 
     }
 

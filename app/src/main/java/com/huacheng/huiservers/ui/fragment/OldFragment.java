@@ -23,12 +23,14 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelEventOld;
 import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.model.ModelOldIndexTop;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.fragment.old.FragmentOldArticle;
 import com.huacheng.huiservers.ui.fragment.old.FragmentOldCommonImp;
 import com.huacheng.huiservers.ui.fragment.old.FragmentOldHuodong;
+import com.huacheng.huiservers.ui.index.oldservice.AddOldRZUserActivity;
 import com.huacheng.huiservers.ui.index.oldservice.CalendarViewActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldFileActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldHardwareActivity;
@@ -54,6 +56,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Description: 居家养老
@@ -320,7 +324,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             tv_dad_mom.setVisibility(View.GONE);
                             ll_age_address.setVisibility(View.VISIBLE);
                             tv_name.setText(""+modelOldIndexTop.getName()+"");
-                            iv_sex.setBackgroundResource(modelOldIndexTop.getSex()==1?R.mipmap.ic_man_white:R.mipmap.ic_woman_white); //性别
+                            iv_sex.setBackgroundResource("1".equals(modelOldIndexTop.getSex())?R.mipmap.ic_man_white:R.mipmap.ic_woman_white); //性别
                             tv_age.setText("年龄  "+modelOldIndexTop.getBirthday());
                             tv_address.setText(modelOldIndexTop.getI_name()+"");
                             tv_change_person.setText("关联子女");
@@ -329,13 +333,13 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+modelOldIndexTop.getPhoto()+"");
                         }else if (2== type){
                             //2.子女认证
-                            rl_title_container.setBackgroundResource(R.mipmap.bg_old_red);
-                            ll_change_person.setBackgroundResource(R.drawable.all_shape_round_shadow_left_red);
+                            rl_title_container.setBackgroundResource(R.mipmap.bg_old_blue);
+                            ll_change_person.setBackgroundResource(R.drawable.all_shape_round_shadow_left_blue);
                             iv_sex.setVisibility(View.VISIBLE);
                             tv_dad_mom.setVisibility(View.VISIBLE);
                             ll_age_address.setVisibility(View.VISIBLE);
                             tv_name.setText(""+modelOldIndexTop.getName()+"");
-                            //  iv_sex.setBackgroundResource();// 性别
+                            iv_sex.setBackgroundResource("1".equals(modelOldIndexTop.getSex())?R.mipmap.ic_man_white:R.mipmap.ic_woman_white); //性别
                             tv_age.setText("年龄  "+modelOldIndexTop.getBirthday());
                             tv_address.setText(modelOldIndexTop.getI_name()+"");
                             tv_dad_mom.setText(modelOldIndexTop.getCall());
@@ -398,6 +402,9 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         //没有登录的时候先登录
         if (!LoginUtils.hasLoginUser()) {
             startActivity(new Intent(mActivity, LoginVerifyCodeActivity.class));
+        }else if (type==0){
+            Intent intent = new Intent(mActivity,  AddOldRZUserActivity.class);
+            startActivity(intent);
         }else {
             switch (v.getId()){
 
@@ -414,7 +421,18 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                     startActivity(new Intent(mActivity, CalendarViewActivity.class));
                     break;
                 case R.id.ll_change_person:
-                    startActivity(new Intent(mActivity, OldUserActivity.class));
+                    if (type==0){//立即认证
+                        Intent intent = new Intent(mActivity,  AddOldRZUserActivity.class);
+                        startActivity(intent);
+                    }else if (type==1){ //老人 关联子女列表
+                        Intent intent = new Intent(mActivity, OldUserActivity.class);
+                        intent.putExtra("type",type);
+                        startActivityForResult(intent,111);
+                    }else if (type==2){//子女 关联老人列表
+                        Intent intent = new Intent(mActivity, OldUserActivity.class);
+                        intent.putExtra("type",type);
+                        startActivityForResult(intent,111);
+                    }
                     break;
                 default:
                     break;
@@ -436,11 +454,41 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
             requestTopIndex();
         }
     }
+    /**
+     * 老人认证返回
+     *
+     * @param model
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(ModelEventOld model) {
+        if (model != null) {
+            isEventCallback=true;
+            showDialog(smallDialog);
+            requestTopIndex();
+        }
+    }
 
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ( resultCode == RESULT_OK){
+            if (requestCode==111){
+                if (data!=null){
+                    //切换老人返回
+                    String par_uid = data.getStringExtra("par_uid");
+                    this.par_uid_param =par_uid;
+                    isEventCallback=true;
+                    showDialog(smallDialog);
+                    requestTopIndex();
+                }
+            }
+        }
     }
 }

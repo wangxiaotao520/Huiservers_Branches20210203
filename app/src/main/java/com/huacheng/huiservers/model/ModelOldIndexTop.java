@@ -34,7 +34,7 @@ public class ModelOldIndexTop implements Serializable{
     private  String photo ;
 
 
-    private int sex;//1男 2女
+    private String sex;//1男 2女
 
     public String getOld_id() {
         return old_id;
@@ -117,11 +117,11 @@ public class ModelOldIndexTop implements Serializable{
         this.photo = photo;
     }
 
-    public int getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

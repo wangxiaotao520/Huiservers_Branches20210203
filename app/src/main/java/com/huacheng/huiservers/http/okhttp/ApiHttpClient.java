@@ -286,6 +286,16 @@ public class ApiHttpClient {
     public static String PENSION_BOTTOM_ACTIVITY = API_URL + API_VERSION + "pension/indexBottomActivity";
     //下方资讯列表接口
     public static String PENSION_ZIXUN_LIST = API_URL + API_VERSION + "pension/pensionSocialList";
+    //关联列表
+    public static String PENSION_RELATION_LIST = API_URL + API_VERSION + "pension/relationList";
+    //关联添加
+    public static String PENSION_RELATION_ADD = API_URL + API_VERSION + "pension/relationAdd";
+    //关联删除
+    public static String PENSION_RELATION_DELETE = API_URL + API_VERSION + "pension/relationDel";
+    //老人认证
+    public static String PENSION_OLD_AUDIT = API_URL + API_VERSION + "pension/elderAudit";
+    //机构列表
+    public static String PENSION_INST_LIST = API_URL + API_VERSION + "pension/instList";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -396,5 +406,10 @@ public class ApiHttpClient {
         PENSION_INDEXTOP = API_URL + API_VERSION + "pension/indexTop";
         PENSION_BOTTOM_ACTIVITY = API_URL + API_VERSION + "pension/indexBottomActivity";
         PENSION_ZIXUN_LIST = API_URL + API_VERSION + "pension/pensionSocialList";
+        PENSION_RELATION_LIST = API_URL + API_VERSION + "pension/relationList";
+        PENSION_RELATION_ADD = API_URL + API_VERSION + "pension/relationAdd";
+        PENSION_RELATION_DELETE = API_URL + API_VERSION + "pension/relationDel";
+        PENSION_OLD_AUDIT = API_URL + API_VERSION + "pension/elderAudit";
+        PENSION_INST_LIST = API_URL + API_VERSION + "pension/instList";
     }
 }

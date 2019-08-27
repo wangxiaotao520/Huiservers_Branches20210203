@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -15,6 +15,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelOldHuoDong;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -63,6 +64,7 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
             protected void convert(ViewHolder holder, ModelOldHuoDong s, int position)
             {
               //  holder.setText(R.id.tv_name, s + " : " + holder.getAdapterPosition() + " , " + holder.getLayoutPosition());
+                FrescoUtils.getInstance().setImageUri(holder.<SimpleDraweeView>getView(R.id.sdv_img),ApiHttpClient.IMG_URL+s.getTop_img());
             }
         };
 
@@ -84,8 +86,8 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position)
             {
-                Toast.makeText(mActivity, "pos = " + position, Toast.LENGTH_SHORT).show();
-                mAdapter.notifyItemRemoved(position);
+
+
             }
 
             @Override
@@ -127,13 +129,13 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
         }
         // super.isRefresh(par_uid);
         if (!isInit){
-            if (!NullUtil.isStringEmpty(par_uid)){
+            if (!NullUtil.isStringEmpty(par_uid)){//认证后才有值
                 this.par_uid = par_uid;
+                page = 1;
+                isInit=true;
+                showDialog(smallDialog);
+                requestData();
             }
-            page = 1;
-            isInit=true;
-            showDialog(smallDialog);
-            requestData();
         }else {
             //只要par_uid 不同就需要刷新
             if (!NullUtil.isStringEmpty(par_uid)&&!this.par_uid.equals(par_uid)){
@@ -151,12 +153,13 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
         if (!LoginUtils.hasLoginUser()){
             return;
         }
-        if (!NullUtil.isStringEmpty(par_uid)){
+        if (!NullUtil.isStringEmpty(par_uid)){//只有不为空的时候才有活动数据
             this.par_uid = par_uid;
+            page=1;
+            isInit=true;
+            requestData();
         }
-        page=1;
-        isInit=true;
-        requestData();
+
     }
 
     private void requestData() {
