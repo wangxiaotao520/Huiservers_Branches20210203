@@ -296,6 +296,10 @@ public class ApiHttpClient {
     public static String PENSION_OLD_AUDIT = API_URL + API_VERSION + "pension/elderAudit";
     //机构列表
     public static String PENSION_INST_LIST = API_URL + API_VERSION + "pension/instList";
+    //养老消息列表
+    public static String PENSION_MSG_LIST = API_URL + API_VERSION + "pension/msgList";
+    //养老消息同意拒绝
+    public static String PENSION_MSG_AUDIT = API_URL + API_VERSION + "pension/msgAudit";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -411,5 +415,7 @@ public class ApiHttpClient {
         PENSION_RELATION_DELETE = API_URL + API_VERSION + "pension/relationDel";
         PENSION_OLD_AUDIT = API_URL + API_VERSION + "pension/elderAudit";
         PENSION_INST_LIST = API_URL + API_VERSION + "pension/instList";
+        PENSION_MSG_LIST = API_URL + API_VERSION + "pension/msgList";
+        PENSION_MSG_AUDIT = API_URL + API_VERSION + "pension/msgAudit";
     }
 }
