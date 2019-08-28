@@ -99,6 +99,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     private boolean isEventCallback=false;//登录  认证  切换老人
     private boolean is_Refresh = false;  //是否是刷新
     private int type;  //认证状态
+    private ModelOldIndexTop modelOldIndexTop;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -302,8 +303,8 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                 hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    ModelOldIndexTop modelOldIndexTop = (ModelOldIndexTop) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldIndexTop.class);
-                    if (modelOldIndexTop!=null) {
+                    modelOldIndexTop = (ModelOldIndexTop) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldIndexTop.class);
+                    if (modelOldIndexTop !=null) {
                         type = modelOldIndexTop.getType();
                         if (0== type){
                             //没有认证
@@ -323,14 +324,14 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             iv_sex.setVisibility(View.VISIBLE);
                             tv_dad_mom.setVisibility(View.GONE);
                             ll_age_address.setVisibility(View.VISIBLE);
-                            tv_name.setText(""+modelOldIndexTop.getName()+"");
+                            tv_name.setText(""+ modelOldIndexTop.getName()+"");
                             iv_sex.setBackgroundResource("1".equals(modelOldIndexTop.getSex())?R.mipmap.ic_man_white:R.mipmap.ic_woman_white); //性别
-                            tv_age.setText("年龄  "+modelOldIndexTop.getBirthday());
+                            tv_age.setText("年龄  "+ modelOldIndexTop.getBirthday());
                             tv_address.setText(modelOldIndexTop.getI_name()+"");
                             tv_change_person.setText("关联子女");
-                            par_uid=modelOldIndexTop.getPar_uid()+"";
+                            par_uid= modelOldIndexTop.getPar_uid()+"";
                             // 头像
-                            FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+modelOldIndexTop.getPhoto()+"");
+                            FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
                         }else if (2== type){
                             //2.子女认证
                             rl_title_container.setBackgroundResource(R.mipmap.bg_old_blue);
@@ -338,15 +339,15 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             iv_sex.setVisibility(View.VISIBLE);
                             tv_dad_mom.setVisibility(View.VISIBLE);
                             ll_age_address.setVisibility(View.VISIBLE);
-                            tv_name.setText(""+modelOldIndexTop.getName()+"");
+                            tv_name.setText(""+ modelOldIndexTop.getName()+"");
                             iv_sex.setBackgroundResource("1".equals(modelOldIndexTop.getSex())?R.mipmap.ic_man_white:R.mipmap.ic_woman_white); //性别
-                            tv_age.setText("年龄  "+modelOldIndexTop.getBirthday());
+                            tv_age.setText("年龄  "+ modelOldIndexTop.getBirthday());
                             tv_address.setText(modelOldIndexTop.getI_name()+"");
                             tv_dad_mom.setText(modelOldIndexTop.getCall());
                             tv_change_person.setText("切换长者");
-                            par_uid=modelOldIndexTop.getPar_uid()+"";
+                            par_uid= modelOldIndexTop.getPar_uid()+"";
                             // 头像
-                            FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+modelOldIndexTop.getPhoto()+"");
+                            FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
                         }
                         //刷新
                         if (is_Refresh){
@@ -402,7 +403,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         //没有登录的时候先登录
         if (!LoginUtils.hasLoginUser()) {
             startActivity(new Intent(mActivity, LoginVerifyCodeActivity.class));
-        }else if (type==0){
+        }else if (type==0){//没有认证
             Intent intent = new Intent(mActivity,  AddOldRZUserActivity.class);
             startActivity(intent);
         }else {
@@ -415,10 +416,14 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                     startActivity(new Intent(mActivity, OldHardwareActivity.class));
                     break;
                 case R.id.rl_warm:
-                    startActivity(new Intent(mActivity, OldServiceWarmActivity.class));
+                    Intent intent_warm=  new Intent(mActivity, OldServiceWarmActivity.class);
+                    intent_warm.putExtra("model",modelOldIndexTop);
+                    startActivity(intent_warm);
                     break;
                 case R.id.rl_medicine:
-                    startActivity(new Intent(mActivity, CalendarViewActivity.class));
+                    Intent intent_medicine=  new Intent(mActivity, CalendarViewActivity.class);
+                    intent_medicine.putExtra("model",modelOldIndexTop);
+                    startActivity(intent_medicine);
                     break;
                 case R.id.ll_change_person:
                     if (type==0){//立即认证

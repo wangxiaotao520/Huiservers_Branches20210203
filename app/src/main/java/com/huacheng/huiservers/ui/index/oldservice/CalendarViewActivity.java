@@ -7,16 +7,27 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.MedicineNoticeDialog;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelOldDrugList;
+import com.huacheng.huiservers.model.ModelOldIndexTop;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,8 +46,10 @@ public class CalendarViewActivity extends BaseActivity implements CalendarView.O
     private FrameLayout fl_next;
     private NestedScrollView nestedScrollView;
     private ListView listview;
-    private CommonAdapter<String> adapter ;
-    private List<String> mDatas = new ArrayList<>();
+    private CommonAdapter<ModelOldDrugList> adapter ;
+    private List<ModelOldDrugList> mDatas = new ArrayList<>();
+
+    private ModelOldIndexTop modelOldIndexTop;
 
     @Override
     protected void initView() {
@@ -53,10 +66,10 @@ public class CalendarViewActivity extends BaseActivity implements CalendarView.O
         tv_year.setText(calendarView.getCurYear()+"年");
         tv_month.setText(calendarView.getCurMonth()+"月");
         listview = findViewById(R.id.listview);
-        adapter= new CommonAdapter<String>(this,R.layout.item_medcine_notice,mDatas) {
+        adapter= new CommonAdapter<ModelOldDrugList>(this,R.layout.item_medcine_notice,mDatas) {
             @Override
-            protected void convert(ViewHolder viewHolder, String item, int position) {
-
+            protected void convert(ViewHolder viewHolder, ModelOldDrugList item, int position) {
+                viewHolder.<TextView>getView(R.id.tv_time).setText(item.getEatime()+"");
             }
         };
         listview.setAdapter(adapter);
@@ -64,7 +77,11 @@ public class CalendarViewActivity extends BaseActivity implements CalendarView.O
 
     @Override
     protected void initData() {
-
+        if (modelOldIndexTop==null){
+            return;
+        }
+        //请求当天的数据
+        request(getDateFormat(System.currentTimeMillis()));
     }
 
     @Override
@@ -103,7 +120,8 @@ public class CalendarViewActivity extends BaseActivity implements CalendarView.O
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                new MedicineNoticeDialog(mContext).show();
+                ModelOldDrugList modelOldDrugList = mDatas.get(position);
+                new MedicineNoticeDialog(mContext,modelOldDrugList).show();
             }
         });
     }
@@ -115,7 +133,7 @@ public class CalendarViewActivity extends BaseActivity implements CalendarView.O
 
     @Override
     protected void initIntentData() {
-
+        modelOldIndexTop= (ModelOldIndexTop) getIntent().getSerializableExtra("model");
     }
 
     @Override
@@ -140,11 +158,11 @@ public class CalendarViewActivity extends BaseActivity implements CalendarView.O
         tv_year.setText(calendar.getYear()+"年");
         tv_month.setText(calendar.getMonth()+"月");
         mYear = calendar.getYear();
-        //TODO 测试
-        for (int i = 0; i < 1; i++) {
-            mDatas.add("");
+
+        if (modelOldIndexTop==null){
+            return;
         }
-        adapter.notifyDataSetChanged();
+        request(getDateFormat(calendar.getTimeInMillis()));
     }
 
     @Override
@@ -162,5 +180,57 @@ public class CalendarViewActivity extends BaseActivity implements CalendarView.O
         tv_year.setText(year+"年");
         tv_month.setText(month+"月");
         mYear = year;
+    }
+
+    /**
+     * 请求数据
+     */
+    private void request(String time) {
+
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("time",time+"");
+        params.put("p_id",modelOldIndexTop.getOld_id()+"");
+        params.put("o_company_id",modelOldIndexTop.getO_company_id()+"");
+        MyOkHttp.get().post(ApiHttpClient.PENSION_DRUG_LIST, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    List <ModelOldDrugList>data = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelOldDrugList.class);
+                    if (data!=null&&data.size()>0){
+                        mDatas.clear();
+                        mDatas.addAll(data);
+                        adapter.notifyDataSetChanged();
+                    }else {
+                        mDatas.clear();
+                        adapter.notifyDataSetChanged();
+                    }
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                    mDatas.clear();
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
+    /**
+     * 获取格式
+     * @param timeMillis
+     * @return
+     */
+    private String getDateFormat(long timeMillis) {
+        SimpleDateFormat  sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(timeMillis);
+        return date+"";
     }
 }

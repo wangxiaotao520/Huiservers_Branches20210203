@@ -142,12 +142,8 @@ public class OldMessageActivity extends BaseListActivity<ModelOldMessage> implem
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                mRefreshLayout.finishRefresh();
-                mRefreshLayout.finishLoadMore();
                 SmartToast.showInfo("网络异常，请检查网络设置");
-                if (page == 1) {
-                    mRefreshLayout.setEnableLoadMore(false);
-                }
+
             }
         });
     }

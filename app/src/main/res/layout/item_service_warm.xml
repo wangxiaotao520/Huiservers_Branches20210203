@@ -73,6 +73,7 @@
                     android:id="@+id/iv_single_img"
                     android:layout_width="175dp"
                     android:scaleType="centerCrop"
+                    android:visibility="gone"
                     android:layout_height="175dp" />
                 <com.huacheng.huiservers.ui.index.oldservice.adapter.MyNineGridLayout
                     android:id="@+id/nine_grid_layout"

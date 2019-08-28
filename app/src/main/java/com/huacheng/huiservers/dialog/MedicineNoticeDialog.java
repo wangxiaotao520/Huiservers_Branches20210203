@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.model.ModelOldDrugList;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
@@ -29,18 +30,19 @@ public class MedicineNoticeDialog extends Dialog {
     private Context mContext;
     private ImageView iv_delete;
     private ListView listview;
-    private CommonAdapter<String> adapter ;
-    private List<String> mDatas;
+    private CommonAdapter<ModelOldDrugList.DrugListBean> adapter ;
+    private List<ModelOldDrugList.DrugListBean> mDatas;
     private TextView tv_medicine_time;
     private TextView tv_add_person;
     private TextView tv_beizhu;
     private View headerView;
     private View footerView;
+    ModelOldDrugList modelOldDrugList;
 
-    public MedicineNoticeDialog(@NonNull Context context) {
+    public MedicineNoticeDialog(@NonNull Context context, ModelOldDrugList modelOldDrugList) {
         super(context, R.style.my_dialog_DimEnabled);
         mContext=context;
-
+        this.modelOldDrugList=modelOldDrugList;
 
     }
 
@@ -80,10 +82,12 @@ public class MedicineNoticeDialog extends Dialog {
         tv_beizhu = footerView.findViewById(R.id.tv_beizhu);
         listview.addFooterView(footerView);
         footerView.setVisibility(View.INVISIBLE);
-        adapter= new CommonAdapter<String>(mContext,R.layout.item_dialog_medicine,mDatas) {
+        adapter= new CommonAdapter<ModelOldDrugList.DrugListBean>(mContext,R.layout.item_dialog_medicine,mDatas) {
             @Override
-            protected void convert(ViewHolder viewHolder, String item, int position) {
-
+            protected void convert(ViewHolder viewHolder, ModelOldDrugList.DrugListBean item, int position) {
+                viewHolder.<TextView>getView(R.id.tv_medicine_name).setText(item.getD_name()+"");
+                viewHolder.<TextView>getView(R.id.tv_medicine_num).setText(item.getDose()+"");
+                viewHolder.<TextView>getView(R.id.tv_medicine_content).setText(item.getTips()+"");
             }
         };
         listview.setAdapter(adapter);
@@ -94,18 +98,28 @@ public class MedicineNoticeDialog extends Dialog {
                 dismiss();
             }
         });
+
+        if (modelOldDrugList!=null){
+            tv_medicine_time.setText(modelOldDrugList.getEatime()+"");
+            tv_add_person.setText(modelOldDrugList.getUser_name()+"");
+            tv_beizhu.setText(modelOldDrugList.getNote()+"");
+            if (modelOldDrugList.getDrug_list()!=null&&modelOldDrugList.getDrug_list().size()>0){
+                mDatas.clear();
+                mDatas.addAll(modelOldDrugList.getDrug_list());
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override
     public void show() {
         super.show();
-        //TODO 测试
         headerView.setVisibility(View.VISIBLE);
         footerView.setVisibility(View.VISIBLE);
-        for (int i = 0; i < 3; i++) {
-            mDatas.add("");
+
+        if (adapter!=null){
+            adapter.notifyDataSetChanged();
         }
-        if (adapter!=null)
-        adapter.notifyDataSetChanged();
+
     }
 }
