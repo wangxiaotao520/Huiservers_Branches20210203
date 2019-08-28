@@ -217,14 +217,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white">
+                android:id="@+id/ll_img_container"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:paddingTop="25dp"
+                android:paddingBottom="24dp"
+                android:paddingLeft="25dp">
 
-                <ImageView
-                    android:id="@+id/iv_img"
-                    android:layout_width="287dp"
-                    android:layout_height="150dp"
-                    android:layout_marginLeft="@dimen/margin_15"
-                    android:background="@mipmap/ic_launcher"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -247,9 +247,9 @@
                     android:id="@+id/tv_tijian_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:gravity="center_vertical|right"
-                    android:text="心律不齐，患有轻微的新长辈啊啊啊啊啊啊啊啊啊啊"
+                    android:layout_marginLeft="18dp"
+                    android:gravity="center_vertical"
+                    android:text=""
                     android:textColor="@color/blackgray"
                     android:textSize="@dimen/t_14sp"/>
 

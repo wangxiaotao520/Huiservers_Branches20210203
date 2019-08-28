@@ -19,8 +19,7 @@
             android:layout_marginTop="@dimen/margin_5"
             android:background="@color/white"
             android:gravity="center"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/sdv_head"
@@ -42,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="老人名"
+                    android:text=""
                     android:textColor="@color/blackgray"
                     android:textSize="@dimen/t_16sp"/>
 
@@ -62,14 +61,12 @@
             android:layout_height="@dimen/margin_45"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="@dimen/margin_15"
-            >
+            android:paddingLeft="@dimen/margin_15">
 
             <TextView
                 android:layout_width="4dp"
                 android:layout_height="9dp"
-                android:background="@drawable/shape_solid_orange_btn"
-                />
+                android:background="@drawable/shape_solid_orange_btn" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -290,8 +287,9 @@
 
             </LinearLayout>
         </LinearLayout>
-
+        <!--健康档案-->
         <LinearLayout
+            android:id="@+id/ll_healthy_file_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_45"
             android:gravity="center_vertical"
@@ -301,8 +299,7 @@
             <TextView
                 android:layout_width="4dp"
                 android:layout_height="9dp"
-                android:background="@drawable/shape_solid_orange_btn"
-                />
+                android:background="@drawable/shape_solid_orange_btn" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -315,10 +312,10 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_healthy_file"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -422,6 +419,7 @@
                     android:layout_gravity="top"
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_5"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="3"
                     android:text="过往病史"
                     android:textColor="@color/gray_99"
@@ -456,7 +454,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:layout_marginLeft="@dimen/margin_15"
-                    android:layout_marginTop="@dimen/margin_5"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="3"
                     android:text="过敏信息"
                     android:textColor="@color/gray_99"
@@ -480,7 +479,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
@@ -500,7 +500,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/margin_5"
                     android:layout_marginTop="@dimen/margin"
-                    android:text="dndndndndndndndndndndndndndndndndndndndndndndndndndndndndn    "
+                    android:text="    "
                     android:textColor="@color/blackgray"
                     android:textSize="@dimen/t_14sp"/>
 

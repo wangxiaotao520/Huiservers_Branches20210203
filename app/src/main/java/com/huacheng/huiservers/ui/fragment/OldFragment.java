@@ -407,10 +407,14 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
             Intent intent = new Intent(mActivity,  AddOldRZUserActivity.class);
             startActivity(intent);
         }else {
+            if (modelOldIndexTop==null){
+                return;
+            }
             switch (v.getId()){
-
                 case R.id.rl_healthy:
-                    startActivity(new Intent(mActivity, OldFileActivity.class));
+                    Intent intent_oldfile=  new Intent(mActivity, OldFileActivity.class);
+                    intent_oldfile.putExtra("model",modelOldIndexTop);
+                    startActivity(intent_oldfile);
                     break;
                 case R.id.rl_data:
                     startActivity(new Intent(mActivity, OldHardwareActivity.class));
