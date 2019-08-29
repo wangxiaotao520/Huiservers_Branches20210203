@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelOldMessage;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
@@ -35,7 +35,7 @@ public class AdapterOldMessage extends CommonAdapter<ModelOldMessage>{
         viewHolder.<TextView>getView(R.id.tv_name).setText(item.getFrom_nickname()+"");
         viewHolder.<TextView>getView(R.id.tv_name).setText(item.getFrom_nickname()+"");
         viewHolder.<TextView>getView(R.id.tv_id).setText("慧生活账号："+item.getFrom_username());
-        FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head), ApiHttpClient.IMG_URL+item.getFrom_avatars());
+        FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head), StringUtils.getImgUrl(item.getFrom_avatars()+""));
         if (NullUtil.isStringEmpty(item.getState_str())){
             viewHolder.<TextView>getView(R.id.tv_status).setText("");
             viewHolder.<LinearLayout>getView(R.id.ll_agree_reject).setVisibility(View.VISIBLE);

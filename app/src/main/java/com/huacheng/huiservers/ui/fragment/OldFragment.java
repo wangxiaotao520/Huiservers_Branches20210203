@@ -38,6 +38,7 @@ import com.huacheng.huiservers.ui.index.oldservice.OldServiceWarmActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldUserActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
@@ -335,7 +336,8 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             tv_change_person.setText("关联子女");
                             par_uid= modelOldIndexTop.getPar_uid()+"";
                             // 头像
-                            FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
+                         //   FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
+                            FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(modelOldIndexTop.getPhoto()+""));
                         }else if (2== type){
                             //2.子女认证
                             rl_title_container.setBackgroundResource(R.mipmap.bg_old_blue);
@@ -351,7 +353,8 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             tv_change_person.setText("切换长者");
                             par_uid= modelOldIndexTop.getPar_uid()+"";
                             // 头像
-                            FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
+                         //   FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
+                            FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(modelOldIndexTop.getPhoto()+""));
                         }
                         //刷新
                         if (is_Refresh){
@@ -365,6 +368,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                                 currentFragment.refreshIndeed(par_uid);//当前页直接刷新 不显示smalldialog
                             }
                             is_Refresh= false;
+                            //todo 这里记得下一新版本的时候就不是第二个了
                             if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
                             ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
                         }else  if (isEventCallback){//从别的页返回  认证  切换老人
@@ -372,6 +376,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                                 currentFragment.refreshIndeed(par_uid);//刷新fragment
                             }
                             isEventCallback=false;
+                            //todo 这里记得下一新版本的时候就不是第二个了
                             if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
                             ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
                         }else {
@@ -460,7 +465,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     }
 
     /**
-     * 登录返回
+     * 登录或者认证返回
      *
      * @param model
      */

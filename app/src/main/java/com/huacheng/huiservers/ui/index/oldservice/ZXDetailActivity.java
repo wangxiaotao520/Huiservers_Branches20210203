@@ -11,10 +11,10 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelOldZixun;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -78,8 +78,8 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
                     ModelOldZixun info = (ModelOldZixun) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldZixun.class);
                     if (info != null) {
                         mTvName.setText(info.getTitle());
-                        tv_person_addtime.setText("来源：" + info.getFrom() + "    " + StringUtils.getDateToString(info.getAddtime(), "7"));
-
+                        tv_person_addtime.setText("来源：" + info.getFrom() + "    " + info.getAddtime() );
+                        tv_read_count.setText("阅读数: " +info.getClick());
                         //能够的调用JavaScript代码
                         mWebview.getSettings().setJavaScriptEnabled(true);
                         // 设置允许JS弹窗
@@ -119,6 +119,12 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
 //                            tv_fav.setTextColor(getResources().getColor(R.color.blue));
 //                            tv_fav.setText("取消收藏");
 //                        }
+                        //发evevttype 增加阅读量
+                        ModelOldZixun modelOldZixun = new ModelOldZixun();
+                        modelOldZixun.setClick(info.getClick());
+                        modelOldZixun.setEvevt_type(1);
+                        modelOldZixun.setId(info.getId());
+                        EventBus.getDefault().post(modelOldZixun);
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");

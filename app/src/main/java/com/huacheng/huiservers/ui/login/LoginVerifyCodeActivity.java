@@ -286,7 +286,6 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            System.out.println("timestamp------" + timestamp);
                         }
                     }).start();
 
@@ -485,7 +484,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                 hideDialog(smallDialog);
                 txt_btn.setText("登录");
                 txt_btn.setClickable(true);
-                SmartToast.showInfo(error_msg);
+                SmartToast.showInfo("网络异常，请检查网络设置");
 
             }
         });
@@ -500,7 +499,6 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
         params.put("sms_type", "login");
         params.put("ApiSmstokentime", timestamp);// 时间戳
         params.put("ApiSmstoken", jmStr);// 加密字符串
-        System.out.println("ApiSmstokentime------" + timestamp + "_____" + jmStr);
         MyOkHttp.get().post(info.reg_send_sms, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -525,7 +523,8 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                SmartToast.showInfo(error_msg);
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络错误,请检查网络设置");
             }
         });
     }

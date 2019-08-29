@@ -63,7 +63,9 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
 
         if (!StringUtils.isEmpty(item.getHead_img())) {
             GlideUtils.getInstance()
-                    .glideLoad(mContext, ApiHttpClient.IMG_URL + item.getHead_img(), sdv_head, R.drawable.ic_default_rectange);
+                    .glideLoad(mContext, StringUtils.getImgUrl(item.getHead_img()+""), sdv_head, R.drawable.ic_default_rectange);
+
+
         } else {
             GlideUtils.getInstance()
                     .glideLoad(mContext, "", sdv_head, R.drawable.ic_default_rectange);

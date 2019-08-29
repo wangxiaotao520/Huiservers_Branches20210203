@@ -16,8 +16,8 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelArticle;
+import com.huacheng.huiservers.model.ModelOldZixun;
 import com.huacheng.huiservers.ui.index.oldservice.ZXDetailActivity;
-import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -25,6 +25,9 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -54,6 +57,13 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
         Bundle arguments = getArguments();
         par_uid = arguments.getString("par_uid");
     }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public void initView(View view) {
       //  SmartRefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
@@ -72,7 +82,7 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
                 GlideUtils.getInstance().glideLoad(mActivity,ApiHttpClient.IMG_URL+s.getImg(),holder.<ImageView>getView(R.id.iv_image),R.color.windowbackground);
                 holder.<TextView>getView(R.id.tv_title).setText(s.getTitle()+"");
                 holder.<TextView>getView(R.id.tv_read_count).setText(s.getClick()+"");
-                holder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(s.getAddtime(),"7"));
+                holder.<TextView>getView(R.id.tv_time).setText(s.getAddtime());
             }
         };
 
@@ -212,5 +222,37 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
         isInit=true;
         page=1;
         requestData();
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    /**
+     * 资讯返回 观看数和收藏数
+     *
+     * @param model
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(ModelOldZixun model) {
+        if (model != null) {
+            if (model.getEvevt_type()==1){
+                //阅读量
+                ModelArticle modelEvent=null;
+                for (int i = 0; i < mDatas.size(); i++) {
+                    if ((mDatas.get(i).getId()+"").equals(model.getId())){
+                        modelEvent=mDatas.get(i);
+                    }
+                }
+                if (modelEvent!=null){
+                    modelEvent.setClick(model.getClick());
+                }
+                mLoadMoreWrapper.notifyDataSetChanged();
+            }
+        }else if (model.getEvevt_type()==2){
+
+        }
     }
 }

@@ -38,6 +38,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="25dp"
                         fresco:placeholderImage="@drawable/ic_default_head"
+                        fresco:placeholderImageScaleType="centerCrop"
+                        android:scaleType="centerCrop"
                         fresco:roundAsCircle="true" />
 
                     <LinearLayout

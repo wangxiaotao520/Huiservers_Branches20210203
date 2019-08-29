@@ -171,7 +171,8 @@ public class OldFileActivity extends BaseActivity {
                     ModelOldFileDetail.BasisBean basis = info.getBasis();
                     if (basis!=null){
                         //头部数据
-                        FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+basis.getPhoto());
+                      //  FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+basis.getPhoto());
+                        FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(basis.getPhoto()+""));
                         tv_name.setText(basis.getName()+"");
                         iv_old_img.setBackgroundResource("1".equals(basis.getSex())?R.mipmap.ic_old_nan:R.mipmap.ic_old_nv);
                         tv_sf_ID.setText(basis.getIdcard()+"");

@@ -34,7 +34,8 @@ public class AdapterOldServiceWarm extends CommonAdapter<ModelItemServiceWarm>{
 
     @Override
     protected void convert(ViewHolder viewHolder, final ModelItemServiceWarm item, int position) {
-        FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head), ApiHttpClient.IMG_URL+item.getHead_img());
+      //  FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head), ApiHttpClient.IMG_URL+item.getHead_img());
+        FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head), StringUtils.getImgUrl(item.getHead_img()));
         viewHolder.<TextView>getView(R.id.tv_name).setText(item.getUser_name()+"");
         viewHolder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(item.getAddtime(),"7"));
         viewHolder.<TextView>getView(R.id.tv_content).setText(item.getContent()+"");

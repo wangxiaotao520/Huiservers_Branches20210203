@@ -1,11 +1,13 @@
 package com.huacheng.huiservers.model;
 
+import java.io.Serializable;
+
 /**
  * Description: 养老资讯
  * created by wangxiaotao
  * 2019/8/28 0028 下午 9:09
  */
-public class ModelOldZixun {
+public class ModelOldZixun implements Serializable{
 
     /**
      * id : 805
@@ -32,6 +34,9 @@ public class ModelOldZixun {
     private String o_company_name;
     private String click;
     private String addtime;
+
+
+    private int evevt_type = 1; //1是阅读量 2.是收藏量
 
     public String getId() {
         return id;
@@ -87,5 +92,14 @@ public class ModelOldZixun {
 
     public void setAddtime(String addtime) {
         this.addtime = addtime;
+    }
+
+
+    public int getEvevt_type() {
+        return evevt_type;
+    }
+
+    public void setEvevt_type(int evevt_type) {
+        this.evevt_type = evevt_type;
     }
 }

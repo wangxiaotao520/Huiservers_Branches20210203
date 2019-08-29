@@ -16,6 +16,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelEventOld;
 import com.huacheng.huiservers.model.ModelOldRelationShip;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -115,7 +116,8 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
             RelativeLayout ry_yinying = view.findViewById(R.id.ry_yinying);
 
             ModelOldRelationShip item = mDatas.get(i);
-            FrescoUtils.getInstance().setImageUri(sdv_head, ApiHttpClient.IMG_URL +item.getAvatars() );
+          //  FrescoUtils.getInstance().setImageUri(sdv_head, ApiHttpClient.IMG_URL +item.getAvatars() );
+            FrescoUtils.getInstance().setImageUri(sdv_head, StringUtils.getImgUrl(item.getAvatars()));
             if (type ==1){
                 tv_tag.setVisibility(View.GONE);
             }else {

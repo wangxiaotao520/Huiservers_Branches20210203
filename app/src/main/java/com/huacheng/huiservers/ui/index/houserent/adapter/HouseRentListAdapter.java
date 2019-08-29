@@ -6,8 +6,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.HouseRentDetail;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -29,7 +29,7 @@ public class HouseRentListAdapter extends CommonAdapter<HouseRentDetail>{
     @Override
     protected void convert(ViewHolder viewHolder, HouseRentDetail item, int position) {
         viewHolder.getView(R.id.sdv_head).setVisibility(View.VISIBLE);
-        FrescoUtils.getInstance().setImageUri((SimpleDraweeView) viewHolder.getView(R.id.sdv_head), ApiHttpClient.IMG_URL+item.getHead_img());
+        FrescoUtils.getInstance().setImageUri((SimpleDraweeView) viewHolder.getView(R.id.sdv_head), StringUtils.getImgUrl(item.getHead_img()+""));
 
         viewHolder.<TextView>getView(R.id.tv_title).setText(item.getCommunity_name()+"-"
         +item.getRoom()+"室"+item.getOffice()+"厅"+item.getKitchen()+"厨"+item.getGuard()+"卫"+"-面积"
