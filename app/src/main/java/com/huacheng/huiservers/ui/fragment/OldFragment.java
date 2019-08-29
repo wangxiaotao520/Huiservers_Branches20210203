@@ -401,6 +401,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
+                refreshLayout.finishRefresh();
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
