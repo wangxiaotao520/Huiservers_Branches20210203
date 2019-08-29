@@ -1,5 +1,7 @@
 package com.huacheng.huiservers.ui.index.oldservice;
 
+import android.graphics.Color;
+import android.util.Base64;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -9,9 +11,8 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
-import com.huacheng.huiservers.model.ModelOldZixun;
+import com.huacheng.huiservers.model.ModelOldHuoDong;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -20,23 +21,24 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 /**
- * 类描述：资讯详情
- * 时间：2019/8/15
- * created by DFF
+ * Description: 活动详情
+ * created by wangxiaotao
+ * 2019/8/28 0028 下午 9:20
  */
-public class ZXDetailActivity extends BaseActivity implements View.OnClickListener {
+public class HDDetailActivity extends BaseActivity implements View.OnClickListener {
     private WebView mWebview;
     private TextView mTvName;
     private TextView tv_person_addtime;
     private TextView tv_fav;
     private TextView tv_read_count;
     private String id = "";
+    private String o_company_id = "";
     String str_url;
 
     @Override
     protected void initView() {
         findTitleViews();
-        titleName.setText("资讯详情");
+        titleName.setText("活动详情");
 
         mTvName = findViewById(R.id.tv_title);
         tv_person_addtime = findViewById(R.id.tv_person_addtime);
@@ -63,6 +65,7 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void initIntentData() {
         id = getIntent().getStringExtra("id");
+        o_company_id = getIntent().getStringExtra("o_company_id");
 
     }
 
@@ -70,15 +73,23 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
-        MyOkHttp.get().post(ApiHttpClient.PENSION_SOCIAL_DETAIL, params, new JsonResponseHandler() {
+        params.put("o_company_id", o_company_id);
+        MyOkHttp.get().post(ApiHttpClient.PENSION_ACTIVITY_SEE, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    ModelOldZixun info = (ModelOldZixun) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldZixun.class);
+                    ModelOldHuoDong info = (ModelOldHuoDong) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldHuoDong.class);
                     if (info != null) {
                         mTvName.setText(info.getTitle());
-                        tv_person_addtime.setText("来源：" + info.getFrom() + "    " + StringUtils.getDateToString(info.getAddtime(), "7"));
+                        if (info.getStatus()==1){
+                            tv_person_addtime.setText("活动状态：" +"待开始");
+                        } else if( info.getStatus()==2) {
+                            tv_person_addtime.setText("活动状态：" +"进行中");
+                        }else {
+                            tv_person_addtime.setText("活动状态：" +"已结束");
+                        }
+                        tv_person_addtime.setTextColor(Color.parseColor("#ED8D37"));
 
                         //能够的调用JavaScript代码
                         mWebview.getSettings().setJavaScriptEnabled(true);
@@ -97,8 +108,8 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
 
                         //设置字体大小
                         mWebview.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
-                     //   byte[] bytes = Base64.decode(info.getContent(), Base64.DEFAULT);
-                     //   String content = new String(bytes);
+                         byte[] bytes = Base64.decode(info.getContent(), Base64.DEFAULT);
+                          String content = new String(bytes);
                         if (!"".equals(info.getContent())) {
                             String css = "<style type=\"text/css\"> " +
                                     "img {" +
@@ -106,7 +117,7 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
                                     "height:auto !important;" +//限定图片高度自动
                                     "}" +
                                     "</style>";
-                            String content1 = "<head>" + css + "</head><body>" + info.getContent() + "</body></html>";
+                            String content1 = "<head>" + css + "</head><body>" + content + "</body></html>";
                             mWebview.loadDataWithBaseURL(null, content1, "text/html", "utf-8", null);
 
                         }

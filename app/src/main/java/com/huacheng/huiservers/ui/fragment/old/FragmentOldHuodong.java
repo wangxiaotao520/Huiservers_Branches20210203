@@ -1,10 +1,14 @@
 package com.huacheng.huiservers.ui.fragment.old;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -13,6 +17,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelOldHuoDong;
+import com.huacheng.huiservers.ui.index.oldservice.HDDetailActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
@@ -40,14 +45,21 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
     private List<ModelOldHuoDong> mDatas = new ArrayList<>();
     private HeaderAndFooterWrapper mHeaderAndFooterWrapper;
     private LoadMoreWrapper mLoadMoreWrapper;
+    //par_uid  和o_company_id 要有都有 要没有都没有
     private String par_uid= "";
+    private String o_company_id="";
     private int page = 1;
+    private ImageView iv_no_data;
+    private LinearLayout ll_no_data;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         Bundle arguments = getArguments();
         par_uid = arguments.getString("par_uid");
+        if (!NullUtil.isStringEmpty(arguments.getString("o_company_id"))){
+            o_company_id = arguments.getString("o_company_id");
+        }
     }
 
     @Override
@@ -86,7 +98,18 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position)
             {
-
+                if ("1".equals(mDatas.get(position).getType())) {
+                    Intent intent = new Intent(mActivity, HDDetailActivity.class);
+                    intent.putExtra("id",mDatas.get(position).getId()+"");
+                    intent.putExtra("o_company_id",o_company_id+"");
+                    startActivity(intent);
+                }else {
+                    //外链
+                    Intent intent= new Intent();intent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse(""+mDatas.get(position).getLink());
+                    intent.setData(content_url);
+                    startActivity(intent);
+                }
 
             }
 
@@ -96,7 +119,10 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
                 return false;
             }
         });
-
+        iv_no_data = view.findViewById(R.id.iv_no_data);
+        iv_no_data.setVisibility(View.VISIBLE);
+        ll_no_data = view.findViewById(R.id.ll_no_data);
+        ll_no_data.setVisibility(View.VISIBLE);
     }
 
     private void initHeaderAndFooter() {
@@ -135,6 +161,9 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
                 isInit=true;
                 showDialog(smallDialog);
                 requestData();
+                ll_no_data.setVisibility(View.GONE);
+            }else {
+                ll_no_data.setVisibility(View.VISIBLE);
             }
         }else {
             //只要par_uid 不同就需要刷新
@@ -144,6 +173,9 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
                 page = 1;
                 showDialog(smallDialog);
                 requestData();
+                ll_no_data.setVisibility(View.GONE);
+            }else {
+              //  ll_no_data.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -158,6 +190,9 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
             page=1;
             isInit=true;
             requestData();
+            ll_no_data.setVisibility(View.GONE);
+        }else {
+         //   ll_no_data.setVisibility(View.VISIBLE);
         }
 
     }
@@ -178,6 +213,7 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
                     ModelOldHuoDong info = (ModelOldHuoDong) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldHuoDong.class);
                     if (info != null) {
                         if (info.getList() != null && info.getList().size() > 0) {
+                            ll_no_data.setVisibility(View.GONE);
                             if (page == 1) {
                                 mDatas.clear();
                             }
@@ -193,6 +229,7 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
                         } else {
                             if (page == 1) {
                                 mDatas.clear();
+                                ll_no_data.setVisibility(View.VISIBLE);
                             }
                             mLoadMoreWrapper.setLoadMoreView(0);
                             mLoadMoreWrapper.notifyDataSetChanged();
@@ -214,5 +251,10 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
             }
         });
     }
+
+    public void setO_company_id(String o_company_id) {
+        this.o_company_id = o_company_id;
+    }
+
 }
 

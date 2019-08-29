@@ -22,6 +22,19 @@ public class ModelOldHuoDong {
     private String top_img;
     private String type;
     private String link;
+    /**
+     * title : 吃屎去吧
+     * content : ZHNmc2RmZHNmc2Rmc2Rmc2RmPGltZyBzcmM9Imh0dHA6Ly9pbWcuaHVpLXNoZW5naHVvLmNuL2h1YWNoZW5nX3Byb3BlcnR5L2VkaXRvci9pbWFnZS8yMDE5MDgyNC8yMDE5MDgyNDA5MDcwM18xMjgyNi5qcGciIGFsdD0iIiAvPg==
+     * startime : 1564645124
+     * endtime : 1567237124
+     * status : 2
+     */
+
+    private String title;
+    private String content;
+    private String startime;
+    private String endtime;
+    private int status;
 
     public int getTotalPages() {
         return totalPages;
@@ -70,5 +83,46 @@ public class ModelOldHuoDong {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getStartime() {
+        return startime;
+    }
+
+    public void setStartime(String startime) {
+        this.startime = startime;
+    }
+
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

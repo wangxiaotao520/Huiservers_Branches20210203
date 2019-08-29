@@ -14,6 +14,8 @@ public class FragmentOldCommonImp extends BaseFragment{
 
 
     protected  boolean isInit=false;
+
+
     @Override
     public void initView(View view) {
 
@@ -60,4 +62,6 @@ public class FragmentOldCommonImp extends BaseFragment{
     public void setInit(boolean init) {
         isInit = init;
     }
+
+
 }

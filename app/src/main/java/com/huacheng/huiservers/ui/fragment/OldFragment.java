@@ -146,6 +146,10 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         FragmentOldHuodong fragmentOldHuodong =  new FragmentOldHuodong();
         Bundle bundle1 = new Bundle();
         bundle1.putString("par_uid", par_uid);
+        //传递o_company_id
+        if (modelOldIndexTop!=null&&!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id())){
+            bundle1.putString("o_company_id", modelOldIndexTop.getO_company_id()+"");
+        }
         fragmentOldHuodong.setArguments(bundle1);
         mFragments.add(fragmentOldHuodong);
 
@@ -361,15 +365,20 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                                 currentFragment.refreshIndeed(par_uid);//当前页直接刷新 不显示smalldialog
                             }
                             is_Refresh= false;
+                            if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
+                            ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
                         }else  if (isEventCallback){//从别的页返回  认证  切换老人
                             if (currentFragment!=null){
                                 currentFragment.refreshIndeed(par_uid);//刷新fragment
                             }
                             isEventCallback=false;
+                            if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
+                            ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
                         }else {
                             //第一次进来
                             initTabAndViewPager();
                         }
+
                     }else {
                         SmartToast.showInfo("数据解析异常");
                     }

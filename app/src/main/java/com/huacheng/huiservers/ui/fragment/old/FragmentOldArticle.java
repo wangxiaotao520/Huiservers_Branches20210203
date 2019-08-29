@@ -1,13 +1,14 @@
 package com.huacheng.huiservers.ui.fragment.old;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
@@ -15,6 +16,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelArticle;
+import com.huacheng.huiservers.ui.index.oldservice.ZXDetailActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -43,6 +45,8 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
     private LoadMoreWrapper mLoadMoreWrapper;
     private String par_uid= "";
     private int page = 1;
+    private ImageView iv_no_data;
+    private LinearLayout ll_no_data;
 
     @Override
     public void onAttach(Context context) {
@@ -90,8 +94,13 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position)
             {
-                Toast.makeText(mActivity, "pos = " + position, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mActivity, "pos = " + position, Toast.LENGTH_SHORT).show();
               //  mAdapter.notifyItemRemoved(position);
+
+                Intent intent = new Intent(mActivity, ZXDetailActivity.class);
+                intent.putExtra("id",mDatas.get(position).getId()+"");
+                startActivity(intent);
+
             }
 
             @Override
@@ -100,7 +109,10 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
                 return false;
             }
         });
-
+        iv_no_data = view.findViewById(R.id.iv_no_data);
+        iv_no_data.setVisibility(View.GONE);
+        ll_no_data = view.findViewById(R.id.ll_no_data);
+        ll_no_data.setVisibility(View.GONE);
     }
 
     private void initHeaderAndFooter() {

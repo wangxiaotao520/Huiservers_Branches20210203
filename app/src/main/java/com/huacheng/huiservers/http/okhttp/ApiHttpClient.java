@@ -310,6 +310,10 @@ public class ApiHttpClient {
     public static String PENSION_CHECKUP_LIST = API_URL + API_VERSION + "pension/checkupList";
     //体检记录详情
     public static String PENSION_CHECKUP_ONE_SEE = API_URL + API_VERSION + "pension/checkupOneSee";
+    //资讯详情
+    public static String PENSION_SOCIAL_DETAIL = API_URL + API_VERSION + "pension/pensionSocialdetails";
+    //活动详情
+    public static String PENSION_ACTIVITY_SEE = API_URL + API_VERSION + "pension/activitySee";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -432,5 +436,7 @@ public class ApiHttpClient {
         PENSION_OLDFILE_DETAIL = API_URL + API_VERSION + "pension/peopleSee";
         PENSION_CHECKUP_LIST = API_URL + API_VERSION + "pension/checkupList";
         PENSION_CHECKUP_ONE_SEE = API_URL + API_VERSION + "pension/checkupOneSee";
+        PENSION_SOCIAL_DETAIL = API_URL + API_VERSION + "pension/pensionSocialdetails";
+        PENSION_ACTIVITY_SEE = API_URL + API_VERSION + "pension/activitySee";
     }
 }
