@@ -88,6 +88,8 @@ public class PersonMoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 				recyclerViewHolder.txt_fukuan.setText("付款方式：一卡通支付");
 			}else if (bean.get(position).getPaytype().equals("bestpay")) {
 				recyclerViewHolder.txt_fukuan.setText("付款方式：翼支付");
+			}else if (bean.get(position).getPaytype().equals("unionpay")) {
+				recyclerViewHolder.txt_fukuan.setText("付款方式：银联支付");
 			}
 			
 		}else if (holder instanceof FootViewHolder) {

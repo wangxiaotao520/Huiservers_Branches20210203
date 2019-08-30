@@ -375,7 +375,8 @@ public class Jump {
             } else {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse(MyCookieStore.SERVERADDRESS + "site/uiot");
+               // Uri content_url = Uri.parse(MyCookieStore.SERVERADDRESS + "site/uiot");
+                Uri content_url = Uri.parse(url);
                 intent.setData(content_url);
                 mContext.startActivity(intent);
             }

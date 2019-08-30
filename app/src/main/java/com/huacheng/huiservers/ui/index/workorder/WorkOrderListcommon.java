@@ -115,7 +115,7 @@ public class WorkOrderListcommon extends BaseFragment {
             isInit = true;
             page = 1;
             showDialog(smallDialog);
-            requestData();
+            //requestData();
             if (refreshLayout != null) {
                 refreshLayout.autoRefresh();
             }
@@ -160,15 +160,14 @@ public class WorkOrderListcommon extends BaseFragment {
                             } else {
                                 refreshLayout.setEnableLoadMore(true);
                             }
-                            workListAdapter.notifyDataSetChanged();
                         } else {
                             if (page == 1) {
                                 rel_no_data.setVisibility(View.VISIBLE);
                                 mDatas.clear();
                             }
                             refreshLayout.setEnableLoadMore(false);
-                            workListAdapter.notifyDataSetChanged();
                         }
+                        workListAdapter.notifyDataSetChanged();
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
