@@ -85,6 +85,13 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
                             txt_right.setVisibility(View.VISIBLE);
                         }else {
                             txt_right.setVisibility(View.GONE);
+                            if (type==2){
+                                //子女关联老人列表是空，说明老人主动删了关联的子女，
+                                //刷新前一页
+                                ModelEventOld modelEventOld = new ModelEventOld();
+                                modelEventOld.setEvent_type(1);
+                                EventBus.getDefault().post(modelEventOld);
+                            }
                         }
 
                     tv_btn.setVisibility(View.VISIBLE);

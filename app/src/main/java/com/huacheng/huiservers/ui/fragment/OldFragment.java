@@ -367,7 +367,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                         }
                         //刷新
                         if (is_Refresh){
-                            //如果是刷新 或者从登录页返回则证明下方两个列表已经初始化了
+                            //如果是刷新 或者从登录页返回
                             //刷新
                             //表明切换的时候要刷新
                             for (int i = 0; i < mFragments.size(); i++) {
@@ -378,16 +378,25 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             }
                             is_Refresh= false;
                             //todo 这里记得下一新版本的时候就不是第二个了
-                            if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
-                            ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
+                            if (mFragments.size()>0){
+                                if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
+                                    ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
+                            }else {
+                                initTabAndViewPager();
+                            }
+
                         }else  if (isEventCallback){//从别的页返回  认证  切换老人
                             if (currentFragment!=null){
                                 currentFragment.refreshIndeed(par_uid);//刷新fragment
                             }
                             isEventCallback=false;
                             //todo 这里记得下一新版本的时候就不是第二个了
-                            if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
-                            ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
+                            if (mFragments.size()>0){
+                                if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
+                                    ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
+                            }else {
+                                initTabAndViewPager();
+                            }
                         }else {
                             //第一次进来
                             initTabAndViewPager();
