@@ -32,6 +32,7 @@ public class WorkOrderDetailAdapter extends CommonAdapter<ModelNewWorkOrder.Work
 
     public interface OnclickImg {
         void lickImg(List<ModelNewWorkOrder.ImgListBean> mListimg);
+        void lickPhoto(String photo);
     }
 
     @Override
@@ -67,6 +68,13 @@ public class WorkOrderDetailAdapter extends CommonAdapter<ModelNewWorkOrder.Work
         } else {
             viewHolder.<LinearLayout>getView(R.id.ly_none).setVisibility(View.GONE);
         }
+        viewHolder.<TextView>getView(R.id.tv_photo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnclickImg.lickPhoto(item.getPhone());
+
+            }
+        });
         if (position == 0) {
             viewHolder.<ImageView>getView(R.id.iv_tag).setBackgroundResource(R.mipmap.icon_workorder_yuan_onclick);
             viewHolder.<TextView>getView(R.id.tv_tag).setBackgroundResource(R.color.orange);

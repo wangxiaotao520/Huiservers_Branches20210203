@@ -2,7 +2,6 @@ package com.huacheng.huiservers.ui.index.workorder;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -93,7 +92,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
         ly_btn = findViewById(R.id.ly_btn);
         tv_btn = findViewById(R.id.tv_btn);
         mListView = findViewById(R.id.mListView);
-        tv_user_photo.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        // tv_user_photo.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         mWorkOrderDetailAdapter = new WorkOrderDetailAdapter(this, R.layout.activity_workorder_detail_item_list, mlistLog, this);
         mListView.setAdapter(mWorkOrderDetailAdapter);
@@ -351,7 +350,28 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
             intent.putExtra("isShowDelete", false);
             startActivity(intent);
         }
+    }
 
+    //拨打电话
+    @Override
+    public void lickPhoto(final String photo) {
+        if (!NullUtil.isStringEmpty(photo)) {
+            new CommomDialog(this, R.style.my_dialog_DimEnabled, photo, new CommomDialog.OnCloseListener() {
+                @Override
+                public void onClick(Dialog dialog, boolean confirm) {
+
+                    if (confirm) {
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:"
+                                + photo));
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                }
+            }).show();//.setTitle("提示")
+        }
     }
 
     @Override
@@ -391,7 +411,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
                     tv_up_name.setText("收起");
                     linear_other_info.setVisibility(View.VISIBLE);
                 }
-               // HiddenAnimUtils.newInstance(WorkOrderDetailActivity.this, linear_other_info, linear_visibility, height).toggle();
+                // HiddenAnimUtils.newInstance(WorkOrderDetailActivity.this, linear_other_info, linear_visibility, height).toggle();
 
                 break;
             default:
@@ -407,6 +427,7 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
             finish();
         }
     }
+
     /**
      * 取消工单 评价 支付返回
      *
@@ -415,9 +436,9 @@ public class WorkOrderDetailActivity extends BaseActivity implements View.OnClic
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshWorkOrder(EventBusWorkOrderModel model) {
         if (model != null) {
-            if (model.getEvent_back_type()==2){//支付返回
+            if (model.getEvent_back_type() == 2) {//支付返回
                 finish();
-            }else {
+            } else {
 
             }
         }

@@ -111,11 +111,25 @@
                     android:textColor="@color/text_color_hint"
                     android:textSize="@dimen/t_15sp"/>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系电话："
+                    android:textColor="@color/text_color_hint"
+                    android:textSize="@dimen/t_15sp"/>
+
                 <TextView
                     android:id="@+id/tv_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin"
                     android:text="13233696139"
                     android:textColor="#4E8CEE"
                     android:textSize="@dimen/t_15sp"/>
@@ -147,8 +161,8 @@
                 android:id="@+id/ly_none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_15"
                 android:layout_marginBottom="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_15"
                 android:orientation="horizontal">
 
                 <TextView
