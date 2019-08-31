@@ -1232,6 +1232,7 @@ drawable evaluation_order_star
 drawable evaluation_order_star_press
 drawable history_list_nomal
 drawable history_list_press
+drawable ic_default_head
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_mtrl_chip_checked_black

@@ -278,6 +278,8 @@ public class ApiHttpClient {
     public static String PAY_CHARGE_RECORD_DETAIL = API_URL + API_VERSION + "Yx/Yx_order_info";
     //结束充电
     public static String PAY_CHARGE_END = API_URL + API_VERSION + "Yx/Yx_appcd_end";
+    //扫描返回
+    public static String SCAN_INDEX = API_URL + API_VERSION + "Scan/Scan_index";
 
     //慧生活养老
     //首页上部接口
@@ -438,5 +440,6 @@ public class ApiHttpClient {
         PENSION_CHECKUP_ONE_SEE = API_URL + API_VERSION + "pension/checkupOneSee";
         PENSION_SOCIAL_DETAIL = API_URL + API_VERSION + "pension/pensionSocialdetails";
         PENSION_ACTIVITY_SEE = API_URL + API_VERSION + "pension/activitySee";
+        SCAN_INDEX = API_URL + API_VERSION + "Scan/Scan_index";
     }
 }

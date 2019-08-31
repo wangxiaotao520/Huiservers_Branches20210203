@@ -23,6 +23,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.ShadowLayout;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -162,25 +163,52 @@ public class ChargeScanActivity extends BaseActivity implements View.OnClickList
                         SmartToast.showInfo("内容为空");
                     } else {
                         String ScanResult = intentResult.getContents();
-                        if (StringUtils.isJsonValid(ScanResult)) {
-                            try {
-                                JSONObject jsonObj = new JSONObject(ScanResult);
-                                String type = jsonObj.getString("type");
-
-                                ModelQRCode modelQRCode = new Gson().fromJson(jsonObj.getString("data"),ModelQRCode.class);
-
-                                if ("1".equals(type)){
-                                    requestData(modelQRCode.getGtel()+"");
+//                        if (StringUtils.isJsonValid(ScanResult)) {
+//                            try {
+//                                JSONObject jsonObj = new JSONObject(ScanResult);
+//                                String type = jsonObj.getString("type");
+//
+//                                ModelQRCode modelQRCode = new Gson().fromJson(jsonObj.getString("data"),ModelQRCode.class);
+//
+//                                if ("1".equals(type)){
+//                                    requestData(modelQRCode.getGtel()+"");
+//                                }
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                            //其他
+//                        } else {
+//                            //
+//                            SmartToast.showInfo("二维码扫描不正确");
+//                        }
+                        if (!StringUtils.isEmpty(ScanResult)) {
+                            if (ScanResult.contains("?type=")&&ScanResult.contains("&get=")){
+                                //扫充电桩返回
+                                String type = ScanResult.substring((ScanResult.indexOf("type=")+5), (ScanResult.indexOf("&get=")));
+                                String get = ScanResult.substring(ScanResult.indexOf("get=")+4);
+                                if ("1".equals(type)){//充电桩
+                                    requestQr(type,get);
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            //其他
-                        } else {
-                            //
-                            SmartToast.showInfo("二维码扫描不正确");
-                        }
 
+                            }
+//
+//                            if (StringUtils.isJsonValid(ScanResult)) {
+//                                //其他
+//                                try {
+//                                    JSONObject jsonObj = new JSONObject(ScanResult);
+//                                    int type = jsonObj.getInt("type");
+//                                    ModelQRCode modelQRCode = new Gson().fromJson(jsonObj.getString("data"),ModelQRCode.class);
+//                                    //调用二维码解析
+//                                    QRCodeUtils.getInstance().parseQrCode(smallDialog,this,type,modelQRCode);
+//
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            } else {
+//                                //
+//                                SmartToast.showInfo("二维码扫描不正确");
+//                            }
+                        }
                     }
                 }
             } else {
@@ -189,7 +217,51 @@ public class ChargeScanActivity extends BaseActivity implements View.OnClickList
         }
 
     }
+    /**
+     * 扫描二维码
+     * @param type
+     * @param get
+     */
+    private void requestQr(String type, String get) {
+        if (NullUtil.isStringEmpty(type)||NullUtil.isStringEmpty(get)){
+            return;
+        }
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type",type+"");
+        params.put("gtel",get+"");
 
+        MyOkHttp.get().post(ApiHttpClient.SCAN_INDEX, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    //其他
+                    try {
+                        ModelQRCode modelQRCode = new Gson().fromJson(response.getString("data"),ModelQRCode.class);
+                        //调用二维码解析
+                        if ("1".equals(modelQRCode.getType())){
+                            requestData(modelQRCode.getGtel()+"");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    hideDialog(smallDialog);
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "二维码扫描不正确");
+                    SmartToast.showInfo(msg);
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
 
     @Override
     public void onClickEquipmentConfirm(Dialog dialog, String equipment_code) {

@@ -22,6 +22,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.ModelLoginOverTime;
 import com.huacheng.huiservers.model.ModelQRCode;
@@ -33,14 +35,15 @@ import com.huacheng.huiservers.ui.fragment.HomeFragment;
 import com.huacheng.huiservers.ui.fragment.MyFragmentNew;
 import com.huacheng.huiservers.ui.fragment.OldFragment;
 import com.huacheng.huiservers.ui.fragment.ShopFragment;
-import com.huacheng.huiservers.ui.index.charge.ChargeScanActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.QRCodeUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.DeviceUtils;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.microquation.linkedme.android.LinkedME;
@@ -52,6 +55,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.huacheng.huiservers.Jump.PHONE_STATE_REQUEST_CODE;
 
@@ -133,41 +137,32 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                         String ScanResult = intentResult.getContents();
 
                         if (!StringUtils.isEmpty(ScanResult)) {
-                            if (StringUtils.isJsonValid(ScanResult)) {
+                          if (ScanResult.contains("?type=")&&ScanResult.contains("&get=")){
+                              //扫充电桩返回
+                              String type = ScanResult.substring((ScanResult.indexOf("type=")+5), (ScanResult.indexOf("&get=")));
+                              String get = ScanResult.substring(ScanResult.indexOf("get=")+4);
+                              if ("1".equals(type)){//充电桩
+                                  requestQr(type,get);
+                              }
+
+                          }
+//
+//                            if (StringUtils.isJsonValid(ScanResult)) {
+//                                //其他
 //                                try {
-//                                    //服务订单支付
 //                                    JSONObject jsonObj = new JSONObject(ScanResult);
-//                                    String type = jsonObj.getString("type");
-//                                    String oid = jsonObj.getString("o_id");
-//                                    String price = jsonObj.getString("price");
-//                                    String order_type = jsonObj.getString("order_type");
-//                                    //type = "service_new_pay"
-//                                    Intent intent = new Intent(this, UnifyPayActivity.class);
-//                                    Bundle bundle = new Bundle();
-//                                    bundle.putString("o_id", oid);
-//                                    bundle.putString("price", price);
-//                                    bundle.putString("type", type);
-//                                    bundle.putString("order_type", order_type);
-//                                    intent.putExtras(bundle);
-//                                    startActivity(intent);
+//                                    int type = jsonObj.getInt("type");
+//                                    ModelQRCode modelQRCode = new Gson().fromJson(jsonObj.getString("data"),ModelQRCode.class);
+//                                    //调用二维码解析
+//                                    QRCodeUtils.getInstance().parseQrCode(smallDialog,this,type,modelQRCode);
+//
 //                                } catch (JSONException e) {
 //                                    e.printStackTrace();
 //                                }
-                                //其他
-                                try {
-                                    JSONObject jsonObj = new JSONObject(ScanResult);
-                                    int type = jsonObj.getInt("type");
-                                    ModelQRCode modelQRCode = new Gson().fromJson(jsonObj.getString("data"),ModelQRCode.class);
-                                    //调用二维码解析
-                                    QRCodeUtils.getInstance().parseQrCode(smallDialog,this,type,modelQRCode);
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                //
-                                SmartToast.showInfo("二维码扫描不正确");
-                            }
+//                            } else {
+//                                //
+//                                SmartToast.showInfo("二维码扫描不正确");
+//                            }
                         }
 
                     }
@@ -178,6 +173,56 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
         }
         super.onActivityResult(requestCode,resultCode,data);
 
+    }
+
+    /**
+     * 扫描二维码
+     * @param type
+     * @param get
+     */
+    private void requestQr(String type, String get) {
+        if (NullUtil.isStringEmpty(type)||NullUtil.isStringEmpty(get)){
+            return;
+        }
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type",type+"");
+        params.put("gtel",get+"");
+
+        MyOkHttp.get().post(ApiHttpClient.SCAN_INDEX, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    //其他
+                    try {
+                        ModelQRCode modelQRCode = new Gson().fromJson(response.getString("data"),ModelQRCode.class);
+                        //调用二维码解析
+                        int type = 1;
+                        try {
+                          type=  Integer.parseInt(modelQRCode.getType());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        QRCodeUtils.getInstance().parseQrCode(smallDialog,HomeActivity.this,type,modelQRCode);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    hideDialog(smallDialog);
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "二维码扫描不正确");
+                    SmartToast.showInfo(msg);
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
     }
 
     @Override
@@ -279,7 +324,6 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
             case R.id.rb_content_fragment_quanzi:
                 switchFragment(3);
                 current_fragment=3;
-                startActivity(new Intent(this, ChargeScanActivity.class));
                 break;
             case R.id.rb_content_fragment_people:
                 if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {

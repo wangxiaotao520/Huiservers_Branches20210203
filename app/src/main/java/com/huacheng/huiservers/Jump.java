@@ -33,6 +33,7 @@ import com.huacheng.huiservers.ui.center.CouponToShopUseActivity;
 import com.huacheng.huiservers.ui.center.geren.WiredIndexActivity;
 import com.huacheng.huiservers.ui.center.house.NewHouseHandbookActivity;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
+import com.huacheng.huiservers.ui.index.charge.ChargeScanActivity;
 import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
 import com.huacheng.huiservers.ui.index.huodong.EducationActivity;
 import com.huacheng.huiservers.ui.index.huodong.EducationListActivity;
@@ -475,6 +476,14 @@ public class Jump {
             } else {
                 Intent intent = new Intent();
                 intent.setClass(mContext, CommitRequestActivity.class);
+                mContext.startActivity(intent);
+            }
+        }else if (type.equals("29")){//充电桩
+            if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                mContext.startActivity(intent);
+            } else {
+                Intent intent = new Intent(mContext, ChargeScanActivity.class);
                 mContext.startActivity(intent);
             }
         }

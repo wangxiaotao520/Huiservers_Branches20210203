@@ -489,7 +489,7 @@ public final class R {
         public static int comment_ratingbar_selector = 0x7f090064;
         public static int evaluation_order_star = 0x7f09006c;
         public static int evaluation_order_star_press = 0x7f09006d;
-        public static int notification_template_icon_bg = 0x7f090084;
+        public static int notification_template_icon_bg = 0x7f090085;
     }
     public static final class id {
         private id() {}

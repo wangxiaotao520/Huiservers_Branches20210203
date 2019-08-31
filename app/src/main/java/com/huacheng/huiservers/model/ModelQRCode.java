@@ -11,6 +11,10 @@ public class ModelQRCode implements Serializable {
 
     String gtel ; //type=1的时候
 
+
+
+    String type;
+
     public String getGtel() {
         return gtel;
     }
@@ -18,5 +22,11 @@ public class ModelQRCode implements Serializable {
     public void setGtel(String gtel) {
         this.gtel = gtel;
     }
+    public String getType() {
+        return type;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 }
