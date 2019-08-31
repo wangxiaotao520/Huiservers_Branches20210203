@@ -79,6 +79,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
      * 批量模式下，用来记录当前选中状态
      */
     private SparseArray<Boolean> mSelectState = new SparseArray<Boolean>();
+    private View ll_check;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -267,7 +268,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
         lin_tuijian = (LinearLayout) findViewById(R.id.lin_tuijian);
         mBottonLayout = (RelativeLayout) findViewById(R.id.cart_rl_allprie_total);
         rel_no_data = (RelativeLayout) findViewById(R.id.rel_no_data);
-        mCheckAll = (CheckBox) findViewById(check_box);
+        mCheckAll = (CheckBox) findViewById(R.id.check_box1);
         mPriceAll = (TextView) findViewById(R.id.tv_cart_total);
         mSelectNum = (TextView) findViewById(R.id.tv_cart_select_num);
         mDelete = (TextView) findViewById(R.id.tv_cart_buy_or_del);
@@ -279,6 +280,8 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
         //mListView.setSelector(R.drawable.list_selector);
         mDelete.setOnClickListener(this);
         mCheckAll.setOnClickListener(ShopCartActivityTwo.this);
+        ll_check = findViewById(R.id.ll_check);
+        ll_check.setOnClickListener(ShopCartActivityTwo.this);
     }
 
     private void initListener() {
@@ -296,6 +299,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
                 mListAdapter.notifyDataSetChanged();
             }
             rel_no_data.setVisibility(View.GONE);
+            mCheckAll.setClickable(true);
         } else {
             totalPrice = (float) 0;
             mSelectState.clear();
@@ -595,7 +599,8 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case check_box://选中未选中状态的变化
+            case R.id.check_box1://选中未选中状态的变化
+            case R.id.ll_check:
                 if (mCheckAll.isChecked()) {
                     totalPrice = (float) 0;
                     if (mListData != null) {

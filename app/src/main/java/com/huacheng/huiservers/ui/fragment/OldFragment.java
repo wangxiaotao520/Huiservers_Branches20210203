@@ -321,7 +321,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             tv_name.setText("暂未认证");
                             tv_change_person.setText("立即认证");
                             par_uid= "";
-
+                            sdv_head.setImageResource(R.drawable.ic_default_head);
                         }else if(1== type){
                             //1.老人认证
                             rl_title_container.setBackgroundResource(R.mipmap.bg_old_red);
@@ -337,7 +337,11 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             par_uid= modelOldIndexTop.getPar_uid()+"";
                             // 头像
                          //   FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
-                            FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(modelOldIndexTop.getPhoto()+""));
+                            if (NullUtil.isStringEmpty(StringUtils.getImgUrl(modelOldIndexTop.getPhoto()))) {
+                                sdv_head.setImageResource(R.drawable.ic_default_head);
+                            }else {
+                                FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(modelOldIndexTop.getPhoto()+""));
+                            }
                         }else if (2== type){
                             //2.子女认证
                             rl_title_container.setBackgroundResource(R.mipmap.bg_old_blue);
@@ -354,7 +358,12 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             par_uid= modelOldIndexTop.getPar_uid()+"";
                             // 头像
                          //   FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
-                            FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(modelOldIndexTop.getPhoto()+""));
+                            if (NullUtil.isStringEmpty(StringUtils.getImgUrl(modelOldIndexTop.getPhoto()))) {
+                                sdv_head.setImageResource(R.drawable.ic_default_head);
+                            }else {
+                                FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(modelOldIndexTop.getPhoto()+""));
+                            }
+
                         }
                         //刷新
                         if (is_Refresh){
@@ -466,7 +475,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     }
 
     /**
-     * 登录或者认证返回
+     * 登录返回
      *
      * @param model
      */
@@ -486,6 +495,12 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ModelEventOld model) {
         if (model != null) {
+            if (model.getEvent_type()==1){
+                //删除返回要清空
+                this.par_uid_param ="";
+            }else {
+
+            }
             isEventCallback=true;
             showDialog(smallDialog);
             requestTopIndex();

@@ -132,6 +132,7 @@ public class AddOldUserActivity extends BaseActivity implements View.OnClickList
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "成功");
                     SmartToast.showInfo(msg);
                     finish();
+
                 } else {
                     try {
                         int status = response.getInt("status");

@@ -24,6 +24,7 @@ import java.util.HashMap;
  * 2019/8/20 0020 下午 6:20
  */
 public class OldMessageActivity extends BaseListActivity<ModelOldMessage> implements AdapterOldMessage.OnClickMessageListener {
+    private boolean isRequesting = false; //是否正在请求
 
     @Override
     protected void initView() {
@@ -103,7 +104,9 @@ public class OldMessageActivity extends BaseListActivity<ModelOldMessage> implem
 
     @Override
     public void onClick(int position, ModelOldMessage item, int state) {
-
+        if (isRequesting==true){
+            return;
+        }
         audit( position,  item,  state);
     }
 
@@ -114,6 +117,7 @@ public class OldMessageActivity extends BaseListActivity<ModelOldMessage> implem
      * @param state
      */
     private void audit(final int position, ModelOldMessage item, final int state) {
+        isRequesting=true;
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
 
@@ -123,6 +127,7 @@ public class OldMessageActivity extends BaseListActivity<ModelOldMessage> implem
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
+                isRequesting=false;
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "操作成功");
@@ -141,6 +146,7 @@ public class OldMessageActivity extends BaseListActivity<ModelOldMessage> implem
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
+                isRequesting=false;
                 hideDialog(smallDialog);
                 SmartToast.showInfo("网络异常，请检查网络设置");
 

@@ -36,7 +36,7 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
     private LinearLayout ly_user;
     private TextView tv_btn;
     private TextView txt_right;
-    private boolean iscancel = false;
+    private boolean iscancel = false;  //删除状态
     private int type=1;  //1是关联的子女列表 2.关联的长者列表
     private List<ModelOldRelationShip> mDatas = new ArrayList<>();
 
@@ -46,7 +46,6 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
         txt_right = findViewById(R.id.txt_right);
         txt_right.setText("编辑");
         txt_right.setVisibility(View.GONE);
-        txt_right.setVisibility(View.VISIBLE);
         txt_right.setTextColor(getResources().getColor(R.color.orange_bg));
         //listview = findViewById(R.id.listview);
         ly_user = findViewById(R.id.ly_user);
@@ -127,19 +126,36 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
             tv_name.setText(item.getNickname());
             ly_user.addView(view);
 
-            final int finalI = i;
+            view.setTag(mDatas.get(i).getPar_uid()+"");
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (type==2&&!iscancel){
                         //切换长者
+                        String id = (String) v.getTag();
                         Intent intent = new Intent();
-                        intent.putExtra("par_uid",mDatas.get(finalI).getPar_uid()+"");
-                        setResult(RESULT_OK,intent);
-                        finish();
+                            intent.putExtra("par_uid",id);
+                            setResult(RESULT_OK,intent);
+                            finish();
+
                     }
                 }
             });
+            ly_delete.setTag(mDatas.get(i).getId());
+            ly_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String  id = (String) v.getTag();
+                    deleteRelationShip(v, id);
+                }
+            });
+            if (!iscancel){//不是删除状态
+                ly_delete.setVisibility(View.GONE);
+                ry_yinying.setBackground(getResources().getDrawable(R.drawable.allshape_white));
+            }else {//删除状态
+                ly_delete.setVisibility(View.VISIBLE);
+                ry_yinying.setBackground(getResources().getDrawable(R.drawable.layer_shadow));
+            }
         }
     }
 
@@ -198,13 +214,6 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
                         LinearLayout ly_delete = childAt.findViewById(R.id.ly_delete);
                         RelativeLayout ry_yinying = childAt.findViewById(R.id.ry_yinying);
                         ly_delete.setVisibility(View.VISIBLE);
-                        final int finalI = i;
-                        ly_delete.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                deleteRelationShip(v, finalI);
-                            }
-                        });
                         ry_yinying.setBackground(getResources().getDrawable(R.drawable.layer_shadow));
 
                     }
@@ -227,17 +236,13 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
     /**
      * 删除关联
      * @param v
-     * @param finalI
+     * @param
      */
-    private void deleteRelationShip(View v, final int finalI) {
+    private void deleteRelationShip(View v, final String id) {
         HashMap<String, String> params = new HashMap<>();
-        if (finalI>mDatas.size()){
-            return;
-        }else {
-            params.put("r_id",mDatas.get(finalI).getId()+"");
-        }
-
+        params.put("r_id",id);
         showDialog(smallDialog);
+        smallDialog.setCanceledOnTouchOutside(false);
         MyOkHttp.get().post(ApiHttpClient.PENSION_RELATION_DELETE, params, new JsonResponseHandler() {
 
             @Override
@@ -247,8 +252,17 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求成功");
                     SmartToast.showInfo(msg);
-                    mDatas.remove(finalI);
-                    ly_user.removeViewAt(finalI);
+                    ModelOldRelationShip model_remove=null;
+                    for (int i = 0; i < mDatas.size(); i++) {
+                        if (mDatas.get(i).getId().equals(id)){
+                            model_remove=mDatas.get(i);
+                        }
+                    }
+                    if (model_remove!=null){
+                        mDatas.remove(model_remove);
+                    }
+                    addview();
+
                     if (mDatas.size()==0){
                         txt_right.setText("编辑");
                         txt_right.setVisibility(View.GONE);
@@ -261,10 +275,13 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
                             ly_delete.setVisibility(View.GONE);
                             ry_yinying.setBackground(getResources().getDrawable(R.drawable.allshape_white));
                         }
-                        if (type==2){
-                            //关联的长者列表数变为0则刷新前一页变成暂未认证的状态
-                            EventBus.getDefault().post(new ModelEventOld());
-                        }
+
+                    }
+                    if (type==2){
+                        //刷新前一页
+                        ModelEventOld modelEventOld = new ModelEventOld();
+                        modelEventOld.setEvent_type(1);
+                        EventBus.getDefault().post(modelEventOld);
                     }
 
                 } else {

@@ -90,7 +90,7 @@ public class OldFileDetailActivity extends BaseActivity {
                                 ImageView imageView = new ImageView(OldFileDetailActivity.this);
                                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                 LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(DeviceUtils.dip2px(OldFileDetailActivity.this, 50), DeviceUtils.dip2px(OldFileDetailActivity.this, 50));
-                                params1.setMargins(0,0,DeviceUtils.dip2px(OldFileDetailActivity.this, 50),0);
+                                params1.setMargins(0,0,DeviceUtils.dip2px(OldFileDetailActivity.this, 15),0);
                                 imageView.setLayoutParams(params1);
                                 GlideUtils.getInstance().glideLoad(OldFileDetailActivity.this,ApiHttpClient.IMG_URL+info.getEcg_img().get(i).getImg(),imageView,R.drawable.ic_default_rectange);
                                 final int finalI = i;

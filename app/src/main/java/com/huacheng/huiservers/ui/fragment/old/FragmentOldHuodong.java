@@ -105,10 +105,12 @@ public class FragmentOldHuodong extends FragmentOldCommonImp {
                     startActivity(intent);
                 }else {
                     //外链
-                    Intent intent= new Intent();intent.setAction("android.intent.action.VIEW");
-                    Uri content_url = Uri.parse(""+mDatas.get(position).getLink());
-                    intent.setData(content_url);
-                    startActivity(intent);
+                    if ((""+mDatas.get(position).getLink()).startsWith("http:")||(""+mDatas.get(position).getLink()).startsWith("https:")){
+                        Intent intent= new Intent();intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(""+mDatas.get(position).getLink());
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
                 }
 
             }

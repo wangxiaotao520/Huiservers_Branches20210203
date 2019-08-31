@@ -53,7 +53,7 @@ public class OldServiceWarmActivity extends BaseListActivity<ModelItemServiceWar
     protected void requestData() {
         HashMap<String, String> params = new HashMap<>();
         params.put("p", page + "");
-        params.put("old_id",modelOldIndexTop.getI_id()+"");
+        params.put("old_id",modelOldIndexTop.getOld_id()+"");
         params.put("o_company_id",modelOldIndexTop.getO_company_id()+"");
         MyOkHttp.get().post(ApiHttpClient.PENSION_CARE_LIST, params, new JsonResponseHandler() {
 

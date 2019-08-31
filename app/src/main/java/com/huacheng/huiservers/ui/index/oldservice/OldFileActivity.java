@@ -60,6 +60,7 @@ public class OldFileActivity extends BaseActivity {
     private int page = 1;
     private View ll_healthy_file_title;
     private View ll_healthy_file;
+    private View ll_tijian_title;
 
     @Override
     protected void initView() {
@@ -97,8 +98,10 @@ public class OldFileActivity extends BaseActivity {
         flowlayout2 = headerView.findViewById(R.id.flowlayout2);  //过敏信息
         tv_bingli_content = headerView.findViewById(R.id.tv_bingli_content);//病例描述
         tv_last_time = headerView.findViewById(R.id.tv_last_time);//上次体检时间
+        //体检记录title
+        ll_tijian_title = headerView.findViewById(R.id.ll_tijian_title);
 
-       // addFlowView();
+        // addFlowView();
         listview.addHeaderView(headerView);
         oldFileAdapter = new OldFileAdapter(this, R.layout.activity_old_file_item, mDatas);
         listview.setAdapter(oldFileAdapter);
@@ -187,8 +190,8 @@ public class OldFileActivity extends BaseActivity {
                     if (archives!=null){
                         ll_healthy_file_title.setVisibility(View.VISIBLE);
                         ll_healthy_file.setVisibility(View.VISIBLE);
-                        tv_shengao.setText(archives.getHeight()+"");
-                        tv_tizhong.setText(archives.getWeight()+"");
+                        tv_shengao.setText(archives.getHeight()+"cm");
+                        tv_tizhong.setText(archives.getWeight()+"kg");
                         if ("1".equals(archives.getBlood())){
                             tv_xuexing.setText("A型");
                         }else if ("2".equals(archives.getBlood())){
@@ -203,6 +206,7 @@ public class OldFileActivity extends BaseActivity {
                             for (int i = 0; i < archives.getIll().size(); i++) {
                                 mBingLiList.add(archives.getIll().get(i).getC_name());
                             }
+
                         }else {
 
                         }
@@ -214,6 +218,7 @@ public class OldFileActivity extends BaseActivity {
                         }else {
 
                         }
+                        addFlowView();
                         tv_bingli_content.setText(archives.getBody()+"");
                         tv_last_time.setText(StringUtils.getDateToString(archives.getCheckuptime(),"8"));
 
@@ -243,7 +248,7 @@ public class OldFileActivity extends BaseActivity {
     private void requestDataCheckRecord() {
         HashMap<String, String> params = new HashMap<>();
         params.put("p", page + "");
-        params.put("old_id",modelOldIndexTop.getI_id()+"");
+        params.put("old_id",modelOldIndexTop.getOld_id()+"");
         params.put("o_company_id",modelOldIndexTop.getO_company_id()+"");
         MyOkHttp.get().post(ApiHttpClient.PENSION_CHECKUP_LIST, params, new JsonResponseHandler() {
 
@@ -267,12 +272,14 @@ public class OldFileActivity extends BaseActivity {
                                 refreshLayout.setEnableLoadMore(true);
                             }
                             oldFileAdapter.notifyDataSetChanged();
+                            ll_tijian_title.setVisibility(View.VISIBLE);
                         } else {
                             if (page == 1) {
                                 mDatas.clear();
                                 ModelOldCheckRecord modelOldCheckRecord = new ModelOldCheckRecord();
                                 modelOldCheckRecord.setList_type(1);
                                 mDatas.add(modelOldCheckRecord);
+                                ll_tijian_title.setVisibility(View.INVISIBLE);
                             }
                             refreshLayout.setEnableLoadMore(false);
                             oldFileAdapter.notifyDataSetChanged();

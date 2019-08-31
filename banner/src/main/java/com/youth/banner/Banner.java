@@ -553,7 +553,11 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
         }
-
+        //TODO 图片换了不刷新的问题
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
     }
 
     @Override

@@ -537,6 +537,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_tijian_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_45"
             android:gravity="center_vertical"

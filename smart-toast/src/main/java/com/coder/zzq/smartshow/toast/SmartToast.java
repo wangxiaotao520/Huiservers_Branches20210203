@@ -1,7 +1,10 @@
 package com.coder.zzq.smartshow.toast;
 
+import android.os.Build;
 import android.support.annotation.StringRes;
+import android.widget.Toast;
 
+import com.coder.zzq.smartshow.toast.core.SmartShow;
 import com.coder.zzq.smartshow.toast.core.Utils;
 
 
@@ -260,8 +263,12 @@ public final class SmartToast {
      * @param msg
      */
     public static void showInfo(CharSequence msg) {
+        if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+            Toast.makeText(SmartShow.getContext(),msg+"",Toast.LENGTH_SHORT).show();
+        }else {
+            ToastDelegate.get().getMyTypeShowManager().showInfo(msg);
+        }
 
-        ToastDelegate.get().getMyTypeShowManager().showInfo(msg);
     }
     /**
      * 我自己封装的
