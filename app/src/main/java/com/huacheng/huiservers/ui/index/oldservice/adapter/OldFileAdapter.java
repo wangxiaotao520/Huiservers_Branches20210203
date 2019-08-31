@@ -27,7 +27,7 @@ public class OldFileAdapter extends CommonAdapter<ModelOldCheckRecord> {
     protected void convert(ViewHolder viewHolder, ModelOldCheckRecord item, int position) {
         if (item.getList_type()==0){
             viewHolder.<LinearLayout>getView(R.id.ll_content).setVisibility(View.VISIBLE);
-            viewHolder.<TextView>getView(R.id.item_num).setText("体检类型" + (position+1));
+            viewHolder.<TextView>getView(R.id.item_num).setText("体检记录" + (position+1));
             if ("1".equals(item.getType())){
                 viewHolder.<TextView>getView(R.id.tv_tijian_type).setText( " 常规体检");
             }else if ("2".equals(item.getType())){
