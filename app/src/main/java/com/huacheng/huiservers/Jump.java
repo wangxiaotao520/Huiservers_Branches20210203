@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.dialog.SmallDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
@@ -33,6 +34,7 @@ import com.huacheng.huiservers.ui.center.CouponToShopUseActivity;
 import com.huacheng.huiservers.ui.center.geren.WiredIndexActivity;
 import com.huacheng.huiservers.ui.center.house.NewHouseHandbookActivity;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
+import com.huacheng.huiservers.ui.fragment.presenter.PropertyPrester;
 import com.huacheng.huiservers.ui.index.charge.ChargeScanActivity;
 import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
 import com.huacheng.huiservers.ui.index.huodong.EducationActivity;
@@ -74,6 +76,7 @@ public class Jump {
     private Context mContext;
     private SharePrefrenceUtil sharePrefrenceUtil;
     private SharedPreferences preferencesLogin;
+    private SmallDialog smallDialog;
 
     public static final int PHONE_STATE_REQUEST_CODE = 101;//获取读取手机权限，回调在 A中
     private String phone, urlh5, url_type, login_uid, type;
@@ -152,9 +155,14 @@ public class Jump {
                     mContext.startActivity(intent);
                 } else {
                     //判断是否物业绑定
+                    smallDialog=new SmallDialog(mContext);
+                    smallDialog.show();
                     MyOkHttp.get().post(ApiHttpClient.CHECK_BIND_PROPERTY, null, new JsonResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, JSONObject response) {
+                            if (smallDialog!=null){
+                                smallDialog.dismiss();
+                            }
                             if (JsonUtil.getInstance().isSuccess(response)) {
                                 ModelLogin bean = (ModelLogin) JsonUtil.getInstance().parseJsonFromResponse(response, ModelLogin.class);
                                 if (bean != null && bean.getIs_bind_property().equals("2")) {
@@ -171,6 +179,9 @@ public class Jump {
                         @Override
                         public void onFailure(int statusCode, String error_msg) {
                             SmartToast.showInfo("网络异常,请检查网络设置");
+                            if (smallDialog!=null){
+                                smallDialog.dismiss();
+                            }
                         }
                     });
                 }
@@ -414,7 +425,7 @@ public class Jump {
             } else {
                 Intent intent = new Intent(mContext, PropertyNewActivity.class);
                 intent.putExtra("wuye_type", "open_door");
-                startActivity(intent);
+                mContext.startActivity(intent);
             }
 
         } else if (type.equals("18")) {//当面付
@@ -474,9 +485,32 @@ public class Jump {
                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                 mContext.startActivity(intent);
             } else {
-                Intent intent = new Intent();
-                intent.setClass(mContext, CommitRequestActivity.class);
-                mContext.startActivity(intent);
+                smallDialog=new SmallDialog(mContext);
+                smallDialog.show();
+                new PropertyPrester(mContext, new PropertyPrester.PropertyListener() {
+                    @Override
+                    public void onProperty(int status, ModelLogin bean, String jump_type, String msg) {
+                        if (smallDialog!=null){
+                            smallDialog.dismiss();
+                        }
+                        if (status==1){
+                            if (bean != null) {
+                                if (bean.getIs_bind_property().equals("2")) {
+                                    Intent intent = new Intent();
+                                    intent.setClass(mContext, CommitRequestActivity.class);
+                                    mContext.startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(mContext, PropertyBindHomeActivity.class);
+                                    intent.putExtra("wuye_type", "public_repair");
+                                    mContext. startActivity(intent);
+                                }
+                            }
+                        }else {
+                            SmartToast.showInfo(msg);
+                        }
+                    }
+                }).getProperty(null);
+
             }
         }else if (type.equals("29")){//充电桩
             if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {

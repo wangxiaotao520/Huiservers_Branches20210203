@@ -52,7 +52,12 @@ public class AdapterPriceList extends BaseExpandableListAdapter {
     //获取指定分组中的子选项的个数
     @Override
     public int getChildrenCount(int groupPosition) {
-        return mDatas.get(groupPosition).getLists().size();
+        if (mDatas.get(groupPosition).getLists()!=null){
+            return mDatas.get(groupPosition).getLists().size();
+        }else {
+            return  0;
+        }
+
     }
 
     //        获取指定的分组数据
@@ -64,7 +69,12 @@ public class AdapterPriceList extends BaseExpandableListAdapter {
     //获取指定分组中的指定子选项数据
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return mDatas.get(groupPosition).getLists().get(childPosition);
+        if (mDatas.get(groupPosition).getLists()!=null){
+            return mDatas.get(groupPosition).getLists().get(childPosition);
+        }else {
+            return null;
+        }
+
     }
 
     //获取指定分组的ID, 这个ID必须是唯一的
@@ -146,8 +156,14 @@ public class AdapterPriceList extends BaseExpandableListAdapter {
         }else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-        childViewHolder.tv_name.setText(mDatas.get(groupPosition).getLists().get(childPosition).getName());
-        childViewHolder.tv_price.setText("¥ "+mDatas.get(groupPosition).getLists().get(childPosition).getPrice());
+        if (mDatas.get(groupPosition).getLists()!=null) {
+            childViewHolder.tv_name.setText(mDatas.get(groupPosition).getLists().get(childPosition).getName());
+            childViewHolder.tv_price.setText("¥ "+mDatas.get(groupPosition).getLists().get(childPosition).getPrice());
+        }else {
+            childViewHolder.tv_name.setText("");
+            childViewHolder.tv_price.setText("");
+        }
+
         return convertView;
     }
 

@@ -234,10 +234,12 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         mEnhanceTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                //在这里传入参数
-                FragmentOldCommonImp fragmentCommon = (FragmentOldCommonImp) mFragments.get(tab.getPosition());
-                currentFragment = fragmentCommon;
-                fragmentCommon.isRefresh(par_uid);
+                if (tab.getPosition()<mFragments.size()){
+                    //在这里传入参数
+                    FragmentOldCommonImp fragmentCommon = (FragmentOldCommonImp) mFragments.get(tab.getPosition());
+                    currentFragment = fragmentCommon;
+                    fragmentCommon.isRefresh(par_uid);
+                }
             }
 
             @Override

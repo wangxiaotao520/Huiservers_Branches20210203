@@ -19,6 +19,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelEventOld;
 import com.huacheng.huiservers.model.ModelOldInst;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -195,6 +196,7 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
                     SmartToast.showInfo("请选择身份");
                     return;
                 }
+                new ToolUtils(et_old_name,AddOldRZUserActivity.this).closeInputMethod();
                 requestInst();
                 break;
             case R.id.ly_old_name:
