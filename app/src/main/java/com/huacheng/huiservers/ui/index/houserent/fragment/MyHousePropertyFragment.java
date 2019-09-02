@@ -126,12 +126,14 @@ public class MyHousePropertyFragment extends BaseFragmentOld {
 
         if (jump_type==1){//首先展示给用户租房
             if (type == 1) {
+                swipeMyhouseProperty.setRefreshing(true);
                 isInit = true;
                 listenerOnRefresh();
             }
         }else {
             //首先展示给用户售房列表
             if (type == 0) {
+                swipeMyhouseProperty.setRefreshing(true);
                 isInit = true;
                 listenerOnRefresh();
             }

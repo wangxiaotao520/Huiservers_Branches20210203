@@ -4,10 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_myhouse_property"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/windowbackground">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_myhouse_property"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView
                 android:id="@+id/listView"
@@ -16,8 +20,11 @@
                 android:divider="@color/transparents"
                 android:dividerHeight="@dimen/margin" />
 
-            <include layout="@layout/no_data" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+        <include layout="@layout/no_data"></include>
+    </RelativeLayout>
 
 </LinearLayout>
