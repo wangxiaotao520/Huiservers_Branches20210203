@@ -21,6 +21,7 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.bean.HouseBean;
+import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.center.house.HouseInviteActivity;
 import com.huacheng.huiservers.ui.index.openDoor.OpenLanActivity;
 import com.huacheng.huiservers.ui.index.property.adapter.NewPropertyAdapter;
@@ -308,13 +309,20 @@ public class PropertyNewActivity extends BaseActivity implements NewPropertyAdap
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
-
+                    HouseBean houseBean = null;
                     for (int i = 0; i < mdatas.size(); i++) {
                         if (mdatas.get(i).getId().equals(id)) {
-                            mdatas.remove(mdatas.get(i));
+                            houseBean= mdatas.get(i);
                         }
                     }
+                    if (houseBean!=null){
+                        mdatas.remove(houseBean);
+                    }
                     propertyAdapter.notifyDataSetChanged();
+                    if (mdatas.size()==0){
+                        //刷新个人中心
+                        EventBus.getDefault().post(new PersoninfoBean());
+                    }
                 }else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
                     SmartToast.showInfo(msg);

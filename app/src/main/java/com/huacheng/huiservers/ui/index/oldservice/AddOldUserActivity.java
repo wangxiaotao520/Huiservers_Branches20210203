@@ -14,6 +14,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -165,5 +166,19 @@ public class AddOldUserActivity extends BaseActivity implements View.OnClickList
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+    }
+
+    @Override
+    public void finish() {
+        if (et_phone!=null){
+            new ToolUtils(et_phone,this).closeInputMethod();
+        }
+        super.finish();
     }
 }

@@ -30,6 +30,7 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
     private TextView tv_person_addtime;
     private TextView tv_fav;
     private TextView tv_read_count;
+    private TextView tv_company;
     private String id = "";
     String str_url;
 
@@ -43,6 +44,7 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
         mWebview = findViewById(R.id.web_content);
         tv_fav = findViewById(R.id.tv_fav);
         tv_read_count = findViewById(R.id.tv_read_count);
+        tv_company = findViewById(R.id.tv_company);
     }
 
     @Override
@@ -80,6 +82,7 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
                         mTvName.setText(info.getTitle());
                         tv_person_addtime.setText("来源：" + info.getFrom() + "    " + info.getAddtime() );
                         tv_read_count.setText("阅读数: " +info.getClick());
+                        tv_company.setText("发布企业: " +info.getO_company_name());
                         //能够的调用JavaScript代码
                         mWebview.getSettings().setJavaScriptEnabled(true);
                         // 设置允许JS弹窗

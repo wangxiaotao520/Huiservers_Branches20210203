@@ -384,4 +384,18 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+    }
+
+    @Override
+    public void finish() {
+        if (et_old_name!=null){
+            new ToolUtils(et_old_name,AddOldRZUserActivity.this).closeInputMethod();
+        }
+        super.finish();
+    }
 }
