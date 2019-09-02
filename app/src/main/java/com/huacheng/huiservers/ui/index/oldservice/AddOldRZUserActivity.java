@@ -120,6 +120,9 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ly_sf:
+                if (et_old_name!=null){
+                    new ToolUtils(et_old_name,AddOldRZUserActivity.this).closeInputMethod();
+                }
                 OptionsPickerView pvOptions = new OptionsPickerBuilder(AddOldRZUserActivity.this, new OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
@@ -286,6 +289,7 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
      * 请求
      */
     private void requestDataAuth() {
+        new ToolUtils(et_old_name,AddOldRZUserActivity.this).closeInputMethod();
         if (type ==1){
             requestOldAuth();
         }else {

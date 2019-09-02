@@ -186,6 +186,7 @@
                         android:background="@null"
                         android:ellipsize="end"
                         android:hint="请输入身份证号"
+                        android:inputType="number"
                         android:singleLine="true"
                         android:textColor="@color/blackgray"
                         android:textColorHint="@color/gray4"
@@ -220,6 +221,7 @@
                         android:ellipsize="end"
                         android:hint="请输入社区慧生活绑定账号"
                         android:singleLine="true"
+                        android:inputType="number"
                         android:textColor="@color/blackgray"
                         android:textColorHint="@color/gray4"
                         android:textCursorDrawable="@drawable/color_cursor"
@@ -267,6 +269,7 @@
                         android:textColor="@color/blackgray"
                         android:textColorHint="@color/gray4"
                         android:textCursorDrawable="@drawable/color_cursor"
+                        android:inputType="number"
                         android:textSize="@dimen/t_16sp"/>
 
                 </LinearLayout>
