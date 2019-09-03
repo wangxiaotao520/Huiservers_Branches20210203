@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 类：
+ * 类：新增收货地址
  * 时间：2017/10/14 15:11
  * 功能描述:Huiservers
  */
