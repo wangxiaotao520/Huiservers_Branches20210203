@@ -65,7 +65,7 @@ public class OldFileActivity extends BaseActivity {
     @Override
     protected void initView() {
         findTitleViews();
-        titleName.setText("老人档案");
+        titleName.setText("健康档案");
 
         listview = findViewById(R.id.listview);
         refreshLayout = findViewById(R.id.refreshLayout);
