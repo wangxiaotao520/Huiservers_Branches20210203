@@ -17,6 +17,7 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.GerenProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.geren.bean.AddressBean;
+import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.utils.UIUtils;
 
@@ -73,9 +74,9 @@ public class NewAddAddressActivity extends BaseActivityOld {
         } else {
             mTitleName.setText("添加地址");
         }
-        mRight.setOnClickListener(new View.OnClickListener() {
+        mRight.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 if (mEdtName.getText().toString().equals("")) {
                     SmartToast.showInfo("请输入联系人");
                 } else if (mTxtAddress.getText().toString().equals("")) {
