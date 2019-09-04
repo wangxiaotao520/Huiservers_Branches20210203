@@ -3,7 +3,9 @@ package com.huacheng.huiservers.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
@@ -15,8 +17,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 
 
 /**
@@ -77,7 +79,11 @@ public class PrivacyPolicyDialog extends AlertDialog implements View.OnClickList
             @Override
             public void onClick(View widget) {
                 //Do something.
-                SmartToast.showInfo("跳转外链");
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(ApiHttpClient.GET_PRIVARY);
+                intent.setData(content_url);
+                mContext.startActivity(intent);
                 //  ((TextView)widget).setHighlightColor(getResources().getColor(R.color.transparents));
             }
 
@@ -100,10 +106,10 @@ public class PrivacyPolicyDialog extends AlertDialog implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_cancel:
-                mOnCustomDialogListener.back("1",this);
+                mOnCustomDialogListener.back("1", this);
                 break;
             case R.id.tv_argee:
-                mOnCustomDialogListener.back("2",this);
+                mOnCustomDialogListener.back("2", this);
                 break;
         }
     }

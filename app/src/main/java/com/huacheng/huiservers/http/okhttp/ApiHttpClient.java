@@ -316,6 +316,12 @@ public class ApiHttpClient {
     public static String PENSION_SOCIAL_DETAIL = API_URL + API_VERSION + "pension/pensionSocialdetails";
     //活动详情
     public static String PENSION_ACTIVITY_SEE = API_URL + API_VERSION + "pension/activitySee";
+
+    /**
+     * 隐私政策
+     */
+    //隐私政策
+    public static String GET_PRIVARY = API_URL + API_VERSION + "userCenter/privacy";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -441,5 +447,6 @@ public class ApiHttpClient {
         PENSION_SOCIAL_DETAIL = API_URL + API_VERSION + "pension/pensionSocialdetails";
         PENSION_ACTIVITY_SEE = API_URL + API_VERSION + "pension/activitySee";
         SCAN_INDEX = API_URL + API_VERSION + "Scan/Scan_index";
+        GET_PRIVARY = API_URL + API_VERSION + "userCenter/privacy";
     }
 }

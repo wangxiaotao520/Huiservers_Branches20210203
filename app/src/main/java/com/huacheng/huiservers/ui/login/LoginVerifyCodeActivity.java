@@ -310,6 +310,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                 break;
             case R.id.txt_shengming:// 声明
                 intent = new Intent(this, ResigerShengmingActivity.class);
+                intent.putExtra("type",1);
                 startActivity(intent);
                 break;
             default:

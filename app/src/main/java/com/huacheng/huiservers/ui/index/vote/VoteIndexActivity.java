@@ -60,7 +60,7 @@ public class VoteIndexActivity  extends BaseActivity implements IndexVoteAdapter
 
         mAdapter = new IndexVoteAdapter<>(this, mDatas,this);
         mListview.setAdapter(mAdapter);
-
+        mListview.setHasMoreItems(true);
     }
 
     /**
@@ -92,6 +92,7 @@ public class VoteIndexActivity  extends BaseActivity implements IndexVoteAdapter
             mDatas.add(new ModelIndexVoteItem());
 
         }
+        mListview.setIsLoading(false);
         mAdapter.notifyDataSetChanged();
     }
 

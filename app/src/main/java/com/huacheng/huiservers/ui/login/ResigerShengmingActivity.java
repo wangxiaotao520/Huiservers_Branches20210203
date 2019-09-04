@@ -1,33 +1,37 @@
 package com.huacheng.huiservers.ui.login;
 
-import android.graphics.Bitmap;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.ui.base.BaseActivityOld;
 
 public class ResigerShengmingActivity extends BaseActivityOld implements OnClickListener {
     private TextView title_name;
     private LinearLayout lin_left;
     WebView webView;
+    int type;//0 是隐私政策 1是用户协议
 
     @Override
     protected void init() {
         super.init();
         setContentView(R.layout.shengming);
- //       SetTransStatus.GetStatus(this);//系统栏默认为黑色
+        type = getIntent().getIntExtra("type", 0);
+        //       SetTransStatus.GetStatus(this);//系统栏默认为黑色
 //		Typeface iconfont = Typeface.createFromAsset(this.getAssets(), "icons/iconfont.ttf");
         title_name = (TextView) findViewById(R.id.title_name);
-        title_name.setText("用户协议");
+        if (type == 0) {
+            title_name.setText("隐私政策");
+        } else {
+            title_name.setText("用户协议");
+        }
         lin_left = (LinearLayout) findViewById(R.id.lin_left);
-        findViewById(R.id.webview);
         lin_left.setOnClickListener(this);
 
 
@@ -49,8 +53,13 @@ public class ResigerShengmingActivity extends BaseActivityOld implements OnClick
         /**
          * 调用loadUrl()方法进行加载内容
          */
-        Url_info info = new Url_info(this);
-        webView.loadUrl(info.user_agreement);
+        if (type==0){
+            webView.loadUrl(ApiHttpClient.GET_PRIVARY);
+        }else {
+            Url_info info = new Url_info(this);
+            webView.loadUrl(info.user_agreement);
+        }
+
 
          /* else if (tag.equals("pop_up")) {
             String plink = this.getIntent().getExtras().getString("plink");
@@ -59,7 +68,7 @@ public class ResigerShengmingActivity extends BaseActivityOld implements OnClick
             }
         }*/
         webView.requestFocusFromTouch();
-        webView.setWebViewClient(new WebViewClient() {
+       /* webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
@@ -78,12 +87,12 @@ public class ResigerShengmingActivity extends BaseActivityOld implements OnClick
                 return true;
             }
 
-            /*@Override
+            *//*@Override
             public void onPageFinished(WebView view, String url) {
 //                super.onPageFinished(view, url);
                 view.loadUrl(url);
-            }*/
-        });
+            }*//*
+        });*/
 
     }
 

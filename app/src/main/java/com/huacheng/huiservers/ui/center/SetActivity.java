@@ -29,6 +29,7 @@ import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
+import com.huacheng.huiservers.ui.login.ResigerShengmingActivity;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
 
@@ -48,7 +49,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
     private TextView title_name, tv_call_number, txt_verson;
     private LinearLayout lin_left;
     private RelativeLayout rel_zhanghao, rel_about, rel_siteout,
-            rel_gengxin, rl_changepwd, rel_yijian, rel_hezuo, rel_dial_number;
+            rel_gengxin, rl_changepwd, rel_yijian, rel_hezuo, rel_dial_number, rel_privacy;
 
 
     private Handler myHandler = new myHandler();
@@ -140,6 +141,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
         rel_gengxin = (RelativeLayout) findViewById(R.id.rel_gengxin);// 更新
         rel_siteout = (RelativeLayout) findViewById(R.id.rel_siteout);// 退出登陆
         rel_yijian = (RelativeLayout) findViewById(R.id.rel_yijian);// 意见反馈
+        rel_privacy = (RelativeLayout) findViewById(R.id.rel_privacy);// 隐私政策
         rel_hezuo = (RelativeLayout) findViewById(R.id.rel_hezuo);
 
 
@@ -156,6 +158,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
         rl_changepwd.setOnClickListener(this);
         rel_yijian.setOnClickListener(this);
         rel_hezuo.setOnClickListener(this);
+        rel_privacy.setOnClickListener(this);
     }
 
     @Override
@@ -215,6 +218,11 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
                 break;
             case R.id.rl_changepwd:
                 intent = new Intent(this, ChangePwdVerifyActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rel_privacy:
+                intent = new Intent(this, ResigerShengmingActivity.class);
+                intent.putExtra("type",0);
                 startActivity(intent);
                 break;
             default:
