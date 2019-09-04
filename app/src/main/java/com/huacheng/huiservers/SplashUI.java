@@ -2,6 +2,7 @@ package com.huacheng.huiservers;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +21,7 @@ import android.view.WindowManager;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.dialog.DownLoadDialog;
-import com.huacheng.huiservers.dialog.SignOnDialog;
+import com.huacheng.huiservers.dialog.PrivacyPolicyDialog;
 import com.huacheng.huiservers.dialog.UpdateDialog;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -77,7 +78,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        isStatusBar=true;
+        isStatusBar = true;
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppCompatTheme_Base);
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
@@ -128,21 +129,24 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
     }
 
     public void verifyStoragePermissions(Activity activity) {
-
         rxPermission = new RxPermissions(this);
-        rxPermission.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-                ,Manifest.permission.READ_PHONE_STATE)
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean isGranted) throws Exception {
-                        if (isGranted) {
-                            getUpdate();
-                        } else {
-                            goOn(isFirstOpen);
-                        }
+        if (isFirstOpen) {
+            final PrivacyPolicyDialog dialog = new PrivacyPolicyDialog(this, new PrivacyPolicyDialog.OnCustomDialogListener() {
+                @Override
+                public void back(String tag, Dialog dialog1) {
+                    if (tag.equals("2")) {//同意
+                        getUpdate();
+                        dialog1.dismiss();
+                        CacheUtils.putBoolean(SplashUI.this, SplashUI.IS_FIRST_OPEN, false);
+                    } else {//退出APP
+                        finish();
                     }
-                });
+                }
+            });
+            dialog.show();
+        } else {
+            getUpdate();
+        }
 
     }
 
@@ -156,7 +160,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
         mParams.put("app_type", "1");
         updateprester.getUpdate(mParams);
         //删除原文件夹
-        ImgCropUtil.deleteCacheFile(new File(Environment.getExternalStorageDirectory()+"/hui_download/"));
+        ImgCropUtil.deleteCacheFile(new File(Environment.getExternalStorageDirectory() + "/hui_download/"));
 
     }
 
@@ -174,21 +178,34 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                     @Override
                     public void back(String tag) {
                         if (tag.equals("1")) {
-                            if (!isWifi(SplashUI.this)) {//判断是否在wifi状态下
-                                SignOnDialog d = new SignOnDialog(SplashUI.this, apkPath, "v" + info.getVersion() + ".apk");
-                                d.show();
-                            } else {
+//                            if (!isWifi(SplashUI.this)) {//判断是否在wifi状态下
+//                                SignOnDialog d = new SignOnDialog(SplashUI.this, apkPath, "v" + info.getVersion() + ".apk");
+//                                d.show();
+//                            } else {
+                                rxPermission.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE
+                                        , Manifest.permission.READ_PHONE_STATE)
+                                        .subscribe(new Consumer<Boolean>() {
+                                            @Override
+                                            public void accept(Boolean isGranted) throws Exception {
+                                                if (isGranted) {
+                                                    Intent intent = new Intent();
+                                                    intent.putExtra("file_name", info.getVersion() + ".apk");
+                                                    intent.putExtra("download_src", apkPath);
+                                                    intent.setClass(SplashUI.this, DownLoadDialog.class);
+                                                    startActivityForResult(intent, ACT_REQUEST_DOWNLOAD);
+                                                    dialog.dismiss();
+                                                } else {
+                                                //请求权限用户点取消
+                                                }
+                                            }
+                                        });
 
-                                Intent intent = new Intent();
-                                intent.putExtra("file_name",  info.getVersion()+ ".apk");
-                                intent.putExtra("download_src", apkPath);
-                                intent.setClass(SplashUI.this, DownLoadDialog.class);
-                                startActivityForResult(intent, ACT_REQUEST_DOWNLOAD);
-                                dialog.dismiss();
-                            }
+                         //   }
                         } else {
+                            //非强制更新点取消
                             dialog.dismiss();
-                            goOn(isFirstOpen);
+                            goOn();
                         }
                     }
                 });
@@ -217,83 +234,79 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
             }
 
         } else {
-            goOn(isFirstOpen);
+            //没有新版本
+            goOn();
         }
     }
 
-    private void goOn(final boolean isFirstOpen) {
-        if (isFirstOpen) {//第一次打开
-            Intent intent = new Intent(SplashUI.this, GuideUI.class);
-            startActivity(intent);
-            finish();
-        } else {
-            if (!hasLoginUser()) {//未登录
-                if (sharePrefrenceUtil.getIsChooseXiaoqu().equals("1")) {
-                    // 选择了小区 要根据小区判断域名
-                    ConfigUtils.get().getApiConfig(sharePrefrenceUtil.getXiaoQuId(), new ConfigUtils.OnGetConfigListener() {
-                        @Override
-                        public void onGetConfig(int status, ModelConfig modelConfig) {
-                            if (status==1){
-                                if (modelConfig!=null){
-                                    ApiHttpClient.API_URL=modelConfig.getHui_domain_name()+"/";
-                                    ApiHttpClient.invalidateApi();
-                                    Url_info.invalidateApi();
-                                    //保存企业id
-                                    sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id()+"");
-                                    Intent intent = new Intent(SplashUI.this, HomeActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-
-                            }else if (status==-1){
-                                //网络错误
-                                SmartToast.showInfo("网络错误，请检查网络设置");
-                            }
-                        }
-                    });
-
-                } else {
-                    Intent intent = new Intent(SplashUI.this, XiaoquActivity.class);
-                    intent.putExtra("type", "splash");
-                    startActivity(intent);
-                    finish();
-
-                }
-            } else {//登录了
-                //登录了，要根据小区判断域名
+    private void goOn() {
+        if (!hasLoginUser()) {//未登录
+            if (sharePrefrenceUtil.getIsChooseXiaoqu().equals("1")) {
+                // 选择了小区 要根据小区判断域名
                 ConfigUtils.get().getApiConfig(sharePrefrenceUtil.getXiaoQuId(), new ConfigUtils.OnGetConfigListener() {
                     @Override
-                    public void onGetConfig(int status,ModelConfig modelConfig) {
-                        if (status==1){
-                            if (modelConfig!=null){
-                                ApiHttpClient.API_URL=modelConfig.getHui_domain_name()+"/";
+                    public void onGetConfig(int status, ModelConfig modelConfig) {
+                        if (status == 1) {
+                            if (modelConfig != null) {
+                                ApiHttpClient.API_URL = modelConfig.getHui_domain_name() + "/";
                                 ApiHttpClient.invalidateApi();
                                 Url_info.invalidateApi();
                                 //保存企业id
-                                sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id()+"");
+                                sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id() + "");
                                 Intent intent = new Intent(SplashUI.this, HomeActivity.class);
-                                Intent intent_come = getIntent();
-                                if (intent_come != null && intent_come.hasExtra("from")) {
-                                    intent.putExtra("from", "jpush");
-                                    if (intent_come.hasExtra("type")) {
-                                        intent.putExtra("url_type", intent_come.getStringExtra("url_type"));
-                                        // intentTo.putExtra("type", intent_come.getStringExtra("type"));
-                                        intent.putExtra("j_id", intent_come.getStringExtra("j_id"));
-                                    }
-                                }
                                 startActivity(intent);
                                 finish();
                             }
-                        }else if (status==-1){
+
+                        } else if (status == -1) {
                             //网络错误
                             SmartToast.showInfo("网络错误，请检查网络设置");
                         }
                     }
                 });
+
+            } else {
+                Intent intent = new Intent(SplashUI.this, XiaoquActivity.class);
+                intent.putExtra("type", "splash");
+                startActivity(intent);
+                finish();
+
             }
+        } else {//登录了
+            //登录了，要根据小区判断域名
+            ConfigUtils.get().getApiConfig(sharePrefrenceUtil.getXiaoQuId(), new ConfigUtils.OnGetConfigListener() {
+                @Override
+                public void onGetConfig(int status, ModelConfig modelConfig) {
+                    if (status == 1) {
+                        if (modelConfig != null) {
+                            ApiHttpClient.API_URL = modelConfig.getHui_domain_name() + "/";
+                            ApiHttpClient.invalidateApi();
+                            Url_info.invalidateApi();
+                            //保存企业id
+                            sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id() + "");
+                            Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+                            Intent intent_come = getIntent();
+                            if (intent_come != null && intent_come.hasExtra("from")) {
+                                intent.putExtra("from", "jpush");
+                                if (intent_come.hasExtra("type")) {
+                                    intent.putExtra("url_type", intent_come.getStringExtra("url_type"));
+                                    // intentTo.putExtra("type", intent_come.getStringExtra("type"));
+                                    intent.putExtra("j_id", intent_come.getStringExtra("j_id"));
+                                }
+                            }
+                            startActivity(intent);
+                            finish();
+                        }
+                    } else if (status == -1) {
+                        //网络错误
+                        SmartToast.showInfo("网络错误，请检查网络设置");
+                    }
+                }
+            });
+
         }
         //todo 无论怎样热更新下载补丁
-        if (BuildConfig.TINKER_ENABLE){
+        if (BuildConfig.TINKER_ENABLE) {
             TinkerPatch.with().fetchPatchUpdate(true);
         }
     }
