@@ -60,7 +60,7 @@ public class CustomCaptureActivity extends BaseActivity {
     @Override
     protected void initData() {
         statusBar.setAlpha(0);
-        titleName.setText("扫描二维码付款");
+        titleName.setText("扫描二维码");
 
 //        statusBar.setAlpha(0);
     }

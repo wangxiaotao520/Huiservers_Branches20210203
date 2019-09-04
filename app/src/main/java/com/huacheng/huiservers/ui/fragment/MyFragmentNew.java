@@ -32,7 +32,6 @@ import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
-import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityTwo;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -269,7 +268,9 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 startActivity(intent);
                 break;
             case R.id.rl_service_order_list:// 保修账单
-                intent = new Intent(getActivity(), FragmentOrderListActivity.class);
+//                intent = new Intent(getActivity(), FragmentOrderListActivity.class);
+//                startActivity(intent);
+                intent = new Intent(mActivity, MyHousePropertyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.rl_shop_order_list:// 商城订单

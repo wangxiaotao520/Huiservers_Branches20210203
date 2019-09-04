@@ -43,8 +43,9 @@ public class Updateprester {
                         listener.onUpdate(1, info, "请求成功");
                     }
                 } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response,"数据异常");
                     if (listener != null) {
-                        listener.onUpdate(0, null, "数据异常");
+                        listener.onUpdate(0, null, msg);
                     }
                 }
 

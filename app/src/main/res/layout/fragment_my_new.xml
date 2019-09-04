@@ -178,13 +178,13 @@
                             android:layout_width="28dp"
                             android:layout_height="28dp"
                             android:layout_gravity="center_horizontal"
-                            android:background="@mipmap/ic_fuwudingdan" />
+                            android:background="@mipmap/ic_myhouse" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="11dp"
-                            android:text="服务订单"
+                            android:text="我的房产"
                             android:textColor="@color/text_color" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -337,6 +337,7 @@
                     android:layout_height="1dp"
                     android:layout_marginLeft="9dp"
                     android:layout_marginRight="9dp"
+                    android:visibility="gone"
                     android:background="@color/line" />
 
                 <RelativeLayout
@@ -344,6 +345,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="8dp"
+                    android:visibility="gone"
                     android:background="@color/white">
 
                     <ImageView

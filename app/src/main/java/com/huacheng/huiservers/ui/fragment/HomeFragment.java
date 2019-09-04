@@ -59,6 +59,7 @@ import com.huacheng.huiservers.ui.shop.adapter.MyGridViewAdpter;
 import com.huacheng.huiservers.ui.shop.adapter.MyViewPagerAdapter;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.CommonMethod;
+import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
@@ -574,7 +575,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 EventBus.getDefault().post(modelEventHome);
                 break;
             case R.id.iv_scancode://扫二维码
-               scanCode();
+                if (LoginUtils.hasLoginUser()){
+                    scanCode();
+                }else {
+                    intent = new Intent(mActivity, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
 

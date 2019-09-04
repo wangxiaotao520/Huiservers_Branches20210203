@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:paddingBottom="12dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/ll_item_view1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/allshape_gray_f8"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp">
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/sdv_title_img1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        fresco:placeholderImage="@color/default_color"
+                        fresco:placeholderImageScaleType="centerCrop"
+                        fresco:roundAsCircle="false"
+                        fresco:roundTopLeft="true"
+                        fresco:roundTopRight="true"
+                        fresco:roundedCornerRadius="5dp"
+                        />
+                    <TextView
+                        android:id="@+id/tv_tag1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_red_vote"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="@dimen/margin"
+                        android:paddingRight="@dimen/margin"
+                        android:paddingTop="1dp"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/t_12sp"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_famliy_name1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="桃子家庭"
+                        android:textColor="@color/gray_66"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="15sp" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/tv_vote_count1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1002票"
+                        android:textColor="#ff6d6e"
+                        android:layout_marginRight="5dp"
+                        android:textSize="15sp"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_onClick1"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:text="投TA一票"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/bg_gradient_vote_icon"
+                    android:layout_marginRight="5dp"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/ll_item_view2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/allshape_gray_f8"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp">
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/sdv_title_img2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        fresco:placeholderImage="@color/default_color"
+                        fresco:placeholderImageScaleType="centerCrop"
+                        fresco:roundAsCircle="false"
+                        fresco:roundTopLeft="true"
+                        fresco:roundTopRight="true"
+                        fresco:roundedCornerRadius="5dp"
+                        />
+                    <TextView
+                        android:id="@+id/tv_tag2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_red_vote"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="@dimen/margin"
+                        android:paddingRight="@dimen/margin"
+                        android:paddingTop="1dp"
+                        android:text="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/t_12sp"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_famliy_name2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="桃子家庭"
+                        android:textColor="@color/gray_66"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="15sp" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/tv_vote_count2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1002票"
+                        android:textColor="#ff6d6e"
+                        android:layout_marginRight="5dp"
+                        android:textSize="15sp"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_onClick2"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:text="投TA一票"
+                    android:textColor="@color/default_color"
+                    android:gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/bg_gradient_vote_icon"
+                    android:layout_marginRight="5dp"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
