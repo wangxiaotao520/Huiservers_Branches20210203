@@ -1,6 +1,8 @@
 package com.huacheng.huiservers.ui.index.vote;
 
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -71,6 +73,7 @@ public class VoteMessageActivity extends BaseActivity implements VoteMessageAdap
         mRefreshLayout.setEnableRefresh(true);
         mRefreshLayout.setEnableLoadMore(false);
 
+        mEtInput.addTextChangedListener(mTextWatcher);
         initHeaderView();
 
         messageAdapter = new VoteMessageAdapter(this, R.layout.activity_vote_message_item, mDatas, this);
@@ -239,7 +242,7 @@ public class VoteMessageActivity extends BaseActivity implements VoteMessageAdap
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-                showDialog(smallDialog);
+                hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     for (int i = 0; i < mDatas.size(); i++) {
                         if (mDatas.get(i).getId().equals(v.getId())) {
@@ -268,5 +271,33 @@ public class VoteMessageActivity extends BaseActivity implements VoteMessageAdap
         });
     }
 
+    TextWatcher mTextWatcher = new TextWatcher() {
+        private CharSequence temp;
+        private int editStart;
+        private int editEnd;
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            temp = s;
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            editStart = mEtInput.getSelectionStart();
+            editEnd = mEtInput.getSelectionEnd();
+            if (temp.length() > 300) {
+                s.delete(editStart - 1, editEnd);
+                mEtInput.setText(s);
+                //mTvNum.setText(s.length() + "/150");
+                mEtInput.setSelection(s.length());
+                SmartToast.showInfo("超出字数范围");
+            }
+        }
+    };
 
 }

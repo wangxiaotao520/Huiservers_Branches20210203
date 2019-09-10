@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.index.vote;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import com.huacheng.huiservers.model.ModelVote;
 import com.huacheng.huiservers.model.ModelVoteEvent;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
@@ -26,6 +28,7 @@ import com.microquation.linkedme.android.referral.LMError;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -160,11 +163,11 @@ public class VoteDetailActivity extends BaseActivity implements VotePresenter.On
                         hideDialog(smallDialog);
                         if (error == null) {
                             String share_url_new = share_url + "?linkedme=" + url;
-                            showSharePop(info.getTitle(), info.getContent(), ApiHttpClient.IMG_URL+info.getImg(), share_url_new);
+                            showSharePop(info.getTitle(), info.getContent(), ApiHttpClient.IMG_URL + info.getImg(), share_url_new);
                         } else {
                             //可以看报错
                             String share_url_new = share_url + "?linkedme=" + "";
-                            showSharePop(info.getTitle(), info.getContent(), ApiHttpClient.IMG_URL+info.getImg(), share_url_new);
+                            showSharePop(info.getTitle(), info.getContent(), ApiHttpClient.IMG_URL + info.getImg(), share_url_new);
 
                         }
                     }
@@ -172,7 +175,17 @@ public class VoteDetailActivity extends BaseActivity implements VotePresenter.On
 
                 break;
             case R.id.iv_family_bg://家庭图片放大
+                if (!NullUtil.isStringEmpty(info.getImg())) {
+                    ArrayList<String> imgs = new ArrayList<>();
+                    imgs.add(ApiHttpClient.IMG_URL + info.getImg());
 
+                    Intent intent = new Intent(this, PhotoViewPagerAcitivity.class);
+                    intent.putExtra("img_list", imgs);
+                    intent.putExtra("position", 0);
+                    intent.putExtra("isShowDelete", false);
+                    startActivity(intent);
+
+                }
                 break;
             case R.id.tv_toupiao://投票
                 showDialog(smallDialog);
