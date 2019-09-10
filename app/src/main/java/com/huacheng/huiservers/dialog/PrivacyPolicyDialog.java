@@ -50,6 +50,7 @@ public class PrivacyPolicyDialog extends AlertDialog implements View.OnClickList
         setCancelable(false);
         tv_cancel = (TextView) findViewById(R.id.tv_cancel);
         tv_argee = (TextView) findViewById(R.id.tv_argee);
+        tv_content = (TextView) findViewById(R.id.tv_content);
         /*WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(dm);

@@ -85,7 +85,7 @@ public class ModelIndexVoteItem  {
      */
 
     private String id;
-    private int number;
+    private String number;
     private String title;
     private String img;
     private String content;
@@ -102,11 +102,11 @@ public class ModelIndexVoteItem  {
         this.id = id;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 

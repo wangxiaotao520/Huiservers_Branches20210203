@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelVote;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
@@ -34,7 +33,7 @@ public class VoteMessageAdapter extends CommonAdapter<ModelVote> {
     @Override
     protected void convert(ViewHolder viewHolder, final ModelVote item, final int position) {
 
-        FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head), ApiHttpClient.IMG_URL + item.getAvatars());
+        FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head), StringUtils.getImgUrl(item.getAvatars()));
         viewHolder.<TextView>getView(R.id.tv_name).setText(item.getNickname());
         viewHolder.<TextView>getView(R.id.tv_zan_num).setText(item.getPraise()+"");
         viewHolder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(item.getAddtime(), "7"));

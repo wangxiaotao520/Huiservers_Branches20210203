@@ -6,7 +6,7 @@ import java.util.regex.Pattern
  * TODO: 请按自己的需求修改为适应自己工程的参数
  */
 def bakPath = file("${buildDir}/bakApk/")
-def baseInfo = "app-4.1.4-0411-09-37-10"
+def baseInfo = "app-4.2.0-0905-18-06-11"
 def variantName = "release"
 
 /**
@@ -33,7 +33,7 @@ tinkerpatchSupport {
     appKey = "82ddaafa1257f9fb"
 
     /** 注意: 若发布新的全量包, appVersion一定要更新 **/
-    appVersion = "4.2.0"
+    appVersion = "4.2.1"
 
     def pathPrefix = "${bakPath}/${baseInfo}/${variantName}/"
     def name = "${project.name}-${variantName}"

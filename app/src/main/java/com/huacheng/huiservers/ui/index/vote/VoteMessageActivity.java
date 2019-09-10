@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import com.huacheng.huiservers.model.ModelVote;
 import com.huacheng.huiservers.model.ModelVoteEvent;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.vote.adapter.VoteMessageAdapter;
+import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -172,6 +174,15 @@ public class VoteMessageActivity extends BaseActivity implements VoteMessageAdap
 
             }
         });
+        mListview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mEtInput!=null){
+                    new ToolUtils(mEtInput,VoteMessageActivity.this).closeInputMethod();
+                }
+                return false;
+            }
+        });
     }
 
     /**
@@ -187,12 +198,25 @@ public class VoteMessageActivity extends BaseActivity implements VoteMessageAdap
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    mRefreshLayout.autoRefresh();
+                 //   mRefreshLayout.autoRefresh();
                     mEtInput.setText("");
                     //首页留言数刷新
                     ModelVoteEvent event = new ModelVoteEvent();
                     event.setType(0);
                     EventBus.getDefault().post(event);
+
+                    ModelVote modelVote = (ModelVote) JsonUtil.getInstance().parseJsonFromResponse(response, ModelVote.class);
+                    if (modelVote!=null){
+                        mDatas.add(0,modelVote);
+                    }
+                    messageAdapter.notifyDataSetChanged();
+                    mListview.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mListview.setSelection(0);
+                        }
+                    },200);
+
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
                     SmartToast.showInfo(msg);

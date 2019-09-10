@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.huacheng.huiservers.ui.index.vote.VoteDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.utils.LoginUtils;
 import com.microquation.linkedme.android.LinkedME;
 import com.microquation.linkedme.android.indexing.LMUniversalObject;
 import com.microquation.linkedme.android.util.LinkProperties;
@@ -65,6 +67,15 @@ public class MiddleActivity extends AppCompatActivity {
                     bundle.putString("service_id", service_id);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                }else if (type.equals("vote_details")){
+                    if (LoginUtils.hasLoginUser()){
+                        String id = hashMap.get("id");
+                        String poll = hashMap.get("poll");
+                        Intent intent = new Intent(this, VoteDetailActivity.class);
+                        intent.putExtra("id", id+"");
+                        intent.putExtra("poll", poll+"");
+                        startActivity(intent);
+                    }
                 }
             }
             //清除跳转数据，该方法理论上不需要调用，因Android集成方式各种这样，若出现重复跳转的情况，可在跳转成功后调用该方法清除参数

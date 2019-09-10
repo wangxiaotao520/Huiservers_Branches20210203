@@ -65,6 +65,7 @@
                         android:text="桃子家庭"
                         android:textColor="@color/gray_66"
                         android:layout_marginLeft="5dp"
+                        android:singleLine="true"
                         android:textSize="15sp" />
                     <View
                         android:layout_width="0dp"
@@ -149,6 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="桃子家庭"
+                        android:singleLine="true"
                         android:textColor="@color/gray_66"
                         android:layout_marginLeft="5dp"
                         android:textSize="15sp" />

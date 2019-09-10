@@ -91,7 +91,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="8dp"
-                android:text="留言"
+                android:text="发送"
                 android:textColor="@color/orange_bg"
                 android:textSize="@dimen/t_15sp"/>
         </LinearLayout>

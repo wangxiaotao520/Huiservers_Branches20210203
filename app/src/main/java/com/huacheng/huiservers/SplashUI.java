@@ -131,7 +131,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
     public void verifyStoragePermissions(Activity activity) {
         rxPermission = new RxPermissions(this);
         if (isFirstOpen) {
-            final PrivacyPolicyDialog dialog = new PrivacyPolicyDialog(this, new PrivacyPolicyDialog.OnCustomDialogListener() {
+             PrivacyPolicyDialog dialog = new PrivacyPolicyDialog(this, new PrivacyPolicyDialog.OnCustomDialogListener() {
                 @Override
                 public void back(String tag, Dialog dialog1) {
                     if (tag.equals("2")) {//同意

@@ -155,7 +155,9 @@ public class VoteDetailActivity extends BaseActivity implements VotePresenter.On
                 }
                 share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "family/familyView/id/" + id;
                 HashMap<String, String> params = new HashMap<>();
-                params.put("id", id);
+                params.put("id", id+"");
+                params.put("poll", piao+"");
+                params.put("type", "vote_details");
                 showDialog(smallDialog);
                 LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, "", params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
                     @Override

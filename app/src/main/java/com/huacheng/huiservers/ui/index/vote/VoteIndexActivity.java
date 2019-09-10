@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -73,7 +72,8 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
     long mDay, mHour, mMin, mSecond;
     private String share_url;
     private CountDownTimer countDownTimer;
-    private SparseArray<CountDownTimer> countDownCounters;
+  //  private SparseArray<CountDownTimer> countDownCounters;
+    private CountDownTimer timer;
 
     @Override
     protected void initView() {
@@ -97,14 +97,14 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
         mRefreshLayout.setEnableRefresh(true);
         mRefreshLayout.setEnableLoadMore(false);
 
-        countDownCounters = new SparseArray<>();
+      //  countDownCounters = new SparseArray<>();
         headerView = LayoutInflater.from(this).inflate(R.layout.header_vote_index, null);
         initHeaderView();
         mListview.addHeaderView(headerView);
 
         mAdapter = new IndexVoteAdapter<>(this, mDatas, this);
         mListview.setAdapter(mAdapter);
-        mListview.setHasMoreItems(true);
+        mListview.setHasMoreItems(false);
     }
 
     /**
@@ -127,7 +127,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
     @Override
     protected void initData() {
         showDialog(smallDialog);
-        // requestData();
+        requestData();
     }
 
     @Override
@@ -182,7 +182,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
             @Override
             public void onGetUrl(String url, LMError error) {
                 hideDialog(smallDialog);
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_vote_bg, null);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_vote_bg_rectange, null);
                 if (error == null) {
 
                     String share_url_new = share_url + "?linkedme=" + url;
@@ -210,12 +210,14 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                     ModelIndexVoteItem info = (ModelIndexVoteItem) JsonUtil.getInstance().parseJsonFromResponse(response, ModelIndexVoteItem.class);
                     if (info != null) {
                         mInfo = info;
-                        tv_family_num.setText(info.getFamily_count() + "");
-                        tv_message_num.setText(info.getMessage_count() + "");
-                        tv_piao_num.setText(info.getNumber() + "");
+                        if (page==1){
+                            //刷新的时候处理时间
+                            tv_family_num.setText(info.getFamily_count() + "");
+                            tv_message_num.setText(info.getMessage_count() + "");
+                            tv_piao_num.setText(info.getNumber() + "");
 
-                        getTime();
-
+                            getTime();
+                        }
                         if (info.getList() != null && info.getList().size() > 0) {
                             mRelNoData.setVisibility(View.GONE);
                             if (page == 1) {
@@ -313,6 +315,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
         //活动留言返回刷新留言数据
         if (model != null) {
             if (model.getType() == 0) {//留言条数刷新
+                page=1;
                 requestData();
             } else if (model.getType() == 1) {//详情返回首页刷新票数
                 tv_piao_num.setText(model.getIspiao() + "");//剩余投票次数
@@ -398,7 +401,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
         long longDistanceEnd;
 
         if (!NullUtil.isStringEmpty(distanceStart) && !NullUtil.isStringEmpty(distanceEnd)) {
-            long distance_long = Long.parseLong(distanceStart);
+            long distance_long = Long.parseLong(distanceStart)*1000;
             if (distance_long > System.currentTimeMillis()) {
                 tv_time_type.setText("距开始投票还剩");
                 distance_tag = 1;
@@ -411,8 +414,8 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
 
             }
             //结束时间-开始时间
-            longDistanceStart = Long.parseLong(distanceStart);
-            longDistanceEnd = Long.parseLong(distanceEnd);
+            longDistanceStart = Long.parseLong(distanceStart)*1000;
+            longDistanceEnd = Long.parseLong(distanceEnd)*1000;
             long longDistanceInterval = longDistanceEnd - longDistanceStart;
 
             /*long timer = 0;
@@ -431,19 +434,16 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
 
 
     private void handlerTime(long timeTmp, final int dicountTag, final long longDistanceEnd) {
-        CountDownTimer countDownTimer = countDownCounters.get(tv_hour.hashCode());
+      //  CountDownTimer countDownTimer = countDownCounters.get(tv_hour.hashCode());
         if (countDownTimer != null) {
             //将复用的倒计时清除
             countDownTimer.cancel();
         }
         // 数据
-        long timer = timeTmp;//
         //long timer = data.expirationTime;
         //timer = timer - System.currentTimeMillis();
         //expirationTime 与系统时间做比较，timer 小于零，则此时倒计时已经结束。
-        if (timer > 0) {
-            final CountDownTimer finalCountDownTimer = countDownTimer;
-            countDownTimer = new CountDownTimer(timer, 1000) {
+            countDownTimer = new CountDownTimer(timeTmp, 1000) {
                 public void onTick(long millisUntilFinished) {
                     String[] times = SetTime(millisUntilFinished);
                    // mDay = Integer.parseInt(times[0]);
@@ -459,8 +459,8 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                     //结束了该轮倒计时
                     //1表示活动已开始，0表示活动已结束
                     if (dicountTag == 1) {
-                        tv_time_type.setText("距结束");
-                        handlerEndTime(longDistanceEnd);
+                        tv_time_type.setText("距结束投票还剩");
+                        handlerTime(longDistanceEnd,0,0);
 
                     } else {
                         tv_day.setText("00");
@@ -472,49 +472,11 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                 }
             }.start();
             //将此 countDownTimer 放入list.
-            countDownCounters.put(tv_hour.hashCode(), countDownTimer);
-        } else {
-            //结束
-        }
+         //   countDownCounters.put(tv_hour.hashCode(), countDownTimer);
+
     }
 
-    private void handlerEndTime(long timeTmp) {
-        CountDownTimer countDownTimer = countDownCounters.get(tv_hour.hashCode());
-        if (countDownTimer != null) {
-            //将复用的倒计时清除
-            countDownTimer.cancel();
-        }
-        long timer = timeTmp * 1000;
-        if (timer > 0) {
-            final CountDownTimer finalCountDownTimer = countDownTimer;
-            countDownTimer = new CountDownTimer(timer, 1000) {
-                public void onTick(long millisUntilFinished) {
 
-                    String[] times = SetTime(millisUntilFinished);
-                    tv_day.setText(fillZero(times[0]));
-                    tv_hour.setText(fillZero(times[1]));
-                    tv_minute.setText(fillZero(times[2]));
-                    tv_second.setText(fillZero(times[3]));
-                }
-
-                public void onFinish(String redpackage_id) {
-                    //结束了该轮倒计时
-                    tv_day.setText("00");
-                    tv_hour.setText("00");
-                    tv_minute.setText("00");
-                    tv_second.setText("00");
-                }
-            }.start();
-            //将此 countDownTimer 放入list.
-            countDownCounters.put(tv_hour.hashCode(), countDownTimer);
-        } else {
-            //结束
-            tv_day.setText("00");
-            tv_hour.setText("00");
-            tv_minute.setText("00");
-            tv_second.setText("00");
-        }
-    }
 
     private String[] SetTime(long time) {
         mDay = time / (1000 * 60 * 60 * 24);
@@ -546,15 +508,12 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
      * 销毁倒计时
      */
     private void cannelAllTimers() {
-        if (countDownCounters == null) {
+        if (countDownTimer == null) {
             return;
+        }else {
+            countDownTimer.cancel();
         }
-        for (int i = 0, length = countDownCounters.size(); i < length; i++) {
-            CountDownTimer cdt = countDownCounters.get(countDownCounters.keyAt(i));
-            if (cdt != null) {
-                cdt.cancel();
-            }
-        }
+
     }
 
 }
