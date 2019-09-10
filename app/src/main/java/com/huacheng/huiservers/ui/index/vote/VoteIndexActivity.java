@@ -206,6 +206,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                 hideDialog(smallDialog);
                 mRefreshLayout.finishRefresh();
                 mRefreshLayout.finishLoadMore();
+                mListview.setIsLoading(false);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ModelIndexVoteItem info = (ModelIndexVoteItem) JsonUtil.getInstance().parseJsonFromResponse(response, ModelIndexVoteItem.class);
                     if (info != null) {
@@ -226,10 +227,11 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                             mDatas.addAll(info.getList());
                             page++;
                             if (page > info.getTotalPages()) {
-                                mRefreshLayout.setEnableLoadMore(false);
+                             //   mRefreshLayout.setEnableLoadMore(false);
                                 mListview.setHasMoreItems(false);
                             } else {
-                                mRefreshLayout.setEnableLoadMore(true);
+                              //  mRefreshLayout.setEnableLoadMore(true);
+                                mListview.setHasMoreItems(true);
                             }
                         } else {
                             if (page == 1) {
@@ -237,7 +239,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                                 mDatas.clear();
                             }
                             mListview.setHasMoreItems(false);
-                            mRefreshLayout.setEnableLoadMore(false);
+                         //   mRefreshLayout.setEnableLoadMore(false);
                         }
                         mAdapter.notifyDataSetChanged();
 
@@ -254,6 +256,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                 mRefreshLayout.finishRefresh();
                 mRefreshLayout.finishLoadMore();
                 mListview.setHasMoreItems(false);
+                mListview.setIsLoading(false);
                 SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     mRefreshLayout.setEnableLoadMore(false);

@@ -66,7 +66,7 @@ public class VoteDetailActivity extends BaseActivity implements VotePresenter.On
     protected void initView() {
         ButterKnife.bind(this);
         findTitleViews();
-        titleName.setText("参赛作品");
+        titleName.setText("家庭详情");
         presenter = new VotePresenter(this, this);
 
     }
@@ -93,7 +93,7 @@ public class VoteDetailActivity extends BaseActivity implements VotePresenter.On
                         mTvName.setText(info.getTitle());
                         mTvPiao.setText(info.getPoll() + "");
                         mTvContent.setText(info.getContent());
-                        GlideUtils.getInstance().glideLoad(VoteDetailActivity.this, ApiHttpClient.IMG_URL + info.getImg(), mIvFamilyBg, R.drawable.ic_default_15);
+                        GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL + info.getImg(), mIvFamilyBg, R.drawable.ic_default_15);
 
                     }
                 } else {
