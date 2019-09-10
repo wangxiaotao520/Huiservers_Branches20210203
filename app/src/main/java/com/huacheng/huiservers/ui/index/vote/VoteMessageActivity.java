@@ -121,7 +121,7 @@ public class VoteMessageActivity extends BaseActivity implements VoteMessageAdap
                             }
                         } else {
                             if (page == 1) {
-                                mRelNoData.setVisibility(View.VISIBLE);
+                                //mRelNoData.setVisibility(View.VISIBLE);
                                 mDatas.clear();
                             }
                             mRefreshLayout.setEnableLoadMore(false);
