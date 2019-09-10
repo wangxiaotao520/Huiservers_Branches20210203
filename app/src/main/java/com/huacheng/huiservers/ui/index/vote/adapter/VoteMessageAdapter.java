@@ -3,6 +3,7 @@ package com.huacheng.huiservers.ui.index.vote.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -43,7 +44,7 @@ public class VoteMessageAdapter extends CommonAdapter<ModelVote> {
         } else {
             viewHolder.<ImageView>getView(R.id.iv_zan).setBackground(mContext.getResources().getDrawable(R.mipmap.ic_zan_yes));
         }
-        viewHolder.<ImageView>getView(R.id.iv_zan).setOnClickListener(new View.OnClickListener() {
+        viewHolder.<LinearLayout>getView(R.id.ly_dianzan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onClickZan(item, position);
