@@ -204,7 +204,7 @@
                 android:layout_marginRight="@dimen/margin_15"
                 android:layout_marginTop="@dimen/margin_20"
                 android:gravity="center"
-                android:text="我家的节水小故事奔牛实验小学 六(2)俞静最近，我在网上看到一则关于淡水资源缺乏的资料:我国的水资源稀缺，人均水资源占有量少，水资源利用率低，浪费严重。国家防汛指挥部工程师介绍:我国人均淡水资源量是世界人均的四分之一，列为世界上最贫水的十三个国家之一。我国水资源稀缺在北方地区表现得尤其严重。北方水资源只占全国的90%，人均水资源量仅为南方地区的三分之一。"
+                android:text=""
                 android:textColor="@color/gray_66"
                 android:textSize="@dimen/t_15sp"/>
 
