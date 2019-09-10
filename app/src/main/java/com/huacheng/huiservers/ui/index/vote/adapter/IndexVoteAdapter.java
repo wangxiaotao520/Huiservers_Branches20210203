@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelIndexVoteItem;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
@@ -62,9 +63,12 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
         if (position*2<mDatas.size()){
             ModelIndexVoteItem item = (ModelIndexVoteItem) mDatas.get(position*2);
             viewHolder. ll_item_view1.setVisibility(View.VISIBLE);
-            String url=    "http://img.hui-shenghuo.cn/huacheng_old/old/artice/19/09/02/5d6c942e27171.jpeg";
-            FrescoUtils.getInstance().setImageUri(viewHolder.sdv_title_img1,url);
-            viewHolder.tv_tag1.setText(""+((position*2)+1));
+            //String url=    "http://img.hui-shenghuo.cn/huacheng_old/old/artice/19/09/02/5d6c942e27171.jpeg";
+            FrescoUtils.getInstance().setImageUri(viewHolder.sdv_title_img1, ApiHttpClient.IMG_URL+item.getImg());
+            viewHolder.tv_famliy_name1.setText(item.getTitle());
+            viewHolder.tv_vote_count1.setText(item.getPoll()+"票");
+           // viewHolder.tv_tag1.setText(""+((position*2)+1));
+            viewHolder.tv_tag1.setText(item.getNumber()+"");
             viewHolder.ll_item_view1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -90,8 +94,11 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
             viewHolder. ll_item_view2.setVisibility(View.VISIBLE);
             ModelIndexVoteItem item = (ModelIndexVoteItem) mDatas.get(position*2+1);
             String url=    "http://img.hui-shenghuo.cn/huacheng_old/old/artice/19/09/02/5d6c942e27171.jpeg";
-            FrescoUtils.getInstance().setImageUri(viewHolder.sdv_title_img2,url);
-            viewHolder.tv_tag2.setText(""+((position*2+1)+1));
+            FrescoUtils.getInstance().setImageUri(viewHolder.sdv_title_img2,ApiHttpClient.IMG_URL+item.getImg());
+            viewHolder.tv_famliy_name2.setText(item.getTitle());
+            viewHolder.tv_vote_count2.setText(item.getPoll()+"票");
+            viewHolder.tv_tag2.setText(item.getNumber()+"");
+           // viewHolder.tv_tag2.setText(""+((position*2+1)+1));
             viewHolder.ll_item_view2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -117,9 +124,13 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
     private void initViewHolder(View convertView, ViewHolder viewHolder) {
         viewHolder. ll_item_view1=  convertView.findViewById(R.id.ll_item_view1);
         viewHolder. sdv_title_img1=  convertView.findViewById(R.id.sdv_title_img1);
+        viewHolder. tv_famliy_name1=  convertView.findViewById(R.id.tv_famliy_name1);
+        viewHolder. tv_vote_count1=  convertView.findViewById(R.id.tv_vote_count1);
         viewHolder. tv_tag1=  convertView.findViewById(R.id.tv_tag1);
         viewHolder. ll_item_view2=convertView.findViewById(R.id.ll_item_view2);
         viewHolder. sdv_title_img2=convertView.findViewById(R.id.sdv_title_img2);
+        viewHolder. tv_famliy_name2=convertView.findViewById(R.id.tv_famliy_name2);
+        viewHolder. tv_vote_count2=convertView.findViewById(R.id.tv_vote_count2);
         viewHolder. tv_tag2=convertView.findViewById(R.id.tv_tag2);
         viewHolder. tv_onClick1=convertView.findViewById(R.id.tv_onClick1);
         viewHolder. tv_onClick2=convertView.findViewById(R.id.tv_onClick2);
@@ -129,9 +140,13 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
         LinearLayout ll_item_view1;
         SimpleDraweeView sdv_title_img1;
         TextView tv_tag1;
+        TextView tv_famliy_name1;
+        TextView tv_vote_count1;
         LinearLayout  ll_item_view2;
         SimpleDraweeView sdv_title_img2;
         TextView  tv_tag2;
+        TextView  tv_famliy_name2;
+        TextView  tv_vote_count2;
         TextView  tv_onClick1;
         TextView  tv_onClick2;
     }

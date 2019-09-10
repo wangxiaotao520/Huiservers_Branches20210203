@@ -56,7 +56,7 @@
             android:id="@+id/iv_right"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:background="@mipmap/ic_share"
+            android:background="@mipmap/ic_vote_share"
             android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true" />

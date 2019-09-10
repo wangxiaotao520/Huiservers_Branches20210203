@@ -20,10 +20,9 @@ import android.widget.TextView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 
-
 /**
  * 类：隐私政策
- * 时间：2019/9/64 15:43
+ * 时间：2019/9/4 15:43
  * 功能描述:Huiservers
  */
 public class PrivacyPolicyDialog extends AlertDialog implements View.OnClickListener {
@@ -51,7 +50,6 @@ public class PrivacyPolicyDialog extends AlertDialog implements View.OnClickList
         setCancelable(false);
         tv_cancel = (TextView) findViewById(R.id.tv_cancel);
         tv_argee = (TextView) findViewById(R.id.tv_argee);
-        tv_content = (TextView) findViewById(R.id.tv_content);
         /*WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(dm);
@@ -71,7 +69,7 @@ public class PrivacyPolicyDialog extends AlertDialog implements View.OnClickList
                 "7、通知和修订\n" +
                 "8、如何联系我们\n" +
                 "您可以通过阅读完整版《社区慧生活隐私政策》，了解个人信息类型与用途的对应关系等更加详尽的个人信息处理规则。\n\n" +
-                "    如您同意，请点击“同意”开始接受我们的服务。";
+                "如您同意，请点击“同意”开始接受我们的服务。";
 
         // textview.setText(shequ);
         SpannableString spannableString = new SpannableString(shequ);

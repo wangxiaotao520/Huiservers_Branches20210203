@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="295dp"
+        android:layout_height="181dp"
+        android:background="@drawable/allshape_white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            >
+
+            <ImageView
+                android:id="@+id/iv_cancel"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_margin="@dimen/margin_15"
+                android:background="@mipmap/ic_vote_cha"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/ic_vote_poll"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin"
+                android:text="投票成功"
+                android:textColor="@color/vote_red"
+                android:textSize="@dimen/t_20sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="谢谢您的支持，每人每天可以投"
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/t_15sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textColor="@color/vote_red"
+                android:textSize="@dimen/t_15sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="票"
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/t_15sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="240dp"
+            android:layout_height="@dimen/margin_40"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_20"
+            android:background="@drawable/allshape_vote_red"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

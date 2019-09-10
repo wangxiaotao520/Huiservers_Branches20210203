@@ -9,17 +9,17 @@ public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
     public static String API_VERSION = "apk43/";
     //测试
-//    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
-//    public static String API_URL = "http://test.hui-shenghuo.cn/";
-//    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
-//    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
+    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
+    public static String API_URL = "http://test.hui-shenghuo.cn/";
+    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
+    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
 
     //正式
-   public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
+  /*  public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
     public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
     public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
-    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service/";
+    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service/";*/
 
 
     public static String IMG_URL = "http://img.hui-shenghuo.cn/";
@@ -323,6 +323,24 @@ public class ApiHttpClient {
     //隐私政策
     public static String GET_PRIVARY = API_URL + API_VERSION + "userCenter/privacy";
     /**
+     * 活动投票
+     */
+    //首页
+    public static String FAMILY_INDEX = API_URL + API_VERSION + "family/family_index";
+    //家庭详情
+    public static String FAMILY_DETAIL = API_URL + API_VERSION + "family/family_see";
+    //留言列表
+    public static String FAMILY_MESSAGE_LIST = API_URL + API_VERSION + "family/family_message";
+    //提交留言
+    public static String FAMILY_MESSAGE_ADD = API_URL + API_VERSION + "family/family_message_add";
+    //点赞
+    public static String FAMILY_PRAISE = API_URL + API_VERSION + "family/family_praise";
+    //投票
+    public static String FAMILY_POLL = API_URL + API_VERSION + "family/family_poll";
+    //活动首页分享
+    public static String FAMILY_INDEX_SHARE = API_URL_SHARE + "home/index/beautiful_family";
+
+    /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
      */
@@ -448,5 +466,12 @@ public class ApiHttpClient {
         PENSION_ACTIVITY_SEE = API_URL + API_VERSION + "pension/activitySee";
         SCAN_INDEX = API_URL + API_VERSION + "Scan/Scan_index";
         GET_PRIVARY = API_URL + API_VERSION + "userCenter/privacy";
+        FAMILY_INDEX = API_URL + API_VERSION + "family/family_index";
+        FAMILY_MESSAGE_LIST = API_URL + API_VERSION + "family/family_message";
+        FAMILY_MESSAGE_ADD = API_URL + API_VERSION + "family/family_message_add";
+        FAMILY_PRAISE = API_URL + API_VERSION + "family/family_praise";
+        FAMILY_DETAIL = API_URL + API_VERSION + "family/family_see";
+        FAMILY_POLL = API_URL + API_VERSION + "family/family_poll";
+        FAMILY_INDEX_SHARE = API_URL + "home/index/beautiful_family";
     }
 }

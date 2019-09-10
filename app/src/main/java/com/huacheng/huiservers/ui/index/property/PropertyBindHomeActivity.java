@@ -308,8 +308,8 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
         params.put("department_name", info.getDepartment_name());
         params.put("house_type", info.getHouses_type());
         if ("2".equals(houses_type)||"4".equals(houses_type)) {//商铺
-//            params.put("building_id", "0");
-//            params.put("building_name", "0");
+            params.put("building_id", info.getBuilding_id());
+            params.put("building_name", info.getBuilding_name() + "");
 //            params.put("unit", "0");
 //            params.put("floor", "0");
             params.put("code", info.getCode());

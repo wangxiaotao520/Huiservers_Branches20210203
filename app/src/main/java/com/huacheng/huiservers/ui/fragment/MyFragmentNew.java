@@ -23,13 +23,13 @@ import com.huacheng.huiservers.ui.center.CenterMoneyActivity;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.MyInfoActivity;
 import com.huacheng.huiservers.ui.center.MyRenvationActivity;
-import com.huacheng.huiservers.ui.center.SetActivity;
 import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.circle.MyCircleActivity;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
+import com.huacheng.huiservers.ui.index.vote.VoteIndexActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityTwo;
@@ -288,7 +288,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
 
                 break;
             case R.id.ry_set:// 设置
-                startActivity(new Intent(getActivity(), SetActivity.class));
+                startActivity(new Intent(getActivity(), VoteIndexActivity.class));
                 break;
             case R.id.rel_myCircle:// 我的圈子
                 startActivity(new Intent(getActivity(), MyCircleActivity.class));

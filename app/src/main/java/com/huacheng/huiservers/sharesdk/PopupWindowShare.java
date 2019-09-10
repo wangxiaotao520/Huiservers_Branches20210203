@@ -103,6 +103,22 @@ public class PopupWindowShare implements OnClickListener {
         smallDialog = new SmallDialog(context);
         initShareAPPPopupWindow();
     }
+    /**
+     * 通用自定义分享方法
+     */
+    public PopupWindowShare(Context context, String share_title, String share_desc, Bitmap bitmap, String share_url, int shareTag) {
+        super();
+        this.context = context;
+        this.inflater = LayoutInflater.from(context);
+        this.shareTag = shareTag;
+        this.share_title = share_title;
+        this.share_desc = share_desc;
+        this.bitmap = bitmap;
+        this.share_url = share_url;
+        initSharePlatform();
+        smallDialog = new SmallDialog(context);
+        initShareAPPPopupWindow();
+    }
 
     /**
      *分享图片
@@ -195,7 +211,7 @@ public class PopupWindowShare implements OnClickListener {
 //            fc_share.setShareParams(context.getString(R.string.shareSDK_download_title),context.getString(R.string.shareSDK_download_content),
 //                    context.getString(R.string.w3g_address_of_shareSDK_download),AppConstant.YULIN_ICON);
         }  else if(shareTag == AppConstant.SHARE_COMMON){
-            fc_share.setShareParams(share_title,share_desc,share_url,share_icon);
+            fc_share.setShareParams(share_title,share_desc,share_url,share_icon,bitmap);
         } else  if (shareTag==AppConstant.SHARE_IMAGE){
             fc_share.setShareParams(share_title,bitmap);
         }

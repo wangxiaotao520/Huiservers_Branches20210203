@@ -131,7 +131,7 @@ public class FunctionThirdPlatForm {
       * Author: Lydia
       * Date: 2017/9/7
       */
-    public void setShareParams(String str_shareTitle, String str_shareContent, String str_shareUrl, String img_shareImgUrl){
+    public void setShareParams(String str_shareTitle, String str_shareContent, String str_shareUrl, String img_shareImgUrl,Bitmap bitmap){
         String configHost = ApiHttpClient.API_URL;
         // 封装到ShareSdk进行分享
         ShareParams sp = new ShareParams();
@@ -151,12 +151,16 @@ public class FunctionThirdPlatForm {
             sp.setSiteUrl(configHost);
             if (img_shareImgUrl != null) {
                 sp.setImageUrl(img_shareImgUrl.toString());
+            }else {
+                sp.setImageData(bitmap);
             }
         } else if (pf.getName().equals(Wechat.NAME)
                 || pf.getName().equals(WechatMoments.NAME)) {
             // 分享到微信
             if (img_shareImgUrl != null) {
                 sp.setImageUrl(img_shareImgUrl.toString());
+            }else {
+                sp.setImageData(bitmap);
             }
             sp.setShareType(Wechat.SHARE_WEBPAGE);// 微信必须设置一个SHARE类型，否则返回err,这里使用3G网站
             sp.setUrl(str_shareUrl);// 超链接，点击之后进入3G网站

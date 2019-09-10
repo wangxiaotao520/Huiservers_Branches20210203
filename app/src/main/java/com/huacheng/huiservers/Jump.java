@@ -43,6 +43,7 @@ import com.huacheng.huiservers.ui.index.oldhome.OldHomeActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
 import com.huacheng.huiservers.ui.index.request.CommitRequestActivity;
+import com.huacheng.huiservers.ui.index.vote.VoteIndexActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
@@ -366,6 +367,16 @@ public class Jump {
                 intent.putExtra("name", name);
                 mContext.startActivity(intent);
 
+            }
+        }else {
+         if (type.equals("30")){//活动投票
+                if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                    Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                    mContext.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mContext, VoteIndexActivity.class);
+                    mContext.startActivity(intent);
+                }
             }
         }
 
