@@ -80,7 +80,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void initView(View view) {
-        prefrenceUtil = new SharePrefrenceUtil(getActivity());
+        prefrenceUtil = new SharePrefrenceUtil(mActivity);
         getLinshi();
         refreshLayout = view.findViewById(R.id.refreshLayout);
         sdv_head = view.findViewById(R.id.sdv_head);
