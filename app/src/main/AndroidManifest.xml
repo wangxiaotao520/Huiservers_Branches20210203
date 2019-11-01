@@ -1107,6 +1107,11 @@
             android:name="com.huacheng.huiservers.pay.chinaums.UnifyPayActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+        android:name="com.huacheng.huiservers.pay.chinaums.UnifyPayShadowActivity"
+        android:theme="@style/AppCompatTheme.Base.transparent"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="stateHidden" />
         <!--******************************银联支付********************************-->
         <activity
             android:name=".ui.index.oldservice.CalendarViewActivity"

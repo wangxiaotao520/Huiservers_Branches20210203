@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,8 +34,7 @@ import com.huacheng.huiservers.ui.center.geren.bean.PayTypeBean;
 import com.huacheng.huiservers.ui.index.charge.ChargingActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
-import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
-import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
+import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.unionpay.UPPayAssistEx;
@@ -74,33 +74,42 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
      * 微信支付
      */
     private final int TYPE_WEIXIN = 3;
+    private String appPayRequest_WEIXIN= "";
     /**
      * 支付宝支付
      */
     private final int TYPE_ALIPAY = 1;
+    private String appPayRequest_ALIPAY= "";//阿里的前置是否调过
     /**
      * 云闪付
      */
     private final int TYPE_CLOUD_QUICK_PAY = 2;
+    private String appPayRequest_CLOUD_QUICK_PAY= "";//云闪付前置是否调过
+
 
     private String order_id = "";
     private String type = "";
     private String price = "";
 
-    private boolean isGotoPayback = false;
     private RxPermissions rxPermissions;
     private int request_count=0;
+    //TODO 提交按钮点击状态
+    private LinearLayout ll_root;
+    private boolean isClickable = true;//提交按钮是否可点击
 
     @Override
     protected void initIntentData() {
         order_id = this.getIntent().getExtras().getString("o_id") + "";
         type = this.getIntent().getExtras().getString("type") + "";
         price = this.getIntent().getExtras().getString("price");
+
     }
 
     @Override
     protected void initView() {
         findTitleViews();
+        //点击外部不可消失
+        smallDialog.setCanceledOnTouchOutside(false);
         titleName.setText("支付订单");
         rl_header = findViewById(R.id.rl_header);
         tv_price = findViewById(R.id.tv_price);
@@ -117,6 +126,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
 
         rxPermissions = new RxPermissions(this);
         requestPermissions();
+        ll_root=findViewById(R.id.ll_root);
     }
 
     private void requestPermissions() {
@@ -142,9 +152,9 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
 
     @Override
     protected void initListener() {
-        tv_confirm.setOnClickListener(new View.OnClickListener() {
+        tv_confirm.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 rxPermissions.request(Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .subscribe(new Consumer<Boolean>() {
                             @Override
@@ -190,6 +200,10 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
     }
 
     private void comfirmPay() {
+        //防止重复点击
+        if (!isClickable){
+            return;
+        }
         if (pay_type_datas.size() == 0) {
             return;
         }
@@ -200,30 +214,67 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 SmartToast.showInfo("未安装支付宝客户端");
                 return;
             }
+            if (!NullUtil.isStringEmpty(appPayRequest_ALIPAY)){//说明支付宝前置接口请求过了,总之前置接口只调用一次
+                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
+                intent.putExtra("typetag",typetag);
+                intent.putExtra("appPayRequest",appPayRequest_ALIPAY);
+                startActivityForResult(intent,111);
+                hideDialog(smallDialog);
+            }else {
+                showDialog(smallDialog);
+                //请求前置接口
+                payPresenter.getOrderInformation(order_id,typename,typetag,type);
+                isClickable=false;
+            }
         } else if (typetag == TYPE_CLOUD_QUICK_PAY) {
             typename = "unionpay";
+
+            if (!NullUtil.isStringEmpty(appPayRequest_CLOUD_QUICK_PAY)){  //总之前置接口只调用一次
+                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
+                intent.putExtra("typetag",typetag);
+                intent.putExtra("appPayRequest",appPayRequest_CLOUD_QUICK_PAY);
+                startActivityForResult(intent,111);
+                hideDialog(smallDialog);
+            }else {
+                showDialog(smallDialog);
+                //请求前置接口
+                payPresenter.getOrderInformation(order_id,typename,typetag,type);
+                isClickable=false;
+            }
         } else if (typetag == TYPE_WEIXIN) {
             typename = "wxpay";
+            showDialog(smallDialog);
+            //请求前置接口
+            payPresenter.getOrderInformation(order_id,typename,typetag,type);
+            isClickable=false;
         }
-        showDialog(smallDialog);
-        //请求前置接口
-        payPresenter.getOrderInformation(order_id,typename,typetag,type);
+
        // payPresenter.getOrderInformation("11114", typename, typetag);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //尽力了
+//        if (isGotoPayback&&typetag==TYPE_ALIPAY){
+//                isGotoPayback=false;
+//                //注：支付宝渠道如果支付请求发送成功，则会跳转至支付宝APP，
+//                // 并且支付完成后会停留在支付宝，因此商户 APP无法通过UnifyPayListener
+//                // 收到支付结果，请以后台的支付结果为准。
+//                payResultCallBack();
+//                isCommitClickable=true;//从支付宝返回变得可点击
+//        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (isGotoPayback){
-            isGotoPayback=false;
-            if (typetag==TYPE_ALIPAY){
-                //注：支付宝渠道如果支付请求发送成功，则会跳转至支付宝APP，
-                // 并且支付完成后会停留在支付宝，因此商户 APP无法通过UnifyPayListener
-                // 收到支付结果，请以后台的支付结果为准。
-                payResultCallBack();
-            }
-
-        }
+//        //处理支付宝调用过程那个间隙一直按屏幕的问题，这个时候支付宝有可能就调不起来
+        //todo
+//        if (isGotoPayback&&typetag==TYPE_ALIPAY){
+//            isGotoPayback=false;
+//            isCommitClickable=true;
     }
 
 
@@ -323,7 +374,6 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
     @Override
     public void onGetOrderInformation(int status, String msg, String json, int typetag) {
         //获取到订单数据
-        hideDialog(smallDialog);
         if (status == 1) {
             if (!NullUtil.isStringEmpty(json)) {
                 try {
@@ -334,29 +384,47 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                             String appPayRequest = jsonObject.getString("appPayRequest");
                             if (typetag == TYPE_ALIPAY) {
                              //   SmartToast.showInfo("alipay");
-                                payAliPay(appPayRequest);
+                            //   payAliPay(appPayRequest);
+                                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
+                                intent.putExtra("typetag",typetag);
+                                intent.putExtra("appPayRequest",appPayRequest);
+                                startActivityForResult(intent,111);
+                                hideDialog(smallDialog);
+                                appPayRequest_ALIPAY=appPayRequest;
+
                             } else if (typetag == TYPE_CLOUD_QUICK_PAY) {
                               //  SmartToast.showInfo("unionpay");
-                                payCloudQuickPay(appPayRequest);
+                              // payCloudQuickPay(appPayRequest);
+                                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
+                                intent.putExtra("typetag",typetag);
+                                intent.putExtra("appPayRequest",appPayRequest);
+                                startActivityForResult(intent,111);
+                                hideDialog(smallDialog);
+                                appPayRequest_CLOUD_QUICK_PAY=appPayRequest;
+
                             } else if (typetag == TYPE_WEIXIN) {
                                 SmartToast.showInfo("wxpay");
                                     //todo 不知道微信需不需要
 //                                msgApi = WXAPIFactory.createWXAPI(ZhifuActivity.this, mTypeBeen.get(i).getApp_id(), true);
 //                                // 将该app注册到微信
 //                                msgApi.registerApp(mTypeBeen.get(i).getApp_id());
+                                hideDialog(smallDialog);
                                 payWX(appPayRequest);
                             }
                         }
                     } else {//失败
                         String errMsg = jsonObject.getString("errMsg");
                         SmartToast.showInfo(errMsg);
+                        hideDialog(smallDialog);
                     }
                 } catch (JSONException e) {
+                    hideDialog(smallDialog);
                     e.printStackTrace();
                     SmartToast.showInfo("数据解析异常");
                 }
             }
         } else {
+            hideDialog(smallDialog);
             SmartToast.showInfo(msg);
         }
 
@@ -399,11 +467,11 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 setResult(333, intent);
                 finish();
             }else if(type.equals(CanstantPay.PAY_SERVICE)){
-                Intent intent = new Intent(this, FragmentOrderListActivity.class);
-                intent.putExtra("type", "pay_finish");
-                startActivity(intent);
-                // 支付成功后调用极光
-                new JpushPresenter().paySuccessJpush(order_id);
+//                Intent intent = new Intent(this, FragmentOrderListActivity.class);
+//                intent.putExtra("type", "pay_finish");
+//                startActivity(intent);
+//                // 支付成功后调用极光
+//                new JpushPresenter().paySuccessJpush(order_id);
                 finish();
             }else if(type.equals(CanstantPay.PAY_PROPERTY)) {
                 EventBus.getDefault().post(new EventProperty());
@@ -442,7 +510,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 public void run() {
                     payPresenter.confirmOrderPayment(order_id,type_params);
                 }
-            },500);
+            },1000);
         }
     }
 
@@ -491,6 +559,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
         msg.payChannel = UnifyPayRequest.CHANNEL_WEIXIN;
         msg.payData = params;
         UnifyPayPlugin.getInstance(this).sendPayRequest(msg);
+   //     hideDialog(smallDialog);
     }
 
     /**
@@ -503,7 +572,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
         msg.payChannel = UnifyPayRequest.CHANNEL_ALIPAY;
         msg.payData = params;
         UnifyPayPlugin.getInstance(this).sendPayRequest(msg);
-        isGotoPayback=true;
+
     }
 
     /**
@@ -539,6 +608,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
          * mode —— 银联后台环境标识，“00”将在银联正式环境发起交易,“01”将在银联测试环境发起交易
          */
         UPPayAssistEx.startPay(this, null, null, tn, "00");
+   //     hideDialog(smallDialog);
     }
 
     // 物流分配
@@ -596,39 +666,87 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /**
-         * 处理银联云闪付手机支付控件返回的支付结果
-         */
-        if (data == null) {
-            return;
-        }
+        isClickable=true;
+        if (requestCode==111){
+            if (resultCode==RESULT_OK) {
+                if (data == null) {
+                    return;
+                }
+                int typetag = data.getIntExtra("typetag",1);
+                if (typetag==TYPE_ALIPAY){
+                    //注：支付宝渠道如果支付请求发送成功，则会跳转至支付宝APP，
+                    // 并且支付完成后会停留在支付宝，因此商户 APP无法通过UnifyPayListener
+                    // 收到支付结果，请以后台的支付结果为准。
+                    payResultCallBack();
 
-        String msg = "";
-        /*
-         * 支付控件返回字符串:success、fail、cancel 分别代表支付成功，支付失败，支付取消
-         */
-        String str = data.getExtras().getString("pay_result");
-        if (!NullUtil.isStringEmpty(str)&&typetag==TYPE_CLOUD_QUICK_PAY){
-            if (str.equalsIgnoreCase("success")) {
-                //如果想对结果数据校验确认，直接去商户后台查询交易结果，
-                //校验支付结果需要用到的参数有sign、data、mode(测试或生产)，sign和data可以在result_data获取到
-                /**
-                 * result_data参数说明：
-                 * sign —— 签名后做Base64的数据
-                 * data —— 用于签名的原始数据
-                 *      data中原始数据结构：
-                 *      pay_result —— 支付结果success，fail，cancel
-                 *      tn —— 订单号
-                 */
-                msg = "云闪付支付成功";
-                //请求本地服务器
-                payResultCallBack();
-            } else if (str.equalsIgnoreCase("fail")) {
-                msg = "云闪付支付失败！";
-                SmartToast.showInfo("支付失败");
-            } else if (str.equalsIgnoreCase("cancel")) {
-                msg = "用户取消了云闪付支付";
+                }else if (typetag==TYPE_CLOUD_QUICK_PAY){
+                    /**
+                     * 处理银联云闪付手机支付控件返回的支付结果
+                     */
+
+                    String msg = "";
+                    /*
+                     * 支付控件返回字符串:success、fail、cancel 分别代表支付成功，支付失败，支付取消
+                     */
+                    String str = data.getExtras().getString("pay_result");
+                    if (!NullUtil.isStringEmpty(str)&&typetag==TYPE_CLOUD_QUICK_PAY){
+                        if (str.equalsIgnoreCase("success")) {
+                            //如果想对结果数据校验确认，直接去商户后台查询交易结果，
+                            //校验支付结果需要用到的参数有sign、data、mode(测试或生产)，sign和data可以在result_data获取到
+                            /**
+                             * result_data参数说明：
+                             * sign —— 签名后做Base64的数据
+                             * data —— 用于签名的原始数据
+                             *      data中原始数据结构：
+                             *      pay_result —— 支付结果success，fail，cancel
+                             *      tn —— 订单号
+                             */
+                            msg = "云闪付支付成功";
+                            //请求本地服务器
+                            payResultCallBack();
+                        } else if (str.equalsIgnoreCase("fail")) {
+                            msg = "云闪付支付失败！";
+                            SmartToast.showInfo("支付失败");
+                        } else if (str.equalsIgnoreCase("cancel")) {
+                            msg = "用户取消了云闪付支付";
+                        }
+                    }
+                }
             }
+        }else {
+//            /**
+//             * 处理银联云闪付手机支付控件返回的支付结果
+//             */
+//            if (data == null) {
+//                return;
+//            }
+//            String msg = "";
+//            /*
+//             * 支付控件返回字符串:success、fail、cancel 分别代表支付成功，支付失败，支付取消
+//             */
+//            String str = data.getExtras().getString("pay_result");
+//            if (!NullUtil.isStringEmpty(str)&&typetag==TYPE_CLOUD_QUICK_PAY){
+//                if (str.equalsIgnoreCase("success")) {
+//                    //如果想对结果数据校验确认，直接去商户后台查询交易结果，
+//                    //校验支付结果需要用到的参数有sign、data、mode(测试或生产)，sign和data可以在result_data获取到
+//                    /**
+//                     * result_data参数说明：
+//                     * sign —— 签名后做Base64的数据
+//                     * data —— 用于签名的原始数据
+//                     *      data中原始数据结构：
+//                     *      pay_result —— 支付结果success，fail，cancel
+//                     *      tn —— 订单号
+//                     */
+//                    msg = "云闪付支付成功";
+//                    //请求本地服务器
+//                    payResultCallBack();
+//                } else if (str.equalsIgnoreCase("fail")) {
+//                    msg = "云闪付支付失败！";
+//                    SmartToast.showInfo("支付失败");
+//                } else if (str.equalsIgnoreCase("cancel")) {
+//                    msg = "用户取消了云闪付支付";
+//                }
+//            }
         }
 
     }
@@ -658,4 +776,5 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
         }
         return false;
     }
+
 }

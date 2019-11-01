@@ -1871,6 +1871,7 @@ style Animation_AppCompat_DropDownUp
 style Animation_AppCompat_Tooltip
 style Animation_Design_BottomSheetDialog
 style AppCompatTheme_Base
+style AppCompatTheme_Base_transparent
 style AppTheme
 style AppTheme_Slide
 style AppTheme_Slide_Animation

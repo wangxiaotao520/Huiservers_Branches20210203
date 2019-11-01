@@ -39,6 +39,19 @@
         <!--Window color-->
         <item name="android:windowBackground">@color/windowbackground</item>
     </style>
+    <style name="AppCompatTheme.Base.transparent" parent="Theme.AppCompat">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Actionbar color -->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--Status bar color-->
+        <item name="colorPrimaryDark">@color/white</item>
+        <!--Window color-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
     <!-- 弹出菜单 -->
     <style name="popUpwindow_anim">
         <item name="android:windowEnterAnimation">@anim/push_up_in</item>
