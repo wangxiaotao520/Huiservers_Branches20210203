@@ -243,10 +243,16 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
             }
         } else if (typetag == TYPE_WEIXIN) {
             typename = "wxpay";
-            showDialog(smallDialog);
-            //请求前置接口
-            payPresenter.getOrderInformation(order_id,typename,typetag,type);
-            isClickable=false;
+
+            if (!NullUtil.isStringEmpty(appPayRequest_WEIXIN)){ //总之前置接口只调用一次
+                payWX(appPayRequest_WEIXIN);
+            }else {
+                showDialog(smallDialog);
+                //请求前置接口
+                payPresenter.getOrderInformation(order_id,typename,typetag,type);
+                isClickable=false;
+        }
+
         }
 
        // payPresenter.getOrderInformation("11114", typename, typetag);
@@ -409,7 +415,9 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
 //                                // 将该app注册到微信
 //                                msgApi.registerApp(mTypeBeen.get(i).getApp_id());
                                 hideDialog(smallDialog);
+                                appPayRequest_WEIXIN=appPayRequest;
                                 payWX(appPayRequest);
+                                isClickable=true;
                             }
                         }
                     } else {//失败
