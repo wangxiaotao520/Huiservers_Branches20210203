@@ -55,7 +55,7 @@ import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
-import com.microquation.linkedme.android.referral.LMError;
+import com.microquation.linkedme.android.log.LMErrorCode;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -947,7 +947,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                 showDialog(smallDialog);
                 LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, share_title, params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
                     @Override
-                    public void onGetUrl(String url, LMError error) {
+                    public void onGetUrl(String url, LMErrorCode error) {
                         hideDialog(smallDialog);
                         if (error == null) {
                             String share_url_new = share_url + "?linkedme=" + url;

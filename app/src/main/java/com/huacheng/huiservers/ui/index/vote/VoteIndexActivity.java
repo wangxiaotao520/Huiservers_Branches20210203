@@ -32,7 +32,7 @@ import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
-import com.microquation.linkedme.android.referral.LMError;
+import com.microquation.linkedme.android.log.LMErrorCode;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -180,7 +180,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
         showDialog(smallDialog);
         LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, "", params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
             @Override
-            public void onGetUrl(String url, LMError error) {
+            public void onGetUrl(String url, LMErrorCode error) {
                 hideDialog(smallDialog);
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_vote_bg_rectange, null);
                 if (error == null) {

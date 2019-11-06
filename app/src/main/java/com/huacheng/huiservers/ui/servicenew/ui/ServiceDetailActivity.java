@@ -35,7 +35,6 @@ import com.huacheng.huiservers.ui.servicenew.ui.adapter.ServiceCateAdapter;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.view.ScrollChangedScrollView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
@@ -45,7 +44,7 @@ import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.huacheng.libraryservice.widget.ScrollviewListView;
-import com.microquation.linkedme.android.referral.LMError;
+import com.microquation.linkedme.android.log.LMErrorCode;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -365,7 +364,7 @@ public class ServiceDetailActivity extends BaseActivity {
                 showDialog(smallDialog);
                 LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, share_title, params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
                     @Override
-                    public void onGetUrl(String url, LMError error) {
+                    public void onGetUrl(String url, LMErrorCode error) {
                         hideDialog(smallDialog);
                         if (error == null) {
                             String share_url_new = share_url + "?linkedme=" + url;

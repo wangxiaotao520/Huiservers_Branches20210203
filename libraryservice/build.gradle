@@ -54,4 +54,5 @@ dependencies {
     //星星评价
     api 'com.xingliuhua:xlhratingbar_lib:1.0.1'
     api project(':smart-toast')
+    implementation files('libs/LinkedME-Android-Deep-Linking-SDK-V1.1.6.jar')
 }

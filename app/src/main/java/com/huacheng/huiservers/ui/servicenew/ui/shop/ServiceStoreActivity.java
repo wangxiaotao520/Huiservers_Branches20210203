@@ -26,7 +26,6 @@ import com.huacheng.huiservers.ui.servicenew.inter.OnRefreshAndLoadMoreListener;
 import com.huacheng.huiservers.ui.servicenew.model.CategoryBean;
 import com.huacheng.huiservers.ui.servicenew.model.ModelStore;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
-import com.huacheng.huiservers.utils.XToast;
 import com.huacheng.huiservers.utils.statusbar.SystemBarTintManager;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
@@ -35,7 +34,7 @@ import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.lzy.widget.HeaderViewPager;
-import com.microquation.linkedme.android.referral.LMError;
+import com.microquation.linkedme.android.log.LMErrorCode;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -323,7 +322,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
             showDialog(smallDialog);
             LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, share_title, params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
                 @Override
-                public void onGetUrl(String url, LMError error) {
+                public void onGetUrl(String url, LMErrorCode error) {
                     hideDialog(smallDialog);
                     if (error == null) {
                         String share_url_new = share_url + "?linkedme=" + url;

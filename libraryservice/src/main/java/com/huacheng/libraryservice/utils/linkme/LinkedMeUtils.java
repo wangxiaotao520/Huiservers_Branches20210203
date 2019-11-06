@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.microquation.linkedme.android.callback.LMLinkCreateListener;
 import com.microquation.linkedme.android.indexing.LMUniversalObject;
-import com.microquation.linkedme.android.referral.LMError;
+import com.microquation.linkedme.android.log.LMErrorCode;
 import com.microquation.linkedme.android.util.LinkProperties;
 
 import java.util.Map;
@@ -66,7 +66,7 @@ public class LinkedMeUtils {
         // Async Link creation example
         universalObject.generateShortUrl(activity, properties, new LMLinkCreateListener() {
             @Override
-            public void onLinkCreate(String url, LMError error) {
+            public void onLinkCreate(String url, LMErrorCode error) {
                 if (listener!=null){
                     listener.onGetUrl(url,error);
                 }
@@ -75,6 +75,6 @@ public class LinkedMeUtils {
     }
 
    public interface OnGetLinkedmeUrlListener{
-        void onGetUrl(String url, LMError error);
+        void onGetUrl(String url, LMErrorCode error);
    }
 }

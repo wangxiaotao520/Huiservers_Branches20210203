@@ -23,7 +23,7 @@ import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
-import com.microquation.linkedme.android.referral.LMError;
+import com.microquation.linkedme.android.log.LMErrorCode;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -161,7 +161,7 @@ public class VoteDetailActivity extends BaseActivity implements VotePresenter.On
                 showDialog(smallDialog);
                 LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, "", params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
                     @Override
-                    public void onGetUrl(String url, LMError error) {
+                    public void onGetUrl(String url, LMErrorCode error) {
                         hideDialog(smallDialog);
                         if (error == null) {
                             String share_url_new = share_url + "?linkedme=" + url;
