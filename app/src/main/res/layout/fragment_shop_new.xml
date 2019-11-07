@@ -200,7 +200,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="9dp"
                                     android:paddingLeft="@dimen/margin_15"
-                                    android:text="每日必转"
+                                    android:text="每日必逛"
                                     android:textColor="@color/text_color"
                                     android:textSize="19sp" />
 

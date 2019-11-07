@@ -60,13 +60,12 @@ import com.huacheng.huiservers.ui.shop.adapter.MyViewPagerAdapter;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.LoginUtils;
+import com.huacheng.huiservers.utils.MyCornerImageLoader;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.huiservers.view.MyListView;
-import com.huacheng.huiservers.view.widget.FunctionAdvertise;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -79,6 +78,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -103,10 +105,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private SmartRefreshLayout refreshLayout;
     //  private RecyclerView recyclerView;
     private PagingListView listView;
-    private RelativeLayout rel_no_data;
     private RelativeLayout ry_onclick;
 
-    private FunctionAdvertise fc_ads;
+   // private FunctionAdvertise fc_ads;
+    private Banner banner;
     private RelativeLayout ry_daohang;
     private GridViewNoScroll gridViewHouse;
     private GridViewNoScroll gridViewGoods;
@@ -154,6 +156,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     View mStatusBar;
     private ImageView iv_scancode;
+    private MyCornerImageLoader myImageLoader;
 
     @Override
     public void initView(View view) {
@@ -162,23 +165,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         refreshLayout = view.findViewById(R.id.refreshLayout);
         //    recyclerView=view.findViewById(R.id.recyclerview);
         listView = view.findViewById(R.id.listView);
-        rel_no_data = view.findViewById(R.id.rel_no_data);
         ry_onclick = view.findViewById(R.id.ry_onclick);
         tv_xiaoqu = view.findViewById(R.id.tv_xiaoqu);
         tv_xiaoqu.setText(prefrenceUtil.getXiaoQuNanme());
         view_alpha = view.findViewById(R.id.view_alpha);
-        view_alpha.setAlpha(0.6f);
+        view_alpha.setAlpha(1);
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setEnableRefresh(true);
 
         initHeaderView();
-        adapter = new HomeListViewAdapter(mActivity, R.layout.shop_list_item, mDatas, this);
+        adapter = new HomeListViewAdapter(mActivity, R.layout.shop_list_item_home, mDatas, this);
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
         //设置statusbar
         mStatusBar=view.findViewById(R.id.status_bar);
-        mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
-        mStatusBar.setAlpha(0.6f);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
+        mStatusBar.setAlpha(1);
 
         iv_scancode = view.findViewById(R.id.iv_scancode);
     }
@@ -189,7 +191,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private void initHeaderView() {
         headerView = LayoutInflater.from(mActivity).inflate(R.layout.layout_fragmenthome_header, null);
         v_banner = headerView.findViewById(R.id.v_banner);
-        fc_ads = headerView.findViewById(R.id.fc_ads);
+       // fc_ads = headerView.findViewById(R.id.fc_ads);
+        banner = headerView.findViewById(R.id.banner);
+        setBanner();
         ry_daohang = headerView.findViewById(R.id.ry_daohang);
         viewpager_cate = headerView.findViewById(R.id.viewpager_cate);
         group = headerView.findViewById(R.id.points);
@@ -233,10 +237,53 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         listView.addHeaderView(headerView);
         headerView.setVisibility(View.INVISIBLE);
 
+    }
+
+    private void setBanner() {
+        myImageLoader= new MyCornerImageLoader();
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setImageLoader(myImageLoader);
+        banner.isAutoPlay(true);//设置是否轮播
+        banner.setIndicatorGravity(BannerConfig.CENTER);//小圆点位置
+        banner.setDelayTime(2000);
+        banner.setImageLoader(myImageLoader).setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                if (modelHome!=null&&modelHome.getAd_top_list() != null && modelHome.getAd_top_list().size() > 0) {
+                    ModelAds ads=modelHome.getAd_top_list().get(position);
+               if (TextUtils.isEmpty(ads.getUrl())) {
+                    if (ads.getUrl_type().equals("0") || TextUtils.isEmpty(ads.getUrl_type())) {
+                        jump = new Jump(getActivity(), ads.getType_name(), ads.getAdv_inside_url());
+                    } else {
+                        jump = new Jump(getActivity(), ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
+                    }
+                } else {//URL不为空时外链
+                    jump = new Jump(getActivity(), ads.getUrl());
+
+                }
+                }
+            }
+        }).start();
+
+        banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
 
 
     }
-
 
     @Override
     public void initIntentData() {
@@ -251,21 +298,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         ly_houseRent.setOnClickListener(this);
         ly_houseSell.setOnClickListener(this);
         ly_houseCommit.setOnClickListener(this);
-        fc_ads.setListener(new FunctionAdvertise.OnClickAdsListener() {
-            @Override
-            public void OnClickAds(ModelAds ads) {
-                if (TextUtils.isEmpty(ads.getUrl())) {
-                    if (ads.getUrl_type().equals("0") || TextUtils.isEmpty(ads.getUrl_type())) {
-                        jump = new Jump(getActivity(), ads.getType_name(), ads.getAdv_inside_url());
-                    } else {
-                        jump = new Jump(getActivity(), ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
-                    }
-                } else {//URL不为空时外链
-                    jump = new Jump(getActivity(), ads.getUrl());
-
-                }
-            }
-        });
+//        fc_ads.setListener(new FunctionAdvertise.OnClickAdsListener() {
+//            @Override
+//            public void OnClickAds(ModelAds ads) {
+//                if (TextUtils.isEmpty(ads.getUrl())) {
+//                    if (ads.getUrl_type().equals("0") || TextUtils.isEmpty(ads.getUrl_type())) {
+//                        jump = new Jump(getActivity(), ads.getType_name(), ads.getAdv_inside_url());
+//                    } else {
+//                        jump = new Jump(getActivity(), ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
+//                    }
+//                } else {//URL不为空时外链
+//                    jump = new Jump(getActivity(), ads.getUrl());
+//
+//                }
+//            }
+//        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -322,20 +369,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     private void scroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         if (headerView != null) {
-            //设置其透明度
-            float alpha = 0;
-            //向上滑动的距离
-            int scollYHeight = -headerView.getTop();
-            if (scollYHeight >= DeviceUtils.dip2px(mActivity, 150) - DeviceUtils.dip2px(mActivity, 48)) {
-                alpha = 1;//滑上去就一直显示
-            } else {
-                alpha = scollYHeight / ((DeviceUtils.dip2px(mActivity, 150) - DeviceUtils.dip2px(mActivity, 48)) * 1.0f);
-            }
-            if (alpha < 0.6f) {
-                alpha = 0.6f;
-            }
-            view_alpha.setAlpha(alpha);
-            mStatusBar.setAlpha(alpha);
+//            //设置其透明度
+//            float alpha = 0;
+//            //向上滑动的距离
+//            int scollYHeight = -headerView.getTop();
+//            if (scollYHeight >= DeviceUtils.dip2px(mActivity, 150) - DeviceUtils.dip2px(mActivity, 48)) {
+//                alpha = 1;//滑上去就一直显示
+//            } else {
+//                alpha = scollYHeight / ((DeviceUtils.dip2px(mActivity, 150) - DeviceUtils.dip2px(mActivity, 48)) * 1.0f);
+//            }
+//            if (alpha < 0.6f) {
+//                alpha = 0.6f;
+//            }
+//            view_alpha.setAlpha(alpha);
+//            mStatusBar.setAlpha(alpha);
         }
     }
 
@@ -355,7 +402,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         MyOkHttp.get().post(ApiHttpClient.INDEX, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-                view_alpha.setAlpha(0.6f);
+             //   view_alpha.setAlpha(0.6f);
                 hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
                 if (JsonUtil.getInstance().isSuccess(response)) {
@@ -376,7 +423,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 if (refreshLayout != null) {
                     refreshLayout.finishRefresh(false);
                 }
-                view_alpha.setAlpha(0.6f);
+             //   view_alpha.setAlpha(0.6f);
                 hideDialog(smallDialog);
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
@@ -390,19 +437,28 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     private void getIndexData(ModelHome modelHome) {
         if (modelHome != null) {
+            this.modelHome=modelHome;
             headerView.setVisibility(View.VISIBLE);
             //顶部广告
+//            if (modelHome.getAd_top_list() != null && modelHome.getAd_top_list().size() > 0) {
+//                fc_ads.setVisibility(View.VISIBLE);
+//
+//                fc_ads.getLayoutParams().width = ToolUtils.getScreenWidth(mActivity);
+//                Double d = Double.valueOf(ToolUtils.getScreenWidth(mActivity) / 2.5);
+//                fc_ads.getLayoutParams().height = (new Double(d)).intValue();
+//
+//                fc_ads.initAds(modelHome.getAd_top_list());
+//
+//            } else {
+//                fc_ads.setVisibility(View.GONE);
+//            }
             if (modelHome.getAd_top_list() != null && modelHome.getAd_top_list().size() > 0) {
-                fc_ads.setVisibility(View.VISIBLE);
 
-                fc_ads.getLayoutParams().width = ToolUtils.getScreenWidth(mActivity);
-                Double d = Double.valueOf(ToolUtils.getScreenWidth(mActivity) / 2.5);
-                fc_ads.getLayoutParams().height = (new Double(d)).intValue();
-
-                fc_ads.initAds(modelHome.getAd_top_list());
-
-            } else {
-                fc_ads.setVisibility(View.GONE);
+                ArrayList<String> mDatas_img1 = new ArrayList<>();
+                for (int i = 0; i < modelHome.getAd_top_list().size(); i++) {
+                    mDatas_img1.add(ApiHttpClient.IMG_URL+modelHome.getAd_top_list().get(i).getImg() + "");
+                }
+                banner.update(mDatas_img1);
             }
             //导航
             if (modelHome.getMenu_list() != null && modelHome.getMenu_list().size() > 0) {
@@ -410,7 +466,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 mcatelist.clear();
                 mcatelist.addAll(modelHome.getMenu_list());
                 if (mcatelist.size() < 4) {
-                    int p_height = StringUtils.dip2px(190);
+                    int p_height = StringUtils.dip2px(160);
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ry_daohang.getLayoutParams();
                     params.height = p_height / 2;
                     ry_daohang.setLayoutParams(params);
@@ -628,19 +684,43 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
         //添加小圆点
         if (catePage == 1) {
-            group.setVisibility(View.GONE);
+         group.setVisibility(View.GONE);
+//            // 测试
+//            ivPoints = new ImageView[2];
+//
+//            group.removeAllViews();
+//            for (int i = 0; i < 2; i++) {
+//                //循坏加入点点图片组
+//                ivPoints[i] = new ImageView(mActivity);
+//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DeviceUtils.dip2px(mActivity, 6), DeviceUtils.dip2px(mActivity, 6));
+//                params.setMargins(0,0,DeviceUtils.dip2px(mActivity, 5),0);
+//                ivPoints[i].setLayoutParams(params);
+//                if (i == 0) {
+//                    ivPoints[i].setImageResource(R.drawable.allshape_oval_orange);
+//                } else {
+//                    ivPoints[i].setImageResource(R.drawable.shape_oval_grey);
+//                }
+//               // ivPoints[i].setPadding(8, 8, 8, 8);
+//
+//                group.addView(ivPoints[i]);
+//            }
+
         } else {
+            group.setVisibility(View.VISIBLE);
             ivPoints = new ImageView[catePage];
             group.removeAllViews();
             for (int i = 0; i < catePage; i++) {
                 //循坏加入点点图片组
                 ivPoints[i] = new ImageView(mActivity);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DeviceUtils.dip2px(mActivity, 6), DeviceUtils.dip2px(mActivity, 6));
+                params.setMargins(0,0,DeviceUtils.dip2px(mActivity, 5),0);
+                ivPoints[i].setLayoutParams(params);
                 if (i == 0) {
-                    ivPoints[i].setImageResource(R.drawable.page_focuese);
+                    ivPoints[i].setImageResource(R.drawable.allshape_oval_orange);
                 } else {
-                    ivPoints[i].setImageResource(R.drawable.page_unfocused);
+                    ivPoints[i].setImageResource(R.drawable.shape_oval_grey);
                 }
-                ivPoints[i].setPadding(8, 8, 8, 8);
+               // ivPoints[i].setPadding(8, 8, 8, 8);
                 group.addView(ivPoints[i]);
             }
         }
@@ -651,9 +731,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 //currentPage = position;
                 for (int i = 0; i < catePage; i++) {
                     if (i == position) {
-                        ivPoints[i].setImageResource(R.drawable.page_focuese);
+                        ivPoints[i].setImageResource(R.drawable.allshape_oval_orange);
                     } else {
-                        ivPoints[i].setImageResource(R.drawable.page_unfocused);
+                        ivPoints[i].setImageResource(R.drawable.shape_oval_grey);
                     }
                 }
             }
@@ -675,16 +755,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPause() {
         super.onPause();
-        fc_ads.stopAutoCycle();
+      //  fc_ads.stopAutoCycle();
+
+        //结束轮播
+        if (banner!=null){
+            banner.stopAutoPlay();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!fc_ads.isCycling()) {
-//			fc_ads.moveToFirstPosition(true);
-            fc_ads.startCycle();
+//        if (!fc_ads.isCycling()) {
+////			fc_ads.moveToFirstPosition(true);
+//            fc_ads.startCycle();
+//        }
+        if (banner!=null){
+            //开始轮播
+            banner.startAutoPlay();
         }
+
     }
 
     /**

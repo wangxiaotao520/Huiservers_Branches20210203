@@ -3,32 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/ly_onclick"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_5"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/iv_img"
-            android:layout_width="45dp"
-            android:layout_height="45dp" />
-
-
-        <TextView
-            android:id="@+id/tv_name"
+        android:layout_height="80dp"
+        >
+        <LinearLayout
+            android:id="@+id/ly_onclick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_5"
-            android:ellipsize="end"
-            android:maxEms="4"
-            android:singleLine="true"
-            android:text=""
-            android:textColor="@color/black_jain_87"
-            android:textSize="@dimen/t_12sp" />
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:scaleType="fitXY" />
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxEms="4"
+                android:singleLine="true"
+                android:text="dsaa"
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/t_13sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 </LinearLayout>

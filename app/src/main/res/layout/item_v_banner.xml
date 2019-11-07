@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/allshape_white_corners2"
+                android:background="@drawable/allshape_notice_corner2"
                 android:text="提示"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -27,7 +27,7 @@
                 android:paddingBottom="1dp"
 
                 android:layout_gravity="center_vertical"
-                android:textColor="@color/orange"
+                android:textColor="@color/gray_66"
                 android:textSize="10sp" />
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_gravity="center_vertical"
                 android:singleLine="true"
                 android:text="华晟物业雪天温馨温提温提示..."
-                android:textColor="#fff"
+                android:textColor="#555555"
                 android:textSize="13sp" />
             <TextView
                 android:id="@+id/tv_time1"
@@ -49,7 +49,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="5dp"
                 android:text="2018.08.05"
-                android:textColor="#fff"
+                android:textColor="#555555"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -63,14 +63,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/allshape_white_corners2"
+                android:background="@drawable/allshape_notice_corner2"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="1dp"
                 android:paddingBottom="1dp"
                 android:text="提示"
                 android:layout_gravity="center_vertical"
-                android:textColor="@color/orange"
+                android:textColor="@color/gray_66"
                 android:textSize="10sp" />
 
             <TextView
@@ -83,7 +83,7 @@
                 android:paddingLeft="5dp"
                 android:layout_gravity="center_vertical"
                 android:text="华晟物业雪天温馨温提温提示..."
-                android:textColor="#fff"
+                android:textColor="#555555"
                 android:textSize="13sp" />
             <TextView
                 android:id="@+id/tv_time2"
@@ -95,7 +95,7 @@
                 android:paddingLeft="5dp"
                 android:layout_gravity="center_vertical"
                 android:text="2018.08.05"
-                android:textColor="#fff"
+                android:textColor="#555555"
                 android:textSize="13sp" />
         </LinearLayout>
 
