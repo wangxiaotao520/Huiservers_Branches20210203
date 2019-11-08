@@ -31,6 +31,10 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.AMapLocationQualityReport;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
@@ -77,7 +81,7 @@ import java.util.List;
 /**
  * 首页 选择小区页面
  */
-public class XiaoquActivity extends BaseActivityOld implements OnClickListener, AMapLocationListener {
+public class XiaoquActivity extends BaseActivityOld implements OnClickListener, AMapLocationListener, PoiSearch.OnPoiSearchListener {
     private TextView txt_dialog, txt_search, text_city;
     private ListView list_center;
     private ImageView search_back;
@@ -850,6 +854,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                         location_district = location.getDistrict() + "";
                         parseJson();
                         getloactionCommunity(location.getDistrict(), 1);
+                   //     getPOIsearch(location.getLongitude(),location.getLatitude());
                     }
                 }
             } else {
@@ -893,6 +898,20 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                 }
             });
         }
+    }
+
+    /**
+     * 调用高德地图搜索周边住宅
+     * @param longitude
+     * @param latitude
+     */
+    private void getPOIsearch(double longitude, double latitude) {
+        PoiSearch.Query query = new PoiSearch.Query("", "住宅区", "");
+        query.setPageSize(15);
+        PoiSearch search = new PoiSearch(this, query);
+        search.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), 10000));
+        search.setOnPoiSearchListener(this);
+        search.searchPOIAsyn();
     }
 
     /**
@@ -942,5 +961,41 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
     public void finish() {
         new ToolUtils(et_search, XiaoquActivity.this).closeInputMethod();
         super.finish();
+    }
+
+    @Override
+    public void onPoiSearched(PoiResult result, int i) {
+        PoiSearch.Query query = result.getQuery();
+        ArrayList<PoiItem> pois = result.getPois();
+        if (pois!=null&&pois.size()>0){
+            rel_no_data.setVisibility(View.GONE);
+            sideBar.setVisibility(View.VISIBLE);
+            ArrayList<CityBean> cityBeans = new ArrayList<>();
+            for (int i1 = 0; i1 < pois.size(); i1++) {
+                CityBean cityBean = new CityBean();
+                cityBean.setName(pois.get(i1).toString());
+                cityBeans.add(cityBean);
+            }
+            List<GroupMemberBean> SourceDateList_new = filledData(cityBeans);
+
+            hideDialog(smallDialog);
+            SourceDateList.clear();
+            SourceDateList.addAll(SourceDateList_new);
+            // 根据a-z进行排序源数据
+            Collections.sort(SourceDateList, pinyinComparator);
+            if (adapter == null) {
+                adapter = new XiaoquAdapter(XiaoquActivity.this, SourceDateList);
+                list_center.setAdapter(adapter);
+            } else {
+                adapter.notifyDataSetChanged();
+            }
+        }
+
+
+    }
+
+    @Override
+    public void onPoiItemSearched(PoiItem poiItem, int i) {
+
     }
 }

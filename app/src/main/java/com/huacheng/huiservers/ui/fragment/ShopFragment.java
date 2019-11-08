@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -9,11 +10,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,17 +25,18 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelAds;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.ModelShopNew;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeCenterGirdAdapter;
-import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.fragment.shop.FragmentShopCommon;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopLimitAdapter;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopMyGirdCateAdapter;
@@ -40,21 +44,27 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.SearchShopActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityTwo;
 import com.huacheng.huiservers.ui.shop.ShopCateActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.ui.shop.ShopXSTimeListActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
+import com.huacheng.huiservers.utils.MyCornerImageLoader;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.view.MyGridview;
-import com.huacheng.huiservers.view.widget.FunctionAdvertise;
 import com.huacheng.libraryservice.utils.DeviceUtils;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
+import com.huacheng.libraryservice.utils.timer.CountDownTimer;
 import com.huacheng.libraryservice.widget.CustomScrollViewPager;
 import com.lzy.widget.HeaderViewPager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONObject;
 
@@ -79,13 +89,13 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private boolean is_Refresh = false;
     private View headerView;
     private SharePrefrenceUtil prefrenceUtil;
-    private FunctionAdvertise fc_ads;
+   // private FunctionAdvertise fc_ads;
     private LinearLayout lin_cate, lin_search, lin_car;
     private TextView txt_shop_num;
 
     private LinearLayout lin_shop_limit;
     private HorizontalScrollView horizontalSV;
-    private GridView gridview_limit;
+    //private GridView gridview_limit;
     private ShopLimitAdapter limitAdapter;
     private ModelShopNew info;
     private MyGridview my_grid_cate;
@@ -98,6 +108,11 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private RelativeLayout rl_more_goods_title;
     View mStatusBar;
     private View view_alpha;
+    private Banner banner;
+    private MyCornerImageLoader myImageLoader;
+    private List<ModelAds> adHead;
+    private LinearLayout ll_limit_container;
+    private SparseArray<CountDownTimer> countDownCounters =new SparseArray<>();
 
     @Override
     public void initView(View view) {
@@ -112,22 +127,66 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         refreshLayout.setEnableLoadMore(false);
         scrollableLayout = view.findViewById(R.id.scrollableLayout);
         //设置偏移量，只能在这里设置
-        scrollableLayout.setTopOffset(DeviceUtils.dip2px(mContext, 48)+TDevice.getStatuBarHeight(mActivity));
-
+       // scrollableLayout.setTopOffset(DeviceUtils.dip2px(mContext, 48)+TDevice.getStatuBarHeight(mActivity));
+        scrollableLayout.setTopOffset(0);
         prefrenceUtil = new SharePrefrenceUtil(mActivity);
 
         mTabLayout = view.findViewById(R.id.tl_tab);
         mViewPager = view.findViewById(R.id.vp_pager);
         ll_grid_cate = view.findViewById(R.id.ll_grid_cate);
-        view_alpha.setAlpha((float)0.6);
+        view_alpha.setAlpha(1);
 
         //设置statusbar
         mStatusBar=view.findViewById(R.id.status_bar);
-        mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
-        mStatusBar.setAlpha((float)0.6);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
+        mStatusBar.setAlpha((float)1);
 
     }
+    private void setBanner() {
+        myImageLoader= new MyCornerImageLoader();
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setImageLoader(myImageLoader);
+        banner.isAutoPlay(true);//设置是否轮播
+        banner.setIndicatorGravity(BannerConfig.CENTER);//小圆点位置
+        banner.setDelayTime(4000);
+        banner.setImageLoader(myImageLoader).setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                if (adHead!=null&&adHead.size() > 0) {
+                    ModelAds ads=adHead.get(position);
+                    if (TextUtils.isEmpty(ads.getUrl())) {
+                    if (ads.getUrl_type().equals("0") || TextUtils.isEmpty(ads.getUrl_type())) {
+                        new Jump(mActivity, ads.getType_name(), ads.getAdv_inside_url());
+                    } else {
+                        new Jump(mActivity, ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
+                    }
+                } else {//URL不为空时外链
+                    new Jump(mActivity, ads.getUrl());
 
+                }
+                }
+            }
+        }).start();
+
+        banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
+
+    }
     private void initHeaderView() {
         // 初始化头部布局
         headerView.setVisibility(View.INVISIBLE);
@@ -190,31 +249,34 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         lin_car = view.findViewById(R.id.lin_car);
         txt_shop_num = view.findViewById(R.id.txt_shop_num);
 
-        fc_ads = view.findViewById(R.id.fc_ads);
+      //  fc_ads = view.findViewById(R.id.fc_ads);
+        banner = view.findViewById(R.id.banner);
+        setBanner();
         my_grid_cate = view.findViewById(R.id.my_grid_cate);
         lin_shop_limit = view.findViewById(R.id.lin_shop_limit);
         horizontalSV = view.findViewById(R.id.horizontalSV);
-        gridview_limit = view.findViewById(R.id.gridview_limit);
+      //  gridview_limit = view.findViewById(R.id.gridview_limit);
+        ll_limit_container = view.findViewById(R.id.ll_limit_container);
         tv_discount_more = view.findViewById(R.id.tv_discount_more);
         grid_center_ad = view.findViewById(R.id.grid_ad);
         ll_shop_center = view.findViewById(R.id.ll_shop_center);
 
         //广告点击跳转
-        fc_ads.setListener(new FunctionAdvertise.OnClickAdsListener() {
-            @Override
-            public void OnClickAds(ModelAds ads) {
-                if (TextUtils.isEmpty(ads.getUrl())) {
-                    if (ads.getUrl_type().equals("0") || TextUtils.isEmpty(ads.getUrl_type())) {
-                        new Jump(mActivity, ads.getType_name(), ads.getAdv_inside_url());
-                    } else {
-                        new Jump(mActivity, ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
-                    }
-                } else {//URL不为空时外链
-                    new Jump(mActivity, ads.getUrl());
-
-                }
-            }
-        });
+//        fc_ads.setListener(new FunctionAdvertise.OnClickAdsListener() {
+//            @Override
+//            public void OnClickAds(ModelAds ads) {
+//                if (TextUtils.isEmpty(ads.getUrl())) {
+//                    if (ads.getUrl_type().equals("0") || TextUtils.isEmpty(ads.getUrl_type())) {
+//                        new Jump(mActivity, ads.getType_name(), ads.getAdv_inside_url());
+//                    } else {
+//                        new Jump(mActivity, ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
+//                    }
+//                } else {//URL不为空时外链
+//                    new Jump(mActivity, ads.getUrl());
+//
+//                }
+//            }
+//        });
         rl_more_goods_title = view.findViewById(R.id.rl_more_goods_title);
     }
 
@@ -235,13 +297,13 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                 refreshLayout.setEnableRefresh(alpha > 0 ? false : true);
          //       mViewPager.setIsCanScroll(alpha ==1?true:false);
                 // 设置渐变到多少后不渐变
-                if (alpha < 0.6f) {
-                    view_alpha.setAlpha((float) 0.6f);
-                    mStatusBar.setAlpha(0.6f);
-                } else {
-                    view_alpha.setAlpha(alpha);
-                    mStatusBar.setAlpha(alpha);
-                }
+//                if (alpha < 0.6f) {
+//                    view_alpha.setAlpha((float) 0.6f);
+//                    mStatusBar.setAlpha(0.6f);
+//                } else {
+//                    view_alpha.setAlpha(alpha);
+//                    mStatusBar.setAlpha(alpha);
+//                }
 
                 //注意头部局的颜色也需要改变
             }
@@ -269,14 +331,20 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
      * @param info
      */
     private void inflateContent(ModelShopNew info) {
-        List<ModelAds> adHead = info.getAd_hc_shopindex();
+        adHead = info.getAd_hc_shopindex();
         if (adHead != null && adHead.size() > 0) {//头部广告
+//
+//            fc_ads.getLayoutParams().width = ToolUtils.getScreenWidth(mActivity);
+//            Double d = Double.valueOf(ToolUtils.getScreenWidth(mActivity) / 2.5);
+//            fc_ads.getLayoutParams().height = (new Double(d)).intValue();
+//
+//            fc_ads.initAds(adHead);
 
-            fc_ads.getLayoutParams().width = ToolUtils.getScreenWidth(mActivity);
-            Double d = Double.valueOf(ToolUtils.getScreenWidth(mActivity) / 2.5);
-            fc_ads.getLayoutParams().height = (new Double(d)).intValue();
-
-            fc_ads.initAds(adHead);
+            ArrayList<String> mDatas_img1 = new ArrayList<>();
+            for (int i = 0; i < info.getAd_hc_shopindex().size(); i++) {
+                mDatas_img1.add(ApiHttpClient.IMG_URL+info.getAd_hc_shopindex().get(i).getImg() + "");
+            }
+            banner.update(mDatas_img1);
         }
         if (info.getCate_list() != null && info.getCate_list().size() > 0) {//商品分类
             ll_grid_cate.setVisibility(View.VISIBLE);
@@ -293,7 +361,8 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
                 lin_shop_limit.setVisibility(View.VISIBLE);
 
                 horizontalSV.setVisibility(View.VISIBLE);
-                setGridViewLimit(limits, limits.size());//
+               setGridViewLimit(limits, limits.size());//设置限时抢购
+
             } else {
                 lin_shop_limit.setVisibility(View.GONE);
                 horizontalSV.setVisibility(View.GONE);
@@ -321,26 +390,172 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
      * @param size_
      */
     private void setGridViewLimit(List<ModelShopIndex> mIndex, int size_) {
-        int size = size_;
-        int length = 145;
-        DisplayMetrics dm = new DisplayMetrics();
-        mActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        float density = dm.density;
-        int gridviewWidth = (int) (size * (length + 4) * density);
-        int itemWidth = (int) (length * density);
+//        int size = size_;
+//        int length = 145;
+//        DisplayMetrics dm = new DisplayMetrics();
+//        mActivity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+//        float density = dm.density;
+//        int gridviewWidth = (int) (size * (length + 4) * density);
+//        int itemWidth = (int) (length * density);
+//
+//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+//                gridviewWidth, LinearLayout.LayoutParams.FILL_PARENT);
+//        gridview_limit.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
+//        gridview_limit.setColumnWidth(itemWidth); // 设置列表项宽
+//        gridview_limit.setHorizontalSpacing(5); // 设置列表项水平间距//5
+//        gridview_limit.setStretchMode(GridView.NO_STRETCH);
+//        gridview_limit.setNumColumns(size); // 设置列数量=列表集合数
+//
+//        limitAdapter = new ShopLimitAdapter(mIndex, mActivity);
+//        gridview_limit.setAdapter(limitAdapter);
+        ll_limit_container.removeAllViews();
+        for (int i = 0; i < mIndex.size(); i++) {
+            View  v = LayoutInflater.from(mContext).inflate(R.layout.commodity_limit_item, null);
+            ImageView iv_item_image = (ImageView) v.findViewById(R.id.iv_item_image);
+            ImageView  iv_shop_list_flag = (ImageView) v.findViewById(R.id.iv_shop_list_flag);
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                gridviewWidth, LinearLayout.LayoutParams.FILL_PARENT);
-        gridview_limit.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
-        gridview_limit.setColumnWidth(itemWidth); // 设置列表项宽
-        gridview_limit.setHorizontalSpacing(5); // 设置列表项水平间距//5
-        gridview_limit.setStretchMode(GridView.NO_STRETCH);
-        gridview_limit.setNumColumns(size); // 设置列数量=列表集合数
+            final TextView txt_time_type = (TextView) v.findViewById(R.id.txt_time_type);
+            final TextView tv_limit_day = (TextView) v.findViewById(R.id.tv_limit_day);
+            final TextView tv_limit_hour = (TextView) v.findViewById(R.id.tv_limit_hour);
+            final TextView tv_limit_minute = (TextView) v.findViewById(R.id.tv_limit_minute);
+            final TextView tv_limit_second = (TextView) v.findViewById(R.id.tv_limit_second);
 
-        limitAdapter = new ShopLimitAdapter(mIndex, mActivity);
-        gridview_limit.setAdapter(limitAdapter);
+            TextView tv_item_name = (TextView) v.findViewById(R.id.tv_item_name);
+            TextView  txt_price_limit = (TextView) v.findViewById(R.id.txt_price_limit);
+            TextView txt_shop_unit = (TextView) v.findViewById(R.id.txt_shop_unit);
+            TextView txt_price_original = (TextView) v.findViewById(R.id.txt_price_original);
+            RelativeLayout linear = v.findViewById(R.id.linear);
+
+            final ModelShopIndex shopIndex = mIndex.get(i);
+            String discount = shopIndex.getDiscount();
+            if ("1".equals(discount)) {
+//
+                iv_shop_list_flag.setBackgroundResource(R.drawable.ic_shoplist_spike);
+            } else {
+                if ("1".equals(shopIndex.getIs_hot())) {
+//
+                    iv_shop_list_flag.setBackgroundResource(R.drawable.ic_shoplist_hotsell);
+                } else if ("1".equals(shopIndex.getIs_new())) {
+                   iv_shop_list_flag.setBackgroundResource(R.drawable.ic_shoplist_newest);
+                } else {
+//
+                }
+            }
+            //  gettime(holder, shopIndex);
+
+            String distanceEnd = shopIndex.getDistance_end();
+            if (!NullUtil.isStringEmpty(distanceEnd)) {
+                long distance_int = 0;
+                String distance_str = "";
+                distance_str = "距结束";
+                distance_int = Long.parseLong(distanceEnd) * 1000;
+
+                txt_time_type.setText(distance_str);
+                if ("1".equals(shopIndex.getDiscount())) {
+//                    long timer = 0;
+//                    if (shopIndex.getCurrent_times() == 0) {
+//                        timer = distance_int;
+//                        shopIndex.setCurrent_times(System.currentTimeMillis());
+//                    } else {
+//                        timer = distance_int - (System.currentTimeMillis() - shopIndex.getCurrent_times());
+//                    }
+                    CountDownTimer countDownTimer=null;
+                    if (countDownCounters.size()==mIndex.size()) {
+                        cancelAllTimers();
+                        countDownCounters.clear();
+                    }
+                        long timer = distance_int;
+                        //expirationTime 与系统时间做比较，timer 小于零，则此时倒计时已经结束。
+                        if (timer > 0) {
+                            countDownTimer = new CountDownTimer(timer, 1000) {
+                                public void onTick(long millisUntilFinished) {
+                                    String[] times = SetTime(millisUntilFinished);
+                                    tv_limit_day.setText(fillZero(times[0]));
+                                    tv_limit_hour.setText(fillZero(times[1]));
+                                    tv_limit_minute.setText(fillZero(times[2]));
+                                    tv_limit_second.setText(fillZero(times[3]));
+                                }
+
+                                public void onFinish(String redpackage_id) {
+                                    //结束了该轮倒计时
+                                    txt_time_type.setText("已结束");
+                                    tv_limit_day.setText("00");
+                                    tv_limit_hour.setText("00");
+                                    tv_limit_minute.setText("00");
+                                    tv_limit_second.setText("00");
+
+                                }
+                            }.start();
+                            //将此 countDownTimer 放入list.
+                            countDownCounters.put(i, countDownTimer);
+                        } else {
+                            //结束
+                            txt_time_type.setText("已结束");
+                            tv_limit_day.setText("00");
+                            tv_limit_hour.setText("00");
+                            tv_limit_minute.setText("00");
+                            tv_limit_second.setText("00");
+                        }
+
+                }
+            }
+
+
+            GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + shopIndex.getTitle_img(),iv_item_image,R.color.windowbackground);
+            tv_item_name.setText(shopIndex.getTitle());
+            txt_price_limit.setText("¥" + shopIndex.getPrice());
+            String unit = shopIndex.getUnit();
+            if (!NullUtil.isStringEmpty(unit)) {
+                txt_shop_unit.setText("/" + shopIndex.getUnit());
+            } else {
+                txt_shop_unit.setText("");
+            }
+            txt_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
+            txt_price_original.setText("¥" + shopIndex.getOriginal());
+
+            linear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("shop_id", shopIndex.getId());
+                    intent.putExtras(bundle);
+                    mContext.startActivity(intent);
+                }
+            });
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            params.setMargins(0,0, DeviceUtils.dip2px(mActivity,5),0);
+            ll_limit_container.addView(v,params);
+
+        }
+
+    }
+    private String[] SetTime(long time) {
+       long mDay = time / (1000 * 60 * 60 * 24);
+        long  mHour = (time - mDay * (1000 * 60 * 60 * 24))
+                / (1000 * 60 * 60);
+        long  mMin = (time - mDay * (1000 * 60 * 60 * 24) - mHour
+                * (1000 * 60 * 60))
+                / (1000 * 60);
+        long   mSecond = (time - mDay * (1000 * 60 * 60 * 24) - mHour
+                * (1000 * 60 * 60) - mMin * (1000 * 60))
+                / 1000;
+        String[] str = new String[4];
+        str[0] = mDay + "";
+        str[1] = mHour + "";
+        str[2] = mMin + "";
+        str[3] = mSecond + "";
+        return str;
     }
 
+    private String fillZero(String time) {
+        String timeStr = "";
+        if (time.length() == 1)
+            return "0" + time;
+        else
+            return time;
+    }
     //请求数据
     private void requestData() {
         HashMap<String, String> mParams = new HashMap<>();
@@ -430,7 +645,6 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initData(Bundle savedInstanceState) {
         //请求数据
-
         showDialog(smallDialog);
         requestData();
     }
@@ -519,15 +733,44 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        fc_ads.stopAutoCycle();//头图广告，循环滚动停止
+        //结束轮播
+        if (banner!=null){
+            banner.stopAutoPlay();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!fc_ads.isCycling()) {
-            fc_ads.startCycle();//头图广告，循环滚动开始
+        if (banner!=null){
+            //开始轮播
+            banner.startAutoPlay();
+        }
+
+    }
+    /**
+     * 清空当前 CountTimeDown 资源
+     */
+    public void cancelAllTimers() {
+        if (countDownCounters == null) {
+            return;
+        }
+        Log.e("TAG", "size :  " + countDownCounters.size());
+        for (int i = 0, length = countDownCounters.size(); i < length; i++) {
+            CountDownTimer cdt = countDownCounters.get(countDownCounters.keyAt(i));
+            if (cdt != null) {
+                cdt.cancel();
+            }
+        }
+        for (int i = 0, length = countDownCounters.size(); i < length; i++) {
+            CountDownTimer cdt = countDownCounters.get(countDownCounters.keyAt(i));
+            cdt=null;
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        cancelAllTimers();
+    }
 }

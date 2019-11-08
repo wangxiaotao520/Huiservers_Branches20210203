@@ -245,7 +245,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         banner.setImageLoader(myImageLoader);
         banner.isAutoPlay(true);//设置是否轮播
         banner.setIndicatorGravity(BannerConfig.CENTER);//小圆点位置
-        banner.setDelayTime(2000);
+        banner.setDelayTime(4000);
         banner.setImageLoader(myImageLoader).setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
@@ -497,6 +497,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 ly_community_agreement.setVisibility(View.VISIBLE);
                 mArticle_list.clear();
                 mArticle_list.addAll(modelHome.getArticle_list());
+                articleAdapter.notifyDataSetChanged();
+                article12GridAdapter.notifyDataSetChanged();
 
             } else {
                 ly_community_agreement.setVisibility(View.GONE);

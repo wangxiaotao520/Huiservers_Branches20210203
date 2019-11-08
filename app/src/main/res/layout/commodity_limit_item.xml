@@ -6,8 +6,8 @@
 
     <RelativeLayout
         android:id="@+id/linear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="131dp"
+        android:layout_height="205dp"
         android:background="@color/white"
         android:layout_marginRight="@dimen/margin_5"
         android:orientation="vertical">
@@ -186,7 +186,7 @@
                         android:id="@+id/txt_price_limit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="38.5"
                         android:textColor="@color/default_red"
                         android:textStyle="bold"
                         android:textSize="@dimen/t_15sp" />
@@ -195,7 +195,7 @@
                         android:id="@+id/txt_shop_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="/箱"
                         android:textStyle="bold"
                         android:textColor="@color/default_red"
                         android:textSize="@dimen/t_15sp" />
@@ -206,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text=""
+                    android:text="40"
                     android:textColor="@color/gray_9c"
                     android:textSize="@dimen/t_13sp" />
 
