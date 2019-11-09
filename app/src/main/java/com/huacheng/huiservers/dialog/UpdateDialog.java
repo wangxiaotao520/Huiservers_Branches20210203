@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 /**
  * 类：
@@ -30,6 +31,9 @@ public class UpdateDialog extends AlertDialog implements View.OnClickListener {
         this.mOnCustomDialogListener = customDialogListener;
         this.type = type;
         this.msg = infoBean.getMgs();
+        if (NullUtil.isStringEmpty(msg)){
+            this.msg = infoBean.getMsg();
+        }
         this.infoBean=infoBean;
     }
 

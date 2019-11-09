@@ -6,6 +6,9 @@ public class PayInfoBean {
 	private String compel;
 	private String mgs;
 
+
+	private String msg;
+
 	private String version;
 
 	public String getMgs() {
@@ -47,6 +50,13 @@ public class PayInfoBean {
 
 	public void setVersion(String version) {
 		this.version = version;
+	}
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 }
