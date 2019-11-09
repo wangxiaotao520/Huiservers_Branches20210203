@@ -57,9 +57,9 @@
                 android:visibility="gone" />
             <ImageView
                 android:id="@+id/iv_right"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@mipmap/ic_sousuo2x"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/ic_search_black"
                 android:layout_marginRight="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true" />
@@ -131,7 +131,7 @@
                     android:id="@+id/iv_empty_relocation"
                     android:layout_width="21dp"
                     android:layout_height="21dp"
-                    android:background="@color/orange"
+                    android:background="@mipmap/ic_re_location"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp" />
                 <TextView

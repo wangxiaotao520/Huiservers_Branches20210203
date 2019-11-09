@@ -60,7 +60,7 @@
             android:id="@+id/iv_relocation"
             android:layout_width="21dp"
             android:layout_height="21dp"
-            android:background="@color/orange"
+            android:background="@mipmap/ic_re_location"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="5dp" />
         <TextView

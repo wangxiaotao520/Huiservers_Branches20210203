@@ -239,8 +239,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         gridViewHouse = headerView.findViewById(R.id.gridview_House);
         gridViewGoods = headerView.findViewById(R.id.gridview_goods);
         ly_property_payment = headerView.findViewById(R.id.ly_property_payment);
+        int height_property=(int)((DeviceUtils.getWindowWidth(mActivity)-DeviceUtils.dip2px(mActivity,30))*312*1f/1014);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height_property);
+        ly_property_payment.setLayoutParams(params);
         ly_person_repair = headerView.findViewById(R.id.ly_person_repair);
+        int height_repair=(int)((DeviceUtils.getWindowWidth(mActivity)-DeviceUtils.dip2px(mActivity,30))*312*1f/(506*2));
+        ly_person_repair.setLayoutParams(new LinearLayout.LayoutParams((int)((DeviceUtils.getWindowWidth(mActivity)-DeviceUtils.dip2px(mActivity,30))*1f/2), height_repair));
         ly_public_repair = headerView.findViewById(R.id.ly_public_repair);
+        ly_public_repair.setLayoutParams(new LinearLayout.LayoutParams((int)((DeviceUtils.getWindowWidth(mActivity)-DeviceUtils.dip2px(mActivity,30))*1f/2), height_repair));
         ly_circle_onclick = headerView.findViewById(R.id.ly_circle_onclick);
         ly_circle_more = headerView.findViewById(R.id.ly_circle_more);
         ly_houseRent = headerView.findViewById(R.id.ly_houseRent);
