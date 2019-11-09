@@ -45,7 +45,6 @@ import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.ModelVBaner;
 import com.huacheng.huiservers.ui.base.BaseFragment;
-import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
 import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeAdcertlAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeArticleGridAdapter;
@@ -61,6 +60,7 @@ import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.servicenew.ServiceIndexActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.ui.shop.adapter.MyGridViewAdpter;
@@ -668,10 +668,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 }
                 break;
             case R.id.ly_circle_onclick://圈子详情
-                intent = new Intent(mActivity, CircleDetailsActivity.class);
-                Bundle bundle = new Bundle();
+                intent = new Intent(mActivity, ServiceIndexActivity.class);
+              /*  Bundle bundle = new Bundle();
                 bundle.putString("id", mSocial.getId());
-                intent.putExtras(bundle);
+                intent.putExtras(bundle);*/
                 startActivity(intent);
                 break;
 

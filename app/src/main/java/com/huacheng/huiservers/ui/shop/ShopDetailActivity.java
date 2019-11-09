@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.AddShopDialog;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -116,8 +117,9 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
     private boolean isRun = true;
     View view_tag;
 
-    LinearLayout lin_downcount;
+    LinearLayout lin_downcount, ly_store;
     TextView tv_downcount_day, tv_downcount_hour, tv_downcount_minute, tv_downcount_second, tv_time_tag, tv_time_type;
+
 
     RelativeLayout rel_shop_limit_bg;
     private SparseArray<CountDownTimer> countDownCounters;
@@ -127,6 +129,8 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
     private String share_title;
     private String share_desc;
     private String share_icon;
+    private SimpleDraweeView iv_store_head;
+    private TextView tv_store_name, tv_store_address;
     long mDay, mHour, mMin, mSecond, mTotalHour;
 
 
@@ -197,6 +201,11 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
         iv_top = (ImageView) findViewById(R.id.iv_top);
         iv_img = (ImageView) findViewById(R.id.iv_img);
         iv_top.setOnClickListener(this);
+        //店铺信息
+        ly_store = findViewById(R.id.ly_store);
+        iv_store_head = findViewById(R.id.iv_store_head);
+        tv_store_name = findViewById(R.id.tv_store_name);
+        tv_store_address = findViewById(R.id.tv_store_address);
         // 商品详情id
         img_title = (ImageView) findViewById(R.id.img_title);
         // 底部按钮栏
@@ -237,7 +246,6 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
         countDownCounters = new SparseArray<>();
 
 
-
         title_rel.setBackgroundColor(Color.argb((int) 0, 0, 0, 0));
         title_name.setTextColor(Color.argb((int) 0, 0, 0, 0));
         view1.setBackgroundColor(Color.argb((int) 0, 0, 0, 0));
@@ -250,6 +258,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
         rel_gouwuche.setOnClickListener(this);
         lin_add_ss.setOnClickListener(this);
         lin_goumai.setOnClickListener(this);
+        ly_store.setOnClickListener(this);
 
         initListeners();
         ly_share = findViewById(R.id.ly_share);
@@ -293,30 +302,30 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
 
     private void refreshView() {
         if (istag == 1) {
-            if (ll_shop_head!=null) {
+            if (ll_shop_head != null) {
                 ll_shop_head.setTag(navigationTag1[0]);
             }
-            if (ll_shop_detail!=null){
+            if (ll_shop_detail != null) {
                 ll_shop_detail.setTag(navigationTag1[1]);
             }
 
-           if (ll_shop_pingjia!=null){
-               ll_shop_pingjia.setTag(navigationTag1[2]);
-           }
-           if (tab_tagContainer!=null){
-               // 添加页内导航标签
-               for (String item : navigationTag1) {
-                   tab_tagContainer.addTab(tab_tagContainer.newTab().setText(item));
-               }
-           }
+            if (ll_shop_pingjia != null) {
+                ll_shop_pingjia.setTag(navigationTag1[2]);
+            }
+            if (tab_tagContainer != null) {
+                // 添加页内导航标签
+                for (String item : navigationTag1) {
+                    tab_tagContainer.addTab(tab_tagContainer.newTab().setText(item));
+                }
+            }
         } else if (istag == 2) {
-            if (ll_shop_head!=null){
+            if (ll_shop_head != null) {
                 ll_shop_head.setTag(navigationTag2[0]);
             }
-          if (ll_shop_detail!=null){
-              ll_shop_detail.setTag(navigationTag2[1]);
-          }
-            if (tab_tagContainer!=null) {
+            if (ll_shop_detail != null) {
+                ll_shop_detail.setTag(navigationTag2[1]);
+            }
+            if (tab_tagContainer != null) {
                 // 添加页内导航标签
                 for (String item : navigationTag2) {
                     tab_tagContainer.addTab(tab_tagContainer.newTab().setText(item));
@@ -493,7 +502,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
 
 //                Glide.with(ShopDetailActivity.this).load(MyCookieStore.URL + detailBean.getTitle_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
 //                        .placeholder(R.drawable.ic_default_rectange500).error(R.drawable.ic_default_rectange500).into(img_title);
-                GlideUtils.getInstance().glideLoad(ShopDetailActivity.this,MyCookieStore.URL + detailBean.getTitle_img(),img_title,R.drawable.ic_default_rectange500);
+                GlideUtils.getInstance().glideLoad(ShopDetailActivity.this, MyCookieStore.URL + detailBean.getTitle_img(), img_title, R.drawable.ic_default_rectange500);
                 txt_name.setText(detailBean.getTitle());
                 txt_content.setText(detailBean.getDescription());
                 txt_price.setText("¥" + detailBean.getPrice());
@@ -773,7 +782,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                     TextView tag1 = (TextView) view.findViewById(R.id.txt_tag1);
 //                    Glide.with(ShopDetailActivity.this).load(detailBean.getGoods_tag().get(i).getC_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
 //                            .placeholder(R.drawable.icon_px).error(R.drawable.icon_px).into(img1);
-                    GlideUtils.getInstance().glideLoad(this,detailBean.getGoods_tag().get(i).getC_img()+"",img1,R.drawable.icon_px);
+                    GlideUtils.getInstance().glideLoad(this, detailBean.getGoods_tag().get(i).getC_img() + "", img1, R.drawable.icon_px);
                     //bitmapUtils.display(img1, detailBean.getGoods_tag().get(i).getC_img());
                     tag1.setText(detailBean.getGoods_tag().get(i).getC_name());
                     lin_goodsTag.addView(view);
@@ -808,7 +817,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
         switch (arg0.getId()) {
 
             case R.id.lin_goumai:///立即购买
-                if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     intent = new Intent(ShopDetailActivity.this, LoginVerifyCodeActivity.class);
                     startActivity(intent);
                     preferencesLogin = ShopDetailActivity.this.getSharedPreferences("login", 0);
@@ -832,7 +841,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                 finish();
                 break;
             case R.id.rel_gouwuche:// 购物车列表
-                if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     intent = new Intent(ShopDetailActivity.this, LoginVerifyCodeActivity.class);
                     startActivity(intent);
                     preferencesLogin = ShopDetailActivity.this.getSharedPreferences("login", 0);
@@ -847,14 +856,14 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                 }
                 break;
             case R.id.lin_add_ss:// 加入购物车
-                if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     intent = new Intent(ShopDetailActivity.this, LoginVerifyCodeActivity.class);
                     startActivity(intent);
                     preferencesLogin = ShopDetailActivity.this.getSharedPreferences("login", 0);
                     Editor editor = preferencesLogin.edit();
                     editor.putString("login_shop", "shop_login");
                     editor.commit();
-                }else if (login_type.equals("1")) {
+                } else if (login_type.equals("1")) {
                     if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
                         SmartToast.showInfo("当前时间不在派送时间范围内");
                     } else {
@@ -919,7 +928,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                     }
 
 
-                } else if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                } else if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     intent = new Intent(ShopDetailActivity.this, LoginVerifyCodeActivity.class);
                     startActivity(intent);
                     preferencesLogin = ShopDetailActivity.this.getSharedPreferences("login", 0);
@@ -940,7 +949,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                 share_title = detailBean.getTitle() + "";
                 share_desc = detailBean.getDescription() + "";
                 share_icon = MyCookieStore.URL + detailBean.getTitle_img();
-                share_url = ApiHttpClient.API_URL_SHARE+"home/shop/goods_details/id/" + detailBean.getId();
+                share_url = ApiHttpClient.API_URL_SHARE + "home/shop/goods_details/id/" + detailBean.getId();
                 HashMap<String, String> params = new HashMap<>();
                 params.put("type", "goods_details");
                 params.put("id", detailBean.getId());
@@ -959,6 +968,10 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                         }
                     }
                 });
+                break;
+            case R.id.ly_store://店铺
+               /* intent = new Intent(ShopDetailActivity.this, StoreIndexActivity.class);
+                startActivity(intent);*/
                 break;
             default:
                 break;

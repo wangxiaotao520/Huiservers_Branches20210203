@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="#828D7E">
+
+
+        <LinearLayout
+            android:id="@+id/ly_store"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/iv_store_head"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_default"
+                app:roundedCornerRadius="@dimen/margin_5"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_store_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="赵云云官方旗舰店"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t_15sp"/>
+
+                <TextView
+                    android:id="@+id/tv_store_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="时尚天街购物中心58号4-1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t_12sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:background="@drawable/shape_whtie_top_left_right"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全部商品"
+                    android:textColor="#2C2C2C"
+                    android:textSize="@dimen/t_15sp"/>
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="@dimen/margin"
+                    android:background="@color/colorPrimary"
+                    android:textSize="@dimen/t_15sp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:background="@color/windowbackground"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

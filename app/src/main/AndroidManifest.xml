@@ -1150,5 +1150,11 @@
         <activity
             android:name=".CommunitySearchActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.servicenew.ServiceIndexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.shop.StoreIndexActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>
