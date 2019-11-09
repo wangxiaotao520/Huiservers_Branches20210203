@@ -18,15 +18,11 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
-import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.dialog.DownLoadDialog;
 import com.huacheng.huiservers.dialog.PrivacyPolicyDialog;
 import com.huacheng.huiservers.dialog.UpdateDialog;
-import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
-import com.huacheng.huiservers.http.okhttp.ConfigUtils;
-import com.huacheng.huiservers.model.ModelConfig;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.utils.CacheUtils;
@@ -240,71 +236,76 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
     }
 
     private void goOn() {
-        if (!hasLoginUser()) {//未登录
-            if (sharePrefrenceUtil.getIsChooseXiaoqu().equals("1")) {
-                // 选择了小区 要根据小区判断域名
-                ConfigUtils.get().getApiConfig(sharePrefrenceUtil.getXiaoQuId(), new ConfigUtils.OnGetConfigListener() {
-                    @Override
-                    public void onGetConfig(int status, ModelConfig modelConfig) {
-                        if (status == 1) {
-                            if (modelConfig != null) {
-                                ApiHttpClient.API_URL = modelConfig.getHui_domain_name() + "/";
-                                ApiHttpClient.invalidateApi();
-                                Url_info.invalidateApi();
-                                //保存企业id
-                                sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id() + "");
-                                Intent intent = new Intent(SplashUI.this, HomeActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
+//        if (!hasLoginUser()) {//未登录
+//            if (sharePrefrenceUtil.getIsChooseXiaoqu().equals("1")) {
+//                // 选择了小区 要根据小区判断域名
+//                ConfigUtils.get().getApiConfig(sharePrefrenceUtil.getXiaoQuId(), new ConfigUtils.OnGetConfigListener() {
+//                    @Override
+//                    public void onGetConfig(int status, ModelConfig modelConfig) {
+//                        if (status == 1) {
+//                            if (modelConfig != null) {
+//                                ApiHttpClient.API_URL = modelConfig.getHui_domain_name() + "/";
+//                                ApiHttpClient.invalidateApi();
+//                                Url_info.invalidateApi();
+//                                //保存企业id
+//                                sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id() + "");
+//                                Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//
+//                        } else if (status == -1) {
+//                            //网络错误
+//                            SmartToast.showInfo("网络错误，请检查网络设置");
+//                        }
+//                    }
+//                });
+//
+//            } else {
+//                Intent intent = new Intent(SplashUI.this, XiaoquActivity.class);
+//                intent.putExtra("type", "splash");
+//                startActivity(intent);
+//                finish();
+//
+//            }
+//        } else {//登录了
+//            //登录了，要根据小区判断域名
+//            ConfigUtils.get().getApiConfig(sharePrefrenceUtil.getXiaoQuId(), new ConfigUtils.OnGetConfigListener() {
+//                @Override
+//                public void onGetConfig(int status, ModelConfig modelConfig) {
+//                    if (status == 1) {
+//                        if (modelConfig != null) {
+//                            ApiHttpClient.API_URL = modelConfig.getHui_domain_name() + "/";
+//                            ApiHttpClient.invalidateApi();
+//                            Url_info.invalidateApi();
+//                            //保存企业id
+//                            sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id() + "");
+//                            Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+//                            Intent intent_come = getIntent();
+//                            if (intent_come != null && intent_come.hasExtra("from")) {
+//                                intent.putExtra("from", "jpush");
+//                                if (intent_come.hasExtra("type")) {
+//                                    intent.putExtra("url_type", intent_come.getStringExtra("url_type"));
+//                                    // intentTo.putExtra("type", intent_come.getStringExtra("type"));
+//                                    intent.putExtra("j_id", intent_come.getStringExtra("j_id"));
+//                                }
+//                            }
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                    } else if (status == -1) {
+//                        //网络错误
+//                        SmartToast.showInfo("网络错误，请检查网络设置");
+//                    }
+//                }
+//            });
+//
+//        }
+        //todo 新版修改 无论怎样先跳到首页
+        Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
 
-                        } else if (status == -1) {
-                            //网络错误
-                            SmartToast.showInfo("网络错误，请检查网络设置");
-                        }
-                    }
-                });
-
-            } else {
-                Intent intent = new Intent(SplashUI.this, XiaoquActivity.class);
-                intent.putExtra("type", "splash");
-                startActivity(intent);
-                finish();
-
-            }
-        } else {//登录了
-            //登录了，要根据小区判断域名
-            ConfigUtils.get().getApiConfig(sharePrefrenceUtil.getXiaoQuId(), new ConfigUtils.OnGetConfigListener() {
-                @Override
-                public void onGetConfig(int status, ModelConfig modelConfig) {
-                    if (status == 1) {
-                        if (modelConfig != null) {
-                            ApiHttpClient.API_URL = modelConfig.getHui_domain_name() + "/";
-                            ApiHttpClient.invalidateApi();
-                            Url_info.invalidateApi();
-                            //保存企业id
-                            sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id() + "");
-                            Intent intent = new Intent(SplashUI.this, HomeActivity.class);
-                            Intent intent_come = getIntent();
-                            if (intent_come != null && intent_come.hasExtra("from")) {
-                                intent.putExtra("from", "jpush");
-                                if (intent_come.hasExtra("type")) {
-                                    intent.putExtra("url_type", intent_come.getStringExtra("url_type"));
-                                    // intentTo.putExtra("type", intent_come.getStringExtra("type"));
-                                    intent.putExtra("j_id", intent_come.getStringExtra("j_id"));
-                                }
-                            }
-                            startActivity(intent);
-                            finish();
-                        }
-                    } else if (status == -1) {
-                        //网络错误
-                        SmartToast.showInfo("网络错误，请检查网络设置");
-                    }
-                }
-            });
-
-        }
         //todo 无论怎样热更新下载补丁
         if (BuildConfig.TINKER_ENABLE) {
             TinkerPatch.with().fetchPatchUpdate(true);

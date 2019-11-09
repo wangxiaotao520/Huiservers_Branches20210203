@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/tv_district"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:textColor="#555555"
+            android:textSize="15sp"
+            android:layout_marginLeft="12dp"
+            android:text=""
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:lines="1"
+            android:ellipsize="end" />
+        <ImageView
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/orange"
+            android:layout_marginRight="15dp"
+            />
+        <LinearLayout
+            android:id="@+id/ly_search"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/corner_20_gray"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/margin_20"
+                android:layout_height="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="2dp"
+                android:background="@mipmap/ic_sousuo2x"/>
+
+            <com.huacheng.huiservers.view.ClearEditText
+                android:id="@+id/et_search"
+                android:layout_width="248dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:layout_marginRight="@dimen/margin"
+                android:hint="请输入搜索地址"
+                android:background="@null"
+                android:gravity="start|center_vertical"
+                android:singleLine="true"
+                android:textColor="#555555"
+                android:textColorHint="#C4C4C4"
+                android:imeOptions="actionSearch"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+       
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/orange"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:text="取消"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:lines="1" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/windowbackground"
+        android:layout_height="10dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/windowbackground">
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:divider="@null"
+            android:fastScrollEnabled="false"
+            android:listSelector="@android:color/transparent"
+            android:smoothScrollbar="true"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        <include layout="@layout/no_data"></include>
+    </RelativeLayout>
+</LinearLayout>

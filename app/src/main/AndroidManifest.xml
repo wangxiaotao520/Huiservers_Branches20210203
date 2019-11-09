@@ -1144,5 +1144,11 @@
         <activity
             android:name=".ui.index.vote.VoteMessageActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".CommunityListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CommunitySearchActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

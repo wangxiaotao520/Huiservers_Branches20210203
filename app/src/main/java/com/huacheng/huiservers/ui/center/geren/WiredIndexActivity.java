@@ -185,13 +185,13 @@ public class WiredIndexActivity extends BaseActivityOld {
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
         params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
-        params.addBodyParameter("c_name", prefrenceUtil.getXiaoQuNanme());
+        params.addBodyParameter("c_name", prefrenceUtil.getXiaoQuName());
         params.addBodyParameter("fullname", cetCabetelName.getText().toString().trim());
         params.addBodyParameter("wired_num", cetCabetelID.getText().toString().trim());
         //params.addBodyParameter("wired_num","8354002344334470");
         params.addBodyParameter("amount", cetCabetelPrice.getText().toString().trim());
 
-        System.out.println("c_id==" + prefrenceUtil.getXiaoQuId() + "/n c_name==" + prefrenceUtil.getXiaoQuNanme()
+        System.out.println("c_id==" + prefrenceUtil.getXiaoQuId() + "/n c_name==" + prefrenceUtil.getXiaoQuName()
                 + "/n fullname==" + cetCabetelName.getText().toString().trim() + "/n wired_num==" + cetCabetelID.getText().toString().trim()
                 + "/n amount==" + cetCabetelPrice.getText().toString().trim());
         HttpHelper hh = new HttpHelper(info.add_wired_order, params, this) {

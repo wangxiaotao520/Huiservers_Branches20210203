@@ -19,11 +19,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.huacheng.huiservers.CommunityListActivity;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.XiaoquActivity;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
@@ -101,7 +109,7 @@ import io.reactivex.functions.Consumer;
  * 2018/12/19 0019 下午 2:46
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener, HomeListViewAdapter.OnAddCartClickListener,
-        PropertyPrester.PropertyListener {
+        PropertyPrester.PropertyListener, AMapLocationListener, PoiSearch.OnPoiSearchListener {
     private SmartRefreshLayout refreshLayout;
     //  private RecyclerView recyclerView;
     private PagingListView listView;
@@ -157,9 +165,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     View mStatusBar;
     private ImageView iv_scancode;
     private MyCornerImageLoader myImageLoader;
+    private RxPermissions rxPermissions;
+    private AMapLocationClient mlocationClient;
+    private AMapLocationClientOption mLocationOption;
+    private boolean isInitLocaion = false;
 
     @Override
     public void initView(View view) {
+        rxPermissions=new RxPermissions(mActivity);
         mPrester = new PropertyPrester(mActivity, this);
         prefrenceUtil = new SharePrefrenceUtil(mActivity);
         refreshLayout = view.findViewById(R.id.refreshLayout);
@@ -167,7 +180,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         listView = view.findViewById(R.id.listView);
         ry_onclick = view.findViewById(R.id.ry_onclick);
         tv_xiaoqu = view.findViewById(R.id.tv_xiaoqu);
-        tv_xiaoqu.setText(prefrenceUtil.getXiaoQuNanme());
+
         view_alpha = view.findViewById(R.id.view_alpha);
         view_alpha.setAlpha(1);
         refreshLayout.setEnableLoadMore(false);
@@ -183,6 +196,27 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mStatusBar.setAlpha(1);
 
         iv_scancode = view.findViewById(R.id.iv_scancode);
+
+        initLocation();
+    }
+
+    private void initLocation() {
+            if (mlocationClient == null) {
+                mlocationClient = new AMapLocationClient(mActivity);
+                mLocationOption = new AMapLocationClientOption();
+                //设置定位监听
+                mlocationClient.setLocationListener(this);
+                //设置为高精度定位模式
+                mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+                //设置需要地理位置信息
+                mLocationOption.isNeedAddress();
+                //     mLocationOption.setOnceLocation(true);
+                //设置定位参数
+                mlocationClient.setLocationOption(mLocationOption);
+                mLocationOption.setOnceLocation(true);
+
+            }
+
     }
 
     /**
@@ -388,8 +422,45 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        showDialog(smallDialog);
-        requestData();
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuName())){
+            //1.小区名字不为空的情况
+            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+            showDialog(smallDialog);
+            requestData();
+        }else {
+            //2.小区名字为空的情况
+            requestLocationPermission();
+        }
+
+    }
+
+    /**
+     * 请求
+     */
+    private void requestLocationPermission() {
+        rxPermissions.request( Manifest.permission.ACCESS_COARSE_LOCATION)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean isGranted) throws Exception {
+                        if (isGranted) {
+                              //权限同意 ,开始定位
+                            showDialog(smallDialog);
+                            smallDialog.setTipTextView("定位中...");
+                            mlocationClient.startLocation();
+
+                        } else {
+                            //权限拒绝 ,默认智慧小区
+                            prefrenceUtil.clearPreference(mActivity);
+                            prefrenceUtil.setXiaoQuName("智慧小区");
+                            //todo 不知道智慧小区是否需要id 登录的时候还有提交一下
+                            prefrenceUtil.setXiaoQuId("66");
+                            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+                            showDialog(smallDialog);
+                            requestData();
+
+                        }
+                    }
+                });
     }
 
     /**
@@ -397,6 +468,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
      */
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
+        //TODO 小区id 要判断
         params.put("c_id", prefrenceUtil.getXiaoQuId());
 
         MyOkHttp.get().post(ApiHttpClient.INDEX, params, new JsonResponseHandler() {
@@ -623,9 +695,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 }
                 break;
             case R.id.ry_onclick://切换小区
-                Intent intent1 = new Intent(getActivity(), XiaoquActivity.class);
-                intent1.putExtra("type", "home");
-                startActivityForResult(intent1, 3);
+//                Intent intent1 = new Intent(getActivity(), XiaoquActivity.class);
+//                intent1.putExtra("type", "home");
+//                startActivityForResult(intent1, 3);
+                Intent intent1 = new Intent(getActivity(), CommunityListActivity.class);
+                startActivityForResult(intent1, 111);
                 break;
             case R.id.ly_circle_more://点击查看更多
                 ModelEventHome modelEventHome = new ModelEventHome();
@@ -664,7 +738,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
                         }
                     }
-                });;
+                });
     }
 
     //导航
@@ -751,6 +825,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
+        if (mlocationClient != null) {
+            mlocationClient.stopLocation();
+            mlocationClient.onDestroy();
+        }
+        mlocationClient = null;
+        mLocationOption = null;
+
         super.onDestroy();
     }
 
@@ -869,6 +950,131 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             SmartToast.showInfo(msg);
         }
     }
+
+    @Override
+    public void onLocationChanged(AMapLocation location) {
+        if (null != location) {
+            StringBuffer sb = new StringBuffer();
+            //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
+            if (location.getErrorCode() == 0) {
+                sb.append("定位成功" + "\n");
+                sb.append("定位类型: " + location.getLocationType() + "\n");
+                sb.append("经    度    : " + location.getLongitude() + "\n");
+                sb.append("纬    度    : " + location.getLatitude() + "\n");
+                sb.append("精    度    : " + location.getAccuracy() + "米" + "\n");
+                sb.append("提供者    : " + location.getProvider() + "\n");
+
+                sb.append("速    度    : " + location.getSpeed() + "米/秒" + "\n");
+                sb.append("角    度    : " + location.getBearing() + "\n");
+                // 获取当前提供定位服务的卫星个数
+                sb.append("星    数    : " + location.getSatellites() + "\n");
+                sb.append("国    家    : " + location.getCountry() + "\n");
+                sb.append("省            : " + location.getProvince() + "\n");
+                sb.append("市            : " + location.getCity() + "\n");
+                sb.append("城市编码 : " + location.getCityCode() + "\n");
+                sb.append("区            : " + location.getDistrict() + "\n");
+                sb.append("区域 码   : " + location.getAdCode() + "\n");
+                sb.append("地    址    : " + location.getAddress() + "\n");
+                sb.append("兴趣点    : " + location.getPoiName() + "\n");
+
+                /*sharePrefrenceUtil.setLongitude(location.getLongitude() + "");
+                sharePrefrenceUtil.setAtitude(location.getLatitude() + "");*/
+
+                //定位完成的时间
+                //  sb.append("定位时间: " + Utils.formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss") + "\n");
+                if (!isInitLocaion) {
+                    if (NullUtil.isStringEmpty(location.getDistrict())){
+//                        hideDialog(smallDialog);
+//                        // tvResult.setText("定位失败，loc is null");
+//                        text_city.setText("定位失败...点击重新定位");
+//                        text_city.setOnClickListener(new OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                startLocation();
+//                            }
+//                        });
+                    }else {
+                        isInitLocaion = true;
+                        //默认选中
+                        mlocationClient.stopLocation();
+                        getPOIsearch(location.getLongitude(),location.getLatitude());
+
+                    }
+                }
+            } else {
+                //定位失败
+                sb.append("定位失败" + "\n");
+                sb.append("错误码:" + location.getErrorCode() + "\n");
+                sb.append("错误信息:" + location.getErrorInfo() + "\n");
+                sb.append("错误描述:" + location.getLocationDetail() + "\n");
+                hideDialog(smallDialog);
+                // tvResult.setText("定位失败，loc is null");
+                //定位失败 显示智慧小区
+                prefrenceUtil.clearPreference(mActivity);
+                prefrenceUtil.setXiaoQuName("智慧小区");
+                //todo 不知道智慧小区是否需要id 登录的时候还有提交一下
+                prefrenceUtil.setXiaoQuId("66");
+                tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+                showDialog(smallDialog);
+                requestData();
+            }
+
+        } else {
+            hideDialog(smallDialog);
+            // tvResult.setText("定位失败，loc is null");
+            //定位失败 显示智慧小区
+            prefrenceUtil.clearPreference(mActivity);
+            prefrenceUtil.setXiaoQuName("智慧小区");
+            //todo 不知道智慧小区是否需要id 登录的时候还有提交一下
+            prefrenceUtil.setXiaoQuId("66");
+            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+            showDialog(smallDialog);
+            requestData();
+        }
+    }
+
+    /**
+     * 调用高德地图搜索周边住宅
+     * @param longitude
+     * @param latitude
+     */
+    private void getPOIsearch(double longitude, double latitude) {
+        PoiSearch.Query query = new PoiSearch.Query("", "住宅区", "");
+        query.setPageSize(15);
+        PoiSearch search = new PoiSearch(mActivity, query);
+        search.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), 10000));
+        search.setOnPoiSearchListener(this);
+        search.searchPOIAsyn();
+    }
+
+    @Override
+    public void onPoiSearched(PoiResult result, int i) {
+        PoiSearch.Query query = result.getQuery();
+        ArrayList<PoiItem> pois = result.getPois();
+
+        if (pois!=null&&pois.size()>0){
+
+            String community_name=pois.get(0).toString();
+            String address = pois.get(0).getSnippet();
+            prefrenceUtil.clearPreference(mActivity);
+            //todo 选择上了小区
+            prefrenceUtil.setXiaoQuName(community_name);
+            prefrenceUtil.setAddressName(address);
+            //todo 这里暂时使用智慧小区的小区id 到时候肯定没有小区id
+            prefrenceUtil.setXiaoQuId("66");
+            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+            showDialog(smallDialog);
+            smallDialog.setTipTextView("加载中...");
+            requestData();
+        }
+    }
+
+    @Override
+    public void onPoiItemSearched(PoiItem poiItem, int i) {
+
+    }
+
+
 //    /**
 //     * 初始化头布局
 //     */

@@ -44,7 +44,7 @@ public class SharePrefrenceUtil {
 
     //首页选择的小区id
     public String getXiaoQuId() {
-        return sharedPreferences.getString("xiaoqu_id", "1");
+        return sharedPreferences.getString("xiaoqu_id", "");
     }
 
     public void setXiaoQuId(String xiaoqu_id) {
@@ -71,12 +71,22 @@ public class SharePrefrenceUtil {
 
 
     //首页选择的小区名字
-    public String getXiaoQuNanme() {
-        return sharedPreferences.getString("xiaoqu_name", "迎宾合作社区");
+    public String getXiaoQuName() {
+        return sharedPreferences.getString("xiaoqu_name", "");
     }
 
     public void setXiaoQuName(String xiaoqu_name) {
         editor.putString("xiaoqu_name", xiaoqu_name);
+        editor.commit();
+    }
+
+    //获取小区地址
+    public String getAddressName() {
+        return sharedPreferences.getString("xiaoqu_address", "");
+    }
+    //设置小区地址
+    public void setAddressName(String xiaoqu_name) {
+        editor.putString("xiaoqu_address", xiaoqu_name);
         editor.commit();
     }
 
@@ -149,5 +159,10 @@ public class SharePrefrenceUtil {
         editor.putString("is_new", isNew);
         editor.commit();
     }
-
+    //清除sp的数据
+    public  void clearPreference(Context context ) {
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
 }

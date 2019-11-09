@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/lin_left"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/arrow_left" />
+            </LinearLayout>
+
+            <TextView
+
+                android:id="@+id/title_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:singleLine="true"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textColor="@color/title_color"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/orange"
+                android:padding="10dp"
+                android:text=""
+                android:textSize="15sp"
+                android:visibility="gone" />
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@mipmap/ic_sousuo2x"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/windowbackground">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/title">
+
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:divider="@null"
+                android:fastScrollEnabled="false"
+                android:listSelector="@android:color/transparent"
+                android:smoothScrollbar="true"/>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#f8f8f8"
+                android:text="当前小区"
+                android:paddingLeft="12dp"
+                android:gravity="center_vertical"
+                android:textColor="#555555"
+                android:textSize="14sp" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="horizontal"
+                android:background="@color/white">
+                <TextView
+                    android:id="@+id/tv_empty_community_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="智慧小区"
+                    android:textColor="#555555"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+                <ImageView
+                    android:id="@+id/iv_empty_relocation"
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:background="@color/orange"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp" />
+                <TextView
+                    android:id="@+id/tv_empty_relocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="重新定位"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="8dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#f8f8f8"
+                android:text="附近小区"
+                android:paddingLeft="12dp"
+                android:gravity="center_vertical"
+                android:textColor="#555555"
+                android:textSize="14sp" />
+            <LinearLayout
+                android:id="@+id/rel_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+
+                <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/img_data"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="49dp"
+                    android:background="@drawable/nodata1" />
+
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/tv_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/img_data"
+                    android:layout_centerHorizontal="true"
+                    android:paddingLeft="@dimen/margin"
+                    android:layout_marginTop="35dp"
+                    android:text="暂未开启定位，开启定位后显示附近小区"
+                    android:textColor="@color/gray_9c"
+                    android:textSize="@dimen/t_14sp" />
+                <TextView
+                    android:id="@+id/tv_setting_location"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="29dp"
+                    android:text="立即设置"
+                    android:paddingLeft="26dp"
+                    android:paddingRight="26dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/allshape_orange35"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:gravity="center" />
+                
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>
