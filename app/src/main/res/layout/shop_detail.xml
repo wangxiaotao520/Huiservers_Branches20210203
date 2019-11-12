@@ -473,7 +473,7 @@
                                 android:id="@+id/tv_store_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="赵云云官方旗舰店"
+                                android:text=""
                                 android:textColor="#555555"
                                 android:textSize="@dimen/t_15sp"/>
 
@@ -482,7 +482,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="时尚天街购物中心58号4-1"
+                                android:text=""
                                 android:textColor="#9C9C9C"
                                 android:textSize="@dimen/t_12sp"/>
 

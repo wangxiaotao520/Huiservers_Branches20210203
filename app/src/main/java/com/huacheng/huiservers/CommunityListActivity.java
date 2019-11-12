@@ -369,7 +369,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
 
           //  prefrenceUtil.setXiaoQuId("");
             //TODO 测试 记得删掉
-            prefrenceUtil.setXiaoQuId("66");
+            prefrenceUtil.setXiaoQuId("1");
             prefrenceUtil.setXiaoQuName(item.getName());
             prefrenceUtil.setAddressName(item.getAddress());
             EventBus.getDefault().post(new ModelEventHome(2));

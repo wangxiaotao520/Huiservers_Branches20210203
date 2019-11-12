@@ -34,6 +34,7 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.jpush.MyReceiver;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
@@ -53,11 +54,16 @@ import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.ScrollChangedScrollView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
 import com.microquation.linkedme.android.log.LMErrorCode;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -102,7 +108,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
     private ImageView img_title, iv_top, iv_img, img_1, img_2, img_3, img_4;
     List<ShopMainBean> beans = new ArrayList<ShopMainBean>();
     ShopProtocol protocol = new ShopProtocol();
-    ShopDetailBean detailBean = new ShopDetailBean();
+    ShopDetailBean detailBean;
     List<ShopDetailBean> beanTag = new ArrayList<ShopDetailBean>();
     ShopDetailBean cartnum = new ShopDetailBean();
     SharedPreferences preferencesLogin;
@@ -268,12 +274,169 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
     @Override
     protected void initData() {
         super.initData();
-        getDetail();
+        //getDetail();
+        getData();
 
         //getpingjia();
         if (!login_type.equals("")) {// 登陆之后获取数量
             getCartNum();
         }
+    }
+
+    private void getData() {
+        showDialog(smallDialog);
+        Url_info info = new Url_info(this);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", shop_id);
+        url = info.goods_details;
+        MyOkHttp.get().post(url, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    detailBean = (ShopDetailBean) JsonUtil.getInstance().parseJsonFromResponse(response, ShopDetailBean.class);
+                    title_name.setText(detailBean.getTitle());
+
+//                Glide.with(ShopDetailActivity.this).load(MyCookieStore.URL + detailBean.getTitle_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
+//                        .placeholder(R.drawable.ic_default_rectange500).error(R.drawable.ic_default_rectange500).into(img_title);
+                    GlideUtils.getInstance().glideLoad(ShopDetailActivity.this, MyCookieStore.URL + detailBean.getTitle_img(), img_title, R.drawable.ic_default_rectange500);
+                    txt_name.setText(detailBean.getTitle());
+                    txt_content.setText(detailBean.getDescription());
+                    txt_price.setText("¥" + detailBean.getPrice());
+                    txt_yuan_price.setText("¥" + detailBean.getOriginal());
+                    txt_num.setText("剩余：" + detailBean.getInventory() + " " + detailBean.getUnit());
+                    //tag_name.setText(detailBean.getTagname());//默认选择已选择的商品规格
+                    if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
+                        txt_paisong.setVisibility(View.VISIBLE);
+                    } else {
+                        txt_paisong.setVisibility(View.GONE);
+                    }
+                    txt_market.setText(detailBean.getSend_shop());
+                    if (detailBean.getCart_num().equals("") || detailBean.getCart_num().equals("0")) {
+                        txt_shop_num.setVisibility(View.GONE);
+                    } else {
+                        txt_shop_num.setVisibility(View.VISIBLE);
+                        // txt_shop_num.setText(detailBean.getCart_num());
+                    }
+                    //店铺信息
+                    if (detailBean.getMerchant() != null) {
+                        tv_store_address.setText(detailBean.getMerchant().getAddress());
+                        tv_store_name.setText(detailBean.getMerchant().getMerchant_name());
+                        FrescoUtils.getInstance().setImageUri(iv_store_head,ApiHttpClient.IMG_URL+detailBean.getMerchant().getLogo());
+
+                    }
+                    //标签
+                    getAddGoodsTagView();
+
+                    //暂时隐藏掉数据改为静态图片显示
+                /*img_1.setBackground(getResources().getDrawable(R.drawable.mianfeituihuan_08));
+                img_2.setBackground(getResources().getDrawable(R.drawable.huodaofukuan_01));
+				img_3.setBackground(getResources().getDrawable(R.drawable.jishisong_02));
+				img_4.setBackground(getResources().getDrawable(R.drawable.jieritehui_10));*/
+                /*txt_tag1.setText(detailBean.getGoods_tag().get(0).getC_name());
+                txt_tag2.setText(detailBean.getGoods_tag().get(1).getC_name());
+				txt_tag3.setText(detailBean.getGoods_tag().get(2).getC_name());
+				txt_tag4.setText(detailBean.getGoods_tag().get(3).getC_name());*/
+                    System.out.println("detailBean.getImgs()===========" + detailBean.getImgs());
+                    getAddview();// 动态添加商品图片描述
+                    getpingjia();// 获取商品详情中的评价数据
+
+                    if (detailBean.getDiscount().equals("1")) {//限购为1  否则为0
+                        rel_shop_limit_bg.setVisibility(View.VISIBLE);
+                        lin_bottom.setVisibility(View.VISIBLE);//购物车
+                        gettime(detailBean);
+                    } else {
+                        rel_shop_limit_bg.setVisibility(View.GONE);
+                        lin_XS_bottom.setVisibility(View.GONE);//底部限时抢购
+                        lin_bottom.setVisibility(View.VISIBLE);//购物车
+                    }
+
+                } else {
+                    try {
+                        SmartToast.showInfo(response.getString("msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
+    private void getDetail() {// 获取商品详情
+        showDialog(smallDialog);
+        Url_info info = new Url_info(this);
+        if (!TextUtils.isEmpty(shop_id)) {
+            url = info.goods_details + "id/" + shop_id;
+        }
+        HttpHelper hh = new HttpHelper(url, ShopDetailActivity.this) {
+            @Override
+            protected void setData(String json) {
+                hideDialog(smallDialog);
+
+                detailBean = protocol.getDetail(json);
+                title_name.setText(detailBean.getTitle());
+
+//                Glide.with(ShopDetailActivity.this).load(MyCookieStore.URL + detailBean.getTitle_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
+//                        .placeholder(R.drawable.ic_default_rectange500).error(R.drawable.ic_default_rectange500).into(img_title);
+                GlideUtils.getInstance().glideLoad(ShopDetailActivity.this, MyCookieStore.URL + detailBean.getTitle_img(), img_title, R.drawable.ic_default_rectange500);
+                txt_name.setText(detailBean.getTitle());
+                txt_content.setText(detailBean.getDescription());
+                txt_price.setText("¥" + detailBean.getPrice());
+                txt_yuan_price.setText("¥" + detailBean.getOriginal());
+                txt_num.setText("剩余：" + detailBean.getInventory() + " " + detailBean.getUnit());
+                //tag_name.setText(detailBean.getTagname());//默认选择已选择的商品规格
+                if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
+                    txt_paisong.setVisibility(View.VISIBLE);
+                } else {
+                    txt_paisong.setVisibility(View.GONE);
+                }
+                txt_market.setText(detailBean.getSend_shop());
+                if (detailBean.getCart_num().equals("") || detailBean.getCart_num().equals("0")) {
+                    txt_shop_num.setVisibility(View.GONE);
+                } else {
+                    txt_shop_num.setVisibility(View.VISIBLE);
+                    // txt_shop_num.setText(detailBean.getCart_num());
+                }
+
+                getAddGoodsTagView();
+
+                //暂时隐藏掉数据改为静态图片显示
+                /*img_1.setBackground(getResources().getDrawable(R.drawable.mianfeituihuan_08));
+                img_2.setBackground(getResources().getDrawable(R.drawable.huodaofukuan_01));
+				img_3.setBackground(getResources().getDrawable(R.drawable.jishisong_02));
+				img_4.setBackground(getResources().getDrawable(R.drawable.jieritehui_10));*/
+                /*txt_tag1.setText(detailBean.getGoods_tag().get(0).getC_name());
+                txt_tag2.setText(detailBean.getGoods_tag().get(1).getC_name());
+				txt_tag3.setText(detailBean.getGoods_tag().get(2).getC_name());
+				txt_tag4.setText(detailBean.getGoods_tag().get(3).getC_name());*/
+                System.out.println("detailBean.getImgs()===========" + detailBean.getImgs());
+                getAddview();// 动态添加商品图片描述
+                getpingjia();// 获取商品详情中的评价数据
+
+                if (detailBean.getDiscount().equals("1")) {//限购为1  否则为0
+                    rel_shop_limit_bg.setVisibility(View.VISIBLE);
+                    lin_bottom.setVisibility(View.VISIBLE);//购物车
+                    gettime(detailBean);
+                } else {
+                    rel_shop_limit_bg.setVisibility(View.GONE);
+                    lin_XS_bottom.setVisibility(View.GONE);//底部限时抢购
+                    lin_bottom.setVisibility(View.VISIBLE);//购物车
+                }
+
+            }
+
+            @Override
+            protected void requestFailure(Exception error, String msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        };
     }
 
 
@@ -486,77 +649,6 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
         preferencesLogin = ShopDetailActivity.this.getSharedPreferences("login", 0);
         login_type = preferencesLogin.getString("login_type", "");
     }
-
-    private void getDetail() {// 获取商品详情
-        showDialog(smallDialog);
-        Url_info info = new Url_info(this);
-        if (!TextUtils.isEmpty(shop_id)) {
-            url = info.goods_details + "id/" + shop_id;
-        }
-        HttpHelper hh = new HttpHelper(url, ShopDetailActivity.this) {
-            @Override
-            protected void setData(String json) {
-                hideDialog(smallDialog);
-                detailBean = protocol.getDetail(json);
-                title_name.setText(detailBean.getTitle());
-
-//                Glide.with(ShopDetailActivity.this).load(MyCookieStore.URL + detailBean.getTitle_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
-//                        .placeholder(R.drawable.ic_default_rectange500).error(R.drawable.ic_default_rectange500).into(img_title);
-                GlideUtils.getInstance().glideLoad(ShopDetailActivity.this, MyCookieStore.URL + detailBean.getTitle_img(), img_title, R.drawable.ic_default_rectange500);
-                txt_name.setText(detailBean.getTitle());
-                txt_content.setText(detailBean.getDescription());
-                txt_price.setText("¥" + detailBean.getPrice());
-                txt_yuan_price.setText("¥" + detailBean.getOriginal());
-                txt_num.setText("剩余：" + detailBean.getInventory() + " " + detailBean.getUnit());
-                //tag_name.setText(detailBean.getTagname());//默认选择已选择的商品规格
-                if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
-                    txt_paisong.setVisibility(View.VISIBLE);
-                } else {
-                    txt_paisong.setVisibility(View.GONE);
-                }
-                txt_market.setText(detailBean.getSend_shop());
-                if (detailBean.getCart_num().equals("") || detailBean.getCart_num().equals("0")) {
-                    txt_shop_num.setVisibility(View.GONE);
-                } else {
-                    txt_shop_num.setVisibility(View.VISIBLE);
-                    // txt_shop_num.setText(detailBean.getCart_num());
-                }
-
-                getAddGoodsTagView();
-
-                //暂时隐藏掉数据改为静态图片显示
-                /*img_1.setBackground(getResources().getDrawable(R.drawable.mianfeituihuan_08));
-                img_2.setBackground(getResources().getDrawable(R.drawable.huodaofukuan_01));
-				img_3.setBackground(getResources().getDrawable(R.drawable.jishisong_02));
-				img_4.setBackground(getResources().getDrawable(R.drawable.jieritehui_10));*/
-                /*txt_tag1.setText(detailBean.getGoods_tag().get(0).getC_name());
-                txt_tag2.setText(detailBean.getGoods_tag().get(1).getC_name());
-				txt_tag3.setText(detailBean.getGoods_tag().get(2).getC_name());
-				txt_tag4.setText(detailBean.getGoods_tag().get(3).getC_name());*/
-                System.out.println("detailBean.getImgs()===========" + detailBean.getImgs());
-                getAddview();// 动态添加商品图片描述
-                getpingjia();// 获取商品详情中的评价数据
-
-                if (detailBean.getDiscount().equals("1")) {//限购为1  否则为0
-                    rel_shop_limit_bg.setVisibility(View.VISIBLE);
-                    lin_bottom.setVisibility(View.VISIBLE);//购物车
-                    gettime(detailBean);
-                } else {
-                    rel_shop_limit_bg.setVisibility(View.GONE);
-                    lin_XS_bottom.setVisibility(View.GONE);//底部限时抢购
-                    lin_bottom.setVisibility(View.VISIBLE);//购物车
-                }
-
-            }
-
-            @Override
-            protected void requestFailure(Exception error, String msg) {
-                hideDialog(smallDialog);
-                SmartToast.showInfo("网络异常，请检查网络设置");
-            }
-        };
-    }
-
 
     private void gettime(final ShopDetailBean data) {//限购时间
         String distanceStart = data.getDistance_start();
@@ -970,8 +1062,8 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                 });
                 break;
             case R.id.ly_store://店铺
-               /* intent = new Intent(ShopDetailActivity.this, StoreIndexActivity.class);
-                startActivity(intent);*/
+                intent = new Intent(ShopDetailActivity.this, StoreIndexActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

@@ -1,7 +1,10 @@
 package com.huacheng.huiservers.ui.shop;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
@@ -13,6 +16,7 @@ import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopCommonAdapter;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -27,7 +31,7 @@ import java.util.List;
  * 时间：2019/11/8 10:59
  * created by DFF
  */
-public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapter.OnClickCallback{
+public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapter.OnClickCallback {
     View mStatusBar;
     private View headerView;
     protected PagingListView listView;
@@ -35,7 +39,13 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
     protected RelativeLayout mRelNoData;
     private List<ModelShopIndex> mDatas = new ArrayList<>();//数据
     private ShopCommonAdapter<ModelShopIndex> adapter;
-    private int page=1;
+    private int page = 1;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar = true;
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initView() {
@@ -54,6 +64,11 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         adapter = new ShopCommonAdapter<>(this, mDatas, this);
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
+
+        //状态栏
+        mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
+        mStatusBar.setAlpha((float) 1);
     }
 
     private void initHeaderView() {
@@ -87,15 +102,17 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
     @Override
     protected void initFragment() {
 
-    } /**
+    }
+
+    /**
      * 请求数据
      */
     private void requestData() {
         // 根据接口请求数据
         //dsm->待上门  wfk->未付款 dpj->待评价 ypj->已评价 qxdd->取消订单
         HashMap<String, String> params = new HashMap<>();
-        params.put("c_id",5+"");
-        params.put("id",1+"");
+        params.put("c_id", 5 + "");
+        params.put("id", 1 + "");
         params.put("p", page + "");
 
         MyOkHttp.get().get(ApiHttpClient.SHOP_INDEX_MORE, params, new JsonResponseHandler() {
@@ -166,10 +183,11 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         }
 
     }
+
     private void setEnableLoadMore(boolean isloadmore) {
-        if (isloadmore){
+        if (isloadmore) {
             listView.setHasMoreItems(true);
-        }else {
+        } else {
             listView.setHasMoreItems(false);
         }
     }

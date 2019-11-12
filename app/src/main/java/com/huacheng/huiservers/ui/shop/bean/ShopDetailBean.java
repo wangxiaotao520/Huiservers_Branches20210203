@@ -39,10 +39,37 @@ public class ShopDetailBean {
     private String shop_cate_id;
     private String shop_cate_stime;
     private String shop_cate_etime;
+    private ShopDetailBean merchant;//店铺信息
+    private String merchant_name;
+    private String logo;
     private String is_hot, is_new, order_num;
     private String discount, distance_start, distance_end;
     private long current_times;//倒计时用来的时间
     private long current_times1;//倒计时用的时间，开启第二个倒计时的time
+
+    public ShopDetailBean getMerchant() {
+        return merchant;
+    }
+
+    public void setMerchant(ShopDetailBean merchant) {
+        this.merchant = merchant;
+    }
+
+    public String getMerchant_name() {
+        return merchant_name;
+    }
+
+    public void setMerchant_name(String merchant_name) {
+        this.merchant_name = merchant_name;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 
     public long getCurrent_times1() {
         return current_times1;
