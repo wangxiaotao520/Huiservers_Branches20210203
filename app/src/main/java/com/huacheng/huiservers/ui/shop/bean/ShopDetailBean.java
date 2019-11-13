@@ -1,8 +1,9 @@
 package com.huacheng.huiservers.ui.shop.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ShopDetailBean {
+public class ShopDetailBean implements Serializable{
     private String id;//商品id
     private String title;//产品标题
     private String description;//商品描述
@@ -42,10 +43,19 @@ public class ShopDetailBean {
     private ShopDetailBean merchant;//店铺信息
     private String merchant_name;
     private String logo;
+    private String background;
     private String is_hot, is_new, order_num;
     private String discount, distance_start, distance_end;
     private long current_times;//倒计时用来的时间
     private long current_times1;//倒计时用的时间，开启第二个倒计时的time
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
 
     public ShopDetailBean getMerchant() {
         return merchant;

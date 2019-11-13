@@ -201,6 +201,8 @@ public class ApiHttpClient {
 
     //商城首页 加载更多
     public static String SHOP_INDEX_MORE = API_URL + API_VERSION + "shop/hotCateProlist";
+    //商城店铺接口
+    public static String SHOP_IMERCHANT_DETAILS = API_URL + API_VERSION + "/shop/merchant_details";
 
     //付款成功后极光推送
     public static String PAY_SERVICE_SUCCESS = API_URL + API_VERSION + "Jpush/service_order_toAmountWorker_push";
@@ -473,5 +475,6 @@ public class ApiHttpClient {
         FAMILY_DETAIL = API_URL + API_VERSION + "family/family_see";
         FAMILY_POLL = API_URL + API_VERSION + "family/family_poll";
         FAMILY_INDEX_SHARE = API_URL + "home/index/beautiful_family";
+        SHOP_IMERCHANT_DETAILS = API_URL + API_VERSION + "/shop/merchant_details";
     }
 }

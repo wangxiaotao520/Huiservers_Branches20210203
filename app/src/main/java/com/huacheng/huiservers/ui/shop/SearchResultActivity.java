@@ -23,13 +23,14 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListSearchAdapter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,7 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
     // 1. 初始化搜索框变量
     String keywords = "";
     RecyclerViewLayoutManager manager;
+    private String store_id = "";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -66,6 +68,10 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
         setContentView(R.layout.search_result);
         prefrenceUtil = new SharePrefrenceUtil(this);
         keywords = getIntent().getStringExtra("keystr");
+        //店铺id
+        if (!NullUtil.isStringEmpty(this.getIntent().getStringExtra("store_id"))) {
+            store_id = this.getIntent().getStringExtra("store_id");
+        }
         // 3. 绑定组件
         LinearLayout lin_search_block = (LinearLayout) findViewById(R.id.lin_search_block);
         search_back = (ImageView) findViewById(R.id.search_back);
@@ -144,7 +150,7 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
     };
 
     private void initAData() {
-        if (page<=totalPage){
+        if (page <= totalPage) {
             searchAdapter.setLoadState(searchAdapter.LOADING);
             getdata();
         }
@@ -175,9 +181,17 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
 
     }
 
+    String url;
+
     private void getdata() {// 搜索界面接口
         Url_info info = new Url_info(this);
-        String url = info.goods_search + "key/" + et_search.getText().toString() + "/m_id/" + prefrenceUtil.getXiaoQuId() + "/p/" + page;
+        if (!NullUtil.isStringEmpty(this.getIntent().getStringExtra("store_id"))) {
+            store_id = this.getIntent().getStringExtra("store_id");
+            url = info.goods_search + "key/" + et_search.getText().toString() + "/mer_id/" + store_id + "/p/" + page;
+        } else {
+            url = info.goods_search + "key/" + et_search.getText().toString() + "/p/" + page;
+        }
+
         new HttpHelper(url, SearchResultActivity.this) {
 
             @Override
@@ -198,14 +212,14 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
                         beans.addAll(bean);
                         totalPage = Integer.valueOf(beans.get(0).getTotal_Pages());// 设置总页数
                         page++;
-                        if (page>totalPage){
+                        if (page > totalPage) {
                             searchAdapter.setLoadState(searchAdapter.LOADING_END);
-                        }else {
+                        } else {
                             searchAdapter.setLoadState(searchAdapter.LOADING_COMPLETE);
                         }
                         searchAdapter.notifyDataSetChanged();
                     } else {
-                        if (page==1){
+                        if (page == 1) {
                             recyclerview.setVisibility(View.GONE);
                             rel_no_data.setVisibility(View.VISIBLE);
                         }
@@ -219,7 +233,7 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
                 if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
                     swipeRefreshLayout.setRefreshing(false);
                 }
-                if (searchAdapter!=null){
+                if (searchAdapter != null) {
                     searchAdapter.setLoadState(searchAdapter.LOADING_COMPLETE);
                 }
                 hideDialog(smallDialog);

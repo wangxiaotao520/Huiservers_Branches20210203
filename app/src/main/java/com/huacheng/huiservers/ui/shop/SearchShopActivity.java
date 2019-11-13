@@ -25,6 +25,7 @@ import com.huacheng.huiservers.ui.shop.adapter.SearchHistoryAdapter;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.FlowLayout;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,17 +58,28 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
     private LinearLayout mSearchHistoryLl;
     ImageView search_back;
     EditText input;
+    private String store_id = "";
+    private LinearLayout layout_notice;
 
     @Override
     protected void init() {
         super.init();
- //       SetTransStatus.GetStatus(this);
+        //       SetTransStatus.GetStatus(this);
         setContentView(R.layout.shop_search);
+        layout_notice = findViewById(R.id.layout_notice);
+        //店铺id
+        if (!NullUtil.isStringEmpty(this.getIntent().getStringExtra("store_id"))) {
+            store_id = this.getIntent().getStringExtra("store_id");
+            layout_notice.setVisibility(View.GONE);
+        } else {
+            layout_notice.setVisibility(View.VISIBLE);
+        }
         getTab();
         initHistoryView();
         search_back = (ImageView) findViewById(R.id.search_back);
         txt_search = (TextView) findViewById(R.id.txt_search);
         input = (EditText) findViewById(R.id.et_search);
+
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             public void run() {
@@ -146,6 +158,9 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
                         //加入搜索历史纪录记录
                         intent.setClass(SearchShopActivity.this, SearchResultActivity.class);
                         intent.putExtra("keystr", str);
+                        if (!NullUtil.isStringEmpty(SearchShopActivity.this.getIntent().getStringExtra("store_id"))) {
+                            intent.putExtra("store_id", SearchShopActivity.this.getIntent().getStringExtra("store_id"));
+                        }
                         startActivityForResult(intent, 1);
                         save(str);
 //                        initHistoryView();
@@ -218,6 +233,9 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 intent.setClass(SearchShopActivity.this, SearchResultActivity.class);
                 intent.putExtra("keystr", mHistoryKeywords.get(i));
+                if (!NullUtil.isStringEmpty(SearchShopActivity.this.getIntent().getStringExtra("store_id"))) {
+                    intent.putExtra("store_id", SearchShopActivity.this.getIntent().getStringExtra("store_id"));
+                }
                 startActivityForResult(intent, 1);
                 save(mHistoryKeywords.get(i));
 //                input.setText(mHistoryKeywords.get(i));
@@ -242,6 +260,9 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
                 } else {
                     intent.setClass(SearchShopActivity.this, SearchResultActivity.class);
                     intent.putExtra("keystr", input.getText().toString().trim());
+                    if (!NullUtil.isStringEmpty(SearchShopActivity.this.getIntent().getStringExtra("store_id"))) {
+                        intent.putExtra("store_id", SearchShopActivity.this.getIntent().getStringExtra("store_id"));
+                    }
                     startActivity(intent);
                     save(input.getText().toString());
 //                    initHistoryView();

@@ -389,7 +389,15 @@ public class ShopProtocol {
                     }
                     info.setScore(tjList);
                 }
-
+                String store = obj.getString("merchant");
+                JSONObject objstore = new JSONObject(store);
+                ShopDetailBean store_bean = new ShopDetailBean();
+                store_bean.setId(objstore.getString("id"));
+                store_bean.setMerchant_name(objstore.getString("merchant_name"));
+                store_bean.setLogo(objstore.getString("logo"));
+                store_bean.setBackground(objstore.getString("background"));
+                store_bean.setAddress(objstore.getString("address"));
+                info.setMerchant(store_bean);
             }
         } catch (Exception e) {
             LogUtils.e(e);
