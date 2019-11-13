@@ -59,4 +59,26 @@ public class ModelCoummnityList implements Serializable{
         this.position = position;
     }
 
+    //我的小区
+    String community_name;
+    String full_address;
+
+    public String getCommunity_name() {
+        return community_name;
+    }
+
+    public void setCommunity_name(String community_name) {
+        this.community_name = community_name;
+    }
+
+    public String getFull_address() {
+        return full_address;
+    }
+
+    public void setFull_address(String full_address) {
+        this.full_address = full_address;
+    }
+
+
+
 }

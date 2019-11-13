@@ -214,7 +214,9 @@ public class MerchantServiceListFragmentCommon extends BaseFragment {
      */
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
-        params.put("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.put("c_id", prefrenceUtil.getXiaoQuId());
+        }
         if (!NullUtil.isStringEmpty(sub_id)) {
             params.put("category", sub_id);
         } else {
@@ -287,7 +289,9 @@ public class MerchantServiceListFragmentCommon extends BaseFragment {
 
     private void requestDataService() {
         HashMap<String, String> params = new HashMap<>();
-        params.put("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.put("c_id", prefrenceUtil.getXiaoQuId());
+        }
         if (!NullUtil.isStringEmpty(sub_id)) {
             params.put("category", sub_id);
         } else if ("servicePop".equals(tabType)) {

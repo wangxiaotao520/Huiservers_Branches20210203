@@ -20,7 +20,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.NewAddressActivity;
+import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.center.geren.bean.AddressBean;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceDetail;
 import com.huacheng.huiservers.ui.servicenew.ui.dialog.ServiceSuccessDialog;
@@ -206,7 +206,7 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
                 break;
             case R.id.ly_address:
             case R.id.ly_noaddress:
-                Intent intent = new Intent(this, NewAddressActivity.class);
+                Intent intent = new Intent(this, AddressListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("address", "serviceyes");//shopyes
                 bundle.putString("type", "order");

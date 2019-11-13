@@ -22,6 +22,9 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.gson.Gson;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelCoummnityList;
 import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.ui.base.BaseActivity;
@@ -31,14 +34,18 @@ import com.huacheng.huiservers.utils.GetJsonDataUtil;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -60,7 +67,7 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();//市
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();//区
     private int selected_options1, selected_options2, selected_options3;//默认选中
-    private String location_provice, location_district, location_city;
+    private String location_provice, location_district, location_city,location_code;
     private static final int MSG_LOAD_SUCCESS = 0x0002;
     private static final int MSG_LOAD_FAILED = 0x0003;
     private Thread thread_parse_json;
@@ -172,9 +179,11 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
     private void doAMapSearch(String search_text) {
         new ToolUtils(et_search, this).closeInputMethod();
         if (NullUtil.isStringEmpty(location_district)){
-            query = new PoiSearch.Query(search_text, "住宅区", "北京市");
+            query = new PoiSearch.Query(search_text, "商务住宅", "北京市");
         }else {
-            query = new PoiSearch.Query(search_text, "住宅区", location_district);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+            query = new PoiSearch.Query(search_text, "商务住宅", location_district);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+         //   query = new PoiSearch.Query(search_text, "住宅区", location_code);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+
         }
         query.setPageSize(10);// 设置每页最多返回多少条poiitem
         query.setPageNum(currentPage);// 设置查第一页
@@ -226,6 +235,7 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
         location_provice= getIntent().getStringExtra("location_provice");
         location_city= getIntent().getStringExtra("location_city");
         location_district=getIntent().getStringExtra("location_district");
+        location_code=getIntent().getStringExtra("location_code");
 
 
     }
@@ -247,21 +257,117 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
 
     @Override
     public void onClickListItem(ModelCoummnityList item, int position) {
-        //TODO 测试 记得删掉
-        prefrenceUtil.clearPreference(this);
-        prefrenceUtil.setXiaoQuId("66");
-        prefrenceUtil.setXiaoQuName(item.getName());
-        prefrenceUtil.setAddressName(item.getAddress());
-        EventBus.getDefault().post(new ModelEventHome(2));
-        setResult(RESULT_OK);
-        mListview.postDelayed(new Runnable() {
+      requestCommunityId(item);
+    }
+
+    /**
+     * 根据小区名字请求小区id
+     * @param item
+     */
+    private void requestCommunityId(final ModelCoummnityList item) {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        if (!NullUtil.isStringEmpty(item.getName())){
+            params.put("community_name",item.getName()+"");
+        }
+        MyOkHttp.get().post(ApiHttpClient.GET_COMMUNITY_ID, params, new JsonResponseHandler() {
             @Override
-            public void run() {
-                Intent intentXiaoQuA = new Intent(mContext, HomeActivity.class);
-                startActivity(intentXiaoQuA);
-                finish();
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    try {
+                        if (response.has("data")){
+                            //匹配成功
+                            JSONObject data = response.getJSONObject("data");
+                            prefrenceUtil.clearPreference(mContext);
+                            if (!NullUtil.isStringEmpty(data.getString("id"))){//匹配失败
+                                prefrenceUtil.setXiaoQuId(data.getString("id"));
+                                prefrenceUtil.setCompanyId(data.getString("company_id"));
+                            }
+                            prefrenceUtil.setXiaoQuName(item.getName());
+                            prefrenceUtil.setAddressName(item.getAddress());
+                            EventBus.getDefault().post(new ModelEventHome(2));
+                            setResult(RESULT_OK);
+                            mListview.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intentXiaoQuA = new Intent(mContext, HomeActivity.class);
+                                    startActivity(intentXiaoQuA);
+                                    finish();
+                                }
+                            },200);
+                            getsubmitCommunityId(data.getString("id"));
+                        }else {
+                            //匹配失败
+                            prefrenceUtil.clearPreference(mContext);
+                            prefrenceUtil.setXiaoQuId("");
+                            prefrenceUtil.setXiaoQuName(item.getName());
+                            prefrenceUtil.setAddressName(item.getAddress());
+                            EventBus.getDefault().post(new ModelEventHome(2));
+                            setResult(RESULT_OK);
+                            mListview.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intentXiaoQuA = new Intent(mContext, HomeActivity.class);
+                                    startActivity(intentXiaoQuA);
+                                    finish();
+                                }
+                            },200);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        //匹配失败
+                        //  data==null
+                        prefrenceUtil.clearPreference(mContext);
+                        prefrenceUtil.setXiaoQuId("");
+                        prefrenceUtil.setXiaoQuName(item.getName());
+                        prefrenceUtil.setAddressName(item.getAddress());
+                        EventBus.getDefault().post(new ModelEventHome(2));
+                        setResult(RESULT_OK);
+                        mListview.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intentXiaoQuA = new Intent(mContext, HomeActivity.class);
+                                startActivity(intentXiaoQuA);
+                                finish();
+                            }
+                        },200);
+                    }
+
+                } else {
+                    try {
+                        SmartToast.showInfo(response.getString("msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        },200);
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
+    }
+    //提交小区id
+    private void getsubmitCommunityId(String community_id) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("community_id", community_id+"");
+
+        MyOkHttp.get().post(ApiHttpClient.SELECT_COMMUNITY, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
     }
     /**
      * 解析cityjson

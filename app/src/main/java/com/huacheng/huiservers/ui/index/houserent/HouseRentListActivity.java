@@ -290,7 +290,9 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
      */
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
-        params.put("community_id",prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.put("community_id",prefrenceUtil.getXiaoQuId());
+        }
         if (!NullUtil.isStringEmpty(money)){
             params.put("money",money+"");
         }

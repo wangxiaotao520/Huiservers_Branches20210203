@@ -24,7 +24,7 @@ import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
-import com.huacheng.huiservers.ui.center.NewAddressActivity;
+import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.shop.adapter.ConfirmShopListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
@@ -119,7 +119,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                 break;
 
             case R.id.lin_yesaddress:
-                intent = new Intent(this, NewAddressActivity.class);
+                intent = new Intent(this, AddressListActivity.class);
                 bundle.putString("address", "shopyes");
                 bundle.putString("type", "order");
                 bundle.putStringArrayList("list_id", new ArrayList<String>(list_id));
@@ -127,7 +127,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                 startActivityForResult(intent, 200);
                 break;
             case R.id.lin_noadress:
-                intent = new Intent(this, NewAddressActivity.class);
+                intent = new Intent(this, AddressListActivity.class);
                 bundle.putString("address", "shopyes");
                 bundle.putString("type", "order");
                 bundle.putStringArrayList("list_id", new ArrayList<String>(list_id));
@@ -207,7 +207,9 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
 
         RequestParams params = new RequestParams();
         params.addBodyParameter("para_amount", allPrice);
-        params.addBodyParameter("m_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.addBodyParameter("m_id", prefrenceUtil.getXiaoQuId());
+        }
         params.addBodyParameter("products", gson.toJson(pro) + "");
         HttpHelper hh = new HttpHelper(info.submit_order_before, params, ConfirmOrderActivity.this) {
 

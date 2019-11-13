@@ -17,6 +17,8 @@ public class ModelHomeIndex {
     private String url_type_cn;
     private String url_id;
     private String addtime;
+
+    private String pid;//若等于1即物业服务方面的导航 则需要判断是否匹配到小区 如果没有匹配到小区提示该小区暂未开通此服务, 若不等于1 则可以直接点击进入 比如保险、医疗等
     private List<ModelHomeIndex> menu_list;
     private String bg_img;
     private List<BannerBean> social_list;
@@ -118,4 +120,13 @@ public class ModelHomeIndex {
     public void setPro_list(List<ModelShopIndex> pro_list) {
         this.pro_list = pro_list;
     }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
 }

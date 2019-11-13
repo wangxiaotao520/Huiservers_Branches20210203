@@ -12,10 +12,11 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.protocol.CommonProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -159,7 +160,9 @@ public class CommonMethod {
         Url_info info = new Url_info(mContext);
 
         RequestParams params = new RequestParams();
-        params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        }
 
         MyOkHttp.get().post(info.cart_num, params.getParams(), new RawResponseHandler() {
             @Override

@@ -191,9 +191,9 @@ public class WiredIndexActivity extends BaseActivityOld {
         //params.addBodyParameter("wired_num","8354002344334470");
         params.addBodyParameter("amount", cetCabetelPrice.getText().toString().trim());
 
-        System.out.println("c_id==" + prefrenceUtil.getXiaoQuId() + "/n c_name==" + prefrenceUtil.getXiaoQuName()
-                + "/n fullname==" + cetCabetelName.getText().toString().trim() + "/n wired_num==" + cetCabetelID.getText().toString().trim()
-                + "/n amount==" + cetCabetelPrice.getText().toString().trim());
+//        System.out.println("c_id==" + prefrenceUtil.getXiaoQuId() + "/n c_name==" + prefrenceUtil.getXiaoQuName()
+//                + "/n fullname==" + cetCabetelName.getText().toString().trim() + "/n wired_num==" + cetCabetelID.getText().toString().trim()
+//                + "/n amount==" + cetCabetelPrice.getText().toString().trim());
         HttpHelper hh = new HttpHelper(info.add_wired_order, params, this) {
 
             @Override

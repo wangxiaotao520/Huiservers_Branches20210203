@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,6 +42,7 @@ import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.utils.WXConstants;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.mob.MobSDK;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -391,8 +391,9 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
         params.addBodyParameter("phone_type", "1");
         params.addBodyParameter("ApiSmstokentime", timestamp);// 时间戳
         params.addBodyParameter("ApiSmstoken", jmStr);// 加密字符串
-        params.addBodyParameter("community_id",sharePrefrenceUtil.getXiaoQuId());
-
+        if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+            params.addBodyParameter("community_id",sharePrefrenceUtil.getXiaoQuId());
+        }
         MyOkHttp.get().post(info.free_login, params.getParams(), new RawResponseHandler() {
             @Override
             public void onSuccess(int statusCode, String response) {
@@ -539,7 +540,9 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
         params.put("mobile_vcode", et_getcode.getText().toString());
         params.put("phone_name", push_id);
         params.put("phone_type", "1");
-        params.put("community_id",sharePrefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+            params.put("community_id",sharePrefrenceUtil.getXiaoQuId());
+        }
         MyOkHttp.get().post(info.login_verify, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -610,7 +613,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
      * 判断小区id是否有值
      */
     private void get_community_id(String community_id) {
-        if (TextUtils.isEmpty(community_id) || "0".equals(community_id)) {
+        if (!NullUtil.isStringEmpty(community_id)) {
             getsubmitCommunityId();
         }
 
@@ -619,8 +622,9 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
     //提交小区id
     private void getsubmitCommunityId() {
         HashMap<String, String> params = new HashMap<>();
-        params.put("community_id", sharePrefrenceUtil.getXiaoQuId());
-
+        if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+            params.put("community_id", sharePrefrenceUtil.getXiaoQuId());
+        }
         MyOkHttp.get().post(ApiHttpClient.SELECT_COMMUNITY, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -681,8 +685,9 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
         params.put("mobile_vcode", et_getcode.getText().toString().trim());
         params.put("phone_type", "1");
         params.put("wx_userinfo", info);
-        params.put("community_id",sharePrefrenceUtil.getXiaoQuId());
-
+        if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+            params.put("community_id",sharePrefrenceUtil.getXiaoQuId());
+        }
         MyOkHttp.get().post(ApiHttpClient.WX_BIND, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {

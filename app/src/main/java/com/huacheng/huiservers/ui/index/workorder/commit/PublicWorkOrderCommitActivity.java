@@ -484,7 +484,11 @@ public class PublicWorkOrderCommitActivity extends BaseActivity implements View.
             SmartToast.showInfo("请选择小区");
             return false;
         }
-
+        String content = et_beizhu.getText().toString().trim();
+        if (NullUtil.isStringEmpty(content)){
+            SmartToast.showInfo("请填写内容");
+            return false;
+        }
         return true;
     }
     @Override

@@ -155,7 +155,9 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
 
     private void requestData() {
         Map<String, String> params = new HashMap<>();
-        params.put("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.put("c_id", prefrenceUtil.getXiaoQuId());
+        }
         MyOkHttp.get().post(Url_info.center_index, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {

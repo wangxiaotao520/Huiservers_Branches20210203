@@ -33,9 +33,9 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.ToolUtils;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -192,7 +192,11 @@ public class EducationListActivity extends BaseActivityOld implements View.OnCli
     private void getdata(String total_Page) {//列表
 
         String url;
-        url = URL + "/m_id/" + sharePrefrenceUtil.getXiaoQuId() + "/p/" + total_Page;
+        if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+            url = URL + "/m_id/" + sharePrefrenceUtil.getXiaoQuId() + "/p/" + total_Page;
+        }else {
+            url = URL +  "/p/" + total_Page;
+        }
         new HttpHelper(url, this) {
 
             @Override

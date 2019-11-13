@@ -23,6 +23,7 @@ import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.FlowLayout;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -143,7 +144,9 @@ public class FragmentServicexSearchCommon extends BaseFragment {
                 params.put("s_key", keyword);
             }
         }
-        params.put("c_id", sharePrefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+            params.put("c_id", sharePrefrenceUtil.getXiaoQuId());
+        }
         MyOkHttp.get().get(ApiHttpClient.GET_SERVICEKEYS, params, new JsonResponseHandler() {
 
             @Override

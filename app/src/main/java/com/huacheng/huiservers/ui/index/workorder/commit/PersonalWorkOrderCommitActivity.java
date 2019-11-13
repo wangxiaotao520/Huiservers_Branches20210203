@@ -568,6 +568,11 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
             SmartToast.showInfo("请选择地址");
             return false;
         }
+        String content = et_beizhu.getText().toString().trim();
+        if (NullUtil.isStringEmpty(content)){
+            SmartToast.showInfo("请填写内容");
+            return false;
+        }
         return true;
     }
 

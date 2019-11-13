@@ -171,7 +171,9 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
         }
         //从店铺进服务列表的时候传
         params.put("p", page + "");
-        params.put("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.put("c_id", prefrenceUtil.getXiaoQuId());
+        }
         MyOkHttp.get().get(ApiHttpClient.GET_MERCHANTLIST, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {

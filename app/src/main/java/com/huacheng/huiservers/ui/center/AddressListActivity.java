@@ -24,6 +24,7 @@ import com.huacheng.huiservers.ui.center.geren.bean.GerenBean;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceConfirmOrderActivity;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.List;
 
@@ -34,11 +35,11 @@ import butterknife.OnClick;
 import static com.huacheng.huiservers.R.id.list_address;
 
 /**
- * 类：
+ * 类：选择收货地址
  * 时间：2017/10/14 15:11
  * 功能描述:Huiservers
  */
-public class NewAddressActivity extends BaseActivityOld {
+public class AddressListActivity extends BaseActivityOld {
     @BindView(R.id.lin_btn)
     LinearLayout mLinBtn;
     @BindView(R.id.left)
@@ -100,11 +101,11 @@ public class NewAddressActivity extends BaseActivityOld {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int i, long l) {
                     final String addressid = beans.getCom_list().get(i).getId();
-                    DeleteAddressDialog deleteAddressDialog = new DeleteAddressDialog(NewAddressActivity.this, new DeleteAddressDialog.OnCustomDialogListener() {
+                    DeleteAddressDialog deleteAddressDialog = new DeleteAddressDialog(AddressListActivity.this, new DeleteAddressDialog.OnCustomDialogListener() {
                         @Override
                         public void back(String name) {
                             if (name.equals("1")) {//编辑成功"
-                                Intent intent = new Intent(NewAddressActivity.this, NewAddAddressActivity.class);
+                                Intent intent = new Intent(AddressListActivity.this, NewAddAddressActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("id", addressid);
                                 bundle.putString("tag", "edit");
@@ -124,7 +125,7 @@ public class NewAddressActivity extends BaseActivityOld {
         mRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NewAddressActivity.this, NewAddAddressActivity.class);
+                Intent intent = new Intent(AddressListActivity.this, NewAddAddressActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", "");
                 bundle.putString("tag", "add");
@@ -159,7 +160,7 @@ public class NewAddressActivity extends BaseActivityOld {
                     if (beans.getCom_list().get(arg2).getIs_select().equals("0")) {
                         SmartToast.showInfo("您选择的地址不在当前小区配送范围内，请返回APP首页选择和您地址相符合的小区");
                     } else {
-                        Intent intent = new Intent(NewAddressActivity.this, ConfirmOrderActivity.class);
+                        Intent intent = new Intent(AddressListActivity.this, ConfirmOrderActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("person_name", person_name);
                         bundle.putString("person_mobile", person_mobile);
@@ -170,7 +171,7 @@ public class NewAddressActivity extends BaseActivityOld {
                         finish();
                     }
                 }else if ("serviceyes".equals(address)){
-                    Intent intent = new Intent(NewAddressActivity.this, ServiceConfirmOrderActivity.class);
+                    Intent intent = new Intent(AddressListActivity.this, ServiceConfirmOrderActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("person_name", person_name);
                     bundle.putString("person_mobile", person_mobile);
@@ -200,8 +201,10 @@ public class NewAddressActivity extends BaseActivityOld {
         if (address.equals("shopyes")) {
             params.addBodyParameter("m_id_arr", tag_id);
         }
-        params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
-        HttpHelper hh = new HttpHelper(info.get_user_address, params, NewAddressActivity.this) {
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        }
+        HttpHelper hh = new HttpHelper(info.get_user_address, params, AddressListActivity.this) {
 
             @Override
             protected void setData(String json) {
@@ -210,9 +213,9 @@ public class NewAddressActivity extends BaseActivityOld {
                 System.out.println("-=---" + beans);
                 if (beans.getCommunity_cn() != null) {
                     mRelNoData.setVisibility(View.GONE);
-                    new_addressAdapter = new NewAddressAdapter(NewAddressActivity.this, beans.getCom_list(), address);
+                    new_addressAdapter = new NewAddressAdapter(AddressListActivity.this, beans.getCom_list(), address);
                     mListAddress.setAdapter(new_addressAdapter);
-                   /* adapter=new AddressListAdapter(NewAddressActivity.this,beans.getCom_list(),address);
+                   /* adapter=new AddressListAdapter(AddressListActivity.this,beans.getCom_list(),address);
                     list_address.setAdapter(adapter);*/
                 } else {
                     mRelNoData.setVisibility(View.VISIBLE);
@@ -233,7 +236,7 @@ public class NewAddressActivity extends BaseActivityOld {
         params.addBodyParameter("id", id);
         System.out.println("p_id====" + id);
         showDialog(smallDialog);
-        HttpHelper hh = new HttpHelper(info.del_user_address, params, NewAddressActivity.this) {
+        HttpHelper hh = new HttpHelper(info.del_user_address, params, AddressListActivity.this) {
 
             @Override
             protected void setData(String json) {

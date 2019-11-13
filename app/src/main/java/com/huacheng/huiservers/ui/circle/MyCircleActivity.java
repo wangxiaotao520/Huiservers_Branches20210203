@@ -30,6 +30,7 @@ import com.huacheng.huiservers.ui.fragment.listener.EndlessRecyclerOnScrollListe
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -140,7 +141,13 @@ public class MyCircleActivity extends BaseActivityOld {
         is_Requesting=true;
 
         Url_info info = new Url_info(this);
-        String url = info.get_user_Social + "community_id/" + sharePrefrenceUtil.getXiaoQuId()+"/p/"+page;
+        String url="";
+        if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+             url = info.get_user_Social + "community_id/" + sharePrefrenceUtil.getXiaoQuId()+"/p/"+page;
+        }else {
+            url = info.get_user_Social +"/p/"+page;
+        }
+
         RequestParams requestParams = new RequestParams();
 
         MyOkHttp.get().post(url, null, new RawResponseHandler() {

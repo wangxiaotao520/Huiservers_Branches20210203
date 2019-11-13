@@ -115,7 +115,9 @@ public class OldHomeActivity extends BaseActivityOld {
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
-        params.addBodyParameter("community_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.addBodyParameter("community_id", prefrenceUtil.getXiaoQuId());
+        }
         params.addBodyParameter("c_name", "hc_old_top");
         HttpHelper hh = new HttpHelper(info.get_Advertising, params, OldHomeActivity.this) {
 
@@ -177,7 +179,9 @@ public class OldHomeActivity extends BaseActivityOld {
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
-        params.addBodyParameter("community_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.addBodyParameter("community_id", prefrenceUtil.getXiaoQuId());
+        }
         params.addBodyParameter("c_name", "hc_old_center");
         HttpHelper hh = new HttpHelper(info.get_Advertising, params, OldHomeActivity.this) {
 
@@ -211,7 +215,9 @@ public class OldHomeActivity extends BaseActivityOld {
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
-        params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        }
         HttpHelper hh = new HttpHelper(info.old_index_new, params, OldHomeActivity.this) {
 
             @Override

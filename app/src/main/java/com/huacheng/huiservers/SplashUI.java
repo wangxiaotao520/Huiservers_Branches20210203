@@ -301,6 +301,8 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 //            });
 //
 //        }
+        //一定要调用这个方法
+        hasLoginUser();
         //todo 新版修改 无论怎样先跳到首页
         Intent intent = new Intent(SplashUI.this, HomeActivity.class);
         startActivity(intent);

@@ -17,9 +17,9 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseFragmentOld;
-import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.fragment.listener.EndlessRecyclerOnScrollListener;
 import com.huacheng.huiservers.ui.shop.adapter.ShopXSListYesAdapter;
 import com.huacheng.huiservers.ui.shop.bean.CateBean;
@@ -28,6 +28,7 @@ import com.huacheng.huiservers.ui.shop.inter.OnTabSelectListener;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import com.huacheng.libraryservice.utils.DeviceUtils;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -178,7 +179,12 @@ public class ShopXSIngFragment extends BaseFragmentOld implements OnTabSelectLis
         if (class_nameList.size()>0){
             class_id=class_nameList.get(position).getId()+"";
         }
-        String url = info.pro_discount_list + "c_id/" + prefrenceUtil.getXiaoQuId() + "/is_star/" + "1" + "/p/" + total_Page+"/class_id/"+class_id;
+        String url="";
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+           url = info.pro_discount_list + "c_id/" + prefrenceUtil.getXiaoQuId() + "/is_star/" + "1" + "/p/" + total_Page+"/class_id/"+class_id;
+        }else {
+             url = info.pro_discount_list  + "/is_star/" + "1" + "/p/" + total_Page+"/class_id/"+class_id;
+        }
         new HttpHelper(url, getActivity()) {
 
             @Override

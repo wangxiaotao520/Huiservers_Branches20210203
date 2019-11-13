@@ -37,6 +37,7 @@ import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.widget.FlowTag.FlowTagLayout;
 import com.huacheng.huiservers.view.widget.FlowTag.OnTagSelectListener;
 import com.huacheng.huiservers.view.widget.FlowTag.TagAdapter;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lidroid.xutils.BitmapUtils;
 
@@ -393,7 +394,9 @@ public class AddShopDialog extends Dialog implements OnClickListener {
     private void getCartNum() {//购物车商品数量
         Url_info info = new Url_info(context);
         RequestParams params = new RequestParams();
-        params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        }
         HttpHelper hh = new HttpHelper(info.cart_num, params, context) {
 
             @Override

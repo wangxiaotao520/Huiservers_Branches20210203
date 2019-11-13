@@ -30,6 +30,7 @@ import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -194,7 +195,12 @@ public class CircleTabFragment extends BaseFragmentOld {
         Url_info info = new Url_info(getActivity());
 
         if (!StringUtils.isEmpty(mCid)) {
-            String url = info.getSocialList + "community_id/" + sharePrefrenceUtil.getXiaoQuId() + "/c_id/" + mCid + "/is_pro/" + mPro + "/p/" + total_Page;
+            String url="";
+            if (NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+                url = info.getSocialList + "c_id/" + mCid + "/is_pro/" + mPro + "/p/" + total_Page;
+            }else {
+                 url = info.getSocialList + "community_id/" + sharePrefrenceUtil.getXiaoQuId() + "/c_id/" + mCid + "/is_pro/" + mPro + "/p/" + total_Page;
+            }
 
             LogUtils.d("url==" + url);
             new HttpHelper(url, getActivity()) {

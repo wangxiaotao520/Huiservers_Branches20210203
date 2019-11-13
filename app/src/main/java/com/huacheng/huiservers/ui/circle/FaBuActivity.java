@@ -328,7 +328,9 @@ public class FaBuActivity extends BaseActivityOld implements ImagePickerAdapter.
         txt_right1.setEnabled(false);
         RequestParams params = new RequestParams();
         String content = Base64.encodeToString(et_content.getText().toString().getBytes(), Base64.DEFAULT);
-        params.addBodyParameter("community_id", sharePrefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+            params.addBodyParameter("community_id", sharePrefrenceUtil.getXiaoQuId());
+        }
         params.addBodyParameter("c_id", circle_id);
         params.addBodyParameter("img_num", selImageList.size() + "");
         params.addBodyParameter("content", content);

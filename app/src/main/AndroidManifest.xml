@@ -669,7 +669,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <!-- 地址新界面 -->
         <activity
-            android:name="com.huacheng.huiservers.ui.center.NewAddressActivity"
+            android:name="com.huacheng.huiservers.ui.center.AddressListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <!-- 地址添加新界面 -->
@@ -1156,5 +1156,9 @@
         <activity
             android:name=".ui.shop.StoreIndexActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.center.AddAddressActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            />
     </application>
 </manifest>

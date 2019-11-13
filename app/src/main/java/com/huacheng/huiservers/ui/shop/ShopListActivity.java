@@ -24,9 +24,9 @@ import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.fragment.shop.ShopListFragment;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListFragmentAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
@@ -37,6 +37,7 @@ import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import com.huacheng.huiservers.view.ShadowLayout;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.json.JSONException;
@@ -285,7 +286,13 @@ public class ShopListActivity extends BaseActivityOld {
         is_Requesting=true;
         Url_info urlInfo = new Url_info(this);
         if (!StringUtils.isEmpty(mPid)) {
-            String url = urlInfo.pro_list + "id/" + mPid + "/c_id/" + sharedPreferenceUtil.getXiaoQuId() + "/p/" + total_Page;
+            String url="";
+            if (!NullUtil.isStringEmpty(sharedPreferenceUtil.getXiaoQuId())){
+                url = urlInfo.pro_list + "id/" + mPid + "/c_id/" + sharedPreferenceUtil.getXiaoQuId() + "/p/" + total_Page;
+            }else {
+                url = urlInfo.pro_list + "id/" + mPid + "/p/" + total_Page;
+            }
+
             new HttpHelper(url, this) {
                 @Override
                 protected void setData(String json) {

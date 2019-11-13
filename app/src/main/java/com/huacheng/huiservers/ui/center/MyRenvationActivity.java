@@ -28,6 +28,7 @@ import com.huacheng.huiservers.ui.center.house.ZhuangXiuItemActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -109,7 +110,9 @@ public class MyRenvationActivity extends BaseActivityOld implements View.OnClick
     private void getbanner() {//获取商城首页顶部广告信息
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
-        params.addBodyParameter("community_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.addBodyParameter("community_id", prefrenceUtil.getXiaoQuId());
+        }
         params.addBodyParameter("c_name", "hc_my_decoration");
         HttpHelper hh = new HttpHelper(info.get_Advertising, params, this) {
 

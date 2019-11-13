@@ -37,6 +37,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.HouseRentDetail;
 import com.huacheng.huiservers.model.ModelAds;
+import com.huacheng.huiservers.model.ModelCoummnityList;
 import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.ModelHome;
 import com.huacheng.huiservers.model.ModelHomeIndex;
@@ -458,8 +459,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                             //权限拒绝 ,默认智慧小区
                             prefrenceUtil.clearPreference(mActivity);
                             prefrenceUtil.setXiaoQuName("智慧小区");
-                            //todo 不知道智慧小区是否需要id 登录的时候还有提交一下
-                            prefrenceUtil.setXiaoQuId("66");
                             tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
                             showDialog(smallDialog);
                             requestData();
@@ -474,9 +473,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
      */
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
-        //TODO 小区id 要判断
-        params.put("c_id", prefrenceUtil.getXiaoQuId());
-
+        // 小区id 要判断
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.put("c_id", prefrenceUtil.getXiaoQuId());
+        }
         MyOkHttp.get().post(ApiHttpClient.INDEX, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -646,6 +646,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         switch (v.getId()) {
             case R.id.ly_property_payment://生活缴费
                 if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
+                    if (NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId()+"")){
+                        SmartToast.showInfo("该小区暂未开通此服务");
+                        break;
+                    }
                     intent = new Intent(mActivity, PropertyNewActivity.class);
                     intent.putExtra("wuye_type", "property");
                     startActivity(intent);
@@ -656,6 +660,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 break;
             case R.id.ly_person_repair://家用报修
                 if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
+                    if (NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId()+"")){
+                        SmartToast.showInfo("该小区暂未开通此服务");
+                        break;
+                    }
                     showDialog(smallDialog);//判断是否物业绑定
                     mPrester.getProperty("person");
 
@@ -666,6 +674,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 break;
             case R.id.ly_public_repair://公共报修
                 if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
+                    if (NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId()+"")){
+                        SmartToast.showInfo("该小区暂未开通此服务");
+                        break;
+                    }
                     showDialog(smallDialog);//判断是否物业绑定
                     mPrester.getProperty("public");
                 } else {
@@ -692,6 +704,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 startActivity(intent);
                 break;
             case R.id.ly_houseCommit://发布房源
+
                 if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
                     intent = new Intent(mActivity, RentSellCommissionActivity.class);
                     startActivity(intent);
@@ -1018,8 +1031,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 //定位失败 显示智慧小区
                 prefrenceUtil.clearPreference(mActivity);
                 prefrenceUtil.setXiaoQuName("智慧小区");
-                //todo 不知道智慧小区是否需要id 登录的时候还有提交一下
-                prefrenceUtil.setXiaoQuId("66");
                 tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
                 showDialog(smallDialog);
                 requestData();
@@ -1031,8 +1042,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             //定位失败 显示智慧小区
             prefrenceUtil.clearPreference(mActivity);
             prefrenceUtil.setXiaoQuName("智慧小区");
-            //todo 不知道智慧小区是否需要id 登录的时候还有提交一下
-            prefrenceUtil.setXiaoQuId("66");
             tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
             showDialog(smallDialog);
             requestData();
@@ -1045,7 +1054,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
      * @param latitude
      */
     private void getPOIsearch(double longitude, double latitude) {
-        PoiSearch.Query query = new PoiSearch.Query("", "住宅区", "");
+        PoiSearch.Query query = new PoiSearch.Query("", "商务住宅", "");
         query.setPageSize(15);
         PoiSearch search = new PoiSearch(mActivity, query);
         search.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), 10000));
@@ -1062,16 +1071,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
             String community_name=pois.get(0).toString();
             String address = pois.get(0).getSnippet();
-            prefrenceUtil.clearPreference(mActivity);
-            //todo 选择上了小区
-            prefrenceUtil.setXiaoQuName(community_name);
-            prefrenceUtil.setAddressName(address);
-            //todo 这里暂时使用智慧小区的小区id 到时候肯定没有小区id
-            prefrenceUtil.setXiaoQuId("66");
-            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
-            showDialog(smallDialog);
-            smallDialog.setTipTextView("加载中...");
-            requestData();
+        //    prefrenceUtil.clearPreference(mActivity);
+            // 选择上了小区
+            //TODO 这里要进行匹配
+//            prefrenceUtil.setXiaoQuName(community_name);
+//            prefrenceUtil.setAddressName(address);
+//            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+//            showDialog(smallDialog);
+//            smallDialog.setTipTextView("加载中...");
+//            requestData();
+            ModelCoummnityList modelCoummnityList = new ModelCoummnityList();
+            modelCoummnityList.setName(community_name);
+            modelCoummnityList.setAddress(address);
+            requestCommunityId(modelCoummnityList);
         }
     }
 
@@ -1080,7 +1092,100 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     }
 
+    /**
+     * 根据小区名字请求小区id
+     * @param item
+     */
+    private void requestCommunityId(final ModelCoummnityList item) {
+        showDialog(smallDialog);
+        smallDialog.setTipTextView("加载中...");
+        HashMap<String, String> params = new HashMap<>();
+        if (!NullUtil.isStringEmpty(item.getName())){
+            params.put("community_name",item.getName()+"");
+        }
+        MyOkHttp.get().post(ApiHttpClient.GET_COMMUNITY_ID, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+              //  hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    try {
+                        if (response.has("data")){
+                            //匹配成功
+                            JSONObject data = response.getJSONObject("data");
+                            prefrenceUtil.clearPreference(mContext);
+                            if (!NullUtil.isStringEmpty(data.getString("id"))){
+                                prefrenceUtil.setXiaoQuId(data.getString("id"));
+                                prefrenceUtil.setCompanyId(data.getString("company_id"));
+                            }
+                            prefrenceUtil.setXiaoQuName(item.getName());
+                            prefrenceUtil.setAddressName(item.getAddress());
+                            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+                            showDialog(smallDialog);
+                            smallDialog.setTipTextView("加载中...");
+                            requestData();
+                            getsubmitCommunityId(data.getString("id"));
+                        }else {
+                            //匹配失败
+                            prefrenceUtil.clearPreference(mContext);
+                            prefrenceUtil.setXiaoQuId("");
+                            prefrenceUtil.setXiaoQuName(item.getName());
+                            prefrenceUtil.setAddressName(item.getAddress());
+                            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+                            showDialog(smallDialog);
+                            smallDialog.setTipTextView("加载中...");
+                            requestData();
 
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        //匹配失败
+                        //  data==null
+                        prefrenceUtil.clearPreference(mContext);
+                        prefrenceUtil.setXiaoQuId("");
+                        prefrenceUtil.setXiaoQuName(item.getName());
+                        prefrenceUtil.setAddressName(item.getAddress());
+                        tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+                        showDialog(smallDialog);
+                        smallDialog.setTipTextView("加载中...");
+                        requestData();
+                    }
+
+                } else {
+                    try {
+                        SmartToast.showInfo(response.getString("msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
+    }
+
+    //提交小区id
+    private void getsubmitCommunityId(String community_id) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("community_id", community_id+"");
+
+        MyOkHttp.get().post(ApiHttpClient.SELECT_COMMUNITY, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
 //    /**
 //     * 初始化头布局
 //     */

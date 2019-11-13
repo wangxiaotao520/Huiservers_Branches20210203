@@ -131,7 +131,9 @@ public class Jump {
 
             } else if (type.equals("3")) {//跳转到活动列表
                 String urlnew = url;
-                url = url + "/m_id/" + sharePrefrenceUtil.getXiaoQuId();
+                if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+                    url = url + "/m_id/" + sharePrefrenceUtil.getXiaoQuId();
+                }
                 Intent intent = new Intent();
                 intent.setClass(mContext, EducationListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

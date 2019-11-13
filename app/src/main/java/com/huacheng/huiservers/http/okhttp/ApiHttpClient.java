@@ -342,6 +342,11 @@ public class ApiHttpClient {
     //活动首页分享
     public static String FAMILY_INDEX_SHARE = API_URL_SHARE + "home/index/beautiful_family";
 
+    //我的小区
+    public static String GET_MY_DISTRICT = API_URL + API_VERSION  + "site/myDistrict";
+    //根据小区名称获取小区id
+    public static String GET_COMMUNITY_ID = API_URL + API_VERSION  + "site/siteCommunityId";
+
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -476,5 +481,7 @@ public class ApiHttpClient {
         FAMILY_POLL = API_URL + API_VERSION + "family/family_poll";
         FAMILY_INDEX_SHARE = API_URL + "home/index/beautiful_family";
         SHOP_IMERCHANT_DETAILS = API_URL + API_VERSION + "/shop/merchant_details";
+        GET_MY_DISTRICT = API_URL + API_VERSION + "site/myDistrict";
+        GET_COMMUNITY_ID = API_URL + API_VERSION  + "site/siteCommunityId";
     }
 }
