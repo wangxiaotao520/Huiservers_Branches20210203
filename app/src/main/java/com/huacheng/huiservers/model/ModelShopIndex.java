@@ -41,13 +41,58 @@ public class ModelShopIndex {
     private String shop_cate_stime;
     private String shop_cate_etime;
     private String order_num;
+    private String address;
+    private String merchant_name;
+    private String logo;
+    private String background;
     private List<ModelShopIndex> goods_tag;
+    private List<ModelShopIndex> goods;
     private List<ModelShopIndex> list;
     private String c_img;
     private String c_name;
     private String total_Pages;
     private long  current_times;//倒计时时用来的时间
     private String  topclass;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMerchant_name() {
+        return merchant_name;
+    }
+
+    public void setMerchant_name(String merchant_name) {
+        this.merchant_name = merchant_name;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
+
+    public List<ModelShopIndex> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(List<ModelShopIndex> goods) {
+        this.goods = goods;
+    }
 
     public String getIs_time() {
         return is_time;

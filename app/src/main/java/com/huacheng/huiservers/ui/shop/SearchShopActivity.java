@@ -73,8 +73,8 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
             layout_notice.setVisibility(View.GONE);
         } else {
             layout_notice.setVisibility(View.VISIBLE);
+            getTab();
         }
-        getTab();
         initHistoryView();
         search_back = (ImageView) findViewById(R.id.search_back);
         txt_search = (TextView) findViewById(R.id.txt_search);

@@ -976,7 +976,8 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                 break;
             case R.id.ly_store://店铺
                 intent = new Intent(ShopDetailActivity.this, StoreIndexActivity.class);
-                intent.putExtra("store_info", detailBean.getMerchant());
+                //intent.putExtra("store_id", detailBean.getMerchant());
+                intent.putExtra("store_id", detailBean.getMerchant().getId());
                 startActivity(intent);
                 break;
             default:

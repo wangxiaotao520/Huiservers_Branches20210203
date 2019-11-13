@@ -9,6 +9,7 @@ import com.huacheng.huiservers.ui.index.vote.VoteDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.microquation.linkedme.android.LinkedME;
 import com.microquation.linkedme.android.indexing.LMUniversalObject;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 
 /**
  * <p>中转页面</p>
- *
+ * <p>
  * Created by LinkedME06 on 16/11/17.
  */
 
@@ -28,7 +29,7 @@ public class MiddleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(LinkedME.TAG, "onCreate: MiddleActivity is called.");
-      //  Toast.makeText(this, "MiddleActivity 被调用了", Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(this, "MiddleActivity 被调用了", Toast.LENGTH_SHORT).show();
         //获取与深度链接相关的值
         LinkProperties linkProperties = getIntent().getParcelableExtra(LinkedME.LM_LINKPROPERTIES);
         LMUniversalObject lmUniversalObject = getIntent().getParcelableExtra(LinkedME.LM_UNIVERSALOBJECT);
@@ -45,37 +46,42 @@ public class MiddleActivity extends AppCompatActivity {
             String title = "";
             String shareContent = "";
             String url_path = "";
-            if (type!=null){
-                if (type.equals("goods_details")){//商品详情
+            if (type != null) {
+                if (type.equals("goods_details")) {//商品详情
                     String shop_id = hashMap.get("id");
                     Intent intent = new Intent(this, ShopDetailActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("shop_id", shop_id);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }else  if (type.equals("service_shop")){
+                } else if (type.equals("service_shop")) {
                     String store_id = hashMap.get("id");
                     Intent intent = new Intent(this, ServiceStoreActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("store_id", store_id);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }else  if (type.equals("service_detail")){
+                } else if (type.equals("service_detail")) {
                     String service_id = hashMap.get("id");
                     Intent intent = new Intent(this, ServiceDetailActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("service_id", service_id);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }else if (type.equals("vote_details")){
-                    if (LoginUtils.hasLoginUser()){
+                } else if (type.equals("vote_details")) {
+                    if (LoginUtils.hasLoginUser()) {
                         String id = hashMap.get("id");
                         String poll = hashMap.get("poll");
                         Intent intent = new Intent(this, VoteDetailActivity.class);
-                        intent.putExtra("id", id+"");
-                        intent.putExtra("poll", poll+"");
+                        intent.putExtra("id", id + "");
+                        intent.putExtra("poll", poll + "");
                         startActivity(intent);
                     }
+                } else if (type.equals("store_details")) {
+                    String id = hashMap.get("id");
+                    Intent intent = new Intent(this, StoreIndexActivity.class);
+                    intent.putExtra("store_id", id + "");
+                    startActivity(intent);
                 }
             }
             //清除跳转数据，该方法理论上不需要调用，因Android集成方式各种这样，若出现重复跳转的情况，可在跳转成功后调用该方法清除参数
@@ -89,5 +95,5 @@ public class MiddleActivity extends AppCompatActivity {
         }
         finish();
     }
-    
+
 }

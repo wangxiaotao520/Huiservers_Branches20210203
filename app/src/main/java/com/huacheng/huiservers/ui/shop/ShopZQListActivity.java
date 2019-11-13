@@ -15,25 +15,21 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelHome;
 import com.huacheng.huiservers.model.ModelShopIndex;
-import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopCommonAdapter;
+import com.huacheng.huiservers.ui.fragment.adapter.HomeListViewAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
-import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
-import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
-import com.microquation.linkedme.android.log.LMErrorCode;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -45,11 +41,11 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * 类描述：店铺首页
- * 时间：2019/11/8 10:59
+ * 类描述：商品专区列表（首页）
+ * 时间：2019/11/13 15:30
  * created by DFF
  */
-public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapter.OnClickCallback, View.OnClickListener {
+public class ShopZQListActivity extends BaseActivity implements View.OnClickListener, HomeListViewAdapter.OnAddCartClickListener {
     View mStatusBar;
     private View headerView;
     protected PagingListView listView;
@@ -59,18 +55,14 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
     private TextView tv_store_name;
     private TextView tv_store_address;
     private List<ModelShopIndex> mDatas = new ArrayList<>();//数据
-    private ShopCommonAdapter<ModelShopIndex> adapter;
+    private HomeListViewAdapter adapter;
     private int page = 1;
-    private String store_id = "";
+    private ShopDetailBean store_info;//店铺
     private LinearLayout ly_serch;
+    private LinearLayout ly_zq;
     private LinearLayout ly_scroll;
     private LinearLayout lin_left;
-    private LinearLayout lin_share;
-    private String share_url;
-    private String share_title;
-    private String share_desc;
-    private String share_icon;
-    private ModelShopIndex modelShopIndex;
+    private LinearLayout ly_share;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,31 +79,38 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         ly_serch = findViewById(R.id.ly_serch);
         ly_scroll = findViewById(R.id.ly_scroll);
         lin_left = findViewById(R.id.lin_left);
-        lin_share = findViewById(R.id.lin_share);
+        ly_share = findViewById(R.id.ly_share);
 
         mRefreshLayout.setEnableRefresh(true);
         mRefreshLayout.setEnableLoadMore(false);
-        headerView = LayoutInflater.from(this).inflate(R.layout.header_store_index, null);
+        headerView = LayoutInflater.from(this).inflate(R.layout.header_zq_index, null);
         initHeaderView();
         listView.addHeaderView(headerView);
-        adapter = new ShopCommonAdapter<>(this, mDatas, this);
+        adapter = new HomeListViewAdapter(this, R.layout.shop_list_item_home, mDatas, this);
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
 
-        ly_scroll.setAlpha(0.6f);
+        ly_scroll.setAlpha(0);
         //状态栏
         mStatusBar = findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
-        mStatusBar.setAlpha((float) 0.6f);
+        mStatusBar.setAlpha((float) 0);
     }
 
     private void initHeaderView() {
-        iv_store_head = headerView.findViewById(R.id.iv_store_head);
+       /* iv_store_head = headerView.findViewById(R.id.iv_store_head);
         tv_store_name = headerView.findViewById(R.id.tv_store_name);
         tv_store_address = headerView.findViewById(R.id.tv_store_address);
-
+        tv_store_address.setText(store_info.getAddress());
+        tv_store_name.setText(store_info.getMerchant_name());
+        FrescoUtils.getInstance().setImageUri(iv_store_head, ApiHttpClient.IMG_URL + store_info.getLogo());*/
+        ly_zq = headerView.findViewById(R.id.ly_zq);
     }
 
+    /**
+     * intent.setClass(mActivity, SearchShopActivity.class);
+     * startActivity(intent);
+     */
     @Override
     protected void initData() {
         showDialog(smallDialog);
@@ -146,18 +145,19 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         });
         ly_serch.setOnClickListener(this);
         lin_left.setOnClickListener(this);
-        lin_share.setOnClickListener(this);
+        ly_share.setOnClickListener(this);
+        ly_zq.setOnClickListener(this);
     }
+
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_store_index;
+        return R.layout.activity_zq_index;
     }
 
     @Override
     protected void initIntentData() {
-        //store_info = (ShopDetailBean) this.getIntent().getSerializableExtra("store_info");
-        store_id = this.getIntent().getStringExtra("store_id");
+
     }
 
     @Override
@@ -178,13 +178,14 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
             int scollYHeight = -headerView.getTop();
             if (scollYHeight >= DeviceUtils.dip2px(this, 160)) {
                 alpha = 1;//滑上去就一直显示
+                ly_scroll.setBackgroundColor(getResources().getColor(R.color.white));
             } else {
-                alpha = scollYHeight / ((DeviceUtils.dip2px(this, 160)) * 1.0f);
+                // ly_scroll.setBackgroundColor(getResources().getColor(R.color.transparent));
+                alpha = scollYHeight / (DeviceUtils.dip2px(this, 160) * 1.0f);
             }
             if (alpha < 0.6f) {
                 alpha = 0.6f;
             }
-            ly_scroll.setBackgroundColor(getResources().getColor(R.color.white));
             mStatusBar.setAlpha(alpha);
             ly_scroll.setAlpha(alpha);
         }
@@ -196,10 +197,14 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
     private void requestData() {
         // 根据接口请求数据
         HashMap<String, String> params = new HashMap<>();
-        params.put("id", store_id + "");
-        params.put("p", page + "");
+        // TODO: 2019/11/13 测试用的数据记的修改哦
+        params.put("c_id", "1");
 
-        MyOkHttp.get().get(ApiHttpClient.SHOP_IMERCHANT_DETAILS, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(ApiHttpClient.INDEX, params, new JsonResponseHandler() {
+            /*  params.put("id", store_info.getId() + "");
+              params.put("p", page + "");
+
+              MyOkHttp.get().get(ApiHttpClient.SHOP_IMERCHANT_DETAILS, params, new JsonResponseHandler() {*/
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
@@ -207,18 +212,10 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                 mRefreshLayout.finishLoadMore();
                 listView.setIsLoading(false);
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    ModelShopIndex shopIndex = (ModelShopIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelShopIndex.class);
-                    // List<ModelShopIndex> shopIndexList = (List<ModelShopIndex>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelShopIndex.class);
-                    if (shopIndex != null) {
-                        modelShopIndex=shopIndex;
-                        if (page == 1) {
-                            tv_store_address.setText(shopIndex.getAddress());
-                            tv_store_name.setText(shopIndex.getMerchant_name());
-                            FrescoUtils.getInstance().setImageUri(iv_store_head, ApiHttpClient.IMG_URL + shopIndex.getLogo());
-                        }
-                        inflateContent(shopIndex.getGoods());
 
-                    }
+                    //List<ModelShopIndex> shopIndexList = (List<ModelShopIndex>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelShopIndex.class);
+                    ModelHome modelHome = (ModelHome) JsonUtil.getInstance().parseJsonFromResponse(response, ModelHome.class);
+                    inflateContent(modelHome);
 
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
@@ -246,8 +243,15 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
      *
      * @param
      */
-    private void inflateContent(List<ModelShopIndex> shopIndexList) {
-        if (shopIndexList != null && shopIndexList.size() > 0) {
+    private void inflateContent(ModelHome modelHome) {
+        if (modelHome.getPro_list() != null && modelHome.getPro_list().size() > 0) {
+            mDatas.clear();
+            mDatas.addAll(modelHome.getPro_list());
+            adapter.notifyDataSetChanged();
+            listView.setHasMoreItems(false);
+
+        }
+      /*  if (shopIndexList != null && shopIndexList.size() > 0) {
             mRelNoData.setVisibility(View.GONE);
             List<ModelShopIndex> list_new = shopIndexList;
             if (page == 1) {
@@ -278,48 +282,28 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
             listView.setHasMoreItems(false);
             adapter.notifyDataSetChanged();
         }
-
+*/
     }
 
     /**
      * 购物车点击
      *
-     * @param position
+     * @param item
      */
     @Override
-    public void onClickShopCart(int position) {
-        //点击购物车
-        if (ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
-            Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
-            mContext.startActivity(intent);
-
-        } else {
-
-            if (mDatas.get(position).getExist_hours().equals("2")) {
-                SmartToast.showInfo("当前时间不在派送时间范围内");
-            } else {
-                if (mDatas.get(position) != null) {
-                    new CommonMethod(mDatas.get(position), null, mContext).getShopLimitTag();
+    public void onAddCartClick(ModelShopIndex item) {
+        if (item != null) {
+            if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
+                if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {
+                    SmartToast.showInfo("商品已售罄");
+                } else {
+                    new CommonMethod(item, mContext).getShopLimitTag();
                 }
+            } else {
+                Intent intent = new Intent(this, LoginVerifyCodeActivity.class);
+                startActivity(intent);
             }
-
         }
-
-    }
-
-    /**
-     * 点击商品
-     *
-     * @param position
-     */
-    @Override
-    public void onClickImage(int position) {
-        //点击图片
-        Intent intent = new Intent(mContext, ShopDetailActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("shop_id", mDatas.get(position).getId());
-        intent.putExtras(bundle);
-        mContext.startActivity(intent);
     }
 
     @Override
@@ -328,55 +312,21 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         switch (v.getId()) {
             case R.id.ly_serch://搜索
                 intent.setClass(this, SearchShopActivity.class);
-                intent.putExtra("store_id", store_id);
+                // intent.putExtra("store_id", store_info.getId());
+                startActivity(intent);
+                break;
+            case R.id.ly_zq://专区活动
+                intent.setClass(this, ShopZqHuodongActivity.class);
                 startActivity(intent);
                 break;
             case R.id.lin_left://返回
                 finish();
                 break;
-            case R.id.lin_share://分享
-                if (NullUtil.isStringEmpty(modelShopIndex.getId())) {
-                    return;
-                }
-                share_title = modelShopIndex.getMerchant_name() + "";
-                share_desc = modelShopIndex.getAddress() + "";
-                share_icon = MyCookieStore.URL + modelShopIndex.getLogo();
-                share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "shop/shops/id/" + modelShopIndex.getId();
-                HashMap<String, String> params = new HashMap<>();
-                params.put("type", "store_details");
-                params.put("id", modelShopIndex.getId());
-                showDialog(smallDialog);
-                LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, share_title, params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
-                    @Override
-                    public void onGetUrl(String url, LMErrorCode error) {
-                        hideDialog(smallDialog);
-                        if (error == null) {
-                            String share_url_new = share_url + "?linkedme=" + url;
-                            showSharePop(share_title, share_desc, share_icon, share_url_new);
-                        } else {
-                            //可以看报错
-                            String share_url_new = share_url + "?linkedme=" + "";
-                            showSharePop(share_title, share_desc, share_icon, share_url_new);
-                        }
-                    }
-                });
-               /* intent.setClass(this, ShopZQListActivity.class);
-                startActivity(intent);*/
+            case R.id.ly_share://分享
+
                 break;
         }
-    }
 
-    /**
-     * 显示分享弹窗
-     *
-     * @param share_title
-     * @param share_desc
-     * @param share_icon
-     * @param share_url_new
-     */
-    private void showSharePop(String share_title, String share_desc, String share_icon, String share_url_new) {
-        PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, share_icon, share_url_new, AppConstant.SHARE_COMMON);
-        popup.showBottom(lin_share);
     }
 
 }

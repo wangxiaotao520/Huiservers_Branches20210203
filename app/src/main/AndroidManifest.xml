@@ -1160,5 +1160,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             />
+        <activity
+            android:name=".ui.shop.ShopZQListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.shop.ShopZqHuodongActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>
