@@ -76,7 +76,6 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         mRelNoData = findViewById(R.id.rel_no_data);
 
         ly_serch = findViewById(R.id.ly_serch);
-        lin_car = findViewById(R.id.lin_car);
         ly_scroll = findViewById(R.id.ly_scroll);
         lin_left = findViewById(R.id.lin_left);
         lin_share = findViewById(R.id.lin_share);
@@ -142,7 +141,6 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                 scroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
             }
         });
-        lin_car.setOnClickListener(this);
         ly_serch.setOnClickListener(this);
         lin_left.setOnClickListener(this);
         lin_share.setOnClickListener(this);
