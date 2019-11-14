@@ -143,8 +143,14 @@ public class ShopListActivity extends BaseActivityOld {
         showDialog(smallDialog);
         Url_info urlInfo = new Url_info(this);
         RequestParams p = new RequestParams();
-        p.addBodyParameter("c_id", sharedPreferenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(sharedPreferenceUtil.getProvince_cn())){
+            p.addBodyParameter("province_cn", sharedPreferenceUtil.getProvince_cn());
+            p.addBodyParameter("city_cn", sharedPreferenceUtil.getCity_cn());
+            p.addBodyParameter("region_cn", sharedPreferenceUtil.getRegion_cn());
+        }
         p.addBodyParameter("cate_id", cateID);
+
+
         new HttpHelper(urlInfo.pro_list_cate, p, this) {
 
             @Override

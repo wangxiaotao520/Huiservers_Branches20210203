@@ -19,6 +19,7 @@ import com.huacheng.huiservers.ui.shop.adapter.ShopCateOneAdapter;
 import com.huacheng.huiservers.ui.shop.adapter.ShopCateTwoAdapter;
 import com.huacheng.huiservers.ui.shop.bean.CateBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,13 @@ public class ShopCateActivity extends BaseActivityOld implements OnClickListener
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
-        params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+     //   params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            params.addBodyParameter("province_cn", prefrenceUtil.getProvince_cn());
+            params.addBodyParameter("city_cn", prefrenceUtil.getCity_cn());
+            params.addBodyParameter("region_cn", prefrenceUtil.getRegion_cn());
+        }
+
         //pro_list_cate
         HttpHelper hh = new HttpHelper(info.area_topclass, params, ShopCateActivity.this) {
 
@@ -122,7 +129,13 @@ public class ShopCateActivity extends BaseActivityOld implements OnClickListener
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
         params.addBodyParameter("id", id);
-        params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+      //  params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            params.addBodyParameter("province_cn", prefrenceUtil.getProvince_cn());
+            params.addBodyParameter("city_cn", prefrenceUtil.getCity_cn());
+            params.addBodyParameter("region_cn", prefrenceUtil.getRegion_cn());
+        }
+
         HttpHelper hh = new HttpHelper(info.area_category, params, ShopCateActivity.this) {
 
             @Override

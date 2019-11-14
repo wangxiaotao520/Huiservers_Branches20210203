@@ -523,6 +523,10 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                             }
                             prefrenceUtil.setXiaoQuName(item.getName());
                             prefrenceUtil.setAddressName(item.getAddress());
+                            //保存省市区
+                            prefrenceUtil.setProvince_cn(location_provice);
+                            prefrenceUtil.setCity_cn(location_city);
+                            prefrenceUtil.setRegion_cn(location_district);
                             EventBus.getDefault().post(new ModelEventHome(2));
                             mListview.postDelayed(new Runnable() {
                                 @Override
@@ -532,6 +536,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                                     finish();
                                 }
                             },200);
+                            //匹配成功提交一下
                             getsubmitCommunityId(data.getString("id"));
                         }else {
                             //匹配失败
@@ -539,6 +544,10 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                             prefrenceUtil.setXiaoQuId("");
                             prefrenceUtil.setXiaoQuName(item.getName());
                             prefrenceUtil.setAddressName(item.getAddress());
+                            //保存省市区
+                            prefrenceUtil.setProvince_cn(location_provice);
+                            prefrenceUtil.setCity_cn(location_city);
+                            prefrenceUtil.setRegion_cn(location_district);
                             EventBus.getDefault().post(new ModelEventHome(2));
                             mListview.postDelayed(new Runnable() {
                                 @Override
@@ -557,6 +566,10 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                         prefrenceUtil.setXiaoQuId("");
                         prefrenceUtil.setXiaoQuName(item.getName());
                         prefrenceUtil.setAddressName(item.getAddress());
+                        //保存省市区
+                        prefrenceUtil.setProvince_cn(location_provice);
+                        prefrenceUtil.setCity_cn(location_city);
+                        prefrenceUtil.setRegion_cn(location_district);
                         EventBus.getDefault().post(new ModelEventHome(2));
                         mListview.postDelayed(new Runnable() {
                             @Override

@@ -302,6 +302,10 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
                             }
                             prefrenceUtil.setXiaoQuName(item.getName());
                             prefrenceUtil.setAddressName(item.getAddress());
+                            //保存省市区
+                            prefrenceUtil.setProvince_cn(location_provice);
+                            prefrenceUtil.setCity_cn(location_city);
+                            prefrenceUtil.setRegion_cn(location_district);
                             EventBus.getDefault().post(new ModelEventHome(2));
                             setResult(RESULT_OK);
                             mListview.postDelayed(new Runnable() {
@@ -319,6 +323,10 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
                             prefrenceUtil.setXiaoQuId("");
                             prefrenceUtil.setXiaoQuName(item.getName());
                             prefrenceUtil.setAddressName(item.getAddress());
+                            //保存省市区
+                            prefrenceUtil.setProvince_cn(location_provice);
+                            prefrenceUtil.setCity_cn(location_city);
+                            prefrenceUtil.setRegion_cn(location_district);
                             EventBus.getDefault().post(new ModelEventHome(2));
                             setResult(RESULT_OK);
                             mListview.postDelayed(new Runnable() {
@@ -338,6 +346,10 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
                         prefrenceUtil.setXiaoQuId("");
                         prefrenceUtil.setXiaoQuName(item.getName());
                         prefrenceUtil.setAddressName(item.getAddress());
+                        //保存省市区
+                        prefrenceUtil.setProvince_cn(location_provice);
+                        prefrenceUtil.setCity_cn(location_city);
+                        prefrenceUtil.setRegion_cn(location_district);
                         EventBus.getDefault().post(new ModelEventHome(2));
                         setResult(RESULT_OK);
                         mListview.postDelayed(new Runnable() {

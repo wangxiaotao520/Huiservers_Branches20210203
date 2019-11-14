@@ -16,7 +16,9 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.HeaderViewPagerFragment;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
+import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -40,6 +42,7 @@ public class FragmentShopCommon extends HeaderViewPagerFragment implements ShopC
     String c_id="";
     String cat_id="";
     private boolean isInit=false;
+    private SharePrefrenceUtil prefrenceUtil;
 
     @Override
     public void initView(View view) {
@@ -48,6 +51,7 @@ public class FragmentShopCommon extends HeaderViewPagerFragment implements ShopC
         listView.setAdapter(adapter);
         setEnableLoadMore(false);
         rel_no_data = view.findViewById(R.id.rel_no_data);
+        prefrenceUtil=new SharePrefrenceUtil(mActivity);
     }
 
     @Override
@@ -126,8 +130,13 @@ public class FragmentShopCommon extends HeaderViewPagerFragment implements ShopC
         // 根据接口请求数据
         //dsm->待上门  wfk->未付款 dpj->待评价 ypj->已评价 qxdd->取消订单
         HashMap<String, String> params = new HashMap<>();
-        params.put("c_id",c_id+"");
+      //  params.put("c_id",c_id+"");
         params.put("id",cat_id+"");
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            params.put("province_cn", prefrenceUtil.getProvince_cn());
+            params.put("city_cn", prefrenceUtil.getCity_cn());
+            params.put("region_cn", prefrenceUtil.getRegion_cn());
+        }
         params.put("p", page + "");
 
         MyOkHttp.get().get(ApiHttpClient.SHOP_INDEX_MORE, params, new JsonResponseHandler() {

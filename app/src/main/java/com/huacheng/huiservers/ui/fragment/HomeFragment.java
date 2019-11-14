@@ -171,6 +171,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private AMapLocationClientOption mLocationOption;
     private boolean isInitLocaion = false;
 
+    private String location_provice="", location_district="", location_city="";//用户第一次使用时定位
+
     @Override
     public void initView(View view) {
         rxPermissions=new RxPermissions(mActivity);
@@ -1016,6 +1018,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                         isInitLocaion = true;
                         //默认选中
                         mlocationClient.stopLocation();
+                        location_provice = location.getProvince() + "";
+                        location_city = location.getCity() + "";
+                        location_district = location.getDistrict() + "";
+
                         getPOIsearch(location.getLongitude(),location.getLatitude());
 
                     }
@@ -1119,6 +1125,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                             }
                             prefrenceUtil.setXiaoQuName(item.getName());
                             prefrenceUtil.setAddressName(item.getAddress());
+                            //保存省市区
+                            prefrenceUtil.setProvince_cn(location_provice);
+                            prefrenceUtil.setCity_cn(location_city);
+                            prefrenceUtil.setRegion_cn(location_district);
                             tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
                             showDialog(smallDialog);
                             smallDialog.setTipTextView("加载中...");
@@ -1130,6 +1140,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                             prefrenceUtil.setXiaoQuId("");
                             prefrenceUtil.setXiaoQuName(item.getName());
                             prefrenceUtil.setAddressName(item.getAddress());
+                            //保存省市区
+                            prefrenceUtil.setProvince_cn(location_provice);
+                            prefrenceUtil.setCity_cn(location_city);
+                            prefrenceUtil.setRegion_cn(location_district);
                             tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
                             showDialog(smallDialog);
                             smallDialog.setTipTextView("加载中...");
@@ -1144,6 +1158,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                         prefrenceUtil.setXiaoQuId("");
                         prefrenceUtil.setXiaoQuName(item.getName());
                         prefrenceUtil.setAddressName(item.getAddress());
+                        //保存省市区
+                        prefrenceUtil.setProvince_cn(location_provice);
+                        prefrenceUtil.setCity_cn(location_city);
+                        prefrenceUtil.setRegion_cn(location_district);
                         tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
                         showDialog(smallDialog);
                         smallDialog.setTipTextView("加载中...");

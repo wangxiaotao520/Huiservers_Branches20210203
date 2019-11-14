@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.fragment;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
@@ -21,6 +22,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
@@ -62,6 +67,7 @@ import com.lzy.widget.HeaderViewPager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -72,12 +78,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import io.reactivex.functions.Consumer;
+
 /**
  * Description: 商城首页(新)
  * created by wangxiaotao
  * 2018/12/21 0021 上午 11:15
  */
-public class ShopFragment extends BaseFragment implements View.OnClickListener {
+public class ShopFragment extends BaseFragment implements View.OnClickListener, AMapLocationListener {
     String[] mTitle = new String[0];
     public SmartRefreshLayout refreshLayout;
     private HeaderViewPager scrollableLayout;
@@ -114,8 +122,14 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     private LinearLayout ll_limit_container;
     private SparseArray<CountDownTimer> countDownCounters =new SparseArray<>();
 
+    private RxPermissions rxPermissions;
+    private AMapLocationClient mlocationClient;
+    private AMapLocationClientOption mLocationOption;
+    private boolean isInitLocaion = false;
+
     @Override
     public void initView(View view) {
+        rxPermissions= new RxPermissions(mActivity);
         ly_top = view.findViewById(R.id.ly_top);
         view_alpha = view.findViewById(R.id.view_alpha);
         initTopView(view);
@@ -559,7 +573,14 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     //请求数据
     private void requestData() {
         HashMap<String, String> mParams = new HashMap<>();
-        mParams.put("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            mParams.put("c_id", prefrenceUtil.getXiaoQuId());
+        }
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            mParams.put("province_cn", prefrenceUtil.getProvince_cn());
+            mParams.put("city_cn", prefrenceUtil.getCity_cn());
+            mParams.put("region_cn", prefrenceUtil.getRegion_cn());
+        }
         MyOkHttp.get().post(ApiHttpClient.SHOP_INDEX, mParams, new JsonResponseHandler() {
 
             @Override
@@ -641,12 +662,53 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
         });
 
     }
+    private void initLocation() {
+        if (mlocationClient == null) {
+            mlocationClient = new AMapLocationClient(mActivity);
+            mLocationOption = new AMapLocationClientOption();
+            //设置定位监听
+            mlocationClient.setLocationListener(this);
+            //设置为高精度定位模式
+            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+            //设置需要地理位置信息
+            mLocationOption.isNeedAddress();
+            //     mLocationOption.setOnceLocation(true);
+            //设置定位参数
+            mlocationClient.setLocationOption(mLocationOption);
+            mLocationOption.setOnceLocation(true);
 
+        }
+
+    }
     @Override
     public void initData(Bundle savedInstanceState) {
-        //请求数据
-        showDialog(smallDialog);
-        requestData();
+
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            //1.有省市区数据的情况（新用户下载安装第一次进来，选择切换过小区，）
+            showDialog(smallDialog);
+            requestData();
+        }else {
+            //2.没有省市区的情况（旧用户覆盖安装，选择了智慧小区）
+            initLocation();
+            rxPermissions.request( Manifest.permission.ACCESS_COARSE_LOCATION)
+                    .subscribe(new Consumer<Boolean>() {
+                        @Override
+                        public void accept(Boolean isGranted) throws Exception {
+                            if (isGranted) {
+                                //权限同意 ,开始定位
+                                showDialog(smallDialog);
+                                smallDialog.setTipTextView("定位中...");
+                                mlocationClient.startLocation();
+                            } else {
+                                //权限拒绝
+                                showDialog(smallDialog);
+                                requestData();
+
+                            }
+                        }
+                    });
+        }
+
     }
 
     @Override
@@ -772,5 +834,88 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener {
     public void onDestroy() {
         super.onDestroy();
         cancelAllTimers();
+        if (mlocationClient != null) {
+            mlocationClient.stopLocation();
+            mlocationClient.onDestroy();
+        }
+        mlocationClient = null;
+        mLocationOption = null;
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation location) {
+        if (null != location) {
+            StringBuffer sb = new StringBuffer();
+            //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
+            if (location.getErrorCode() == 0) {
+                sb.append("定位成功" + "\n");
+                sb.append("定位类型: " + location.getLocationType() + "\n");
+                sb.append("经    度    : " + location.getLongitude() + "\n");
+                sb.append("纬    度    : " + location.getLatitude() + "\n");
+                sb.append("精    度    : " + location.getAccuracy() + "米" + "\n");
+                sb.append("提供者    : " + location.getProvider() + "\n");
+
+                sb.append("速    度    : " + location.getSpeed() + "米/秒" + "\n");
+                sb.append("角    度    : " + location.getBearing() + "\n");
+                // 获取当前提供定位服务的卫星个数
+                sb.append("星    数    : " + location.getSatellites() + "\n");
+                sb.append("国    家    : " + location.getCountry() + "\n");
+                sb.append("省            : " + location.getProvince() + "\n");
+                sb.append("市            : " + location.getCity() + "\n");
+                sb.append("城市编码 : " + location.getCityCode() + "\n");
+                sb.append("区            : " + location.getDistrict() + "\n");
+                sb.append("区域 码   : " + location.getAdCode() + "\n");
+                sb.append("地    址    : " + location.getAddress() + "\n");
+                sb.append("兴趣点    : " + location.getPoiName() + "\n");
+
+                /*sharePrefrenceUtil.setLongitude(location.getLongitude() + "");
+                sharePrefrenceUtil.setAtitude(location.getLatitude() + "");*/
+
+                //定位完成的时间
+                //  sb.append("定位时间: " + Utils.formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss") + "\n");
+                if (!isInitLocaion) {
+                    if (NullUtil.isStringEmpty(location.getDistrict())){
+//                        hideDialog(smallDialog);
+//                        // tvResult.setText("定位失败，loc is null");
+//                        text_city.setText("定位失败...点击重新定位");
+//                        text_city.setOnClickListener(new OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                startLocation();
+//                            }
+//                        });
+                    }else {
+                        isInitLocaion = true;
+                        //默认选中
+                        mlocationClient.stopLocation();
+                        String  location_provice = location.getProvince() + "";
+                        String  location_city = location.getCity() + "";
+                        String  location_district = location.getDistrict() + "";
+                        prefrenceUtil.setProvince_cn(location_provice);
+                        prefrenceUtil.setCity_cn(location_city);
+                        prefrenceUtil.setRegion_cn(location_district);
+                        showDialog(smallDialog);
+                        smallDialog.setTipTextView("加载中...");
+                        requestData();
+                    }
+                }
+            } else {
+                //定位失败
+                sb.append("定位失败" + "\n");
+                sb.append("错误码:" + location.getErrorCode() + "\n");
+                sb.append("错误信息:" + location.getErrorInfo() + "\n");
+                sb.append("错误描述:" + location.getLocationDetail() + "\n");
+                hideDialog(smallDialog);
+                // tvResult.setText("定位失败，loc is null");
+                showDialog(smallDialog);
+
+            }
+
+        } else {
+            hideDialog(smallDialog);
+            // tvResult.setText("定位失败，loc is null");
+            showDialog(smallDialog);
+            requestData();
+        }
     }
 }

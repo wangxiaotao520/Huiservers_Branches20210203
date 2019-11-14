@@ -51,6 +51,33 @@ public class SharePrefrenceUtil {
         editor.putString("xiaoqu_id", xiaoqu_id);
         editor.commit();
     }
+    //省
+    public String getProvince_cn() {
+        return sharedPreferences.getString("province_cn", "");
+    }
+
+    public void setProvince_cn(String name) {
+        editor.putString("province_cn", name);
+        editor.commit();
+    }
+    //市
+    public String getCity_cn() {
+        return sharedPreferences.getString("city_cn", "");
+    }
+
+    public void setCity_cn(String name) {
+        editor.putString("city_cn", name);
+        editor.commit();
+    }
+    //区
+    public String getRegion_cn() {
+        return sharedPreferences.getString("region_cn", "");
+    }
+
+    public void setRegion_cn(String name) {
+        editor.putString("region_cn", name);
+        editor.commit();
+    }
 
     /**
      * 设置企业id
