@@ -98,11 +98,11 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
 
-        ly_scroll.setAlpha(0.6f);
+        ly_scroll.setAlpha(0);
         //状态栏
         mStatusBar = findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
-        mStatusBar.setAlpha((float) 0.6f);
+        mStatusBar.setAlpha((float) 0);
     }
 
     private void initHeaderView() {
@@ -176,13 +176,13 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
             float alpha = 0;
             //向上滑动的距离
             int scollYHeight = -headerView.getTop();
-            if (scollYHeight >= DeviceUtils.dip2px(this, 160)) {
+            if (scollYHeight >= DeviceUtils.dip2px(this, 100)) {
                 alpha = 1;//滑上去就一直显示
             } else {
-                alpha = scollYHeight / ((DeviceUtils.dip2px(this, 160)) * 1.0f);
+                alpha = scollYHeight / ((DeviceUtils.dip2px(this, 100)) * 1.0f);
             }
-            if (alpha < 0.6f) {
-                alpha = 0.6f;
+            if (alpha <= 0) {
+                alpha = 0;
             }
             ly_scroll.setBackgroundColor(getResources().getColor(R.color.white));
             mStatusBar.setAlpha(alpha);
@@ -210,7 +210,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                     ModelShopIndex shopIndex = (ModelShopIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelShopIndex.class);
                     // List<ModelShopIndex> shopIndexList = (List<ModelShopIndex>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelShopIndex.class);
                     if (shopIndex != null) {
-                        modelShopIndex=shopIndex;
+                        modelShopIndex = shopIndex;
                         if (page == 1) {
                             tv_store_address.setText(shopIndex.getAddress());
                             tv_store_name.setText(shopIndex.getMerchant_name());
@@ -327,8 +327,10 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.ly_serch://搜索
-                intent.setClass(this, SearchShopActivity.class);
+               /* intent.setClass(this, SearchShopActivity.class);
                 intent.putExtra("store_id", store_id);
+                startActivity(intent);*/
+                intent.setClass(this, ShopZQListActivity.class);
                 startActivity(intent);
                 break;
             case R.id.lin_left://返回
@@ -360,8 +362,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                         }
                     }
                 });
-               /* intent.setClass(this, ShopZQListActivity.class);
-                startActivity(intent);*/
+
                 break;
         }
     }

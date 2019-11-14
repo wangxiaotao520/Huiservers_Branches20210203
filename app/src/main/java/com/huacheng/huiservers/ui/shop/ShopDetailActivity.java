@@ -14,6 +14,7 @@ import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -53,6 +54,7 @@ import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.ScrollChangedScrollView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
@@ -133,7 +135,13 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
     private SimpleDraweeView iv_store_head;
     private TextView tv_store_name, tv_store_address;
     long mDay, mHour, mMin, mSecond, mTotalHour;
+    private View mStatusBar;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        isStatusBar = true;
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void onResume() {
@@ -161,7 +169,10 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
         super.init();
         setContentView(R.layout.shop_detail);
 //        SetTransStatus.GetStatus(this);// 系统栏默认为黑色
-
+        //状态栏
+        mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
+        mStatusBar.setAlpha((float) 0);
         initializeView();
         installListener();
         //bitmapUtils = new BitmapUtils(this);
@@ -260,6 +271,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
         lin_add_ss.setOnClickListener(this);
         lin_goumai.setOnClickListener(this);
         ly_store.setOnClickListener(this);
+        txt_market.setOnClickListener(this);
 
         initListeners();
         ly_share = findViewById(R.id.ly_share);
@@ -275,6 +287,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
             getCartNum();
         }
     }
+
     private void getDetail() {// 获取商品详情
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
@@ -303,6 +316,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                 } else {
                     txt_paisong.setVisibility(View.GONE);
                 }
+                txt_market.setVisibility(View.VISIBLE);
                 txt_market.setText(detailBean.getSend_shop());
                 if (detailBean.getCart_num().equals("") || detailBean.getCart_num().equals("0")) {
                     txt_shop_num.setVisibility(View.GONE);
@@ -329,7 +343,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                 if (detailBean.getMerchant() != null) {
                     tv_store_address.setText(detailBean.getMerchant().getAddress());
                     tv_store_name.setText(detailBean.getMerchant().getMerchant_name());
-                    FrescoUtils.getInstance().setImageUri(iv_store_head,ApiHttpClient.IMG_URL+detailBean.getMerchant().getLogo());
+                    FrescoUtils.getInstance().setImageUri(iv_store_head, ApiHttpClient.IMG_URL + detailBean.getMerchant().getLogo());
 
                 }
                 if (detailBean.getDiscount().equals("1")) {//限购为1  否则为0
@@ -974,6 +988,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                     }
                 });
                 break;
+            case R.id.txt_market:
             case R.id.ly_store://店铺
                 intent = new Intent(ShopDetailActivity.this, StoreIndexActivity.class);
                 //intent.putExtra("store_id", detailBean.getMerchant());

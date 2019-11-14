@@ -58,7 +58,7 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
     private LinearLayout mSearchHistoryLl;
     ImageView search_back;
     EditText input;
-    private String store_id = "";
+    private String store_id = "";//店铺id 以及专区的id
     private LinearLayout layout_notice;
 
     @Override
@@ -67,7 +67,7 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
         //       SetTransStatus.GetStatus(this);
         setContentView(R.layout.shop_search);
         layout_notice = findViewById(R.id.layout_notice);
-        //店铺id
+
         if (!NullUtil.isStringEmpty(this.getIntent().getStringExtra("store_id"))) {
             store_id = this.getIntent().getStringExtra("store_id");
             layout_notice.setVisibility(View.GONE);

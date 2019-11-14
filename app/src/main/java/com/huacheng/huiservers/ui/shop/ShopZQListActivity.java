@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,8 +24,8 @@ import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeListViewAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
-import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.utils.CommonMethod;
+import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -55,9 +56,10 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private TextView tv_store_name;
     private TextView tv_store_address;
     private List<ModelShopIndex> mDatas = new ArrayList<>();//数据
+    private SharePrefrenceUtil prefrenceUtil;
     private HomeListViewAdapter adapter;
     private int page = 1;
-    private ShopDetailBean store_info;//店铺
+    private ImageView iv_bg;
     private LinearLayout ly_serch;
     private LinearLayout ly_zq;
     private LinearLayout ly_scroll;
@@ -72,6 +74,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initView() {
+        prefrenceUtil = new SharePrefrenceUtil(this);
         listView = findViewById(R.id.listview);
         mRefreshLayout = findViewById(R.id.refreshLayout);
         mRelNoData = findViewById(R.id.rel_no_data);
@@ -98,19 +101,10 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initHeaderView() {
-       /* iv_store_head = headerView.findViewById(R.id.iv_store_head);
-        tv_store_name = headerView.findViewById(R.id.tv_store_name);
-        tv_store_address = headerView.findViewById(R.id.tv_store_address);
-        tv_store_address.setText(store_info.getAddress());
-        tv_store_name.setText(store_info.getMerchant_name());
-        FrescoUtils.getInstance().setImageUri(iv_store_head, ApiHttpClient.IMG_URL + store_info.getLogo());*/
         ly_zq = headerView.findViewById(R.id.ly_zq);
+        iv_bg = headerView.findViewById(R.id.iv_bg);//根据比例来显示
     }
 
-    /**
-     * intent.setClass(mActivity, SearchShopActivity.class);
-     * startActivity(intent);
-     */
     @Override
     protected void initData() {
         showDialog(smallDialog);
@@ -147,6 +141,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         lin_left.setOnClickListener(this);
         ly_share.setOnClickListener(this);
         ly_zq.setOnClickListener(this);
+        iv_bg.setOnClickListener(this);
     }
 
 
@@ -176,16 +171,16 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
             float alpha = 0;
             //向上滑动的距离
             int scollYHeight = -headerView.getTop();
-            if (scollYHeight >= DeviceUtils.dip2px(this, 160)) {
+            if (scollYHeight >= DeviceUtils.dip2px(this, 100)) {
                 alpha = 1;//滑上去就一直显示
-                ly_scroll.setBackgroundColor(getResources().getColor(R.color.white));
+
             } else {
-                // ly_scroll.setBackgroundColor(getResources().getColor(R.color.transparent));
-                alpha = scollYHeight / (DeviceUtils.dip2px(this, 160) * 1.0f);
+                alpha = scollYHeight / (DeviceUtils.dip2px(this, 100) * 1.0f);
             }
-            if (alpha < 0.6f) {
-                alpha = 0.6f;
+            if (alpha < 0) {
+                alpha = 0;
             }
+            ly_scroll.setBackgroundColor(getResources().getColor(R.color.white));
             mStatusBar.setAlpha(alpha);
             ly_scroll.setAlpha(alpha);
         }
@@ -198,8 +193,10 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         // 根据接口请求数据
         HashMap<String, String> params = new HashMap<>();
         // TODO: 2019/11/13 测试用的数据记的修改哦
-        params.put("c_id", "1");
-
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+            params.put("c_id", prefrenceUtil.getXiaoQuId());
+        }
+        // params.put("c_id", "1");
         MyOkHttp.get().post(ApiHttpClient.INDEX, params, new JsonResponseHandler() {
             /*  params.put("id", store_info.getId() + "");
               params.put("p", page + "");
@@ -311,6 +308,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.ly_serch://搜索
+                // TODO: 2019/11/14 传专区的id
                 intent.setClass(this, SearchShopActivity.class);
                 // intent.putExtra("store_id", store_info.getId());
                 startActivity(intent);
@@ -323,6 +321,9 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.ly_share://分享
+
+                break;
+            case R.id.iv_bg://背景点击
 
                 break;
         }
