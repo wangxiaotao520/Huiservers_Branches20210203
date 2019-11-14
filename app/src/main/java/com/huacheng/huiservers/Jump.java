@@ -369,6 +369,10 @@ public class Jump {
                 intent.putExtra("name", name);
                 mContext.startActivity(intent);
 
+            }else if (type.equals("32")){
+                //todo 店铺跳转
+            }else if (type.equals("33")){
+                //todo 专区跳转
             }
         }else {
          if (type.equals("30")){//活动投票

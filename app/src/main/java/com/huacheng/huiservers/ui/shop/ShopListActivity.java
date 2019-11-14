@@ -293,11 +293,11 @@ public class ShopListActivity extends BaseActivityOld {
         Url_info urlInfo = new Url_info(this);
         if (!StringUtils.isEmpty(mPid)) {
             String url="";
-            if (!NullUtil.isStringEmpty(sharedPreferenceUtil.getXiaoQuId())){
-                url = urlInfo.pro_list + "id/" + mPid + "/c_id/" + sharedPreferenceUtil.getXiaoQuId() + "/p/" + total_Page;
-            }else {
-                url = urlInfo.pro_list + "id/" + mPid + "/p/" + total_Page;
-            }
+//            if (!NullUtil.isStringEmpty(sharedPreferenceUtil.getXiaoQuId())){
+//                url = urlInfo.pro_list + "id/" + mPid + "/c_id/" + sharedPreferenceUtil.getXiaoQuId() + "/p/" + total_Page+"/province_cn/"+sharedPreferenceUtil.getProvince_cn()+"/city_cn/"+sharedPreferenceUtil.getCity_cn()+"/region_cn/"+sharedPreferenceUtil.getRegion_cn();;
+//            }else {
+//            }
+            url = urlInfo.pro_list + "id/" + mPid + "/p/" + total_Page+"/province_cn/"+sharedPreferenceUtil.getProvince_cn()+"/city_cn/"+sharedPreferenceUtil.getCity_cn()+"/region_cn/"+sharedPreferenceUtil.getRegion_cn();
 
             new HttpHelper(url, this) {
                 @Override

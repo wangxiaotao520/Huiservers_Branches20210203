@@ -394,8 +394,13 @@ public class AddShopDialog extends Dialog implements OnClickListener {
     private void getCartNum() {//购物车商品数量
         Url_info info = new Url_info(context);
         RequestParams params = new RequestParams();
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
-            params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+//        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+//            params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+//        }
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            params.addBodyParameter("province_cn", prefrenceUtil.getProvince_cn());
+            params.addBodyParameter("city_cn", prefrenceUtil.getCity_cn());
+            params.addBodyParameter("region_cn", prefrenceUtil.getRegion_cn());
         }
         HttpHelper hh = new HttpHelper(info.cart_num, params, context) {
 

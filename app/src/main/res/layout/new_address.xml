@@ -25,7 +25,12 @@
                 android:id="@+id/list_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@null" />
+                android:background="@android:color/transparent"
+                android:divider="@null"
+                android:fastScrollEnabled="false"
+                android:listSelector="@android:color/transparent"
+                android:smoothScrollbar="true" />
+
 
         </LinearLayout>
 

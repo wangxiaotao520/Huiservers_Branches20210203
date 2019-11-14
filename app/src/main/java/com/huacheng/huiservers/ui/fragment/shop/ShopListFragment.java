@@ -91,7 +91,9 @@ public class ShopListFragment extends BaseFragmentOld {
         is_Requesting=true;
         Url_info urlInfo = new Url_info(getActivity());
         if (!StringUtils.isEmpty(mPid)) {
-            String url = urlInfo.pro_list + "/id/" + mPid + "/c_id/" + sharePrefrenceUtil.getXiaoQuId() + "/p/" + total_Page;
+
+         //   String url = urlInfo.pro_list + "/id/" + mPid + "/c_id/" + sharePrefrenceUtil.getXiaoQuId() + "/p/" + total_Page;
+            String url = urlInfo.pro_list + "/id/" + mPid  + "/p/" + total_Page+"/province_cn/"+sharePrefrenceUtil.getProvince_cn()+"/city_cn/"+sharePrefrenceUtil.getCity_cn()+"/region_cn/"+sharePrefrenceUtil.getRegion_cn();;
             new HttpHelper(url, getActivity()) {
                 @Override
                 protected void setData(String json) {

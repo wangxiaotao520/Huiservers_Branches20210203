@@ -769,7 +769,12 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener, 
     private void getCartNum() {
         Url_info info = new Url_info(getActivity());
         RequestParams params = new RequestParams();
-        params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+      //  params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            params.addBodyParameter("province_cn", prefrenceUtil.getProvince_cn());
+            params.addBodyParameter("city_cn", prefrenceUtil.getCity_cn());
+            params.addBodyParameter("region_cn", prefrenceUtil.getRegion_cn());
+        }
         new HttpHelper(info.cart_num, params, mContext) {
 
             @Override

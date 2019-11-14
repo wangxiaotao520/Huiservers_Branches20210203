@@ -1057,8 +1057,12 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
     private void getCartNum() {// 购物车商品数量
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
-        params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
-
+       // params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            params.addBodyParameter("province_cn", prefrenceUtil.getProvince_cn());
+            params.addBodyParameter("city_cn", prefrenceUtil.getCity_cn());
+            params.addBodyParameter("region_cn", prefrenceUtil.getRegion_cn());
+        }
         MyOkHttp.get().post(info.cart_num, params.getParams(), new RawResponseHandler() {
             @Override
             public void onSuccess(int statusCode, String response) {

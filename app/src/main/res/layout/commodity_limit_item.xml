@@ -60,7 +60,7 @@
                     android:text=""
                     android:paddingRight="@dimen/margin_5"
                     android:textColor="@color/white"
-                    android:textSize="9sp" />
+                    android:textSize="9dp" />
 
                 <TextView
                     android:id="@+id/tv_limit_day"
@@ -71,7 +71,7 @@
                     android:padding="2dp"
                     android:text="00"
                     android:textColor="@color/default_red"
-                    android:textSize="9sp" />
+                    android:textSize="9dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                     android:padding="2dp"
                     android:text="天"
                     android:textColor="@color/white"
-                    android:textSize="9sp" />
+                    android:textSize="9dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
                         android:padding="2dp"
                         android:text="00"
                         android:textColor="@color/default_red"
-                        android:textSize="9sp" />
+                        android:textSize="9dp" />
 
                 </LinearLayout>
 
@@ -113,7 +113,7 @@
                         android:padding="2dp"
                         android:text=":"
                         android:textColor="@color/white"
-                        android:textSize="9sp" />
+                        android:textSize="9dp" />
 
                     <TextView
                         android:id="@+id/tv_limit_minute"
@@ -124,7 +124,7 @@
                         android:padding="2dp"
                         android:text="00"
                         android:textColor="@color/default_red"
-                        android:textSize="9sp" />
+                        android:textSize="9dp" />
 
                 </LinearLayout>
 
@@ -141,7 +141,7 @@
                         android:padding="2dp"
                         android:text=":"
                         android:textColor="@color/white"
-                        android:textSize="9sp" />
+                        android:textSize="9dp" />
 
                     <TextView
                         android:id="@+id/tv_limit_second"
@@ -152,7 +152,7 @@
                         android:padding="2dp"
                         android:text="00"
                         android:textColor="@color/default_red"
-                        android:textSize="9sp" />
+                        android:textSize="9dp" />
 
                 </LinearLayout>
 

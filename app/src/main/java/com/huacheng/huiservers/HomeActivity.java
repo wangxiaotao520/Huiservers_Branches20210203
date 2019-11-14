@@ -315,7 +315,10 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
             case R.id.rb_content_fragment_shop:
                 switchFragment(1);
                 current_fragment=1;
-             //   startActivity(new Intent(this, AddAddressActivity.class));
+                //todo 测试
+//                Intent intent = new Intent(this, AddressListActivity.class);
+//                intent.putExtra("jump_type",1);
+//                startActivityForResult(intent, 200);
                 break;
             case R.id.rb_content_fragment_service:
                 switchFragment(2);

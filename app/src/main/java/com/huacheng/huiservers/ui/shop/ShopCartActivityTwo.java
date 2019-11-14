@@ -37,6 +37,7 @@ import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lidroid.xutils.BitmapUtils;
 
@@ -150,7 +151,12 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
-        params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+       // params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            params.addBodyParameter("province_cn", prefrenceUtil.getProvince_cn());
+            params.addBodyParameter("city_cn", prefrenceUtil.getCity_cn());
+            params.addBodyParameter("region_cn", prefrenceUtil.getRegion_cn());
+        }
         HttpHelper hh = new HttpHelper(info.shopping_cart, params, ShopCartActivityTwo.this) {
 
             @Override

@@ -5,10 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.geren.bean.AddressBean;
+import com.huacheng.huiservers.ui.center.bean.ModelAddressList;
 
 import java.util.List;
 
@@ -19,13 +20,14 @@ import java.util.List;
  */
 public class NewAddressAdapter extends BaseAdapter {
     private Context mContext;
-    private List<AddressBean> beans;
+    private List<ModelAddressList> beans;
     private String address;
+    private OnClickBianjiListener listener;
 
-    public NewAddressAdapter(Context mContext, List<AddressBean> beans, String address) {
+    public NewAddressAdapter(Context mContext, List<ModelAddressList> beans,OnClickBianjiListener listener) {
         this.mContext = mContext;
         this.beans = beans;
-        this.address = address;
+        this.listener = listener;
     }
 
     @Override
@@ -49,30 +51,49 @@ public class NewAddressAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int arg0, View convertView, ViewGroup viewGroup) {
+    public View getView(final int arg0, View convertView, ViewGroup viewGroup) {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.new_address_item, null, false);
             holder.txt_name = (TextView) convertView.findViewById(R.id.txt_name);
-            holder.txt_num = (TextView) convertView.findViewById(R.id.txt_num);
+            holder.txt_phone = (TextView) convertView.findViewById(R.id.txt_phone);
             holder.txt_address = (TextView) convertView.findViewById(R.id.txt_address);
-            holder.txt_yezhu = (TextView) convertView.findViewById(R.id.txt_yezhu);
+            holder.iv_bianji_address = (ImageView) convertView.findViewById(R.id.iv_bianji_address);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.txt_name.setText(beans.get(arg0).getConsignee_name());
-        holder.txt_num.setText(beans.get(arg0).getConsignee_mobile());
-        String str = beans.get(arg0).getRegion_cn().replaceAll(",", "");
-        holder.txt_address.setText(str +" "+ beans.get(arg0).getCommunity_cn() + beans.get(arg0).getDoorplate());
+        ModelAddressList modelAddressList = beans.get(arg0);
 
+        if (modelAddressList.getIs_do()==1) {
+            holder.txt_name.setTextColor(mContext.getResources().getColor(R.color.text_color));
+            holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.text_color));
+        }else {
+            holder.txt_name.setTextColor(mContext.getResources().getColor(R.color.text_color_hint));
+            holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.text_color_hint));
+        }
+        holder.txt_name.setText(modelAddressList.getConsignee_name()+"");
+        holder.txt_phone.setText(modelAddressList.getConsignee_mobile()+"");
+        holder.txt_address.setText(modelAddressList.getRegion_cn()+""+modelAddressList.getCommunity_cn()+modelAddressList.getDoorplate());
+        holder.iv_bianji_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener!=null){
+                    listener.onClickBianji(arg0);
+                }
+            }
+        });
 
         return convertView;
     }
 
     public class ViewHolder {
-        private TextView txt_name, txt_num, txt_address, txt_yezhu;
+        private TextView txt_name, txt_phone, txt_address;
+        private ImageView iv_bianji_address;
+    }
+    public interface  OnClickBianjiListener{
+        void onClickBianji(int position);
     }
 }

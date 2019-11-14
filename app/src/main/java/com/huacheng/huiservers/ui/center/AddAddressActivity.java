@@ -8,10 +8,22 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.CommunityListActivity;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.bean.ModelAddressList;
+import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import io.reactivex.functions.Consumer;
 
@@ -27,6 +39,11 @@ public class AddAddressActivity extends BaseActivity{
     private TextView edt_address;
     private EditText edt_address_detail;
     private LinearLayout ll_address;
+    ModelAddressList modelAddressList;
+    private int jump_type = 1;//1.从商城跳过来的 2.从服务调过来的
+    private String region_cn = ""; //地址区域
+    private String community_cn = "";//
+    private String service_id = "";//
 
     @Override
     protected void initView() {
@@ -34,17 +51,84 @@ public class AddAddressActivity extends BaseActivity{
         tv_right=findViewById(R.id.txt_right1);
         tv_right.setText("保存");
         tv_right.setVisibility(View.VISIBLE);
-        titleName.setText("添加地址");
+
         edt_name = findViewById(R.id.edt_name);
         edt_phone = findViewById(R.id.edt_phone);
         edt_address = findViewById(R.id.edt_address);
         ll_address = findViewById(R.id.ll_address);
         edt_address_detail = findViewById(R.id.edt_address_detail);
+        if (modelAddressList!=null){
+            //编辑
+            titleName.setText("编辑地址");
+            edt_name.setText(modelAddressList.getConsignee_name());
+            edt_name.setSelection(modelAddressList.getConsignee_name().length());
+            edt_phone.setText(modelAddressList.getConsignee_mobile());
+            edt_address.setText(modelAddressList.getRegion_cn()+modelAddressList.getCommunity_cn());
+            edt_address_detail.setText(modelAddressList.getDoorplate());
+
+            region_cn=modelAddressList.getRegion_cn();
+            community_cn=modelAddressList.getCommunity_cn();
+        }else {
+            //新增
+            titleName.setText("添加地址");
+        }
+
     }
 
     @Override
     protected void initData() {
 
+    }
+
+    /**
+     * 确认
+     */
+    private void confirm() {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        String consignee_name = edt_name.getText().toString().trim();
+        params.put("consignee_name",consignee_name);
+        String consignee_mobile = edt_phone.getText().toString().trim();
+        params.put("consignee_mobile",consignee_mobile);
+        String doorplate = edt_address_detail.getText().toString().trim();
+        params.put("doorplate",doorplate);
+        params.put("region_cn",region_cn);
+        params.put("community_cn",community_cn);
+        if (modelAddressList!=null){
+            params.put("id",modelAddressList.getId()+"");//编辑
+        }
+        if (jump_type==2){
+            params.put("service_id",service_id+"");
+        }
+        MyOkHttp.get().post( Url_info.add_user_address, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    Intent intent = new Intent();
+                    // 生成一个model
+                    ModelAddressList modelAddressList = (ModelAddressList) JsonUtil.getInstance().parseJsonFromResponse(response, ModelAddressList.class);
+                    if (modelAddressList!=null){
+                        intent.putExtra("model",modelAddressList);
+                        setResult(RESULT_OK,intent);
+                        finish();
+                    }
+
+                } else {
+                    try {
+                        SmartToast.showInfo(response.getString("msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
     }
 
     @Override
@@ -75,9 +159,35 @@ public class AddAddressActivity extends BaseActivity{
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+               if (checkReady()){
+                   confirm();
+               }
             }
         });
+    }
+
+    private boolean checkReady() {
+        String consignee_name = edt_name.getText().toString().trim();
+        if (NullUtil.isStringEmpty(consignee_name)){
+            SmartToast.showInfo("请输入名字");
+            return false;
+        }
+        String consignee_mobile = edt_phone.getText().toString().trim();
+        if (NullUtil.isStringEmpty(consignee_mobile)){
+            SmartToast.showInfo("请输入电话号码");
+            return false;
+        }
+        String address = edt_address.getText().toString().trim();
+        if (NullUtil.isStringEmpty(address)){
+            SmartToast.showInfo("请选择地址");
+            return false;
+        }
+        String doorplate = edt_address_detail.getText().toString().trim();
+        if (NullUtil.isStringEmpty(doorplate)){
+            SmartToast.showInfo("请输入详细地址");
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -87,6 +197,16 @@ public class AddAddressActivity extends BaseActivity{
 
     @Override
     protected void initIntentData() {
+       this.jump_type= this.getIntent().getIntExtra("jump_type",1);
+           this.modelAddressList = (ModelAddressList) this.getIntent().getSerializableExtra("model");
+           if (modelAddressList!=null){
+               //编辑
+           }else {
+               //新增
+           }
+           if (jump_type==2){
+               service_id=this.getIntent().getStringExtra("service_id")+"";
+           }
 
     }
 
@@ -109,7 +229,11 @@ public class AddAddressActivity extends BaseActivity{
                     String location_provice = data.getStringExtra("location_provice");
                     String location_city = data.getStringExtra("location_city");
                     String location_district = data.getStringExtra("location_district");
+
+                    region_cn=location_provice+location_city+location_district;
                     String name = data.getStringExtra("name");
+                    community_cn=name;
+                    edt_address.setText(region_cn+community_cn+"");
                 }
             }
         }

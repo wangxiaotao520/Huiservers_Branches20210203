@@ -61,22 +61,19 @@
 
             <TextView
                 android:id="@+id/edt_address"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:ellipsize="end"
+                android:layout_marginRight="15dp"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:hint="选择地址"
                 android:padding="@dimen/margin_20"
-                android:singleLine="true"
                 android:textColorHint="@color/text_color_hint"
                 android:textSize="@dimen/t_14sp"
                 android:textColor="@color/c_title"/>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
