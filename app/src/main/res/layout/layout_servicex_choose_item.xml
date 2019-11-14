@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:background="#f1f1f1"
         android:paddingLeft="18dp"
-        android:paddingRight="5dp">
+        android:paddingRight="5dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/ll_choose_cate"

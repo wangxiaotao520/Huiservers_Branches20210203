@@ -118,8 +118,10 @@ public class MerchantServiceListFragmentCommon extends BaseFragment {
 
     @Override
     public void initIntentData() {
-
-
+        Intent intent = mActivity.getIntent();
+        top_id = intent.getExtras().getString("top_id");
+        sub_id = intent.getExtras().getString("sub_id");
+        typeName = intent.getExtras().getString("sub_name");
     }
 
 

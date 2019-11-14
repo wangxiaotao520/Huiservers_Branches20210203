@@ -68,18 +68,23 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
     SharePrefrenceUtil prefrenceUtil;
 
     private String location_provice="", location_district="", location_city="",location_code="";//
+    private int jump_type = 1;  //1从首页点进来 2.从商城选择收货地址点进来
+    private String cat_search_name="商务住宅";
     @Override
     protected void initView() {
         prefrenceUtil = new SharePrefrenceUtil(this);
         findTitleViews();
         titleName.setText("选择小区");
+        if (jump_type==2){
+            titleName.setText("选择收货地址");
+        }
         iv_right = findViewById(R.id.iv_right);
         mListview = findViewById(R.id.listview);
         mRefreshLayout = findViewById(R.id.refreshLayout);
 
         mRefreshLayout.setEnableRefresh(false);
         mRefreshLayout.setEnableLoadMore(false);
-        adapter = new AdapterCoummunityList(this, R.layout.item_community_list, mDatas,this,0);
+        adapter = new AdapterCoummunityList(this, R.layout.item_community_list, mDatas,this,0,jump_type);
         mListview.setAdapter(adapter);
         ll_no_data = findViewById(R.id.ll_no_data);
         ll_no_data.setVisibility(View.GONE);
@@ -161,7 +166,10 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void initIntentData() {
-
+        this.jump_type=this.getIntent().getIntExtra("jump_type",1);
+        if (jump_type==2){
+            cat_search_name="";
+        }
     }
 
     @Override
@@ -184,6 +192,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                 intent.putExtra("location_city",location_city+"");
                 intent.putExtra("location_district",location_district+"");
                 intent.putExtra("location_code",location_code+"");
+                intent.putExtra("jump_type",jump_type);
 
                 startActivityForResult(intent,111);
                 break;
@@ -309,7 +318,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
      * @param latitude
      */
     private void getPOIsearch(double longitude, double latitude) {
-        PoiSearch.Query query = new PoiSearch.Query("", "商务住宅", "");
+        PoiSearch.Query query = new PoiSearch.Query("", cat_search_name, "");
         query.setPageSize(15);
         PoiSearch search = new PoiSearch(this, query);
         search.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), 10000));
@@ -466,12 +475,23 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClickListItem(ModelCoummnityList item, int position) {
-        //切换小区
-        if (item.getType()==1){//当前小区
+
+        if (jump_type==1){
+            //切换小区
+            if (item.getType()==1){//当前小区
+                finish();
+            } else {
+                //我的小区 //附近小区
+                requestCommunityId(item);
+            }
+        }else if (jump_type==2){
+            Intent intent = new Intent();
+            intent.putExtra("location_provice",location_provice);
+            intent.putExtra("location_city",location_city);
+            intent.putExtra("location_district",location_district);
+            intent.putExtra("name",item.getName()+"");
+            setResult(RESULT_OK,intent);
             finish();
-        } else {
-            //我的小区 //附近小区
-            requestCommunityId(item);
         }
 
     }
@@ -588,7 +608,14 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode==RESULT_OK){
             if (requestCode==111){
-                finish();
+                if (jump_type==1){
+                    finish();
+                }else if (jump_type==2){
+                    if (data!=null){
+                        setResult(RESULT_OK,data);
+                        finish();
+                    }
+                }
             }
         }
     }

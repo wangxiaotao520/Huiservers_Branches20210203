@@ -76,6 +76,8 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
     private int currentPage = 0;// 当前页面，从0开始计数
     private PoiSearch.Query query;// Poi查询条件类
     private PoiSearch poiSearch;// POI搜索
+    private int jump_type = 1;  //1从首页点进来 2.从商城选择收货地址点进来
+    private String cat_search_name="商务住宅";
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -115,7 +117,7 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
 
         mRefreshLayout.setEnableRefresh(false);
         mRefreshLayout.setEnableLoadMore(false);
-        adapter = new AdapterCoummunityList(this, R.layout.item_community_list, mDatas,this,1);
+        adapter = new AdapterCoummunityList(this, R.layout.item_community_list, mDatas,this,1,jump_type);
         mListview.setAdapter(adapter);
         mRelNoData=findViewById(R.id.rel_no_data);
     }
@@ -179,9 +181,9 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
     private void doAMapSearch(String search_text) {
         new ToolUtils(et_search, this).closeInputMethod();
         if (NullUtil.isStringEmpty(location_district)){
-            query = new PoiSearch.Query(search_text, "商务住宅", "北京市");
+            query = new PoiSearch.Query(search_text, cat_search_name, "北京市");
         }else {
-            query = new PoiSearch.Query(search_text, "商务住宅", location_district);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+            query = new PoiSearch.Query(search_text, cat_search_name, location_district);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
          //   query = new PoiSearch.Query(search_text, "住宅区", location_code);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
 
         }
@@ -236,7 +238,10 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
         location_city= getIntent().getStringExtra("location_city");
         location_district=getIntent().getStringExtra("location_district");
         location_code=getIntent().getStringExtra("location_code");
-
+        jump_type=getIntent().getIntExtra("jump_type",1);
+        if (jump_type==2){
+            cat_search_name="";
+        }
 
     }
 
@@ -257,7 +262,18 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
 
     @Override
     public void onClickListItem(ModelCoummnityList item, int position) {
-      requestCommunityId(item);
+        if (jump_type==1){
+            requestCommunityId(item);
+        }else if (jump_type==2){
+            Intent intent = new Intent();
+            intent.putExtra("location_provice",location_provice);
+            intent.putExtra("location_city",location_city);
+            intent.putExtra("location_district",location_district);
+            intent.putExtra("name",item.getName()+"");
+            setResult(RESULT_OK,intent);
+            finish();
+        }
+
     }
 
     /**

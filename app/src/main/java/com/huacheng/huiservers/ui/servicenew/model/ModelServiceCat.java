@@ -12,6 +12,8 @@ public class ModelServiceCat implements Serializable {
     private String id;
     private String p_id;
     private String name;
+
+    private boolean isChecked = false;
     private List<GridBean> list;
 
     public String getId() {
@@ -45,6 +47,16 @@ public class ModelServiceCat implements Serializable {
     public void setList(List<GridBean> list) {
         this.list = list;
     }
+
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
 
     public static class GridBean {
         /**

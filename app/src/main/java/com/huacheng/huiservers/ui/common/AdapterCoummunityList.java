@@ -22,12 +22,14 @@ import java.util.List;
 public class AdapterCoummunityList extends CommonAdapter<ModelCoummnityList>{
     private OnClickCommunityListListener listListener ;
     private int type = 0;//0是小区列表 1是搜索小区列表
+    private int jump_type = 1;//1是首页2是商城搜索
 
 
-    public AdapterCoummunityList(Context context, int layoutId, List<ModelCoummnityList> datas,OnClickCommunityListListener listener,int type) {
+    public AdapterCoummunityList(Context context, int layoutId, List<ModelCoummnityList> datas,OnClickCommunityListListener listener,int type,int jump_type) {
         super(context, layoutId, datas);
         this.listListener = listener;
         this.type = type;
+        this.jump_type=jump_type;
     }
 
     @Override
@@ -82,7 +84,12 @@ public class AdapterCoummunityList extends CommonAdapter<ModelCoummnityList>{
                    viewHolder.<TextView>getView(R.id.tv_title).setVisibility(View.GONE);
                }else {
                    viewHolder.<TextView>getView(R.id.tv_title).setVisibility(View.VISIBLE);
-                   viewHolder.<TextView>getView(R.id.tv_title).setText("附近小区");
+                   if (jump_type==1){
+                       viewHolder.<TextView>getView(R.id.tv_title).setText("附近小区");
+                   }else {
+                       viewHolder.<TextView>getView(R.id.tv_title).setText("附近");
+                   }
+
                }
            }else {
                viewHolder.<TextView>getView(R.id.tv_title).setVisibility(View.GONE);

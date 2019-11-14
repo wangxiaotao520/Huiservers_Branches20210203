@@ -1,6 +1,8 @@
 package com.huacheng.huiservers.ui.center;
 
+import android.Manifest;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -9,6 +11,9 @@ import android.widget.TextView;
 import com.huacheng.huiservers.CommunityListActivity;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * Description: 新建地址
@@ -47,8 +52,24 @@ public class AddAddressActivity extends BaseActivity{
         ll_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(mContext, CommunityListActivity.class);
-                startActivityForResult(intent1, 111);
+
+
+                new RxPermissions(AddAddressActivity.this).request( Manifest.permission.ACCESS_COARSE_LOCATION)
+                        .subscribe(new Consumer<Boolean>() {
+                            @Override
+                            public void accept(Boolean isGranted) throws Exception {
+                                if (isGranted) {
+                                    //权限同意 ,开始定位
+                                    Intent intent1 = new Intent(mContext, CommunityListActivity.class);
+                                    intent1.putExtra("jump_type",2);
+                                    startActivityForResult(intent1, 111);
+
+                                } else {
+                                    //权限拒绝
+                                }
+                            }
+                        });
+
             }
         });
         tv_right.setOnClickListener(new View.OnClickListener() {
@@ -77,5 +98,20 @@ public class AddAddressActivity extends BaseActivity{
     @Override
     protected void initFragment() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            if (requestCode==111){
+                if (data!=null){
+                    String location_provice = data.getStringExtra("location_provice");
+                    String location_city = data.getStringExtra("location_city");
+                    String location_district = data.getStringExtra("location_district");
+                    String name = data.getStringExtra("name");
+                }
+            }
+        }
     }
 }

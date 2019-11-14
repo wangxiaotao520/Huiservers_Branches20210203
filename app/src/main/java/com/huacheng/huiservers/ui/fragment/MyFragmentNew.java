@@ -253,9 +253,14 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 startActivity(intent);
                 break;
             case R.id.rl_community_bill_list:// 生活账单
-                intent = new Intent(getActivity(), PropertyNewActivity.class);
-                intent.putExtra("wuye_type", "property");
-                startActivity(intent);
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+                    intent = new Intent(getActivity(), PropertyNewActivity.class);
+                    intent.putExtra("wuye_type", "property");
+                    startActivity(intent);
+                }else {
+                    SmartToast.showInfo("该小区暂未开通服务");
+                }
+
                 break;
             case R.id.rl_baoxiu_order_list:// 报修账单
                 /*Intent intent1 = new Intent();
@@ -266,14 +271,21 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
 
                /* intent = new Intent(getActivity(), WorkOrderListActivity.class);
                 startActivity(intent);*/
-                intent = new Intent(getActivity(), WorkOrderListActivity.class);
-                startActivity(intent);
+
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+                    intent = new Intent(getActivity(), WorkOrderListActivity.class);
+                    startActivity(intent);
+                }else {
+                    SmartToast.showInfo("该小区暂未开通服务");
+                }
                 break;
             case R.id.rl_service_order_list:// 保修账单
 //                intent = new Intent(getActivity(), FragmentOrderListActivity.class);
 //                startActivity(intent);
+
                 intent = new Intent(mActivity, MyHousePropertyActivity.class);
                 startActivity(intent);
+
                 break;
             case R.id.rl_shop_order_list:// 商城订单
                 intent = new Intent(getActivity(), ShopOrderListActivity.class);
@@ -308,10 +320,13 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                     intent = new Intent(getActivity(), LoginVerifyCodeActivity.class);
                     startActivity(intent);
                 } else {
-
-                    Intent intent1 = new Intent(mContext, PropertyNewActivity.class);
-                    intent1.putExtra("wuye_type", "house_invite");
-                    startActivity(intent1);
+                    if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+                        Intent intent1 = new Intent(mContext, PropertyNewActivity.class);
+                        intent1.putExtra("wuye_type", "house_invite");
+                        startActivity(intent1);
+                    }else {
+                        SmartToast.showInfo("该小区暂未开启此功能");
+                    }
                 }
                 break;
             case R.id.rel_gouwuche://购物车

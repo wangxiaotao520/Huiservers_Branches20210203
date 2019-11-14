@@ -78,7 +78,7 @@
                 android:background="#fff"
                 android:drawableTop="@drawable/btn_fuwu"
                 android:gravity="center"
-                android:text="居家养老"
+                android:text="服务"
                 android:textColor="@drawable/btn_textcolor_bottom_home" />
 
             <com.huacheng.huiservers.view.MyRadioButton
