@@ -312,6 +312,7 @@
                     android:id="@+id/iv_head"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
+                    android:layout_marginRight="@dimen/margin_5"
                     android:background="@drawable/ic_default_head"/>
 
 
@@ -321,8 +322,8 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_5"
                     android:text=""
+                    android:layout_marginRight="@dimen/margin"
                     android:textColor="@color/black_jain_54"
                     android:textSize="@dimen/t_12sp"/>
 
@@ -332,7 +333,6 @@
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin"
                     android:text=""
                     android:textColor="@color/black_jain_54"
                     android:textSize="@dimen/t_12sp"/>
@@ -351,6 +351,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_1"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginLeft="15dp"
@@ -378,6 +379,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/iv_2"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginRight="5dp"
@@ -397,5 +399,11 @@
 
         </LinearLayout>
     </LinearLayout>
+    <View
+        android:id="@+id/view"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/windowbackground"/>
 
 </LinearLayout>

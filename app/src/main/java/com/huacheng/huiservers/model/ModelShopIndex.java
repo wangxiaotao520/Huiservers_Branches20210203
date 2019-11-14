@@ -18,6 +18,7 @@ public class ModelShopIndex {
     private String cate_img;
     private String icon;
     private String title;
+    private String content;
     private String title_img;
     private String title_thumb_img;
     private String cate_tag_id;
@@ -53,6 +54,32 @@ public class ModelShopIndex {
     private String total_Pages;
     private long  current_times;//倒计时时用来的时间
     private String  topclass;
+    private String  banner;
+    private String  is_article;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
+    }
+
+    public String getIs_article() {
+        return is_article;
+    }
+
+    public void setIs_article(String is_article) {
+        this.is_article = is_article;
+    }
 
     public String getAddress() {
         return address;

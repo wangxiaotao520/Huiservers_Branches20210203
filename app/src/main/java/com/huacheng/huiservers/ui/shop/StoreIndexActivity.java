@@ -331,6 +331,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                 intent.putExtra("store_id", store_id);
                 startActivity(intent);*/
                 intent.setClass(this, ShopZQListActivity.class);
+                intent.putExtra("id","3");
                 startActivity(intent);
                 break;
             case R.id.lin_left://返回

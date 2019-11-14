@@ -9,6 +9,7 @@ import com.huacheng.huiservers.ui.index.vote.VoteDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
 import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.microquation.linkedme.android.LinkedME;
@@ -81,6 +82,11 @@ public class MiddleActivity extends AppCompatActivity {
                     String id = hashMap.get("id");
                     Intent intent = new Intent(this, StoreIndexActivity.class);
                     intent.putExtra("store_id", id + "");
+                    startActivity(intent);
+                } else if (type.equals("prefecture_list")) {
+                    String id = hashMap.get("id");
+                    Intent intent = new Intent(this, ShopZQListActivity.class);
+                    intent.putExtra("id", id + "");
                     startActivity(intent);
                 }
             }

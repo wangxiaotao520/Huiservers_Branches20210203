@@ -203,6 +203,14 @@ public class ApiHttpClient {
     public static String SHOP_INDEX_MORE = API_URL + API_VERSION + "shop/hotCateProlist";
     //商城店铺接口
     public static String SHOP_IMERCHANT_DETAILS = API_URL + API_VERSION + "/shop/merchant_details";
+    //专区列表
+    public static String SHOP_MARKIING_LIST= API_URL + API_VERSION + "/shop/area_marketing_activities";
+    //专区banner详情界面
+    public static String SHOP_MARKIING_DETAILS= API_URL + API_VERSION + "/shop/area_marketing_activities_info";
+    //专区活动列表界面
+    public static String SHOP_MARKIING_ARTICE= API_URL + API_VERSION + "/shop/area_marketing_article";
+    //专区活动详情界面
+    public static String SHOP_MARKIING_ARTICE_DETAILS = API_URL + API_VERSION + "/shop/area_marketing_article_info";
 
     //付款成功后极光推送
     public static String PAY_SERVICE_SUCCESS = API_URL + API_VERSION + "Jpush/service_order_toAmountWorker_push";
@@ -483,5 +491,9 @@ public class ApiHttpClient {
         SHOP_IMERCHANT_DETAILS = API_URL + API_VERSION + "/shop/merchant_details";
         GET_MY_DISTRICT = API_URL + API_VERSION + "site/myDistrict";
         GET_COMMUNITY_ID = API_URL + API_VERSION  + "site/siteCommunityId";
+        SHOP_MARKIING_LIST= API_URL + API_VERSION + "/shop/area_marketing_activities";
+        SHOP_MARKIING_DETAILS= API_URL + API_VERSION + "shop/area_marketing_activities_info";
+        SHOP_MARKIING_ARTICE= API_URL + API_VERSION + "/shop/area_marketing_article";
+        SHOP_MARKIING_ARTICE_DETAILS = API_URL + API_VERSION + "/shop/area_marketing_article_info";
     }
 }

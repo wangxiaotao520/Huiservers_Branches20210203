@@ -13,24 +13,32 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
-import com.huacheng.huiservers.model.ModelHome;
 import com.huacheng.huiservers.model.ModelShopIndex;
+import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeListViewAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
+import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
+import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
+import com.microquation.linkedme.android.log.LMErrorCode;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -65,6 +73,12 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private LinearLayout ly_scroll;
     private LinearLayout lin_left;
     private LinearLayout ly_share;
+    private String share_url;
+    private String share_title;
+    private String share_desc;
+    private String share_icon;
+    private String id = "";
+    ModelShopIndex modelIndex;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -152,6 +166,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initIntentData() {
+        id = this.getIntent().getStringExtra("id");
 
     }
 
@@ -192,16 +207,10 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private void requestData() {
         // 根据接口请求数据
         HashMap<String, String> params = new HashMap<>();
-        // TODO: 2019/11/13 测试用的数据记的修改哦
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
-            params.put("c_id", prefrenceUtil.getXiaoQuId());
-        }
-        // params.put("c_id", "1");
-        MyOkHttp.get().post(ApiHttpClient.INDEX, params, new JsonResponseHandler() {
-            /*  params.put("id", store_info.getId() + "");
-              params.put("p", page + "");
+        params.put("id", id);
+        params.put("p", page + "");
+        MyOkHttp.get().post(ApiHttpClient.SHOP_MARKIING_LIST, params, new JsonResponseHandler() {
 
-              MyOkHttp.get().get(ApiHttpClient.SHOP_IMERCHANT_DETAILS, params, new JsonResponseHandler() {*/
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
@@ -210,9 +219,19 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 listView.setIsLoading(false);
                 if (JsonUtil.getInstance().isSuccess(response)) {
 
-                    //List<ModelShopIndex> shopIndexList = (List<ModelShopIndex>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelShopIndex.class);
-                    ModelHome modelHome = (ModelHome) JsonUtil.getInstance().parseJsonFromResponse(response, ModelHome.class);
-                    inflateContent(modelHome);
+                    ModelShopIndex modelindex = (ModelShopIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelShopIndex.class);
+                    if (modelindex != null) {
+                        modelIndex = modelindex;
+                        if (page == 1) {
+                            setBanner(modelindex);
+                            if (Integer.valueOf(modelindex.getIs_article()) > 0) {//显示专区活动栏
+                                ly_zq.setVisibility(View.VISIBLE);
+                            } else {
+                                ly_zq.setVisibility(View.GONE);
+                            }
+                        }
+                        inflateContent(modelindex);
+                    }
 
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
@@ -235,22 +254,38 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         });
     }
 
+    private void setBanner(ModelShopIndex modelindex) {
+        String imageUrl = ApiHttpClient.IMG_SERVICE_URL + modelindex.getBanner();
+        final int gridWidth = DeviceUtils.getWindowWidth(ShopZQListActivity.this) - DeviceUtils.dip2px(ShopZQListActivity.this, 30);
+        Glide.with(getApplicationContext()).load(imageUrl).placeholder(R.drawable.ic_default_rectange).error(R.drawable.ic_default_rectange).into(new SimpleTarget<GlideDrawable>() {
+            @Override
+            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                int width = resource.getIntrinsicWidth();
+                int height = resource.getIntrinsicHeight();
+                int nWidth = gridWidth;
+                int nHeight = (int) (2 * nWidth);
+                float scale = (float) height / width;
+                if (scale < 2) {
+                    nHeight = (int) (scale * nWidth);
+                }
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);
+                //layoutParams.setMargins(0, 0, 0, 15);;
+                iv_bg.setLayoutParams(layoutParams);
+                iv_bg.setScaleType(ImageView.ScaleType.FIT_XY);
+                iv_bg.setImageDrawable(resource);
+            }
+        });
+    }
+
     /**
      * 填充数据
      *
      * @param
      */
-    private void inflateContent(ModelHome modelHome) {
-        if (modelHome.getPro_list() != null && modelHome.getPro_list().size() > 0) {
-            mDatas.clear();
-            mDatas.addAll(modelHome.getPro_list());
-            adapter.notifyDataSetChanged();
-            listView.setHasMoreItems(false);
-
-        }
-      /*  if (shopIndexList != null && shopIndexList.size() > 0) {
+    private void inflateContent(ModelShopIndex modelindex) {
+        if (modelindex.getPro_list() != null && modelindex.getPro_list().size() > 0) {
             mRelNoData.setVisibility(View.GONE);
-            List<ModelShopIndex> list_new = shopIndexList;
+            List<ModelShopIndex> list_new = modelindex.getPro_list();
             if (page == 1) {
                 mDatas.clear();
                 listView.post(new Runnable() {
@@ -273,13 +308,13 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         } else {
             if (page == 1) {
                 // 占位图显示出来
-                mRelNoData.setVisibility(View.VISIBLE);
+                // mRelNoData.setVisibility(View.VISIBLE);
                 mDatas.clear();
             }
             listView.setHasMoreItems(false);
             adapter.notifyDataSetChanged();
         }
-*/
+
     }
 
     /**
@@ -310,24 +345,69 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
             case R.id.ly_serch://搜索
                 // TODO: 2019/11/14 传专区的id
                 intent.setClass(this, SearchShopActivity.class);
-                // intent.putExtra("store_id", store_info.getId());
+                intent.putExtra("store_id", id);
                 startActivity(intent);
                 break;
             case R.id.ly_zq://专区活动
+                // TODO: 2019/11/14 专区id默认值
                 intent.setClass(this, ShopZqHuodongActivity.class);
+                intent.putExtra("id", id);
                 startActivity(intent);
                 break;
             case R.id.lin_left://返回
                 finish();
                 break;
             case R.id.ly_share://分享
+                if (modelIndex==null){
+                    return;
+                }
+                if (NullUtil.isStringEmpty(id)) {
+                    return;
+                }
+                share_title = modelIndex.getTitle() + "";
+                share_desc = modelIndex.getContent() + "";
+                share_icon = MyCookieStore.URL + modelIndex.getBanner();
+                share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "shop/special/id/" + id;
+                HashMap<String, String> params = new HashMap<>();
+                params.put("type", "prefecture_list");
+                params.put("id",id);
+                showDialog(smallDialog);
+                LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, share_title, params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
+                    @Override
+                    public void onGetUrl(String url, LMErrorCode error) {
+                        hideDialog(smallDialog);
+                        if (error == null) {
+                            String share_url_new = share_url + "?linkedme=" + url;
+                            showSharePop(share_title, share_desc, share_icon, share_url_new);
+                        } else {
+                            //可以看报错
+                            String share_url_new = share_url + "?linkedme=" + "";
+                            showSharePop(share_title, share_desc, share_icon, share_url_new);
+                        }
+                    }
+                });
+
 
                 break;
             case R.id.iv_bg://背景点击
-
+                intent.setClass(this, ShopZQWebActivity.class);
+                intent.putExtra("id", "3");
+                intent.putExtra("type", "1");
+                startActivity(intent);
                 break;
         }
 
     }
-
+    /**
+     * 显示分享弹窗
+     *
+     * @param share_title
+     * @param share_desc
+     * @param share_icon
+     * @param share_url_new
+     */
+    private void showSharePop(String share_title, String share_desc, String share_icon, String share_url_new) {
+        PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, share_icon, share_url_new, AppConstant.SHARE_COMMON);
+        popup.showBottom(ly_share);
+    }
 }

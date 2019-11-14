@@ -1,7 +1,10 @@
 package com.huacheng.huiservers.ui.shop.adapter;
 
 import android.content.Context;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -22,6 +25,9 @@ public class ConfirmOrderDialogAdapter extends CommonAdapter<ModelShopIndex> {
     @Override
     protected void convert(ViewHolder viewHolder, ModelShopIndex item, int position) {
 
+        viewHolder.<TextView>getView(R.id.tv_style).setText("配送方式");
+        viewHolder.<TextView>getView(R.id.txt_address).setText("地址");
+        viewHolder.<ImageView>getView(R.id.iv_select);
 
     }
 }
