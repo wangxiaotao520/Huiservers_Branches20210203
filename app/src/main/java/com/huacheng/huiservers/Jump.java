@@ -53,6 +53,8 @@ import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.ui.shop.ShopListActivity;
 import com.huacheng.huiservers.ui.shop.ShopWBActivity;
 import com.huacheng.huiservers.ui.shop.ShopXSTimeListActivity;
+import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
+import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -370,9 +372,19 @@ public class Jump {
                 mContext.startActivity(intent);
 
             }else if (type.equals("32")){
-                //todo 店铺跳转
+              //店铺
+                Intent intent = new Intent();
+                String cateid = url.substring(url.lastIndexOf("/") + 1, url.length());
+                intent = new Intent(mContext, StoreIndexActivity.class);
+                intent.putExtra("store_id", cateid);
+                startActivity(intent);
             }else if (type.equals("33")){
-                //todo 专区跳转
+                //专区
+                Intent intent = new Intent();
+                String cateid = url.substring(url.lastIndexOf("/") + 1, url.length());
+                intent = new Intent(mContext, ShopZQListActivity.class);
+                intent.putExtra("id", cateid);
+                startActivity(intent);
             }
         }else {
          if (type.equals("30")){//活动投票
