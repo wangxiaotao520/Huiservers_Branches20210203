@@ -736,6 +736,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener, 
                 break;
             case R.id.lin_search://搜索
                 intent.setClass(mActivity, SearchShopActivity.class);
+                intent.putExtra("type",0);
                 startActivity(intent);
                 break;
             case R.id.tv_discount_more://限时抢购

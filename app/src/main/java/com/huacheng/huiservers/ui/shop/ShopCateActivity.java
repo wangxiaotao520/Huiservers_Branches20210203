@@ -164,6 +164,7 @@ public class ShopCateActivity extends BaseActivityOld implements OnClickListener
                 break;
             case R.id.lin_search://搜索
                 Intent intent = new Intent(this, SearchShopActivity.class);
+                intent.putExtra("type",0);
                 startActivity(intent);
                 break;
             default:

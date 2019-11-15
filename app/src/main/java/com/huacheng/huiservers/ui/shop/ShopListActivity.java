@@ -489,6 +489,7 @@ public class ShopListActivity extends BaseActivityOld {
                 break;
             case R.id.ly_search:
                 intent.setClass(this, SearchShopActivity.class);
+                intent.putExtra("type",0);
                 startActivity(intent);
                 break;
             case R.id.lin_car:

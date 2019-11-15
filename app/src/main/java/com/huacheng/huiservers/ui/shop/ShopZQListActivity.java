@@ -343,13 +343,12 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.ly_serch://搜索
-                // TODO: 2019/11/14 传专区的id
                 intent.setClass(this, SearchShopActivity.class);
-                intent.putExtra("store_id", id);
+                intent.putExtra("type",2);
+                intent.putExtra("act_id", id);
                 startActivity(intent);
                 break;
             case R.id.ly_zq://专区活动
-                // TODO: 2019/11/14 专区id默认值
                 intent.setClass(this, ShopZqHuodongActivity.class);
                 intent.putExtra("id", id);
                 startActivity(intent);

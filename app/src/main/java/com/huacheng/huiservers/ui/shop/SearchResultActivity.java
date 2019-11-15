@@ -30,7 +30,6 @@ import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListSearchAdapter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
-import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +58,8 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
     String keywords = "";
     RecyclerViewLayoutManager manager;
     private String store_id = "";
+    private String act_id = "";
+    private int type = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -68,9 +69,12 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
         setContentView(R.layout.search_result);
         prefrenceUtil = new SharePrefrenceUtil(this);
         keywords = getIntent().getStringExtra("keystr");
-        //店铺id
-        if (!NullUtil.isStringEmpty(this.getIntent().getStringExtra("store_id"))) {
+
+        type = this.getIntent().getIntExtra("type", 0);
+        if (type == 1) {
             store_id = this.getIntent().getStringExtra("store_id");
+        } else if (type == 2) {
+            act_id = this.getIntent().getStringExtra("act_id");
         }
         // 3. 绑定组件
         LinearLayout lin_search_block = (LinearLayout) findViewById(R.id.lin_search_block);
@@ -185,9 +189,10 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
 
     private void getdata() {// 搜索界面接口
         Url_info info = new Url_info(this);
-        if (!NullUtil.isStringEmpty(this.getIntent().getStringExtra("store_id"))) {
-            store_id = this.getIntent().getStringExtra("store_id");
+        if (type == 1) {
             url = info.goods_search + "key/" + et_search.getText().toString() + "/mer_id/" + store_id + "/p/" + page;
+        } else if (type == 2) {
+            url = info.goods_search + "key/" + et_search.getText().toString() + "/marketing_activities_id/" + act_id + "/p/" + page;
         } else {
             url = info.goods_search + "key/" + et_search.getText().toString() + "/p/" + page;
         }
