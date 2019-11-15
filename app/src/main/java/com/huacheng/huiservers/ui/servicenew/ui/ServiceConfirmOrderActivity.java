@@ -21,6 +21,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
+import com.huacheng.huiservers.ui.center.bean.ModelAddressList;
 import com.huacheng.huiservers.ui.center.geren.bean.AddressBean;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceDetail;
 import com.huacheng.huiservers.ui.servicenew.ui.dialog.ServiceSuccessDialog;
@@ -76,6 +77,9 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
 
     String tag_id, tag_name, tag_price, service_id, service_name, AddressID;
     SharePrefrenceUtil sharePrefrenceUtil;
+    private String person_name = "";
+    private String person_mobile = "";
+    private String person_address = "";
 
 
     @Override
@@ -88,6 +92,8 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
         mTvServiceName.setText(service_name);
         mTvPrice.setText("¥" + tag_price);
         mEditContent.addTextChangedListener(mTextWatcher);
+        mLyAddress.setVisibility(View.GONE);
+        mLyNoaddress.setVisibility(View.VISIBLE);
         titleView();
 
 
@@ -108,7 +114,7 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        getAddress();
+        //getAddress();
     }
 
     private void getAddress() {
@@ -206,11 +212,15 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
                 break;
             case R.id.ly_address:
             case R.id.ly_noaddress:
-                Intent intent = new Intent(this, AddressListActivity.class);
+             /*   Intent intent = new Intent(this, AddressListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("address", "serviceyes");//shopyes
                 bundle.putString("type", "order");
                 intent.putExtras(bundle);
+                startActivityForResult(intent, 200);*/
+                Intent intent = new Intent(this, AddressListActivity.class);
+                intent.putExtra("jump_type", 2);
+                intent.putExtra("service_id", service_id + "");
                 startActivityForResult(intent, 200);
                 break;
             case R.id.tv_btn:
@@ -227,6 +237,7 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
     String order_id;
 
     private void getsubmit() {
+
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("s_id", service_id);
@@ -234,9 +245,9 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
         params.put("s_tag_cn", tag_name);
         params.put("price", tag_price);
         params.put("address_id", AddressID);
-        params.put("address", mTvAddress.getText().toString().trim());
-        params.put("contacts", mTvName.getText().toString().trim());
-        params.put("mobile", mTvPhone.getText().toString().trim());
+        params.put("address", person_address);
+        params.put("contacts", person_name);
+        params.put("mobile", person_mobile);
         params.put("description", mEditContent.getText().toString().trim());
 
         MyOkHttp.get().post(ApiHttpClient.GET_SSERVICE_RESERVE, params, new JsonResponseHandler() {
@@ -297,7 +308,26 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 200:
+                    if (data != null) {
+                        ModelAddressList model = (ModelAddressList) data.getSerializableExtra("model");
+                        person_name = model.getConsignee_name();
+                        person_mobile = model.getConsignee_mobile();
+                        person_address = model.getRegion_cn() + model.getCommunity_cn() + model.getDoorplate();
+                        mLyAddress.setVisibility(View.VISIBLE);
+                        mLyNoaddress.setVisibility(View.GONE);
+                        mTvName.setText(person_name);
+                        mTvAddress.setText(person_address);
+                        mTvPhone.setText(person_mobile);
+                        AddressID = model.getId() + "";
+
+                    }
+                    break;
+            }
+        }
+       /* switch (resultCode) {
             case 200://地址返回
                 String person_name = data.getExtras().getString("person_name");
                 String person_mobile = data.getExtras().getString("person_mobile");
@@ -311,7 +341,7 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
                     mTvAddress.setText(person_address);
                 }
                 break;
-        }
+        }*/
     }
 
     TextWatcher mTextWatcher = new TextWatcher() {

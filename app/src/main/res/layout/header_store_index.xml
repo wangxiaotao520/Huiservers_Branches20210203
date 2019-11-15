@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:background="#828D7E">
+        >
 
+        <ImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:scaleType="centerCrop"
+            />
 
         <LinearLayout
             android:id="@+id/ly_store"
@@ -24,8 +31,10 @@
                 android:id="@+id/iv_store_head"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/ic_default"
-                app:roundedCornerRadius="@dimen/margin_5"/>
+                fresco:placeholderImage="@mipmap/ic_store_head"
+                fresco:roundedCornerRadius="@dimen/margin_5"
+                fresco:roundingBorderColor="@color/white"
+                fresco:roundingBorderWidth="1dp"/>
 
             <LinearLayout
                 android:layout_width="0dp"

@@ -32,6 +32,7 @@ import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityTwo;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -63,7 +64,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
     private TextView tv_user_name;
     private TextView tv_user_phone;
     private RelativeLayout rl_community_bill_list, rl_baoxiu_order_list, rl_service_order_list, rl_shop_order_list,
-            ry_set, ry, ry_my_renvation, ry_fang, rel_gouwuche, rel_xiaofejilu, rel_coupon, rel_myCircle, rel_house;
+            ry_set, ry, ry_my_renvation, ry_fang, rel_gouwuche, rel_xiaofejilu, rel_coupon, rel_myCircle, rel_house,ry_service;
     private TextView tv_guest_num, tv_coupon_num, tv_decoration_num, tv_social_num, tv_cart_num;
     SharePrefrenceUtil prefrenceUtil;
     SharedPreferences preferencesLogin;
@@ -92,6 +93,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
         rl_service_order_list = view.findViewById(R.id.rl_service_order_list);
         rl_shop_order_list = view.findViewById(R.id.rl_shop_order_list);
         ry_fang = view.findViewById(R.id.ry_fang);
+        ry_service = view.findViewById(R.id.ry_service);
         tv_guest_num = view.findViewById(R.id.tv_guest_num);
         rel_coupon = view.findViewById(R.id.rel_coupon);
         rel_house = view.findViewById(R.id.rel_house);
@@ -107,9 +109,9 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
         ry_set = view.findViewById(R.id.ry_set);
         refreshLayout.setEnableLoadMore(false);
         //状态栏
-        mStatusBar=view.findViewById(R.id.status_bar);
+        mStatusBar = view.findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
-        mStatusBar.setAlpha((float)1);
+        mStatusBar.setAlpha((float) 1);
 
         iv_message = view.findViewById(R.id.iv_message);
 
@@ -144,6 +146,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
             }
         });
         iv_message.setOnClickListener(this);
+        ry_service.setOnClickListener(this);
 
     }
 
@@ -155,7 +158,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
 
     private void requestData() {
         Map<String, String> params = new HashMap<>();
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
             params.put("c_id", prefrenceUtil.getXiaoQuId());
         }
         MyOkHttp.get().post(Url_info.center_index, params, new JsonResponseHandler() {
@@ -253,11 +256,11 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 startActivity(intent);
                 break;
             case R.id.rl_community_bill_list:// 生活账单
-                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
                     intent = new Intent(getActivity(), PropertyNewActivity.class);
                     intent.putExtra("wuye_type", "property");
                     startActivity(intent);
-                }else {
+                } else {
                     SmartToast.showInfo("该小区暂未开通服务");
                 }
 
@@ -272,14 +275,14 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                /* intent = new Intent(getActivity(), WorkOrderListActivity.class);
                 startActivity(intent);*/
 
-                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
                     intent = new Intent(getActivity(), WorkOrderListActivity.class);
                     startActivity(intent);
-                }else {
+                } else {
                     SmartToast.showInfo("该小区暂未开通服务");
                 }
                 break;
-            case R.id.rl_service_order_list:// 保修账单
+            case R.id.rl_service_order_list:// 我的房产
 //                intent = new Intent(getActivity(), FragmentOrderListActivity.class);
 //                startActivity(intent);
 
@@ -304,6 +307,10 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
             case R.id.ry_set:// 设置
                 startActivity(new Intent(getActivity(), SetActivity.class));
                 break;
+            case R.id.ry_service:// 服务订单
+                intent = new Intent(mContext, FragmentOrderListActivity.class);
+                startActivity(intent);
+                break;
             case R.id.rel_myCircle:// 我的圈子
                 startActivity(new Intent(getActivity(), MyCircleActivity.class));
                 break;
@@ -320,11 +327,11 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                     intent = new Intent(getActivity(), LoginVerifyCodeActivity.class);
                     startActivity(intent);
                 } else {
-                    if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+                    if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
                         Intent intent1 = new Intent(mContext, PropertyNewActivity.class);
                         intent1.putExtra("wuye_type", "house_invite");
                         startActivity(intent1);
-                    }else {
+                    } else {
                         SmartToast.showInfo("该小区暂未开启此功能");
                     }
                 }

@@ -87,6 +87,7 @@ public class MerchantServiceListFragmentCommon extends BaseFragment {
     private String store_id;
 
     SharePrefrenceUtil prefrenceUtil;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -109,7 +110,7 @@ public class MerchantServiceListFragmentCommon extends BaseFragment {
         /*rlContainer.setFocusable(true);
         rlContainer.setFocusableInTouchMode(true);
         rlContainer.requestFocus();*/
-        prefrenceUtil=new SharePrefrenceUtil(mContext);
+        prefrenceUtil = new SharePrefrenceUtil(mContext);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(true);
         adapter = new MerchantServicexAdapter(mDatas, mDatas2, mActivity, type);
@@ -216,8 +217,11 @@ public class MerchantServiceListFragmentCommon extends BaseFragment {
      */
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+       /* if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
             params.put("c_id", prefrenceUtil.getXiaoQuId());
+        }*/
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
+            params.put("region_cn", prefrenceUtil.getProvince_cn() + prefrenceUtil.getCity_cn() + prefrenceUtil.getRegion_cn());
         }
         if (!NullUtil.isStringEmpty(sub_id)) {
             params.put("category", sub_id);
@@ -277,7 +281,7 @@ public class MerchantServiceListFragmentCommon extends BaseFragment {
                 isRequesting = false;
 //                hideDialog(smallDialog);
                 SmartToast.showInfo("网络异常，请检查网络设置");
-                if (refreshLayout!=null){
+                if (refreshLayout != null) {
                     refreshLayout.finishRefresh();
                     refreshLayout.finishLoadMore();
                     if (page == 1) {
@@ -291,8 +295,11 @@ public class MerchantServiceListFragmentCommon extends BaseFragment {
 
     private void requestDataService() {
         HashMap<String, String> params = new HashMap<>();
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+       /* if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
             params.put("c_id", prefrenceUtil.getXiaoQuId());
+        }*/
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
+            params.put("region_cn", prefrenceUtil.getProvince_cn() + prefrenceUtil.getCity_cn() + prefrenceUtil.getRegion_cn());
         }
         if (!NullUtil.isStringEmpty(sub_id)) {
             params.put("category", sub_id);
@@ -362,7 +369,7 @@ public class MerchantServiceListFragmentCommon extends BaseFragment {
                 isRequesting = false;
 //                hideDialog(smallDialog);
                 SmartToast.showInfo("网络异常，请检查网络设置");
-                if (refreshLayout!=null){
+                if (refreshLayout != null) {
                     refreshLayout.finishRefresh();
                     refreshLayout.finishLoadMore();
                     if (page == 1) {

@@ -64,8 +64,8 @@ public class FragmentServicexSearchCommon extends BaseFragment {
     LinearLayout lin_hotTag;
     int type;
     MyListView listView;
+    SharePrefrenceUtil prefrenceUtil;
 
-    SharePrefrenceUtil sharePrefrenceUtil;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -78,7 +78,7 @@ public class FragmentServicexSearchCommon extends BaseFragment {
         mFlowLayout = view.findViewById(R.id.flowlayout);
         mSearchHistoryLl = view.findViewById(R.id.search_history_ll);
         listView = view.findViewById(R.id.search_history_lv);
-        sharePrefrenceUtil=new SharePrefrenceUtil(mContext);
+        prefrenceUtil = new SharePrefrenceUtil(mContext);
 
         view.findViewById(R.id.tv_clear_history).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,8 +144,11 @@ public class FragmentServicexSearchCommon extends BaseFragment {
                 params.put("s_key", keyword);
             }
         }
-        if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+       /* if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
             params.put("c_id", sharePrefrenceUtil.getXiaoQuId());
+        }*/
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
+            params.put("region_cn", prefrenceUtil.getProvince_cn() + prefrenceUtil.getCity_cn() + prefrenceUtil.getRegion_cn());
         }
         MyOkHttp.get().get(ApiHttpClient.GET_SERVICEKEYS, params, new JsonResponseHandler() {
 

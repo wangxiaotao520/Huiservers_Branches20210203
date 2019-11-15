@@ -300,6 +300,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                 hideDialog(smallDialog);
 
                 detailBean = protocol.getDetail(json);
+                tag_guige.setVisibility(View.VISIBLE);
                 title_name.setText(detailBean.getTitle());
 
 //                Glide.with(ShopDetailActivity.this).load(MyCookieStore.URL + detailBean.getTitle_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)

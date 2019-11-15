@@ -107,6 +107,8 @@ public class ApiHttpClient {
     public static String GET_MERCHANTLIST = API_SERVICE_URL + "institution/merchantList";
     //服务列表
     public static String GET_SERVICELIST = API_SERVICE_URL + "service/serviceList";
+    //服务区域判断有无
+    public static String GET_SERVICEMATCHING = API_SERVICE_URL + "index/serviceMatching";
 
     /**
      * 物业
@@ -495,5 +497,6 @@ public class ApiHttpClient {
         SHOP_MARKIING_DETAILS= API_URL + API_VERSION + "shop/area_marketing_activities_info";
         SHOP_MARKIING_ARTICE= API_URL + API_VERSION + "/shop/area_marketing_article";
         SHOP_MARKIING_ARTICE_DETAILS = API_URL + API_VERSION + "/shop/area_marketing_article_info";
+        GET_SERVICEMATCHING = API_SERVICE_URL + "index/serviceMatching";
     }
 }

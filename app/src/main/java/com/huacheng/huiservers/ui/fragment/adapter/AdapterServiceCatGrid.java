@@ -27,8 +27,7 @@ public class AdapterServiceCatGrid extends CommonAdapter<ModelServiceCat.GridBea
     protected void convert(ViewHolder viewHolder, ModelServiceCat.GridBean item, int position) {
         viewHolder.<TextView>getView(R.id.item_name).setText(item.getName()+"");
         viewHolder.<TextView>getView(R.id.item_name).setTextColor(mContext.getResources().getColor(R.color.title_color));
-        //TODO
-        GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL,viewHolder.<ImageView>getView(R.id.item_image),R.color.windowbackground);
+        GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL+item.getImg(),viewHolder.<ImageView>getView(R.id.item_image),R.color.windowbackground);
 
     }
 }

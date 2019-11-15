@@ -68,6 +68,15 @@ public class ModelServiceCat implements Serializable {
         private String id;
         private String p_id;
         private String name;
+        private String img;
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
 
         public String getId() {
             return id;

@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -12,7 +13,6 @@
         android:id="@+id/activity_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/status_bar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
@@ -433,6 +433,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="请选择数量规格"
+                            android:visibility="gone"
                             android:textColor="@color/c_title"
                             android:textSize="@dimen/t_14sp"/>
 
@@ -462,8 +463,8 @@
                             android:id="@+id/iv_store_head"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:background="@drawable/ic_default"
-                            app:roundedCornerRadius="@dimen/margin_5"/>
+                            fresco:placeholderImage="@mipmap/ic_store_head"
+                            fresco:roundedCornerRadius="@dimen/margin_5"/>
 
 
                         <LinearLayout

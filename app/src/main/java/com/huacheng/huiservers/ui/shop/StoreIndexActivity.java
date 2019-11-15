@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.microquation.linkedme.android.log.LMErrorCode;
@@ -58,6 +60,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
     private SimpleDraweeView iv_store_head;
     private TextView tv_store_name;
     private TextView tv_store_address;
+    private ImageView iv_bg;
     private List<ModelShopIndex> mDatas = new ArrayList<>();//数据
     private ShopCommonAdapter<ModelShopIndex> adapter;
     private int page = 1;
@@ -109,6 +112,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         iv_store_head = headerView.findViewById(R.id.iv_store_head);
         tv_store_name = headerView.findViewById(R.id.tv_store_name);
         tv_store_address = headerView.findViewById(R.id.tv_store_address);
+        iv_bg = headerView.findViewById(R.id.iv_bg);
 
     }
 
@@ -214,6 +218,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                         if (page == 1) {
                             tv_store_address.setText(shopIndex.getAddress());
                             tv_store_name.setText(shopIndex.getMerchant_name());
+                            GlideUtils.getInstance().glideLoad(StoreIndexActivity.this,ApiHttpClient.IMG_URL+shopIndex.getBackground(),iv_bg,R.mipmap.ic_store_bg);
                             FrescoUtils.getInstance().setImageUri(iv_store_head, ApiHttpClient.IMG_URL + shopIndex.getLogo());
                         }
                         inflateContent(shopIndex.getGoods());

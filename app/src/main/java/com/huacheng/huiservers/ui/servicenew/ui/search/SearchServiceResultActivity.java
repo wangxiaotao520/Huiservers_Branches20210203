@@ -171,9 +171,13 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
         }
         //从店铺进服务列表的时候传
         params.put("p", page + "");
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+       /* if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
             params.put("c_id", prefrenceUtil.getXiaoQuId());
+        }*/
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
+            params.put("region_cn", prefrenceUtil.getProvince_cn() + prefrenceUtil.getCity_cn() + prefrenceUtil.getRegion_cn());
         }
+
         MyOkHttp.get().get(ApiHttpClient.GET_MERCHANTLIST, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -232,7 +236,9 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
             keywords = s_key;
             et_search.setText(keywords);
         }
-        params.put("c_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
+            params.put("region_cn", prefrenceUtil.getProvince_cn() + prefrenceUtil.getCity_cn() + prefrenceUtil.getRegion_cn());
+        }
         params.put("p", page + "");
         MyOkHttp.get().get(ApiHttpClient.GET_SERVICELIST, params, new JsonResponseHandler() {
             @Override
