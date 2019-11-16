@@ -16,16 +16,24 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.dialog.ConfirmOrderDialog;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ConfirmOrderBeanCommit;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.center.CouponListActivity;
+import com.huacheng.huiservers.ui.center.AddAddressActivity;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
+import com.huacheng.huiservers.ui.center.CouponListActivity;
+import com.huacheng.huiservers.ui.center.bean.ModelAddressList;
 import com.huacheng.huiservers.ui.shop.adapter.ConfirmShopListAdapter;
+import com.huacheng.huiservers.ui.shop.bean.AmountBean;
+import com.huacheng.huiservers.ui.shop.bean.ConfirmBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
@@ -34,17 +42,19 @@ import com.huacheng.libraryservice.utils.ButtonUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * 确认订单
  */
-public class ConfirmOrderActivity extends BaseActivityOld implements OnClickListener {
+public class ConfirmOrderActivity extends BaseActivityOld implements OnClickListener, ConfirmShopListAdapter.OnClickPeisongListener {
     private LinearLayout lin_left, lin_jiesuan, lin_noadress, lin_yesaddress;
     private RelativeLayout title_rel;
     private TextView title_name, txt_address, txt_name, txt_mobile, txt_all_money, txt_fenpei,
@@ -55,17 +65,16 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
     List<SubmitOrderBean> pro = new ArrayList<SubmitOrderBean>();
     private MyListView list_order_group;
     SharePrefrenceUtil prefrenceUtil;
-    private StringBuilder sb;
-    private String allPrice;
-    private List<String> list_id = new ArrayList<String>();
+
     String person_address, person_name, person_mobile, person_address_id;
-    public static ConfirmOrderActivity instant;
-    private List<String> strlist = new ArrayList<String>();
+
     ConfirmShopListAdapter adapter;
     private String coupon_price, coupon_id, coupon_name;
     private EditText edt_liuyan;
     double all_money;
     String shop_id_str, shop_cou_Amount;
+    private List<ConfirmBean> mDatas = new ArrayList();//集合
+    private String  address_id = "";
 
     @Override
     protected void init() {
@@ -74,7 +83,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         //       SetTransStatus.GetStatus(this);//系统栏默认为黑色
         prefrenceUtil = new SharePrefrenceUtil(this);
         pro = (List<SubmitOrderBean>) getIntent().getExtras().getSerializable("pro");
-        allPrice = getIntent().getExtras().getString("all");
+
 
         lin_left = (LinearLayout) findViewById(R.id.lin_left);
         lin_left.setOnClickListener(this);
@@ -91,6 +100,8 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         txt_fenpei = (TextView) findViewById(R.id.txt_fenpei);
         txt_youhuiquan = (TextView) findViewById(R.id.txt_youhuiquan);
         list_order_group = (MyListView) findViewById(R.id.list_order_group);
+        adapter = new ConfirmShopListAdapter(ConfirmOrderActivity.this, mDatas, pro,this);
+        list_order_group.setAdapter(adapter);
         txt_peisongmoney = (TextView) findViewById(R.id.txt_peisongmoney);
         edt_liuyan = (EditText) findViewById(R.id.edt_liuyan);
         //底部栏
@@ -119,41 +130,30 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                 break;
 
             case R.id.lin_yesaddress:
+                //跳转到地址列表
                 intent = new Intent(this, AddressListActivity.class);
-                bundle.putString("address", "shopyes");
-                bundle.putString("type", "order");
-                bundle.putStringArrayList("list_id", new ArrayList<String>(list_id));
-                intent.putExtras(bundle);
+                intent.putExtra("jump_type",1);
                 startActivityForResult(intent, 200);
                 break;
             case R.id.lin_noadress:
-                intent = new Intent(this, AddressListActivity.class);
-                bundle.putString("address", "shopyes");
-                bundle.putString("type", "order");
-                bundle.putStringArrayList("list_id", new ArrayList<String>(list_id));
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 200);
+                intent = new Intent(this, AddAddressActivity.class);
+                intent.putExtra("jump_type",1);
+                startActivityForResult(intent,111);
                 break;
             case R.id.lin_jiesuan://立即支付
                 if (ButtonUtils.isFastDoubleClick(R.id.lin_jiesuan)) {
                     break;
                 }
-                strlist.clear();
-                for (int i = 0; i < MyCookieStore.Confirmlist.size(); i++) {
-                    String str = MyCookieStore.Confirmlist.get(i).getId() + "." + MyCookieStore.Confirmlist.get(i).getStyle();
-                    strlist.add(str);
-                }
-                sb = new StringBuilder();
-                for (int i = 0; i < strlist.size(); i++) {
-                    if (i == 0) {
-                        sb.append(String.valueOf(strlist.get(i)));
-                    } else {
-                        sb.append("|" + String.valueOf(strlist.get(i)));
+
+                for (int i = 0; i < mDatas.size(); i++) {
+                    if (mDatas.get(i).getDelivers().size()==0){
+                        SmartToast.showInfo("收货地址不能为空");
+                        return;
                     }
                 }
                 if (lin_noadress.getVisibility() == View.VISIBLE || TextUtils.isEmpty(txt_address.getText().toString()) || TextUtils.isEmpty(txt_mobile.getText().toString())
                         || TextUtils.isEmpty(txt_name.getText().toString())) {
-                    SmartToast.showInfo("地址不能为空");
+                    SmartToast.showInfo("收货地址不能为空");
 
                 } else {
 
@@ -206,21 +206,25 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         gson.toJson(pro);
 
         RequestParams params = new RequestParams();
-        params.addBodyParameter("para_amount", allPrice);
+      //  params.addBodyParameter("para_amount", allPrice);
         if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
             params.addBodyParameter("m_id", prefrenceUtil.getXiaoQuId());
         }
         params.addBodyParameter("products", gson.toJson(pro) + "");
+        if (!NullUtil.isStringEmpty(address_id)){
+            params.addBodyParameter("address_id", address_id);
+        }
         HttpHelper hh = new HttpHelper(info.submit_order_before, params, ConfirmOrderActivity.this) {
 
             @Override
             protected void setData(String json) {
                 hideDialog(smallDialog);
-                bean = protocol.getShopOrder(json);
+              //  bean = protocol.getShopOrder(json);
                 try {
                     JSONObject jsonObject = new JSONObject(json);
                     String status = jsonObject.getString("status");
                     String msg = jsonObject.getString("msg");
+                    bean = (ShopDetailBean) JsonUtil.getInstance().parseJson(jsonObject.getString("data"), ShopDetailBean.class);
                     if ("1".equals(status)) {
                         if (bean != null) {
                             if (TextUtils.isEmpty(bean.getContact()) && TextUtils.isEmpty(bean.getMobile()) &&
@@ -235,9 +239,8 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                                 txt_name.setText(bean.getContact());
                                 txt_mobile.setText(bean.getMobile());
                             }
-                            txt_peisongmoney.setText("¥" + bean.getSend_amount());
-                            txt_fenpei.setText("您的包裹将分成" + bean.getPro_num() + "个包裹配送给您");
-
+//                            txt_peisongmoney.setText("¥" + bean.getSend_amount());
+//                            txt_fenpei.setText("您的包裹将分成" + bean.getPro_num() + "个包裹配送给您");
 
                             if (bean.getAmount() != null && !TextUtils.isEmpty(bean.getAmount())) {
                                 all_money = Double.parseDouble(bean.getAmount());
@@ -249,19 +252,33 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                             shop_id_str = bean.getShop_id_str();
                             shop_cou_Amount = bean.getAmount();
 
-                            if (bean.getIs_coupon().equals("1")) {
+                            if ("1".equals(bean.getIs_coupon())) {
                                 txt_youhuiquan.setText("选择使用优惠券");
                                 txt_youhuiquan.setOnClickListener(ConfirmOrderActivity.this);
                             } else {
                                 txt_youhuiquan.setText("暂无可用优惠券");
                             }
+                            //获取选中
                             for (int i = 0; i < bean.getPro_data().size(); i++) {
-                                String str = bean.getPro_data().get(i).getMerchant_id();
-                                list_id.add(str);
+                                //配送方式一定不能为空
+                                if (bean.getPro_data().get(i).getDelivers()!=null&&bean.getPro_data().get(i).getDelivers().size()>0){
+                                    for (int i1 = 0; i1 < bean.getPro_data().get(i).getDelivers().size(); i1++) {
+                                        if (bean.getPro_data().get(i).getDelivers().get(i1).getIs_default()==1){//只有一个是默认
+                                            ConfirmBean.DeliversBean deliversBean_selectd = new ConfirmBean.DeliversBean();
+                                            deliversBean_selectd.setDis_fee(bean.getPro_data().get(i).getDelivers().get(i1).getDis_fee());
+                                            deliversBean_selectd.setIs_default(bean.getPro_data().get(i).getDelivers().get(i1).getIs_default());
+                                            deliversBean_selectd.setName(bean.getPro_data().get(i).getDelivers().get(i1).getName());
+                                            deliversBean_selectd.setSign(bean.getPro_data().get(i).getDelivers().get(i1).getSign());
+                                            //设置选中的bean  到时候配送方式从这里取数据
+                                            bean.getPro_data().get(i).setDeliversBean_selected(deliversBean_selectd);
+                                        }
+                                    }
+                                }
+
                             }
-                            adapter = new ConfirmShopListAdapter(ConfirmOrderActivity.this, bean.getPro_data(),
-                                    pro);
-                            list_order_group.setAdapter(adapter);
+                            mDatas.clear();
+                            mDatas.addAll(bean.getPro_data());
+                            adapter.notifyDataSetChanged();
                         }
                     } else {
                         SmartToast.showInfo(msg);
@@ -298,11 +315,22 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         params.addBodyParameter("address", txt_address.getText().toString() + "");
         params.addBodyParameter("contact", txt_name.getText().toString() + "");
         params.addBodyParameter("mobile", txt_mobile.getText().toString() + "");
-        params.addBodyParameter("m_c_id", coupon_id + "");
-        params.addBodyParameter("m_c_name", coupon_name + "");
-        params.addBodyParameter("m_c_amount", coupon_price + "");
+        if (!NullUtil.isStringEmpty(coupon_id)){
+            params.addBodyParameter("m_c_id", coupon_id + "");
+            params.addBodyParameter("m_c_name", coupon_name + "");
+            params.addBodyParameter("m_c_amount", coupon_price + "");
+        }
+
         params.addBodyParameter("description", edt_liuyan.getText().toString() + "");
-        params.addBodyParameter("type", sb.toString() + "");
+        String type = "";//商户1id_方式_配送费|商户2id_方式_配送费|商户3id_方式_配送费
+        for (int i = 0; i < mDatas.size(); i++) {
+            if (i< mDatas.size()-1){
+                type=type+mDatas.get(i).getMerchant_id()+"_"+mDatas.get(i).getDeliversBean_selected().getSign()+"_"+mDatas.get(i).getDeliversBean_selected().getDis_fee()+"|";
+            }else {
+                type=type+mDatas.get(i).getMerchant_id()+"_"+mDatas.get(i).getDeliversBean_selected().getSign()+"_"+mDatas.get(i).getDeliversBean_selected().getDis_fee()+"";
+            }
+        }
+        params.addBodyParameter("type", type+ "");
         params.addBodyParameter("products", gson.toJson(pro) + "");
         HttpHelper hh = new HttpHelper(info.submit_order, params, ConfirmOrderActivity.this) {
 
@@ -323,6 +351,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
                             bundle.putString("order_type", "gw");
                             intent.putExtras(bundle);
                             startActivity(intent);
+                            EventBus.getDefault().post(new ConfirmBean());
                             finish();
                         } else {
                             String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交失败");
@@ -347,41 +376,64 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (resultCode) {
-            case 200://地址返回
-                person_name = data.getExtras().getString("person_name");
-                person_mobile = data.getExtras().getString("person_mobile");
-                person_address = data.getExtras().getString("address");
-                person_address_id = data.getExtras().getString("address_id");
-                if (!person_address.equals("")) {
-                    lin_yesaddress.setVisibility(View.VISIBLE);
-                    lin_noadress.setVisibility(View.GONE);
-                    txt_address.setText(person_address);
-                    txt_mobile.setText(person_mobile);
-                    txt_name.setText(person_name);
-                }
-                break;
-            case 100://优惠券返回
-                coupon_price = data.getExtras().getString("coupon_price");
-                coupon_id = data.getExtras().getString("coupon_id");
-                coupon_name = data.getExtras().getString("coupon_name");
-                txt_youhuiquan.setText(coupon_name);
-                System.out.println("--------" + coupon_name);
-                System.out.println("parseDouble======" + Double.parseDouble(bean.getAmount()));
-                System.out.println("parseDouble======" + Double.parseDouble(coupon_price));
-                Double double1 = Double.parseDouble(bean.getAmount());
-                Double double2 = Double.parseDouble(coupon_price);
-                all_money = double1 - double2;
-                setFloat();
-                //txt_youhuiquan.setText("使用le优惠券");
-                txt_all_money.setText("¥" + all_money);
-                break;
-            case 10:
-                break;
 
-            default:
-                break;
-        }
+            switch (resultCode) {
+                case RESULT_OK:
+                    if (requestCode==200){
+                        //选择地址返回
+                        if (data!=null){
+                            ModelAddressList model = (ModelAddressList) data.getSerializableExtra("model");
+                            person_name=model.getConsignee_name();
+                            person_mobile=model.getConsignee_mobile();
+                            person_address=model.getRegion_cn()+" "+model.getCommunity_cn()+" "+model.getDoorplate();
+                            lin_yesaddress.setVisibility(View.VISIBLE);
+                            lin_noadress.setVisibility(View.GONE);
+                            txt_name.setText(person_name);
+                            txt_address.setText(person_address);
+                            txt_mobile.setText(person_mobile);
+                            address_id=model.getId()+"";
+                            getShopOrder();
+                        }
+                    }else if (requestCode==111){
+                       //新增地址返回
+                        if (data!=null){
+                            ModelAddressList model = (ModelAddressList) data.getSerializableExtra("model");
+                            person_name=model.getConsignee_name();
+                            person_mobile=model.getConsignee_mobile();
+                            person_address=model.getRegion_cn()+model.getCommunity_cn()+model.getDoorplate();
+                            lin_yesaddress.setVisibility(View.VISIBLE);
+                            lin_noadress.setVisibility(View.GONE);
+                            txt_name.setText(person_name);
+                            txt_address.setText(person_address);
+                            txt_mobile.setText(person_mobile);
+                            address_id=model.getId()+"";
+                            getShopOrder();
+
+                        }
+                    }
+                    break;
+                case 100://优惠券返回
+                    coupon_price = data.getExtras().getString("coupon_price");
+                    coupon_id = data.getExtras().getString("coupon_id");
+                    coupon_name = data.getExtras().getString("coupon_name");
+                    txt_youhuiquan.setText(coupon_name);
+                    System.out.println("--------" + coupon_name);
+                    System.out.println("parseDouble======" + Double.parseDouble(bean.getAmount()));
+                    System.out.println("parseDouble======" + Double.parseDouble(coupon_price));
+                    Double double1 = Double.parseDouble(bean.getAmount());
+                    Double double2 = Double.parseDouble(coupon_price);
+                    all_money = double1 - double2;
+                    setFloat();
+                    //txt_youhuiquan.setText("使用le优惠券");
+                    txt_all_money.setText("¥" + all_money);
+                    break;
+                case 10:
+                    break;
+
+                default:
+                    break;
+            }
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -390,4 +442,95 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         all_money = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
+    @Override
+    public void onClickPeisong(int position) {
+        //position 是当前商品listview的位置
+        //点击选择配送方式
+        if (mDatas.size()==0) {
+            return;
+        }
+        if (mDatas.get(position).getDelivers()==null||mDatas.get(position).getDelivers().size()==0) {
+            SmartToast.showInfo("收货地址不能为空");
+            return;
+        }
+        //所有的配送方式
+        final List<ConfirmBean.DeliversBean> delivers = mDatas.get(position).getDelivers();
+        //当前选中的配送方式
+        ConfirmBean.DeliversBean deliversBean_selected = mDatas.get(position).getDeliversBean_selected();
+
+        new ConfirmOrderDialog(this, position, delivers, deliversBean_selected, new ConfirmOrderDialog.OnClickDiliverItemListener() {
+            @Override
+            public void onClickDiliverItem(int listview_position, int diliver_position) {
+                ConfirmBean confirmBean = mDatas.get(listview_position);
+                if (diliver_position<mDatas.get(listview_position).getDelivers().size()){
+                    //取出选中的bean
+                    ConfirmBean.DeliversBean deliversBean_selected = mDatas.get(listview_position).getDelivers().get(diliver_position);
+                    //设置给选中
+                    ConfirmBean.DeliversBean deliversBean_selected_set = new ConfirmBean.DeliversBean();
+                    deliversBean_selected_set.setSign(deliversBean_selected.getSign());
+                    deliversBean_selected_set.setName(deliversBean_selected.getName());
+                    deliversBean_selected_set.setIs_default(deliversBean_selected.getIs_default());
+                    deliversBean_selected_set.setDis_fee(deliversBean_selected.getDis_fee());
+                    confirmBean.setDeliversBean_selected(deliversBean_selected_set);
+                    //刷新adapter
+                    adapter.notifyDataSetChanged();
+                }
+                //请求总价 拼成一个json
+                String commit_json = "";
+                ArrayList<ConfirmOrderBeanCommit> confirmOrderBeanCommits_list = new ArrayList<>();
+                for (int i = 0; i < mDatas.size(); i++) {
+                    ConfirmOrderBeanCommit confirmOrderBeanCommit = new ConfirmOrderBeanCommit();
+                    confirmOrderBeanCommit.setMerchant_id(mDatas.get(i).getMerchant_id()+"");
+                    confirmOrderBeanCommit.setHalf_amount(mDatas.get(i).getHalf_amount()+"");
+                    confirmOrderBeanCommit.setSign(mDatas.get(i).getDeliversBean_selected().getSign());
+                    confirmOrderBeanCommit.setDis_fee(mDatas.get(i).getDeliversBean_selected().getDis_fee());
+                    confirmOrderBeanCommits_list.add(confirmOrderBeanCommit);
+                }
+                Gson gson = new Gson();
+                commit_json= gson.toJson(confirmOrderBeanCommits_list);
+                requestBillAllMoney(commit_json);
+            }
+
+
+        }).show();
+
+    }
+
+    /**
+     * 请求总价接口
+     * @param json
+     */
+    private void requestBillAllMoney(String json) {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        if (!NullUtil.isStringEmpty(json)){
+            params.put("merchant_str",json+"");
+        }
+        MyOkHttp.get().post(ApiHttpClient.SET_ORDER_AMOUNT, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    AmountBean bean = (AmountBean) JsonUtil.getInstance().parseJsonFromResponse(response, AmountBean.class);
+                    txt_all_money.setText("¥" + bean.getAmount());
+                    all_money=Double.parseDouble(bean.getAmount());
+                    setFloat();
+                } else {
+                    try {
+                        SmartToast.showInfo(response.getString("msg"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
+    }
 }

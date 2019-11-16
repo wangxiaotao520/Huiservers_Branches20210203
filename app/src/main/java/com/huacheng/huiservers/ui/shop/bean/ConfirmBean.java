@@ -11,6 +11,18 @@ public class ConfirmBean {
 	private String half_amount;
 	private String number;
 	private List<BannerBean> img;
+	/**
+	 * half_amount : 1
+	 * number : 1
+	 * weight : 0
+	 * delivers : [{"name":"到店自提","sign":"ddzt","is_default":0,"dis_fee":0},{"name":"快递物流","sign":"kdwl","is_default":1,"dis_fee":"1.00"}]
+	 */
+	private String weight;
+	private List<DeliversBean> delivers;
+
+	private DeliversBean deliversBean_selected; //选中的bean  这个需要自己拼接
+
+
 	public String getMerchant_id() {
 		return merchant_id;
 	}
@@ -54,5 +66,75 @@ public class ConfirmBean {
 		this.img = img;
 	}
 
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+
+	public List<DeliversBean> getDelivers() {
+		return delivers;
+	}
+
+	public void setDelivers(List<DeliversBean> delivers) {
+		this.delivers = delivers;
+	}
+
+
+	public static class DeliversBean {
+		/**
+		 * name : 到店自提
+		 * sign : ddzt
+		 * is_default : 0
+		 * dis_fee : 0
+		 */
+
+		private String name;
+		private String sign;
+		private int is_default;
+		private String dis_fee;
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getSign() {
+			return sign;
+		}
+
+		public void setSign(String sign) {
+			this.sign = sign;
+		}
+
+		public int getIs_default() {
+			return is_default;
+		}
+
+		public void setIs_default(int is_default) {
+			this.is_default = is_default;
+		}
+
+		public String getDis_fee() {
+			return dis_fee;
+		}
+
+		public void setDis_fee(String dis_fee) {
+			this.dis_fee = dis_fee;
+		}
+	}
+
+	public DeliversBean getDeliversBean_selected() {
+		return deliversBean_selected;
+	}
+
+	public void setDeliversBean_selected(DeliversBean deliversBean_selected) {
+		this.deliversBean_selected = deliversBean_selected;
+	}
 
 }

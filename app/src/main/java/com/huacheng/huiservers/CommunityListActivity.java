@@ -411,6 +411,9 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                             modelCoummnityList_bean.setAddress(data_my.get(i).getFull_address()+"");
                             modelCoummnityList_bean.setId("");
                             modelCoummnityList_bean.setPosition(i);
+                            modelCoummnityList_bean.setProvince_name(data_my.get(i).getProvince_name());
+                            modelCoummnityList_bean.setCity_name(data_my.get(i).getCity_name());
+                            modelCoummnityList_bean.setArea_name(data_my.get(i).getArea_name());
                             data_my_list.add(modelCoummnityList_bean);
                         }
                     }
@@ -480,18 +483,44 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
             //切换小区
             if (item.getType()==1){//当前小区
                 finish();
-            } else {
-                //我的小区 //附近小区
-                requestCommunityId(item);
+            } else if (item.getType()==2){
+                //我的小区
+                requestCommunityId(item,item.getType());
+
+            }else {
+                //附近小区
+                requestCommunityId(item,item.getType());
             }
-        }else if (jump_type==2){
-            Intent intent = new Intent();
-            intent.putExtra("location_provice",location_provice);
-            intent.putExtra("location_city",location_city);
-            intent.putExtra("location_district",location_district);
-            intent.putExtra("name",item.getName()+"");
-            setResult(RESULT_OK,intent);
-            finish();
+        }else if (jump_type==2){//收货地址
+            if (item.getType()==1){//当前小区
+                Intent intent = new Intent();
+                intent.putExtra("location_provice",prefrenceUtil.getProvince_cn()+"");
+                intent.putExtra("location_city",prefrenceUtil.getCity_cn()+"");
+                intent.putExtra("location_district",prefrenceUtil.getRegion_cn());
+                intent.putExtra("name",item.getName()+"");
+                setResult(RESULT_OK,intent);
+                finish();
+            } else if (item.getType()==2){
+                //我的小区
+                Intent intent = new Intent();
+                intent.putExtra("location_provice",item.getProvince_name()+"");
+                intent.putExtra("location_city",item.getCity_name()+"");
+                intent.putExtra("location_district",item.getArea_name());
+                intent.putExtra("name",item.getName()+"");
+                setResult(RESULT_OK,intent);
+                finish();
+
+            }else {
+                //附近小区
+                Intent intent = new Intent();
+                intent.putExtra("location_provice",location_provice);
+                intent.putExtra("location_city",location_city);
+                intent.putExtra("location_district",location_district);
+                intent.putExtra("name",item.getName()+"");
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+
         }
 
     }
@@ -500,7 +529,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
      * 根据小区名字请求小区id
      * @param item
      */
-    private void requestCommunityId(final ModelCoummnityList item) {
+    private void requestCommunityId(final ModelCoummnityList item, final int type) {
         showDialog(smallDialog);
         smallDialog.setTipTextView("加载中...");
         HashMap<String, String> params = new HashMap<>();
@@ -524,9 +553,16 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                             prefrenceUtil.setXiaoQuName(item.getName());
                             prefrenceUtil.setAddressName(item.getAddress());
                             //保存省市区
-                            prefrenceUtil.setProvince_cn(location_provice);
-                            prefrenceUtil.setCity_cn(location_city);
-                            prefrenceUtil.setRegion_cn(location_district);
+                            if (type==2){
+                                // 说明点击的是我的小区
+                                prefrenceUtil.setProvince_cn(item.getProvince_name()+"");
+                                prefrenceUtil.setCity_cn(item.getCity_name()+"");
+                                prefrenceUtil.setRegion_cn(item.getArea_name());
+                            }else {
+                                prefrenceUtil.setProvince_cn(location_provice);
+                                prefrenceUtil.setCity_cn(location_city);
+                                prefrenceUtil.setRegion_cn(location_district);
+                            }
                             EventBus.getDefault().post(new ModelEventHome(2));
                             mListview.postDelayed(new Runnable() {
                                 @Override
@@ -545,9 +581,17 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                             prefrenceUtil.setXiaoQuName(item.getName());
                             prefrenceUtil.setAddressName(item.getAddress());
                             //保存省市区
-                            prefrenceUtil.setProvince_cn(location_provice);
-                            prefrenceUtil.setCity_cn(location_city);
-                            prefrenceUtil.setRegion_cn(location_district);
+                            if (type==2){
+                                // 说明点击的是我的小区
+                                prefrenceUtil.setProvince_cn(item.getProvince_name()+"");
+                                prefrenceUtil.setCity_cn(item.getCity_name()+"");
+                                prefrenceUtil.setRegion_cn(item.getArea_name());
+                            }else {
+                                prefrenceUtil.setProvince_cn(location_provice);
+                                prefrenceUtil.setCity_cn(location_city);
+                                prefrenceUtil.setRegion_cn(location_district);
+                            }
+
                             EventBus.getDefault().post(new ModelEventHome(2));
                             mListview.postDelayed(new Runnable() {
                                 @Override
@@ -567,9 +611,17 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                         prefrenceUtil.setXiaoQuName(item.getName());
                         prefrenceUtil.setAddressName(item.getAddress());
                         //保存省市区
-                        prefrenceUtil.setProvince_cn(location_provice);
-                        prefrenceUtil.setCity_cn(location_city);
-                        prefrenceUtil.setRegion_cn(location_district);
+                        if (type==2){
+                            // 说明点击的是我的小区
+                            prefrenceUtil.setProvince_cn(item.getProvince_name()+"");
+                            prefrenceUtil.setCity_cn(item.getCity_name()+"");
+                            prefrenceUtil.setRegion_cn(item.getArea_name());
+                        }else {
+                            prefrenceUtil.setProvince_cn(location_provice);
+                            prefrenceUtil.setCity_cn(location_city);
+                            prefrenceUtil.setRegion_cn(location_district);
+                        }
+
                         EventBus.getDefault().post(new ModelEventHome(2));
                         mListview.postDelayed(new Runnable() {
                             @Override

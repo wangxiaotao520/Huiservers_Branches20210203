@@ -31,6 +31,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.shop.bean.ConfirmBean;
 import com.huacheng.huiservers.ui.shop.bean.DataBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
@@ -41,6 +42,9 @@ import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lidroid.xutils.BitmapUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -84,6 +88,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main_activity);
@@ -175,13 +180,13 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
 
                         }
                     } else {
-                        rel_no_data.setVisibility(View.VISIBLE);
+                    //    rel_no_data.setVisibility(View.VISIBLE);
                         bottom_bar.setVisibility(View.GONE);
                         refreshListView();
 
                     }
                 } else {
-                    rel_no_data.setVisibility(View.VISIBLE);
+                 //   rel_no_data.setVisibility(View.VISIBLE);
                     bottom_bar.setVisibility(View.GONE);
                     refreshListView();
 
@@ -749,5 +754,27 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updatecart(ConfirmBean bean) {
+        //刷新购物车
+        getSelectedIds().clear();
+        getShopList();
+        mCheckAll.setChecked(false);
+        totalPrice = (float) 0;
+        mSelectState.clear();
+        refreshListView();
+        mPriceAll.setText("¥" + 0.00 + "");
+        mSelectNum.setText("已选" + 0 + "件商品");
+        //  mListView.setAdapter(mListAdapter);
+        mListAdapter.notifyDataSetChanged();
+        initListener();//事件监听
+        loadData();
     }
 }

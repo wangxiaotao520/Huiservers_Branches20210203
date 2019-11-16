@@ -14,13 +14,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.adapter.ImageAdapter;
+import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.center.adapter.ImageAdapter;
 import com.huacheng.huiservers.ui.shop.SeeAllOrderActivity;
 import com.huacheng.huiservers.ui.shop.bean.ConfirmBean;
-import com.huacheng.huiservers.ui.shop.bean.ConfirmMapBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.view.HorizontalListView;
 import com.huacheng.huiservers.view.SwitchButton;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -37,8 +36,9 @@ public class ConfirmShopListAdapter extends BaseAdapter {
     //List<ConfirmMapBean> mapBeans=new ArrayList<ConfirmMapBean>();
     private ImageLoader imageLoader;
     ShopProtocol protocol = new ShopProtocol();
+    private OnClickPeisongListener listener ;
 
-    public ConfirmShopListAdapter(Context mContext, List<ConfirmBean> mList, List<SubmitOrderBean> pro) {
+    public ConfirmShopListAdapter(Context mContext, List<ConfirmBean> mList, List<SubmitOrderBean> pro,OnClickPeisongListener listener) {
         super();
         this.pro = pro;
         this.mList = mList;
@@ -46,13 +46,14 @@ public class ConfirmShopListAdapter extends BaseAdapter {
         if (imageLoader == null) {
             imageLoader = ImageLoader.getInstance();
         }
-        MyCookieStore.Confirmlist.clear();
-        for (int i = 0; i < mList.size(); i++) {
-            ConfirmMapBean bean = new ConfirmMapBean();
-            bean.setId(mList.get(i).getMerchant_id());
-            bean.setStyle("1");
-            MyCookieStore.Confirmlist.add(bean);
-        }
+//        MyCookieStore.Confirmlist.clear();
+//        for (int i = 0; i < mList.size(); i++) {
+//            ConfirmMapBean bean = new ConfirmMapBean();
+//            bean.setId(mList.get(i).getMerchant_id());
+//            bean.setStyle("1");
+//            MyCookieStore.Confirmlist.add(bean);
+//        }
+        this.listener=listener;
     }
 
 
@@ -96,6 +97,9 @@ public class ConfirmShopListAdapter extends BaseAdapter {
             holder.lin_onclick = (LinearLayout) convertView.findViewById(R.id.lin_onclick);
             // holder.lin_market = (LinearLayout) convertView.findViewById(R.id.lin_market);
             holder.hor_scroll = (HorizontalListView) convertView.findViewById(R.id.hor_scroll);
+            holder.ly_peisong = convertView.findViewById(R.id.ly_peisong);
+            holder.tv_peisong = convertView.findViewById(R.id.tv_peisong);
+            holder.tv_peisong_price = convertView.findViewById(R.id.tv_peisong_price);
 
             convertView.setTag(holder);
         } else {
@@ -106,7 +110,7 @@ public class ConfirmShopListAdapter extends BaseAdapter {
         holder.txt_danprice.setText("¥" + mList.get(position).getHalf_amount());
         // holder.txt_baoguo.setText("包裹" + (position + 1));
         holder.txt_baoguo.setText(mList.get(position).getMerchant_name());
-        MyCookieStore.Confirmlist.get(position).setStyle("1");
+     //   MyCookieStore.Confirmlist.get(position).setStyle("1");
         holder.btn_style.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
@@ -164,6 +168,23 @@ public class ConfirmShopListAdapter extends BaseAdapter {
         ImageAdapter imageAdapter = new ImageAdapter(mContext, mList.get(position).getImg());
         holder.hor_scroll.setAdapter(imageAdapter);
         //convertView.setOnTouchListener(this);
+        holder.ly_peisong.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener!=null){
+                    listener.onClickPeisong(position);
+                }
+            }
+        });
+        ConfirmBean confirmBean = mList.get(position);
+        if (confirmBean.getDeliversBean_selected()!=null){
+            holder.tv_peisong.setText(confirmBean.getDeliversBean_selected().getName()+"");
+            holder.tv_peisong_price.setText("¥ " +confirmBean.getDeliversBean_selected().getDis_fee());
+        }else {
+            //todo 没有地址的情况 或者后台没设置配送方式的情况（bug）
+            holder.tv_peisong.setText("");
+            holder.tv_peisong_price.setText("¥ 0");
+        }
 
         return convertView;
     }
@@ -192,9 +213,22 @@ public class ConfirmShopListAdapter extends BaseAdapter {
         private LinearLayout lin_onclick, lin_market;
         private HorizontalListView hor_scroll;
         public TextView txt_store, txt_num, txt_danprice, txt_shangmen, txt_ziti, txt_baoguo;
+        //配送方式
+        private LinearLayout ly_peisong ;
+        private TextView tv_peisong;
+        //配送费
+        private TextView tv_peisong_price ;
     }
 
     private void isCheckd() {
 
+    }
+
+    public interface OnClickPeisongListener{
+        /**
+         * 点击选择配送方式
+         * @param position
+         */
+        void onClickPeisong(int position);
     }
 }

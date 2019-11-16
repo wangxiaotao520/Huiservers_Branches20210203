@@ -190,13 +190,12 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
     private void getdata() {// 搜索界面接口
         Url_info info = new Url_info(this);
         if (type == 1) {
-            url = info.goods_search + "key/" + et_search.getText().toString() + "/mer_id/" + store_id + "/p/" + page;
+            url = info.goods_search + "key/" + et_search.getText().toString() + "/mer_id/" + store_id + "/p/" + page+"/province_cn/"+prefrenceUtil.getProvince_cn()+"/city_cn/"+prefrenceUtil.getCity_cn()+"/region_cn/"+prefrenceUtil.getRegion_cn();;
         } else if (type == 2) {
-            url = info.goods_search + "key/" + et_search.getText().toString() + "/marketing_activities_id/" + act_id + "/p/" + page;
+            url = info.goods_search + "key/" + et_search.getText().toString() + "/marketing_activities_id/" + act_id + "/p/" + page+"/province_cn/"+prefrenceUtil.getProvince_cn()+"/city_cn/"+prefrenceUtil.getCity_cn()+"/region_cn/"+prefrenceUtil.getRegion_cn();;
         } else {
-            url = info.goods_search + "key/" + et_search.getText().toString() + "/p/" + page;
+            url = info.goods_search + "key/" + et_search.getText().toString() + "/p/" + page+"/province_cn/"+prefrenceUtil.getProvince_cn()+"/city_cn/"+prefrenceUtil.getCity_cn()+"/region_cn/"+prefrenceUtil.getRegion_cn();;
         }
-
         new HttpHelper(url, SearchResultActivity.this) {
 
             @Override

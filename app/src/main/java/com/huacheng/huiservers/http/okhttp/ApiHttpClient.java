@@ -356,6 +356,8 @@ public class ApiHttpClient {
     public static String GET_MY_DISTRICT = API_URL + API_VERSION  + "site/myDistrict";
     //根据小区名称获取小区id
     public static String GET_COMMUNITY_ID = API_URL + API_VERSION  + "site/siteCommunityId";
+    //计算订单金额
+    public static String SET_ORDER_AMOUNT = API_URL + API_VERSION  + "/shop/set_order_amount";
 
     /**
      * 刷新接口
@@ -498,5 +500,6 @@ public class ApiHttpClient {
         SHOP_MARKIING_ARTICE= API_URL + API_VERSION + "/shop/area_marketing_article";
         SHOP_MARKIING_ARTICE_DETAILS = API_URL + API_VERSION + "/shop/area_marketing_article_info";
         GET_SERVICEMATCHING = API_SERVICE_URL + "index/serviceMatching";
+        SET_ORDER_AMOUNT = API_URL + API_VERSION  + "/shop/set_order_amount";
     }
 }

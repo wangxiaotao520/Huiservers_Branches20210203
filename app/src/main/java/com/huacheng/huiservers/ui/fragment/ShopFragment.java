@@ -1,6 +1,5 @@
 package com.huacheng.huiservers.ui.fragment;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
@@ -77,8 +76,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import io.reactivex.functions.Consumer;
 
 /**
  * Description: 商城首页(新)
@@ -682,33 +679,36 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener, 
     }
     @Override
     public void initData(Bundle savedInstanceState) {
-
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
-            //1.有省市区数据的情况（新用户下载安装第一次进来，选择切换过小区，）
-            showDialog(smallDialog);
-            requestData();
-        }else {
-            //2.没有省市区的情况（旧用户覆盖安装，选择了智慧小区）
-            initLocation();
-            rxPermissions.request( Manifest.permission.ACCESS_COARSE_LOCATION)
-                    .subscribe(new Consumer<Boolean>() {
-                        @Override
-                        public void accept(Boolean isGranted) throws Exception {
-                            if (isGranted) {
-                                //权限同意 ,开始定位
-                                showDialog(smallDialog);
-                                smallDialog.setTipTextView("定位中...");
-                                mlocationClient.startLocation();
-                            } else {
-                                //权限拒绝
-                                showDialog(smallDialog);
-                                requestData();
-
-                            }
-                        }
-                    });
-        }
-
+//
+//        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+//            //1.有省市区数据的情况（新用户下载安装第一次进来，选择切换过小区，）
+//            showDialog(smallDialog);
+//            requestData();
+//        }else {
+//            //2.没有省市区的情况（旧用户覆盖安装，选择了智慧小区）
+//            initLocation();
+//            rxPermissions.request( Manifest.permission.ACCESS_COARSE_LOCATION)
+//                    .subscribe(new Consumer<Boolean>() {
+//                        @Override
+//                        public void accept(Boolean isGranted) throws Exception {
+//                            if (isGranted) {
+//                                //权限同意 ,开始定位
+//                                showDialog(smallDialog);
+//                                smallDialog.setTipTextView("定位中...");
+//                                mlocationClient.startLocation();
+//                            } else {
+//                                //权限拒绝
+//                                showDialog(smallDialog);
+//                                requestData();
+//
+//                            }
+//                        }
+//                    });
+//        }
+        //想了想还是不能加定位,加定位有可能出现小区和定位的省市区不匹配的情况
+        //（旧用户覆盖安装，选择了智慧小区）就要它不传小区好了
+        showDialog(smallDialog);
+        requestData();
     }
 
     @Override

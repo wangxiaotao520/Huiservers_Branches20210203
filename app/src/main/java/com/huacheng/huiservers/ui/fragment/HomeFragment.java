@@ -434,10 +434,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuName())){
             //1.小区名字不为空的情况
             tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+            if (NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+                //todo 试试用
+                //两种情况 旧的线上用户覆盖安装肯定没有省市区
+                prefrenceUtil.setProvince_cn("山西省");
+                prefrenceUtil.setCity_cn("晋中市");
+                prefrenceUtil.setRegion_cn("榆次区");
+            }else {
+                //新用户肯定有省市区也有名字
+            }
             showDialog(smallDialog);
             requestData();
         }else {
-            //2.小区名字为空的情况
+            //2.小区名字为空的情况(第一次进来)
             requestLocationPermission();
         }
 
@@ -461,6 +470,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                             //权限拒绝 ,默认智慧小区
                             prefrenceUtil.clearPreference(mActivity);
                             prefrenceUtil.setXiaoQuName("智慧小区");
+                            prefrenceUtil.setProvince_cn("山西省");
+                            prefrenceUtil.setCity_cn("晋中市");
+                            prefrenceUtil.setRegion_cn("榆次区");
                             tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
                             showDialog(smallDialog);
                             requestData();
@@ -1042,6 +1054,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 //定位失败 显示智慧小区
                 prefrenceUtil.clearPreference(mActivity);
                 prefrenceUtil.setXiaoQuName("智慧小区");
+                prefrenceUtil.setProvince_cn("山西省");
+                prefrenceUtil.setCity_cn("晋中市");
+                prefrenceUtil.setRegion_cn("榆次区");
                 tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
                 showDialog(smallDialog);
                 requestData();
@@ -1053,6 +1068,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             //定位失败 显示智慧小区
             prefrenceUtil.clearPreference(mActivity);
             prefrenceUtil.setXiaoQuName("智慧小区");
+            prefrenceUtil.setProvince_cn("山西省");
+            prefrenceUtil.setCity_cn("晋中市");
+            prefrenceUtil.setRegion_cn("榆次区");
             tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
             showDialog(smallDialog);
             requestData();

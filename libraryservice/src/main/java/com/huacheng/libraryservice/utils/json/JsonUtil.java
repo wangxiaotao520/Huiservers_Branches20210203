@@ -70,7 +70,17 @@ public class JsonUtil<T>  {
 
     @CheckResult
     public T parseJson(@NonNull String response,Class<T> clazz){
-        return !NullUtil.isStringEmpty(response)?getGson().fromJson(response,clazz):null;
+        try {
+            if (!NullUtil.isStringEmpty(response)){
+                T bean = getGson().fromJson(response, clazz);
+                return bean;
+            }else {
+                return null;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public boolean isSuccess(@NonNull JSONObject response){

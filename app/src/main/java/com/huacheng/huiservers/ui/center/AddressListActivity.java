@@ -131,7 +131,10 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                    //todo
+
+                if (mDatas.get(arg2).getIs_do()==0) {//0是不可用
+                    return;
+                }
                 Intent intent = new Intent();
                 intent.putExtra("model",mDatas.get(arg2));
                 setResult(RESULT_OK,intent);
