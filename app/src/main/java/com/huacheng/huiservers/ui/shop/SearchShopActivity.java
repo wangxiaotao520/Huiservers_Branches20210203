@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,7 +21,6 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.shop.adapter.SearchHistoryAdapter;
-import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.FlowLayout;
 import com.huacheng.huiservers.view.MyListView;
 
@@ -283,24 +281,46 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
      * @param str
      */
     public void save(String str) {
+
         String text = str;
-        String oldText = mPref.getString(KEY_SEARCH_HISTORY_KEYWORD, "");
-        Log.e("tag", "" + oldText);
-        Log.e("Tag", "" + text);
-        Log.e("Tag", "" + oldText.contains(text));
+
         if (!TextUtils.isEmpty(text)) {//&& !()
-            SharedPreferences.Editor editor;
-            editor = mPref.edit();
+            String oldText = mPref.getString(KEY_SEARCH_HISTORY_KEYWORD, "");
             if (oldText.contains(text)) {
-                oldText = StringUtils.subLimit(text + "," + oldText);
-                editor.putString(KEY_SEARCH_HISTORY_KEYWORD, oldText);
-                editor.commit();
-                mHistoryKeywords.add(0, text);
-            } else {
-                editor.putString(KEY_SEARCH_HISTORY_KEYWORD, text + "," + oldText);
-                editor.commit();
+
+            }else {
                 mHistoryKeywords.add(0, text);
             }
+            cleanHistory();
+            SharedPreferences.Editor editor;
+            editor = mPref.edit();
+            String sp = "";
+            for (int i = 0; i < mHistoryKeywords.size(); i++) {
+                if (i==mHistoryKeywords.size()-1){
+                    sp= sp+ mHistoryKeywords.get(i)+"";
+                    break;
+                }
+                if (i==4){
+                    sp= sp+ mHistoryKeywords.get(i)+"";
+                    break;
+                }
+                sp= sp+ mHistoryKeywords.get(i)+",";
+            }
+            editor.putString(KEY_SEARCH_HISTORY_KEYWORD, sp);
+            editor.commit();
+//                editor.commit();
+//            if (oldText.contains(text)) {
+//                oldText = StringUtils.subLimit(text + "," + oldText);
+//                editor.putString(KEY_SEARCH_HISTORY_KEYWORD, oldText);
+//                editor.commit();
+//                mHistoryKeywords.add(0, text);
+//            } else {
+//
+//
+//                editor.putString(KEY_SEARCH_HISTORY_KEYWORD, text + "," + oldText);
+//                editor.commit();
+//
+//            }
             mSearchHistoryLl.setVisibility(View.GONE);
             histroyAdapter.notifyDataSetChanged();
         }
@@ -313,9 +333,9 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
         mPref = getSharedPreferences("input", MODE_PRIVATE);
         SharedPreferences.Editor editor = mPref.edit();
         editor.remove(KEY_SEARCH_HISTORY_KEYWORD).commit();
-        mHistoryKeywords.clear();
+      //  mHistoryKeywords.clear();
         histroyAdapter.notifyDataSetChanged();
-        mSearchHistoryLl.setVisibility(View.GONE);
+     //   mSearchHistoryLl.setVisibility(View.GONE);
     }
 
     /**

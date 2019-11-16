@@ -20,7 +20,6 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.FlowLayout;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -95,9 +94,9 @@ public class FragmentServicexSearchCommon extends BaseFragment {
         mPref = mContext.getSharedPreferences("servicex_input" + type, MODE_PRIVATE);
         SharedPreferences.Editor editor = mPref.edit();
         editor.remove(KEY_SEARCH_HISTORY_KEYWORD).commit();
-        mHistoryKeywords.clear();
+       // mHistoryKeywords.clear();
         histroyAdapter.notifyDataSetChanged();
-        mSearchHistoryLl.setVisibility(View.GONE);
+      //  mSearchHistoryLl.setVisibility(View.GONE);
 
     }
 
@@ -312,10 +311,32 @@ public class FragmentServicexSearchCommon extends BaseFragment {
      */
     public void save(String str) {
         String text = str;
+        if (!TextUtils.isEmpty(text)) {//&& !()
+            String oldText = mPref.getString(KEY_SEARCH_HISTORY_KEYWORD, "");
+            if (oldText.contains(text)) {
+
+            }else {
+                mHistoryKeywords.add(0, text);
+            }
+            cleanHistory();
+            SharedPreferences.Editor editor;
+            editor = mPref.edit();
+            String sp = "";
+            for (int i = 0; i < mHistoryKeywords.size(); i++) {
+                if (i==mHistoryKeywords.size()-1){
+                    sp= sp+ mHistoryKeywords.get(i)+"";
+                    break;
+                }
+                if (i==4){
+                    sp= sp+ mHistoryKeywords.get(i)+"";
+                    break;
+                }
+                sp= sp+ mHistoryKeywords.get(i)+",";
+            }
+            editor.putString(KEY_SEARCH_HISTORY_KEYWORD, sp);
+            editor.commit();
+     /*   String text = str;
         String oldText = mPref.getString(KEY_SEARCH_HISTORY_KEYWORD, "");
-        /*Log.e("tag", "" + oldText);
-        Log.e("Tag", "" + text);
-        Log.e("Tag", "" + oldText.contains(text));*/
         if (!TextUtils.isEmpty(text)) {//&& !()
             SharedPreferences.Editor editor;
             editor = mPref.edit();
@@ -328,9 +349,9 @@ public class FragmentServicexSearchCommon extends BaseFragment {
                 editor.putString(KEY_SEARCH_HISTORY_KEYWORD, text + "," + oldText);
                 editor.commit();
                 mHistoryKeywords.add(0, text);
-            }
+            }*/
             mSearchHistoryLl.setVisibility(View.GONE);
-//            histroyAdapter.notifyDataSetChanged();
+            histroyAdapter.notifyDataSetChanged();
         }
     }
 

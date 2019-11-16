@@ -217,6 +217,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 mRefreshLayout.finishRefresh();
                 mRefreshLayout.finishLoadMore();
                 listView.setIsLoading(false);
+                ly_share.setClickable(true);
                 if (JsonUtil.getInstance().isSuccess(response)) {
 
                     ModelShopIndex modelindex = (ModelShopIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelShopIndex.class);
@@ -246,6 +247,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 mRefreshLayout.finishLoadMore();
                 listView.setHasMoreItems(false);
                 listView.setIsLoading(false);
+                ly_share.setClickable(false);
                 SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     mRefreshLayout.setEnableLoadMore(false);

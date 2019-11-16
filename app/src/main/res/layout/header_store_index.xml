@@ -31,6 +31,7 @@
                 android:id="@+id/iv_store_head"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:visibility="invisible"
                 fresco:placeholderImage="@mipmap/ic_store_head"
                 fresco:roundedCornerRadius="@dimen/margin_5"
                 fresco:roundingBorderColor="@color/white"
@@ -67,13 +68,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@drawable/shape_whtie_top_left_right"
             android:layout_alignParentBottom="true">
 
             <LinearLayout
+                android:id="@+id/ly_all"
+                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-                android:background="@drawable/shape_whtie_top_left_right"
                 android:gravity="center"
                 android:orientation="vertical">
 

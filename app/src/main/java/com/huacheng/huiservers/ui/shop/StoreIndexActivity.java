@@ -65,6 +65,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
     private ShopCommonAdapter<ModelShopIndex> adapter;
     private int page = 1;
     private String store_id = "";
+    private LinearLayout ly_all;
     private LinearLayout ly_serch;
     private LinearLayout ly_scroll;
     private LinearLayout lin_left;
@@ -112,6 +113,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         iv_store_head = headerView.findViewById(R.id.iv_store_head);
         tv_store_name = headerView.findViewById(R.id.tv_store_name);
         tv_store_address = headerView.findViewById(R.id.tv_store_address);
+        ly_all = headerView.findViewById(R.id.ly_all);
         iv_bg = headerView.findViewById(R.id.iv_bg);
 
     }
@@ -210,12 +212,15 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                 mRefreshLayout.finishRefresh();
                 mRefreshLayout.finishLoadMore();
                 listView.setIsLoading(false);
+                lin_share.setClickable(true);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ModelShopIndex shopIndex = (ModelShopIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelShopIndex.class);
                     // List<ModelShopIndex> shopIndexList = (List<ModelShopIndex>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelShopIndex.class);
                     if (shopIndex != null) {
                         modelShopIndex = shopIndex;
                         if (page == 1) {
+                            iv_store_head.setVisibility(View.VISIBLE);
+                            ly_all.setVisibility(View.VISIBLE);
                             tv_store_address.setText(shopIndex.getAddress());
                             tv_store_name.setText(shopIndex.getMerchant_name());
                             GlideUtils.getInstance().glideLoad(StoreIndexActivity.this,ApiHttpClient.IMG_URL+shopIndex.getBackground(),iv_bg,R.mipmap.ic_store_bg);
@@ -238,6 +243,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                 mRefreshLayout.finishLoadMore();
                 listView.setHasMoreItems(false);
                 listView.setIsLoading(false);
+                lin_share.setClickable(false);
                 SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     mRefreshLayout.setEnableLoadMore(false);
