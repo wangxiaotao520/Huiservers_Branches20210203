@@ -32,6 +32,7 @@ import com.huacheng.huiservers.ui.shop.NewPingJiaActivity;
 import com.huacheng.huiservers.ui.shop.NewTuikuanActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -264,8 +265,12 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
                             mTvPersonAddress.setVisibility(View.VISIBLE);
                             mTvPeisongStyle.setText("配送方式：快递物流");
                             mTvPersonAddress.setText("收货地址：" + XorderDetailBean.get(0).getAddress());
-                            mTvWuliuNum.setVisibility(View.VISIBLE);
-                            mTvWuliuNum.setText("物流单号：" + XorderDetailBean.get(0).getExpress());
+                            if (!NullUtil.isStringEmpty(XorderDetailBean.get(0).getExpress())){
+                                mTvWuliuNum.setVisibility(View.VISIBLE);
+                                mTvWuliuNum.setText("物流单号：" + XorderDetailBean.get(0).getExpress());
+                            }else {
+                                mTvWuliuNum.setVisibility(View.GONE);
+                            }
                         } else {
                             mTvPersonAddress.setVisibility(View.GONE);
                             mTvPeisongStyle.setVisibility(View.GONE);
