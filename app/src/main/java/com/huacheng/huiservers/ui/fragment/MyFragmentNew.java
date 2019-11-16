@@ -33,7 +33,7 @@ import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
-import com.huacheng.huiservers.ui.shop.ShopCartActivityTwo;
+import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -342,12 +342,14 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 }
                 break;
             case R.id.rel_gouwuche://购物车
-                intent = new Intent(getActivity(), ShopCartActivityTwo.class);
-                startActivity(intent);
+//                intent = new Intent(mActivity, ShopCartActivityTwo.class);
+//                startActivity(intent);
+                intent = new Intent(mActivity, ShopCartActivityNew.class);
+                startActivityForResult(intent, 1);
                 //KeepAliveService.connectServer(context, "99905901020101");
                 break;
             case R.id.rel_xiaofejilu://消费记录
-                intent = new Intent(getActivity(), CenterMoneyActivity.class);
+                intent = new Intent(mActivity, CenterMoneyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.rel_house://我的房产

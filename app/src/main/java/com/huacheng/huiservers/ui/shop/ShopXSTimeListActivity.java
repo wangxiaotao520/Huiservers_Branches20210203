@@ -218,7 +218,9 @@ public class ShopXSTimeListActivity extends BaseActivityOld {
             case R.id.lin_car:
                 getLinshi();
                 if (!login_type.equals("")) {// 登陆之后获取数量
-                    startActivity(new Intent(this, ShopCartActivityTwo.class));
+                 //   startActivity(new Intent(this, ShopCartActivityTwo.class));
+                   Intent intent = new Intent(this, ShopCartActivityNew.class);
+                    startActivityForResult(intent, 1);
                 } else {
                     startActivity(new Intent(this, LoginVerifyCodeActivity.class));
                 }

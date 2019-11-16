@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowbackground"
+    android:orientation="vertical"
+    >
+    <include
+        layout="@layout/titlebar_center" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:divider="@null"
+            android:fastScrollEnabled="false"
+            android:listSelector="@android:color/transparent"
+            android:smoothScrollbar="true"/>
+        <include layout="@layout/no_data"></include>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/view_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_check"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/check_box1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:button="@null"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/rb_shop_chioce"
+                    android:drawablePadding="5dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center"
+                    android:text="全选"
+                    android:textColor="@color/c_title"
+                    android:textSize="@dimen/t_14sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/cart_rl_allprie_total"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.2"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_cart_Allprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="合计 :"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/c_title"
+                    android:textSize="@dimen/t_18sp" />
+
+                <TextView
+                    android:id="@+id/tv_cart_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_cart_Allprice"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="¥0.00 "
+                    android:textColor="@color/red_ed"
+                    android:textSize="@dimen/t_18sp" />
+
+                <TextView
+                    android:id="@+id/tv_cart_select_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_cart_Allprice"
+                    android:gravity="right"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:text="已选0件商品"
+                    android:textColor="@color/gray2"
+                    android:textSize="@dimen/t_14sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_goumai"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_cart_buy_or_del"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/allshape_zorange_5"
+                    android:gravity="center"
+                    android:padding="@dimen/margin"
+                    android:text="去结算"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t_14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

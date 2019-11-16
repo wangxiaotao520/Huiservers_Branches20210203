@@ -75,6 +75,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
     String shop_id_str, shop_cou_Amount;
     private List<ConfirmBean> mDatas = new ArrayList();//集合
     private String  address_id = "";
+    private String para_amount= "0";
 
     @Override
     protected void init() {
@@ -83,7 +84,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         //       SetTransStatus.GetStatus(this);//系统栏默认为黑色
         prefrenceUtil = new SharePrefrenceUtil(this);
         pro = (List<SubmitOrderBean>) getIntent().getExtras().getSerializable("pro");
-
+        para_amount=getIntent().getExtras().getString("all");
 
         lin_left = (LinearLayout) findViewById(R.id.lin_left);
         lin_left.setOnClickListener(this);
@@ -214,6 +215,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         if (!NullUtil.isStringEmpty(address_id)){
             params.addBodyParameter("address_id", address_id);
         }
+        params.addBodyParameter("para_amount", para_amount + "");
         HttpHelper hh = new HttpHelper(info.submit_order_before, params, ConfirmOrderActivity.this) {
 
             @Override
@@ -322,6 +324,7 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         }
 
         params.addBodyParameter("description", edt_liuyan.getText().toString() + "");
+
         String type = "";//商户1id_方式_配送费|商户2id_方式_配送费|商户3id_方式_配送费
         for (int i = 0; i < mDatas.size(); i++) {
             if (i< mDatas.size()-1){
@@ -533,4 +536,5 @@ public class ConfirmOrderActivity extends BaseActivityOld implements OnClickList
         });
 
     }
+
 }

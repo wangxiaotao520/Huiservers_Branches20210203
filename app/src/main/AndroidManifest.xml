@@ -1172,5 +1172,8 @@
         <activity
             android:name=".ui.index.oldservice.OldServiceIndexActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.shop.ShopCartActivityNew"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

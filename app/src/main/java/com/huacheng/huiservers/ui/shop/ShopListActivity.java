@@ -501,7 +501,9 @@ public class ShopListActivity extends BaseActivityOld {
                     editor.putString("login_shop", "shop_login");
                     editor.commit();
                 } else if (login_type.equals("1")) {
-                    intent = new Intent(this, ShopCartActivityTwo.class);
+//                    intent = new Intent(this, ShopCartActivityTwo.class);
+//                    startActivityForResult(intent, 1);
+                    intent = new Intent(this, ShopCartActivityNew.class);
                     startActivityForResult(intent, 1);
                 } else {
                     SmartToast.showInfo("当前账号不是个人账号");

@@ -22,6 +22,14 @@ public class DataBean implements Serializable
 	private String title;
 
 	int id;
+	private String m_id; //店铺id
+	private String m_name; //店铺名字
+
+	private boolean isFirstPosition = false;
+
+
+
+	private boolean isChecked = false;
 
 	public String getTitle_thumb_img() {
 		return title_thumb_img;
@@ -207,4 +215,36 @@ public class DataBean implements Serializable
 		this.price = price;
 	}
 
+
+	public String getM_id() {
+		return m_id;
+	}
+
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
+	}
+
+	public String getM_iname() {
+		return m_name;
+	}
+
+	public void setM_iname(String m_iname) {
+		this.m_name = m_iname;
+	}
+
+	public boolean isFirstPosition() {
+		return isFirstPosition;
+	}
+
+	public void setFirstPosition(boolean firstPosition) {
+		isFirstPosition = firstPosition;
+	}
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+
+	public void setChecked(boolean checked) {
+		isChecked = checked;
+	}
 }

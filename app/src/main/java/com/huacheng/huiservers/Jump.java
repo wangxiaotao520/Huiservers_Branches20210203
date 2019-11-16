@@ -39,7 +39,7 @@ import com.huacheng.huiservers.ui.index.charge.ChargeScanActivity;
 import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
 import com.huacheng.huiservers.ui.index.huodong.EducationActivity;
 import com.huacheng.huiservers.ui.index.huodong.EducationListActivity;
-import com.huacheng.huiservers.ui.index.oldhome.OldHomeActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldServiceIndexActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
 import com.huacheng.huiservers.ui.index.request.CommitRequestActivity;
@@ -472,8 +472,8 @@ public class Jump {
             }
 
         } else if (type.equals("19")) {//居家养老
-            Intent intent = new Intent(mContext, OldHomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent intent = new Intent(mContext, OldServiceIndexActivity.class);
+
             mContext.startActivity(intent);
         } else if (type.equals("20")) {//东森易购
 

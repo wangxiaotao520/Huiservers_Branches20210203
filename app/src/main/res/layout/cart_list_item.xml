@@ -2,19 +2,35 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@android:color/white"
               android:descendantFocusability="blocksDescendants"
               android:orientation="vertical">
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/margin"
-        android:background="@color/all_gray"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/ll_m_title">
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="15dp"
+            android:background="@color/windowbackground"/>
+        <TextView
+            android:id="@+id/tv_m_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="华晟商贸"
+            android:paddingLeft="12dp"
+            android:textSize="16sp"
+            android:background="@drawable/shape_whtie_top_left_right"
+            android:gravity="center_vertical"
+            android:textColor="#555555" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_goods_click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/white"
         android:padding="@dimen/margin">
 
         <LinearLayout
@@ -25,20 +41,26 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/check_box"
+            <!--<CheckBox-->
+                <!--android:id="@+id/check_box"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:button="@drawable/rb_shop_chioce"-->
+                <!--android:checkMark="?android:attr/listChoiceIndicatorMultiple"-->
+                <!--android:clickable="false"-->
+                <!--android:focusable="false"-->
+                <!--android:focusableInTouchMode="false"-->
+                <!--android:gravity="center"-->
+                <!--android:minHeight="64dp"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:visibility="visible"/>-->
+            <ImageView
+                android:id="@+id/iv_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:button="@drawable/rb_shop_chioce"
-                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:gravity="center"
-                android:minHeight="64dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:visibility="visible"/>
+                android:background="@drawable/rb_shop_chioce" />
+
         </LinearLayout>
 
         <LinearLayout

@@ -226,15 +226,15 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
                             mTxtPay.setVisibility(View.VISIBLE);
                             mTxtDelete.setVisibility(View.VISIBLE);
                         } else {
-                            if (XorderDetailBean.get(0).getPay_type().equals("alipay")) {
+                            if ("alipay".equals(XorderDetailBean.get(0).getPay_type())) {
                                 mTvPayType.setText("支付方式：支付宝");//支付方式
-                            } else if (XorderDetailBean.get(0).getPay_type().equals("wxpay")) {
+                            } else if ("wxpay".equals(XorderDetailBean.get(0).getPay_type())) {
                                 mTvPayType.setText("支付方式：微信支付");//支付方式
-                            } else if (XorderDetailBean.get(0).getPay_type().equals("bestpay")) {
+                            } else if ("bestpay".equals(XorderDetailBean.get(0).getPay_type())) {
                                 mTvPayType.setText("支付方式：翼支付");//支付方式
-                            } else if (XorderDetailBean.get(0).getPay_type().equals("hcpay")) {
+                            } else if ("hcpay".equals(XorderDetailBean.get(0).getPay_type())) {
                                 mTvPayType.setText("支付方式：一卡通支付");//支付方式
-                            } else if (XorderDetailBean.get(0).getPay_type().equals("unionpay")) {
+                            } else if ("unionpay".equals(XorderDetailBean.get(0).getPay_type())) {
                                 mTvPayType.setText("支付方式：云闪付");//支付方式
                             }
                             mTvPayTime.setText("支付日期：" + StringUtils.getDateToString(XorderDetailBean.get(0).getPay_time(), "1"));//支付时间

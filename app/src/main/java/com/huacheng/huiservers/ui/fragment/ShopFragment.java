@@ -46,7 +46,7 @@ import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopLimitAdapter;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopMyGirdCateAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.SearchShopActivity;
-import com.huacheng.huiservers.ui.shop.ShopCartActivityTwo;
+import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopCateActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.ui.shop.ShopXSTimeListActivity;
@@ -727,7 +727,9 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener, 
                 break;
             case R.id.lin_car://购物车
                 if (getLinshi()) {
-                    intent.setClass(mActivity, ShopCartActivityTwo.class);
+//                    intent.setClass(mActivity, ShopCartActivityTwo.class);
+//                    startActivity(intent);
+                    intent.setClass(mActivity, ShopCartActivityNew.class);
                     startActivity(intent);
                 } else {
                     intent.setClass(mActivity, LoginVerifyCodeActivity.class);
