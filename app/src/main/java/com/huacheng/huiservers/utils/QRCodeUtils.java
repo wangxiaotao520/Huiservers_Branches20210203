@@ -2,6 +2,7 @@ package com.huacheng.huiservers.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.dialog.SmallDialog;
@@ -10,6 +11,8 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelChargeDetail;
 import com.huacheng.huiservers.model.ModelQRCode;
+import com.huacheng.huiservers.pay.chinaums.CanstantPay;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.index.charge.ChargeGridviewActivity;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -53,6 +56,14 @@ public class QRCodeUtils {
         if (modelQRCode!=null){
             if (type==1){ //充电桩
                 requestChargeData(context,modelQRCode.getGtel()+"");
+            }else if (type==2){
+                Intent intent = new Intent(context, UnifyPayActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("o_id", modelQRCode.getO_id()+"");
+                bundle.putString("price", modelQRCode.getPrice()+ "");
+                bundle.putString("type", CanstantPay.PAY_SERVICE);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         }
     }

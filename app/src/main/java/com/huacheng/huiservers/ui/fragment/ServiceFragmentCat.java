@@ -39,6 +39,7 @@ import java.util.List;
 public class ServiceFragmentCat extends BaseFragment implements View.OnClickListener, AdapterServiceCatTwo.OnClickGridCatListener {
     SharePrefrenceUtil prefrenceUtil;
     private ListView list_one, list_two;
+    private LinearLayout ll_list_left;
     private LinearLayout lin_search;
     View mStatusBar;
     private AdapterServiceCatOne adapterOne;
@@ -55,6 +56,7 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
         lin_search = (LinearLayout) view.findViewById(R.id.lin_search);
         lin_search.setOnClickListener(this);
         list_one = (ListView) view.findViewById(R.id.list_one);
+        ll_list_left=view.findViewById(R.id.ll_list_left);
         adapterOne = new AdapterServiceCatOne(mActivity, R.layout.shop_cate_one_item, mDatas);
         list_one.setAdapter(adapterOne);
         list_two = (ListView) view.findViewById(R.id.list_two);
@@ -125,6 +127,7 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     List<ModelServiceCat> list = (List<ModelServiceCat>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelServiceCat.class);
                     if (list.size() > 0) {
+                        ll_list_left.setBackgroundColor(getResources().getColor(R.color.all_gray));
                         mDatas.clear();
                         list.get(0).setChecked(true);
                         mDatas.addAll(list);

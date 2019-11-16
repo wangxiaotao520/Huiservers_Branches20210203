@@ -312,7 +312,7 @@
                                 <LinearLayout
                                     android:id="@+id/ll_limit_container"
                                     android:layout_width="fill_parent"
-                                    android:layout_height="206dp"
+                                    android:layout_height="220dp"
                                     android:orientation="horizontal">
 
                                     <!--<com.huacheng.libraryservice.widget.GridViewNoScroll-->

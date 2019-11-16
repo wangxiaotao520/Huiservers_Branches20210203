@@ -307,6 +307,7 @@ public class ServiceDetailActivity extends BaseActivity {
                         intent = new Intent(this, ServiceConfirmOrderActivity.class);
                         intent.putExtra("service_id", mModelOrdetDetail.getId());
                         intent.putExtra("service_name", mModelOrdetDetail.getTitle());
+                        intent.putExtra("i_id", mModelOrdetDetail.getI_id());
                         intent.putExtra("tag_id", tag_id);
                         intent.putExtra("tag_name", tag_name);
                         intent.putExtra("tag_price", tag_price);

@@ -75,7 +75,7 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
     @BindView(R.id.ly_noaddress)
     LinearLayout mLyNoaddress;
 
-    String tag_id, tag_name, tag_price, service_id, service_name, AddressID;
+    String tag_id, tag_name, tag_price, service_id, service_name, AddressID,i_id;
     SharePrefrenceUtil sharePrefrenceUtil;
     private String person_name = "";
     private String person_mobile = "";
@@ -182,6 +182,7 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
         tag_id = getIntent().getStringExtra("tag_id");
         tag_name = getIntent().getStringExtra("tag_name");
         tag_price = getIntent().getStringExtra("tag_price");
+        i_id = getIntent().getStringExtra("i_id");
 
 
     }
@@ -220,7 +221,7 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
                 startActivityForResult(intent, 200);*/
                 Intent intent = new Intent(this, AddressListActivity.class);
                 intent.putExtra("jump_type", 2);
-                intent.putExtra("service_id", service_id + "");
+                intent.putExtra("service_id", i_id + "");//这里传的是商户id
                 startActivityForResult(intent, 200);
                 break;
             case R.id.tv_btn:

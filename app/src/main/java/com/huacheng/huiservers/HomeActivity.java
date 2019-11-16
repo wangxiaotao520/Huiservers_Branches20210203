@@ -145,6 +145,21 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                                   requestQr(type,get);
                               }
 
+                          }else if (StringUtils.isJsonValid(ScanResult)){//服务支付扫码
+                              //服务订单支付
+
+
+                                  ModelQRCode modelQRCode = new Gson().fromJson(ScanResult,ModelQRCode.class);
+                                  //调用二维码解析
+                                  int type = 2;
+                                  try {
+                                      type=  Integer.parseInt(modelQRCode.getType());
+                                  }catch (Exception e){
+                                      e.printStackTrace();
+                                  }
+                                  QRCodeUtils.getInstance().parseQrCode(smallDialog,HomeActivity.this,type,modelQRCode);
+
+
                           }
 //
 //                            if (StringUtils.isJsonValid(ScanResult)) {

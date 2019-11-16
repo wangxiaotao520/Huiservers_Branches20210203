@@ -68,11 +68,13 @@ public class NewAddressAdapter extends BaseAdapter {
         ModelAddressList modelAddressList = beans.get(arg0);
 
         if (modelAddressList.getIs_do()==1) {
-            holder.txt_name.setTextColor(mContext.getResources().getColor(R.color.text_color));
-            holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.text_color));
+            holder.txt_name.setTextColor(mContext.getResources().getColor(R.color.title_color));
+            holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.title_color));
+            holder.txt_address.setTextColor(mContext.getResources().getColor(R.color.text_color_hint));
         }else {
-            holder.txt_name.setTextColor(mContext.getResources().getColor(R.color.text_color_hint));
-            holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.text_color_hint));
+            holder.txt_name.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+            holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+            holder.txt_address.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
         }
         holder.txt_name.setText(modelAddressList.getConsignee_name()+"");
         holder.txt_phone.setText(modelAddressList.getConsignee_mobile()+"");

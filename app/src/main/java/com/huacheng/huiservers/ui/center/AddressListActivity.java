@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.dialog.DeleteAddressDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -24,6 +23,7 @@ import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.adapter.NewAddressAdapter;
 import com.huacheng.huiservers.ui.center.bean.ModelAddressList;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONException;
@@ -65,7 +65,7 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
 
     SharePrefrenceUtil prefrenceUtil;
     private int jump_type = 1;//1.从商城跳过来的 2.从服务调过来的
-    private String service_id = "";//
+    private String service_id = "";//商户id
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,19 +89,19 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
         mListAddress.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int i, long l) {
-                    DeleteAddressDialog deleteAddressDialog = new DeleteAddressDialog(AddressListActivity.this, new DeleteAddressDialog.OnCustomDialogListener() {
-                        @Override
-                        public void back(String name) {
-                            if (name.equals("1")) {//编辑成功"
-
-                            } else if (name.equals("2")) {
-                                String id = mDatas.get(i).getId();
-                                getdelete(id, i);
-
-                            }
-                        }
-                    });
-                    deleteAddressDialog.show();
+//                    DeleteAddressDialog deleteAddressDialog = new DeleteAddressDialog(AddressListActivity.this, new DeleteAddressDialog.OnCustomDialogListener() {
+//                        @Override
+//                        public void back(String name) {
+//                            if (name.equals("1")) {//编辑成功"
+//
+//                            } else if (name.equals("2")) {
+//                                String id = mDatas.get(i).getId();
+//                                getdelete(id, i);
+//
+//                            }
+//                        }
+//                    });
+//                    deleteAddressDialog.show();
                     return true;
                 }
             });
@@ -160,8 +160,9 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
     private void requestData() {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-
-
+        if (!NullUtil.isStringEmpty(service_id)){
+            params.put("service_id",service_id);
+        }
         MyOkHttp.get().post( Url_info.get_user_address, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
