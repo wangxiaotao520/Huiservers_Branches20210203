@@ -20,7 +20,9 @@ import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
@@ -30,11 +32,14 @@ import com.huacheng.huiservers.ui.shop.NewPingJiaActivity;
 import com.huacheng.huiservers.ui.shop.NewTuikuanActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -77,6 +82,18 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
     TextView mTvCoupon;
     @BindView(R.id.tv_liuyan)
     TextView mTvLiuyan;
+    @BindView(R.id.tv_peisong_price)
+    TextView mTvPeisongPrice;
+    @BindView(R.id.tv_peisong_style)
+    TextView mTvPeisongStyle;
+    @BindView(R.id.tv_person)
+    TextView mTvPerson;
+    @BindView(R.id.tv_person_mobile)
+    TextView mTvPersonMobile;
+    @BindView(R.id.tv_person_address)
+    TextView mTvPersonAddress;
+    @BindView(R.id.tv_wuliu_num)
+    TextView mTvWuliuNum;
     private String item_id, jiekouName;
     ShopProtocol mShopProtocol = new ShopProtocol();
     String shopstr;
@@ -84,7 +101,7 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
     String status_type, order_id, order_num;
     New_ShopOrderDetailAdapter new_shopOrderDetailAdapter;
     CenterProtocol protocol = new CenterProtocol();
-    List<com.huacheng.huiservers.ui.center.bean.XorderDetailBean> XorderDetailBean = new ArrayList<XorderDetailBean>();
+    List<XorderDetailBean> XorderDetailBean = new ArrayList<>();
     Float totalPrice = (float) 0;
     Float shi_price;
 
@@ -101,6 +118,9 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
         status_type = this.getIntent().getExtras().getString("status");
         order_num = this.getIntent().getExtras().getString("order_num");
         item_id = this.getIntent().getExtras().getString("item_id");
+
+        new_shopOrderDetailAdapter = new New_ShopOrderDetailAdapter(NewShopOrderDetailActivity.this, XorderDetailBean);
+        mShopList.setAdapter(new_shopOrderDetailAdapter);
 
         mLinLeft.setOnClickListener(this);
         mTxtPay.setOnClickListener(this);
@@ -179,9 +199,124 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
     private void getDetail() {//详情
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", order_id);
+        params.put("status", status_type);
+        MyOkHttp.get().post(info.shop_order_details, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+
+                    XorderDetailBean = JsonUtil.getInstance().getDataArrayByName(response, "data", XorderDetailBean.class);
+
+                    if (XorderDetailBean != null || XorderDetailBean.size() > 0) {
+                      /*  XorderDetailBean.clear();
+                        XorderDetailBean.addAll(XorderDetailInfo);*/
+
+                        mTvXiadanTime.setText("下单日期：" + StringUtils.getDateToString(XorderDetailBean.get(0).getAddtime(), "1"));//下单日期
+                        mTvOrderNum.setText("订单编号：" + order_num);//下单日期
+
+                        String str = XorderDetailBean.get(0).getIs_pay();
+                        if (str.equals("1")) {
+                            mTvPayType.setText("支付方式：未支付");
+                            mTvPayTime.setText("支付日期：无");//发货时间
+                            mTxtPay.setVisibility(View.VISIBLE);
+                            mTxtDelete.setVisibility(View.VISIBLE);
+                        } else {
+                            if (XorderDetailBean.get(0).getPay_type().equals("alipay")) {
+                                mTvPayType.setText("支付方式：支付宝");//支付方式
+                            } else if (XorderDetailBean.get(0).getPay_type().equals("wxpay")) {
+                                mTvPayType.setText("支付方式：微信支付");//支付方式
+                            } else if (XorderDetailBean.get(0).getPay_type().equals("bestpay")) {
+                                mTvPayType.setText("支付方式：翼支付");//支付方式
+                            } else if (XorderDetailBean.get(0).getPay_type().equals("hcpay")) {
+                                mTvPayType.setText("支付方式：一卡通支付");//支付方式
+                            } else if (XorderDetailBean.get(0).getPay_type().equals("unionpay")) {
+                                mTvPayType.setText("支付方式：云闪付");//支付方式
+                            }
+                            mTvPayTime.setText("支付日期：" + StringUtils.getDateToString(XorderDetailBean.get(0).getPay_time(), "1"));//支付时间
+                            mTxtPay.setVisibility(View.GONE);
+                            mTxtDelete.setVisibility(View.GONE);
+                        }
+                    /*//判断是否是待付款
+                    if (status_type.equals("1") || XorderDetailBean.get(0).getStatus().equals("1")) {
+                        mTxtPay.setVisibility(View.VISIBLE);
+                    } else {
+                        mTxtPay.setVisibility(View.GONE);
+                    }*/
+                        mTvPeisongPrice.setText("配送费：¥" + XorderDetailBean.get(0).getDis_fee());
+                        if ("1".equals(XorderDetailBean.get(0).getSend_type())) {
+                            mTvPeisongStyle.setVisibility(View.VISIBLE);
+                            mTvPersonAddress.setVisibility(View.VISIBLE);
+                            mTvPeisongStyle.setText("配送方式：送货上门");
+                            mTvWuliuNum.setVisibility(View.GONE);
+                            mTvPersonAddress.setText("收货地址：" + XorderDetailBean.get(0).getAddress());
+                        } else if ("2".equals(XorderDetailBean.get(0).getSend_type())) {
+                            mTvPeisongStyle.setVisibility(View.VISIBLE);
+                            mTvPeisongStyle.setText("配送方式：自提");
+                            mTvWuliuNum.setVisibility(View.GONE);
+                            mTvPersonAddress.setVisibility(View.VISIBLE);
+                            mTvPersonAddress.setText("自提地址：" + XorderDetailBean.get(0).getAddress());
+                        } else if ("3".equals(XorderDetailBean.get(0).getSend_type())) {
+                            mTvPeisongStyle.setVisibility(View.VISIBLE);
+                            mTvPersonAddress.setVisibility(View.VISIBLE);
+                            mTvPeisongStyle.setText("配送方式：快递物流");
+                            mTvPersonAddress.setText("收货地址：" + XorderDetailBean.get(0).getAddress());
+                            mTvWuliuNum.setVisibility(View.VISIBLE);
+                            mTvWuliuNum.setText("物流单号：" + XorderDetailBean.get(0).getExpress());
+                        } else {
+                            mTvPersonAddress.setVisibility(View.GONE);
+                            mTvPeisongStyle.setVisibility(View.GONE);
+                            mTvWuliuNum.setVisibility(View.GONE);
+                            mTvPeisongStyle.setText("");
+                        }
+
+                        mTvPerson.setText("收货人：" + XorderDetailBean.get(0).getContact());
+                        mTvPersonMobile.setText("联系方式：" + XorderDetailBean.get(0).getMobile());
+
+                        if (XorderDetailBean.get(0).getM_c_id().equals("")) {
+                            mTvCoupon.setText("优惠使用：无");
+                        } else {
+                            mTvCoupon.setText("优惠使用：" + XorderDetailBean.get(0).getM_c_name());
+                        }
+                        if (XorderDetailBean.get(0).getDescription().equals("")) {
+                            mTvLiuyan.setText("买家留言：无");
+                        } else {
+                            mTvLiuyan.setText("买家留言：" + XorderDetailBean.get(0).getDescription());
+                        }
+                        for (int i = 0; i < XorderDetailBean.size(); i++) {
+                            totalPrice += Float.valueOf(XorderDetailBean.get(i).getNumber()) *
+                                    Float.valueOf(XorderDetailBean.get(i).getPrice());
+                            shi_price = totalPrice - Float.parseFloat(XorderDetailBean.get(i).getM_c_amount());
+                        }
+                        shi_price = shi_price + Float.parseFloat(XorderDetailBean.get(0).getDis_fee());
+                        setFloat();
+                        setFloat2();
+                        mTvAllPrice.setText("商品总金额：¥" + totalPrice);
+                        mTvShiPrice.setText("实付：¥" + shi_price);
+
+                        new_shopOrderDetailAdapter = new New_ShopOrderDetailAdapter(NewShopOrderDetailActivity.this, XorderDetailBean);
+                        mShopList.setAdapter(new_shopOrderDetailAdapter);
+                    }
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+/*
         RequestParams params = new RequestParams();
         params.addBodyParameter("id", order_id);
         params.addBodyParameter("status", status_type);
+
         new HttpHelper(info.shop_order_details, params, NewShopOrderDetailActivity.this) {
 
             @Override
@@ -213,12 +348,21 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
                         mTxtPay.setVisibility(View.GONE);
                         mTxtDelete.setVisibility(View.GONE);
                     }
-                    /*//判断是否是待付款
+                    */
+/*//*
+/判断是否是待付款
                     if (status_type.equals("1") || XorderDetailBean.get(0).getStatus().equals("1")) {
                         mTxtPay.setVisibility(View.VISIBLE);
                     } else {
                         mTxtPay.setVisibility(View.GONE);
-                    }*/
+                    }*//*
+
+                    mTvPeisongPrice.setText("配送费：");
+                    mTvPeisongStyle.setText("配送方式：");
+                    mTvPerson.setText("收货人：");
+                    mTvPersonMobile.setText("联系方式：");
+                    mTvPersonAddress.setText("地址：");
+                    mTvWuliuNum.setText("物流单号：");
                     if (XorderDetailBean.get(0).getM_c_id().equals("")) {
                         mTvCoupon.setText("优惠使用：无");
                     } else {
@@ -252,6 +396,7 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
+*/
 
     }
 
@@ -433,8 +578,11 @@ public class NewShopOrderDetailActivity extends BaseActivityOld implements View.
 
         @Override
         public int getCount() {
-            return XorderDetailBean.size();
-
+            if (XorderDetailBean.size() > 0) {
+                return XorderDetailBean.size();
+            } else {
+                return 0;
+            }
         }
 
         @Override

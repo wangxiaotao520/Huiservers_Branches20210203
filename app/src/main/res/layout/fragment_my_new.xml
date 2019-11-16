@@ -239,7 +239,7 @@
                         android:layout_height="25dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="14dp"
-                        android:src="@drawable/fangkeyaoqing2x" />
+                        android:src="@mipmap/ic_service_center" />
 
                     <TextView
                         android:id="@+id/tv0"

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:clipToPadding="false"
-               android:fitsSystemWindows="false"
+                android:fitsSystemWindows="false"
                 android:orientation="vertical">
 
     <include
@@ -40,18 +41,18 @@
                     android:id="@+id/tv_xiadan_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="下单日期："
                     android:textColor="@color/c_title"
-                    android:textSize="@dimen/t_14sp"/>
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="下单日期："/>
 
                 <TextView
                     android:id="@+id/tv_order_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin"
-                    android:text="订单编号："
                     android:textColor="@color/c_title"
-                    android:textSize="@dimen/t_14sp"/>
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="订单编号："/>
             </LinearLayout>
 
             <View
@@ -71,18 +72,36 @@
                     android:id="@+id/tv_pay_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="支付方式："
                     android:textColor="@color/c_title"
-                    android:textSize="@dimen/t_14sp"/>
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="支付方式："/>
 
                 <TextView
                     android:id="@+id/tv_pay_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin"
-                    android:text="配送日期："
                     android:textColor="@color/c_title"
-                    android:textSize="@dimen/t_14sp"/>
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="支付日期："/>
+
+                <TextView
+                    android:id="@+id/tv_all_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:textColor="@color/c_title"
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="商品总额："/>
+
+                <TextView
+                    android:id="@+id/tv_peisong_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:textColor="@color/c_title"
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="配送费："/>
 
             </LinearLayout>
 
@@ -99,14 +118,54 @@
                 android:layout_margin="@dimen/margin_15"
                 android:orientation="vertical">
 
+
                 <TextView
-                    android:id="@+id/tv_all_price"
+                    android:id="@+id/tv_peisong_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品总额："
+                    android:layout_marginBottom="@dimen/margin"
                     android:textColor="@color/c_title"
-                    android:textSize="@dimen/t_14sp"/>
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="配送方式："/>
 
+                <TextView
+                    android:id="@+id/tv_person"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="收货人："
+                    />
+
+                <TextView
+                    android:id="@+id/tv_person_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="联系方式："
+                    />
+
+                <TextView
+                    android:id="@+id/tv_person_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="收货地址："
+                    />
+
+                <TextView
+                    android:id="@+id/tv_wuliu_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/t_14sp"
+                    tools:text="物流单号："
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -118,9 +177,9 @@
                         android:id="@+id/tv_coupon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="优惠使用："
                         android:textColor="@color/c_title"
-                        android:textSize="@dimen/t_14sp"/>
+                        android:textSize="@dimen/t_14sp"
+                        tools:text="优惠使用："/>
 
 
                 </RelativeLayout>
@@ -130,9 +189,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin"
-                    android:text="买家留言："
                     android:textColor="@color/grey"
                     android:textSize="@dimen/t_14sp"
+                    tools:text="买家留言："
                     />
 
                 <TextView
@@ -142,9 +201,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="@dimen/margin"
                     android:gravity="right"
-                    android:text="实付：¥"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/t_18sp"/>
+                    android:textSize="@dimen/t_18sp"
+                    tools:text="实付：¥"/>
             </LinearLayout>
 
             <View

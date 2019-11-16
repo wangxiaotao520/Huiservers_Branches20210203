@@ -8,13 +8,14 @@
     <ImageView
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#E7DDC3"/>
+        android:layout_height="wrap_content"
+     />
 
     <LinearLayout
         android:id="@+id/ly_zq"
         android:layout_width="match_parent"
         android:layout_height="65dp"
+        android:visibility="invisible"
         android:background="@color/white"
         android:gravity="center_vertical">
 

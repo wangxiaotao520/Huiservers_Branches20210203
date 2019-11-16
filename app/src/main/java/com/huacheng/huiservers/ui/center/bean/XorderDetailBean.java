@@ -30,6 +30,60 @@ public class XorderDetailBean {
     private String description;
     private String is_shop;
     private int back_type;
+    private String dis_fee;
+    private String send_type;
+    private String contact;
+    private String mobile;
+    private String address;
+    private String express;
+
+    public String getDis_fee() {
+        return dis_fee;
+    }
+
+    public void setDis_fee(String dis_fee) {
+        this.dis_fee = dis_fee;
+    }
+
+    public String getSend_type() {
+        return send_type;
+    }
+
+    public void setSend_type(String send_type) {
+        this.send_type = send_type;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getExpress() {
+        return express;
+    }
+
+    public void setExpress(String express) {
+        this.express = express;
+    }
 
     public int getBack_type() {
         return back_type;
