@@ -161,6 +161,11 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
         if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
             params.put("c_id", prefrenceUtil.getXiaoQuId());
         }
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            params.put("province_cn", prefrenceUtil.getProvince_cn());
+            params.put("city_cn", prefrenceUtil.getCity_cn());
+            params.put("region_cn", prefrenceUtil.getRegion_cn());
+        }
         MyOkHttp.get().post(Url_info.center_index, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
