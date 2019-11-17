@@ -166,6 +166,7 @@ public abstract class HttpHelper {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    requestFailure(null, "数据异常");
                 }
             }
         });

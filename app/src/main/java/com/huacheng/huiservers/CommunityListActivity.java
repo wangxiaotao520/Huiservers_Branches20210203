@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -70,6 +71,10 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
     private String location_provice="", location_district="", location_city="",location_code="";//
     private int jump_type = 1;  //1从首页点进来 2.从商城选择收货地址点进来
     private String cat_search_name="商务住宅";
+    private LinearLayout ll_empty_my_community;
+    private ListView mListViewEmpty;
+    private ScrollView sl_no_data;
+
     @Override
     protected void initView() {
         prefrenceUtil = new SharePrefrenceUtil(this);
@@ -86,13 +91,19 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
         mRefreshLayout.setEnableLoadMore(false);
         adapter = new AdapterCoummunityList(this, R.layout.item_community_list, mDatas,this,0,jump_type);
         mListview.setAdapter(adapter);
+        sl_no_data = findViewById(R.id.sl_no_data);
         ll_no_data = findViewById(R.id.ll_no_data);
+        sl_no_data.setVisibility(View.GONE);
         ll_no_data.setVisibility(View.GONE);
         tv_empty_community_name = findViewById(R.id.tv_empty_community_name);
         tv_empty_community_address = findViewById(R.id.tv_empty_community_address);
         iv_empty_relocation = findViewById(R.id.iv_empty_relocation);
         tv_empty_relocation = findViewById(R.id.tv_empty_relocation);
         tv_setting_location = findViewById(R.id.tv_setting_location);
+        ll_empty_my_community = findViewById(R.id.ll_empty_my_community);
+        ll_empty_my_community.setVisibility(View.GONE);
+        mListViewEmpty = findViewById(R.id.listview_empty);
+
         rxPermissions=new RxPermissions(this);
         initLocation();
     }
@@ -127,21 +138,29 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                             //权限同意 ,开始定位
                             mListview.setVisibility(View.VISIBLE);
                             ll_no_data.setVisibility(View.GONE);
+                            sl_no_data.setVisibility(View.GONE);
                             showDialog(smallDialog);
                             smallDialog.setTipTextView("定位中...");
                             mlocationClient.startLocation();
 
                         } else {
-                            //权限拒绝 ,默认智慧小区
-                            mListview.setVisibility(View.GONE);
-                            ll_no_data.setVisibility(View.VISIBLE);
-                            tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
-                            // 还得加地址
-                            if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
-                                tv_empty_community_address.setVisibility(View.VISIBLE);
-                                tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                            if (LoginUtils.hasLoginUser()){
+                                showDialog(smallDialog);
+                                requestMyCommunity(null,2);
                             }else {
-                                tv_empty_community_address.setVisibility(View.GONE);
+                                //权限拒绝 ,默认智慧小区
+                                mListview.setVisibility(View.GONE);
+                                ll_no_data.setVisibility(View.VISIBLE);
+                                sl_no_data.setVisibility(View.VISIBLE);
+                                tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
+                                // 还得加地址
+                                if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
+                                    tv_empty_community_address.setVisibility(View.VISIBLE);
+                                    tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                                }else {
+                                    tv_empty_community_address.setVisibility(View.GONE);
+                                }
+                                ll_empty_my_community.setVisibility(View.GONE);
                             }
 
                         }
@@ -283,8 +302,39 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                 hideDialog(smallDialog);
                 // tvResult.setText("定位失败，loc is null");
                 //定位失败 显示智慧小区
+                if (LoginUtils.hasLoginUser()){
+                    requestMyCommunity(null,2);
+                }else {
+                    hideDialog(smallDialog);
+                    //权限拒绝 ,默认智慧小区
+                    mListview.setVisibility(View.GONE);
+                    ll_no_data.setVisibility(View.VISIBLE);
+                    sl_no_data.setVisibility(View.VISIBLE);
+                    tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
+                    // 还得加地址
+                    if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
+                        tv_empty_community_address.setVisibility(View.VISIBLE);
+                        tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                    }else {
+                        tv_empty_community_address.setVisibility(View.GONE);
+                    }
+                    ll_empty_my_community.setVisibility(View.GONE);
+                }
+
+            }
+
+        } else {
+
+            // tvResult.setText("定位失败，loc is null");
+            //定位失败 显示智慧小区
+            if (LoginUtils.hasLoginUser()){
+                requestMyCommunity(null,2);
+            }else {
+                hideDialog(smallDialog);
+                //权限拒绝 ,默认智慧小区
                 mListview.setVisibility(View.GONE);
                 ll_no_data.setVisibility(View.VISIBLE);
+                sl_no_data.setVisibility(View.VISIBLE);
                 tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
                 // 还得加地址
                 if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
@@ -293,22 +343,9 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                 }else {
                     tv_empty_community_address.setVisibility(View.GONE);
                 }
+                ll_empty_my_community.setVisibility(View.GONE);
             }
 
-        } else {
-            hideDialog(smallDialog);
-            // tvResult.setText("定位失败，loc is null");
-            //定位失败 显示智慧小区
-            mListview.setVisibility(View.GONE);
-            ll_no_data.setVisibility(View.VISIBLE);
-            tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
-            // 还得加地址
-            if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
-                tv_empty_community_address.setVisibility(View.VISIBLE);
-                tv_empty_community_address.setText(prefrenceUtil.getAddressName());
-            }else {
-                tv_empty_community_address.setVisibility(View.GONE);
-            }
         }
     }
 
@@ -335,11 +372,15 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
 
             // 如果用户登录了还得请求数据
             if (LoginUtils.hasLoginUser()){
-                requestMyCommunity(pois);
+                mListview.setVisibility(View.VISIBLE);
+                ll_no_data.setVisibility(View.GONE);
+                sl_no_data.setVisibility(View.GONE);
+                requestMyCommunity(pois,1);
             }else {
                 hideDialog(smallDialog);
                 mListview.setVisibility(View.VISIBLE);
                 ll_no_data.setVisibility(View.GONE);
+                sl_no_data.setVisibility(View.GONE);
                 mDatas.clear();
                 //当前小区
                 ModelCoummnityList modelCoummnityList = new ModelCoummnityList();
@@ -364,25 +405,34 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                 adapter.notifyDataSetChanged();
             }
         }else {
-            hideDialog(smallDialog);
-            mListview.setVisibility(View.GONE);
-            ll_no_data.setVisibility(View.VISIBLE);
-            tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
-            // 还得加地址
-            if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
-                tv_empty_community_address.setVisibility(View.VISIBLE);
-                tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+            if (LoginUtils.hasLoginUser()){
+                requestMyCommunity(null,2);
             }else {
-                tv_empty_community_address.setVisibility(View.GONE);
+                hideDialog(smallDialog);
+                //权限拒绝 ,默认智慧小区
+                mListview.setVisibility(View.GONE);
+                ll_no_data.setVisibility(View.VISIBLE);
+                sl_no_data.setVisibility(View.VISIBLE);
+                tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
+                // 还得加地址
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
+                    tv_empty_community_address.setVisibility(View.VISIBLE);
+                    tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                }else {
+                    tv_empty_community_address.setVisibility(View.GONE);
+                }
+                ll_empty_my_community.setVisibility(View.GONE);
             }
+
         }
     }
 
     /**
      * 获取我的小区
      * @param pois
+     *@param isLocation 是否是开启的定位成功 1 成功 2 没开启
      */
-    private void requestMyCommunity(final ArrayList<PoiItem> pois) {
+    private void requestMyCommunity(final ArrayList<PoiItem> pois, final int isLocation) {
         HashMap<String, String> params = new HashMap<>();
 
         MyOkHttp.get().post(ApiHttpClient.GET_MY_DISTRICT, params, new JsonResponseHandler() {
@@ -392,45 +442,83 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     List<ModelCoummnityList>data_my = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelCoummnityList.class);
-                    mDatas.clear();
-                    //当前小区
-                    ModelCoummnityList modelCoummnityList = new ModelCoummnityList();
-                    modelCoummnityList.setType(1);
-                    modelCoummnityList.setName(prefrenceUtil.getXiaoQuName()+"");
-                    modelCoummnityList.setAddress(prefrenceUtil.getAddressName()+"");
-                    modelCoummnityList.setId(prefrenceUtil.getXiaoQuId()+"");
-                    modelCoummnityList.setPosition(0);
-                    mDatas.add(modelCoummnityList);
-                    //我的小区
-                    List<ModelCoummnityList>data_my_list = new ArrayList<>();
-                    if (data_my!=null&&data_my.size()>0){
-                        for (int i = 0; i < data_my.size(); i++) {
-                            ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
-                            modelCoummnityList_bean.setType(2);
-                            modelCoummnityList_bean.setName(data_my.get(i).getCommunity_name());
-                            modelCoummnityList_bean.setAddress(data_my.get(i).getFull_address()+"");
-                            modelCoummnityList_bean.setId("");
-                            modelCoummnityList_bean.setPosition(i);
-                            modelCoummnityList_bean.setProvince_name(data_my.get(i).getProvince_name());
-                            modelCoummnityList_bean.setCity_name(data_my.get(i).getCity_name());
-                            modelCoummnityList_bean.setArea_name(data_my.get(i).getArea_name());
-                            data_my_list.add(modelCoummnityList_bean);
+                    if (isLocation==1){//定位成功获取小区
+                        mDatas.clear();
+                        //当前小区
+                        ModelCoummnityList modelCoummnityList = new ModelCoummnityList();
+                        modelCoummnityList.setType(1);
+                        modelCoummnityList.setName(prefrenceUtil.getXiaoQuName()+"");
+                        modelCoummnityList.setAddress(prefrenceUtil.getAddressName()+"");
+                        modelCoummnityList.setId(prefrenceUtil.getXiaoQuId()+"");
+                        modelCoummnityList.setPosition(0);
+                        mDatas.add(modelCoummnityList);
+                        //我的小区
+                        List<ModelCoummnityList>data_my_list = new ArrayList<>();
+                        if (data_my!=null&&data_my.size()>0){
+                            for (int i = 0; i < data_my.size(); i++) {
+                                ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
+                                modelCoummnityList_bean.setType(2);
+                                modelCoummnityList_bean.setName(data_my.get(i).getCommunity_name());
+                                modelCoummnityList_bean.setAddress(data_my.get(i).getFull_address()+"");
+                                modelCoummnityList_bean.setId("");
+                                modelCoummnityList_bean.setPosition(i);
+                                modelCoummnityList_bean.setProvince_name(data_my.get(i).getProvince_name());
+                                modelCoummnityList_bean.setCity_name(data_my.get(i).getCity_name());
+                                modelCoummnityList_bean.setArea_name(data_my.get(i).getArea_name());
+                                data_my_list.add(modelCoummnityList_bean);
+                            }
                         }
+                        mDatas.addAll(data_my_list);
+                        //附近小区
+                        ArrayList<ModelCoummnityList> nearby_list = new ArrayList<>();
+                        for (int i1 = 0; i1 < pois.size(); i1++) {
+                            ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
+                            modelCoummnityList_bean.setType(3);
+                            modelCoummnityList_bean.setName(pois.get(i1).toString()+"");
+                            modelCoummnityList_bean.setAddress(pois.get(i1).getSnippet()+"");
+                            modelCoummnityList_bean.setId("");
+                            modelCoummnityList_bean.setPosition(i1);
+                            nearby_list.add(modelCoummnityList_bean);
+                        }
+                        mDatas.addAll(nearby_list);
+                        adapter.notifyDataSetChanged();
+                    }else {
+                        //没开启定位 获取我的小区
+                        mListview.setVisibility(View.GONE);
+                        ll_no_data.setVisibility(View.VISIBLE);
+                        sl_no_data.setVisibility(View.VISIBLE);
+                        tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
+                        // 还得加地址
+                        if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
+                            tv_empty_community_address.setVisibility(View.VISIBLE);
+                            tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                        }else {
+                            tv_empty_community_address.setVisibility(View.GONE);
+                        }
+                        if (data_my!=null&&data_my.size()>0){
+                            //有数据
+                            ll_empty_my_community.setVisibility(View.VISIBLE);
+                            List<ModelCoummnityList>data_my_list = new ArrayList<>();
+                            for (int i = 0; i < data_my.size(); i++) {
+                                ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
+                                modelCoummnityList_bean.setType(2);
+                                modelCoummnityList_bean.setName(data_my.get(i).getCommunity_name());
+                                modelCoummnityList_bean.setAddress(data_my.get(i).getFull_address()+"");
+                                modelCoummnityList_bean.setId("");
+                                modelCoummnityList_bean.setPosition(i);
+                                modelCoummnityList_bean.setProvince_name(data_my.get(i).getProvince_name());
+                                modelCoummnityList_bean.setCity_name(data_my.get(i).getCity_name());
+                                modelCoummnityList_bean.setArea_name(data_my.get(i).getArea_name());
+                                data_my_list.add(modelCoummnityList_bean);
+                            }
+                            AdapterCoummunityList  adapter = new AdapterCoummunityList(mContext, R.layout.item_community_list, data_my_list,CommunityListActivity.this , 1, jump_type);
+                            mListViewEmpty.setAdapter(adapter);
+                        }else {
+                            ll_empty_my_community.setVisibility(View.GONE);
+                        }
+
                     }
-                    mDatas.addAll(data_my_list);
-                    //附近小区
-                    ArrayList<ModelCoummnityList> nearby_list = new ArrayList<>();
-                    for (int i1 = 0; i1 < pois.size(); i1++) {
-                        ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
-                        modelCoummnityList_bean.setType(3);
-                        modelCoummnityList_bean.setName(pois.get(i1).toString()+"");
-                        modelCoummnityList_bean.setAddress(pois.get(i1).getSnippet()+"");
-                        modelCoummnityList_bean.setId("");
-                        modelCoummnityList_bean.setPosition(i1);
-                        nearby_list.add(modelCoummnityList_bean);
-                    }
-                    mDatas.addAll(nearby_list);
-                    adapter.notifyDataSetChanged();
+
 
                 } else {
                     try {

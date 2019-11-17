@@ -244,7 +244,15 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 });
             } else {
                 tv_user_identify.setText("已认证业主");
+                tv_user_identify.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                        intent.putExtra("wuye_type", "bind");
+                        startActivity(intent);
 
+                    }
+                });
             }
         }
     }

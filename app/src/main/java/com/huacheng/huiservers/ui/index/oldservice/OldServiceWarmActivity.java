@@ -108,7 +108,6 @@ public class OldServiceWarmActivity extends BaseListActivity<ModelItemServiceWar
 
 
 
-//    //TODO 测试
 //
 //    private String[] mUrls = new String[]{"http://d.hiphotos.baidu.com/image/h%3D200/sign=201258cbcd80653864eaa313a7dca115/ca1349540923dd54e54f7aedd609b3de9c824873.jpg",
 //            "http://img3.fengniao.com/forum/attachpics/537/165/21472986.jpg",

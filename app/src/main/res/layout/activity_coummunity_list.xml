@@ -90,131 +90,154 @@
                 android:listSelector="@android:color/transparent"
                 android:smoothScrollbar="true"/>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_no_data"
+        <ScrollView
+            android:id="@+id/sl_no_data"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:visibility="gone"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#f8f8f8"
-                android:text="当前小区"
-                android:paddingLeft="12dp"
-                android:gravity="center_vertical"
-                android:textColor="#555555"
-                android:textSize="14sp" />
-            
+            android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:orientation="horizontal"
-                android:background="@color/white">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="12dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tv_empty_community_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="智慧小区"
-                        android:textColor="#555555"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        />
-                    <TextView
-                        android:id="@+id/tv_empty_community_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:visibility="gone"
-                        android:textColor="@color/gray_9c"
-                        android:textSize="12sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:id="@+id/iv_empty_relocation"
-                    android:layout_width="21dp"
-                    android:layout_height="21dp"
-                    android:background="@mipmap/ic_re_location"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="5dp" />
-                <TextView
-                    android:id="@+id/tv_empty_relocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="重新定位"
-                    android:textColor="@color/orange"
-                    android:textSize="16sp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="8dp" />
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#f8f8f8"
-                android:text="附近小区"
-                android:paddingLeft="12dp"
-                android:gravity="center_vertical"
-                android:textColor="#555555"
-                android:textSize="14sp" />
-            <LinearLayout
-                android:id="@+id/rel_no_data"
+                android:id="@+id/ll_no_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="20dp">
-
-                <ImageView
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/img_data"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="49dp"
-                    android:background="@mipmap/bg_no_location" />
-
+                android:background="@color/white"
+                android:visibility="gone"
+                android:orientation="vertical">
                 <TextView
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/tv_text"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#f8f8f8"
+                    android:text="当前小区"
+                    android:paddingLeft="12dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#555555"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:orientation="horizontal"
+                    android:background="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tv_empty_community_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="智慧小区"
+                            android:textColor="#555555"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:id="@+id/tv_empty_community_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:visibility="gone"
+                            android:textColor="@color/gray_9c"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:id="@+id/iv_empty_relocation"
+                        android:layout_width="21dp"
+                        android:layout_height="21dp"
+                        android:background="@mipmap/ic_re_location"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="5dp" />
+                    <TextView
+                        android:id="@+id/tv_empty_relocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="重新定位"
+                        android:textColor="@color/orange"
+                        android:textSize="16sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="8dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_empty_my_community"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/img_data"
-                    android:layout_centerHorizontal="true"
-                    android:paddingLeft="@dimen/margin"
-                    android:layout_marginTop="35dp"
-                    android:text="暂未开启定位，开启定位后显示附近小区"
-                    android:textColor="@color/gray_9c"
-                    android:textSize="@dimen/t_14sp" />
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <com.huacheng.huiservers.view.MyListView
+                        android:id="@+id/listview_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:divider="@null"
+                        android:fastScrollEnabled="false"
+                        android:listSelector="@android:color/transparent"
+                        android:smoothScrollbar="true"/>
+                </LinearLayout>
                 <TextView
-                    android:id="@+id/tv_setting_location"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="29dp"
-                    android:text="立即设置"
-                    android:paddingLeft="26dp"
-                    android:paddingRight="26dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@drawable/allshape_orange35"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:gravity="center" />
-                
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#f8f8f8"
+                    android:text="附近小区"
+                    android:paddingLeft="12dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#555555"
+                    android:textSize="14sp" />
+                <LinearLayout
+                    android:id="@+id/rel_no_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp">
+
+                    <ImageView
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/img_data"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="49dp"
+                        android:background="@mipmap/bg_no_location" />
+
+                    <TextView
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/tv_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img_data"
+                        android:layout_centerHorizontal="true"
+                        android:paddingLeft="@dimen/margin"
+                        android:layout_marginTop="35dp"
+                        android:gravity="center"
+                        android:text="暂未开启定位，重新定位后显示附近小区"
+                        android:textColor="@color/gray_9c"
+                        android:textSize="@dimen/t_14sp" />
+                    <TextView
+                        android:id="@+id/tv_setting_location"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="29dp"
+                        android:text="立即设置"
+                        android:paddingLeft="26dp"
+                        android:paddingRight="26dp"
+                        android:layout_marginTop="40dp"
+                        android:background="@drawable/allshape_orange35"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:gravity="center" />
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+
+        </ScrollView>
+
 
 
     </RelativeLayout>

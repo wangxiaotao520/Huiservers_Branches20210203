@@ -228,7 +228,7 @@ public class EnhanceTabLayout extends FrameLayout {
             layoutParams.height = indicatorHeight;
             indicator.setLayoutParams(layoutParams);
         }
-        //todo 字体大小没设置
+        // 字体大小没设置
      //   tabText.setTextSize(textSize);
         tabText.setText(text);
         tabText.setTextColor(mUnSelectTextColor);

@@ -435,7 +435,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             //1.小区名字不为空的情况
             tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
             if (NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
-                //todo 试试用
                 //两种情况 旧的线上用户覆盖安装肯定没有省市区
                 prefrenceUtil.setProvince_cn("山西省");
                 prefrenceUtil.setCity_cn("晋中市");

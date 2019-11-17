@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -79,6 +80,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private String share_icon;
     private String id = "";
     ModelShopIndex modelIndex;
+    private ModelShopIndex modelindex;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -156,6 +158,16 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         ly_share.setOnClickListener(this);
         ly_zq.setOnClickListener(this);
         iv_bg.setOnClickListener(this);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("shop_id", mDatas.get((int) id).getId());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -209,7 +221,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
         params.put("p", page + "");
-        MyOkHttp.get().post(ApiHttpClient.SHOP_MARKIING_LIST, params, new JsonResponseHandler() {
+        MyOkHttp.get().get(ApiHttpClient.SHOP_MARKIING_LIST, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -220,7 +232,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 ly_share.setClickable(true);
                 if (JsonUtil.getInstance().isSuccess(response)) {
 
-                    ModelShopIndex modelindex = (ModelShopIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelShopIndex.class);
+                    modelindex = (ModelShopIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelShopIndex.class);
                     if (modelindex != null) {
                         modelIndex = modelindex;
                         if (page == 1) {

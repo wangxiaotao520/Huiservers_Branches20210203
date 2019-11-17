@@ -93,7 +93,6 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
 
     private RxPermissions rxPermissions;
     private int request_count=0;
-    //TODO 提交按钮点击状态
     private LinearLayout ll_root;
     private boolean isClickable = true;//提交按钮是否可点击
 
@@ -277,7 +276,6 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
     protected void onResume() {
         super.onResume();
 //        //处理支付宝调用过程那个间隙一直按屏幕的问题，这个时候支付宝有可能就调不起来
-        //todo
 //        if (isGotoPayback&&typetag==TYPE_ALIPAY){
 //            isGotoPayback=false;
 //            isCommitClickable=true;
