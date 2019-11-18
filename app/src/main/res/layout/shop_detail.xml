@@ -453,6 +453,7 @@
 
                     <LinearLayout
                         android:id="@+id/ly_store"
+                        android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="78dp"
                         android:gravity="center_vertical"

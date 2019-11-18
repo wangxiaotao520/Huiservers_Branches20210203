@@ -119,6 +119,13 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private void initHeaderView() {
         ly_zq = headerView.findViewById(R.id.ly_zq);
         iv_bg = headerView.findViewById(R.id.iv_bg);//根据比例来显示
+        final int gridWidth = DeviceUtils.getWindowWidth(ShopZQListActivity.this);
+        int nWidth = gridWidth;
+        int nHeight = (int) (1.5 * nWidth);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);
+        iv_bg.setLayoutParams(layoutParams);
+        iv_bg.setScaleType(ImageView.ScaleType.FIT_XY);
+
     }
 
     @Override
@@ -270,7 +277,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
 
     private void setBanner(ModelShopIndex modelindex) {
         String imageUrl = ApiHttpClient.IMG_SERVICE_URL + modelindex.getBanner();
-        final int gridWidth = DeviceUtils.getWindowWidth(ShopZQListActivity.this) - DeviceUtils.dip2px(ShopZQListActivity.this, 30);
+        final int gridWidth = DeviceUtils.getWindowWidth(ShopZQListActivity.this);
         Glide.with(getApplicationContext()).load(imageUrl).placeholder(R.drawable.ic_default_rectange).error(R.drawable.ic_default_rectange).into(new SimpleTarget<GlideDrawable>() {
             @Override
             public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
