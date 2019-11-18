@@ -70,7 +70,7 @@ import java.util.List;
 import cn.jpush.android.api.JPushInterface;
 
 //second为mLink的key
-public class ShopDetailActivity extends BaseActivityOld implements OnClickListener {
+public class ShopDetailActivity extends BaseActivityOld implements OnClickListener,TabLayout.OnTabSelectedListener {
     // /
     private TabLayout tab_tagContainer;
     private ScrollChangedScrollView sv_bodyContainer;
@@ -390,6 +390,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
         ll_shop_detail = (LinearLayout) findViewById(R.id.ll_shop_detail);
         //ll_shop_tuijian = (LinearLayout) findViewById(R.id.ll_shop_tuijian);
         ll_shop_pingjia = (LinearLayout) findViewById(R.id.ll_shop_pingjia);
+        tab_tagContainer.setVisibility(View.GONE);
     }
 
     private void refreshView() {
@@ -443,6 +444,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
             public void onScrollChanged(ScrollView scrollView, int x, int y, int oldx, int oldy) {
                 scrollRefreshNavigationTag(scrollView);
                 if (y <= 0) {   //设置标题的背景颜色
+                    tab_tagContainer.setVisibility(View.GONE);
                     lin_title.setBackgroundColor(Color.argb((int) 0, 0, 0, 0));
                     title_rel.setBackgroundColor(Color.argb((int) 0, 0, 0, 0));
                     title_name.setTextColor(Color.argb((int) 0, 0, 0, 0));
@@ -452,6 +454,7 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                     tab_tagContainer.setTabTextColors(Color.argb((int) 0, 0, 0, 0), Color.argb((int) 0, 0, 0, 0));
                     tab_tagContainer.setSelectedTabIndicatorColor(Color.argb((int) 0, 0, 0, 0));
                 } else if (y > 0 && y <= height) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
+                    tab_tagContainer.setVisibility(View.VISIBLE);
                     float scale = (float) y / height;
                     float alpha = (255 * scale);
                     //  textView.setTextColor(Color.argb((int) alpha, 255,255,255));
@@ -479,52 +482,9 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
                 doOnBorderListener();
             }
 
-
         });
+        tab_tagContainer.setOnTabSelectedListener(ShopDetailActivity.this);
 
-        tab_tagContainer.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                // 表明当前的动作是由 TabLayout 触发和主导
-                tagFlag = false;
-                // 根据点击的位置，使ScrollView 滑动到对应区域
-                int position = tab.getPosition();
-                // 计算点击的导航标签所对应内容区域的高度
-                int targetY = 0;
-                switch (position) {
-                    case 0:
-                        targetY = ll_shop_head.getTop();
-                        break;
-                    case 1:
-                        title_rel.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
-                        lin_title.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
-                        targetY = ll_shop_detail.getTop() - lin_title.getHeight();
-                        break;
-                    /*case 2:
-                    title_rel.setBackgroundColor(Color.argb((int) 255, 255,255,255));
-					lin_title.setBackgroundColor(Color.argb((int) 255, 255,255,255));
-					targetY = ll_shop_tuijian.getTop()-lin_title.getHeight();
-					break;*/
-                    case 2:
-                        title_rel.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
-                        lin_title.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
-                        targetY = ll_shop_pingjia.getTop() - lin_title.getHeight();
-                        break;
-                    default:
-                        break;
-                }
-                // 移动到对应的内容区域
-                sv_bodyContainer.smoothScrollTo(0, targetY);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
     }
 
     /**
@@ -1146,5 +1106,49 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         this.cannelAllTimers();
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        // 表明当前的动作是由 TabLayout 触发和主导
+        tagFlag = false;
+        // 根据点击的位置，使ScrollView 滑动到对应区域
+        int position = tab.getPosition();
+        // 计算点击的导航标签所对应内容区域的高度
+        int targetY = 0;
+        switch (position) {
+            case 0:
+                targetY = ll_shop_head.getTop();
+                break;
+            case 1:
+                title_rel.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
+                lin_title.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
+                targetY = ll_shop_detail.getTop() - lin_title.getHeight();
+                break;
+                    /*case 2:
+                    title_rel.setBackgroundColor(Color.argb((int) 255, 255,255,255));
+					lin_title.setBackgroundColor(Color.argb((int) 255, 255,255,255));
+					targetY = ll_shop_tuijian.getTop()-lin_title.getHeight();
+					break;*/
+            case 2:
+                title_rel.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
+                lin_title.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
+                targetY = ll_shop_pingjia.getTop() - lin_title.getHeight();
+                break;
+            default:
+                break;
+        }
+        // 移动到对应的内容区域
+        sv_bodyContainer.smoothScrollTo(0, targetY);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 }
