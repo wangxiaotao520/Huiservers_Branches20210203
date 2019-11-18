@@ -1402,6 +1402,7 @@ id progress_horizontal
 id radio
 id right
 id right_icon
+id right_share
 id right_side
 id rl_title
 id save_image_matrix

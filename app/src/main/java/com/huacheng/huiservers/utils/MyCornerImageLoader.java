@@ -18,7 +18,9 @@ public class MyCornerImageLoader extends ImageLoader {
     public void displayImage(Context context, Object path, ImageView imageView) {
         //   Glide.clear(imageView);
         //  Glide.with(context.getApplicationContext()).load(path).into(imageView);
-        GlideUtils.getInstance().glideLoad(context, (String) path, imageView, R.color.windowbackground);
+        if (context!=null){
+            GlideUtils.getInstance().glideLoad(context, (String) path, imageView, R.color.windowbackground);
+        }
 
         //  imageView.setImageResource((Integer) path);
     }

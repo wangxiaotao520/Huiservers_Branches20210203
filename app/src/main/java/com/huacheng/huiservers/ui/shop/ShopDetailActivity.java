@@ -24,7 +24,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
@@ -53,6 +55,7 @@ import com.huacheng.huiservers.view.ImageCycleView.ImageCycleViewListener;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.ScrollChangedScrollView;
 import com.huacheng.libraryservice.utils.AppConstant;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
@@ -781,9 +784,32 @@ public class ShopDetailActivity extends BaseActivityOld implements OnClickListen
         if (detailBean.getImgs() != null) {
             for (int i = 0; i < detailBean.getImgs().size(); i++) {
                 View view = LinearLayout.inflate(ShopDetailActivity.this, R.layout.shop_detail_imgdesc_item, null);
-                ImageView img = (ImageView) view.findViewById(R.id.img);
-                Glide.with(ShopDetailActivity.this).load(MyCookieStore.URL + detailBean.getImgs().get(i).getImg()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .placeholder(R.drawable.ic_default_rectange).error(R.drawable.ic_default_rectange).into(img);
+                final ImageView img = (ImageView) view.findViewById(R.id.img);
+ //              GlideUtils.getInstance().glideLoad(ShopDetailActivity.this,MyCookieStore.URL + detailBean.getImgs().get(i).getImg(),img,R.drawable.ic_default_rectange);
+  //              Glide.with(ShopDetailActivity.this).load(MyCookieStore.URL + detailBean.getImgs().get(i).getImg()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
+  //                      .placeholder(R.drawable.ic_default_rectange).error(R.drawable.ic_default_rectange).into(img);
+                img.setImageResource(R.drawable.ic_default_rectange);
+                Glide.with(getApplicationContext()).load(MyCookieStore.URL + detailBean.getImgs().get(i).getImg()).placeholder(R.drawable.ic_default_rectange).error(R.drawable.ic_default_rectange).into(new SimpleTarget<GlideDrawable>() {
+                    @Override
+                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                        int width = resource.getIntrinsicWidth();
+                        int height = resource.getIntrinsicHeight();
+                        final int gridWidth = DeviceUtils.getWindowWidth(ShopDetailActivity.this);
+                        int nWidth = gridWidth;
+                        int nHeight = (int) (2 * nWidth);
+                        float scale = (float) height / width;
+                        if (scale < 2) {
+                            nHeight = (int) (scale * nWidth);
+                        }
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);
+                        //layoutParams.setMargins(0, 0, 0, 15);;
+                        img.setLayoutParams(layoutParams);
+                        img.setScaleType(ImageView.ScaleType.FIT_XY);
+                        img.setImageDrawable(resource);
+                    }
+                });
+
+
                 lin_img.addView(view);
             }
             detailBean.getImgs().clear();

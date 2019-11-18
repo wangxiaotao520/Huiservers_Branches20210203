@@ -168,12 +168,16 @@ public class ShopListActivity extends BaseActivityOld {
                                 linShopListNohead.setVisibility(View.GONE);
                                 setTabLayout(cates);
 
+                            }else {
+                                //空数据
+                                showDialog(smallDialog);
+                                getData();
                             }
                         }
 
                     } else {
-                        showDialog(smallDialog);
-                        getData();
+                        String msg = jsonObject.getString("msg");
+                       SmartToast.showInfo(msg);
                     }
                 } catch (JSONException e) {
                     hideDialog(smallDialog);

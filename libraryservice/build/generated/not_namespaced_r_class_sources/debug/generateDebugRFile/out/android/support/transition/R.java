@@ -100,22 +100,22 @@ public final class R {
         public static int notification_main_column_container = 0x7f0c0075;
         public static int parent_matrix = 0x7f0c007b;
         public static int right_icon = 0x7f0c0083;
-        public static int right_side = 0x7f0c0084;
-        public static int save_image_matrix = 0x7f0c0086;
-        public static int save_non_transition_alpha = 0x7f0c0087;
-        public static int save_scale_type = 0x7f0c0088;
-        public static int tag_transition_group = 0x7f0c00ba;
-        public static int tag_unhandled_key_event_manager = 0x7f0c00bb;
-        public static int tag_unhandled_key_listeners = 0x7f0c00bc;
-        public static int text = 0x7f0c00bd;
-        public static int text2 = 0x7f0c00be;
-        public static int time = 0x7f0c00c5;
-        public static int title = 0x7f0c00c7;
-        public static int transition_current_scene = 0x7f0c00cf;
-        public static int transition_layout_save = 0x7f0c00d0;
-        public static int transition_position = 0x7f0c00d1;
-        public static int transition_scene_layoutid_cache = 0x7f0c00d2;
-        public static int transition_transform = 0x7f0c00d3;
+        public static int right_side = 0x7f0c0085;
+        public static int save_image_matrix = 0x7f0c0087;
+        public static int save_non_transition_alpha = 0x7f0c0088;
+        public static int save_scale_type = 0x7f0c0089;
+        public static int tag_transition_group = 0x7f0c00bb;
+        public static int tag_unhandled_key_event_manager = 0x7f0c00bc;
+        public static int tag_unhandled_key_listeners = 0x7f0c00bd;
+        public static int text = 0x7f0c00be;
+        public static int text2 = 0x7f0c00bf;
+        public static int time = 0x7f0c00c6;
+        public static int title = 0x7f0c00c8;
+        public static int transition_current_scene = 0x7f0c00d0;
+        public static int transition_layout_save = 0x7f0c00d1;
+        public static int transition_position = 0x7f0c00d2;
+        public static int transition_scene_layoutid_cache = 0x7f0c00d3;
+        public static int transition_transform = 0x7f0c00d4;
     }
     public static final class integer {
         private integer() {}

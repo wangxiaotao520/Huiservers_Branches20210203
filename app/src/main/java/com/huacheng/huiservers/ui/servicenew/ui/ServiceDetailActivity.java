@@ -475,9 +475,9 @@ public class ServiceDetailActivity extends BaseActivity {
                     int width = resource.getIntrinsicWidth();
                     int height = resource.getIntrinsicHeight();
                     int nWidth = gridWidth;
-                    int nHeight = (int) (2 * nWidth);
+                    int nHeight = (int) (3 * nWidth);
                     float scale = (float) height / width;
-                    if (scale < 2) {
+                    if (scale < 3) {
                         nHeight = (int) (scale * nWidth);
                     }
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);

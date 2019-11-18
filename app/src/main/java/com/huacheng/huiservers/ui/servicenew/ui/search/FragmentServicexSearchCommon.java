@@ -211,46 +211,46 @@ public class FragmentServicexSearchCommon extends BaseFragment {
     public void initSearchHistory() {
 
         String history = mPref.getString(KEY_SEARCH_HISTORY_KEYWORD, "");
+        List<String> list = new ArrayList<String>();
         if (!TextUtils.isEmpty(history)) {
 //            mSearchHistoryLl.setVisibility(View.VISIBLE);
-            List<String> list = new ArrayList<String>();
             for (Object o : history.split(",")) {
                 list.add((String) o);
             }
             mHistoryKeywords = list;
         } else {
 //            mSearchHistoryLl.setVisibility(View.GONE);
+            mHistoryKeywords = list;
 
         }
         if (mHistoryKeywords != null && mHistoryKeywords.size() > 0) {
             mSearchHistoryLl.setVisibility(View.VISIBLE);
-            histroyAdapter = new ServiceSearchHistoryAdapter(mHistoryKeywords, type, mContext);
-            listView.setAdapter(histroyAdapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    intent.setClass(mContext, SearchServiceResultActivity.class);
-                    Bundle bundle = new Bundle();
-                    if (type == 0) {
-                        bundle.putString("i_key", mHistoryKeywords.get(i));
-                    } else {
-                        bundle.putString("s_key", mHistoryKeywords.get(i));
-                    }
-                    bundle.putInt("serviceType", type);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, 11);
-
-                    save(mHistoryKeywords.get(i));
-//                input.setText(mHistoryKeywords.get(i));
-//                mSearchHistoryLl.setVisibility(View.GONE);
-                }
-            });
-            histroyAdapter.notifyDataSetChanged();
         } else {
             mSearchHistoryLl.setVisibility(View.GONE);
         }
+        histroyAdapter = new ServiceSearchHistoryAdapter(mHistoryKeywords, type, mContext);
+        listView.setAdapter(histroyAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                intent.setClass(mContext, SearchServiceResultActivity.class);
+                Bundle bundle = new Bundle();
+                if (type == 0) {
+                    bundle.putString("i_key", mHistoryKeywords.get(i));
+                } else {
+                    bundle.putString("s_key", mHistoryKeywords.get(i));
+                }
+                bundle.putInt("serviceType", type);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 11);
+
+                save(mHistoryKeywords.get(i));
+//                input.setText(mHistoryKeywords.get(i));
+//                mSearchHistoryLl.setVisibility(View.GONE);
+            }
+        });
+        histroyAdapter.notifyDataSetChanged();
 
     }
 

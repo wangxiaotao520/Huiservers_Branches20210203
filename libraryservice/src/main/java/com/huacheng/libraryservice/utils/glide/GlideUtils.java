@@ -55,7 +55,7 @@ public class GlideUtils {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void glideLoad(Activity activity, String url, ImageView imageView, int default_image) {
         if (!activity.isDestroyed()) {
-            Glide.with(activity).load(url).error(default_image).crossFade().into(imageView);
+            Glide.with(activity).load(url).error(default_image).placeholder(default_image).crossFade().into(imageView);
         } else {
             Log.e(TAG, "Picture loading failed,activity is Destroyed");
         }
