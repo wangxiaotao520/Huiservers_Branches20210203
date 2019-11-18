@@ -34,6 +34,8 @@ import com.huacheng.huiservers.ui.center.geren.bean.PayTypeBean;
 import com.huacheng.huiservers.ui.index.charge.ChargingActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
+import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
 import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -473,11 +475,11 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 setResult(333, intent);
                 finish();
             }else if(type.equals(CanstantPay.PAY_SERVICE)){
-//                Intent intent = new Intent(this, FragmentOrderListActivity.class);
-//                intent.putExtra("type", "pay_finish");
-//                startActivity(intent);
-//                // 支付成功后调用极光
-//                new JpushPresenter().paySuccessJpush(order_id);
+                Intent intent = new Intent(this, FragmentOrderListActivity.class);
+                intent.putExtra("type", "pay_finish");
+                startActivity(intent);
+                // 支付成功后调用极光
+                new JpushPresenter().paySuccessJpush(order_id);
                 finish();
             }else if(type.equals(CanstantPay.PAY_PROPERTY)) {
                 EventBus.getDefault().post(new EventProperty());
