@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f1f1f1"
+    android:background="@color/windowbackground"
     android:orientation="vertical">
 
     <View
@@ -28,7 +28,7 @@
                 android:id="@+id/listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:background="@color/windowbackground"
                 android:divider="@null"
                 android:fastScrollEnabled="false"
                 android:listSelector="@android:color/transparent"

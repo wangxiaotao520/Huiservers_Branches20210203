@@ -232,27 +232,50 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
             //判断是否是业主 物业住宅绑定
             if ("1".equals(bean.getIs_bind_property())) {//未绑定
                 tv_user_identify.setText("请绑定住宅 >     ");
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                    tv_user_identify.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                            intent.putExtra("wuye_type", "bind");
+                            startActivity(intent);
 
-                tv_user_identify.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
-                        intent.putExtra("wuye_type", "bind");
-                        startActivity(intent);
+                        }
+                    });
+                }else {
+                    tv_user_identify.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SmartToast.showInfo("该小区暂未开通服务");
 
-                    }
-                });
+                        }
+                    });
+
+                }
+
             } else {
                 tv_user_identify.setText("已认证业主");
-                tv_user_identify.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
-                        intent.putExtra("wuye_type", "bind");
-                        startActivity(intent);
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                    tv_user_identify.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                            intent.putExtra("wuye_type", "bind");
+                            startActivity(intent);
 
-                    }
-                });
+                        }
+                    });
+                }else {
+                    tv_user_identify.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SmartToast.showInfo("该小区暂未开通服务");
+
+                        }
+                    });
+
+                }
+
             }
         }
     }
