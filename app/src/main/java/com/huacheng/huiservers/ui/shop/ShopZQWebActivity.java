@@ -1,17 +1,26 @@
 package com.huacheng.huiservers.ui.shop;
 
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelOldZixun;
+import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.libraryservice.utils.AppConstant;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
+import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
+import com.microquation.linkedme.android.log.LMErrorCode;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -26,16 +35,28 @@ import java.util.HashMap;
 public class ShopZQWebActivity extends BaseActivity {
     private String id = "";
     private String url = "";
-    private String type = "";//0活动详情 1是专区详情
+    private String type = "";//2活动详情 1是专区详情
     private WebView mWebview;
     private TextView tv_title;
+    private ImageView right_share;
+    ModelOldZixun infos;
+    private String share_url;
+    private String share_title;
+    private String share_desc;
+    private String share_icon;
+    private TextView right;
+    private LinearLayout lin_left;
+    private LinearLayout lin_right;
 
     @Override
     protected void initView() {
         findTitleViews();
-
         mWebview = findViewById(R.id.wv_about);
+        lin_left = findViewById(R.id.lin_left);
         tv_title = findViewById(R.id.tv_title);
+        right_share = findViewById(R.id.right_share);
+        right_share.setVisibility(View.VISIBLE);
+       // right_share.setBackground(getResources().getDrawable(R.mipmap.ic_share));
         titleName.setText("活动详情");
     }
 
@@ -47,7 +68,47 @@ public class ShopZQWebActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-
+        lin_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        right_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (NullUtil.isStringEmpty(infos.getId())) {
+                    return;
+                }
+                share_title = infos.getTitle() + "";
+                share_desc = infos.getTitle() + "";
+                if (type.equals("1")){
+                    share_icon = MyCookieStore.URL + infos.getBanner();
+                }else {
+                    share_icon = MyCookieStore.URL + infos.getImg();
+                }
+                share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "shop/share_article_info/id/" + infos.getId();
+                HashMap<String, String> params = new HashMap<>();
+                params.put("type", "prefecture_details");
+                params.put("id", infos.getId());
+                params.put("sub_type", type);
+                showDialog(smallDialog);
+                LinkedMeUtils.getInstance().getLinkedUrl(ShopZQWebActivity.this, share_url, share_title, params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
+                    @Override
+                    public void onGetUrl(String url, LMErrorCode error) {
+                        hideDialog(smallDialog);
+                        if (error == null) {
+                            String share_url_new = share_url + "?linkedme=" + url;
+                            showSharePop(share_title, share_desc, share_icon, share_url_new);
+                        } else {
+                            //可以看报错
+                            String share_url_new = share_url + "?linkedme=" + "";
+                            showSharePop(share_title, share_desc, share_icon, share_url_new);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -59,7 +120,7 @@ public class ShopZQWebActivity extends BaseActivity {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
-        if (type.equals("0")) {
+        if (type.equals("2")) {
             url = ApiHttpClient.SHOP_MARKIING_ARTICE_DETAILS;
         } else {
             url = ApiHttpClient.SHOP_MARKIING_DETAILS;
@@ -72,6 +133,7 @@ public class ShopZQWebActivity extends BaseActivity {
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ModelOldZixun info = (ModelOldZixun) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldZixun.class);
                     if (info != null) {
+                        infos = info;
                         tv_title.setText(info.getTitle());
                         //能够的调用JavaScript代码
                         mWebview.getSettings().setJavaScriptEnabled(true);
@@ -136,7 +198,7 @@ public class ShopZQWebActivity extends BaseActivity {
     @Override
     protected void initIntentData() {
         id = this.getIntent().getStringExtra("id");
-        type = this.getIntent().getStringExtra("type");
+        type = this.getIntent().getStringExtra("sub_type");
     }
 
     @Override
@@ -147,5 +209,18 @@ public class ShopZQWebActivity extends BaseActivity {
     @Override
     protected void initFragment() {
 
+    }
+
+    /**
+     * 显示分享弹窗
+     *
+     * @param share_title
+     * @param share_desc
+     * @param share_icon
+     * @param share_url_new
+     */
+    private void showSharePop(String share_title, String share_desc, String share_icon, String share_url_new) {
+        PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, share_icon, share_url_new, AppConstant.SHARE_COMMON);
+        popup.showBottom(right_share);
     }
 }

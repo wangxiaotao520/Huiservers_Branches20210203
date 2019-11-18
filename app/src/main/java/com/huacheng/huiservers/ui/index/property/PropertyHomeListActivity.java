@@ -70,6 +70,8 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
     ModelPropertyWyInfo propertyInfo;
     List<List<ModelWuye>> wyListData = new ArrayList<>();
     private float total_wuye_price;//选中的物业费
+    private String company_id ="";
+
 
     @Override
     protected void initView() {
@@ -89,7 +91,6 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
     @Override
     protected void initData() {
 
-        room_id = this.getIntent().getExtras().getString("room_id");
         getBillOrderInfo(room_id);
     }
 
@@ -97,6 +98,7 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("room_id", room_id);
+        params.put("company_id", company_id);
 
         MyOkHttp.get().post(ApiHttpClient.GET_ROOM_BILL, params, new JsonResponseHandler() {
             @Override
@@ -137,7 +139,8 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
 
     @Override
     protected void initIntentData() {
-
+        room_id = this.getIntent().getExtras().getString("room_id");
+        company_id = this.getIntent().getExtras().getString("company_id");
     }
 
     @Override

@@ -412,8 +412,8 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.iv_bg://背景点击
                 intent.setClass(this, ShopZQWebActivity.class);
-                intent.putExtra("id", "3");
-                intent.putExtra("type", "1");
+                intent.putExtra("id", id);
+                intent.putExtra("sub_type", "1");
                 startActivity(intent);
                 break;
         }

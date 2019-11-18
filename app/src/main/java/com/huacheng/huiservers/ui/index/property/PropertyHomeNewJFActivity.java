@@ -113,6 +113,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     private String last_ShuiFei = "";//上次水费的值
     private String last_Dianfei = "";//上次电费的值
     private boolean isShuifei = true;
+    private String company_id="";
 
     @Override
     protected void initView() {
@@ -121,9 +122,6 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         mTitleName.setFocusable(true);
         mTitleName.setFocusableInTouchMode(true);
         mTitleName.requestFocus();
-
-        room_id = this.getIntent().getExtras().getString("room_id");
-        fullname = this.getIntent().getExtras().getString("fullname");
 
         mTvWuye.setTextColor(getResources().getColor(R.color.colorPrimary));
         mTvShuifei.setTextColor(getResources().getColor(R.color.gray_55));
@@ -158,7 +156,9 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
     @Override
     protected void initIntentData() {
-
+        room_id = this.getIntent().getExtras().getString("room_id");
+        fullname = this.getIntent().getExtras().getString("fullname");
+        company_id = this.getIntent().getExtras().getString("company_id");
     }
 
     @Override
@@ -203,6 +203,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("room_id", room_id);
+        params.put("company_id", company_id);
 
         MyOkHttp.get().post(ApiHttpClient.GET_ROOM_BILL, params, new JsonResponseHandler() {
             @Override

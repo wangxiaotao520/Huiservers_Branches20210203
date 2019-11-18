@@ -10,6 +10,7 @@ import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
+import com.huacheng.huiservers.ui.shop.ShopZQWebActivity;
 import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.microquation.linkedme.android.LinkedME;
@@ -87,6 +88,13 @@ public class MiddleActivity extends AppCompatActivity {
                     String id = hashMap.get("id");
                     Intent intent = new Intent(this, ShopZQListActivity.class);
                     intent.putExtra("id", id + "");
+                    startActivity(intent);
+                } else if (type.equals("prefecture_details")) {
+                    String id = hashMap.get("id");
+                    String sub_type = hashMap.get("sub_type");
+                    Intent intent = new Intent(this, ShopZQWebActivity.class);
+                    intent.putExtra("id", id + "");
+                    intent.putExtra("sub_type", sub_type + "");
                     startActivity(intent);
                 }
             }

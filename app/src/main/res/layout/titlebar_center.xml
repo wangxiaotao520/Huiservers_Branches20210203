@@ -114,6 +114,15 @@
                 android:layout_marginRight="10dp" />
 
         </LinearLayout>
+        <ImageView
+            android:id="@+id/right_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_share"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/lin_car"

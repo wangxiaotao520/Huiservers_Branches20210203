@@ -107,7 +107,7 @@ public class ShopZqHuodongActivity extends BaseListActivity<BannerBean> {
         Intent intent=new Intent();
         intent.setClass(this, ShopZQWebActivity.class);
         intent.putExtra("id", mDatas.get(position).getId());
-        intent.putExtra("type", "0");
+        intent.putExtra("sub_type", "2");
         startActivity(intent);
     }
 }

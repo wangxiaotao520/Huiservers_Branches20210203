@@ -298,7 +298,7 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
      * 完成绑定
      *
      */
-    private void getinfofinish(ModelPropertyInfo info) {//完成绑定
+    private void getinfofinish(final ModelPropertyInfo info) {//完成绑定
         HashMap<String, String> params = new HashMap<>();
         params.put("community_id", info.getCommunity_id());
         params.put("community_name", info.getCommunity_name());
@@ -347,6 +347,7 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
                             intent.setClass(PropertyBindHomeActivity.this, PropertyHomeNewJFActivity.class);
                         }
                         intent.putExtra("room_id", room_id);
+                        intent.putExtra("company_id",info.getCompany_id());
                         startActivity(intent);
                     }  else {
                         //其他的直接 finish()

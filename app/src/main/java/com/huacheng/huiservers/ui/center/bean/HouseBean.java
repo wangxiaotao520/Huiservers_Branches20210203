@@ -25,6 +25,7 @@ public class HouseBean implements Serializable {
     private List<HouseBean> li;
     private HouseBean list;
     private String is_ym;
+    private String company_id;
     private String img;
     private String url_type;
     private String type_name;
@@ -70,6 +71,14 @@ public class HouseBean implements Serializable {
             addtime,
             uptime,
             total_Pages;
+
+    public String getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(String company_id) {
+        this.company_id = company_id;
+    }
 
     private String house_type;
 

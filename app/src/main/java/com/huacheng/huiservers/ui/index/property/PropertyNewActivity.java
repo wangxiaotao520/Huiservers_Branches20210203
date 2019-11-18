@@ -128,6 +128,7 @@ public class PropertyNewActivity extends BaseActivity implements NewPropertyAdap
                         intent = new Intent(PropertyNewActivity.this, PropertyHomeNewJFActivity.class);
                     }
                     intent.putExtra("room_id", mdatas.get(position).getRoom_id());
+                    intent.putExtra("company_id", mdatas.get(position).getCompany_id());
                     startActivity(intent);
                 } else if ("open_door".equals(wuye_type)) {
                     //一键开门

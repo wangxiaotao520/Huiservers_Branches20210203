@@ -101,6 +101,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     private boolean is_Refresh = false;  //是否是刷新
     private int type;  //认证状态
     private ModelOldIndexTop modelOldIndexTop;
+    private LinearLayout lin_left;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,8 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         mStatusBar=view.findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
         mStatusBar.setAlpha((float)1);
-        view.findViewById(R.id.lin_left).setVisibility(View.GONE);
+        lin_left =view.findViewById(R.id.lin_left);
+        lin_left .setVisibility(View.VISIBLE);
         title_name = view.findViewById(R.id.title_name);
         title_name.setText("居家养老");
 
@@ -216,6 +218,12 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initListener() {
+        lin_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.finish();
+            }
+        });
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {

@@ -34,7 +34,24 @@ public class ModelOldZixun implements Serializable{
     private String o_company_name;
     private String click;
     private String addtime;
+    private String banner;
+    private String img;
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
+    }
 
     private int evevt_type = 1; //1是阅读量 2.是收藏量
 
