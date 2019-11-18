@@ -125,6 +125,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);
         iv_bg.setLayoutParams(layoutParams);
         iv_bg.setScaleType(ImageView.ScaleType.FIT_XY);
+        iv_bg.setImageResource(R.color.windowbackground);
 
     }
 
