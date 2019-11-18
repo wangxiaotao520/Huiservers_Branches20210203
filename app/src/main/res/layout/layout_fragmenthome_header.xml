@@ -7,26 +7,26 @@
               android:orientation="vertical">
     <!--头部广告-->
     <!--<com.huacheng.huiservers.view.widget.FunctionAdvertise-->
-        <!--android:id="@+id/fc_ads"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="150dp"-->
-        <!--android:background="@color/windowbackground"-->
-        <!--/>-->
+    <!--android:id="@+id/fc_ads"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:background="@color/windowbackground"-->
+    <!--/>-->
     <com.youth.banner.Banner
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        app:banner_default_image="@color/transparents"
         app:indicator_drawable_selected="@drawable/allshape_oval_orange"
         app:indicator_drawable_unselected="@drawable/allshape_oval_white"
         app:indicator_height="6dp"
         app:indicator_margin="@dimen/margin_5"
-        app:indicator_width="6dp"
         app:indicator_selected_height="6dp"
         app:indicator_selected_width="6dp"
-        app:banner_default_image="@color/transparents"
-        android:layout_marginTop="15dp" />
+        app:indicator_width="6dp"/>
     <!--导航-->
     <RelativeLayout
         android:id="@+id/ry_daohang"
@@ -46,15 +46,16 @@
             android:id="@+id/points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"/>
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
-        android:background="#ececec"
-        android:layout_height="1.2px"/>
+        android:layout_height="1.2px"
+        android:background="#ececec"/>
     <!--物业公告-->
     <LinearLayout
         android:id="@+id/ly_property_notice"
@@ -92,23 +93,38 @@
             </LinearLayout>
 
         </FrameLayout>
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="#f1f1f1" />
+            android:layout_marginTop="20dp"
+            android:background="#f1f1f1"/>
 
         <com.huacheng.libraryservice.widget.verticalbannerview.VerticalBannerView
             android:id="@+id/v_banner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:background="@color/white"
             app:animDuration="900"
             app:gap="3000"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="@dimen/margin_15">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/jiantou_you"/>
+        </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
@@ -200,179 +216,185 @@
                 android:textSize="@dimen/t_13sp"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="11dp"
             android:orientation="vertical">
+
             <RelativeLayout
-                android:layout_gravity="center_horizontal"
                 android:id="@+id/ly_property_payment"
                 android:layout_width="match_parent"
-                android:background="@mipmap/bg_property_pay"
-                android:layout_height="120dp">
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/bg_property_pay">
 
             </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
+
                 <RelativeLayout
                     android:id="@+id/ly_person_repair"
                     android:layout_width="0dp"
+                    android:layout_height="120dp"
                     android:layout_weight="1"
-                    android:background="@mipmap/bg_personal_repair"
-                    android:layout_height="120dp">
+                    android:background="@mipmap/bg_personal_repair">
 
 
                 </RelativeLayout>
+
                 <View
                     android:layout_width="5dp"
                     android:layout_height="100dp"/>
+
                 <RelativeLayout
                     android:id="@+id/ly_public_repair"
                     android:layout_width="0dp"
+                    android:layout_height="120dp"
                     android:layout_weight="1"
-                    android:background="@mipmap/bg_public_repair"
-                    android:layout_height="120dp">
+                    android:background="@mipmap/bg_public_repair">
 
 
                 </RelativeLayout>
             </LinearLayout>
 
             <!--<RelativeLayout-->
-                <!--android:id="@+id/ly_property_payment"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="fill_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="@drawable/bg_stroke_grey_home"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:paddingLeft="@dimen/margin_5"-->
-                <!--android:orientation="horizontal"-->
-                <!--&gt;-->
+            <!--android:id="@+id/ly_property_payment"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/bg_stroke_grey_home"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingLeft="@dimen/margin_5"-->
+            <!--android:orientation="horizontal"-->
+            <!--&gt;-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="生活缴费"-->
-                        <!--android:textColor="@color/text_color"-->
-                        <!--android:textSize="@dimen/t_13sp"-->
-                        <!--/>-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="生活缴费"-->
+            <!--android:textColor="@color/text_color"-->
+            <!--android:textSize="@dimen/t_13sp"-->
+            <!--/>-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="@dimen/margin_5"-->
-                        <!--android:text="便捷缴费"-->
-                        <!--android:textColor="@color/gray_9c"-->
-                        <!--android:textSize="@dimen/t_11sp"-->
-                        <!--/>-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/margin_5"-->
+            <!--android:text="便捷缴费"-->
+            <!--android:textColor="@color/gray_9c"-->
+            <!--android:textSize="@dimen/t_11sp"-->
+            <!--/>-->
 
-                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
 
-                <!--<ImageView-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:layout_width="40dp"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:layout_marginRight="@dimen/margin_5"-->
-                    <!--android:background="@mipmap/ic_home_jiaofei"/>-->
-
-            <!--</RelativeLayout>-->
-
-            <!--<RelativeLayout-->
-                <!--android:id="@+id/ly_person_repair"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="fill_parent"-->
-                <!--android:layout_marginLeft="7dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="@drawable/bg_stroke_grey_home"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:orientation="horizontal"-->
-                <!--&gt;-->
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:paddingLeft="@dimen/margin_5">-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="家用报修"-->
-                        <!--android:textColor="@color/text_color"-->
-                        <!--android:textSize="@dimen/t_13sp"-->
-                        <!--/>-->
-
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="@dimen/margin_5"-->
-                        <!--android:text="一键报修"-->
-                        <!--android:textColor="@color/gray_9c"-->
-                        <!--android:textSize="@dimen/t_11sp"-->
-                        <!--/>-->
-
-                <!--</LinearLayout>-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="40dp"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:background="@mipmap/ic_home_repair"/>-->
+            <!--<ImageView-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_marginRight="@dimen/margin_5"-->
+            <!--android:background="@mipmap/ic_home_jiaofei"/>-->
 
             <!--</RelativeLayout>-->
 
             <!--<RelativeLayout-->
-                <!--android:id="@+id/ly_public_repair"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="fill_parent"-->
-                <!--android:layout_marginLeft="7dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="@drawable/bg_stroke_grey_home"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:paddingLeft="@dimen/margin_5"-->
-                <!--&gt;-->
+            <!--android:id="@+id/ly_person_repair"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_marginLeft="7dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/bg_stroke_grey_home"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--&gt;-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:paddingLeft="@dimen/margin_5">-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="公共报修"-->
-                        <!--android:textColor="@color/text_color"-->
-                        <!--android:textSize="@dimen/t_13sp"-->
-                        <!--/>-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="家用报修"-->
+            <!--android:textColor="@color/text_color"-->
+            <!--android:textSize="@dimen/t_13sp"-->
+            <!--/>-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="@dimen/margin_5"-->
-                        <!--android:text="一键报修"-->
-                        <!--android:textColor="@color/gray_9c"-->
-                        <!--android:textSize="@dimen/t_11sp"-->
-                        <!--/>-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/margin_5"-->
+            <!--android:text="一键报修"-->
+            <!--android:textColor="@color/gray_9c"-->
+            <!--android:textSize="@dimen/t_11sp"-->
+            <!--/>-->
 
-                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
 
-                <!--<ImageView-->
-                    <!--android:layout_width="40dp"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:background="@mipmap/ic_home_baoxiu"/>-->
+            <!--<ImageView-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:background="@mipmap/ic_home_repair"/>-->
+
+            <!--</RelativeLayout>-->
+
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/ly_public_repair"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_marginLeft="7dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/bg_stroke_grey_home"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingLeft="@dimen/margin_5"-->
+            <!--&gt;-->
+
+            <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="公共报修"-->
+            <!--android:textColor="@color/text_color"-->
+            <!--android:textSize="@dimen/t_13sp"-->
+            <!--/>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/margin_5"-->
+            <!--android:text="一键报修"-->
+            <!--android:textColor="@color/gray_9c"-->
+            <!--android:textSize="@dimen/t_11sp"-->
+            <!--/>-->
+
+            <!--</LinearLayout>-->
+
+            <!--<ImageView-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:background="@mipmap/ic_home_baoxiu"/>-->
 
             <!--</RelativeLayout>-->
         </LinearLayout>
@@ -812,8 +834,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_15"
             android:layout_marginBottom="15dp"
+            android:layout_marginLeft="@dimen/margin_15"
             android:orientation="horizontal">
 
             <TextView
@@ -839,9 +861,9 @@
             android:id="@+id/gridview_goods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
             android:fadingEdge="none"
             android:fastScrollEnabled="false"
             android:footerDividersEnabled="false"
@@ -851,8 +873,8 @@
             android:listSelector="@android:color/transparent"
             android:numColumns="2"
             android:stretchMode="columnWidth"
-            android:visibility="visible"
-            android:verticalSpacing="10dp"/>
+            android:verticalSpacing="10dp"
+            android:visibility="visible"/>
 
     </LinearLayout>
 

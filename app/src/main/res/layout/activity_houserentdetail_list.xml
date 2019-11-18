@@ -70,7 +70,7 @@
                     android:layout_height="40dp"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
-                    fresco:placeholderImage="@drawable/ic_default_head"
+                    fresco:placeholderImage="@mipmap/ic_house_head"
                     fresco:placeholderImageScaleType="centerCrop"
                     fresco:roundAsCircle="true"/>
 
@@ -84,7 +84,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="经纪人"
+                        android:text=""
                         android:textColor="@color/text_color"
                         android:textSize="@dimen/t_15sp"/>
 
@@ -92,7 +92,7 @@
                         android:id="@+id/tv_braoker_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="经纪人"
+                        android:text=""
                         android:textColor="@color/gray_9c"
                         android:textSize="@dimen/t_15sp"/>
 
