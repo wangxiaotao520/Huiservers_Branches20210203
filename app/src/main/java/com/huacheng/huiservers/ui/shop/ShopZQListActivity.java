@@ -229,6 +229,11 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
         params.put("p", page + "");
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            params.put("province_cn", prefrenceUtil.getProvince_cn());
+            params.put("city_cn", prefrenceUtil.getCity_cn());
+            params.put("region_cn", prefrenceUtil.getRegion_cn());
+        }
         MyOkHttp.get().get(ApiHttpClient.SHOP_MARKIING_LIST, params, new JsonResponseHandler() {
 
             @Override
