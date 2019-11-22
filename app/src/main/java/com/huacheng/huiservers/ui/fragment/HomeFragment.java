@@ -359,6 +359,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (id==-1){
+                    return;
+                }
                 if (NullUtil.isStringEmpty(mDatas.get((int) id).getInventory()) || 0 >= Integer.valueOf(mDatas.get((int) id).getInventory())) {
                     SmartToast.showInfo("商品已售罄");
                 } else {
