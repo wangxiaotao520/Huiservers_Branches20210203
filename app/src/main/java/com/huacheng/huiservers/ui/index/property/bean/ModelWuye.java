@@ -31,6 +31,7 @@ public class ModelWuye {
     private String pay_type;
     private String addtime;
     private String uptime;
+    private String is_invoice;
 
     private boolean isChecked;//缴费时标记是否被选中
 
@@ -234,5 +235,14 @@ public class ModelWuye {
     public void setChecked(boolean checked) {
         isChecked = checked;
     }
+
+    public String getIs_invoice() {
+        return is_invoice;
+    }
+
+    public void setIs_invoice(String is_invoice) {
+        this.is_invoice = is_invoice;
+    }
+
 
 }

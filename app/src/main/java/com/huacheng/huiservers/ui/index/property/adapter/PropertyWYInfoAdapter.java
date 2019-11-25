@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.index.property.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener;
 import com.huacheng.huiservers.utils.StringUtils;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 
 import java.util.List;
 
@@ -31,6 +33,10 @@ public class PropertyWYInfoAdapter extends BaseAdapter {
     private  boolean is_JF;//是否是缴费页 标示是否可选
 
     private OnCheckJFListener listener;//点击选择item的回调
+
+    private String selected_invoice_type = "";//选中的账单类型 如果该参数为0，能多选账单，且只能选该参数为0的账单，如果该参数为1，只能单选，不可选其他任何账单)
+    private String selected_bill_id = ""; //选中的账单id 且只有在 selected_invoice_type=“1”时有值 只能选择它
+
 
     public PropertyWYInfoAdapter(Context mContext, List<List<ModelWuye>> wyListData,boolean is_JF) {
         this.mContext = mContext;
@@ -77,13 +83,14 @@ public class PropertyWYInfoAdapter extends BaseAdapter {
             }else {
                 iv_check.setBackgroundResource(R.drawable.icon_shop_no);
             }
+
             if (is_JF){
                 //缴费页面 PropertyHomeListActivity  PropertyHomeNewJFActivity
                 iv_check.setVisibility(View.VISIBLE);
                 final int finalI = i;
-                v.setOnClickListener(new View.OnClickListener() {
+                v.setOnClickListener(new OnDoubleClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onNoDoubleClick(View v) {
                         if (listener!=null){
                             listener.onClickChildItem(position, finalI);
                         }
@@ -95,7 +102,37 @@ public class PropertyWYInfoAdapter extends BaseAdapter {
 //                            iv_check.setBackgroundResource(R.drawable.icon_shop_onclick);
 //                        }
                     }
-                });
+                } );
+                if ("0".equals(selected_invoice_type)) {
+                    //能多选
+                    if ("0".equals(wyListData.get(position).get(i).getIs_invoice())){
+                        tv_timeInterval.setTextColor(Color.parseColor("#555555"));
+                        tv_timePrice.setTextColor(Color.parseColor("#555555"));
+                    }else {
+                        //是1的不能选
+                        tv_timeInterval.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+                        tv_timePrice.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+                    }
+                }else if ("1".equals(selected_invoice_type)){
+                    if ("0".equals(wyListData.get(position).get(i).getIs_invoice())){
+                        tv_timeInterval.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+                        tv_timePrice.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+                    }else {
+                        //是1的id相同才能选
+                        if (wyListData.get(position).get(i).getBill_id().equals(selected_bill_id)){
+                            tv_timeInterval.setTextColor(Color.parseColor("#555555"));
+                            tv_timePrice.setTextColor(Color.parseColor("#555555"));
+                        }else {
+                            tv_timeInterval.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+                            tv_timePrice.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+                        }
+                    }
+                }else {
+                    //没选择的情况
+                    tv_timeInterval.setTextColor(Color.parseColor("#555555"));
+                    tv_timePrice.setTextColor(Color.parseColor("#555555"));
+                }
+
             }else {
                 iv_check.setVisibility(View.GONE);
             }
@@ -130,6 +167,22 @@ public class PropertyWYInfoAdapter extends BaseAdapter {
 
     public void setListener(OnCheckJFListener listener) {
         this.listener = listener;
+    }
+
+    public String getSelected_invoice_type() {
+        return selected_invoice_type;
+    }
+
+    public void setSelected_invoice_type(String selected_invoice_type) {
+        this.selected_invoice_type = selected_invoice_type;
+    }
+
+    public String getSelected_bill_id() {
+        return selected_bill_id;
+    }
+
+    public void setSelected_bill_id(String selected_bill_id) {
+        this.selected_bill_id = selected_bill_id;
     }
 
 }

@@ -9,17 +9,17 @@ public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
     public static String API_VERSION = "apk44/";
     //测试
-//    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
-//    public static String API_URL = "http://test.hui-shenghuo.cn/";
-//    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
-//    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
+    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
+    public static String API_URL = "http://test.hui-shenghuo.cn/";
+    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
+    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
 
     //正式
-    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
-    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
-    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
-    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service/";
+//    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
+//    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
+//    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
+//    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service/";
 
 
     public static String IMG_URL = "http://img.hui-shenghuo.cn/";

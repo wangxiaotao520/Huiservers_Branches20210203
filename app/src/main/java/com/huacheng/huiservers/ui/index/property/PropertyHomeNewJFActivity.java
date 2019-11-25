@@ -115,6 +115,9 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     private boolean isShuifei = true;
     private String company_id="";
 
+    private String selected_invoice_type = "";//选中的账单类型 如果该参数为0，能多选账单，且只能选该参数为0的账单，如果该参数为1，只能单选，不可选其他任何账单)
+    private String selected_bill_id = ""; //选中的账单id 且只有在 selected_invoice_type=“1”时有值 只能选择它
+
     @Override
     protected void initView() {
         ButterKnife.bind(this);
@@ -564,11 +567,57 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
      */
     @Override
     public void onClickChildItem(int parentPosition, int childPosition) {
-        if (wyListData.get(parentPosition).get(childPosition).isChecked()) {
+        if (wyListData.get(parentPosition).get(childPosition).isChecked()) {//本身是选中状态 反选
+            //先反选
             wyListData.get(parentPosition).get(childPosition).setChecked(false);
-        } else {
-            wyListData.get(parentPosition).get(childPosition).setChecked(true);
+            selected_invoice_type="";
+            selected_bill_id="";
+            //遍历所有集合，判断有无选中
+            Loop:
+            for (int i = 0; i < wyListData.get(parentPosition).size(); i++) {
+                List<ModelWuye> modelWuyes = wyListData.get(parentPosition);
+                for (int i1 = 0; i1 < modelWuyes.size(); i1++) {
+                    if (modelWuyes.get(i1).isChecked()){
+                        selected_invoice_type=modelWuyes.get(i1).getIs_invoice();
+                        if (selected_invoice_type.equals("1")){
+                            selected_bill_id= modelWuyes.get(i1).getBill_id();
+                        }
+                        break Loop;
+                    }
+                }
+            }
+
+        } else { //本身是没选中
+            if (NullUtil.isStringEmpty(selected_invoice_type)){
+                //从来没有选过
+                wyListData.get(parentPosition).get(childPosition).setChecked(true);
+                selected_invoice_type= wyListData.get(parentPosition).get(childPosition).getIs_invoice();
+                if ("1".equals(selected_invoice_type)){
+                    selected_bill_id= wyListData.get(parentPosition).get(childPosition).getBill_id()+"";
+                }else {
+                    selected_bill_id="";
+                }
+            }else if ("0".equals(selected_invoice_type)){
+                //可多选
+                if ("0".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())) {
+                    wyListData.get(parentPosition).get(childPosition).setChecked(true);
+                }else if ("1".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())){//单选账单
+                    SmartToast.showInfo("该账单不可合并支付");
+                    return;
+                }
+            }else if ("1".equals(selected_invoice_type)){//单选账单
+                if ("0".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())) {
+                    SmartToast.showInfo("该账单只能单独支付");
+                    return;
+                }else if ("1".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())){//单选账单
+                    SmartToast.showInfo("该账单只能单独支付");
+                    return;
+                }
+            }
+
         }
+        wyInfoAdapter.setSelected_bill_id(selected_bill_id);
+        wyInfoAdapter.setSelected_invoice_type(selected_invoice_type);
         getWuyeInfo();
         wyInfoAdapter.notifyDataSetChanged();
     }
