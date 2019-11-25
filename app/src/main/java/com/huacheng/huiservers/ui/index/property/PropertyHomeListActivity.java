@@ -13,11 +13,12 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.index.property.adapter.PropertyWYInfoAdapter;
+import com.huacheng.huiservers.ui.index.property.adapter.PropertyWYInfoAdapter1;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
 import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener;
+import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener1;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -41,7 +42,7 @@ import butterknife.OnClick;
  * Author: badge
  * Create: 2018/8/3 19:08
  */
-public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFListener {
+public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFListener, OnCheckJFListener1 {
 
     @BindView(R.id.lin_left)
     LinearLayout linLeft;
@@ -67,9 +68,11 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
     private List<Float> selected_price_list = new ArrayList<>();//选中的价格集合
     double realPriceTotal = 0;
     String room_id;//, fullname
-    PropertyWYInfoAdapter wyInfoAdapter;
+//    PropertyWYInfoAdapter wyInfoAdapter;
     ModelPropertyWyInfo propertyInfo;
-    List<List<ModelWuye>> wyListData = new ArrayList<>();
+//    List<List<ModelWuye>> wyListData = new ArrayList<>();
+    PropertyWYInfoAdapter1 wyInfoAdapter1;
+    List<ModelWuye> wyListData1 = new ArrayList<>();
     private float total_wuye_price;//选中的物业费
     private String company_id ="";
 
@@ -86,10 +89,11 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
         titleName.setFocusableInTouchMode(true);
         titleName.requestFocus();
 
-        wyInfoAdapter = new PropertyWYInfoAdapter(PropertyHomeListActivity.this, wyListData, true);
-        wyInfoAdapter.setListener(this);
-        mLsit.setAdapter(wyInfoAdapter);
-
+//        wyInfoAdapter = new PropertyWYInfoAdapter(PropertyHomeListActivity.this, wyListData, true);
+//        wyInfoAdapter.setListener(this);
+//        mLsit.setAdapter(wyInfoAdapter);
+        wyInfoAdapter1 = new PropertyWYInfoAdapter1(PropertyHomeListActivity.this, R.layout.property_homelist_item1,wyListData1,this);
+        mLsit.setAdapter(wyInfoAdapter1);
     }
 
     @Override
@@ -217,59 +221,59 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
      */
     @Override
     public void onClickChildItem(int parentPosition, int childPosition) {
-        if (wyListData.get(parentPosition).get(childPosition).isChecked()) {//本身是选中状态 反选
-            //先反选
-            wyListData.get(parentPosition).get(childPosition).setChecked(false);
-            selected_invoice_type="";
-            selected_bill_id="";
-            //遍历所有集合，判断有无选中
-            Loop:
-            for (int i = 0; i < wyListData.get(parentPosition).size(); i++) {
-                List<ModelWuye> modelWuyes = wyListData.get(parentPosition);
-                for (int i1 = 0; i1 < modelWuyes.size(); i1++) {
-                    if (modelWuyes.get(i1).isChecked()){
-                        selected_invoice_type=modelWuyes.get(i1).getIs_invoice();
-                        if (selected_invoice_type.equals("1")){
-                            selected_bill_id= modelWuyes.get(i1).getBill_id();
-                        }
-                        break Loop;
-                    }
-                }
-            }
-
-        } else { //本身是没选中
-            if (NullUtil.isStringEmpty(selected_invoice_type)){
-                //从来没有选过
-                wyListData.get(parentPosition).get(childPosition).setChecked(true);
-                selected_invoice_type= wyListData.get(parentPosition).get(childPosition).getIs_invoice();
-                if ("1".equals(selected_invoice_type)){
-                    selected_bill_id= wyListData.get(parentPosition).get(childPosition).getBill_id()+"";
-                }else {
-                    selected_bill_id="";
-                }
-            }else if ("0".equals(selected_invoice_type)){
-                //可多选
-                if ("0".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())) {
-                    wyListData.get(parentPosition).get(childPosition).setChecked(true);
-                }else if ("1".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())){//单选账单
-                    SmartToast.showInfo("该账单不可合并支付");
-                    return;
-                }
-            }else if ("1".equals(selected_invoice_type)){//单选账单
-                if ("0".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())) {
-                    SmartToast.showInfo("该账单只能单独支付");
-                    return;
-                }else if ("1".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())){//单选账单
-                    SmartToast.showInfo("该账单只能单独支付");
-                    return;
-                }
-            }
-
-        }
-        wyInfoAdapter.setSelected_bill_id(selected_bill_id);
-        wyInfoAdapter.setSelected_invoice_type(selected_invoice_type);
-        getWuyeInfo();
-        wyInfoAdapter.notifyDataSetChanged();
+//        if (wyListData.get(parentPosition).get(childPosition).isChecked()) {//本身是选中状态 反选
+//            //先反选
+//            wyListData.get(parentPosition).get(childPosition).setChecked(false);
+//            selected_invoice_type="";
+//            selected_bill_id="";
+//            //遍历所有集合，判断有无选中
+//            Loop:
+//            for (int i = 0; i < wyListData.get(parentPosition).size(); i++) {
+//                List<ModelWuye> modelWuyes = wyListData.get(parentPosition);
+//                for (int i1 = 0; i1 < modelWuyes.size(); i1++) {
+//                    if (modelWuyes.get(i1).isChecked()){
+//                        selected_invoice_type=modelWuyes.get(i1).getIs_invoice();
+//                        if (selected_invoice_type.equals("1")){
+//                            selected_bill_id= modelWuyes.get(i1).getBill_id();
+//                        }
+//                        break Loop;
+//                    }
+//                }
+//            }
+//
+//        } else { //本身是没选中
+//            if (NullUtil.isStringEmpty(selected_invoice_type)){
+//                //从来没有选过
+//                wyListData.get(parentPosition).get(childPosition).setChecked(true);
+//                selected_invoice_type= wyListData.get(parentPosition).get(childPosition).getIs_invoice();
+//                if ("1".equals(selected_invoice_type)){
+//                    selected_bill_id= wyListData.get(parentPosition).get(childPosition).getBill_id()+"";
+//                }else {
+//                    selected_bill_id="";
+//                }
+//            }else if ("0".equals(selected_invoice_type)){
+//                //可多选
+//                if ("0".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())) {
+//                    wyListData.get(parentPosition).get(childPosition).setChecked(true);
+//                }else if ("1".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())){//单选账单
+//                    SmartToast.showInfo("该账单不可合并支付");
+//                    return;
+//                }
+//            }else if ("1".equals(selected_invoice_type)){//单选账单
+//                if ("0".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())) {
+//                    SmartToast.showInfo("该账单只能单独支付");
+//                    return;
+//                }else if ("1".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())){//单选账单
+//                    SmartToast.showInfo("该账单只能单独支付");
+//                    return;
+//                }
+//            }
+//
+//        }
+//        wyInfoAdapter.setSelected_bill_id(selected_bill_id);
+//        wyInfoAdapter.setSelected_invoice_type(selected_invoice_type);
+//        getWuyeInfo();
+//        wyInfoAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -284,9 +288,17 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                 mRelNoData.setVisibility(View.GONE);
                 mLsit.setVisibility(View.VISIBLE);
 
-                wyListData.clear();
-                wyListData.addAll(wyList);
-                wyInfoAdapter.notifyDataSetChanged();
+//                wyListData.clear();
+//                wyListData.addAll(wyList);
+//                wyInfoAdapter.notifyDataSetChanged();
+                wyListData1.clear();
+                for (int i = 0; i < wyList.size(); i++) {
+                    for (int i1 = 0; i1 < wyList.get(i).size(); i1++) {
+                        wyList.get(i).get(i1).setPosition(i1);
+                        wyListData1.add( wyList.get(i).get(i1));
+                    }
+                }
+                wyInfoAdapter1.notifyDataSetChanged();
                 selected_id_str.clear();
                 selected_price_list.clear();
                 for (int i = 0; i < wyList.size(); i++) {
@@ -326,5 +338,87 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
     private float setFloat(float totalPrice) {//保留两位小数点
         BigDecimal b = new BigDecimal(totalPrice);
         return b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+    }
+
+    @Override
+    public void onClickChildItem(int childPosition) {
+        if (wyListData1.get(childPosition).isChecked()) {//本身是选中状态 反选
+            //先反选
+            wyListData1.get(childPosition).setChecked(false);
+            selected_invoice_type="";
+            selected_bill_id="";
+            //遍历所有集合，判断有无选中
+            Loop:
+            for (int i = 0; i <wyListData1.size(); i++) {
+                ModelWuye modelWuye =  wyListData1.get(i);
+                if (modelWuye.isChecked()){
+                    selected_invoice_type=modelWuye.getIs_invoice();
+                    if (selected_invoice_type.equals("1")){
+                        selected_bill_id= modelWuye.getBill_id();
+                    }
+                    break Loop;
+                }
+
+            }
+        } else { //本身是没选中
+            if (NullUtil.isStringEmpty(selected_invoice_type)){
+                //从来没有选过
+                wyListData1.get(childPosition).setChecked(true);
+                selected_invoice_type= wyListData1.get(childPosition).getIs_invoice();
+                if ("1".equals(selected_invoice_type)){
+                    selected_bill_id= wyListData1.get(childPosition).getBill_id()+"";
+                }else {
+                    selected_bill_id="";
+                }
+            }else if ("0".equals(selected_invoice_type)){
+                //可多选
+                if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
+                    wyListData1.get(childPosition).setChecked(true);
+                }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
+                    SmartToast.showInfo("该账单不可合并支付");
+                    return;
+                }
+            }else if ("1".equals(selected_invoice_type)){//单选账单
+                if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
+                    SmartToast.showInfo("该账单只能单独支付");
+                    return;
+                }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
+                    SmartToast.showInfo("该账单只能单独支付");
+                    return;
+                }
+            }
+
+        }
+        wyInfoAdapter1.setSelected_bill_id(selected_bill_id);
+        wyInfoAdapter1.setSelected_invoice_type(selected_invoice_type);
+        wyInfoAdapter1.notifyDataSetChanged();
+        sumValue();
+    }
+
+    private void sumValue() {
+        selected_id_str.clear();
+        selected_price_list.clear();
+        for (int i = 0; i < wyListData1.size(); i++) {
+            String str = wyListData1.get(i ).getBill_id();
+            if (wyListData1.get(i ).isChecked()) {//如果被选中
+                selected_id_str.add(str);
+                selected_price_list.add(wyListData1.get(i ).getSumvalue());
+            }
+
+        }
+        sb_bill_ids = new StringBuilder();
+        for (int i = 0; i < selected_id_str.size(); i++) {
+            if (i == 0) {
+                sb_bill_ids.append(String.valueOf(selected_id_str.get(i)));
+            } else {
+                sb_bill_ids.append("," + String.valueOf(selected_id_str.get(i)));
+            }
+        }
+        //计算选中的物业费
+        total_wuye_price = (float) 0;
+        for (int i = 0; i < selected_price_list.size(); i++) {
+            total_wuye_price += selected_price_list.get(i);
+        }
+        mTvAccountPrice.setText("¥ " + setFloat(total_wuye_price));
     }
 }

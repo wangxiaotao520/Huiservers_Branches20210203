@@ -35,6 +35,8 @@ public class ModelWuye {
 
     private boolean isChecked;//缴费时标记是否被选中
 
+    private int position = 0 ; //位置
+
     public String getUid() {
         return uid;
     }
@@ -244,5 +246,13 @@ public class ModelWuye {
         this.is_invoice = is_invoice;
     }
 
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
 }
