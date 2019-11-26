@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.center;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -11,13 +12,16 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.CommunityListActivity;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.bean.ModelAddressList;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.json.JSONException;
@@ -40,10 +44,11 @@ public class AddAddressActivity extends BaseActivity{
     private EditText edt_address_detail;
     private LinearLayout ll_address;
     ModelAddressList modelAddressList;
-    private int jump_type = 1;//1.从商城跳过来的 2.从服务调过来的
+    private int jump_type = 1;//1.从商城跳过来的 2.从服务调过来的 3.从我的跳过来的
     private String region_cn = ""; //地址区域
     private String community_cn = "";//
     private String service_id = "";//
+    private TextView tv_delete_address;
 
     @Override
     protected void initView() {
@@ -72,7 +77,7 @@ public class AddAddressActivity extends BaseActivity{
             //新增
             titleName.setText("添加地址");
         }
-
+        tv_delete_address = findViewById(R.id.tv_delete_address);
     }
 
     @Override
@@ -164,8 +169,55 @@ public class AddAddressActivity extends BaseActivity{
                }
             }
         });
-    }
 
+        if (jump_type==3&&modelAddressList!=null){
+            //从我的跳进来的
+            tv_delete_address.setVisibility(View.VISIBLE);
+            tv_delete_address.setOnClickListener(new OnDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    new CommomDialog(AddAddressActivity.this, R.style.my_dialog_DimEnabled, "确认删除地址？", new CommomDialog.OnCloseListener() {
+                        @Override
+                        public void onClick(Dialog dialog, boolean confirm) {
+                            if (confirm) {
+                                dialog.dismiss();
+                                getdelete();
+                            }
+                        }
+                    }).show();//.setTitle("提示")
+                }
+            });
+        }
+    }
+    private void getdelete() {//删除地址
+        Url_info info = new Url_info(this);
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("id", modelAddressList.getId());
+        showDialog(smallDialog);
+        MyOkHttp.get().post(info.del_user_address, params.getParams(), new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)){
+                    Intent intent = new Intent();
+                    ModelAddressList modelAddressList = new ModelAddressList();
+                    intent.putExtra("model",modelAddressList);
+                    setResult(RESULT_OK,intent);
+                    finish();
+                }else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response,"删除失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
+    }
     private boolean checkReady() {
         String consignee_name = edt_name.getText().toString().trim();
         if (NullUtil.isStringEmpty(consignee_name)){

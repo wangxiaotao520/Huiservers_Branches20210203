@@ -95,12 +95,24 @@
             android:textCursorDrawable="@drawable/color_cursor"
             android:hint="详细地址：如街道门牌号、小区、楼栋号、单元"
             android:padding="@dimen/margin_20"
-            android:singleLine="true"
             android:gravity="top|left"
             android:textColorHint="@color/text_color_hint"
             android:textSize="@dimen/t_14sp"
             android:textColor="@color/c_title"/>
     </LinearLayout>
 
-
+<TextView
+    android:id="@+id/tv_delete_address"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:text="删除收货地址"
+    android:paddingLeft="20dp"
+    android:textColor="@color/red_ed"
+    android:layout_marginTop="15dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:textSize="14sp"
+    android:visibility="gone"
+    />
 </LinearLayout>

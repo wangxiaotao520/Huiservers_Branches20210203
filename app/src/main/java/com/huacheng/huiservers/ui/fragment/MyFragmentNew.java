@@ -19,6 +19,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseFragment;
+import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.center.CenterMoneyActivity;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.MyInfoActivity;
@@ -64,7 +65,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
     private TextView tv_user_name;
     private TextView tv_user_phone;
     private RelativeLayout rl_community_bill_list, rl_baoxiu_order_list, rl_service_order_list, rl_shop_order_list,
-            ry_set, ry, ry_my_renvation, ry_fang, rel_gouwuche, rel_xiaofejilu, rel_coupon, rel_myCircle, rel_house,ry_service;
+            ry_set, ry, ry_my_renvation, ry_fang, rel_gouwuche, rel_xiaofejilu, rel_coupon, rel_myCircle, rel_house,ry_service,rel_myAddress;
     private TextView tv_guest_num, tv_coupon_num, tv_decoration_num, tv_social_num, tv_cart_num;
     SharePrefrenceUtil prefrenceUtil;
     SharedPreferences preferencesLogin;
@@ -114,6 +115,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
         mStatusBar.setAlpha((float) 1);
 
         iv_message = view.findViewById(R.id.iv_message);
+        rel_myAddress=view.findViewById(R.id.rel_myAddress);
 
     }
 
@@ -147,6 +149,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
         });
         iv_message.setOnClickListener(this);
         ry_service.setOnClickListener(this);
+        rel_myAddress.setOnClickListener(this);
 
     }
 
@@ -389,6 +392,11 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.iv_message://消息
                 intent = new Intent(mActivity, OldMessageActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rel_myAddress://我的地址
+                intent = new Intent(mActivity, AddressListActivity.class);
+                intent.putExtra("jump_type",3);
                 startActivity(intent);
                 break;
 

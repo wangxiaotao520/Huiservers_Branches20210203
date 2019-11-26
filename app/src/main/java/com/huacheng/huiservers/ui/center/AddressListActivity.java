@@ -26,7 +26,6 @@ import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -64,7 +63,7 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
 
 
     SharePrefrenceUtil prefrenceUtil;
-    private int jump_type = 1;//1.从商城跳过来的 2.从服务调过来的
+    private int jump_type = 1;//1.从商城跳过来的 2.从服务调过来的 3.从我的跳过来的
     private String service_id = "";//商户id
 
     @Override
@@ -86,9 +85,9 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
         new_addressAdapter = new NewAddressAdapter(AddressListActivity.this, mDatas,this);
         mListAddress.setAdapter(new_addressAdapter);
         listonclick();
-        mListAddress.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int i, long l) {
+//        mListAddress.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+ //               @Override
+ //               public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int i, long l) {
 //                    DeleteAddressDialog deleteAddressDialog = new DeleteAddressDialog(AddressListActivity.this, new DeleteAddressDialog.OnCustomDialogListener() {
 //                        @Override
 //                        public void back(String name) {
@@ -102,9 +101,9 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
 //                        }
 //                    });
 //                    deleteAddressDialog.show();
-                    return true;
-                }
-            });
+//                    return true;
+//                }
+//            });
 
         mRight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +130,9 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-
+                if (jump_type==3){
+                    return;
+                }
                 if (mDatas.get(arg2).getIs_do()==0) {//0是不可用
                     return;
                 }
@@ -175,16 +176,20 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
                        mDatas.addAll(data);
                        new_addressAdapter.notifyDataSetChanged();
                    }else {
+                       mDatas.clear();
+                       new_addressAdapter.notifyDataSetChanged();
                        mRelNoData.setVisibility(View.VISIBLE);
                    }
 
-
                 } else {
-                    try {
-                        SmartToast.showInfo(response.getString("msg"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        SmartToast.showInfo(response.getString("msg"));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+                    mDatas.clear();
+                    new_addressAdapter.notifyDataSetChanged();
+                    mRelNoData.setVisibility(View.VISIBLE);
                 }
             }
 

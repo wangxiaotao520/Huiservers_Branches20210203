@@ -436,6 +436,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         params.put("category_id", type);
         params.put("category_name", type_cn);
         params.put("amount", mEtPrice.getText().toString().trim());
+        params.put("company_id",company_id+"");
      /*   params.put("community_id", roomInfoBean.getCommunity_id());
         params.put("community_name", roomInfoBean.getCommunity_name());
         params.put("building_name", roomInfoBean.getBuilding_name());
