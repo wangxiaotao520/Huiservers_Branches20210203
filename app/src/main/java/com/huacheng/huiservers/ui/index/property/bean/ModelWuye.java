@@ -33,6 +33,8 @@ public class ModelWuye {
     private String uptime;
     private String is_invoice;
 
+    private String type_id; //费项id
+
     private boolean isChecked;//缴费时标记是否被选中
 
     private int position = 0 ; //位置
@@ -253,6 +255,14 @@ public class ModelWuye {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public String getType_id() {
+        return type_id;
+    }
+
+    public void setType_id(String type_id) {
+        this.type_id = type_id;
     }
 
 }

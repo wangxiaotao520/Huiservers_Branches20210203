@@ -77,17 +77,27 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
         isStatusBar = true;
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppCompatTheme_Base);
-        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-            // Activity was brought to front and not created,
-            // Thus finishing this will get us to the last viewed activity
-            finish();
-            return;
-        }
+
+
     }
 
     @Override
     protected void init() {
         //   super.init();
+        //前提这两种需要在你的rootactivity，也就是启动界面去加，
+        //
+        //同时 在super.onCreate(savedInstanceState);之后
+        //
+        //setContentView(）；之前
+        //
+        //调用！！！
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+////            // Activity was brought to front and not created,
+////            // Thus finishing this will get us to the last viewed activity
+          finish();
+           return;
+      }
+
         intents = this;
         isFirstOpen = CacheUtils.getBoolean(SplashUI.this, IS_FIRST_OPEN, true);
         setContentView(R.layout.splash);

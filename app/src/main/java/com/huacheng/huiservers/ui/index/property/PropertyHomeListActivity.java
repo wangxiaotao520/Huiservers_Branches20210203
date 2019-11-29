@@ -78,6 +78,7 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
 
     private String selected_invoice_type = "";//选中的账单类型 如果该参数为0，能多选账单，且只能选该参数为0的账单，如果该参数为1，只能单选，不可选其他任何账单)
     private String selected_bill_id = ""; //选中的账单id 且只有在 selected_invoice_type=“1”时有值 只能选择它
+    private String selected_type_id  = "";//选中的费项id 且只有在 selected_invoice_type=“1”时有值 只能选择它
 
 
     @Override
@@ -184,7 +185,9 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                     Intent intent = new Intent(PropertyHomeListActivity.this, PropertyFrimOrderActivity.class);
                     intent.putExtra("room_id", room_id);
                     intent.putExtra("bill_id", sb_bill_ids.toString());
+                    intent.putExtra("company_id",company_id);
                     startActivity(intent);
+                    finish();
                 } else {
                     SmartToast.showInfo("费用已缴清");
                 }
@@ -347,6 +350,7 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
             wyListData1.get(childPosition).setChecked(false);
             selected_invoice_type="";
             selected_bill_id="";
+            selected_type_id="";
             //遍历所有集合，判断有无选中
             Loop:
             for (int i = 0; i <wyListData1.size(); i++) {
@@ -355,6 +359,7 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                     selected_invoice_type=modelWuye.getIs_invoice();
                     if (selected_invoice_type.equals("1")){
                         selected_bill_id= modelWuye.getBill_id();
+                        selected_type_id=modelWuye.getType_id();
                     }
                     break Loop;
                 }
@@ -367,30 +372,38 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                 selected_invoice_type= wyListData1.get(childPosition).getIs_invoice();
                 if ("1".equals(selected_invoice_type)){
                     selected_bill_id= wyListData1.get(childPosition).getBill_id()+"";
+                    selected_type_id=wyListData1.get(childPosition).getType_id()+"";
                 }else {
                     selected_bill_id="";
+                    selected_type_id="";
                 }
             }else if ("0".equals(selected_invoice_type)){
                 //可多选
                 if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
                     wyListData1.get(childPosition).setChecked(true);
                 }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
-                    SmartToast.showInfo("该账单不可合并支付");
+                    SmartToast.showInfo(wyListData1.get(childPosition).getCharge_type()+"设置为单独开票,不能与其他收费标准合并收费");
                     return;
                 }
             }else if ("1".equals(selected_invoice_type)){//单选账单
                 if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
-                    SmartToast.showInfo("该账单只能单独支付");
+                    SmartToast.showInfo("所选收费标准设置为单独开票,不能与其他收费标准合并收费");
                     return;
                 }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
-                    SmartToast.showInfo("该账单只能单独支付");
-                    return;
+                    if (selected_type_id.equals(wyListData1.get(childPosition).getType_id())){
+                        //费项相同 可选
+                        wyListData1.get(childPosition).setChecked(true);
+                    }else {
+                        SmartToast.showInfo("所选收费标准设置为单独开票,不能与其他收费标准合并收费");
+                        return;
+                    }
                 }
             }
 
         }
         wyInfoAdapter1.setSelected_bill_id(selected_bill_id);
         wyInfoAdapter1.setSelected_invoice_type(selected_invoice_type);
+        wyInfoAdapter1.setSelected_type_id(selected_type_id);
         wyInfoAdapter1.notifyDataSetChanged();
         sumValue();
     }

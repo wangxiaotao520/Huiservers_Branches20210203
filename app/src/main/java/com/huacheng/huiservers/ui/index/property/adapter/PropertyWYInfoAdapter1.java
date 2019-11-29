@@ -30,6 +30,9 @@ public class PropertyWYInfoAdapter1 extends CommonAdapter<ModelWuye>{
 
     private String selected_invoice_type = "";//选中的账单类型 如果该参数为0，能多选账单，且只能选该参数为0的账单，如果该参数为1，只能单选，不可选其他任何账单)
     private String selected_bill_id = ""; //选中的账单id 且只有在 selected_invoice_type=“1”时有值 只能选择它
+
+    private String selected_type_id  = "";//选中的费项id 且只有在 selected_invoice_type=“1”时有值 只能选择它
+
     public PropertyWYInfoAdapter1(Context context, int layoutId, List<ModelWuye> datas,OnCheckJFListener1 listener) {
         super(context, layoutId, datas);
         this.listener=listener;
@@ -80,8 +83,8 @@ public class PropertyWYInfoAdapter1 extends CommonAdapter<ModelWuye>{
                 viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
                 viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
             }else {
-                //是1的id相同才能选
-                if (item.getBill_id().equals(selected_bill_id)){
+                //是1的selected_type_id相同才能选
+                if (item.getType_id().equals(selected_type_id)){
                     viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(Color.parseColor("#555555"));
                     viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(Color.parseColor("#555555"));
                 }else {
@@ -110,6 +113,14 @@ public class PropertyWYInfoAdapter1 extends CommonAdapter<ModelWuye>{
 
     public void setSelected_bill_id(String selected_bill_id) {
         this.selected_bill_id = selected_bill_id;
+    }
+
+    public String getSelected_type_id() {
+        return selected_type_id;
+    }
+
+    public void setSelected_type_id(String selected_type_id) {
+        this.selected_type_id = selected_type_id;
     }
 
 }

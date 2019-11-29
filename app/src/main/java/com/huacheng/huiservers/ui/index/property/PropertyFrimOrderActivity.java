@@ -60,7 +60,7 @@ public class PropertyFrimOrderActivity extends BaseActivity {
     MyListView mList;
 
     String oid;
-    private String bill_id, room_id;
+    private String bill_id, room_id,company_id;
     PropertyWYInfoAdapter wyInfoAdapter;
     List<List<ModelWuye>> wyListData = new ArrayList<>();
     ModelPropertyWyInfo propertyInfo;
@@ -80,6 +80,7 @@ public class PropertyFrimOrderActivity extends BaseActivity {
     protected void initData() {
         room_id = this.getIntent().getExtras().getString("room_id");
         bill_id = this.getIntent().getExtras().getString("bill_id");
+        company_id = this.getIntent().getExtras().getString("company_id");
         getOrderInfo();
     }
 
@@ -134,6 +135,7 @@ public class PropertyFrimOrderActivity extends BaseActivity {
         HashMap<String, String> params = new HashMap<>();
         params.put("room_id", room_id);
         params.put("bill_id", bill_id);
+        params.put("company_id", company_id);
 
         MyOkHttp.get().post(info.make_property_order, params, new JsonResponseHandler() {
             @Override
@@ -167,7 +169,8 @@ public class PropertyFrimOrderActivity extends BaseActivity {
 
                     }
                 } else {
-                    SmartToast.showInfo("获取失败");
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response,"账单生成失败");
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -195,6 +198,7 @@ public class PropertyFrimOrderActivity extends BaseActivity {
                 bundle.putString("order_type", "wy");
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

@@ -124,6 +124,8 @@
         <activity
             android:name="com.huacheng.huiservers.SplashUI"
             android:label="@string/app_name"
+            android:alwaysRetainTaskState="true"
+            android:clearTaskOnLaunch="false"
             android:theme="@style/AppTheme.Slide">
 
             <!--<intent-filter>-->
@@ -1174,6 +1176,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.shop.ShopCartActivityNew"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pay.chinaums.UnifyPayResultActivity"
             android:screenOrientation="portrait" />
     </application>
 </manifest>

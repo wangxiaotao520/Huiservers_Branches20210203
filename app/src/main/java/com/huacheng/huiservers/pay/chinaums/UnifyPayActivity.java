@@ -216,11 +216,19 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 return;
             }
             if (!NullUtil.isStringEmpty(appPayRequest_ALIPAY)){//说明支付宝前置接口请求过了,总之前置接口只调用一次
-                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
+//                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
+//                intent.putExtra("typetag",typetag);
+//                intent.putExtra("appPayRequest",appPayRequest_ALIPAY);
+//                startActivityForResult(intent,111);
+                hideDialog(smallDialog);
+                Intent intent = new Intent(this, UnifyPayResultActivity.class);
                 intent.putExtra("typetag",typetag);
                 intent.putExtra("appPayRequest",appPayRequest_ALIPAY);
-                startActivityForResult(intent,111);
-                hideDialog(smallDialog);
+                intent.putExtra("type",type);
+                intent.putExtra("o_id",order_id);
+                intent.putExtra("price",price);
+                startActivity(intent);
+                finish();
             }else {
                 showDialog(smallDialog);
                 //请求前置接口
@@ -231,11 +239,19 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
             typename = "unionpay";
 
             if (!NullUtil.isStringEmpty(appPayRequest_CLOUD_QUICK_PAY)){  //总之前置接口只调用一次
-                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
+//                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
+//                intent.putExtra("typetag",typetag);
+//                intent.putExtra("appPayRequest",appPayRequest_CLOUD_QUICK_PAY);
+//                startActivityForResult(intent,111);
+                hideDialog(smallDialog);
+                Intent intent = new Intent(this, UnifyPayResultActivity.class);
                 intent.putExtra("typetag",typetag);
                 intent.putExtra("appPayRequest",appPayRequest_CLOUD_QUICK_PAY);
-                startActivityForResult(intent,111);
-                hideDialog(smallDialog);
+                intent.putExtra("type",type);
+                intent.putExtra("o_id",order_id);
+                intent.putExtra("price",price);
+                startActivity(intent);
+                finish();
             }else {
                 showDialog(smallDialog);
                 //请求前置接口
@@ -391,23 +407,39 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                             if (typetag == TYPE_ALIPAY) {
                              //   SmartToast.showInfo("alipay");
                             //   payAliPay(appPayRequest);
-                                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
-                                intent.putExtra("typetag",typetag);
-                                intent.putExtra("appPayRequest",appPayRequest);
-                                startActivityForResult(intent,111);
+//                                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
+//                                intent.putExtra("typetag",typetag);
+//                                intent.putExtra("appPayRequest",appPayRequest);
+//                                startActivityForResult(intent,111);
                                 hideDialog(smallDialog);
                                 appPayRequest_ALIPAY=appPayRequest;
-
+                                //todo 这是新的方式
+                                Intent intent = new Intent(this, UnifyPayResultActivity.class);
+                                intent.putExtra("typetag",typetag);
+                                intent.putExtra("appPayRequest",appPayRequest);
+                                intent.putExtra("type",type);
+                                intent.putExtra("o_id",order_id);
+                                intent.putExtra("price",price);
+                                startActivity(intent);
+                                finish();
                             } else if (typetag == TYPE_CLOUD_QUICK_PAY) {
                               //  SmartToast.showInfo("unionpay");
                               // payCloudQuickPay(appPayRequest);
-                                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
-                                intent.putExtra("typetag",typetag);
-                                intent.putExtra("appPayRequest",appPayRequest);
-                                startActivityForResult(intent,111);
+//                                Intent intent = new Intent(this, UnifyPayShadowActivity.class);
+//                                intent.putExtra("typetag",typetag);
+//                                intent.putExtra("appPayRequest",appPayRequest);
+//                                startActivityForResult(intent,111);
                                 hideDialog(smallDialog);
                                 appPayRequest_CLOUD_QUICK_PAY=appPayRequest;
-
+                                //todo 这是新的方式
+                                Intent intent = new Intent(this, UnifyPayResultActivity.class);
+                                intent.putExtra("typetag",typetag);
+                                intent.putExtra("appPayRequest",appPayRequest);
+                                intent.putExtra("type",type);
+                                intent.putExtra("o_id",order_id);
+                                intent.putExtra("price",price);
+                                startActivity(intent);
+                                finish();
                             } else if (typetag == TYPE_WEIXIN) {
                                 SmartToast.showInfo("wxpay");
                                     //todo 不知道微信需不需要
@@ -518,7 +550,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 public void run() {
                     payPresenter.confirmOrderPayment(order_id,type_params);
                 }
-            },1000);
+            },2000);
         }
     }
 
@@ -673,6 +705,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //useless
         super.onActivityResult(requestCode, resultCode, data);
         isClickable=true;
         if (requestCode==111){

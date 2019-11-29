@@ -27,6 +27,7 @@ import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener1;
 import com.huacheng.huiservers.ui.index.wuye.bean.ProperyGetOrderBean;
+import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -122,6 +123,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
     private String selected_invoice_type = "";//选中的账单类型 如果该参数为0，能多选账单，且只能选该参数为0的账单，如果该参数为1，只能单选，不可选其他任何账单)
     private String selected_bill_id = ""; //选中的账单id 且只有在 selected_invoice_type=“1”时有值 只能选择它
+    private String selected_type_id  = "";//选中的费项id 且只有在 selected_invoice_type=“1”时有值 只能选择它
 
     @Override
     protected void initView() {
@@ -156,6 +158,94 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     @Override
     protected void initListener() {
         getEditText();
+        mTvJf.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                if (propertyInfo == null) {
+                    return;
+                }
+                if (propertyInfo.getIs_property() == 1) {
+                    SmartToast.showInfo(propertyInfo.getIs_property_cn());
+                    return;
+                }
+                if (type == 0) {//缴物业费
+                    if (propertyInfo.getWuye() != null) {
+                        if (selected_price_list.size() == 0 || total_wuye_price == 0) {
+                            SmartToast.showInfo("请先选择缴费项");
+                            return;
+                        }
+                        Intent intent = new Intent(PropertyHomeNewJFActivity.this, PropertyFrimOrderActivity.class);
+                        intent.putExtra("room_id", room_id);
+                        intent.putExtra("bill_id", sb_bill_ids.toString());
+                        intent.putExtra("company_id",company_id);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        SmartToast.showInfo("物业费已缴清");
+                    }
+
+                } else if (type == 1) {//充值水费
+
+                    if (propertyInfo.getIs_available() == 0) {//值为0 可以充值水费
+                        if (!TextUtils.isEmpty(mEtPrice.getText().toString().trim())) {
+                            if (propertyInfo.getShuifei() != null&&propertyInfo.getShuifei().getInfo()!=null) {
+
+                                double aDouble1 = Double.valueOf(propertyInfo.getShuifei().getInfo().getUpper_limit());
+                                double aDouble2 = Double.valueOf(propertyInfo.getShuifei().getInfo().getSMay_acc());
+                                //如果所剩余额大于等于上限的金额
+                                if (aDouble2 >= aDouble1) {
+                                    SmartToast.showInfo("您剩余充值金额上限为：0元");
+                                } else {
+                                    //输入的金额小于等于上限金额减去所剩金额的差
+                                    if (Double.valueOf(mEtPrice.getText().toString().trim()) <= (aDouble1 - aDouble2)) {
+                                        //立即生成支付订单
+                                        getSubmitOrder(propertyInfo.getRoom_info(), propertyInfo.getShuifei().getType(), propertyInfo.getShuifei().getType_cn());
+                                    } else {
+                                        SmartToast.showInfo("您剩余充值金额上限为：" + (aDouble1 - aDouble2) + "元");
+                                    }
+                                }
+                            }
+                        } else {
+                            SmartToast.showInfo("请输入充值金额");
+                        }
+
+                    } else {
+                        SmartToast.showInfo(propertyInfo.getIs_available_cn());
+                    }
+
+                } else {
+
+                    //充值电费
+                    if (propertyInfo.getIs_available() == 0) {//值为0 可以充值电费
+
+                        if (!TextUtils.isEmpty(mEtPrice.getText().toString().trim())) {
+                            if (propertyInfo.getDianfei() != null&&propertyInfo.getDianfei().getInfo()!=null) {
+
+                                double aDouble1 = Double.valueOf(propertyInfo.getDianfei().getInfo().getUpper_limit());
+                                double aDouble2 = Double.valueOf(propertyInfo.getDianfei().getInfo().getDMay_acc());
+                                //如果所剩余额大于等于上限的金额
+                                if (aDouble2 >= aDouble1) {
+                                    SmartToast.showInfo("您剩余充值金额上限为：0元");
+                                } else {
+                                    //输入的金额小于等于上限金额减去所剩金额的差
+                                    if (Double.valueOf(mEtPrice.getText().toString().trim()) <= (aDouble1 - aDouble2)) {
+                                        //立即生成支付订单
+                                        getSubmitOrder(propertyInfo.getRoom_info(), propertyInfo.getDianfei().getType(), propertyInfo.getDianfei().getType_cn());
+                                    } else {
+                                        SmartToast.showInfo("您剩余充值金额上限为：" + (aDouble1 - aDouble2) + "元");
+                                    }
+                                }
+                            }
+                        } else {
+                            SmartToast.showInfo("请输入充值金额");
+                        }
+                    } else {
+                        SmartToast.showInfo(propertyInfo.getIs_available_cn());
+                    }
+
+                }
+            }
+        });
     }
 
     @Override
@@ -248,7 +338,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         });
     }
 
-    @OnClick({R.id.lin_left, R.id.ly_wuye, R.id.ly_shuifei, R.id.ly_dianfei, R.id.ly_other, R.id.tv_jf})
+    @OnClick({R.id.lin_left, R.id.ly_wuye, R.id.ly_shuifei, R.id.ly_dianfei, R.id.ly_other})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lin_left:
@@ -356,7 +446,9 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                         Intent intent = new Intent(PropertyHomeNewJFActivity.this, PropertyFrimOrderActivity.class);
                         intent.putExtra("room_id", room_id);
                         intent.putExtra("bill_id", sb_bill_ids.toString());
+                        intent.putExtra("company_id",company_id);
                         startActivity(intent);
+                        finish();
                     } else {
                         SmartToast.showInfo("物业费已缴清");
                     }
@@ -457,6 +549,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     bundle.putString("order_type", "wy");
                     intent.putExtras(bundle);
                     startActivity(intent);
+                    finish();
                 } else {
                     //String msg = JsonUtil.getInstance().getMsgFromResponse(response,"提交失败");
                     try {
@@ -639,11 +732,12 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
     @Override
     public void onClickChildItem(int childPosition) {
-        if (wyListData1.get(childPosition).isChecked()) {//本身是选中状态 反选
+         if (wyListData1.get(childPosition).isChecked()) {//本身是选中状态 反选
             //先反选
             wyListData1.get(childPosition).setChecked(false);
             selected_invoice_type="";
             selected_bill_id="";
+            selected_type_id="";
             //遍历所有集合，判断有无选中
             Loop:
             for (int i = 0; i <wyListData1.size(); i++) {
@@ -652,6 +746,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                         selected_invoice_type=modelWuye.getIs_invoice();
                         if (selected_invoice_type.equals("1")){
                             selected_bill_id= modelWuye.getBill_id();
+                            selected_type_id=modelWuye.getType_id();
                         }
                         break Loop;
                     }
@@ -664,30 +759,38 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 selected_invoice_type= wyListData1.get(childPosition).getIs_invoice();
                 if ("1".equals(selected_invoice_type)){
                     selected_bill_id= wyListData1.get(childPosition).getBill_id()+"";
+                    selected_type_id=wyListData1.get(childPosition).getType_id()+"";
                 }else {
                     selected_bill_id="";
+                    selected_type_id="";
                 }
             }else if ("0".equals(selected_invoice_type)){
                 //可多选
                 if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
                     wyListData1.get(childPosition).setChecked(true);
                 }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
-                    SmartToast.showInfo("该账单不可合并支付");
+                    SmartToast.showInfo(wyListData1.get(childPosition).getCharge_type()+"设置为单独开票,不能与其他收费标准合并收费");
                     return;
                 }
             }else if ("1".equals(selected_invoice_type)){//单选账单
                 if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
-                    SmartToast.showInfo("该账单只能单独支付");
+                    SmartToast.showInfo("所选账单设置为单独开票,不能与其他收费标准合并收费");
                     return;
                 }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
-                    SmartToast.showInfo("该账单只能单独支付");
-                    return;
+                    if (selected_type_id.equals(wyListData1.get(childPosition).getType_id())){
+                        //费项相同 可选
+                        wyListData1.get(childPosition).setChecked(true);
+                    }else {
+                        SmartToast.showInfo("所选账单设置为单独开票,不能与其他收费标准合并收费");
+                        return;
+                    }
                 }
             }
 
         }
         wyInfoAdapter1.setSelected_bill_id(selected_bill_id);
         wyInfoAdapter1.setSelected_invoice_type(selected_invoice_type);
+        wyInfoAdapter1.setSelected_type_id(selected_type_id);
         wyInfoAdapter1.notifyDataSetChanged();
         sumValue();
     }
