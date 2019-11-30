@@ -27,6 +27,9 @@ public class ModelPropertyWyInfo {
     private ModelPropertyWyInfo wuye;
     private List<List<ModelWuye>> list;
     private double tot_sumvalue;
+    private int is_android_electric; //是否开启电充值：0为开启，1为关闭
+
+    private int is_android_water;    //是否开启水充值：0为开启，1为关闭
 
     public int getIs_property() {
         return is_property;
@@ -321,4 +324,19 @@ public class ModelPropertyWyInfo {
         }
     }
 
+    public int getIs_android_electric() {
+        return is_android_electric;
+    }
+
+    public void setIs_android_electric(int is_android_electric) {
+        this.is_android_electric = is_android_electric;
+    }
+
+    public int getIs_android_water() {
+        return is_android_water;
+    }
+
+    public void setIs_android_water(int is_android_water) {
+        this.is_android_water = is_android_water;
+    }
 }

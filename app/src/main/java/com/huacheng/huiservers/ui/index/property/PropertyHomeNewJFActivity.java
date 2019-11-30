@@ -124,6 +124,8 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     private String selected_invoice_type = "";//选中的账单类型 如果该参数为0，能多选账单，且只能选该参数为0的账单，如果该参数为1，只能单选，不可选其他任何账单)
     private String selected_bill_id = ""; //选中的账单id 且只有在 selected_invoice_type=“1”时有值 只能选择它
     private String selected_type_id  = "";//选中的费项id 且只有在 selected_invoice_type=“1”时有值 只能选择它
+    private View view_shuifei;
+    private View view_dianfei;
 
     @Override
     protected void initView() {
@@ -145,7 +147,12 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 //        mList.setAdapter(wyInfoAdapter);
         wyInfoAdapter1 = new PropertyWYInfoAdapter1(PropertyHomeNewJFActivity.this, R.layout.property_homelist_item1,wyListData1,this);
         mList.setAdapter(wyInfoAdapter1);
-
+        view_shuifei = findViewById(R.id.view_shuifei);
+        view_dianfei = findViewById(R.id.view_dianfei);
+        view_shuifei.setVisibility(View.GONE);
+        view_dianfei.setVisibility(View.GONE);
+        mLyShuifei.setVisibility(View.GONE);
+        mLyDianfei.setVisibility(View.GONE);
     }
 
     @Override
@@ -618,7 +625,22 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 mTvAccountPrice.setText("¥ " + setFloat(total_wuye_price));
                 //  mTvAccountPrice.setText("¥ " + propertyInfo.getWuye().getTot_sumvalue());
             }
+            //判断水电费的显示
+            if (propertyInfo.getIs_android_electric()==0){
+                mLyDianfei.setVisibility(View.VISIBLE);
+                view_dianfei.setVisibility(View.VISIBLE);
+            }else {
+                mLyDianfei.setVisibility(View.GONE);
+                view_dianfei.setVisibility(View.GONE);
+            }
 
+            if (propertyInfo.getIs_android_water()==0){
+                mLyShuifei.setVisibility(View.VISIBLE);
+                view_shuifei.setVisibility(View.VISIBLE);
+            }else {
+                mLyShuifei.setVisibility(View.GONE);
+                view_shuifei.setVisibility(View.GONE);
+            }
         } else {
             //llPayment.setVisibility(View.GONE);
             mLyOther.setVisibility(View.GONE);
