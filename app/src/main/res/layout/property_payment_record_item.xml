@@ -76,11 +76,23 @@
 
             <LinearLayout
                 android:layout_marginTop="@dimen/margin"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
                 android:orientation="horizontal">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    />
 
+                <TextView
+                    android:id="@+id/tv_refund_tot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="退款:¥0.00  "
+                    android:textColor="#333333"
+                    android:visibility="gone"
+                    android:textSize="13sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,7 +102,7 @@
 
                 <TextView
                     android:id="@+id/tv_all_price"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.00"
                     android:textColor="#333333"

@@ -32,6 +32,9 @@ public class ModelWuye {
     private String addtime;
     private String uptime;
     private String is_invoice;
+    private String refund;
+
+    private String refundtime;
 
     private String type_id; //费项id
 
@@ -264,5 +267,23 @@ public class ModelWuye {
     public void setType_id(String type_id) {
         this.type_id = type_id;
     }
+
+
+    public String getRefund() {
+        return refund;
+    }
+
+    public void setRefund(String refund) {
+        this.refund = refund;
+    }
+
+    public String getRefundtime() {
+        return refundtime;
+    }
+
+    public void setRefundtime(String refundtime) {
+        this.refundtime = refundtime;
+    }
+
 
 }

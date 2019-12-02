@@ -1,11 +1,10 @@
 package com.huacheng.huiservers.ui.index.property;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
@@ -17,6 +16,9 @@ import com.huacheng.huiservers.ui.index.property.adapter.PropertyPaymentAdapter;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONObject;
 
@@ -24,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -33,40 +34,50 @@ import butterknife.ButterKnife;
  * created by DFF
  */
 public class PropertyPaymentActivity extends BaseActivity {
-    @BindView(R.id.lin_left)
-    LinearLayout mLinLeft;
-    @BindView(R.id.title_name)
-    TextView mTitleName;
-    @BindView(R.id.list)
-    ListView mList;
-    @BindView(R.id.refreshLayout)
-    SmartRefreshLayout mRefreshLayout;
-    @BindView(R.id.rel_no_data)
-    RelativeLayout mRelNoData;
 
+    private ListView mListView;
+    private SmartRefreshLayout refreshLayout;
+
+    RelativeLayout mRelNoData;
     PropertyPaymentAdapter paymentAdapter;
     List<ModelPropertyWyInfo> mdatas = new ArrayList<>();
+    private int page = 1;
 
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        mTitleName.setText("缴费记录");
-
+        findTitleViews();
+        titleName.setText("缴费记录");
+        mListView = findViewById(R.id.listview);
+        refreshLayout =findViewById(R.id.refreshLayout);
+        mRelNoData = findViewById(R.id.rel_no_data);
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setEnableLoadMore(false);
         paymentAdapter = new PropertyPaymentAdapter(this, mdatas);
-        mList.setAdapter(paymentAdapter);
+        mListView.setAdapter(paymentAdapter);
     }
 
     @Override
     protected void initData() {
+        showDialog(smallDialog);
         getPaymentList();
     }
 
     @Override
     protected void initListener() {
-        mLinLeft.setOnClickListener(new View.OnClickListener() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                page = 1;
+
+              getPaymentList();
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+
+                getPaymentList();
             }
         });
 
@@ -74,7 +85,7 @@ public class PropertyPaymentActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.property_payment_record;
+        return R.layout.base_list_layout;
     }
 
     @Override
@@ -93,30 +104,53 @@ public class PropertyPaymentActivity extends BaseActivity {
     }
 
     private void getPaymentList() {
-        showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        MyOkHttp.get().post(ApiHttpClient.GET_USER_BILL, params, new JsonResponseHandler() {
+        params.put("p",page+"");
+        MyOkHttp.get().get(ApiHttpClient.GET_USER_BILL, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
+                refreshLayout.finishLoadMore();
+                refreshLayout.finishRefresh();
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     List<ModelPropertyWyInfo> mlist = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelPropertyWyInfo.class);
+//                    if (mlist != null && mlist.size() > 0) {
+//                        mRelNoData.setVisibility(View.GONE);
+//                        mList.setVisibility(View.VISIBLE);
+//                        mdatas.clear();
+//                        mdatas.addAll(mlist);
+//                        paymentAdapter.notifyDataSetChanged();
+//                    } else {
+//                        mdatas.clear();
+//                        mRelNoData.setVisibility(View.VISIBLE);
+//                        mList.setVisibility(View.GONE);
+//                    }
+
                     if (mlist != null && mlist.size() > 0) {
                         mRelNoData.setVisibility(View.GONE);
-                        mList.setVisibility(View.VISIBLE);
-                        mdatas.clear();
+                        if (page == 1) {
+                            mdatas.clear();
+                        }
                         mdatas.addAll(mlist);
-                        paymentAdapter.notifyDataSetChanged();
+                        page++;
+                        if (page > mlist.get(0).getTotalPages()) {
+                            refreshLayout.setEnableLoadMore(false);
+                        } else {
+                            refreshLayout.setEnableLoadMore(true);
+                        }
                     } else {
-                        mdatas.clear();
-                        mRelNoData.setVisibility(View.VISIBLE);
-                        mList.setVisibility(View.GONE);
+                        if (page == 1) {
+                            mRelNoData.setVisibility(View.VISIBLE);
+                            mdatas.clear();
+                        }
+                        refreshLayout.setEnableLoadMore(false);
                     }
+                    paymentAdapter.notifyDataSetChanged();
                 } else {
                     mdatas.clear();
                     mRelNoData.setVisibility(View.VISIBLE);
-                    mList.setVisibility(View.GONE);
-
+                    mListView.setVisibility(View.GONE);
+                    paymentAdapter.notifyDataSetChanged();
                 }
             }
 

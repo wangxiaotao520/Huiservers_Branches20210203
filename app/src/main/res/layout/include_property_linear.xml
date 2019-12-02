@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
+        android:orientation="horizontal"
         android:visibility="visible">
         <LinearLayout
             android:layout_centerVertical="true"
@@ -36,18 +37,32 @@
                 android:textSize="@dimen/t_15sp" />
 
         </LinearLayout>
-
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            />
 
         <TextView
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:id="@+id/tv_timePrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:text="2283.22元"
             android:textColor="@color/gray_55"
             android:textSize="@dimen/t_15sp" />
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/tv_refund"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="已退款"
+            android:textColor="@color/red_ed"
+            android:layout_marginLeft="5dp"
+            android:visibility="gone"
+            android:textSize="@dimen/t_15sp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

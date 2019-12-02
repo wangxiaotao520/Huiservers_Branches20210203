@@ -31,6 +31,9 @@ public class ModelPropertyWyInfo {
 
     private int is_android_water;    //是否开启水充值：0为开启，1为关闭
 
+
+    private int totalPages;
+
     public int getIs_property() {
         return is_property;
     }
@@ -171,6 +174,8 @@ public class ModelPropertyWyInfo {
         private String pay_time;
         private String count;//
 
+        private String tot_refund;
+
         public String getCount() {
             return count;
         }
@@ -282,6 +287,15 @@ public class ModelPropertyWyInfo {
         public void setFullname(String fullname) {
             this.fullname = fullname;
         }
+
+        public String getTot_refund() {
+            return tot_refund;
+        }
+
+        public void setTot_refund(String tot_refund) {
+            this.tot_refund = tot_refund;
+        }
+
     }
     public static class SFaddDFBean {
 
@@ -339,4 +353,12 @@ public class ModelPropertyWyInfo {
     public void setIs_android_water(int is_android_water) {
         this.is_android_water = is_android_water;
     }
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
+
 }

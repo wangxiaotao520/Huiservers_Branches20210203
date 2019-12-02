@@ -15,6 +15,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener;
 import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.stx.xhb.xbanner.OnDoubleClickListener;
 
 import java.util.List;
@@ -77,6 +78,7 @@ public class PropertyWYInfoAdapter extends BaseAdapter {
             View v = LayoutInflater.from(mContext).inflate(R.layout.include_property_linear, null);
             TextView tv_timeInterval = v.findViewById(R.id.tv_timeInterval);
             TextView tv_timePrice = v.findViewById(R.id.tv_timePrice);
+            TextView tv_refund = v.findViewById(R.id.tv_refund);
             final ImageView iv_check = v.findViewById(R.id.iv_check);
             if (wyListData.get(position).get(i).isChecked()){
                 iv_check.setBackgroundResource(R.drawable.icon_shop_onclick);
@@ -142,7 +144,12 @@ public class PropertyWYInfoAdapter extends BaseAdapter {
             } else {
                 tv_timeInterval.setText(StringUtils.getDateToString(wyListData.get(position).get(i).getBill_time(), "2"));
             }
-
+            //判断是否是退款
+            if (!NullUtil.isStringEmpty(wyListData.get(position).get(i).getRefund())&&!"0".equals(wyListData.get(position).get(i).getRefund())&&!"0.00".equals(wyListData.get(position).get(i).getRefund())&&!"0.0".equals(wyListData.get(position).get(i).getRefund())){
+                tv_refund.setVisibility(View.VISIBLE);
+            }else {
+                tv_refund.setVisibility(View.GONE);
+            }
             tv_timePrice.setText(wyListData.get(position).get(i).getSumvalue() + "元");
             holder.mLinView.addView(v);
 
@@ -158,6 +165,7 @@ public class PropertyWYInfoAdapter extends BaseAdapter {
         LinearLayout mLinView;
         @BindView(R.id.view_hine)
         View mViewHine;
+
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

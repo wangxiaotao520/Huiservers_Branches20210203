@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
 import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.List;
 
@@ -64,7 +65,13 @@ public class PropertyPaymentAdapter extends BaseAdapter {
         holder.mTvAddress.setText(mdatas.get(position).getInfo().getAddress());
         holder.mTvTime.setText(StringUtils.getDateToString(mdatas.get(position).getInfo().getPay_time(), "1"));
         holder.mTvOrderNumber.setText("账单号：" + mdatas.get(position).getInfo().getOrder_num());
-
+        if (!NullUtil.isStringEmpty(mdatas.get(position).getInfo().getTot_refund())&&!mdatas.get(position).getInfo().getTot_refund().equals("0")
+                &&!mdatas.get(position).getInfo().getTot_refund().equals("0.00")&&!mdatas.get(position).getInfo().getTot_refund().equals("0.0")){
+            holder.mTvRefundTot.setText("退款：¥" + mdatas.get(position).getInfo().getTot_refund()+"  ");
+            holder.mTvRefundTot.setVisibility(View.VISIBLE);
+        }else {
+            holder.mTvRefundTot.setVisibility(View.GONE);
+        }
 
         PropertyWYInfoAdapter wyInfoAdapter = new PropertyWYInfoAdapter(mContext, mdatas.get(position).getList(),false);
         holder.mList.setAdapter(wyInfoAdapter);
@@ -85,6 +92,8 @@ public class PropertyPaymentAdapter extends BaseAdapter {
         ListView mList;
         @BindView(R.id.tv_all_price)
         TextView mTvAllPrice;
+        @BindView(R.id.tv_refund_tot)
+        TextView mTvRefundTot;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
