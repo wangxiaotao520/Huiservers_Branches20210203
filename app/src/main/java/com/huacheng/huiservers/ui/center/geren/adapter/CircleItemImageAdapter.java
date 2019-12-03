@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
-import com.huacheng.huiservers.ui.index.huodong.ImagePagerActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
+import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 
 import java.util.ArrayList;
@@ -95,9 +95,13 @@ public class CircleItemImageAdapter extends BaseAdapter {
 
 
     protected void imageBrower(int position, ArrayList<String> urls2) {
-        Intent intent = new Intent(mContext, ImagePagerActivity.class);
-        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, urls2);
-        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
+//        Intent intent = new Intent(mContext, ImagePagerActivity.class);
+//        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, urls2);
+//        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
+//        mContext.startActivity(intent);
+        Intent intent = new Intent(mContext, PhotoViewPagerAcitivity.class);
+        intent.putExtra("img_list",urls2);
+        intent.putExtra("position",position);
         mContext.startActivity(intent);
     }
 

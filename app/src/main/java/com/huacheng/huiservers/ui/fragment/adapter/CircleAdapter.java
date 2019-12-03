@@ -267,7 +267,7 @@ public class CircleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, urls2);
         intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
         mContext.startActivity(intent);
-    }
+}
 
     @Override
     public int getItemCount() {

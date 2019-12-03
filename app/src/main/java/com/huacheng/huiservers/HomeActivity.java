@@ -74,6 +74,8 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
     private int current_fragment=0;
     private RadioButton[] rb;
     View mStatusBar;
+    private ModelEventHome modelEventHome;
+    private boolean isEvent=false;
     /**
      * 点击切换fragment
      *
@@ -336,8 +338,17 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                 current_fragment=2;
                 break;
             case R.id.rb_content_fragment_quanzi:
+                if (isEvent&&modelEventHome!=null){//说明是点击的物业公告或者社区公告
+                    CircleFragment fragment = (CircleFragment) fragments.get(3);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("type_position",modelEventHome.getType());
+                    fragment.setArguments(bundle);
+                }
                 switchFragment(3);
                 current_fragment=3;
+
+                isEvent=false;
+                modelEventHome=null;
                 break;
             case R.id.rb_content_fragment_people:
                 if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
@@ -443,16 +454,14 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventbus(ModelEventHome model) {
         if (model!=null){
-            if (model.getType()==0){
+            this.modelEventHome=model;
+            if (model.getType()>0){
+                isEvent=true;
                 if (rb!=null&&rb.length>0){
                     rb[3].toggle();
                 }
-
-            }else if (model.getType()==1){
-                if (rb!=null&&rb.length>0){
-                    rb[3].toggle();
-                }
-            }else if (model.getType()==2){
+            }
+           else if (model.getType()==-1){
                 //销毁当前页
                 finish();
             }

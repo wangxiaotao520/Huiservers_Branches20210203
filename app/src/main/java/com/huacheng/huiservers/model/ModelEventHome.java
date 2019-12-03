@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class ModelEventHome implements Serializable{
 
 
-    int type=0;//0是跳转到物业公告，1是跳转的社区公告  2.销毁当前页
+    int type=0;//0是跳转到物业公告，1是跳转的社区公告  -1.销毁当前页
     public ModelEventHome() {
 
     }

@@ -306,7 +306,7 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
                             prefrenceUtil.setProvince_cn(location_provice);
                             prefrenceUtil.setCity_cn(location_city);
                             prefrenceUtil.setRegion_cn(location_district);
-                            EventBus.getDefault().post(new ModelEventHome(2));
+                            EventBus.getDefault().post(new ModelEventHome(-1));
                             setResult(RESULT_OK);
                             mListview.postDelayed(new Runnable() {
                                 @Override
@@ -327,7 +327,7 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
                             prefrenceUtil.setProvince_cn(location_provice);
                             prefrenceUtil.setCity_cn(location_city);
                             prefrenceUtil.setRegion_cn(location_district);
-                            EventBus.getDefault().post(new ModelEventHome(2));
+                            EventBus.getDefault().post(new ModelEventHome(-1));
                             setResult(RESULT_OK);
                             mListview.postDelayed(new Runnable() {
                                 @Override
@@ -350,7 +350,7 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
                         prefrenceUtil.setProvince_cn(location_provice);
                         prefrenceUtil.setCity_cn(location_city);
                         prefrenceUtil.setRegion_cn(location_district);
-                        EventBus.getDefault().post(new ModelEventHome(2));
+                        EventBus.getDefault().post(new ModelEventHome(-1));
                         setResult(RESULT_OK);
                         mListview.postDelayed(new Runnable() {
                             @Override

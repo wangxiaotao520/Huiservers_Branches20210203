@@ -40,12 +40,14 @@ import com.huacheng.huiservers.model.ModelAds;
 import com.huacheng.huiservers.model.ModelCoummnityList;
 import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.ModelHome;
+import com.huacheng.huiservers.model.ModelHomeCircle;
 import com.huacheng.huiservers.model.ModelHomeIndex;
 import com.huacheng.huiservers.model.ModelIndex;
 import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.ModelVBaner;
 import com.huacheng.huiservers.ui.base.BaseFragment;
+import com.huacheng.huiservers.ui.center.geren.adapter.CircleItemImageAdapter;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
 import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeAdcertlAdapter;
@@ -66,7 +68,6 @@ import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.ui.shop.adapter.MyGridViewAdpter;
 import com.huacheng.huiservers.ui.shop.adapter.MyViewPagerAdapter;
-import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
@@ -86,6 +87,7 @@ import com.huacheng.libraryservice.widget.verticalbannerview.VerticalBannerView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -128,7 +130,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private MyListView listview_article;
     private ViewPager viewpager_cate;
     private RelativeLayout ly_property_payment,ly_person_repair,ly_public_repair;
-    private LinearLayout ly_circle_onclick, ly_circle_more, ly_houseRent, ly_houseSell, ly_houseCommit;
+    private LinearLayout  ly_houseRent, ly_houseSell, ly_houseCommit;
     private ImageView iv_img;
     private TextView tv_time, tv_name, tv_content, tv_circleViews, tv_circleReply, tv_title;
     private CircularImage iv_head;
@@ -138,7 +140,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private List<ModelVBaner> mDatas_v_banner = new ArrayList<>();//首页垂直banner数据
     private List<ModelHomeIndex> mcatelist = new ArrayList<>();//导航分类
     private List<ModelIndex> mArticle_list = new ArrayList<>();//协议数据
-    private BannerBean mSocial = new BannerBean();//圈子数据
+    //private BannerBean mSocial = new BannerBean();//圈子数据
     private List<HouseRentDetail> mHouses_list = new ArrayList<>();//租售房数据
     private List<ModelAds> mAd_Centerlist = new ArrayList<>();//精选商品下方广告
     //  private HomeRecyclerAdapter<ModelHomeItem> adapter;
@@ -250,8 +252,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         ly_person_repair.setLayoutParams(new LinearLayout.LayoutParams((int)((DeviceUtils.getWindowWidth(mActivity)-DeviceUtils.dip2px(mActivity,30))*1f/2), height_repair));
         ly_public_repair = headerView.findViewById(R.id.ly_public_repair);
         ly_public_repair.setLayoutParams(new LinearLayout.LayoutParams((int)((DeviceUtils.getWindowWidth(mActivity)-DeviceUtils.dip2px(mActivity,30))*1f/2), height_repair));
-        ly_circle_onclick = headerView.findViewById(R.id.ly_circle_onclick);
-        ly_circle_more = headerView.findViewById(R.id.ly_circle_more);
+     //   ly_circle_onclick = headerView.findViewById(R.id.ly_circle_onclick);
+     //   ly_circle_more = headerView.findViewById(R.id.ly_circle_more);
         ly_houseRent = headerView.findViewById(R.id.ly_houseRent);
         ly_houseSell = headerView.findViewById(R.id.ly_houseSell);
         ly_houseCommit = headerView.findViewById(R.id.ly_houseCommit);
@@ -337,25 +339,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         ly_property_payment.setOnClickListener(this);
         ly_person_repair.setOnClickListener(this);
         ly_public_repair.setOnClickListener(this);
-        ly_circle_onclick.setOnClickListener(this);
+//        ly_circle_onclick.setOnClickListener(this);
         ly_houseRent.setOnClickListener(this);
         ly_houseSell.setOnClickListener(this);
         ly_houseCommit.setOnClickListener(this);
-//        fc_ads.setListener(new FunctionAdvertise.OnClickAdsListener() {
-//            @Override
-//            public void OnClickAds(ModelAds ads) {
-//                if (TextUtils.isEmpty(ads.getUrl())) {
-//                    if (ads.getUrl_type().equals("0") || TextUtils.isEmpty(ads.getUrl_type())) {
-//                        jump = new Jump(getActivity(), ads.getType_name(), ads.getAdv_inside_url());
-//                    } else {
-//                        jump = new Jump(getActivity(), ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
-//                    }
-//                } else {//URL不为空时外链
-//                    jump = new Jump(getActivity(), ads.getUrl());
-//
-//                }
-//            }
-//        });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -409,7 +397,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             }
         });
         ry_onclick.setOnClickListener(this);
-        ly_circle_more.setOnClickListener(this);
+     //   ly_circle_more.setOnClickListener(this);
         iv_scancode.setOnClickListener(this);
     }
 
@@ -539,18 +527,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             this.modelHome=modelHome;
             headerView.setVisibility(View.VISIBLE);
             //顶部广告
-//            if (modelHome.getAd_top_list() != null && modelHome.getAd_top_list().size() > 0) {
-//                fc_ads.setVisibility(View.VISIBLE);
-//
-//                fc_ads.getLayoutParams().width = ToolUtils.getScreenWidth(mActivity);
-//                Double d = Double.valueOf(ToolUtils.getScreenWidth(mActivity) / 2.5);
-//                fc_ads.getLayoutParams().height = (new Double(d)).intValue();
-//
-//                fc_ads.initAds(modelHome.getAd_top_list());
-//
-//            } else {
-//                fc_ads.setVisibility(View.GONE);
-//            }
             if (modelHome.getAd_top_list() != null && modelHome.getAd_top_list().size() > 0) {
 
                 ArrayList<String> mDatas_img1 = new ArrayList<>();
@@ -602,32 +578,150 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             } else {
                 ly_community_agreement.setVisibility(View.GONE);
             }
-            //圈子 只有一条数据
-            if (modelHome.getSocial_list() != null) {
+            //圈子
+            if (modelHome.getSocial_list() != null&&modelHome.getSocial_list().size()>0) {
+                ly_circle.removeAllViews();
                 ly_circle.setVisibility(View.VISIBLE);
-                mSocial = modelHome.getSocial_list();
-                byte[] bytes1 = Base64.decode(modelHome.getSocial_list().getTitle(), Base64.DEFAULT);
-                tv_title.setText(new String(bytes1));
-                tv_name.setText(modelHome.getSocial_list().getNickname() + "   发布于  " + modelHome.getSocial_list().getC_name());
-                tv_time.setText(modelHome.getSocial_list().getAddtime());
-                byte[] bytes2 = Base64.decode(modelHome.getSocial_list().getContent(), Base64.DEFAULT);
-                tv_content.setText(new String(bytes2));
-                tv_circleViews.setText(modelHome.getSocial_list().getClick());
-                tv_circleReply.setText(modelHome.getSocial_list().getReply_num());
-                if (modelHome.getSocial_list().getImg_list() != null && modelHome.getSocial_list().getImg_list().size() > 0) {
-                    if (!TextUtils.isEmpty(modelHome.getSocial_list().getImg_list().get(0).getImg())) {
-                        GlideUtils.getInstance().glideLoad(mActivity, ApiHttpClient.IMG_URL + modelHome.getSocial_list().getImg_list().get(0).getImg(),
-                                iv_img, R.drawable.ic_default_rectange);
-                        iv_img.setVisibility(View.VISIBLE);
-                    } else {
-                        iv_img.setVisibility(View.GONE);
-                    }
-                } else {
-                    iv_img.setVisibility(View.GONE);
-                }
-                GlideUtils.getInstance().glideLoad(mActivity, ApiHttpClient.IMG_URL + modelHome.getSocial_list().getAvatars(),
-                        iv_head, R.drawable.ic_default_head);
+                for (int i = 0; i < modelHome.getSocial_list().size(); i++) {
+                    View viewHomeCircle = View.inflate(mActivity, R.layout.layout_home_circle, null);
+                    TextView tv_social_title = viewHomeCircle.findViewById(R.id.tv_social_title);
+                    TextView tv_social_sub_title = viewHomeCircle.findViewById(R.id.tv_social_sub_title);
+                    LinearLayout ly_circle_more = viewHomeCircle.findViewById(R.id.ly_circle_more);
+                    //第一种布局
+                    LinearLayout ly_circle_onclick = viewHomeCircle.findViewById(R.id.ly_circle_onclick);
+                    TextView tv_title=viewHomeCircle.findViewById(R.id.tv_title);
+                    TextView tv_name=viewHomeCircle.findViewById(R.id.tv_name);
+                    TextView tv_time=viewHomeCircle.findViewById(R.id.tv_time);
+                    TextView tv_content=viewHomeCircle.findViewById(R.id.tv_content);
+                    TextView tv_circleViews=viewHomeCircle.findViewById(R.id.tv_circleViews);
+                    TextView tv_circleReply=viewHomeCircle.findViewById(R.id.tv_circleReply);
+                    ImageView iv_img=viewHomeCircle.findViewById(R.id.iv_img);
+                    ImageView iv_head=viewHomeCircle.findViewById(R.id.iv_head);
 
+                    //第二种布局
+                    LinearLayout linear_person = viewHomeCircle.findViewById(R.id.linear_person);
+                    ImageView circularimg = viewHomeCircle.findViewById(R.id.circularimg);
+                    TextView tv_circlename = viewHomeCircle.findViewById(R.id.tv_circlename);
+                    TextView tv_circleTime = viewHomeCircle.findViewById(R.id.tv_circleTime);
+                    TextView tv_circleContent = viewHomeCircle.findViewById(R.id.tv_circleContent);
+                    MyGridview gridView_continuous = viewHomeCircle.findViewById(R.id.gridView_continuous);
+                    TextView tv_read_count1 = viewHomeCircle.findViewById(R.id.tv_read_count1);
+                    TextView tv_circleReply1 = viewHomeCircle.findViewById(R.id.tv_circleReply1);
+                    TextView tv_cname1 = viewHomeCircle.findViewById(R.id.tv_cname1);
+                    TextView tv_cname = viewHomeCircle.findViewById(R.id.tv_cname);
+
+
+                    final ModelHomeCircle modelHomeCircle = modelHome.getSocial_list().get(i);
+                    if ("0".equals(modelHomeCircle.getList().getUid())){
+                        ly_circle_onclick.setVisibility(View.VISIBLE);
+                        linear_person.setVisibility(View.GONE);
+
+                        tv_social_title.setText(modelHomeCircle.getTitle()+"");
+                        tv_social_sub_title.setText(modelHomeCircle.getSlogan()+"");
+                        ly_circle_more.setOnClickListener(new OnDoubleClickListener() {
+                            @Override
+                            public void onNoDoubleClick(View v) {
+                                // 跳转更多
+                                ModelEventHome modelEventHome = new ModelEventHome();
+                                modelEventHome.setType(modelHomeCircle.getIndex());
+                                EventBus.getDefault().post(modelEventHome);
+                            }
+                        });
+                        byte[] bytes1 = Base64.decode(modelHomeCircle.getList().getTitle(), Base64.DEFAULT);
+                        tv_title.setText(new String(bytes1));
+                        tv_name.setText(modelHomeCircle.getList().getNickname() + "   发布于  " + modelHomeCircle.getList().getC_name());
+                        tv_time.setText(modelHomeCircle.getList().getAddtime());
+                        byte[] bytes2 = Base64.decode(modelHomeCircle.getList().getContent(), Base64.DEFAULT);
+                        tv_content.setText(new String(bytes2));
+                        tv_circleViews.setText(modelHomeCircle.getList().getClick());
+                        tv_circleReply.setText(modelHomeCircle.getList().getReply_num());
+                        if (modelHomeCircle.getList().getImg_list() != null && modelHomeCircle.getList().getImg_list().size() > 0) {
+                            if (!TextUtils.isEmpty(modelHomeCircle.getList().getImg_list().get(0).getImg())) {
+                                GlideUtils.getInstance().glideLoad(mActivity, ApiHttpClient.IMG_URL + modelHomeCircle.getList().getImg_list().get(0).getImg(),
+                                        iv_img, R.drawable.ic_default_rectange);
+                                iv_img.setVisibility(View.VISIBLE);
+                            } else {
+                                iv_img.setVisibility(View.GONE);
+                            }
+                        } else {
+                            iv_img.setVisibility(View.GONE);
+                        }
+                        GlideUtils.getInstance().glideLoad(mActivity, ApiHttpClient.IMG_URL + modelHomeCircle.getList().getAvatars(),
+                                iv_head, R.drawable.ic_default_head);
+
+                        ly_circle_onclick.setOnClickListener(new OnDoubleClickListener() {
+                            @Override
+                            public void onNoDoubleClick(View v) {
+                                //圈子详情
+                                Intent  intent = new Intent(mActivity, CircleDetailsActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("id", modelHomeCircle.getList().getId());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+                    }else {
+                        //用户发的
+                        ly_circle_onclick.setVisibility(View.GONE);
+                        linear_person.setVisibility(View.VISIBLE);
+                        tv_social_title.setText(modelHomeCircle.getTitle()+"");
+                        tv_social_sub_title.setText(modelHomeCircle.getSlogan()+"");
+                        ly_circle_more.setOnClickListener(new OnDoubleClickListener() {
+                            @Override
+                            public void onNoDoubleClick(View v) {
+                                // 跳转更多
+                                ModelEventHome modelEventHome = new ModelEventHome();
+                                modelEventHome.setType(modelHomeCircle.getIndex());
+                                EventBus.getDefault().post(modelEventHome);
+                            }
+                        });
+                        tv_circlename.setText(modelHomeCircle.getList().getNickname());
+                        byte[] bytes1 = Base64.decode(modelHomeCircle.getList().getContent(), Base64.DEFAULT);
+                        tv_circleContent.setText(new String(bytes1));
+                        GlideUtils.getInstance().glideLoad(mContext, StringUtils.getImgUrl(modelHomeCircle.getList().getAvatars()),circularimg,R.drawable.ic_default_head);
+
+                        if (modelHomeCircle.getList().getImg_list() != null&&modelHomeCircle.getList().getImg_list().size()>0) {
+                            gridView_continuous.setVisibility(View.VISIBLE);
+                            CircleItemImageAdapter mGridViewAdapter = new CircleItemImageAdapter(mContext, modelHomeCircle.getList().getImg_list());
+                            gridView_continuous.setAdapter(mGridViewAdapter);
+                            gridView_continuous.setOnTouchInvalidPositionListener(new MyGridview.OnTouchInvalidPositionListener() {
+                                @Override
+                                public boolean onTouchInvalidPosition(int motionEvent) {
+                                    Intent intent = new Intent();
+                                    intent.setClass(mContext, CircleDetailsActivity.class);
+                                    intent.putExtra("id", modelHomeCircle.getList().getId());
+                                    mContext.startActivity(intent);
+                                    return true;
+                                }
+                            });
+                        } else {
+                            gridView_continuous.setVisibility(View.GONE);
+                        }
+                        tv_circleTime.setText(modelHomeCircle.getList().getAddtime());
+                        tv_read_count1.setText(modelHomeCircle.getList().getClick());
+                        tv_circleReply1.setText(modelHomeCircle.getList().getReply_num());
+                        tv_circlename.setTextColor(mContext.getResources().getColor(R.color.black_jain_87));
+                        if (!NullUtil.isStringEmpty(modelHomeCircle.getList().getC_name())) {
+                            tv_cname.setVisibility(View.VISIBLE);
+                            tv_cname.setText("#" + modelHomeCircle.getList().getC_name());
+                        }
+
+                        if (!NullUtil.isStringEmpty(modelHomeCircle.getList().getCommunity_name())) {
+                            tv_cname1.setVisibility(View.VISIBLE);
+                            tv_cname1.setText("#" + modelHomeCircle.getList().getCommunity_name());
+                        }
+                        linear_person.setOnClickListener(new OnDoubleClickListener() {
+                            @Override
+                            public void onNoDoubleClick(View v) {
+                                Intent intent = new Intent();
+                                intent.setClass(mContext, CircleDetailsActivity.class);
+                                intent.putExtra("id", modelHomeCircle.getList().getId());
+                                mContext.startActivity(intent);
+                            }
+                        });
+                    }
+                    ly_circle.addView(viewHomeCircle);
+                }
             } else {
                 ly_circle.setVisibility(View.GONE);
             }
@@ -706,13 +800,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                     startActivity(intent);
                 }
                 break;
-            case R.id.ly_circle_onclick://圈子详情
-                intent = new Intent(mActivity, CircleDetailsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", mSocial.getId());
-                intent.putExtras(bundle);
-                startActivity(intent);
-                break;
+//            case R.id.ly_circle_onclick://圈子详情
+////                intent = new Intent(mActivity, CircleDetailsActivity.class);
+////                Bundle bundle = new Bundle();
+////                bundle.putString("id", mSocial.getId());
+////                intent.putExtras(bundle);
+////                startActivity(intent);
+//                break;
 
             case R.id.ly_houseRent://租房
                 intent = new Intent(mActivity, HouseRentListActivity.class);
@@ -741,11 +835,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 Intent intent1 = new Intent(getActivity(), CommunityListActivity.class);
                 startActivityForResult(intent1, 111);
                 break;
-            case R.id.ly_circle_more://点击查看更多
-                ModelEventHome modelEventHome = new ModelEventHome();
-                modelEventHome.setType(1);
-                EventBus.getDefault().post(modelEventHome);
-                break;
+//            case R.id.ly_circle_more://点击查看更多
+//                ModelEventHome modelEventHome = new ModelEventHome();
+//                modelEventHome.setType(1);
+//                EventBus.getDefault().post(modelEventHome);
+//                break;
             case R.id.iv_scancode://扫二维码
                 if (LoginUtils.hasLoginUser()){
                     scanCode();
@@ -801,25 +895,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         //添加小圆点
         if (catePage == 1) {
          group.setVisibility(View.GONE);
-//            // 测试
-//            ivPoints = new ImageView[2];
-//
-//            group.removeAllViews();
-//            for (int i = 0; i < 2; i++) {
-//                //循坏加入点点图片组
-//                ivPoints[i] = new ImageView(mActivity);
-//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DeviceUtils.dip2px(mActivity, 6), DeviceUtils.dip2px(mActivity, 6));
-//                params.setMargins(0,0,DeviceUtils.dip2px(mActivity, 5),0);
-//                ivPoints[i].setLayoutParams(params);
-//                if (i == 0) {
-//                    ivPoints[i].setImageResource(R.drawable.allshape_oval_orange);
-//                } else {
-//                    ivPoints[i].setImageResource(R.drawable.shape_oval_grey);
-//                }
-//               // ivPoints[i].setPadding(8, 8, 8, 8);
-//
-//                group.addView(ivPoints[i]);
-//            }
 
         } else {
             group.setVisibility(View.VISIBLE);
@@ -926,34 +1001,34 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateItem(CircleDetailBean mCirclebean) {
-        try {
-            if (mCirclebean != null) {
-                int type = mCirclebean.getType();
-                if (type == 0) {
-                    //添加评论
-                    if (mCirclebean.getId().equals(mSocial.getId())) {
-                        int i1 = Integer.parseInt(mCirclebean.getReply_num());
-                        mSocial.setReply_num((i1 + 1) + "");
-                        tv_circleReply.setText(mSocial.getReply_num());
-                    }
-                } else if (type == 1) {
-                    //删除评论
-                    if (mCirclebean.getId().equals(mSocial.getId())) {
-                        int i1 = Integer.parseInt(mCirclebean.getReply_num());
-                        mSocial.setReply_num((i1 - 1) + "");
-                        tv_circleReply.setText(mSocial.getReply_num());
-                    }
-                } else if (type == 2) {
-                    //阅读数
-                    if (mCirclebean.getId().equals(mSocial.getId())) {
-                        tv_circleViews.setText(mCirclebean.getClick());
-
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            if (mCirclebean != null) {
+//                int type = mCirclebean.getType();
+//                if (type == 0) {
+//                    //添加评论
+//                    if (mCirclebean.getId().equals(mSocial.getId())) {
+//                        int i1 = Integer.parseInt(mCirclebean.getReply_num());
+//                        mSocial.setReply_num((i1 + 1) + "");
+//                        tv_circleReply.setText(mSocial.getReply_num());
+//                    }
+//                } else if (type == 1) {
+//                    //删除评论
+//                    if (mCirclebean.getId().equals(mSocial.getId())) {
+//                        int i1 = Integer.parseInt(mCirclebean.getReply_num());
+//                        mSocial.setReply_num((i1 - 1) + "");
+//                        tv_circleReply.setText(mSocial.getReply_num());
+//                    }
+//                } else if (type == 2) {
+//                    //阅读数
+//                    if (mCirclebean.getId().equals(mSocial.getId())) {
+//                        tv_circleViews.setText(mCirclebean.getClick());
+//
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**

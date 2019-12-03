@@ -592,7 +592,7 @@ public class XiaoquActivity extends BaseActivityOld implements OnClickListener, 
                         sharePrefrenceUtil.setXiaoQuId(community_id);
                         sharePrefrenceUtil.setXiaoQuName(community_name);
                         sharePrefrenceUtil.setIsNew(is_new+"");
-                        EventBus.getDefault().post(new ModelEventHome(2));
+                        EventBus.getDefault().post(new ModelEventHome(-1));
                         intentXiaoQuA = new Intent(XiaoquActivity.this, HomeActivity.class);
                         startActivity(intentXiaoQuA);
                         finish();

@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -35,7 +36,6 @@ import com.huacheng.huiservers.ui.fragment.circle.CircleTabFragment;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.PopupWindowUtil;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.libraryservice.utils.TDevice;
 
 import org.greenrobot.eventbus.EventBus;
@@ -66,6 +66,15 @@ public class CircleFragment extends BaseFragmentOld implements View.OnClickListe
     MyFragmentPagerAdapter pager;
 
     View mStatusBar;
+    private int type_position=0;//首页哪个点击被选中  //默认是0
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (getArguments() !=null){
+            type_position=getArguments().getInt("type_position");
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,6 +148,7 @@ public class CircleFragment extends BaseFragmentOld implements View.OnClickListe
             bundle.putString("mCid", tabs.get(i).getId());
             bundle.putInt("mPro", tabs.get(i).getIs_pro());//是否是物业公告字段
             bundle.putString("type", i + "");
+            bundle.putInt("type_position",type_position);
             tabFragment.setArguments(bundle);
             mFragmentList.add(tabFragment);
         }
@@ -175,7 +185,8 @@ public class CircleFragment extends BaseFragmentOld implements View.OnClickListe
 
             }
         });
-
+        viewPager.setCurrentItem(type_position);
+        currentFragment=mFragmentList.get(type_position);
     }
 
     /**
@@ -374,24 +385,16 @@ public class CircleFragment extends BaseFragmentOld implements View.OnClickListe
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventbusSwitch(ModelEventHome model) {
         if (model!=null){
-            if (model.getType()==0){//物业公告
-                CircleTabFragment tabFragment = mFragmentList.get(0);
-                if (currentFragment == tabFragment) {//是当前fragment直接刷新
-                    currentFragment.isInit = false;
-                    currentFragment.selected_init();
-                } else {
-                    tabFragment.isInit = false;//其他的切换即可
-                    viewPager.setCurrentItem(0);
-                }
-            }if (model.getType()==1){//社区公告
-                CircleTabFragment tabFragment = mFragmentList.get(1);
-                if (currentFragment == tabFragment) {//是当前fragment直接刷新
-                    currentFragment.isInit = false;
-                    currentFragment.selected_init();
-                } else {
-                    tabFragment.isInit = false;//其他的切换即可
-                    viewPager.setCurrentItem(1);
-                }
+            //跳转到对应页面 这里针对的是已经加载过邻里的情况
+            if (model.getType()<mFragmentList.size()){
+                    CircleTabFragment tabFragment = mFragmentList.get(model.getType());
+                    if (currentFragment == tabFragment) {//是当前fragment直接刷新
+                        currentFragment.isInit = false;
+                        currentFragment.selected_init();
+                    } else {
+                        tabFragment.isInit = false;//其他的切换即可
+                        viewPager.setCurrentItem(model.getType());
+                    }
             }
         }
     }

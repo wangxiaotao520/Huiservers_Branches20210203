@@ -70,6 +70,7 @@ public class CircleTabFragment extends BaseFragmentOld {
     private String type = "0";
     private int mPro = 0;
     private boolean is_Requesting=false;
+    private int type_position=0;//首页哪个点击被选中
 
     public CircleTabFragment() {
         super();
@@ -88,6 +89,7 @@ public class CircleTabFragment extends BaseFragmentOld {
         mCid = arguments.getString("mCid");
         type = arguments.getString("type");
         mPro = arguments.getInt("mPro");
+        type_position = arguments.getInt("type_position");
     }
 //
 //    public CircleTabFragment(String cid) {
@@ -113,15 +115,7 @@ public class CircleTabFragment extends BaseFragmentOld {
         mcircle5Adapter = new CircleAdapter(beans2, getActivity());
         mRecyclerView.setAdapter(mcircle5Adapter);
         isFirst = "1";
-        // 获取数据
-        if (type.equals("0")) {//第一页刷新
-            // showDialog(smallDialog);
-            //   getSocialList(mCid, page);
-            //   isInit = true;
-            isInit = true;
-            swipeRefreshLayout.setRefreshing(true);
-            refreshlistener.onRefresh();
-        }
+
 
         // 设置下拉刷新
         swipeRefreshLayout.setOnRefreshListener(refreshlistener);
@@ -167,22 +161,15 @@ public class CircleTabFragment extends BaseFragmentOld {
 
             }
         });
-
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//        if (MyCookieStore.Circle_notify == 1 || MyCookieStore.MyCircle_notify == 1 || MyCookieStore.CircleOwn_notify == 1) {
-//            isFirst = "";
-//          //  beans2.clear();
-//            page = 1;
-//            getSocialList(mCid, page);
-//            lin_circle5.setFocusable(true);
-//            lin_circle5.setFocusableInTouchMode(true);
-//            lin_circle5.requestFocus();
-//        }
+        // 获取数据
+        if (type.equals("0")&&type_position==0) {//第一页刷新
+            // showDialog(smallDialog);
+            //   getSocialList(mCid, page);
+            //   isInit = true;
+            isInit = true;
+            swipeRefreshLayout.setRefreshing(true);
+            refreshlistener.onRefresh();
+        }
     }
 
     /**
@@ -368,8 +355,10 @@ public class CircleTabFragment extends BaseFragmentOld {
         if (isInit == false) {
             //初始化
             isInit = true;
-            swipeRefreshLayout.setRefreshing(true);
-            refreshlistener.onRefresh();
+            if (swipeRefreshLayout!=null) {
+                swipeRefreshLayout.setRefreshing(true);
+                refreshlistener.onRefresh();
+            }
         }
     }
 

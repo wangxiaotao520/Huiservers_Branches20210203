@@ -1,8 +1,5 @@
 package com.huacheng.huiservers.model;
 
-import com.huacheng.huiservers.ui.shop.bean.BannerBean;
-
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,7 +14,7 @@ public class ModelHome implements Serializable {
     private List<ModelHomeIndex> menu_list;//导航
     private List<ModelVBaner> p_social_list;//物业公告
     private List<ModelIndex> article_list;//手册协议
-    private BannerBean social_list;//圈子
+    private List<ModelHomeCircle> social_list;//圈子
     private List<HouseRentDetail> houses_list;//租售房
     private List<ModelAds> ad_center_list;//中部广告
     private  List<ModelShopIndex>  pro_list;//商品信息
@@ -55,11 +52,11 @@ public class ModelHome implements Serializable {
         this.article_list = article_list;
     }
 
-    public BannerBean getSocial_list() {
+    public List<ModelHomeCircle> getSocial_list() {
         return social_list;
     }
 
-    public void setSocial_list(BannerBean social_list) {
+    public void setSocial_list(List<ModelHomeCircle> social_list) {
         this.social_list = social_list;
     }
 

@@ -651,7 +651,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                                 prefrenceUtil.setCity_cn(location_city);
                                 prefrenceUtil.setRegion_cn(location_district);
                             }
-                            EventBus.getDefault().post(new ModelEventHome(2));
+                            EventBus.getDefault().post(new ModelEventHome(-1));
                             mListview.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -680,7 +680,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                                 prefrenceUtil.setRegion_cn(location_district);
                             }
 
-                            EventBus.getDefault().post(new ModelEventHome(2));
+                            EventBus.getDefault().post(new ModelEventHome(-1));
                             mListview.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -710,7 +710,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                             prefrenceUtil.setRegion_cn(location_district);
                         }
 
-                        EventBus.getDefault().post(new ModelEventHome(2));
+                        EventBus.getDefault().post(new ModelEventHome(-1));
                         mListview.postDelayed(new Runnable() {
                             @Override
                             public void run() {
