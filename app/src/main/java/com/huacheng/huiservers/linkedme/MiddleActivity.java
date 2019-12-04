@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
@@ -95,6 +96,13 @@ public class MiddleActivity extends AppCompatActivity {
                     Intent intent = new Intent(this, ShopZQWebActivity.class);
                     intent.putExtra("id", id + "");
                     intent.putExtra("sub_type", sub_type + "");
+                    startActivity(intent);
+                } else if (type.equals("circle_details")) {
+                    String id = hashMap.get("id");
+                    String sub_type = hashMap.get("sub_type");
+                    Intent intent = new Intent(this, CircleDetailsActivity.class);
+                    intent.putExtra("id", id + "");
+                    intent.putExtra("mPro", sub_type + "");
                     startActivity(intent);
                 }
             }

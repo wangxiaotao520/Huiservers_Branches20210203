@@ -20,6 +20,8 @@ public class CircleDetailBean {
     private String addtime;
     private String avatars;
     private String nickname;
+    private String title;
+    private String share_content;
 
     private String img;
     private String img_size;
@@ -34,6 +36,22 @@ public class CircleDetailBean {
     private String is_observe;
 
     private int type = 0;//0是评论1是删除
+
+    public String getShare_content() {
+        return share_content;
+    }
+
+    public void setShare_content(String share_content) {
+        this.share_content = share_content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getIs_observe() {
         return is_observe;

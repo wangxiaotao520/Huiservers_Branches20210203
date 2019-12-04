@@ -28,6 +28,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.CircleProtocol;
 import com.huacheng.huiservers.model.protocol.CommonProtocol;
+import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.circle.adapter.CircleDetailListAdapter;
 import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
@@ -37,13 +38,17 @@ import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.lidroid.xutils.BitmapUtils;
+import com.microquation.linkedme.android.log.LMErrorCode;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -74,6 +79,8 @@ public class CircleDetailsActivity extends BaseActivityOld {
     LinearLayout mLinTopAll;
     @BindView(R.id.lin_comment)
     LinearLayout linComment;
+    @BindView(R.id.right_share)
+    ImageView mRightShare;
 
     private SharedPreferences preferencesLogin;
     private String login_type;
@@ -125,6 +132,11 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
     private int isPro = 0;//是否是物业公告
     private Handler handler = new Handler();
+    private String share_url;
+    private String share_title;
+    private String share_desc;
+    private String share_icon;
+
 
     /**
      * 滑动到指定位置
@@ -151,8 +163,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
         circle_id = this.getIntent().getExtras().getString("id");
         isPro = this.getIntent().getExtras().getInt("mPro");
 
-
-        circle_comment = this.getIntent().getExtras().getString("circle_comment");
+        // circle_comment = this.getIntent().getExtras().getString("circle_comment");
 //        isRefresh = this.getIntent().getExtras().getBoolean("refresh");
 
         preferencesLogin = this.getSharedPreferences("login", 0);
@@ -188,7 +199,11 @@ public class CircleDetailsActivity extends BaseActivityOld {
             }
         });
 
+        mRightShare.setVisibility(View.VISIBLE);
     }
+
+    String content1;
+
     //获取邻里详情
     private void getdata() {
         Url_info info = new Url_info(this);
@@ -204,8 +219,8 @@ public class CircleDetailsActivity extends BaseActivityOld {
                 //顶部头像
 //                Glide.with(context).load(StringUtils.getImgUrl(mCirclebean.getAvatars())).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
 //                        .placeholder(R.drawable.ic_default_head).error(R.drawable.ic_default_head).into(mIvPhoto);
-                if (!NullUtil.isStringEmpty(mCirclebean.getAvatars())){
-                    GlideUtils.getInstance().glideLoad(context,StringUtils.getImgUrl(mCirclebean.getAvatars()),mIvPhoto,R.drawable.ic_default_head);
+                if (!NullUtil.isStringEmpty(mCirclebean.getAvatars())) {
+                    GlideUtils.getInstance().glideLoad(context, StringUtils.getImgUrl(mCirclebean.getAvatars()), mIvPhoto, R.drawable.ic_default_head);
                 }
                 //底部头像
                /* Glide.with(context).load(MyCookieStore.URL + mCirclebean.getAvatars()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -268,7 +283,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                                 "height:auto !important;" +//限定图片高度自动
                                 "}" +
                                 "</style>";
-                        String content1 = "<head>" + css + "</head><body>" + content + "</body></html>";
+                        content1 = "<head>" + css + "</head><body>" + content + "</body></html>";
                         mWebview.loadDataWithBaseURL(null, content1, "text/html", "utf-8", null);
                         LogUtils.d("[content1]" + content1);
                     }
@@ -314,7 +329,10 @@ public class CircleDetailsActivity extends BaseActivityOld {
                     linComment.setVisibility(View.GONE);
                     mLinPinglun.setVisibility(View.GONE);
                 }
+                if (SCROLLtag.equals("1")) {//值为1 的时候  代表评论成功执行这段话
+                    scrollToPosition();
 
+                }
 //                linComment.setVisibility(View.GONE);
 
             }
@@ -350,7 +368,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                     SCROLLtag = "1";
                     getdata();
 
-                    scrollToPosition();
+                    // scrollToPosition();
                     mCirclebean.setType(1);
                     EventBus.getDefault().post(mCirclebean);
                 } else {
@@ -390,7 +408,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                         SCROLLtag = "1";
                         getdata();
 
-                        scrollToPosition();
+                        // scrollToPosition();
                         mCirclebean.setType(0);
                         EventBus.getDefault().post(mCirclebean);
                     } else {
@@ -422,7 +440,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                 mLinImg.addView(view);
             }
             if (SCROLLtag.equals("1")) {//值为1 的时候  代表评论成功执行这段话
-                //scrollToPosition();
+                scrollToPosition();
 
             }
 //            mCirclebean.getImg_list().clear();
@@ -430,7 +448,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
     }
 
 
-    @OnClick({R.id.lin_left, et_input, tv_send})
+    @OnClick({R.id.lin_left, et_input, tv_send, R.id.right_share})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lin_left:
@@ -454,7 +472,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
             case tv_send:
                 preferencesLogin = getSharedPreferences("login", 0);
                 login_type = preferencesLogin.getString("login_type", "");
-                if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     startActivity(new Intent(CircleDetailsActivity.this, LoginVerifyCodeActivity.class));
                 } else {
 
@@ -467,6 +485,40 @@ public class CircleDetailsActivity extends BaseActivityOld {
                         mEtInput.setText("");
                     }
                 }
+                break;
+            case R.id.right_share://分享
+                if (NullUtil.isStringEmpty(circle_id)) {
+                    return;
+                }
+                if (!NullUtil.isStringEmpty(mCirclebean.getTitle())) {
+                    byte[] bytes = Base64.decode(mCirclebean.getTitle(), Base64.DEFAULT);
+                    share_title = new String(bytes) + "";
+                } else {
+                    share_title = mCirclebean.getC_name() + "";
+                }
+                share_desc = mCirclebean.getShare_content();
+                share_icon = StringUtils.getImgUrl(mCirclebean.getAvatars());
+                share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "social/socialShare/id/" + circle_id;
+                HashMap<String, String> params = new HashMap<>();
+                params.put("type", "circle_details");
+                params.put("id", circle_id);
+                params.put("sub_type", isPro + "");
+                showDialog(smallDialog);
+                LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, share_title, params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
+                    @Override
+                    public void onGetUrl(String url, LMErrorCode error) {
+                        hideDialog(smallDialog);
+                        if (error == null) {
+                            String share_url_new = share_url + "?linkedme=" + url;
+                            showSharePop(share_title, share_desc, share_icon, share_url_new);
+                        } else {
+                            //可以看报错
+                            String share_url_new = share_url + "?linkedme=" + "";
+                            showSharePop(share_title, share_desc, share_icon, share_url_new);
+                        }
+                    }
+                });
+
                 break;
         }
     }
@@ -492,5 +544,18 @@ public class CircleDetailsActivity extends BaseActivityOld {
                 EventBus.getDefault().post(mCirclebean);
             }
         }
+    }
+
+    /**
+     * 显示分享弹窗
+     *
+     * @param share_title
+     * @param share_desc
+     * @param share_icon
+     * @param share_url_new
+     */
+    private void showSharePop(String share_title, String share_desc, String share_icon, String share_url_new) {
+        PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, share_icon, share_url_new, AppConstant.SHARE_COMMON);
+        popup.showBottom(mRightShare);
     }
 }

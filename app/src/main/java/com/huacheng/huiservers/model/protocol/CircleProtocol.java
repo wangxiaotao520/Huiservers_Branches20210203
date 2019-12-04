@@ -60,6 +60,7 @@ public class CircleProtocol {
                     JSONObject obj = new JSONObject(data);
                     info.setId(obj.getString("id"));
                     info.setUid(obj.getString("uid"));
+                    info.setTitle(obj.getString("title"));
                     info.setAdmin_id(obj.getString("admin_id"));
                     info.setC_name(obj.getString("c_name"));
                     info.setContent(obj.getString("content"));
@@ -69,6 +70,7 @@ public class CircleProtocol {
                     info.setAvatars(obj.getString("avatars"));
                     info.setNickname(obj.getString("nickname"));
                     info.setIs_observe(obj.getString("is_observe"));
+                    info.setShare_content(obj.getString("share_content"));
                     String Img_list = obj.getString("img_list");
                     if (!TextUtils.isEmpty(Img_list)) {
                         JSONArray array_img = new JSONArray(Img_list);
