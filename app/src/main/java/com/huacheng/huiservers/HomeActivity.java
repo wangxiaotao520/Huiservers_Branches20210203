@@ -455,7 +455,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
     public void eventbus(ModelEventHome model) {
         if (model!=null){
             this.modelEventHome=model;
-            if (model.getType()>0){
+            if (model.getType()>=0){
                 isEvent=true;
                 if (rb!=null&&rb.length>0){
                     rb[3].toggle();

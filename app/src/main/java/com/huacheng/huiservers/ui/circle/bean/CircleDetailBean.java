@@ -23,6 +23,8 @@ public class CircleDetailBean {
     private String title;
     private String share_content;
 
+    private String share_img;
+
     private String img;
     private String img_size;
     private List<CircleDetailBean> img_list;
@@ -211,6 +213,14 @@ public class CircleDetailBean {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getShare_img() {
+        return share_img;
+    }
+
+    public void setShare_img(String share_img) {
+        this.share_img = share_img;
     }
 
 }

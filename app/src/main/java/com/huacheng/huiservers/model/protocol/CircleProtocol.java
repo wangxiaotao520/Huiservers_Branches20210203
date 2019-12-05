@@ -71,6 +71,7 @@ public class CircleProtocol {
                     info.setNickname(obj.getString("nickname"));
                     info.setIs_observe(obj.getString("is_observe"));
                     info.setShare_content(obj.getString("share_content"));
+                    info.setShare_img(obj.getString("share_img"));
                     String Img_list = obj.getString("img_list");
                     if (!TextUtils.isEmpty(Img_list)) {
                         JSONArray array_img = new JSONArray(Img_list);

@@ -497,7 +497,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                     share_title = mCirclebean.getC_name() + "";
                 }
                 share_desc = mCirclebean.getShare_content();
-                share_icon = StringUtils.getImgUrl(mCirclebean.getAvatars());
+                share_icon = StringUtils.getImgUrl(mCirclebean.getShare_img());
                 share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "social/socialShare/id/" + circle_id;
                 HashMap<String, String> params = new HashMap<>();
                 params.put("type", "circle_details");
