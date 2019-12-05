@@ -11,13 +11,11 @@ import android.widget.TextView;
 import com.chinaums.pppay.unify.UnifyPayPlugin;
 import com.chinaums.pppay.unify.UnifyPayRequest;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.geren.bean.PayTypeBean;
@@ -385,6 +383,7 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
                 getWuLiu();// 物流分配
                 getPush("2");// 推送接口
                 pay_result_type=2;
+                tv_confirm.setVisibility(View.VISIBLE);
                 iv_status_img.setBackgroundResource(R.mipmap.ic_success_pay);
                 tv_status.setText("支付成功");
             }else if (type.equals(CanstantPay.PAY_SHOP_ORDER_DETAIL)){
@@ -454,24 +453,37 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
         params.addBodyParameter("id", order_id);
-
-        HttpHelper hh = new HttpHelper(info.distribution, params,
-                this) {
-
+        MyOkHttp.get().post(info.distribution, params.getParams(), new JsonResponseHandler() {
             @Override
-            protected void setData(String json) {
-                String strWL = new ShopProtocol().setShop(json);
-                if (strWL.equals("1")) {
-                } else {
+            public void onSuccess(int statusCode, JSONObject response) {
+                if (JsonUtil.getInstance().isSuccess(response)){
 
                 }
             }
 
             @Override
-            protected void requestFailure(Exception error, String msg) {
-                //  SmartToast.showInfo("网络异常，请检查网络设置");
+            public void onFailure(int statusCode, String error_msg) {
+
             }
-        };
+        });
+
+//        HttpHelper hh = new HttpHelper(info.distribution, params,
+//                this) {
+//
+//            @Override
+//            protected void setData(String json) {
+//                String strWL = new ShopProtocol().setShop(json);
+//                if (strWL.equals("1")) {
+//                } else {
+//
+//                }
+//            }
+//
+//            @Override
+//            protected void requestFailure(Exception error, String msg) {
+//                //  SmartToast.showInfo("网络异常，请检查网络设置");
+//            }
+//        };
     }
 
     // 购物订单推送接口
