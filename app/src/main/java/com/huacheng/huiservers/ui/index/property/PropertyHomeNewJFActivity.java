@@ -625,28 +625,30 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 mTvAccountPrice.setText("¥ " + setFloat(total_wuye_price));
                 //  mTvAccountPrice.setText("¥ " + propertyInfo.getWuye().getTot_sumvalue());
             }
-            //判断水电费的显示
-            if (propertyInfo.getIs_android_electric()==0){
-                mLyDianfei.setVisibility(View.VISIBLE);
-                view_dianfei.setVisibility(View.VISIBLE);
-            }else {
-                mLyDianfei.setVisibility(View.GONE);
-                view_dianfei.setVisibility(View.GONE);
-            }
 
-            if (propertyInfo.getIs_android_water()==0){
-                mLyShuifei.setVisibility(View.VISIBLE);
-                view_shuifei.setVisibility(View.VISIBLE);
-            }else {
-                mLyShuifei.setVisibility(View.GONE);
-                view_shuifei.setVisibility(View.GONE);
-            }
         } else {
             //llPayment.setVisibility(View.GONE);
             mLyOther.setVisibility(View.GONE);
             mList.setVisibility(View.GONE);
             mRelNoData.setVisibility(View.VISIBLE);
             mTvAccountPrice.setText("¥0.00 ");
+        }
+
+        //判断水电费的显示
+        if (propertyInfo.getIs_android_electric()==0){
+            mLyDianfei.setVisibility(View.VISIBLE);
+            view_dianfei.setVisibility(View.VISIBLE);
+        }else {
+            mLyDianfei.setVisibility(View.GONE);
+            view_dianfei.setVisibility(View.GONE);
+        }
+
+        if (propertyInfo.getIs_android_water()==0){
+            mLyShuifei.setVisibility(View.VISIBLE);
+            view_shuifei.setVisibility(View.VISIBLE);
+        }else {
+            mLyShuifei.setVisibility(View.GONE);
+            view_shuifei.setVisibility(View.GONE);
         }
     }
 
