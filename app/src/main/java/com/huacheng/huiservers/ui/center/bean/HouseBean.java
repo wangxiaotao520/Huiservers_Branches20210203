@@ -34,6 +34,7 @@ public class HouseBean implements Serializable {
     private String adv_inside_url;
     private String room_id;
     private String community_name;
+    private String community_address;
     private String address;
     private String per_count;
     private WuYeBean room_info;
@@ -71,6 +72,14 @@ public class HouseBean implements Serializable {
             addtime,
             uptime,
             total_Pages;
+
+    public String getCommunity_address() {
+        return community_address;
+    }
+
+    public void setCommunity_address(String community_address) {
+        this.community_address = community_address;
+    }
 
     public String getCompany_id() {
         return company_id;

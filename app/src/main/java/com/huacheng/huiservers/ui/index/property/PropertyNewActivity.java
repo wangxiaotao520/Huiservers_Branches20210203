@@ -84,9 +84,8 @@ public class PropertyNewActivity extends BaseActivity implements NewPropertyAdap
 
     private void getHouseList() {
         showDialog(smallDialog);
-        Url_info info = new Url_info(this);
         HashMap<String, String> params = new HashMap<>();
-        MyOkHttp.get().post(info.binding_community, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(ApiHttpClient.BINDING_COMMUNITY, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);

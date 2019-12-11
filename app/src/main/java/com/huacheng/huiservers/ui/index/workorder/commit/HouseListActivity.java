@@ -1,60 +1,125 @@
 package com.huacheng.huiservers.ui.index.workorder.commit;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
-import com.huacheng.huiservers.ui.base.BaseListActivity;
-import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
+import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.bean.HouseBean;
+import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
+import com.huacheng.huiservers.ui.center.house.HouseInviteActivity;
+import com.huacheng.huiservers.ui.index.openDoor.OpenLanActivity;
+import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
+import com.huacheng.huiservers.ui.index.property.PropertyHomeListActivity;
+import com.huacheng.huiservers.ui.index.property.PropertyHomeNewJFActivity;
+import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterHouseList;
+import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Description:选择房屋列表
  * created by wangxiaotao
  * 2019/4/9 0009 下午 5:46
  */
-public class HouseListActivity  extends BaseListActivity <GroupMemberBean>{
-
-
+public class HouseListActivity extends BaseActivity implements AdapterHouseList.OnClickDeleteback {
+    @BindView(R.id.lin_left)
+    LinearLayout mLinLeft;
+    @BindView(R.id.title_name)
+    TextView mTitleName;
+    @BindView(R.id.right)
+    TextView mRight;
+    @BindView(R.id.listview)
+    MyListView mListview;
+    @BindView(R.id.ly_add)
+    LinearLayout mLyAdd;
+   /* @BindView(R.id.refreshLayout)
+    SmartRefreshLayout mRefreshLayout;*/
+    @BindView(R.id.rel_no_data)
+    RelativeLayout mRelNoData;
+    private int type = 0;//0投诉建议/报修工单 1物业缴费
+    private String type_url = "";
+    private String wuye_type = "";
+    private List<HouseBean> mDatas = new ArrayList<>();
+    AdapterHouseList mAdapter;
 
     @Override
     protected void initView() {
-        super.initView();
-        titleName.setText("选择房屋地址");
-        mRefreshLayout.setEnableRefresh(false);
-        mRefreshLayout.setEnableLoadMore(false);
-        mAdapter = new AdapterHouseList(this, R.layout.item_house_list,mDatas);
+        ButterKnife.bind(this);
+        if (type == 1) {
+            mTitleName.setText("我的房屋");
+            mRight.setVisibility(View.VISIBLE);
+            mRight.setText("缴费记录");
+            mRight.setTextColor(getResources().getColor(R.color.orange_bg));
+        } else {
+            mRight.setVisibility(View.GONE);
+            mTitleName.setText("选择房屋");
+        }
+      /*  mRefreshLayout.setEnableRefresh(false);
+        mRefreshLayout.setEnableLoadMore(false);*/
+        mAdapter = new AdapterHouseList(this, R.layout.item_house_list, mDatas, type, this);
         mListview.setAdapter(mAdapter);
     }
 
     @Override
-    protected void requestData() {
+    protected void initData() {
+        showDialog(smallDialog);
+        requestData();
+    }
+
+    private void requestData() {
         HashMap<String, String> params = new HashMap<>();
-        MyOkHttp.get().post(ApiHttpClient.GET_WORK_HOUSE_ADDRESS, params, new JsonResponseHandler() {
+        if (type == 1) {
+            type_url = ApiHttpClient.BINDING_COMMUNITY;
+        } else {
+            type_url = ApiHttpClient.GET_WORK_HOUSE_ADDRESS;
+        }
+        MyOkHttp.get().post(type_url, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
-                if (JsonUtil.getInstance().isSuccess(response)){
-                    List <GroupMemberBean>data = JsonUtil.getInstance().getDataArrayByName(response, "data", GroupMemberBean.class);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    List<HouseBean> data = JsonUtil.getInstance().getDataArrayByName(response, "data", HouseBean.class);
                     mDatas.clear();
                     mDatas.addAll(data);
                     mAdapter.notifyDataSetChanged();
-                    if (mDatas.size()==0){
-                        mRelNoData.setVisibility(View.VISIBLE);
+                    if (type==0){
+                        mLyAdd.setVisibility(View.GONE);
+                        if (mDatas.size() == 0) {
+                            mRelNoData.setVisibility(View.VISIBLE);
+                        }
+                    }else {
+                        mLyAdd.setVisibility(View.VISIBLE);
                     }
-                }else {
-                    String msg = JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败");
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败");
                     SmartToast.showInfo(msg);
                 }
             }
@@ -66,14 +131,220 @@ public class HouseListActivity  extends BaseListActivity <GroupMemberBean>{
             }
         });
 
+    }
+
+    @Override
+    protected void initListener() {
+        mLinLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        //缴费记录
+        mRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HouseListActivity.this, PropertyPaymentActivity.class));
+            }
+        });
+        //添加房屋
+        mLyAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //    startActivity(new Intent(PropertyNewActivity.this, PropertyMyHomeActivity.class));
+                Intent intent = new Intent(HouseListActivity.this, PropertyBindHomeActivity.class);
+                intent.putExtra("wuye_type", wuye_type + "");
+                startActivity(intent);
+            }
+        });
+        mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (type == 0) {
+                    Intent intent = new Intent();
+                    intent.putExtra("community", mDatas.get(position));
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    if ("property".equals(wuye_type)) {
+                        Intent intent;
+                        if (mDatas.get(position).getIs_ym().equals("0")) {
+                            intent = new Intent(HouseListActivity.this, PropertyHomeListActivity.class);
+                        } else {
+                            intent = new Intent(HouseListActivity.this, PropertyHomeNewJFActivity.class);
+                        }
+                        intent.putExtra("room_id", mDatas.get(position).getRoom_id());
+                        intent.putExtra("company_id", mDatas.get(position).getCompany_id());
+                        startActivity(intent);
+                    } else if ("open_door".equals(wuye_type)) {
+                        //一键开门
+                        Intent intent;
+                        intent = new Intent(mContext, OpenLanActivity.class);
+                        intent.putExtra("room_id", mDatas.get(position).getRoom_id());
+                        startActivity(intent);
+                    } else if ("house_invite".equals(wuye_type)) {
+                        //访客邀请
+                        checkHouseInvite(mDatas.get(position).getRoom_id());
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.house_list_layout;
+    }
+
+    @Override
+    protected void initIntentData() {
+        type = this.getIntent().getIntExtra("type", 0);
+        if (type == 1) {
+            wuye_type = this.getIntent().getStringExtra("wuye_type");
+        }
 
     }
 
     @Override
-    protected void onListViewItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Intent intent = new Intent();
-        intent.putExtra("community",mDatas.get(position));
-        setResult(RESULT_OK,intent);
-        finish();
+    protected int getFragmentCotainerId() {
+        return 0;
     }
+
+    @Override
+    protected void initFragment() {
+
+    }
+
+    /**
+     * 删除住宅
+     *
+     * @param
+     */
+    private String delete_id="";
+    @Override
+    public void onClickDelete(HouseBean item) {
+        if (item != null) {
+            delete_id = item.getId();
+            new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认解除已绑定的房屋？", new CommomDialog.OnCloseListener() {
+                @Override
+                public void onClick(Dialog dialog, boolean confirm) {
+                    if (confirm) {
+                        getDelete(delete_id);
+                        dialog.dismiss();
+                    }
+                }
+            }).show();
+        }
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    //绑定成功刷新
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void BDCallback(HouseBean info) {
+        HouseBean houseBean = new HouseBean();
+        if (info != null) {
+            if ("public_repair".equals(info.getWuye_type()) || "person_repair".equals(info.getWuye_type()) || "bind".equals(info.getWuye_type())) {
+                finish();
+            } else {
+                requestData();
+            }
+        }
+    }
+    private void getDelete(final String id) {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", id);
+        MyOkHttp.get().post(ApiHttpClient.UNSETBINDING, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    HouseBean houseBean = null;
+                    for (int i = 0; i < mDatas.size(); i++) {
+                        if (mDatas.get(i).getId().equals(id)) {
+                            houseBean= mDatas.get(i);
+                        }
+                    }
+                    if (houseBean!=null){
+                        mDatas.remove(houseBean);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                    if (mDatas.size()==0){
+                        //刷新个人中心
+                        EventBus.getDefault().post(new PersoninfoBean());
+                    }
+                }else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
+    }
+    /**
+     * 访客邀请权限
+     */
+    private void checkHouseInvite(final String room_id) {
+        showDialog(smallDialog);
+        Url_info info = new Url_info(this);
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("room_id", room_id);
+        HttpHelper hh = new HttpHelper(info.checkIsAjb, params, this) {
+
+
+            @Override
+            protected void setData(String json) {
+                JSONObject jsonObject, jsonData;
+                hideDialog(smallDialog);
+                try {
+                    jsonObject = new JSONObject(json);
+                    String data = jsonObject.getString("data");
+                    String status = jsonObject.getString("status");
+                    if (status.equals("1")) {
+                        jsonData = new JSONObject(data);
+                        String mobile = jsonData.getString("mobile");
+                        String community = jsonData.getString("community");
+                        String building = jsonData.getString("building");
+                        String room_code = jsonData.getString("room_code");
+                        Intent intent = new Intent(HouseListActivity.this, HouseInviteActivity.class);
+                        intent.putExtra("mobile", mobile);
+                        intent.putExtra("community", community);
+                        intent.putExtra("building", building);
+                        intent.putExtra("room_code", room_code);
+                        intent.putExtra("room_id", room_id);
+                        startActivity(intent);
+                    } else {
+                        SmartToast.showInfo(jsonObject.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected void requestFailure(Exception error, String msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        };
+    }
+
+
 }

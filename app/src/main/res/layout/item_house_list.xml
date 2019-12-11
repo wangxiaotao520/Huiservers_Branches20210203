@@ -1,27 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin_15"
         android:layout_marginTop="10dp"
-        android:padding="15dp"
-        android:orientation="horizontal">
+        android:background="@drawable/bg_round_white5"
+        android:orientation="horizontal"
+        android:paddingBottom="25dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="@dimen/margin_15"
+        android:paddingTop="25dp">
 
-        <TextView
-            android:id="@+id/tv_community_address"
-            android:textColor="@color/title_color"
+        <RelativeLayout
+            android:id="@+id/ry_img"
+            android:background="@drawable/allshape_gray35"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            >
+
+            <ImageView
+                android:id="@+id/iv_bg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/red_bg"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:textStyle="normal"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_gravity="center_vertical"
-            android:text="安宁新村1号楼1单元201"
-            android:textSize="16sp" />
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_toRightOf="@+id/ry_img"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_community_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:text="安宁新村1号楼1单元201"
+                android:textColor="@color/title_color"
+                android:textSize="16sp"
+                android:textStyle="normal"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="@dimen/margin_5"
+                android:text="安宁新村1号楼1单元201"
+                android:textColor="@color/gray_66"
+                android:textSize="@dimen/t_13sp"
+                android:textStyle="normal"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ly_delete"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/icon_invite_delete"/>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

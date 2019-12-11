@@ -138,7 +138,7 @@ public class Url_info {
     //物业绑定小区选择房间
     public static  String get_pro_room = MyCookieStore.SERVERADDRESS + "property/get_pro_room/";
     //我的住宅
-    public static  String binding_community = MyCookieStore.SERVERADDRESS + "property/binding_community/";
+   // public static  String binding_community = MyCookieStore.SERVERADDRESS + "property/binding_community/";
 
     //确认物业支付订单
     public static  String make_property_order = MyCookieStore.SERVERADDRESS + "property/make_property_order/";
@@ -342,7 +342,7 @@ public class Url_info {
 
           get_pro_room = MyCookieStore.SERVERADDRESS + "property/get_pro_room/";
 
-          binding_community = MyCookieStore.SERVERADDRESS + "property/binding_community/";
+        //  binding_community = MyCookieStore.SERVERADDRESS + "property/binding_community/";
 
           make_property_order = MyCookieStore.SERVERADDRESS + "property/make_property_order/";
 

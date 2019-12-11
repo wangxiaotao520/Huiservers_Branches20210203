@@ -29,7 +29,7 @@ import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.model.ModelWorkPersonalCatItem;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
+import com.huacheng.huiservers.ui.center.bean.HouseBean;
 import com.huacheng.huiservers.ui.index.workorder.JpushWorkPresenter;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
@@ -364,6 +364,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
             case R.id.ll_address:
                 // 跳转地址
                 Intent intent_house = new Intent(this, HouseListActivity.class);
+                intent_house.putExtra("type",0);
                 startActivityForResult(intent_house, ACT_SELECT_HOUSE);
                 break;
             case R.id.ll_price_list:
@@ -624,7 +625,7 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
                     break;
                 case ACT_SELECT_HOUSE:
                     if (data != null) {
-                        GroupMemberBean item = (GroupMemberBean) data.getSerializableExtra("community");
+                        HouseBean item = (HouseBean) data.getSerializableExtra("community");
                         community_id = item.getCommunity_id();
                         community_cn = item.getCommunity_name();
                         address = item.getCommunity_address();

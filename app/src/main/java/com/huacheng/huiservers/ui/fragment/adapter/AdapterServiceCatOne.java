@@ -27,16 +27,14 @@ public class AdapterServiceCatOne extends CommonAdapter<ModelServiceCat> {
         if (item.isChecked()){
             viewHolder.<TextView>getView(R.id.tv_view).setVisibility(View.VISIBLE);
             viewHolder.<TextView>getView(R.id.txt_one).setText(item.getName()+"");
-            viewHolder.<TextView>getView(R.id.txt_one).setTextColor(mContext.getResources().getColor(R.color.black_jain_87));
             viewHolder.<TextView>getView(R.id.txt_one) .getPaint().setFakeBoldText(true);
-            viewHolder.<TextView>getView(R.id.txt_one).setBackgroundResource(R.color.white);
+            viewHolder.<TextView>getView(R.id.txt_one).setBackgroundResource(R.color.all_gray);
 
         }else {
             viewHolder.<TextView>getView(R.id.tv_view).setVisibility(View.GONE);
             viewHolder.<TextView>getView(R.id.txt_one).setText(item.getName()+"");
-            viewHolder.<TextView>getView(R.id.txt_one).setTextColor(mContext.getResources().getColor(R.color.text_color_hint));
             viewHolder.<TextView>getView(R.id.txt_one) .getPaint().setFakeBoldText(false);
-            viewHolder.<TextView>getView(R.id.txt_one).setBackgroundResource(R.color.all_gray);
+            viewHolder.<TextView>getView(R.id.txt_one).setBackgroundResource(R.color.white);
         }
 
     }

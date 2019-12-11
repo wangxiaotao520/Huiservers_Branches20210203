@@ -60,7 +60,7 @@ import com.huacheng.huiservers.ui.fragment.presenter.PropertyPrester;
 import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
-import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
+import com.huacheng.huiservers.ui.index.workorder.commit.HouseListActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
@@ -765,7 +765,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                         SmartToast.showInfo("该小区暂未开通此服务");
                         break;
                     }
-                    intent = new Intent(mActivity, PropertyNewActivity.class);
+                   // intent = new Intent(mActivity, PropertyNewActivity.class);
+                    intent = new Intent(mActivity, HouseListActivity.class);
+                    intent.putExtra("type", 1);
                     intent.putExtra("wuye_type", "property");
                     startActivity(intent);
                 } else {

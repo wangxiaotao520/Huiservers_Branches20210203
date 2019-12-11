@@ -55,7 +55,7 @@ public class RequesDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         findTitleViews();
-        titleName.setText("投诉建议详情");
+        titleName.setText("详情");
 
         ly_all = findViewById(R.id.ly_all);
         tv_danhao = findViewById(R.id.tv_danhao);
@@ -140,10 +140,10 @@ public class RequesDetailActivity extends BaseActivity {
             }
             if (modelRequest.getStatus() == 1) {
                 tv_status.setText("未处理");
-                tv_status.setTextColor(this.getResources().getColor(R.color.red_ed));
+                tv_status.setTextColor(this.getResources().getColor(R.color.red_bg));
             } else {
                 tv_status.setText("已处理");
-                tv_status.setTextColor(this.getResources().getColor(R.color.gray_66));
+                tv_status.setTextColor(this.getResources().getColor(R.color.grey));
             }
             //故障照片
             if (modelRequest.getImg_list() != null && modelRequest.getImg_list().size() > 0) {

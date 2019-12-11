@@ -41,9 +41,9 @@ import com.huacheng.huiservers.ui.index.huodong.EducationActivity;
 import com.huacheng.huiservers.ui.index.huodong.EducationListActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldServiceIndexActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
-import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
 import com.huacheng.huiservers.ui.index.request.CommitRequestActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteIndexActivity;
+import com.huacheng.huiservers.ui.index.workorder.commit.HouseListActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
@@ -441,7 +441,9 @@ public class Jump {
                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(mContext, PropertyNewActivity.class);
+                //Intent intent = new Intent(mContext, PropertyNewActivity.class);
+                Intent intent = new Intent(mContext, HouseListActivity.class);
+                intent.putExtra("type", 1);
                 intent.putExtra("wuye_type", "property");
                 startActivity(intent);
 
@@ -452,7 +454,9 @@ public class Jump {
                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                 mContext.startActivity(intent);
             } else {
-                Intent intent = new Intent(mContext, PropertyNewActivity.class);
+               // Intent intent = new Intent(mContext, PropertyNewActivity.class);
+                Intent intent = new Intent(mContext, HouseListActivity.class);
+                intent.putExtra("type", 1);
                 intent.putExtra("wuye_type", "open_door");
                 mContext.startActivity(intent);
             }

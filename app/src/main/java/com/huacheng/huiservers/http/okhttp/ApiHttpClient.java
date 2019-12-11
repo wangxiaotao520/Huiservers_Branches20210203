@@ -9,17 +9,17 @@ public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
     public static String API_VERSION = "apk45/";
     //测试
-//    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
-//    public static String API_URL = "http://test.hui-shenghuo.cn/";
-//    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
-//    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
+    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
+    public static String API_URL = "http://test.hui-shenghuo.cn/";
+    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
+    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
 
     //正式
-    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
-    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
-    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
-    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service/";
+//    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
+//    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
+//    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
+//    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service/";
 
 
     public static String IMG_URL = "http://img.hui-shenghuo.cn/";
@@ -253,6 +253,8 @@ public class ApiHttpClient {
     public static String FEED_BACK_LIST = API_URL + API_VERSION + "feedback/feedbacklist";
     //投诉建议详情
     public static String FEED_BACK_DETAIL = API_URL + API_VERSION + "feedback/feedbackSee";
+
+    public static  String BINDING_COMMUNITY=  API_URL + API_VERSION + "property/binding_community/";
     /*
      * 推送
      *
@@ -501,5 +503,6 @@ public class ApiHttpClient {
         SHOP_MARKIING_ARTICE_DETAILS = API_URL + API_VERSION + "/shop/area_marketing_article_info";
         GET_SERVICEMATCHING = API_SERVICE_URL + "index/serviceMatching";
         SET_ORDER_AMOUNT = API_URL + API_VERSION  + "/shop/set_order_amount";
+        BINDING_COMMUNITY =  API_URL + API_VERSION + "property/binding_community/";
     }
 }

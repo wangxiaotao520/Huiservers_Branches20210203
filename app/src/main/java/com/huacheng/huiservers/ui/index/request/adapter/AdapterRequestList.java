@@ -1,7 +1,6 @@
 package com.huacheng.huiservers.ui.index.request.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
@@ -26,15 +25,15 @@ public class AdapterRequestList extends CommonAdapter<ModelRequest> {
     protected void convert(ViewHolder viewHolder, ModelRequest item, int position) {
      //   byte[] bytes = Base64.decode(item.getContent(), Base64.DEFAULT);
      viewHolder.<TextView>getView(R.id.tv_title).setText(item.getContent());
-        viewHolder.<TextView>getView(R.id.tv_name).setText(item.getNickname());
+        viewHolder.<TextView>getView(R.id.tv_name).setText(item.getNickname()+"     "+item.getPhone());
         if (item.getStatus()==1){
             viewHolder.<TextView>getView(R.id.tv_status).setText("未处理");
-            viewHolder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(item.getAddtime(),"8")+" - ");
-            viewHolder.<TextView>getView(R.id.tv_status).setTextColor(Color.parseColor("#e10611"));
+            viewHolder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(item.getAddtime(),"8")+"");
+            viewHolder.<TextView>getView(R.id.tv_status).setTextColor(mContext.getResources().getColor(R.color.red_bg));
         }else {
             viewHolder.<TextView>getView(R.id.tv_status).setText("已处理");
             viewHolder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(item.getAddtime(),"8")+" - "+StringUtils.getDateToString(item.getComplete_time(),"8"));
-            viewHolder.<TextView>getView(R.id.tv_status).setTextColor(mContext.getResources().getColor(R.color.orange));
+            viewHolder.<TextView>getView(R.id.tv_status).setTextColor(mContext.getResources().getColor(R.color.gray_99));
         }
 
     }

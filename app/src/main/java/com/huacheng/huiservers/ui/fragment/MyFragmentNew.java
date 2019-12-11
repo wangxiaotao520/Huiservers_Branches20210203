@@ -30,8 +30,8 @@ import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.circle.MyCircleActivity;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
-import com.huacheng.huiservers.ui.index.property.PropertyNewActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
+import com.huacheng.huiservers.ui.index.workorder.commit.HouseListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
@@ -65,7 +65,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
     private TextView tv_user_name;
     private TextView tv_user_phone;
     private RelativeLayout rl_community_bill_list, rl_baoxiu_order_list, rl_service_order_list, rl_shop_order_list,
-            ry_set, ry, ry_my_renvation, ry_fang, rel_gouwuche, rel_xiaofejilu, rel_coupon, rel_myCircle, rel_house,ry_service,rel_myAddress;
+            ry_set, ry, ry_my_renvation, ry_fang, rel_gouwuche, rel_xiaofejilu, rel_coupon, rel_myCircle, rel_house, ry_service, rel_myAddress;
     private TextView tv_guest_num, tv_coupon_num, tv_decoration_num, tv_social_num, tv_cart_num;
     SharePrefrenceUtil prefrenceUtil;
     SharedPreferences preferencesLogin;
@@ -115,7 +115,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
         mStatusBar.setAlpha((float) 1);
 
         iv_message = view.findViewById(R.id.iv_message);
-        rel_myAddress=view.findViewById(R.id.rel_myAddress);
+        rel_myAddress = view.findViewById(R.id.rel_myAddress);
 
     }
 
@@ -164,7 +164,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
         if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
             params.put("c_id", prefrenceUtil.getXiaoQuId());
         }
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
             params.put("province_cn", prefrenceUtil.getProvince_cn());
             params.put("city_cn", prefrenceUtil.getCity_cn());
             params.put("region_cn", prefrenceUtil.getRegion_cn());
@@ -239,13 +239,15 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                     tv_user_identify.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                            // Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                            Intent intent = new Intent(getActivity(), HouseListActivity.class);
+                            intent.putExtra("type", 1);
                             intent.putExtra("wuye_type", "bind");
                             startActivity(intent);
 
                         }
                     });
-                }else {
+                } else {
                     tv_user_identify.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -262,13 +264,15 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                     tv_user_identify.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                           // Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                            Intent intent = new Intent(mContext, HouseListActivity.class);
+                            intent.putExtra("type", 1);
                             intent.putExtra("wuye_type", "bind");
                             startActivity(intent);
 
                         }
                     });
-                }else {
+                } else {
                     tv_user_identify.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -296,7 +300,9 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.rl_community_bill_list:// 生活账单
                 if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
-                    intent = new Intent(getActivity(), PropertyNewActivity.class);
+                   // intent = new Intent(getActivity(), PropertyNewActivity.class);
+                    intent = new Intent(mContext, HouseListActivity.class);
+                    intent.putExtra("type", 1);
                     intent.putExtra("wuye_type", "property");
                     startActivity(intent);
                 } else {
@@ -367,7 +373,9 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                     startActivity(intent);
                 } else {
                     if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
-                        Intent intent1 = new Intent(mContext, PropertyNewActivity.class);
+                        //Intent intent1 = new Intent(mContext, PropertyNewActivity.class);
+                        Intent intent1 = new Intent(mContext, HouseListActivity.class);
+                        intent1.putExtra("type", 1);
                         intent1.putExtra("wuye_type", "house_invite");
                         startActivity(intent1);
                     } else {
@@ -396,7 +404,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.rel_myAddress://我的地址
                 intent = new Intent(mActivity, AddressListActivity.class);
-                intent.putExtra("jump_type",3);
+                intent.putExtra("jump_type", 3);
                 startActivity(intent);
                 break;
 

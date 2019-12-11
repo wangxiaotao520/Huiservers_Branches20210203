@@ -174,8 +174,8 @@
     </style>
 
     <style name="rent_release_text">
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textSize">@dimen/t_16sp</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/t_15sp</item>
     </style>
 
     <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">

@@ -1,68 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/windowbackground"
+    android:orientation="vertical"
     android:paddingBottom="10dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:padding="15dp"
+        android:background="@drawable/bg_round_white5"
         android:orientation="vertical"
-        android:background="@drawable/bg_round_white5">
+        android:paddingBottom="@dimen/margin_20"
+        android:paddingLeft="@dimen/margin_15"
+        android:paddingRight="@dimen/margin_15"
+        android:paddingTop="@dimen/margin_20">
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
-            android:textSize="16sp"
-            android:singleLine="true"
             android:ellipsize="end"
             android:gravity="center_vertical"
-            android:text="小区门口的两个狗子天天拉屎..." />
+            android:maxLines="2"
+            android:text="小区门口的两个狗子天天拉屎"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/t_15sp"/>
 
         <TextView
-            android:id="@+id/tv_time"
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/graynew2"
-            android:textSize="14sp"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="8dp"
-            android:text="2018.06.01 -2019.03.04" />
+            android:singleLine="true"
+            android:text="王月霞"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/t_12sp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
             >
+
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
-                android:textSize="15sp"
+                android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:singleLine="true"
-                android:text="王月霞" />
+                android:text="2018.06.01 -2019.03.04"
+                android:textColor="@color/gray_99"
+                android:textSize="@dimen/t_13sp"/>
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
+
             <TextView
                 android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#e10611"
-                android:textSize="15sp"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:textStyle="normal"
-                android:text="未处理" />
+                android:text="未处理"
+                android:textColor="@color/red_bg"
+                android:textSize="@dimen/t_13sp"
+                android:textStyle="normal"/>
         </LinearLayout>
 
     </LinearLayout>

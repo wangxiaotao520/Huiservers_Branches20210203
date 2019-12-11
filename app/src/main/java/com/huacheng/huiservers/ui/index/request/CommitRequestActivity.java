@@ -2,12 +2,8 @@ package com.huacheng.huiservers.ui.index.request;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -23,7 +19,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
+import com.huacheng.huiservers.ui.center.bean.HouseBean;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
 import com.huacheng.huiservers.ui.index.workorder.commit.HouseListActivity;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
@@ -35,7 +31,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +38,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.reactivex.functions.Consumer;
-import me.nereo.multi_image_selector.utils.FileUtils;
 import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
@@ -70,11 +64,11 @@ public class CommitRequestActivity extends BaseActivity {
     private TextView tv_address;
     public static final int ACT_SELECT_HOUSE = 333;//选择房屋
 
-    private String address=""; //地址
-    private String community_id=""; //小区id
-    private String community_cn=""; //小区名称
-    private String company_id=""; //公司id
-    private String room_id=""; //房间id
+    private String address = ""; //地址
+    private String community_id = ""; //小区id
+    private String community_cn = ""; //小区名称
+    private String company_id = ""; //公司id
+    private String room_id = ""; //房间id
     private TextView tv_nickname;
 
     @Override
@@ -82,9 +76,10 @@ public class CommitRequestActivity extends BaseActivity {
         rxPermission = new RxPermissions(this);
         findTitleViews();
         titleName.setText("投诉建议");
-        tv_right=findViewById(R.id.right);
+        tv_right = findViewById(R.id.right);
         tv_right.setVisibility(View.VISIBLE);
         tv_right.setText("历史记录");
+        tv_right.setTextColor(getResources().getColor(R.color.orange_bg));
         et_content = findViewById(R.id.et_content);
         gridview_imgs = findViewById(R.id.gridview_imgs);
         gridviewImgsAdapter = new SelectImgAdapter(this, photoList);
@@ -95,9 +90,9 @@ public class CommitRequestActivity extends BaseActivity {
         TextView tv_phone = findViewById(R.id.tv_phone);
         ll_address = findViewById(R.id.ll_address);
         tv_address = findViewById(R.id.tv_address);
-        if (BaseApplication.getUser()!=null){
-            tv_nickname.setText(""+BaseApplication.getUser().getNickname());
-            tv_phone.setText(""+BaseApplication.getUser().getUsername());
+        if (BaseApplication.getUser() != null) {
+            tv_nickname.setText("" + BaseApplication.getUser().getNickname());
+            tv_phone.setText("" + BaseApplication.getUser().getUsername());
         }
     }
 
@@ -175,7 +170,8 @@ public class CommitRequestActivity extends BaseActivity {
             public void onClick(View v) {
                 // 跳转地址
                 Intent intent_house = new Intent(CommitRequestActivity.this, HouseListActivity.class);
-                startActivityForResult(intent_house,ACT_SELECT_HOUSE);
+                intent_house.putExtra("type",0);
+                startActivityForResult(intent_house, ACT_SELECT_HOUSE);
             }
         });
     }
@@ -186,28 +182,28 @@ public class CommitRequestActivity extends BaseActivity {
     private void commit() {
 
 
-        if (NullUtil.isStringEmpty(address)){
-            SmartToast.showInfo("请选择地址");
+        if (NullUtil.isStringEmpty(address)) {
+            SmartToast.showInfo("请选择房屋");
             return;
         }
         String content = et_content.getText().toString().trim();
-    //    String str_count = Base64.encodeToString(getStringNoBlank(content).getBytes(), Base64.DEFAULT);
-        if (NullUtil.isStringEmpty(content)){
+        //    String str_count = Base64.encodeToString(getStringNoBlank(content).getBytes(), Base64.DEFAULT);
+        if (NullUtil.isStringEmpty(content)) {
             SmartToast.showInfo("请输入内容");
             return;
         }
-        if (photoList.size()==0){
+        if (photoList.size() == 0) {
             SmartToast.showInfo("请上传图片");
             return;
         }
         HashMap<String, String> params = new HashMap<>();
-        if (BaseApplication.getUser()!=null){
-            params.put("nickname",BaseApplication.getUser().getNickname());
-            params.put("phone",BaseApplication.getUser().getUsername());
+        if (BaseApplication.getUser() != null) {
+            params.put("nickname", BaseApplication.getUser().getNickname());
+            params.put("phone", BaseApplication.getUser().getUsername());
         }
-        params.put("address",address);
-        params.put("content",content);
-        params.put("c_id",community_id);
+        params.put("address", address);
+        params.put("content", content);
+        params.put("c_id", community_id);
 
         // 提交
         if (photoList.size() > 0) {
@@ -218,6 +214,7 @@ public class CommitRequestActivity extends BaseActivity {
         }
 
     }
+
     public static String getStringNoBlank(String str) {//去除首尾空格 换行符
         if (str != null && !"".equals(str)) {
             str.replaceAll("\n", "");
@@ -229,6 +226,7 @@ public class CommitRequestActivity extends BaseActivity {
             return "";
         }
     }
+
     private void zipPhoto(final HashMap<String, String> params) {
 
         ArrayList<File> files = new ArrayList<>();
@@ -295,6 +293,7 @@ public class CommitRequestActivity extends BaseActivity {
         }
         return path;
     }
+
     private void commitIndeed(HashMap<String, String> params, Map<String, File> params_file) {
         if (params_file != null && params_file.size() > 0) {
             params.put("img_num", params_file.size() + "");
@@ -331,6 +330,7 @@ public class CommitRequestActivity extends BaseActivity {
             }
         });
     }
+
     /**
      * 跳转到图片选择页
      *
@@ -357,6 +357,7 @@ public class CommitRequestActivity extends BaseActivity {
         imageIntent.putExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, list_jump);
         startActivityForResult(imageIntent, ACT_SELECT_PHOTO);
     }
+
     /**
      * 跳转到照相机
      *
@@ -392,7 +393,6 @@ public class CommitRequestActivity extends BaseActivity {
         }
 
     }*/
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_commit_request;
@@ -412,6 +412,7 @@ public class CommitRequestActivity extends BaseActivity {
     protected void initFragment() {
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -428,32 +429,32 @@ public class CommitRequestActivity extends BaseActivity {
                     gridviewImgsAdapter.notifyDataSetChanged();
                 }
                 break;*/
-                case ACT_SELECT_PHOTO:
-                    if (data != null) {
-                        ArrayList<String> backList = data.getStringArrayListExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_RESULT);
-                        // 删除成功后判断哪些是新图，
-                        photoList.clear();
+            case ACT_SELECT_PHOTO:
+                if (data != null) {
+                    ArrayList<String> backList = data.getStringArrayListExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_RESULT);
+                    // 删除成功后判断哪些是新图，
+                    photoList.clear();
 
-                        for (int i = 0; i < backList.size(); i++) {
-                            String back_path = backList.get(i);
-                            ModelPhoto modelPhoto1 = new ModelPhoto();
-                            modelPhoto1.setLocal_path(back_path);
-                            photoList.add(modelPhoto1);
-                        }
-                        // 将新图上传
-                        if (gridviewImgsAdapter != null) {
-                            gridviewImgsAdapter.notifyDataSetChanged();
-                        }
-
+                    for (int i = 0; i < backList.size(); i++) {
+                        String back_path = backList.get(i);
+                        ModelPhoto modelPhoto1 = new ModelPhoto();
+                        modelPhoto1.setLocal_path(back_path);
+                        photoList.add(modelPhoto1);
                     }
-                    break;
+                    // 将新图上传
+                    if (gridviewImgsAdapter != null) {
+                        gridviewImgsAdapter.notifyDataSetChanged();
+                    }
+
+                }
+                break;
             case ACT_SELECT_HOUSE:
                 if (data != null) {
-                    GroupMemberBean item = (GroupMemberBean) data.getSerializableExtra("community");
-                    community_id=item.getCommunity_id();
-                    community_cn=item.getCommunity_name();
-                    address=item.getCommunity_address();
-                    room_id=item.getRoom_id();
+                    HouseBean item = (HouseBean) data.getSerializableExtra("community");
+                    community_id = item.getCommunity_id();
+                    community_cn = item.getCommunity_name();
+                    address = item.getCommunity_address();
+                    room_id = item.getRoom_id();
                     tv_address.setText(item.getCommunity_address());
                 }
                 break;

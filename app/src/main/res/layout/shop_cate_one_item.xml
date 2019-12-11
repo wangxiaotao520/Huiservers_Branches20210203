@@ -10,17 +10,20 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginLeft="@dimen/margin_5"
             android:id="@+id/tv_view"
-            android:layout_width="5dp"
-            android:layout_height="20dp"
+            android:layout_width="3dp"
+            android:layout_height="7dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/orange_jain"/>
+            android:background="@drawable/allshape_orange"/>
 
         <TextView
             android:id="@+id/txt_one"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/t_14sp"
             android:text="一级分类"/>
     </LinearLayout>
 </LinearLayout>
