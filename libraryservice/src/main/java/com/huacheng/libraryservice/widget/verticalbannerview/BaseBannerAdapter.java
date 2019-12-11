@@ -30,7 +30,7 @@ public abstract class BaseBannerAdapter<T> {
         return mDatas == null ? 0 : mDatas.size();
     }
 
-    void notifyDataChanged() {
+    public void notifyDataChanged() {
         mOnDataChangedListener.onChanged();
     }
 

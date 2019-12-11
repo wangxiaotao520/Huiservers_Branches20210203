@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+     <com.facebook.drawee.view.SimpleDraweeView
+         android:id="@+id/sdv_on_sale"
+         android:layout_width="235dp"
+         android:layout_height="130dp"
+         fresco:placeholderImage="@color/default_color"
+         fresco:placeholderImageScaleType="centerCrop"
+         android:layout_marginRight="10dp"
+         fresco:roundedCornerRadius="5dp"
+         />
+
+</FrameLayout>

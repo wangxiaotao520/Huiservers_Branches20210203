@@ -25,6 +25,8 @@ public class ModelHomeIndex {
     private List<BannerBean> article_list;
     private List<ModelShopIndex> pro_list;
 
+    private boolean isselect;
+
     public String getId() {
         return id;
     }
@@ -127,6 +129,14 @@ public class ModelHomeIndex {
 
     public void setPid(String pid) {
         this.pid = pid;
+    }
+
+    public boolean isIsselect() {
+        return isselect;
+    }
+
+    public void setIsselect(boolean isselect) {
+        this.isselect = isselect;
     }
 
 }

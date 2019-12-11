@@ -31,7 +31,7 @@ import com.huacheng.huiservers.ui.base.ActivityStackManager;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.AboutActivity;
 import com.huacheng.huiservers.ui.fragment.CircleFragment;
-import com.huacheng.huiservers.ui.fragment.HomeFragment;
+import com.huacheng.huiservers.ui.fragment.HomeFragmentNew;
 import com.huacheng.huiservers.ui.fragment.MyFragmentNew;
 import com.huacheng.huiservers.ui.fragment.ServiceFragmentCat;
 import com.huacheng.huiservers.ui.fragment.ShopFragment;
@@ -117,7 +117,9 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
 
     public void addFragment() {
 
-        fragments.add(new HomeFragment());
+      //  fragments.add(new HomeFragment());
+
+        fragments.add(new HomeFragmentNew());
         fragments.add(new ShopFragment());
         fragments.add(new ServiceFragmentCat());
       //  fragments.add(new OldFragment());
