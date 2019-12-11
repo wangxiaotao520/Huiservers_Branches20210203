@@ -1,7 +1,6 @@
 package com.huacheng.huiservers.ui.fragment.indexcat;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -17,7 +16,6 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
 import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.ui.base.BaseFragment;
-import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -105,9 +103,10 @@ public class IndexNoticeListCommon extends BaseFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mActivity, WorkOrderDetailActivity.class);
+                // TODO: 2019/12/11 公告详情
+               /* Intent intent = new Intent(mActivity, WorkOrderDetailActivity.class);
                 intent.putExtra("id", mDatas.get(position).getId());
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
     }
