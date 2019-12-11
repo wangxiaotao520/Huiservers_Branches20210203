@@ -333,6 +333,9 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
 
                 intent = new Intent(mActivity, MyHousePropertyActivity.class);
                 startActivity(intent);
+                // intent = new Intent(getActivity(), IndexAllServiesActivity.class);
+                //intent = new Intent(getActivity(), IndexNoticeListActivity.class);
+               // startActivity(intent);
 
                 break;
             case R.id.rl_shop_order_list:// 商城订单

@@ -67,7 +67,7 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
             convertView = View.inflate(context, R.layout.home_my_cate_item, null);
             holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
             holder.iv_nul = (ImageView) convertView.findViewById(R.id.iv_img);
-
+            holder.iv_cancel = (ImageView) convertView.findViewById(R.id.iv_cancel);
             holder.ly_onclick = (LinearLayout) convertView.findViewById(R.id.ly_onclick);
 //            holder.txt_shop_price = (TextView)convertView.findViewById(R.id.txt_shop_price);
             convertView.setTag(holder);
@@ -96,7 +96,37 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
         //  }
         //    });
 
+        //type 1 首页分类 2 我的服务 3 更多服务
+        if (type == 1) {
+            holder.iv_cancel.setVisibility(View.GONE);
+        } else {
+            if (lists.get(pos).isIsselect()) {
+                holder.iv_cancel.setVisibility(View.VISIBLE);
+                if (type == 2) {
+                    holder.tv_name.setText("我的服务" + (pos + 1));
+                    holder.iv_cancel.setBackgroundColor(context.getResources().getColor(R.color.red_ed));
+                } else {
+                    holder.tv_name.setText("更多服务" + (pos + 1));
+                    holder.iv_cancel.setBackgroundColor(context.getResources().getColor(R.color.orange_bg));
+                }
+                holder.iv_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (listener!=null) {
+                            listener.onClickImg(v,pos,type);
+                        }
+                    }
+                });
+            } else {
+                holder.iv_cancel.setVisibility(View.GONE);
+                if (type == 2) {
+                    holder.tv_name.setText("我的服务" + (pos + 1));
+                } else {
+                    holder.tv_name.setText("更多服务" + (pos + 1));
+                }
+            }
 
+        }
         return convertView;
     }
 
@@ -104,6 +134,7 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
         private TextView tv_name;
         private ImageView iv_nul;
         private LinearLayout ly_onclick;
+        private ImageView iv_cancel;
     }
 
     public interface OnClickItemListener {
