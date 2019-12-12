@@ -2,13 +2,14 @@
 
 buildscript {
     repositories {
-        jcenter()
+
         maven { url 'https://jitpack.io' }
         maven { url "https://raw.githubusercontent.com/miomin/mvn-repo-ione/master" }
         maven {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        jcenter()
         google()
     }
     dependencies {
@@ -29,13 +30,14 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+
         maven { url 'https://jitpack.io' }
         maven { url "https://raw.githubusercontent.com/miomin/mvn-repo-ione/master" }
         maven {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        jcenter()
         google()
     }
 

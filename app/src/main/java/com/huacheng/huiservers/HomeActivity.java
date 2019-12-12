@@ -34,7 +34,7 @@ import com.huacheng.huiservers.ui.fragment.CircleFragment;
 import com.huacheng.huiservers.ui.fragment.HomeFragmentNew;
 import com.huacheng.huiservers.ui.fragment.MyFragmentNew;
 import com.huacheng.huiservers.ui.fragment.ServiceFragmentCat;
-import com.huacheng.huiservers.ui.fragment.ShopFragment;
+import com.huacheng.huiservers.ui.fragment.ShopFragmentNew;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
@@ -120,7 +120,8 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
       //  fragments.add(new HomeFragment());
 
         fragments.add(new HomeFragmentNew());
-        fragments.add(new ShopFragment());
+   //     fragments.add(new ShopFragment());
+        fragments.add(new ShopFragmentNew());
         fragments.add(new ServiceFragmentCat());
       //  fragments.add(new OldFragment());
         fragments.add(new CircleFragment());
