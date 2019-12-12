@@ -1,7 +1,6 @@
 package com.huacheng.huiservers.ui.index.property.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -68,35 +67,35 @@ public class PropertyWYInfoAdapter1 extends CommonAdapter<ModelWuye>{
                 }
             }
         });
-        if ("0".equals(selected_invoice_type)) {
-            //能多选
-            if ("0".equals(item.getIs_invoice())){
-                viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(Color.parseColor("#555555"));
-                viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(Color.parseColor("#555555"));
-            }else {
-                //是1的不能选
-                viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
-                viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
-            }
-        }else if ("1".equals(selected_invoice_type)){
-            if ("0".equals(item.getIs_invoice())){
-                viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
-                viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
-            }else {
-                //是1的selected_type_id相同才能选
-                if (item.getType_id().equals(selected_type_id)){
-                    viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(Color.parseColor("#555555"));
-                    viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(Color.parseColor("#555555"));
-                }else {
-                    viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
-                    viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
-                }
-            }
-        }else {
-            //没选择的情况
-            viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(Color.parseColor("#555555"));
-            viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(Color.parseColor("#555555"));
-        }
+//        if ("0".equals(selected_invoice_type)) {
+//            //能多选
+//            if ("0".equals(item.getIs_invoice())){
+//                viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(Color.parseColor("#555555"));
+//                viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(Color.parseColor("#555555"));
+//            }else {
+//                //是1的不能选
+//                viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+//                viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+//            }
+//        }else if ("1".equals(selected_invoice_type)){
+//            if ("0".equals(item.getIs_invoice())){
+//                viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+//                viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+//            }else {
+//                //是1的selected_type_id相同才能选
+//                if (item.getType_id().equals(selected_type_id)){
+//                    viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(Color.parseColor("#555555"));
+//                    viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(Color.parseColor("#555555"));
+//                }else {
+//                    viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+//                    viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+//                }
+//            }
+//        }else {
+//            //没选择的情况
+//            viewHolder.<TextView>getView(R.id.tv_timeInterval).setTextColor(Color.parseColor("#555555"));
+//            viewHolder.<TextView>getView(R.id.tv_timePrice).setTextColor(Color.parseColor("#555555"));
+//        }
     }
 
     public String getSelected_invoice_type() {
