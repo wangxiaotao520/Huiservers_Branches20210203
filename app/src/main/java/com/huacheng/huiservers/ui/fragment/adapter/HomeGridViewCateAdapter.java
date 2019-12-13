@@ -8,11 +8,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.model.ModelHomeIndex;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -81,20 +83,20 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
 //		holder.txt_shop_price.setText("¥"+lists.get(pos).getMin_price() + "");
         GlideUtils.getInstance().glideLoad(context, MyCookieStore.URL + lists.get(pos).getMenu_logo(), holder.iv_nul, R.drawable.ic_default);
 
-        // holder.ly_onclick.setOnClickListener(new View.OnClickListener() {
-        //  @Override
-        //     public void onClick(View v) {
-//                String type = lists.get(pos).getUrl_type();
-//                String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
-//                if (Arrays.asList(typeStr).contains(type)) {
-//                    Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
-//                            lists.get(pos).getUrl_type_cn());
-//                } else {
-//                    Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
-//                            lists.get(pos).getUrl_type_cn());
-//                }
-        //  }
-        //    });
+         holder.ly_onclick.setOnClickListener(new View.OnClickListener() {
+          @Override
+             public void onClick(View v) {
+                String type = lists.get(pos).getUrl_type();
+                String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
+                if (Arrays.asList(typeStr).contains(type)) {
+                    Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
+                            lists.get(pos).getUrl_type_cn());
+                } else {
+                    Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
+                            lists.get(pos).getUrl_type_cn());
+                }
+          }
+            });
 
         //type 1 首页分类 2 我的服务 3 更多服务
         if (type == 1) {
