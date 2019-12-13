@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#ff5722</color>
+    <color name="colorPrimary">#ED8D37</color>
     <color name="colorPrimaryTrans80">#CCff5722</color>
     <color name="colorOrangeTag">#FFA77D</color>
 
@@ -13,7 +13,7 @@
     <color name="graycc">#cccccc</color>
     <color name="transparents">#00000000</color>
     <color name="down_color">#00000000</color>
-    <color name="orange">#FF5722</color>
+    <color name="orange">#ED8D37</color>
     <color name="orange_bg">#ED8D37</color>
     <color name="orange_backg">#FF9845</color>
     <color name="orange_order">#FF9800</color>
