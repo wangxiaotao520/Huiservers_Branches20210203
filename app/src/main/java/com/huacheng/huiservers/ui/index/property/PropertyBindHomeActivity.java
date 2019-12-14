@@ -185,6 +185,10 @@ public class PropertyBindHomeActivity extends BaseActivity implements View.OnCli
                     SmartToast.showInfo("请选择小区");
                     return;
                 }
+                if (NullUtil.isStringEmpty(buildsing_id)) {
+                    SmartToast.showInfo("请选择楼号");
+                    return;
+                }
                 intent = new Intent(this, SelectCommonActivity.class);
                 intent.putExtra("name", "选择商户编号");
                 intent.putExtra("type", 5);

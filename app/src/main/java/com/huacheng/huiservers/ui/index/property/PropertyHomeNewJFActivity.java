@@ -78,8 +78,8 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     LinearLayout mLyDianfei;
     @BindView(R.id.list)
     MyListView mList;
-    @BindView(R.id.tv_type_name)
-    TextView mTvTypeName;
+//    @BindView(R.id.tv_type_name)
+//    TextView mTvTypeName;
     @BindView(R.id.tv_account_price)
     TextView mTvAccountPrice;
     @BindView(R.id.tv_cz_name)
@@ -100,6 +100,8 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     RelativeLayout mRelNoData;
     @BindView(R.id.ll_payment)
     LinearLayout llPayment;
+    @BindView(R.id.tv_jiaofei_title)
+    TextView tv_jiaofei_title;
 
     private int type;
     String room_id, fullname;
@@ -124,8 +126,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     private String selected_invoice_type = "";//选中的账单类型 如果该参数为0，能多选账单，且只能选该参数为0的账单，如果该参数为1，只能单选，不可选其他任何账单)
     private String selected_bill_id = ""; //选中的账单id 且只有在 selected_invoice_type=“1”时有值 只能选择它
     private String selected_type_id  = "";//选中的费项id 且只有在 selected_invoice_type=“1”时有值 只能选择它
-    private View view_shuifei;
-    private View view_dianfei;
+
 
     @Override
     protected void initView() {
@@ -139,7 +140,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         mTvShuifei.setTextColor(getResources().getColor(R.color.gray_55));
         mTvDianfei.setTextColor(getResources().getColor(R.color.gray_55));
 
-        llPayment.setVisibility(View.VISIBLE);
+        llPayment.setVisibility(View.GONE);
         //ToolUtils.setPriceInput(mEtPrice);
         mEtPrice.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
 //        wyInfoAdapter = new PropertyWYInfoAdapter(PropertyHomeNewJFActivity.this, wyListData, true);
@@ -147,12 +148,10 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 //        mList.setAdapter(wyInfoAdapter);
         wyInfoAdapter1 = new PropertyWYInfoAdapter1(PropertyHomeNewJFActivity.this, R.layout.property_homelist_item1,wyListData1,this);
         mList.setAdapter(wyInfoAdapter1);
-        view_shuifei = findViewById(R.id.view_shuifei);
-        view_dianfei = findViewById(R.id.view_dianfei);
-        view_shuifei.setVisibility(View.GONE);
-        view_dianfei.setVisibility(View.GONE);
+        mLyWuye.setVisibility(View.GONE);
         mLyShuifei.setVisibility(View.GONE);
         mLyDianfei.setVisibility(View.GONE);
+        tv_jiaofei_title.setVisibility(View.GONE);
     }
 
     @Override
@@ -325,6 +324,9 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                             mTvVerifyID.setText(propertyInfo.getRoom_info().getFullname());
 
                         }
+                        mLyWuye.setVisibility(View.VISIBLE);
+                        tv_jiaofei_title.setVisibility(View.VISIBLE);
+                        llPayment.setVisibility(View.VISIBLE);
                         //物业费用
                         getWuyeInfo();
                     }
@@ -354,28 +356,35 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
             case R.id.ly_wuye:
                 type = 0;
                 mTvWuye.setTextColor(getResources().getColor(R.color.colorPrimary));
+                mTvWuye.setBackgroundResource(R.drawable.allshape_orange_35_second);
                 mTvShuifei.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvShuifei.setBackgroundResource(R.drawable.allshape_gray35);
                 mTvDianfei.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvDianfei.setBackgroundResource(R.drawable.allshape_gray35);
                 if (propertyInfo != null) {
                     getWuyeInfo();
                 }
                 break;
-            case R.id.ly_shuifei://物业费缴费
+            case R.id.ly_shuifei://水费
                 if (propertyInfo == null) {
                     break;
                 }
                 type = 1;
                 mTvWuye.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvWuye.setBackgroundResource(R.drawable.allshape_gray35);
                 mTvShuifei.setTextColor(getResources().getColor(R.color.colorPrimary));
+                mTvShuifei.setBackgroundResource(R.drawable.allshape_orange_35_second);
                 mTvDianfei.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvDianfei.setBackgroundResource(R.drawable.allshape_gray35);
 
                 mList.setVisibility(View.GONE);
                 mLyOther.setVisibility(View.VISIBLE);
                 mRelNoData.setVisibility(View.GONE);
 
                 mTvAccountPrice.setText("¥ 0.00");
-                mTvTypeName.setText("水费");
-                mTvCzName.setText("水费充值：");
+                mTvJf.setText("立即充值");
+             //   mTvTypeName.setText("水费");
+                mTvCzName.setText("水费充值");
                 if (propertyInfo != null && propertyInfo.getShuifei() != null&&propertyInfo.getShuifei().getInfo()!=null) {
                     if (!TextUtils.isEmpty(propertyInfo.getShuifei().getInfo().getSMay_acc())) {
                         mTvPrice.setText("¥ " + propertyInfo.getShuifei().getInfo().getSMay_acc());
@@ -389,11 +398,13 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 //输入框和下方价格的显示
                 if (!NullUtil.isStringEmpty(last_ShuiFei)) {
                     mTvAccountPrice.setText("¥ " + last_ShuiFei);
+                    mTvJf.setText("¥ " + last_ShuiFei+"  "+"立即充值");
                     mEtPrice.setText(last_ShuiFei);
                     mEtPrice.setSelection(last_ShuiFei.length());
                 } else {
                     mTvAccountPrice.setText("¥ 0.00");
                     mEtPrice.setText("");
+                    mTvJf.setText("立即充值");
                 }
                 break;
             case R.id.ly_dianfei:
@@ -402,16 +413,19 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 }
                 type = 2;
                 mTvWuye.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvWuye.setBackgroundResource(R.drawable.allshape_gray35);
                 mTvShuifei.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvShuifei.setBackgroundResource(R.drawable.allshape_gray35);
                 mTvDianfei.setTextColor(getResources().getColor(R.color.colorPrimary));
-
+                mTvDianfei.setBackgroundResource(R.drawable.allshape_orange_35_second);
                 mList.setVisibility(View.GONE);
                 mLyOther.setVisibility(View.VISIBLE);
                 mRelNoData.setVisibility(View.GONE);
 
                 mTvAccountPrice.setText("¥ 0.00");
-                mTvTypeName.setText("电费");
-                mTvCzName.setText("电费充值：");
+                mTvJf.setText("立即充值");
+             //   mTvTypeName.setText("电费");
+                mTvCzName.setText("电费充值");
                 if (propertyInfo.getDianfei() != null) {
                     if (propertyInfo.getDianfei().getInfo()!=null&&!TextUtils.isEmpty(propertyInfo.getDianfei().getInfo().getDMay_acc())) {
                         mTvPrice.setText("¥ " + propertyInfo.getDianfei().getInfo().getDMay_acc());
@@ -426,10 +440,12 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 //输入框和下方价格的显示
                 if (!NullUtil.isStringEmpty(last_Dianfei)) {
                     mTvAccountPrice.setText("¥ " + last_Dianfei);
+                    mTvJf.setText("¥ " + last_Dianfei+"  "+"立即充值");
                     mEtPrice.setText(last_Dianfei);
                     mEtPrice.setSelection(last_Dianfei.length());
                 } else {
                     mTvAccountPrice.setText("¥ 0.00");
+                    mTvJf.setText("立即充值");
                     mEtPrice.setText("");
                 }
 
@@ -623,7 +639,11 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     total_wuye_price += selected_price_list.get(i);
                 }
                 mTvAccountPrice.setText("¥ " + setFloat(total_wuye_price));
-                //  mTvAccountPrice.setText("¥ " + propertyInfo.getWuye().getTot_sumvalue());
+                if (total_wuye_price==0){
+                    mTvJf.setText("立即缴费");
+                }else {
+                    mTvJf.setText("¥ " + setFloat(total_wuye_price)+"  "+"立即缴费");
+                }
             }
 
         } else {
@@ -632,23 +652,20 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
             mList.setVisibility(View.GONE);
             mRelNoData.setVisibility(View.VISIBLE);
             mTvAccountPrice.setText("¥0.00 ");
+            mTvJf.setText("立即缴费");
         }
 
         //判断水电费的显示
         if (propertyInfo.getIs_android_electric()==0){
             mLyDianfei.setVisibility(View.VISIBLE);
-            view_dianfei.setVisibility(View.VISIBLE);
         }else {
             mLyDianfei.setVisibility(View.GONE);
-            view_dianfei.setVisibility(View.GONE);
         }
 
         if (propertyInfo.getIs_android_water()==0){
             mLyShuifei.setVisibility(View.VISIBLE);
-            view_shuifei.setVisibility(View.VISIBLE);
         }else {
             mLyShuifei.setVisibility(View.GONE);
-            view_shuifei.setVisibility(View.GONE);
         }
     }
 
@@ -672,8 +689,17 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
                 if (NullUtil.isStringEmpty(mEtPrice.getText().toString().trim())) {
                     mTvAccountPrice.setText("¥ 0.00");
+                    mTvJf.setText("立即充值");
+                    if (isShuifei) {
+                        //保存上次水费的值
+                        last_ShuiFei =  "";
+                    } else {
+                        //保存上次电费的值
+                        last_Dianfei =  "";
+                    }
                 } else {
                     mTvAccountPrice.setText("¥ " + mEtPrice.getText().toString().trim() + "");
+                    mTvJf.setText("¥ " + mEtPrice.getText().toString().trim() +"  "+"立即充值");
                     if (isShuifei) {
                         //保存上次水费的值
                         last_ShuiFei = mEtPrice.getText().toString().trim() + "";
@@ -853,6 +879,12 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
             total_wuye_price += selected_price_list.get(i);
         }
         mTvAccountPrice.setText("¥ " + setFloat(total_wuye_price));
+        if (total_wuye_price==0){
+            mTvJf.setText("立即缴费");
+        }else {
+            mTvJf.setText("¥ " + setFloat(total_wuye_price)+"  "+"立即缴费");
+        }
+
     }
 
 

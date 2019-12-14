@@ -2,7 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/windowbackground"
+    >
 
 
     <LinearLayout
@@ -13,59 +15,58 @@
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#F3F9FF"
-            android:gravity="center"
+            android:layout_height="55dp"
+            android:background="@color/windowbackground"
+           android:paddingTop="28dp"
             android:text="2014.02.23"
-            android:textColor="@color/black_jain_54"/>
+            android:gravity="center_horizontal"
+            android:textColor="@color/gray_99"/>
 
         <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@drawable/allshape_white"
             android:orientation="vertical"
-            android:padding="@dimen/margin_13">
+            android:padding="@dimen/margin_15">
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="#555555"
-                android:textSize="@dimen/t_18sp"/>
+                android:text="一修哥"
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/t_16sp"/>
 
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5"
-                android:text="地址："
-                android:textColor="@color/graynew2"
-                android:textSize="13sp"/>
+                android:layout_marginTop="15dp"
+                android:text="房屋：1号楼1单元101"
+                android:textColor="@color/gray_66"
+                android:textSize="14sp"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="@dimen/margin_15"
-                android:layout_marginTop="@dimen/margin_15"
-                android:background="#ffefefef"/>
+
 
             <TextView
+                android:layout_marginTop="20dp"
                 android:id="@+id/tv_order_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="账单号："
-                android:textColor="#555555"
-                android:textSize="15sp"/>
+                android:textColor="@color/gray_66"
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_5"
-                android:layout_marginTop="@dimen/margin_5"
+               android:layout_marginTop="15dp"
                 android:text="缴费明细："
-                android:textColor="#555555"
-                android:textSize="15sp"/>
+                android:textColor="@color/gray_99"
+                android:textSize="14sp"/>
 
             <com.huacheng.huiservers.view.MyListView
                 android:id="@+id/list"
@@ -73,40 +74,54 @@
                 android:layout_height="wrap_content">
 
             </com.huacheng.huiservers.view.MyListView>
-
             <LinearLayout
-                android:layout_marginTop="@dimen/margin"
                 android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="退款总计："
+                    android:textColor="@color/gray_99"
 
+                    android:visibility="visible"
+                    android:textSize="14sp"/>
                 <TextView
                     android:id="@+id/tv_refund_tot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="退款:¥0.00  "
-                    android:textColor="#333333"
-                    android:visibility="gone"
-                    android:textSize="13sp"/>
+                    android:text="0.00元 "
+                    android:layout_marginLeft="25dp"
+                    android:textColor="@color/orange_bg"
+                    android:visibility="visible"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="总额："
-                    android:textColor="#333333"
-                    android:textSize="13sp"/>
+                    android:text="已缴金额："
+                    android:textColor="@color/gray_99"
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/tv_all_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0.00"
-                    android:textColor="#333333"
-                    android:textSize="20sp"/>
+                    android:text="0.00元"
+                    android:layout_marginLeft="25dp"
+                    android:textColor="@color/orange_bg"
+                    android:visibility="visible"
+                    android:textSize="14sp"/>
 
             </LinearLayout>
         </LinearLayout>

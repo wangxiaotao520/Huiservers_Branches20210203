@@ -56,6 +56,8 @@ public class PropertyFrimOrderActivity extends BaseActivity {
     TextView mTvAmount;
     @BindView(R.id.txt_btn)
     TextView mTxtBtn;
+    @BindView(R.id.ll_container)
+    LinearLayout ll_container;
     @BindView(R.id.list)
     MyListView mList;
 
@@ -68,11 +70,12 @@ public class PropertyFrimOrderActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        mTitleName.setText("确认订单支付");
+        mTitleName.setText("缴费订单");
 
         wyInfoAdapter = new PropertyWYInfoAdapter(this, wyListData,false);
         mList.setAdapter(wyInfoAdapter);
-
+        ll_container.setVisibility(View.INVISIBLE);
+        mTxtBtn.setVisibility(View.INVISIBLE);
 
     }
 
@@ -144,12 +147,13 @@ public class PropertyFrimOrderActivity extends BaseActivity {
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     propertyInfo = (ModelPropertyWyInfo) JsonUtil.getInstance().parseJsonFromResponse(response, ModelPropertyWyInfo.class);
                     if (propertyInfo != null) {
-
+                        ll_container.setVisibility(View.VISIBLE);
+                        mTxtBtn.setVisibility(View.VISIBLE);
                         mTvName.setText(propertyInfo.getNickname());
-                        mTvAddress.setText("地址：" + propertyInfo.getAddress());
-                        mTvOrderNumber.setText("订单编号：" + propertyInfo.getOrder_num());
-                        mTvPayTime.setText("支付时间：" + StringUtils.getDateToString(propertyInfo.getAddtime(), "1"));
-                        mTvAmount.setText("¥ " + propertyInfo.getTot_sumvalue());
+                        mTvAddress.setText("" + propertyInfo.getAddress());
+                        mTvOrderNumber.setText("" + propertyInfo.getOrder_num());
+                        mTvPayTime.setText("" + StringUtils.getDateToString(propertyInfo.getAddtime(), "7"));
+                        mTvAmount.setText(""+ propertyInfo.getTot_sumvalue());
                         if (propertyInfo.getList() != null && propertyInfo.getList().size() > 0) {
                             List<List<ModelWuye>> wyList = propertyInfo.getList();
                             for (int i = 0; i < wyList.size(); i++) {

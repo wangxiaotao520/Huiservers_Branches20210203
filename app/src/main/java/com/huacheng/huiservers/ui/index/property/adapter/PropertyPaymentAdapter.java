@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 类描述：
+ * 类描述：缴费记录Adapter
  * 时间：2018/8/4 10:48
  * created by DFF
  */
@@ -60,20 +60,21 @@ public class PropertyPaymentAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.mTvAllPrice.setText("¥ " + mdatas.get(position).getInfo().getTot_sumvalue());
+        holder.mTvAllPrice.setText( mdatas.get(position).getInfo().getTot_sumvalue()+"元");
         holder.mTvName.setText(mdatas.get(position).getInfo().getName());
         holder.mTvAddress.setText(mdatas.get(position).getInfo().getAddress());
         holder.mTvTime.setText(StringUtils.getDateToString(mdatas.get(position).getInfo().getPay_time(), "1"));
-        holder.mTvOrderNumber.setText("账单号：" + mdatas.get(position).getInfo().getOrder_num());
+        holder.mTvOrderNumber.setText("账单编号：    " + mdatas.get(position).getInfo().getOrder_num());
         if (!NullUtil.isStringEmpty(mdatas.get(position).getInfo().getTot_refund())&&!mdatas.get(position).getInfo().getTot_refund().equals("0")
                 &&!mdatas.get(position).getInfo().getTot_refund().equals("0.00")&&!mdatas.get(position).getInfo().getTot_refund().equals("0.0")){
-            holder.mTvRefundTot.setText("退款：¥" + mdatas.get(position).getInfo().getTot_refund()+"  ");
+            holder.mTvRefundTot.setText(  mdatas.get(position).getInfo().getTot_refund()+"元");
             holder.mTvRefundTot.setVisibility(View.VISIBLE);
         }else {
-            holder.mTvRefundTot.setVisibility(View.GONE);
+            holder.mTvRefundTot.setText(  "0.0"+"元");
+            holder.mTvRefundTot.setVisibility(View.VISIBLE);
         }
 
-        PropertyWYInfoAdapter wyInfoAdapter = new PropertyWYInfoAdapter(mContext, mdatas.get(position).getList(),false);
+        PropertyPaymentAdapterAdapter wyInfoAdapter = new PropertyPaymentAdapterAdapter(mContext, mdatas.get(position).getList(),false);
         holder.mList.setAdapter(wyInfoAdapter);
 
         return convertView;

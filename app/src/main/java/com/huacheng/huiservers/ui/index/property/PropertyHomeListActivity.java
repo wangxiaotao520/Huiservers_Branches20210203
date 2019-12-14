@@ -55,12 +55,16 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
     TextView mTvVerifyID;
     @BindView(R.id.tv_account_price)
     TextView mTvAccountPrice;
-    @BindView(R.id.tv_brn)
-    TextView mTvBrn;
+    @BindView(R.id.tv_jf)
+    TextView mTvJf;
     @BindView(R.id.rel_no_data)
     RelativeLayout mRelNoData;
     @BindView(R.id.ll_payment)
     LinearLayout llPayment;
+    @BindView(R.id.tv_jiaofei_title)
+    TextView tv_jiaofei_title;
+    @BindView(R.id.ly_wuye)
+    LinearLayout mLyWuye;
 
     private StringBuilder sb_bill_ids;
     private List<String> selected_id_str = new ArrayList<String>();//选中的id
@@ -94,6 +98,9 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
 //        mLsit.setAdapter(wyInfoAdapter);
         wyInfoAdapter1 = new PropertyWYInfoAdapter1(PropertyHomeListActivity.this, R.layout.property_homelist_item1,wyListData1,this);
         mLsit.setAdapter(wyInfoAdapter1);
+        tv_jiaofei_title.setVisibility(View.GONE);
+        mLyWuye.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -119,7 +126,8 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                             mTvHouse.setText(propertyInfo.getRoom_info().getAddress());
                             mTvVerifyID.setText(propertyInfo.getRoom_info().getFullname());
                         }
-
+                        mLyWuye.setVisibility(View.VISIBLE);
+                        tv_jiaofei_title.setVisibility(View.VISIBLE);
                         getWuyeInfo();
                     }
                 } else {
@@ -161,13 +169,13 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
 
     }
 
-    @OnClick({R.id.lin_left, R.id.tv_brn})
+    @OnClick({R.id.lin_left, R.id.tv_jf})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.lin_left:
                 finish();
                 break;
-            case R.id.tv_brn:
+            case R.id.tv_jf:
 
                 if (propertyInfo == null) {
                     break;
@@ -326,12 +334,18 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                     total_wuye_price += selected_price_list.get(i);
                 }
                 mTvAccountPrice.setText("¥ " + setFloat(total_wuye_price));
+                if (total_wuye_price==0){
+                    mTvJf.setText("立即缴费");
+                }else {
+                    mTvJf.setText("¥ " + setFloat(total_wuye_price)+"  "+"立即缴费");
+                }
 
                 //   mTvAccountPrice.setText("¥ " + propertyInfo.getWuye().getTot_sumvalue());
             }
         } else {
             llPayment.setVisibility(View.GONE);
             mTvAccountPrice.setText("¥ 0.00");
+            mTvJf.setText("立即缴费");
             mRelNoData.setVisibility(View.VISIBLE);
             mLsit.setVisibility(View.GONE);
         }
@@ -435,5 +449,10 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
             total_wuye_price += selected_price_list.get(i);
         }
         mTvAccountPrice.setText("¥ " + setFloat(total_wuye_price));
+        if (total_wuye_price==0){
+            mTvJf.setText("立即缴费");
+        }else {
+            mTvJf.setText("¥ " + setFloat(total_wuye_price)+"  "+"立即缴费");
+        }
     }
 }

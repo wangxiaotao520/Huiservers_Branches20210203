@@ -8,20 +8,21 @@
 
     <TextView
         android:id="@+id/tv_tag_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="物业费"
-        android:textColor="@color/gray_55"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        android:textSize="17sp"/>
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="装修保证金"
+        android:textColor="@color/gray_66"
+        android:background="@color/windowbackground"
+        android:textStyle="normal"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:textSize="14sp"/>
 
     <RelativeLayout
         android:id="@+id/rl_click"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
+        android:layout_height="40dp"
+        android:paddingLeft="14dp"
         android:visibility="visible">
         <LinearLayout
             android:layout_centerVertical="true"
@@ -31,12 +32,11 @@
 
             <ImageView
                 android:id="@+id/iv_check"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/icon_shop_no"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="2dp"
+                android:layout_marginRight="14dp"
                 android:visibility="gone"
                 />
             <TextView
@@ -44,8 +44,8 @@
                 android:id="@+id/tv_timeInterval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018-07-08/2019-07-08"
-                android:textColor="@color/gray_55"
+                android:text="2018.07.08 - 2019.07.08"
+                android:textColor="@color/gray_66"
                 android:textSize="@dimen/t_15sp" />
 
         </LinearLayout>
@@ -58,10 +58,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="2283.22元"
-            android:textColor="@color/gray_55"
+            android:textColor="#E0473F"
+            android:layout_marginRight="10dp"
             android:textSize="@dimen/t_15sp" />
 
     </RelativeLayout>
 
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:background="@color/line"
+    />
 </LinearLayout>

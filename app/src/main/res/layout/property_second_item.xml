@@ -4,71 +4,24 @@
               android:visibility="gone"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/margin"
-              android:background="@color/white"
-              android:orientation="vertical"
-              android:paddingLeft="@dimen/margin"
-              android:paddingRight="@dimen/margin">
+              android:background="@color/windowbackground"
+              android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/margin_20"
-        android:paddingTop="@dimen/margin_20">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_type_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="水/电费"
-                    android:textColor="@color/black_jain_87"
-                    android:textSize="@dimen/t_15sp"
-                    android:textStyle="bold"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="余额："
-                        android:textColor="@color/gray_55"
-                        android:textSize="@dimen/t_14sp"/>
-
-                    <TextView
-                        android:id="@+id/tv_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/gray_55"
-                        android:textSize="@dimen/t_18sp"/>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
             <LinearLayout
                 android:id="@+id/lin_list_costs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_15"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:gravity="center_vertical"
+                android:background="@color/white"
                 android:orientation="horizontal">
 
                 <TextView
@@ -76,24 +29,60 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="水费充值："
-                    android:textColor="@color/gray_55"/>
+                    android:textSize="15sp"
+                    android:textColor="@color/title_color"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
                 <EditText
                     android:id="@+id/et_price"
-                    android:layout_width="180dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/margin_40"
-                    android:background="@drawable/shape_gray1"
+                    android:background="@drawable/white"
                     android:hint="请输入充值金额"
                     android:inputType="number"
-                    android:paddingLeft="@dimen/margin_5"
                     android:textCursorDrawable="@drawable/color_cursor"
                     android:text=""
-                    android:textColor="@color/gray_55"
-                    android:textColorHint="@color/black_fan_27"
-                    android:textSize="@dimen/t_14sp"/>
-
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/title_color"
+                    android:textColorHint="#bbbbbb"
+                    android:textSize="@dimen/t_15sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="元"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/title_color"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当前余额："
+                    android:textColor="#E0473F"
+                    android:textSize="@dimen/t_13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#E0473F"
+                    android:textSize="@dimen/t_13sp"/>
+
+            </LinearLayout>
             <View
                 android:id="@+id/view_divider_line"
                 android:layout_width="match_parent"
@@ -104,6 +93,6 @@
                 android:visibility="gone"></View>
         </LinearLayout>
 
-    </LinearLayout>
+
 
 </LinearLayout>

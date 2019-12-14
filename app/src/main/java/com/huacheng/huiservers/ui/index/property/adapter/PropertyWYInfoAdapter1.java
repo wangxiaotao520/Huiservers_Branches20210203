@@ -46,8 +46,8 @@ public class PropertyWYInfoAdapter1 extends CommonAdapter<ModelWuye>{
             viewHolder.<TextView>getView(R.id.tv_tag_name).setVisibility(View.GONE);
         }
         if (!item.getStartdate().equals("0") && !TextUtils.isEmpty(item.getStartdate())) {
-            viewHolder.<TextView>getView(R.id.tv_timeInterval).setText(StringUtils.getDateToString(item.getStartdate(), "2") + "/" +
-                    StringUtils.getDateToString(item.getEnddate(), "2"));
+            viewHolder.<TextView>getView(R.id.tv_timeInterval).setText(StringUtils.getDateToString(item.getStartdate(), "8") + " - " +
+                    StringUtils.getDateToString(item.getEnddate(), "8"));
         } else {
             viewHolder.<TextView>getView(R.id.tv_timeInterval).setText(StringUtils.getDateToString(item.getBill_time(), "2"));
         }

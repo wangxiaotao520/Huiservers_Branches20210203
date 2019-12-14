@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <View
@@ -10,19 +11,18 @@
         android:id="@+id/view_hine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="@dimen/margin_5"
-        android:layout_marginTop="@dimen/margin_5"
         android:background="#EFEFEF"/>
 
     <TextView
         android:id="@+id/tv_tag_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:text="物业费"
-        android:textColor="@color/gray_55"
-        android:textStyle="bold"
-        android:layout_marginTop="8dp"
-        android:textSize="17sp"/>
+        android:textColor="@color/gray_66"
+        android:textStyle="normal"
+       android:gravity="center_vertical"
+        android:layout_marginLeft="30dp"
+        android:textSize="14sp"/>
 
     <LinearLayout
         android:id="@+id/lin_view"
