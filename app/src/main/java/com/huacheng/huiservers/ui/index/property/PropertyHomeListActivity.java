@@ -20,7 +20,6 @@ import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener1;
 import com.huacheng.huiservers.view.MyListView;
-import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -345,65 +344,68 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
 
     @Override
     public void onClickChildItem(int childPosition) {
-        if (wyListData1.get(childPosition).isChecked()) {//本身是选中状态 反选
-            //先反选
-            wyListData1.get(childPosition).setChecked(false);
-            selected_invoice_type="";
-            selected_bill_id="";
-            selected_type_id="";
-            //遍历所有集合，判断有无选中
-            Loop:
-            for (int i = 0; i <wyListData1.size(); i++) {
-                ModelWuye modelWuye =  wyListData1.get(i);
-                if (modelWuye.isChecked()){
-                    selected_invoice_type=modelWuye.getIs_invoice();
-                    if (selected_invoice_type.equals("1")){
-                        selected_bill_id= modelWuye.getBill_id();
-                        selected_type_id=modelWuye.getType_id();
-                    }
-                    break Loop;
-                }
-
-            }
-        } else { //本身是没选中
-            if (NullUtil.isStringEmpty(selected_invoice_type)){
-                //从来没有选过
-                wyListData1.get(childPosition).setChecked(true);
-                selected_invoice_type= wyListData1.get(childPosition).getIs_invoice();
-                if ("1".equals(selected_invoice_type)){
-                    selected_bill_id= wyListData1.get(childPosition).getBill_id()+"";
-                    selected_type_id=wyListData1.get(childPosition).getType_id()+"";
-                }else {
-                    selected_bill_id="";
-                    selected_type_id="";
-                }
-            }else if ("0".equals(selected_invoice_type)){
-                //可多选
-                if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
-                    wyListData1.get(childPosition).setChecked(true);
-                }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
-                    SmartToast.showInfo(wyListData1.get(childPosition).getCharge_type()+"设置为单独开票,不能与其他收费标准合并收费");
-                    return;
-                }
-            }else if ("1".equals(selected_invoice_type)){//单选账单
-                if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
-                    SmartToast.showInfo("所选收费标准设置为单独开票,不能与其他收费标准合并收费");
-                    return;
-                }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
-                    if (selected_type_id.equals(wyListData1.get(childPosition).getType_id())){
-                        //费项相同 可选
-                        wyListData1.get(childPosition).setChecked(true);
-                    }else {
-                        SmartToast.showInfo("所选收费标准设置为单独开票,不能与其他收费标准合并收费");
-                        return;
-                    }
-                }
-            }
-
-        }
-        wyInfoAdapter1.setSelected_bill_id(selected_bill_id);
-        wyInfoAdapter1.setSelected_invoice_type(selected_invoice_type);
-        wyInfoAdapter1.setSelected_type_id(selected_type_id);
+//        if (wyListData1.get(childPosition).isChecked()) {//本身是选中状态 反选
+////            //先反选
+////            wyListData1.get(childPosition).setChecked(false);
+////            selected_invoice_type="";
+////            selected_bill_id="";
+////            selected_type_id="";
+////            //遍历所有集合，判断有无选中
+////            Loop:
+////            for (int i = 0; i <wyListData1.size(); i++) {
+////                ModelWuye modelWuye =  wyListData1.get(i);
+////                if (modelWuye.isChecked()){
+////                    selected_invoice_type=modelWuye.getIs_invoice();
+////                    if (selected_invoice_type.equals("1")){
+////                        selected_bill_id= modelWuye.getBill_id();
+////                        selected_type_id=modelWuye.getType_id();
+////                    }
+////                    break Loop;
+////                }
+////
+////            }
+////        } else { //本身是没选中
+////            if (NullUtil.isStringEmpty(selected_invoice_type)){
+////                //从来没有选过
+////                wyListData1.get(childPosition).setChecked(true);
+////                selected_invoice_type= wyListData1.get(childPosition).getIs_invoice();
+////                if ("1".equals(selected_invoice_type)){
+////                    selected_bill_id= wyListData1.get(childPosition).getBill_id()+"";
+////                    selected_type_id=wyListData1.get(childPosition).getType_id()+"";
+////                }else {
+////                    selected_bill_id="";
+////                    selected_type_id="";
+////                }
+////            }else if ("0".equals(selected_invoice_type)){
+////                //可多选
+////                if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
+////                    wyListData1.get(childPosition).setChecked(true);
+////                }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
+////                    SmartToast.showInfo(wyListData1.get(childPosition).getCharge_type()+"设置为单独开票,不能与其他收费标准合并收费");
+////                    return;
+////                }
+////            }else if ("1".equals(selected_invoice_type)){//单选账单
+////                if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
+////                    SmartToast.showInfo("所选收费标准设置为单独开票,不能与其他收费标准合并收费");
+////                    return;
+////                }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
+////                    if (selected_type_id.equals(wyListData1.get(childPosition).getType_id())){
+////                        //费项相同 可选
+////                        wyListData1.get(childPosition).setChecked(true);
+////                    }else {
+////                        SmartToast.showInfo("所选收费标准设置为单独开票,不能与其他收费标准合并收费");
+////                        return;
+////                    }
+////                }
+////            }
+////
+////        }
+////        wyInfoAdapter1.setSelected_bill_id(selected_bill_id);
+////        wyInfoAdapter1.setSelected_invoice_type(selected_invoice_type);
+////        wyInfoAdapter1.setSelected_type_id(selected_type_id);
+////        wyInfoAdapter1.notifyDataSetChanged();
+////        sumValue();
+        wyListData1.get(childPosition).setChecked(!wyListData1.get(childPosition).isChecked());
         wyInfoAdapter1.notifyDataSetChanged();
         sumValue();
     }
