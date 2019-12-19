@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -20,10 +21,14 @@ import com.huacheng.huiservers.ui.fragment.adapter.AdapterServiceCatTwo;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceCat;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.search.ServicexSearchActivity;
+import com.huacheng.huiservers.utils.MyCornerImageLoader;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.json.JSONObject;
 
@@ -46,6 +51,9 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
     private AdapterServiceCatTwo adapterTwo;
     private List<ModelServiceCat> mDatas = new ArrayList<>();
     private int firstVisibleItem = 0;
+    private Banner banner;
+    private MyCornerImageLoader myImageLoader;
+
 
     @Override
     public void initView(View view) {
@@ -54,6 +62,8 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
         mStatusBar.setAlpha((float) 1);
         lin_search = (LinearLayout) view.findViewById(R.id.lin_search);
+        banner = view.findViewById(R.id.banner);
+        setBanner();
         lin_search.setOnClickListener(this);
         list_one = (ListView) view.findViewById(R.id.list_one);
         ll_list_left=view.findViewById(R.id.ll_list_left);
@@ -117,6 +127,15 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        //banner
+        ArrayList<String> mDatas_img = new ArrayList<>();
+        mDatas_img.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
+        mDatas_img.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
+        mDatas_img.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
+        mDatas_img.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
+        mDatas_img.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
+        banner.update(mDatas_img);
+
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         // params.put("community_id",prefrenceUtil.getXiaoQuId());
@@ -167,7 +186,39 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
         }
 
     }
+    private void setBanner() {
+        myImageLoader= new MyCornerImageLoader();
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setImageLoader(myImageLoader);
+        banner.isAutoPlay(true);//设置是否轮播
+        banner.setIndicatorGravity(BannerConfig.CENTER);//小圆点位置
+        banner.setDelayTime(4500);
+        banner.setImageLoader(myImageLoader).setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                //TODO 点击banner
+            }
+        }).start();
 
+        banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
+
+    }
     @Override
     public void onClickGrid(int position_parent, int position_child) {
         ModelServiceCat modelServiceCat = mDatas.get(position_parent);

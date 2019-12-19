@@ -1,42 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/windowbackground"
               android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_bg"
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="208dp"
+        fresco:placeholderImage="@drawable/icon_girdview"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:roundAsCircle="false"/>
 
     <LinearLayout
         android:id="@+id/ly_zq"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:visibility="invisible"
+        android:layout_height="40dp"
         android:background="@color/white"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        >
 
         <ImageView
-            android:layout_width="18dp"
+            android:layout_width="59dp"
             android:layout_height="18dp"
             android:layout_marginLeft="@dimen/margin_15"
-            android:background="@mipmap/ic_zq"/>
+            android:background="@color/orange_bg"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin"
+            android:background="@drawable/allshape_notice_corner2"
+            android:paddingBottom="2dp"
+            android:paddingLeft="@dimen/margin_5"
+            android:paddingRight="@dimen/margin_5"
+            android:paddingTop="2dp"
+            android:text="热门"
+            android:textColor="@color/orange_bg"
+            android:textSize="@dimen/t_12sp"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginLeft="@dimen/margin"
             android:layout_weight="1"
-            android:text="专区活动"
-            android:textColor="@color/gray_66"
-            android:textSize="@dimen/t_15sp"/>
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="华山论剑需谨慎：岳不群胎牛皮啦"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/t_14sp"/>
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_15"
             android:background="@drawable/arrow_right"/>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/margin"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/ly_all"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全部商品"
+                android:textColor="#2C2C2C"
+                android:textSize="@dimen/t_15sp"/>
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/margin"
+                android:background="@color/colorPrimary"
+                android:textSize="@dimen/t_15sp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"
+            android:background="@color/windowbackground"/>
+    </RelativeLayout>
 </LinearLayout>

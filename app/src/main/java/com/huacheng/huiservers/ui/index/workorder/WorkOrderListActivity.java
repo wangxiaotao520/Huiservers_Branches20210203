@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.index.workorder;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ public class WorkOrderListActivity extends BaseActivity {
     TabLayout mTabLayout;
     ViewPager mViewPager;
     WorkOrderListcommon currentFragment;
+    private int type;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,7 +98,12 @@ public class WorkOrderListActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mViewPager.setCurrentItem(type);
+            }
+        },100);
     }
 
     @Override
@@ -111,7 +118,7 @@ public class WorkOrderListActivity extends BaseActivity {
 
     @Override
     protected void initIntentData() {
-
+        type = this.getIntent().getIntExtra("type", 0);
     }
 
     @Override

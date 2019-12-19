@@ -31,8 +31,9 @@ import com.huacheng.huiservers.ui.base.ActivityStackManager;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.AboutActivity;
 import com.huacheng.huiservers.ui.fragment.CircleFragment;
+import com.huacheng.huiservers.ui.fragment.CircleFragmentNew;
 import com.huacheng.huiservers.ui.fragment.HomeFragmentNew;
-import com.huacheng.huiservers.ui.fragment.MyFragmentNew;
+import com.huacheng.huiservers.ui.fragment.MyCenterFrament;
 import com.huacheng.huiservers.ui.fragment.ServiceFragmentCat;
 import com.huacheng.huiservers.ui.fragment.ShopFragmentNew;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
@@ -71,11 +72,12 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
     public static RadioGroup mRadioGroup;// 下面的radioGroup
     private ArrayList<Fragment> fragments;
 
-    private int current_fragment=0;
+    private int current_fragment = 0;
     private RadioButton[] rb;
     View mStatusBar;
     private ModelEventHome modelEventHome;
-    private boolean isEvent=false;
+    private boolean isEvent = false;
+
     /**
      * 点击切换fragment
      *
@@ -117,16 +119,21 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
 
     public void addFragment() {
 
-      //  fragments.add(new HomeFragment());
+        //fragments.add(new HomeFragment());
 
         fragments.add(new HomeFragmentNew());
-   //     fragments.add(new ShopFragment());
+        //fragments.add(new ShopFragment());
+
         fragments.add(new ShopFragmentNew());
         fragments.add(new ServiceFragmentCat());
-      //  fragments.add(new OldFragment());
-        fragments.add(new CircleFragment());
+        //fragments.add(new OldFragment());
 
-        fragments.add(new MyFragmentNew());
+        fragments.add(new CircleFragmentNew());
+        //fragments.add(new CircleFragment());
+
+        fragments.add(new MyCenterFrament());
+        //fragments.add(new MyFragmentNew());
+
 
     }
 
@@ -142,30 +149,30 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                         String ScanResult = intentResult.getContents();
 
                         if (!StringUtils.isEmpty(ScanResult)) {
-                          if (ScanResult.contains("?type=")&&ScanResult.contains("&get=")){
-                              //扫充电桩返回
-                              String type = ScanResult.substring((ScanResult.indexOf("type=")+5), (ScanResult.indexOf("&get=")));
-                              String get = ScanResult.substring(ScanResult.indexOf("get=")+4);
-                              if ("1".equals(type)){//充电桩
-                                  requestQr(type,get);
-                              }
+                            if (ScanResult.contains("?type=") && ScanResult.contains("&get=")) {
+                                //扫充电桩返回
+                                String type = ScanResult.substring((ScanResult.indexOf("type=") + 5), (ScanResult.indexOf("&get=")));
+                                String get = ScanResult.substring(ScanResult.indexOf("get=") + 4);
+                                if ("1".equals(type)) {//充电桩
+                                    requestQr(type, get);
+                                }
 
-                          }else if (StringUtils.isJsonValid(ScanResult)){//服务支付扫码
-                              //服务订单支付
-
-
-                                  ModelQRCode modelQRCode = new Gson().fromJson(ScanResult,ModelQRCode.class);
-                                  //调用二维码解析
-                                  int type = 2;
-                                  try {
-                                      type=  Integer.parseInt(modelQRCode.getType());
-                                  }catch (Exception e){
-                                      e.printStackTrace();
-                                  }
-                                  QRCodeUtils.getInstance().parseQrCode(smallDialog,HomeActivity.this,type,modelQRCode);
+                            } else if (StringUtils.isJsonValid(ScanResult)) {//服务支付扫码
+                                //服务订单支付
 
 
-                          }
+                                ModelQRCode modelQRCode = new Gson().fromJson(ScanResult, ModelQRCode.class);
+                                //调用二维码解析
+                                int type = 2;
+                                try {
+                                    type = Integer.parseInt(modelQRCode.getType());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                QRCodeUtils.getInstance().parseQrCode(smallDialog, HomeActivity.this, type, modelQRCode);
+
+
+                            }
 //
 //                            if (StringUtils.isJsonValid(ScanResult)) {
 //                                //其他
@@ -191,23 +198,24 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
 
             }
         }
-        super.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
 
     }
 
     /**
      * 扫描二维码
+     *
      * @param type
      * @param get
      */
     private void requestQr(String type, String get) {
-        if (NullUtil.isStringEmpty(type)||NullUtil.isStringEmpty(get)){
+        if (NullUtil.isStringEmpty(type) || NullUtil.isStringEmpty(get)) {
             return;
         }
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("type",type+"");
-        params.put("gtel",get+"");
+        params.put("type", type + "");
+        params.put("gtel", get + "");
 
         MyOkHttp.get().post(ApiHttpClient.SCAN_INDEX, params, new JsonResponseHandler() {
 
@@ -216,15 +224,15 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     //其他
                     try {
-                        ModelQRCode modelQRCode = new Gson().fromJson(response.getString("data"),ModelQRCode.class);
+                        ModelQRCode modelQRCode = new Gson().fromJson(response.getString("data"), ModelQRCode.class);
                         //调用二维码解析
                         int type = 1;
                         try {
-                          type=  Integer.parseInt(modelQRCode.getType());
-                        }catch (Exception e){
+                            type = Integer.parseInt(modelQRCode.getType());
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        QRCodeUtils.getInstance().parseQrCode(smallDialog,HomeActivity.this,type,modelQRCode);
+                        QRCodeUtils.getInstance().parseQrCode(smallDialog, HomeActivity.this, type, modelQRCode);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -248,7 +256,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         //    requestWindowFeature(Window.FEATURE_NO_TITLE);// 去标�?
-        isStatusBar=true;
+        isStatusBar = true;
         super.onCreate(savedInstanceState);
         //设置状态栏字体
         instant = this;
@@ -284,8 +292,8 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
             //挨着给每个RadioButton加入drawable限制边距以控制显示大小
             Drawable[] drawables = rb[i].getCompoundDrawables();
             //获取drawables，2/5表示图片要缩小的比例
-           // Rect r = new Rect(0, 0, drawables[1].getMinimumWidth() * 1 / 2, drawables[1].getMinimumHeight() * 1 / 2);
-            Rect r = new Rect(0, 0, DeviceUtils.dip2px(this,21), DeviceUtils.dip2px(this,21));
+            // Rect r = new Rect(0, 0, drawables[1].getMinimumWidth() * 1 / 2, drawables[1].getMinimumHeight() * 1 / 2);
+            Rect r = new Rect(0, 0, DeviceUtils.dip2px(this, 21), DeviceUtils.dip2px(this, 21));
             //定义一个Rect边界
             drawables[1].setBounds(r);
             //给每一个RadioButton设置图片大小
@@ -304,7 +312,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
             //推给管理和师傅用这个 1是列表 2是详情 推给慧生活用这个 27是详情
             if ("jpush".equals(from)) {
                 String url_type = intent.getStringExtra("url_type");
-                 if ("27".equals(url_type)) {//详情
+                if ("27".equals(url_type)) {//详情
                     String j_id = intent.getStringExtra("j_id");
                     if (!StringUtils.isEmpty(j_id)) {
                         Intent it = new Intent();
@@ -330,31 +338,31 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
         switch (checkedId) {
             case R.id.rb_content_fragment_home:
                 switchFragment(0);
-                current_fragment=0;
+                current_fragment = 0;
                 break;
             case R.id.rb_content_fragment_shop:
                 switchFragment(1);
-                current_fragment=1;
+                current_fragment = 1;
                 break;
             case R.id.rb_content_fragment_service:
                 switchFragment(2);
-                current_fragment=2;
+                current_fragment = 2;
                 break;
             case R.id.rb_content_fragment_quanzi:
-                if (isEvent&&modelEventHome!=null){//说明是点击的物业公告或者社区公告
+                if (isEvent && modelEventHome != null) {//说明是点击的物业公告或者社区公告
                     CircleFragment fragment = (CircleFragment) fragments.get(3);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("type_position",modelEventHome.getType());
+                    bundle.putInt("type_position", modelEventHome.getType());
                     fragment.setArguments(bundle);
                 }
                 switchFragment(3);
-                current_fragment=3;
+                current_fragment = 3;
 
-                isEvent=false;
-                modelEventHome=null;
+                isEvent = false;
+                modelEventHome = null;
                 break;
             case R.id.rb_content_fragment_people:
-                if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Editor editor = preferencesLogin.edit();
                     editor.putString("login_shop", "shop_login");
                     editor.commit();
@@ -362,7 +370,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                     mRadioGroup.check(R.id.rb_content_fragment_home);
                 } else {
                     switchFragment(4);
-                    current_fragment=4;
+                    current_fragment = 4;
                 }
 
                 break;
@@ -407,7 +415,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
         BaseActivityOld.destoryActivity();
         ActivityStackManager.getActivityStackManager().finishAllActivity();
         finish();
-        startActivity( new Intent(this, HomeActivity.class));
+        startActivity(new Intent(this, HomeActivity.class));
         startActivity(new Intent(this, LoginVerifyCodeActivity.class));
         //清除数据库
         UserSql.getInstance().clear();
@@ -433,19 +441,19 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                 uuid = TDevice.getIMEI(this);
                 preferencesLogin = this.getSharedPreferences("login", 0);
                 login_type = preferencesLogin.getString("login_type", "");
-                if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Intent intent = new Intent(this, LoginVerifyCodeActivity.class);
                     this.startActivity(intent);
                 } else {
-                        String login_mobile = preferencesLogin.getString("login_username", "");
-                        String sign = "hshObj";
-                        Intent intent = new Intent(this, AboutActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("tag", "dsyg");
-                        bundle.putString("strHouse",
-                                "http://www.dsyg42.com/ec/app_index?username=" + login_mobile + "&sign=" + sign + "&uuid=" + uuid);
-                        intent.putExtras(bundle);
-                        this.startActivity(intent);
+                    String login_mobile = preferencesLogin.getString("login_username", "");
+                    String sign = "hshObj";
+                    Intent intent = new Intent(this, AboutActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tag", "dsyg");
+                    bundle.putString("strHouse",
+                            "http://www.dsyg42.com/ec/app_index?username=" + login_mobile + "&sign=" + sign + "&uuid=" + uuid);
+                    intent.putExtras(bundle);
+                    this.startActivity(intent);
                 }
             } else {
                 // Permission Denied
@@ -456,15 +464,14 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventbus(ModelEventHome model) {
-        if (model!=null){
-            this.modelEventHome=model;
-            if (model.getType()>=0){
-                isEvent=true;
-                if (rb!=null&&rb.length>0){
+        if (model != null) {
+            this.modelEventHome = model;
+            if (model.getType() >= 0) {
+                isEvent = true;
+                if (rb != null && rb.length > 0) {
                     rb[3].toggle();
                 }
-            }
-           else if (model.getType()==-1){
+            } else if (model.getType() == -1) {
                 //销毁当前页
                 finish();
             }

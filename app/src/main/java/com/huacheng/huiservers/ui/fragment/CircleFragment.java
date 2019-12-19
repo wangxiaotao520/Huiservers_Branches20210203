@@ -153,7 +153,7 @@ public class CircleFragment extends BaseFragmentOld implements View.OnClickListe
             mFragmentList.add(tabFragment);
         }
         currentFragment = mFragmentList.get(0);
-        pager = new MyFragmentPagerAdapter(getChildFragmentManager(), tabs, mFragmentList);
+        pager = new MyFragmentPagerAdapter(getChildFragmentManager(), tabs, mFragmentList,0);
         viewPager.setAdapter(pager);
         //在设置viewpager页面滑动监听时，创建TabLayout的滑动监听
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

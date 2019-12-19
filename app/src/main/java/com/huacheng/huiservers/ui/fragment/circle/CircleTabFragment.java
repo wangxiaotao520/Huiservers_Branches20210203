@@ -299,8 +299,8 @@ public class CircleTabFragment extends BaseFragmentOld {
     }
 
     /**
-     * 删除邻里
      *
+     *删除邻里
      * @param socialID
      */
     private void SocialDel(final String socialID) {

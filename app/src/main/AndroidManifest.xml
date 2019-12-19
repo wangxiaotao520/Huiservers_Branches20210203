@@ -1084,9 +1084,21 @@
         <activity
             android:name="com.huacheng.huiservers.ui.fragment.indexcat.IndexAllServiesActivity"
             android:screenOrientation="portrait" />
-        <!--通知-->
+        <!--通知公告-->
         <activity
             android:name="com.huacheng.huiservers.ui.fragment.indexcat.IndexNoticeListActivity"
+            android:screenOrientation="portrait" />
+        <!--消息大厅-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.index.message.MessageIndexActivity"
+            android:screenOrientation="portrait" />
+        <!--特卖专场-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.shop.ShopZCListActivity"
+            android:screenOrientation="portrait" />
+        <!--交房手册-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.fragment.indexcat.HouseHandBookActivity"
             android:screenOrientation="portrait" />
         <!--******************************银联支付********************************-->
         <meta-data

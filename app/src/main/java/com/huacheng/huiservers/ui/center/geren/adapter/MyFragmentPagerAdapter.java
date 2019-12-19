@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.huacheng.huiservers.ui.fragment.circle.CircleTabFragment;
+import com.huacheng.huiservers.ui.fragment.circle.CircleTabFragmentNew;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 
 import java.util.List;
@@ -19,17 +20,26 @@ import java.util.List;
  */
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private List<BannerBean> mTabs;
-    private List<CircleTabFragment> mFragmentList;
+    private List<CircleTabFragmentNew> mFragmentList;
+    private List<CircleTabFragment> mFragmentListold;
+    private int h;
 
-    public MyFragmentPagerAdapter(FragmentManager fm, List<BannerBean> tabs,List<CircleTabFragment> fragment5List) {
+    public MyFragmentPagerAdapter(FragmentManager fm, List<BannerBean> tabs, List<CircleTabFragmentNew> fragment5List) {
         super(fm);
         this.mTabs = tabs;
-        this.mFragmentList=fragment5List;
+        this.mFragmentList = fragment5List;
+    }
+
+    public MyFragmentPagerAdapter(FragmentManager fm, List<BannerBean> tabs, List<CircleTabFragment> fragment5List,int h) {
+        super(fm);
+        this.mTabs = tabs;
+        this.mFragmentListold = fragment5List;
+        this.h=h;
     }
 
     @Override
     public Fragment getItem(int position) {
-       // return new CircleTabFragment(mTabs.get(position).getId());
+        // return new CircleTabFragment(mTabs.get(position).getId());
         return mFragmentList.get(position);
     }
 

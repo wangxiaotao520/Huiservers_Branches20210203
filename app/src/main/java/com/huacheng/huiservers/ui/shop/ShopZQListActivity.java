@@ -7,17 +7,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
@@ -34,9 +28,9 @@ import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.AppConstant;
-import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.microquation.linkedme.android.log.LMErrorCode;
@@ -68,7 +62,8 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private SharePrefrenceUtil prefrenceUtil;
     private HomeListViewAdapter adapter;
     private int page = 1;
-    private ImageView iv_bg;
+   // private ImageView iv_bg;
+    private SimpleDraweeView sdv_bg;
     private LinearLayout ly_serch;
     private LinearLayout ly_zq;
     private LinearLayout ly_scroll;
@@ -109,23 +104,25 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
 
-        ly_scroll.setAlpha(0);
+        /*ly_scroll.setAlpha(0);*/
         //状态栏
         mStatusBar = findViewById(R.id.status_bar);
-        mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         mStatusBar.setAlpha((float) 0);
     }
 
     private void initHeaderView() {
         ly_zq = headerView.findViewById(R.id.ly_zq);
-        iv_bg = headerView.findViewById(R.id.iv_bg);//根据比例来显示
-        final int gridWidth = DeviceUtils.getWindowWidth(ShopZQListActivity.this);
-        int nWidth = gridWidth;
-        int nHeight = (int) (1.5 * nWidth);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);
-        iv_bg.setLayoutParams(layoutParams);
-        iv_bg.setScaleType(ImageView.ScaleType.FIT_XY);
-        iv_bg.setImageResource(R.color.windowbackground);
+
+        sdv_bg = headerView.findViewById(R.id.sdv_bg);//根据比例来显示
+//        iv_bg = headerView.findViewById(R.id.iv_bg);//根据比例来显示
+//        final int gridWidth = DeviceUtils.getWindowWidth(ShopZQListActivity.this);
+//        int nWidth = gridWidth;
+//        int nHeight = (int) (1.5 * nWidth);
+//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);
+//        iv_bg.setLayoutParams(layoutParams);
+//        iv_bg.setScaleType(ImageView.ScaleType.FIT_XY);
+//        iv_bg.setImageResource(R.color.windowbackground);
 
     }
 
@@ -150,7 +147,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 requestData();
             }
         });
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+      /*  listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -160,12 +157,13 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 scroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
             }
-        });
+        });*/
         ly_serch.setOnClickListener(this);
         lin_left.setOnClickListener(this);
         ly_share.setOnClickListener(this);
         ly_zq.setOnClickListener(this);
-        iv_bg.setOnClickListener(this);
+        //iv_bg.setOnClickListener(this);
+        sdv_bg.setOnClickListener(this);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -200,7 +198,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
 
     }
 
-    private void scroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+   /* private void scroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         if (headerView != null) {
             //设置其透明度
             float alpha = 0;
@@ -219,7 +217,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
             mStatusBar.setAlpha(alpha);
             ly_scroll.setAlpha(alpha);
         }
-    }
+    }*/
 
     /**
      * 请求数据
@@ -229,7 +227,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
         params.put("p", page + "");
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
             params.put("province_cn", prefrenceUtil.getProvince_cn());
             params.put("city_cn", prefrenceUtil.getCity_cn());
             params.put("region_cn", prefrenceUtil.getRegion_cn());
@@ -249,6 +247,8 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                     if (modelindex != null) {
                         modelIndex = modelindex;
                         if (page == 1) {
+                            String imageUrl = ApiHttpClient.IMG_SERVICE_URL + modelindex.getBanner();
+                            FrescoUtils.getInstance().setImageUri(sdv_bg,imageUrl);
                             setBanner(modelindex);
                             if (Integer.valueOf(modelindex.getIs_article()) > 0) {//显示专区活动栏
                                 ly_zq.setVisibility(View.VISIBLE);
@@ -282,7 +282,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     }
 
     private void setBanner(ModelShopIndex modelindex) {
-        String imageUrl = ApiHttpClient.IMG_SERVICE_URL + modelindex.getBanner();
+      /*  String imageUrl = ApiHttpClient.IMG_SERVICE_URL + modelindex.getBanner();
         final int gridWidth = DeviceUtils.getWindowWidth(ShopZQListActivity.this);
         Glide.with(getApplicationContext()).load(imageUrl).placeholder(R.drawable.ic_default_rectange).error(R.drawable.ic_default_rectange).into(new SimpleTarget<GlideDrawable>() {
             @Override
@@ -301,7 +301,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 iv_bg.setScaleType(ImageView.ScaleType.FIT_XY);
                 iv_bg.setImageDrawable(resource);
             }
-        });
+        });*/
     }
 
     /**
@@ -371,7 +371,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.ly_serch://搜索
                 intent.setClass(this, SearchShopActivity.class);
-                intent.putExtra("type",2);
+                intent.putExtra("type", 2);
                 intent.putExtra("act_id", id);
                 startActivity(intent);
                 break;
@@ -384,7 +384,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.ly_share://分享
-                if (modelIndex==null){
+                if (modelIndex == null) {
                     return;
                 }
                 if (NullUtil.isStringEmpty(id)) {
@@ -396,7 +396,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "shop/special/id/" + id;
                 HashMap<String, String> params = new HashMap<>();
                 params.put("type", "prefecture_list");
-                params.put("id",id);
+                params.put("id", id);
                 showDialog(smallDialog);
                 LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, share_title, params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
                     @Override
@@ -415,7 +415,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
 
 
                 break;
-            case R.id.iv_bg://背景点击
+            case R.id.sdv_bg://背景点击
                 intent.setClass(this, ShopZQWebActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtra("sub_type", "1");
@@ -424,6 +424,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         }
 
     }
+
     /**
      * 显示分享弹窗
      *

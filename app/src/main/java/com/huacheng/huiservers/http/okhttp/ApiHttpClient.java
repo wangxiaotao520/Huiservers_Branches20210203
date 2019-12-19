@@ -1,5 +1,7 @@
 package com.huacheng.huiservers.http.okhttp;
 
+import com.huacheng.huiservers.http.MyCookieStore;
+
 /**
  * Description: 路径
  * created by wangxiaotao
@@ -206,11 +208,11 @@ public class ApiHttpClient {
     //商城店铺接口
     public static String SHOP_IMERCHANT_DETAILS = API_URL + API_VERSION + "/shop/merchant_details";
     //专区列表
-    public static String SHOP_MARKIING_LIST= API_URL + API_VERSION + "/shop/area_marketing_activities";
+    public static String SHOP_MARKIING_LIST = API_URL + API_VERSION + "/shop/area_marketing_activities";
     //专区banner详情界面
-    public static String SHOP_MARKIING_DETAILS= API_URL + API_VERSION + "/shop/area_marketing_activities_info";
+    public static String SHOP_MARKIING_DETAILS = API_URL + API_VERSION + "/shop/area_marketing_activities_info";
     //专区活动列表界面
-    public static String SHOP_MARKIING_ARTICE= API_URL + API_VERSION + "/shop/area_marketing_article";
+    public static String SHOP_MARKIING_ARTICE = API_URL + API_VERSION + "/shop/area_marketing_article";
     //专区活动详情界面
     public static String SHOP_MARKIING_ARTICE_DETAILS = API_URL + API_VERSION + "/shop/area_marketing_article_info";
 
@@ -254,7 +256,7 @@ public class ApiHttpClient {
     //投诉建议详情
     public static String FEED_BACK_DETAIL = API_URL + API_VERSION + "feedback/feedbackSee";
 
-    public static  String BINDING_COMMUNITY=  API_URL + API_VERSION + "property/binding_community/";
+    public static String BINDING_COMMUNITY = API_URL + API_VERSION + "property/binding_community/";
     /*
      * 推送
      *
@@ -355,11 +357,18 @@ public class ApiHttpClient {
     public static String FAMILY_INDEX_SHARE = API_URL_SHARE + "home/index/beautiful_family";
 
     //我的小区
-    public static String GET_MY_DISTRICT = API_URL + API_VERSION  + "site/myDistrict";
+    public static String GET_MY_DISTRICT = API_URL + API_VERSION + "site/myDistrict";
     //根据小区名称获取小区id
-    public static String GET_COMMUNITY_ID = API_URL + API_VERSION  + "site/siteCommunityId";
+    public static String GET_COMMUNITY_ID = API_URL + API_VERSION + "site/siteCommunityId";
     //计算订单金额
-    public static String SET_ORDER_AMOUNT = API_URL + API_VERSION  + "/shop/set_order_amount";
+    public static String SET_ORDER_AMOUNT = API_URL + API_VERSION + "/shop/set_order_amount";
+    /**
+     * 邻里
+     */
+    //邻里分类
+    public static String GET_SOCIAL_CAT = API_URL + API_VERSION + "social/getSocialCategory/";
+    //邻里列表
+    public static String GET_SOCIAL_LIST = API_URL + API_VERSION  + "social/get_social_list/";
 
     /**
      * 刷新接口
@@ -496,13 +505,15 @@ public class ApiHttpClient {
         FAMILY_INDEX_SHARE = API_URL + "home/index/beautiful_family";
         SHOP_IMERCHANT_DETAILS = API_URL + API_VERSION + "/shop/merchant_details";
         GET_MY_DISTRICT = API_URL + API_VERSION + "site/myDistrict";
-        GET_COMMUNITY_ID = API_URL + API_VERSION  + "site/siteCommunityId";
-        SHOP_MARKIING_LIST= API_URL + API_VERSION + "/shop/area_marketing_activities";
-        SHOP_MARKIING_DETAILS= API_URL + API_VERSION + "shop/area_marketing_activities_info";
-        SHOP_MARKIING_ARTICE= API_URL + API_VERSION + "/shop/area_marketing_article";
+        GET_COMMUNITY_ID = API_URL + API_VERSION + "site/siteCommunityId";
+        SHOP_MARKIING_LIST = API_URL + API_VERSION + "/shop/area_marketing_activities";
+        SHOP_MARKIING_DETAILS = API_URL + API_VERSION + "shop/area_marketing_activities_info";
+        SHOP_MARKIING_ARTICE = API_URL + API_VERSION + "/shop/area_marketing_article";
         SHOP_MARKIING_ARTICE_DETAILS = API_URL + API_VERSION + "/shop/area_marketing_article_info";
         GET_SERVICEMATCHING = API_SERVICE_URL + "index/serviceMatching";
-        SET_ORDER_AMOUNT = API_URL + API_VERSION  + "/shop/set_order_amount";
-        BINDING_COMMUNITY =  API_URL + API_VERSION + "property/binding_community/";
+        SET_ORDER_AMOUNT = API_URL + API_VERSION + "/shop/set_order_amount";
+        BINDING_COMMUNITY = API_URL + API_VERSION + "property/binding_community/";
+        GET_SOCIAL_CAT = API_URL + API_VERSION + "social/getSocialCategory/";
+        GET_SOCIAL_LIST = MyCookieStore.SERVERADDRESS + "social/get_social_list/";
     }
 }

@@ -114,7 +114,7 @@ public class WorkOrderListcommon extends BaseFragment {
         if (type == 0) {
             isInit = true;
             page = 1;
-            showDialog(smallDialog);
+            //showDialog(smallDialog);
             //requestData();
             if (refreshLayout != null) {
                 refreshLayout.autoRefresh();

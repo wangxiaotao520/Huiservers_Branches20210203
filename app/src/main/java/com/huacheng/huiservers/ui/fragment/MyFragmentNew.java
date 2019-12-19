@@ -29,6 +29,7 @@ import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.circle.MyCircleActivity;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
+import com.huacheng.huiservers.ui.index.message.MessageIndexActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.HouseListActivity;
@@ -264,7 +265,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                     tv_user_identify.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                           // Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                            // Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
                             Intent intent = new Intent(mContext, HouseListActivity.class);
                             intent.putExtra("type", 1);
                             intent.putExtra("wuye_type", "bind");
@@ -300,7 +301,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.rl_community_bill_list:// 生活账单
                 if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
-                   // intent = new Intent(getActivity(), PropertyNewActivity.class);
+                    // intent = new Intent(getActivity(), PropertyNewActivity.class);
                     intent = new Intent(mContext, HouseListActivity.class);
                     intent.putExtra("type", 1);
                     intent.putExtra("wuye_type", "property");
@@ -331,11 +332,12 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
 //                intent = new Intent(getActivity(), FragmentOrderListActivity.class);
 //                startActivity(intent);
 
-                intent = new Intent(mActivity, MyHousePropertyActivity.class);
-                startActivity(intent);
+//                intent = new Intent(mActivity, MyHousePropertyActivity.class);
+//                startActivity(intent);
                 // intent = new Intent(getActivity(), IndexAllServiesActivity.class);
                 //intent = new Intent(getActivity(), IndexNoticeListActivity.class);
-               // startActivity(intent);
+                intent = new Intent(getActivity(), MessageIndexActivity.class);
+                startActivity(intent);
 
                 break;
             case R.id.rl_shop_order_list:// 商城订单
