@@ -19,6 +19,7 @@ import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
 import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,7 +63,7 @@ public class PropertyFrimOrderActivity extends BaseActivity {
     MyListView mList;
 
     String oid;
-    private String bill_id, room_id,company_id;
+    private String bill_id, room_id,company_id,fullName;
     PropertyWYInfoAdapter wyInfoAdapter;
     List<List<ModelWuye>> wyListData = new ArrayList<>();
     ModelPropertyWyInfo propertyInfo;
@@ -84,6 +85,7 @@ public class PropertyFrimOrderActivity extends BaseActivity {
         room_id = this.getIntent().getExtras().getString("room_id");
         bill_id = this.getIntent().getExtras().getString("bill_id");
         company_id = this.getIntent().getExtras().getString("company_id");
+        fullName = this.getIntent().getExtras().getString("fullName");
         getOrderInfo();
     }
 
@@ -149,7 +151,13 @@ public class PropertyFrimOrderActivity extends BaseActivity {
                     if (propertyInfo != null) {
                         ll_container.setVisibility(View.VISIBLE);
                         mTxtBtn.setVisibility(View.VISIBLE);
-                        mTvName.setText(propertyInfo.getNickname());
+
+                    //    mTvName.setText(propertyInfo.getNickname());
+                        if (!NullUtil.isStringEmpty(fullName)){
+                            mTvName.setText(fullName);
+                        }else {
+                            mTvName.setText(propertyInfo.getNickname());
+                        }
                         mTvAddress.setText("" + propertyInfo.getAddress());
                         mTvOrderNumber.setText("" + propertyInfo.getOrder_num());
                         mTvPayTime.setText("" + StringUtils.getDateToString(propertyInfo.getAddtime(), "7"));

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="215dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_img"
+            android:layout_width="200dp"
+            android:layout_height="130dp"
+            fresco:placeholderImage="@color/default_color"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:roundedCornerRadius="5dp"
+            />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/title_color"
+            android:singleLine="true"
+            android:text="整租 振兴街大修厂供电局住宅..."
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="left"
+            android:layout_marginRight="15dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_marginRight="15dp">
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/orange_bg"
+                android:singleLine="true"
+                android:text="55万元"
+                android:textSize="14sp"
+                android:layout_gravity="left"
+                android:layout_marginRight="9dp" />
+            <TextView
+                android:id="@+id/tv_unit_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_99"
+                android:singleLine="true"
+                android:text="5467元/平"
+                android:textSize="12sp"
+                android:layout_gravity="bottom"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparents"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        >
+        <TextView
+            android:background="@color/white"
+            android:id="@+id/tv_tag_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="价格区间(万)"
+            android:textColor="@color/title_color"
+            android:textSize="15sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            />
+        <LinearLayout
+            android:id="@+id/ll_custom_search_tag"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edt_low_price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/allshape_stroke_grey_bb"
+                android:gravity="center"
+                android:hint="最低价格"
+                android:inputType="number"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:textColor="@color/title_color"
+                android:textColorHint="#bbbbbb"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="—"
+                android:textColor="@color/text_color"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/edt_high_price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/allshape_stroke_grey_bb"
+                android:gravity="center"
+                android:hint="最高价格"
+                android:inputType="number"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:textColor="@color/title_color"
+                android:textColorHint="#bbbbbb"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/flowlayout_taglist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="0dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            app:max_select="1" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"
+            android:layout_marginTop="4dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:background="@color/white"
+            >
+            <TextView
+                android:id="@+id/tv_buxian"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/allshape_gray_f8"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:text="不限条件"
+                android:textColor="@color/gray_66"
+                android:layout_marginRight="7dp"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tv_confirm"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/allshape_orange"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:text="确定"
+                android:layout_marginLeft="7dp"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_trans_tag"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#33000000" />
+</LinearLayout>

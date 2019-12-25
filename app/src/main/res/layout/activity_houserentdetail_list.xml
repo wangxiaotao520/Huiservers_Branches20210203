@@ -26,18 +26,47 @@
             android:layout_height="10dp"
             android:background="@color/white"/>
 
-        <LinearLayout
-            android:id="@+id/lin_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp">
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal">
+            <View
+                android:id="@+id/view_alpha_title"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:id="@+id/lin_left"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:padding="15dp">
 
-            <ImageView
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="12dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/ic_arrow_left_white" />
+            </LinearLayout>
+
+            <TextView
+
+                android:id="@+id/title_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/arrow_left"/>
-        </LinearLayout>
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:singleLine="true"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textColor="@color/title_color"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -59,15 +88,15 @@
             android:paddingRight="@dimen/margin_15">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:orientation="horizontal">
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/sdv_head"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     fresco:placeholderImage="@mipmap/ic_house_head"
@@ -79,39 +108,48 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_5"
+                    android:layout_gravity="center_vertical"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="经纪人"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/t_15sp"/>
 
                     <TextView
                         android:id="@+id/tv_braoker_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text=""
-                        android:textColor="@color/gray_9c"
-                        android:textSize="@dimen/t_15sp"/>
-
+                        android:textColor="@color/title_color"
+                        android:textSize="@dimen/t_16sp"/>
+                    <TextView
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="经纪人"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="1dp"
+                        android:paddingBottom="1dp"
+                        android:background="@drawable/allshape_gray_f8"
+                        android:textColor="@color/gray_66"
+                        android:textSize="@dimen/t_12sp"/>
 
                 </LinearLayout>
-
+                <TextView
+                    android:id="@+id/tv_btn_call"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/allshape_orange35"
+                    android:gravity="center"
+                    android:text="联系经纪人咨询"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t_18sp"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_btn_call"
-                android:layout_width="160dp"
-                android:layout_height="@dimen/margin_40"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/corners_orange"
-                android:gravity="center"
-                android:text="联系经纪人咨询"
-                android:textColor="@color/white"
-                android:textSize="@dimen/t_18sp"/>
+
 
         </RelativeLayout>
     </LinearLayout>

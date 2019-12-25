@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -38,6 +39,9 @@ import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +64,10 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
     private EditText edt_low_price;
     private EditText edt_high_price;
     private TextView tv_confirm;
+    private TextView tv_buxian;
+    private View v_trans_tag;
+    private View v_trans;
+    private TagFlowLayout flowlayout_taglist;
     //顶部
     private LinearLayout ll_neighbor_top;
     private ImageView iv_left;
@@ -80,9 +88,9 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
     private ImageView iv_house_type;
     //排序
     private RelativeLayout rl_order_type;
-    private TextView tv_order_type;
+
     private ImageView iv_order_type;
-    private View v_trans;
+
 
     private List<HouseRentDetail> mDatas = new ArrayList<>();
 
@@ -95,12 +103,15 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
 
     private int current_type = 0;//0租金 //1面积 //2房型 //3排序
     private LinearLayout ll_custom_search;
-    private TextView tv_unit;
+    private TextView tv_tag_title;
 
     private PopupWindow popupWindow;
+    private PopupWindow popupWindow_tag;
     private LinearLayout ll_tag_container;
 
-    private List<HouseRentTagListBean> mDatas_tag = new ArrayList<>();//租金 //面积 //房型 //排序
+    private List<HouseRentTagListBean> mDatas_tag = new ArrayList<>(); //排序
+    private List<HouseRentTagListBean> mDatas_tag2 = new ArrayList<>();//租金 //面积 //房型
+    String[] filters;
     private HouseRentTagAdapter houseRentTagAdapter;
     SharePrefrenceUtil prefrenceUtil;
     // 把所有请求的参数都设置成成员变量
@@ -149,7 +160,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
         iv_house_type = findViewById(R.id.iv_house_type);
 
         rl_order_type = findViewById(R.id.rl_order_type);
-        tv_order_type = findViewById(R.id.tv_order_type);
+
         iv_order_type = findViewById(R.id.iv_order_type);
 
         refreshLayout = findViewById(R.id.refreshLayout);
@@ -159,13 +170,13 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
         houseRentListAdapter = new HouseRentListAdapter(this, R.layout.item_house_rent_list, mDatas,this.jump_type);
         listView.setAdapter(houseRentListAdapter);
         rel_no_data = findViewById(R.id.rel_no_data);
-        if (jump_type==1){//租房
-            tv_rent_sale.setText("租金");
-        }else {
-            //售房
-            tv_rent_sale.setText("售价");
-        }
-
+//        if (jump_type==1){//租房
+//            tv_rent_sale.setText("租金");
+//        }else {
+//            //售房
+//            tv_rent_sale.setText("售价");
+//        }
+        tv_rent_sale.setText("价格");
     }
 
     private void initPopupWindow() {
@@ -207,20 +218,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                 hideSearchTag();
             }
         });
-        ll_custom_search = tagView.findViewById(R.id.ll_custom_search);
-        edt_low_price = tagView.findViewById(R.id.edt_low_price);
-        edt_high_price = tagView.findViewById(R.id.edt_high_price);
-        if (jump_type==1){
-            //租房
-            edt_low_price.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
-            edt_high_price.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
-        }else {
-           //售房
-            edt_low_price.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
-            edt_high_price.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
-        }
-        tv_unit = tagView.findViewById(R.id.tv_unit);
-        tv_confirm =tagView. findViewById(R.id.tv_confirm);
+
         v_trans = tagView.findViewById(R.id.v_trans);
       //  ll_tag_container = tagView.findViewById(R.id.ll_tag_container);
 
@@ -228,31 +226,14 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
         houseRentTagAdapter = new HouseRentTagAdapter(this, R.layout.item_house_list_tag, mDatas_tag);
         listview_tag.setAdapter(houseRentTagAdapter);
         v_trans.setOnClickListener(this);
-        tv_confirm.setOnClickListener(this);
         listview_tag.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (current_type==0){
-                    //租金
-                    money=mDatas_tag.get(position).getId();
-                    tv_rent_sale.setText(mDatas_tag.get(position).getPrice());
-                    tv_rent_sale.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    moneyOne="";
-                    moneyTwo="";
-                }else if(current_type==1){
-                    acreage=mDatas_tag.get(position).getId();
-                    tv_acreage.setText(mDatas_tag.get(position).getSize());
-                    tv_acreage.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    areaOne="";
-                    areaTwo="";
-                }else if (current_type==2){
-                    housetype=mDatas_tag.get(position).getId();
-                    tv_house_type.setText(mDatas_tag.get(position).getType());
-                    tv_house_type.setTextColor(getResources().getColor(R.color.colorPrimary));
-                }else if (current_type==3){
+              if (current_type==3){
                     defaultid=mDatas_tag.get(position).getId();
-                    tv_order_type.setText(mDatas_tag.get(position).getStatus());
-                    tv_order_type.setTextColor(getResources().getColor(R.color.colorPrimary));
+//                    tv_order_type.setText(mDatas_tag.get(position).getStatus());
+//                    tv_order_type.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    //TODO 显示不同的排序图标
                 }
                 HouseRentTagListBean houseRentTagListBean = mDatas_tag.get(position);
                 if (!houseRentTagListBean.isSelected()){
@@ -276,6 +257,72 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
         });
     }
 
+    /**
+     * 价格 面积 房型popupwindow
+     */
+    private void initPopupWindowTag() {
+        View tagView = LayoutInflater.from(this).inflate(R.layout.layout_house_rent_tag_flowlayout, null);
+        int[] position = new int[2];
+        listView.getLocationOnScreen(position);
+        popupWindow_tag = new PopupWindow(tagView, ViewGroup.LayoutParams.MATCH_PARENT,  DeviceUtils.getWindowHeight(this)-position[1], true);
+        popupWindow_tag.setTouchable(true);
+        popupWindow_tag.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
+        popupWindow_tag.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow_tag.setOutsideTouchable(true);
+        popupWindow_tag.setFocusable(true);
+        popupWindow_tag.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        popupWindow_tag.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+        tagView.setFocusableInTouchMode(true);
+        tagView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View arg0, int arg1, KeyEvent arg2) {
+                if (arg1 == KeyEvent.KEYCODE_BACK) {
+                    if (popupWindow_tag != null) {
+                        popupWindow_tag.dismiss();
+                    }
+                }
+                return false;
+            }
+        });
+        popupWindow_tag.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.alpha = 1f;
+                getWindow().setAttributes(lp);
+                hideSearchTag();
+            }
+        });
+        ll_custom_search = tagView.findViewById(R.id.ll_custom_search_tag);
+        edt_low_price = tagView.findViewById(R.id.edt_low_price);
+        edt_high_price = tagView.findViewById(R.id.edt_high_price);
+        if (jump_type==1){
+            //租房
+            edt_low_price.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+            edt_high_price.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+        }else {
+            //售房
+            edt_low_price.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
+            edt_high_price.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
+        }
+        tv_tag_title = tagView.findViewById(R.id.tv_tag_title);
+        tv_confirm =tagView. findViewById(R.id.tv_confirm);
+        tv_buxian =tagView. findViewById(R.id.tv_buxian);
+        v_trans_tag = tagView.findViewById(R.id.v_trans_tag);
+        //  ll_tag_container = tagView.findViewById(R.id.ll_tag_container);
+
+        flowlayout_taglist=tagView.findViewById(R.id.flowlayout_taglist);
+        v_trans_tag.setOnClickListener(this);
+        tv_confirm.setOnClickListener(this);
+        tv_buxian.setOnClickListener(this);
+
+    }
     @Override
     protected void initData() {
         mPresenter=new HouseRentListPresenter(this,this);
@@ -367,6 +414,27 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
         });
         iv_left.setOnClickListener(this);
         fl_left.setOnClickListener(this);
+        edt_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean isOK = true;
+                switch (actionId) {
+
+                    case EditorInfo.IME_ACTION_SEARCH:
+                        String search_name = edt_search.getText().toString().trim();
+                        HouseRentListActivity.this.community_name=search_name;
+                        hideSoftInput(edt_search.getWindowToken());
+                        showDialog(smallDialog);
+                        page=1;
+                        requestData();
+                        break;
+                    default:
+                        isOK = false;
+                        break;
+
+                }
+                return isOK;
+            }});
     }
 
     @Override
@@ -393,8 +461,8 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rl_rent_sale:
-                if (popupWindow==null){
-                    initPopupWindow();
+                if (popupWindow_tag==null){
+                   initPopupWindowTag();
                 }
                 if (mDatas_rent_sale.size()>0){
                    inflateTagListAndShow(mDatas_rent_sale,0);
@@ -405,8 +473,8 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
             case R.id.rl_acreage:
-                if (popupWindow==null){
-                    initPopupWindow();
+                if (popupWindow_tag==null){
+                    initPopupWindowTag();
                 }
                 if (mDatas_acreage.size()>0){
                     inflateTagListAndShow(mDatas_acreage,1);
@@ -416,8 +484,8 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
             case R.id.rl_house_type:
-                if (popupWindow==null){
-                    initPopupWindow();
+                if (popupWindow_tag==null){
+                    initPopupWindowTag();
                 }
                 if (mDatas_house_type.size()>0){
                     inflateTagListAndShow(mDatas_house_type,2);
@@ -441,6 +509,12 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                 hideSearchTag();
                 if (popupWindow!=null){
                     popupWindow.dismiss();
+                }
+                break;
+            case R.id.v_trans_tag:
+                hideSearchTag();
+                if (popupWindow_tag!=null){
+                    popupWindow_tag.dismiss();
                 }
                 break;
             case R.id.tv_search_go:
@@ -491,6 +565,9 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                             if (popupWindow!=null){
                                 popupWindow.dismiss();
                             }
+                            if (popupWindow_tag!=null){
+                                popupWindow_tag.dismiss();
+                            }
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -522,6 +599,9 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                             if (popupWindow!=null){
                                 popupWindow.dismiss();
                             }
+                            if (popupWindow_tag!=null){
+                                popupWindow_tag.dismiss();
+                            }
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -529,6 +609,37 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                     }
                 }
 
+                break;
+            case R.id.tv_buxian:
+                if (current_type==0){
+                    //租金
+                    money="";
+                    tv_rent_sale.setText("价格");
+                    tv_rent_sale.setTextColor(getResources().getColor(R.color.title_color));
+                    moneyOne="";
+                    moneyTwo="";
+                }else if(current_type==1){
+                    acreage="";
+                    tv_acreage.setText("面积");
+                    tv_acreage.setTextColor(getResources().getColor(R.color.title_color));
+                    areaOne="";
+                    areaTwo="";
+                }else if (current_type==2){
+                    housetype="";
+                    tv_house_type.setText("房型");
+                    tv_house_type.setTextColor(getResources().getColor(R.color.title_color));
+                }
+                    //先将所有的变成false
+                for (HouseRentTagListBean rentTagListBean : mDatas_tag2) {
+                        rentTagListBean.setSelected(false);
+                }
+                hideSearchTag();
+                showDialog(smallDialog);
+                page=1;
+                requestData();
+                if (popupWindow_tag!=null){
+                    popupWindow_tag.dismiss();
+                }
                 break;
                case  R.id.iv_left:
                case  R.id.fl_left:
@@ -548,18 +659,18 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
      */
     private void inflateTagListAndShow(final List <HouseRentTagListBean> datas, int type ){
         this.current_type=type;
-        mDatas_tag.clear();
-        mDatas_tag.addAll(datas);
-        houseRentTagAdapter.notifyDataSetChanged();
+
 
         if (type==0){
             ll_custom_search.setVisibility(View.VISIBLE);
             edt_low_price.setHint("最低价");
             edt_high_price.setHint("最高价");
             if (jump_type==1){
-                tv_unit.setText("元");
+              //  tv_unit.setText("元");
+                tv_tag_title.setText("价格区间（元）");
             }else {
-                tv_unit.setText("万元");
+             //   tv_unit.setText("万元");
+                tv_tag_title.setText("价格区间（万元）");
             }
 
             // 显示刚才的搜索结果
@@ -588,12 +699,26 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
             }else {
                 edt_high_price.setText("");
             }
+            mDatas_tag2.clear();
+            for (int i = 0; i < datas.size(); i++) {
+                if (!"不限".equals(datas.get(i).getPrice())){
+                    mDatas_tag2.add(datas.get(i));
+                }
+            }
+            //mDatas_tag2.addAll(datas);
+            filters=new String[this.mDatas_tag2.size()];
+            for (int i = 0; i < this.mDatas_tag2.size(); i++) {
+                filters[i]= this.mDatas_tag2.get(i).getPrice()+"";
+            }
+            inflateFlowTagLayout();
+            showpopup2();
             iv_rent_sale.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
+            tv_confirm.setVisibility(View.VISIBLE);
         }else if (type==1){
             ll_custom_search.setVisibility(View.VISIBLE);
             edt_low_price.setHint("小面积");
             edt_high_price.setHint("大面积");
-            tv_unit.setText("平米");
+          //  tv_unit.setText("平米");
             // 显示刚才的搜索结果
             if (!NullUtil.isStringEmpty(areaOne)){
                 edt_low_price.setText(areaOne);
@@ -605,21 +730,136 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
             }else {
                 edt_high_price.setText("");
             }
-
+            tv_tag_title.setText("面积区间（平米）");
+            mDatas_tag2.clear();
+            for (int i = 0; i < datas.size(); i++) {
+                if (!"不限".equals(datas.get(i).getSize())){
+                    mDatas_tag2.add(datas.get(i));
+                }
+            }
+            filters=new String[this.mDatas_tag2.size()];
+            for (int i = 0; i < this.mDatas_tag2.size(); i++) {
+                filters[i]= this.mDatas_tag2.get(i).getSize()+"";
+            }
+            inflateFlowTagLayout();
+            showpopup2();
             iv_acreage.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
+            tv_confirm.setVisibility(View.VISIBLE);
         }else if (type==2){
+
             ll_custom_search.setVisibility(View.GONE);
             iv_house_type.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
+            tv_tag_title.setText("房型选择");
+            mDatas_tag2.clear();
+            for (int i = 0; i < datas.size(); i++) {
+                if (!"不限".equals(datas.get(i).getType())){
+                    mDatas_tag2.add(datas.get(i));
+                }
+            }
+            filters=new String[this.mDatas_tag2.size()];
+            for (int i = 0; i < this.mDatas_tag2.size(); i++) {
+                filters[i]= this.mDatas_tag2.get(i).getType()+"";
+            }
+            inflateFlowTagLayout();
+            showpopup2();
+            iv_acreage.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
+            tv_confirm.setVisibility(View.GONE);
         }else if (type==3){
-            ll_custom_search.setVisibility(View.GONE);
-            iv_order_type.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
+        //    iv_order_type.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
+            //TODO 显示筛选图标
+            mDatas_tag.clear();
+            mDatas_tag.addAll(datas);
+            houseRentTagAdapter.notifyDataSetChanged();
+            showpopup();
         }
-        showpopup();
+
+    }
+
+    /**
+     * 显示flowlayout
+     */
+    private void inflateFlowTagLayout() {
+        flowlayout_taglist.setAdapter(
+                new TagAdapter<String>(filters) {
+
+                    @Override
+                    public View getView(FlowLayout parent, int position, String mTitle2) {
+                        View convertView = LayoutInflater.from(mContext).inflate(R.layout.layout_rent_tag_textview, flowlayout_taglist, false);
+                        TextView tv = convertView.findViewById(R.id.tv_tag);
+                        int selectedPosition = -1;
+                        for (int i = 0; i <mDatas_tag2.size() ; i++) {
+                            if (mDatas_tag2.get(i).isSelected()){
+                                selectedPosition=i;
+                            }
+                        }
+                        if (selectedPosition == position) {
+                            tv.setSelected(true);
+                            tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.allshape_orange));
+                            tv.setTextColor(getResources().getColor(R.color.white));
+                        } else {
+                            tv.setSelected(false);
+                            tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.allshape_gray_f8));
+                            tv.setTextColor(getResources().getColor(R.color.gray_66));
+                        }
+                        tv.setText(mTitle2);
+                        return convertView;
+                    }
+                }
+        );
+
+        flowlayout_taglist.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                if (current_type==0){
+                    //租金
+                    money=mDatas_tag2.get(position).getId();
+                    tv_rent_sale.setText(mDatas_tag2.get(position).getPrice());
+                    tv_rent_sale.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    moneyOne="";
+                    moneyTwo="";
+                }else if(current_type==1){
+                    acreage=mDatas_tag2.get(position).getId();
+                    tv_acreage.setText(mDatas_tag2.get(position).getSize());
+                    tv_acreage.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    areaOne="";
+                    areaTwo="";
+                }else if (current_type==2){
+                    housetype=mDatas_tag2.get(position).getId();
+                    tv_house_type.setText(mDatas_tag2.get(position).getType());
+                    tv_house_type.setTextColor(getResources().getColor(R.color.colorPrimary));
+                }
+                HouseRentTagListBean houseRentTagListBean = mDatas_tag2.get(position);
+                if (!houseRentTagListBean.isSelected()){
+                    //先将所有的变成false
+                    for (HouseRentTagListBean rentTagListBean : mDatas_tag2) {
+                        rentTagListBean.setSelected(false);
+                    }
+                    //再将点击的选中
+                    houseRentTagListBean.setSelected(true);
+                    hideSearchTag();
+                    showDialog(smallDialog);
+                    page=1;
+                    requestData();
+                    if (popupWindow_tag!=null){
+                        popupWindow_tag.dismiss();
+                    }
+                }
+                return true;
+            }
+        });
+
+
     }
 
     private void showpopup() {
         if (popupWindow!=null){
            popupWindow.showAsDropDown(rl_rent_sale);
+
+        }
+    }
+    private void showpopup2() {
+        if (popupWindow_tag!=null){
+            popupWindow_tag.showAsDropDown(rl_rent_sale);
 
         }
     }
@@ -657,7 +897,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
         iv_rent_sale.setBackgroundResource(R.mipmap.ic_arrow_down_grey);
         iv_acreage.setBackgroundResource(R.mipmap.ic_arrow_down_grey);
         iv_house_type.setBackgroundResource(R.mipmap.ic_arrow_down_grey);
-        iv_order_type.setBackgroundResource(R.mipmap.ic_arrow_down_grey);
+    //    iv_order_type.setBackgroundResource(R.mipmap.ic_arrow_down_grey);
         if (edt_low_price!=null){
             hideSoftInput(edt_low_price.getWindowToken());
         }

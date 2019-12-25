@@ -193,6 +193,9 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
                     intent.putExtra("room_id", room_id);
                     intent.putExtra("bill_id", sb_bill_ids.toString());
                     intent.putExtra("company_id",company_id);
+                    if (propertyInfo!=null&&propertyInfo.getRoom_info()!=null){
+                        intent.putExtra("fullName",propertyInfo.getRoom_info().getFullname());
+                    }
                     startActivity(intent);
                     finish();
                 } else {

@@ -17,6 +17,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.HouseListBean;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -62,13 +63,10 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
         ImageView iv_mobile = viewHolder.getView(R.id.iv_mobile);
 
         if (!StringUtils.isEmpty(item.getHead_img())) {
-            GlideUtils.getInstance()
-                    .glideLoad(mContext, StringUtils.getImgUrl(item.getHead_img()+""), sdv_head, R.drawable.ic_default_rectange);
+//            GlideUtils.getInstance()
+//                    .glideLoad(mContext, StringUtils.getImgUrl(item.getHead_img()+""), sdv_head, R.drawable.ic_default_rectange);
+            FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(item.getHead_img()+"")+"");
 
-
-        } else {
-            GlideUtils.getInstance()
-                    .glideLoad(mContext, "", sdv_head, R.drawable.ic_default_rectange);
         }
 
         TextView tv_price = viewHolder.getView(R.id.tv_price);

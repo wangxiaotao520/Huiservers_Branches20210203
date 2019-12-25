@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/titlebar_center"></include>
@@ -9,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:layout_weight="1">
 
         <WebView
@@ -21,14 +23,15 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1.5dp"
-        android:background="@color/shadow"></View>
+        android:layout_height="1.5px"
+        android:background="@color/line"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/white"
         android:elevation="2dp"
+        android:visibility="gone"
         android:gravity="center_vertical">
 
         <TextView
@@ -53,6 +56,25 @@
             android:textSize="@dimen/t_20sp" />
 
     </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/fl_house_rent"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/windowbackground"
+        android:layout_height="140dp">
 
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/fl_house_sell"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/windowbackground"
+        android:layout_height="140dp">
+
+    </FrameLayout>
 
 </LinearLayout>

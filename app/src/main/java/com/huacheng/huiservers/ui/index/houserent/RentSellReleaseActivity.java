@@ -89,6 +89,8 @@ public class RentSellReleaseActivity extends BaseActivity {
     EditText et_room;
     @BindView(R.id.ll_rent_time_container)
     LinearLayout ll_rent_time_container;
+    @BindView(R.id.view_line_rent)
+    View view_line_rent;
     @BindView(R.id.et_rent_time)
     EditText et_rent_time;
 
@@ -119,7 +121,11 @@ public class RentSellReleaseActivity extends BaseActivity {
     private String lease_term = "";//租期
     @Override
     protected void initView() {
-        titleName.setText("发布房源信息");
+        if (type==1){
+            titleName.setText("发布租房信息");
+        }else {
+            titleName.setText("发布售房信息");
+        }
         TextPaint tp = titleName.getPaint();
         tp.setFakeBoldText(true);
 
@@ -134,7 +140,7 @@ public class RentSellReleaseActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        etReleCommunityName.requestFocus();
     }
 
     @Override
@@ -272,12 +278,14 @@ public class RentSellReleaseActivity extends BaseActivity {
         if (type == 1) {
             rlContainerSentPrice.setVisibility(View.VISIBLE);
             ll_rent_time_container.setVisibility(View.VISIBLE);
+            view_line_rent.setVisibility(View.VISIBLE);
             llContainerSell.setVisibility(View.GONE);
 
         } else if (type == 2) {
             llContainerSell.setVisibility(View.VISIBLE);
             rlContainerSentPrice.setVisibility(View.GONE);
             ll_rent_time_container.setVisibility(View.GONE);
+            view_line_rent.setVisibility(View.GONE);
         }
 
 

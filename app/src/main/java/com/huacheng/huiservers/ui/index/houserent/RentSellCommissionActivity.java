@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
@@ -27,6 +28,10 @@ public class RentSellCommissionActivity extends BaseActivity {
     TextView tvHouseSell;
     @BindView(R.id.tv_house_rent)
     TextView tvHouseRent;
+    @BindView(R.id.fl_house_rent)
+    FrameLayout fl_house_rent;
+    @BindView(R.id.fl_house_sell)
+    FrameLayout fl_house_sell;
     @BindView(R.id.wv_commission)
     WebView wvCommission;
 
@@ -82,7 +87,7 @@ public class RentSellCommissionActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_house_sell, R.id.tv_house_rent})
+    @OnClick({R.id.tv_house_sell, R.id.tv_house_rent,R.id.fl_house_rent,R.id.fl_house_sell})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -92,6 +97,16 @@ public class RentSellCommissionActivity extends BaseActivity {
                 startActivityForResult(intent, 22);
                 break;
             case R.id.tv_house_rent:
+                intent.setClass(this, RentSellReleaseActivity.class);
+                intent.putExtra("type", 1);//租房
+                startActivityForResult(intent, 22);
+                break;
+            case R.id.fl_house_sell:
+                intent.setClass(this, RentSellReleaseActivity.class);
+                intent.putExtra("type", 2);//售房
+                startActivityForResult(intent, 22);
+                break;
+            case R.id.fl_house_rent:
                 intent.setClass(this, RentSellReleaseActivity.class);
                 intent.putExtra("type", 1);//租房
                 startActivityForResult(intent, 22);

@@ -11,6 +11,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.houserent.fragment.MyHouseFragmentAdapter;
 import com.huacheng.huiservers.ui.index.houserent.fragment.MyHousePropertyFragment;
+import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,8 @@ public class MyHousePropertyActivity extends BaseActivity {
 
 
     @BindView(R.id.tablayout)
-    TabLayout tabLayout;
+    EnhanceTabLayout tabLayout;
+
     @BindView(R.id.viewpager)
     ViewPager viewpager;
 
@@ -50,15 +52,18 @@ public class MyHousePropertyActivity extends BaseActivity {
 
     private void contentInflate() {
         tabTxt = new String[]{"售房信息", "租房信息"};
-        for (int i = 0; i < tabTxt.length; i++) {
-            tabLayout.addTab(tabLayout.newTab().setText(tabTxt[i]));
-        }
-
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            if (tab != null) {
-                tab.setCustomView(getTabView(i));
-            }
+//        for (int i = 0; i < tabTxt.length; i++) {
+//            tabLayout.addTab(tabLayout.newTab().setText(tabTxt[i]));
+//        }
+//
+//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//            TabLayout.Tab tab = tabLayout.getTabAt(i);
+//            if (tab != null) {
+//                tab.setCustomView(getTabView(i));
+//            }
+//        }
+        for(int i=0;i<tabTxt.length;i++){
+            tabLayout.addTab(tabTxt[i]);
         }
 
         for (int i = 0; i < tabTxt.length; i++) {
@@ -69,39 +74,63 @@ public class MyHousePropertyActivity extends BaseActivity {
             tabFragment.setArguments(bundle);
             mFragmentList.add(tabFragment);
         }
-        updateTabTextView(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()), true);
+       // updateTabTextView(tabLayout.getTabAt(tabLayout.getSelectedTabPosition()), true);
         pagerAdapter = new MyHouseFragmentAdapter(getSupportFragmentManager(), tabTxt, mFragmentList);
         viewpager.setAdapter(pagerAdapter);
 
-        //在设置viewpager页面滑动监听时，创建TabLayout的滑动监听
-        viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
         viewpager.setOffscreenPageLimit(tabTxt.length); //0 设置缓存页面，当前页面的相邻N各页面都会被缓存
+
+        tabLayout.setupWithViewPager(viewpager);
+        //在设置viewpager页面滑动监听时，创建TabLayout的滑动监听
+        viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout.getTabLayout()));
 
         if (1 == jump_type) {//租房
             viewpager.setCurrentItem(1);
-            updateTabTextView(tabLayout.getTabAt(0), false);
-            updateTabTextView(tabLayout.getTabAt(1), true);
+//            updateTabTextView(tabLayout.getTabAt(0), false);
+//            updateTabTextView(tabLayout.getTabAt(1), true);
 
         } else {
             currentFragment = mFragmentList.get(0);
         }
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                //在选中的顶部标签时，为viewpager设置currentitem
+//                viewpager.setCurrentItem(tab.getPosition());
+//                updateTabTextView(tab, true);
+//
+//                currentFragment = mFragmentList.get(tab.getPosition());
+//                if (currentFragment != null) {
+//                    currentFragment.selected_init();
+//                }
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//                updateTabTextView(tab, false);
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                //在选中的顶部标签时，为viewpager设置currentitem
-                viewpager.setCurrentItem(tab.getPosition());
-                updateTabTextView(tab, true);
-
-                currentFragment = mFragmentList.get(tab.getPosition());
-                if (currentFragment != null) {
+                if (tab.getPosition()<mFragmentList.size()){
+                    //在这里传入参数
+                    MyHousePropertyFragment fragmentCommon = (MyHousePropertyFragment) mFragmentList.get(tab.getPosition());
+                    currentFragment = fragmentCommon;
                     currentFragment.selected_init();
                 }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                updateTabTextView(tab, false);
 
             }
 
@@ -110,7 +139,6 @@ public class MyHousePropertyActivity extends BaseActivity {
 
             }
         });
-
     }
 
 

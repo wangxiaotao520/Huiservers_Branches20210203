@@ -44,6 +44,9 @@ import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeGridViewCateAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.VBannerAdapter;
+import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
+import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
+import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
@@ -132,6 +135,9 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private boolean isInitLocaion = false;
 
     private String location_provice="", location_district="", location_city="";//用户第一次使用时定位
+    private ImageView iv_rent;
+    private ImageView iv_sell;
+    private ImageView iv_release_rent_sell;
 
     @Override
     public void initView(View view) {
@@ -213,9 +219,9 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         ImageView tv_more_nearby_food_arrow = headerView.findViewById(R.id.tv_more_nearby_food_arrow);
         ll_nearby_food_img_root = headerView.findViewById(R.id.ll_nearby_food_img_root);
         //租售房
-        ImageView iv_rent = headerView.findViewById(R.id.iv_rent);
-        ImageView iv_sell = headerView.findViewById(R.id.iv_sell);
-        ImageView iv_release_rent_sell = headerView.findViewById(R.id.iv_release_rent_sell);
+        iv_rent = headerView.findViewById(R.id.iv_rent);
+        iv_sell = headerView.findViewById(R.id.iv_sell);
+        iv_release_rent_sell = headerView.findViewById(R.id.iv_release_rent_sell);
         //资讯
         ll_zixun_container = headerView.findViewById(R.id.ll_zixun_container);
         ll_zixun_container_root = headerView.findViewById(R.id.ll_zixun_container_root);
@@ -346,6 +352,9 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         });
 
         tv_xiaoqu.setOnClickListener(this);
+        iv_rent.setOnClickListener(this);
+        iv_sell.setOnClickListener(this);
+        iv_release_rent_sell.setOnClickListener(this);
     }
 
     @Override
@@ -975,10 +984,33 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
     @Override
     public void onClick(View v) {
+        Intent intent=null;
         switch (v.getId()){
             case R.id.tv_xiaoqu:
-                Intent intent1 = new Intent(getActivity(), CommunityListActivity.class);
-                startActivityForResult(intent1, 111);
+                intent = new Intent(getActivity(), CommunityListActivity.class);
+                startActivityForResult(intent, 111);
+                break;
+            case R.id.iv_rent:
+                //租房
+                intent = new Intent(mActivity, HouseRentListActivity.class);
+                intent.putExtra("jump_type", 1);
+                startActivity(intent);
+                break;
+            case R.id.iv_sell:
+                //售房
+                intent = new Intent(mActivity, HouseRentListActivity.class);
+                intent.putExtra("jump_type", 2);
+                startActivity(intent);
+                break;
+            case R.id.iv_release_rent_sell:
+                //发布租售
+                if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
+                    intent = new Intent(mActivity, RentSellCommissionActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(mActivity, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                }
                 break;
                 default:
                     break;

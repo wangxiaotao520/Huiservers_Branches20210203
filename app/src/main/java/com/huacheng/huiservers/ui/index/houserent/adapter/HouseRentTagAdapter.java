@@ -1,7 +1,6 @@
 package com.huacheng.huiservers.ui.index.houserent.adapter;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
@@ -36,7 +35,6 @@ public class HouseRentTagAdapter extends CommonAdapter <HouseRentTagListBean>{
             }else if (item.getBean_type()==3){
                 viewHolder.<TextView>getView(R.id.tv_name).setText(item.getStatus()+"");
             }
-            viewHolder.getView(R.id.iv_duigou).setVisibility(View.VISIBLE);
         }else {
             viewHolder.<TextView>getView(R.id.tv_name).setTextColor(mContext.getResources().getColor(R.color.text_color));
             if (item.getBean_type()==0){
@@ -48,7 +46,6 @@ public class HouseRentTagAdapter extends CommonAdapter <HouseRentTagListBean>{
             }else if (item.getBean_type()==3){
                 viewHolder.<TextView>getView(R.id.tv_name).setText(item.getStatus()+"");
             }
-            viewHolder.getView(R.id.iv_duigou).setVisibility(View.GONE);
         }
 
     }

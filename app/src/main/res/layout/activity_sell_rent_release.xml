@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/all_gray"
+    android:background="@color/windowbackground"
     android:orientation="vertical">
 
     <include layout="@layout/titlebar_center"></include>
@@ -16,11 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_50"
-                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginTop="5dp"
                 android:background="@color/white"
                 android:gravity="center_vertical">
 
@@ -33,26 +32,31 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_15"
-                        android:text="联系人" />
+                        android:text="小区名称" />
 
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/et_rele_contant"
+                    android:id="@+id/et_rele_community_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:background="@null"
-                    android:hint="请输入联系人姓名"
-                    android:maxLength="15"
+                    android:hint="请输入小区名称"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
                     android:singleLine="true"
+                    android:text=""
+                    android:maxLength="15"
                     android:textColor="@color/gray_55"
-                    android:textColorHint="@color/gray_9c"
-                    android:textSize="@dimen/t_16sp" />
+                    android:textColorHint="#bbbbbb"
+                    android:textSize="@dimen/t_15sp" />
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/line"
+                android:layout_height="1px"/>
             <LinearLayout
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_50"
                 android:background="@color/white"
@@ -74,6 +78,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
                     android:orientation="horizontal">
 
                     <EditText
@@ -88,12 +94,13 @@
                         android:text=""
                         android:maxLength="3"
                         android:textCursorDrawable="@drawable/color_cursor"
-                        android:textColorHint="@color/gray_9c"
-                        android:theme="@style/MyEditText" />
+                        android:textColorHint="#bbbbbb"
+                        android:textColor="@color/gray_55"
+                        android:theme="@style/MyEditText_orange" />
 
                     <TextView
                         style="@style/rent_release_text"
-                        android:textColor="@color/gray4"
+                        android:textColor="@color/orange_bg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="—" />
@@ -110,14 +117,15 @@
                         android:text=""
                         android:maxLength="2"
                         android:textCursorDrawable="@drawable/color_cursor"
-                        android:textColorHint="@color/gray_9c"
-                        android:theme="@style/MyEditText" />
+                        android:textColorHint="#bbbbbb"
+                        android:textColor="@color/gray_55"
+                        android:theme="@style/MyEditText_orange"  />
 
                     <TextView
                         style="@style/rent_release_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/gray4"
+                        android:textColor="@color/orange_bg"
                         android:text="—" />
 
                     <EditText
@@ -132,218 +140,20 @@
                         android:maxLength="5"
                         android:text=""
                         android:textCursorDrawable="@drawable/color_cursor"
-                        android:textColorHint="@color/gray_9c"
-                        android:theme="@style/MyEditText" />
+                        android:textColorHint="#bbbbbb"
+                        android:textColor="@color/gray_55"
+                        android:theme="@style/MyEditText_orange"  />
 
                 </LinearLayout>
 
             </LinearLayout>
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_50"
-                android:layout_marginTop="@dimen/margin_12"
-                android:background="@color/white"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="102dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        style="@style/rent_release_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_15"
-                        android:text="手机号码" />
-
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/et_rele_phone_num"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:hint="请输入手机号码"
-                    android:phoneNumber="true"
-                    android:inputType="number"
-                    android:maxLength="11"
-                    android:singleLine="true"
-                    android:text=""
-                    android:textColor="@color/gray_55"
-                    android:textColorHint="@color/gray_9c"
-                    android:textSize="@dimen/t_16sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_50"
-                android:layout_marginTop="@dimen/margin_12"
-                android:background="@color/white"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="102dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        style="@style/rent_release_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_15"
-                        android:text="小区名称" />
-
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/et_rele_community_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:hint="请输入小区名称"
-                    android:layout_marginRight="@dimen/margin_15"
-                    android:singleLine="true"
-                    android:text=""
-                    android:maxLength="15"
-                    android:textColor="@color/gray_55"
-                    android:textColorHint="@color/gray_9c"
-                    android:textSize="@dimen/t_16sp" />
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_rele_choose_house_type"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_50"
-                android:layout_marginTop="@dimen/margin_12">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin_50"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="102dp"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/rent_release_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_15"
-                            android:text="户型" />
-
-                    </LinearLayout>
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <EditText
-                                android:id="@+id/et_rele_room"
-                                android:layout_width="47dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:gravity="center"
-                                android:inputType="number"
-                                android:maxLength="1"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
-                                android:textSize="@dimen/t_16sp"
-                                android:theme="@style/MyEditText" />
-
-                            <TextView
-                                style="@style/rent_release_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="室" />
-
-                            <EditText
-                                android:id="@+id/et_rele_hall"
-                                android:layout_width="47dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:gravity="center"
-                                android:inputType="number"
-                                android:maxLength="1"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
-                                android:textSize="@dimen/t_16sp"
-                                android:theme="@style/MyEditText" />
-
-                            <TextView
-                                style="@style/rent_release_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="厅" />
-
-                            <EditText
-                                android:id="@+id/et_rele_kitchen"
-                                android:layout_width="47dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:gravity="center"
-                                android:inputType="number"
-                                android:maxLength="1"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
-                                android:textSize="@dimen/t_16sp"
-                                android:theme="@style/MyEditText" />
-
-                            <TextView
-                                style="@style/rent_release_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="厨" />
-
-                            <EditText
-                                android:id="@+id/et_rele_guard"
-                                android:layout_width="47dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:gravity="center"
-                                android:inputType="number"
-                                android:maxLength="1"
-                                android:singleLine="true"
-                                android:text=""
-                                android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
-                                android:textSize="@dimen/t_16sp"
-                                android:theme="@style/MyEditText" />
-
-                            <TextView
-                                style="@style/rent_release_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="卫" />
-
-                        </LinearLayout>
-
-                    </ScrollView>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
+                android:background="@color/line"
+                android:layout_height="1px"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_50"
-                android:layout_marginTop="@dimen/margin_12">
+                android:layout_height="@dimen/margin_50">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -376,9 +186,11 @@
                         android:singleLine="true"
                         android:maxLength="4"
                         android:text=""
+                        android:gravity="right"
+                        android:paddingRight="40dp"
                         android:textColor="@color/gray_55"
-                        android:textColorHint="@color/gray_9c"
-                        android:textSize="@dimen/t_16sp" />
+                        android:textColorHint="#bbbbbb"
+                        android:textSize="@dimen/t_15sp"  />
 
                 </LinearLayout>
 
@@ -396,16 +208,18 @@
                         android:layout_height="wrap_content"
                         android:text="层"
                         android:textColor="@color/gray_55"
-                        android:textSize="@dimen/t_16sp" />
+                        android:textSize="@dimen/t_15sp" />
 
                 </LinearLayout>
 
             </RelativeLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/line"
+                android:layout_height="1px"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_50"
-                android:layout_marginTop="@dimen/margin_12">
+                android:layout_height="@dimen/margin_50">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -438,9 +252,11 @@
                         android:maxLength="4"
                         android:singleLine="true"
                         android:text=""
+                        android:gravity="right"
+                        android:paddingRight="40dp"
                         android:textColor="@color/gray_55"
-                        android:textColorHint="@color/gray_9c"
-                        android:textSize="@dimen/t_16sp" />
+                        android:textColorHint="#bbbbbb"
+                        android:textSize="@dimen/t_15sp"  />
 
                 </LinearLayout>
 
@@ -458,16 +274,153 @@
                         android:layout_height="wrap_content"
                         android:text="层"
                         android:textColor="@color/gray_55"
-                        android:textSize="@dimen/t_16sp" />
+                        android:textSize="@dimen/t_15sp" />
 
                 </LinearLayout>
 
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/line"
+                android:layout_height="1px"/>
+            <RelativeLayout
+                android:id="@+id/rl_rele_choose_house_type"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_50">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_50"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="102dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/rent_release_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_15"
+                            android:text="房屋户型" />
+
+                    </LinearLayout>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingRight="15dp"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/et_rele_room"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:singleLine="true"
+                                android:text=""
+                                android:textColor="@color/gray_55"
+                                android:textColorHint="@color/gray_9c"
+                                android:textSize="@dimen/t_15sp"
+                                android:theme="@style/MyEditText_orange" />
+
+                            <TextView
+                                style="@style/rent_release_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/orange_bg"
+                                android:text="室" />
+
+                            <EditText
+                                android:id="@+id/et_rele_hall"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:singleLine="true"
+                                android:text=""
+                                android:textColor="@color/gray_55"
+                                android:textColorHint="@color/gray_9c"
+                                android:textSize="@dimen/t_15sp"
+                                android:theme="@style/MyEditText_orange" />
+
+                            <TextView
+                                style="@style/rent_release_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/orange_bg"
+                                android:text="厅" />
+
+                            <EditText
+                                android:id="@+id/et_rele_kitchen"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:singleLine="true"
+                                android:text=""
+                                android:textColor="@color/gray_55"
+                                android:textColorHint="@color/gray_9c"
+                                android:textSize="@dimen/t_15sp"
+                                android:theme="@style/MyEditText_orange"  />
+
+                            <TextView
+                                style="@style/rent_release_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/orange_bg"
+                                android:text="厨" />
+
+                            <EditText
+                                android:id="@+id/et_rele_guard"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:singleLine="true"
+                                android:text=""
+                                android:textColor="@color/gray_55"
+                                android:textColorHint="@color/gray_9c"
+                                android:textSize="@dimen/t_15sp"
+                                android:theme="@style/MyEditText_orange" />
+
+                            <TextView
+                                style="@style/rent_release_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/orange_bg"
+                                android:text="卫" />
+
+                        </LinearLayout>
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/line"
+                android:layout_height="1px"/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_50"
-                android:layout_marginTop="@dimen/margin_12">
+                android:layout_height="@dimen/margin_50">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -498,10 +451,12 @@
                         android:hint="请输入房屋面积"
                         android:inputType="numberDecimal"
                         android:singleLine="true"
+                        android:gravity="right"
                         android:text=""
                         android:maxLength="8"
                         android:textColor="@color/gray_55"
-                        android:textColorHint="@color/gray_9c"
+                        android:textColorHint="#bbbbbb"
+                        android:paddingRight="70dp"
                         android:textSize="@dimen/t_16sp" />
 
                 </LinearLayout>
@@ -520,18 +475,19 @@
                         android:layout_height="wrap_content"
                         android:text="平方米"
                         android:textColor="@color/gray_55"
-                        android:textSize="@dimen/t_16sp" />
+                        android:textSize="@dimen/t_15sp" />
 
                 </LinearLayout>
 
             </RelativeLayout>
+            <View
 
-
+                android:layout_width="match_parent"
+                android:background="@color/line"
+                android:layout_height="1px"/>
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_12"
-                android:layout_marginTop="@dimen/margin_12">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:id="@+id/ll_container_sell"
@@ -575,9 +531,11 @@
                                 android:singleLine="true"
                                 android:text=""
                                 android:maxLength="8"
+                                android:gravity="right"
+                                android:paddingRight="80dp"
                                 android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
-                                android:textSize="@dimen/t_16sp" />
+                                android:textColorHint="#bbbbbb"
+                                android:textSize="@dimen/t_15sp" />
 
                         </LinearLayout>
 
@@ -593,18 +551,20 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="元/每平米"
+                                android:text="元/平米"
                                 android:textColor="@color/gray_55"
-                                android:textSize="@dimen/t_16sp" />
+                                android:textSize="@dimen/t_15sp" />
 
                         </LinearLayout>
 
                     </RelativeLayout>
-
+                    <View
+                        android:layout_width="match_parent"
+                        android:background="@color/line"
+                        android:layout_height="1px"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin_50"
-                        android:layout_marginTop="@dimen/margin_12">
+                        android:layout_height="@dimen/margin_50">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -635,9 +595,11 @@
                                 android:hint="自动计算售价"
                                 android:singleLine="true"
                                 android:text=""
+                                android:gravity="right"
+                                android:layout_marginRight="55dp"
                                 android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
-                                android:textSize="@dimen/t_16sp" />
+                                android:textColorHint="#bbbbbb"
+                                android:textSize="@dimen/t_15sp" />
 
                         </LinearLayout>
 
@@ -655,7 +617,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="万元"
                                 android:textColor="@color/gray_55"
-                                android:textSize="@dimen/t_16sp" />
+                                android:textSize="@dimen/t_15sp" />
 
                         </LinearLayout>
 
@@ -704,9 +666,11 @@
                                 android:singleLine="true"
                                 android:text=""
                                 android:maxLength="8"
+                                android:gravity="right"
+                                android:paddingRight="60dp"
                                 android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
-                                android:textSize="@dimen/t_16sp" />
+                                android:textColorHint="#bbbbbb"
+                                android:textSize="@dimen/t_15sp" />
 
                         </LinearLayout>
 
@@ -729,11 +693,16 @@
                         </LinearLayout>
 
                     </RelativeLayout>
+                    <View
+                        android:id="@+id/view_line_rent"
+                        android:layout_width="match_parent"
+                        android:background="@color/line"
+                        android:visibility="gone"
+                        android:layout_height="1px"/>
                     <LinearLayout
                         android:id="@+id/ll_rent_time_container"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/margin_50"
-                        android:layout_marginTop="@dimen/margin_12"
                         android:background="@color/white"
                         android:visibility="gone"
                         android:gravity="center_vertical">
@@ -758,41 +727,131 @@
                             android:layout_alignParentRight="true"
                             android:background="@null"
                             android:hint="请输入房屋租期"
-                            android:layout_marginRight="@dimen/margin_15"
+                            android:paddingRight="15dp"
                             android:singleLine="true"
                             android:text=""
                             android:maxLength="15"
                             android:textColor="@color/gray_55"
-                            android:textColorHint="@color/gray_9c"
-                            android:textSize="@dimen/t_16sp" />
+                            android:gravity="right"
+                            android:textColorHint="#bbbbbb"
+                            android:textSize="@dimen/t_15sp" />
 
                     </LinearLayout>
                 </LinearLayout>
 
             </FrameLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/line"
+                android:layout_height="1px"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_50"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="102dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/rent_release_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_15"
+                        android:text="联系人" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_rele_contant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="15dp"
+                    android:textCursorDrawable="@drawable/color_cursor"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:hint="请输入联系人姓名"
+                    android:maxLength="15"
+                    android:singleLine="true"
+                    android:textColor="@color/gray_55"
+                    android:textColorHint="#bbbbbb"
+                    android:textSize="@dimen/t_15sp" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/line"
+                android:layout_height="1px"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_50"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="102dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/rent_release_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_15"
+                        android:text="联系方式" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_rele_phone_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:hint="请输入手机号码"
+                    android:phoneNumber="true"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:singleLine="true"
+                    android:text=""
+                    android:gravity="right"
+                    android:textColor="@color/gray_55"
+                    android:textColorHint="#bbbbbb"
+                    android:paddingRight="15dp"
+                    android:textSize="@dimen/t_15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="35dp"
+                android:paddingBottom="@dimen/margin">
+
+                <TextView
+                    android:id="@+id/tv_rele_confirm_release"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/allshape_orange"
+                    android:gravity="center"
+                    android:text="确认发布"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t_20sp" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/margin">
 
-        <TextView
-            android:id="@+id/tv_rele_confirm_release"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:background="@drawable/shape_bgorange_dark_cor5_nopadding"
-            android:gravity="center"
-            android:text="确认发布"
-            android:textColor="@color/white"
-            android:textSize="@dimen/t_20sp" />
-
-    </LinearLayout>
 
 
 </LinearLayout>

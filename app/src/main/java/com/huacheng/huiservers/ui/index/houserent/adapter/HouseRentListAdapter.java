@@ -31,9 +31,11 @@ public class HouseRentListAdapter extends CommonAdapter<HouseRentDetail>{
         viewHolder.getView(R.id.sdv_head).setVisibility(View.VISIBLE);
         FrescoUtils.getInstance().setImageUri((SimpleDraweeView) viewHolder.getView(R.id.sdv_head), StringUtils.getImgUrl(item.getHead_img()+""));
 
-        viewHolder.<TextView>getView(R.id.tv_title).setText(item.getCommunity_name()+"-"
-        +item.getRoom()+"室"+item.getOffice()+"厅"+item.getKitchen()+"厨"+item.getGuard()+"卫"+"-面积"
-                +item.getArea()+"平米|"+item.getHouse_floor()+"/"+item.getFloor());
+        viewHolder.<TextView>getView(R.id.tv_title).setText(item.getCommunity_name()+"   "
+        +item.getRoom()+"室"+item.getOffice()+"厅"+item.getKitchen()+"厨"+item.getGuard()+"卫");
+
+        viewHolder.<TextView>getView(R.id.tv_sub_title).setText(item.getRoom()+"室"+item.getOffice()+"厅"+item.getKitchen()+"厨"+item.getGuard()+"卫"+"/"
+                +item.getArea()+"平/"+item.getHouse_floor()+"/"+item.getFloor());
         List<HouseRentDetail.LabelBean> label = item.getLabel();
         if (label!=null&&label.size()>0){
             boolean flag=false;
@@ -54,6 +56,7 @@ public class HouseRentListAdapter extends CommonAdapter<HouseRentDetail>{
             //租房
             viewHolder.<TextView>getView(R.id.tv_price).setText(item.getUnit_price()+"元/月");
             viewHolder.<TextView>getView(R.id.tv_desc).setText("|"+item.getRoom()+"室"+item.getOffice()+"厅"+item.getKitchen()+"厨"+item.getGuard()+"卫|"+item.getArea()+"平米");
+            viewHolder.<TextView>getView(R.id.tv_desc).setVisibility(View.GONE);
         }else {
            // 售房
             viewHolder.<TextView>getView(R.id.tv_price).setText(item.getTotal_price()+"元");
