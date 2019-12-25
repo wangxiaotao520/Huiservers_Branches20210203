@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:layout_width="90dp"
-          android:layout_height="29dp"
-        android:gravity="center"
+          android:layout_width="wrap_content"
+          android:layout_height="35dp"
+          android:layout_marginLeft="10dp"
           android:background="@drawable/tag_bg"
+          android:gravity="center"
+          android:layout_marginTop="@dimen/margin"
           android:text="Helloworld"
-            android:textSize="15dp"
-    android:layout_marginLeft="15dp"
-          android:textColor="@drawable/text_color">
+          android:textColor="@drawable/text_color"
+          android:textSize="@dimen/t_14sp">
 
 </TextView>

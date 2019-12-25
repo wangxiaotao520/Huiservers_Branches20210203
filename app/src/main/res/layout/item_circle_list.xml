@@ -3,79 +3,95 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:descendantFocusability="blocksDescendants"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ly_admin"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="101dp"
         android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/margin_12"
-        android:paddingLeft="@dimen/margin_15"
-        android:paddingRight="@dimen/margin_15"
-        android:paddingTop="@dimen/margin_12">
+        android:orientation="vertical"
+        >
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_12"
+            android:paddingLeft="@dimen/margin_15"
+            android:paddingRight="@dimen/margin_15"
+            android:paddingTop="@dimen/margin_12">
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lineSpacingExtra="@dimen/margin_5"
-                android:maxLines="2"
-                android:text="社区慧生活第二轮直购直播马上开启，预告走一波！"
-                android:textColor="@color/title_color"
-                android:textSize="@dimen/t_15sp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal">
+                android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/tv_catname"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="社区公告"
-                    android:textColor="@color/gray_99"
-                    android:textSize="@dimen/t_12sp"/>
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="@dimen/margin_5"
+                    android:maxLines="2"
+                    android:text="社区慧生活第二轮直购直播马上开启，预告走一波！"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_15sp"/>
 
-                <TextView
-                    android:id="@+id/tv_readnum"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_20"
-                    android:layout_weight="1"
-                    android:text="1245阅读"
-                    android:textColor="@color/gray_99"
-                    android:textSize="@dimen/t_12sp"/>
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_addtime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="30分钟前"
-                    android:textColor="@color/gray_99"
-                    android:textSize="@dimen/t_12sp"/>
-            </LinearLayout>
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_catname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="社区公告"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_12sp"/>
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sdv_head"
-            android:layout_width="95dp"
-            android:layout_height="75dp"
-            android:layout_marginLeft="@dimen/margin_40"
-            fresco:placeholderImage="@drawable/icon_girdview"
-            fresco:placeholderImageScaleType="centerCrop"
-            fresco:roundedCornerRadius="@dimen/margin_5"/>
+                    <TextView
+                        android:id="@+id/tv_readnum"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_20"
+                        android:layout_weight="1"
+                        android:text="1245阅读"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_12sp"/>
 
+                    <TextView
+                        android:id="@+id/tv_addtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30分钟前"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_12sp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_head"
+                android:layout_width="95dp"
+                android:layout_height="75dp"
+                android:layout_marginLeft="@dimen/margin_40"
+                fresco:placeholderImage="@drawable/icon_girdview"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundedCornerRadius="@dimen/margin_5"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"
+            android:background="@color/windowbackground"/>
     </LinearLayout>
 
     <LinearLayout
@@ -83,15 +99,165 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/margin_15">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_user_head"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                fresco:placeholderImage="@drawable/icon_girdview"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundAsCircle="true"/>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/sdv_user_head"
+                    android:text="社区管家-张无忌"
+                    android:textColor="@color/orange_bg"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_usertime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018.06.01  14:22"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_12sp"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_del"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@color/orange_bg"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:text="蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:助理都很相似!蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:..蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:助理都很相似!蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:.."
+            android:textColor="@color/black_jain_87"
+            android:textSize="@dimen/t_14sp"/>
+        <!--
+
+                    <LinearLayout
+                        android:id="@+id/lin_gridViewContinuous"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+        -->
+
+        <com.huacheng.huiservers.view.MyGridview
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="5dp"
+            android:numColumns="3">
+
+        </com.huacheng.huiservers.view.MyGridview>
+
+        <!--    </LinearLayout>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin">
+
+            <TextView
+                android:id="@+id/tv_tagname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#我的2019#"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/t_13sp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_eye"/>
+
+                <TextView
+                    android:id="@+id/tv_read"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:text="0"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_13sp"/>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:src="@drawable/ic_comment"/>
+
+                <TextView
+                    android:id="@+id/tv_reply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:text="0"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_13sp"/>
+
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
-    <View
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/ry_my"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/margin_15"
-        android:layout_marginRight="@dimen/margin_15"
-        android:background="@color/windowbackground"/>
+        android:layout_height="@dimen/margin_50">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/windowbackground"/>
+
+        <TextView
+            android:id="@+id/tv_my_reply"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="2条新评论 >"
+            android:textColor="@color/red_bg"
+            android:textSize="@dimen/t_14sp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin"
+        android:background="@color/windowbackground"/>
 </LinearLayout>

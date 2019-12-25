@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -81,14 +80,14 @@ public class CircleDetailListAdapter extends BaseAdapter {
                     mOnItemDeleteListener.onDeleteClick(position);
                 }
             });
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) holder.tv_time.getLayoutParams();
+           /* RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) holder.tv_time.getLayoutParams();
             lp.setMargins(0, 0, 0, 0);
-            holder.tv_time.setLayoutParams(lp);
+            holder.tv_time.setLayoutParams(lp);*/
         } else {
             holder.tv_circledel.setVisibility(View.GONE);
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) holder.tv_time.getLayoutParams();
+           /* RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) holder.tv_time.getLayoutParams();
             lp.setMargins(0, 0, 50, 0);
-            holder.tv_time.setLayoutParams(lp);
+            holder.tv_time.setLayoutParams(lp);*/
         }
 
         return convertView;

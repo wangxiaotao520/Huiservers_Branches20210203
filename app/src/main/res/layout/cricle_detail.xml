@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:background="@color/white"
               android:clipToPadding="false"
-             android:fitsSystemWindows="false"
+              android:fitsSystemWindows="false"
               android:orientation="vertical">
 
 
@@ -53,33 +53,39 @@
 
                         <com.huacheng.huiservers.view.CircularImage
                             android:id="@+id/iv_photo"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentStart="true"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_alignParentTop="true"
                             />
 
-                        <TextView
-                            android:id="@+id/tv_name"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/margin_15"
                             android:layout_toRightOf="@+id/iv_photo"
-                            android:text=""
-                            android:textColor="@color/black_jain_87"
-                            android:textSize="@dimen/t_14sp"/>
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tv_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="@dimen/margin_15"
-                            android:text=""
-                            android:textColor="@color/black_jain_54"
-                            android:textSize="@dimen/t_14sp"/>
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text=""
+                                android:textColor="@color/orange_bg"
+                                android:textSize="@dimen/t_15sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="@dimen/margin_15"
+                                android:text=""
+                                android:textColor="@color/gray_99"
+                                android:textSize="@dimen/t_12sp"/>
+
+                        </LinearLayout>
 
 
                     </RelativeLayout>
@@ -89,7 +95,8 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/margin_15">
+                        android:paddingLeft="@dimen/margin_15"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="7dp"
@@ -165,48 +172,58 @@
                             android:layout_marginLeft="@dimen/margin_15"
                             android:layout_marginRight="@dimen/margin_15"
                             android:layout_marginTop="@dimen/margin_15"
+                            android:lineSpacingExtra="12dp"
                             android:text=""
                             android:textColor="@color/black_jain_87"
-                            android:lineSpacingExtra="12dp"
                             android:textSize="@dimen/t_16sp"/>
 
 
                         <LinearLayout
                             android:id="@+id/lin_img"
-                            android:layout_marginLeft="@dimen/margin_15"
-                            android:layout_marginRight="@dimen/margin_15"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_15"
+                            android:layout_marginRight="@dimen/margin_15"
                             android:orientation="vertical"></LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin"/>
 
                 <LinearLayout
                     android:id="@+id/lin_pinglun"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/all_gray"
+                    android:background="@color/white"
                     android:orientation="vertical"
-                    android:paddingBottom="60dp"
-                    android:paddingLeft="@dimen/margin_15"
-                    android:paddingRight="@dimen/margin_15">
-
+                    android:layout_marginBottom="60dp"
+                    >
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:background="@color/all_gray">
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:paddingLeft="@dimen/margin_15"
+                        android:paddingRight="@dimen/margin_15">
 
                         <TextView
+                            android:id="@+id/tv_pinglun_num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/margin_15"
-                            android:text="看大家怎么说"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/t_16sp"/>
+                            android:text="评论"
+                            android:textColor="@color/blackgray"
+                            android:textSize="@dimen/t_14sp"
+                            android:textStyle="bold"/>
 
                     </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/windowbackground"/>
 
                     <LinearLayout
                         android:id="@+id/lin_yescontent"
@@ -226,7 +243,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="5dp"
@@ -281,7 +299,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="还没有评论呢，快来抢沙发吧"/>
+                            android:text="还没有评论呢，快来抢沙发吧"
+                            android:textColor="@color/gray_99"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -302,10 +321,10 @@
                 android:id="@+id/iv_photo_bootom"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:visibility="gone"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="8dp"
+                android:visibility="gone"
                 />
 
             <EditText

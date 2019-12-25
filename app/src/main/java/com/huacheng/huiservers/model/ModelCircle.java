@@ -1,5 +1,7 @@
 package com.huacheng.huiservers.model;
 
+import com.huacheng.huiservers.ui.shop.bean.BannerBean;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -45,15 +47,24 @@ public class ModelCircle implements Serializable{
     private String nickname;
     private String avatars;
     private int total_Pages;
-    private List<ModelCircle> img_list;
+    private List<BannerBean> img_list;
     private String img;
+    private String is_pro;
     private String img_size;
 
-    public List<ModelCircle> getImg_list() {
+    public String getIs_pro() {
+        return is_pro;
+    }
+
+    public void setIs_pro(String is_pro) {
+        this.is_pro = is_pro;
+    }
+
+    public List<BannerBean> getImg_list() {
         return img_list;
     }
 
-    public void setImg_list(List<ModelCircle> img_list) {
+    public void setImg_list(List<BannerBean> img_list) {
         this.img_list = img_list;
     }
 

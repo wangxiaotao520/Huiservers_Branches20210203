@@ -81,6 +81,8 @@ public class CircleDetailsActivity extends BaseActivityOld {
     LinearLayout linComment;
     @BindView(R.id.right_share)
     ImageView mRightShare;
+    @BindView(R.id.tv_pinglun_num)
+    TextView mTvPinglunNum;
 
     private SharedPreferences preferencesLogin;
     private String login_type;
@@ -230,7 +232,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                 mTvTime.setText(mCirclebean.getAddtime());
                 //判断内容是官方发布还是用户发布admin_id为0标识为用户发布
                 if (mCirclebean.getAdmin_id().equals("0")) {//用户发布
-                    mTvName.setTextColor(context.getResources().getColor(R.color.black_jain_87));
+                    //mTvName.setTextColor(context.getResources().getColor(R.color.black_jain_87));
                     mLinGuan.setVisibility(View.GONE);
                     mLinUser.setVisibility(View.VISIBLE);
                     //System.out.println("NNNNNN+++++++++" + mCirclebean.getContent());
@@ -244,7 +246,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
                 } else {///官方图文混排
 
-                    mTvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                    // mTvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
 
                     if (isPro == 1) {
                         mLinGuan.setVisibility(View.VISIBLE);
@@ -291,6 +293,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
                 }
                 if (mCirclebean.getReply_list() != null) {
+                    mTvPinglunNum.setText("评论("+mCirclebean.getReply_list().size()+")");
                     mLinYescontent.setVisibility(View.VISIBLE);
                     mLinNodata.setVisibility(View.GONE);
                     cricle2detailListAdapter = new CircleDetailListAdapter(CircleDetailsActivity.this, mCirclebean.getReply_list());

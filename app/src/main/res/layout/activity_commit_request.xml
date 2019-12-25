@@ -287,9 +287,9 @@
                 android:layout_marginTop="35dp"
                 android:background="@drawable/allshape_orange"
                 android:gravity="center"
-                android:text="提交"
+                android:text="确定"
                 android:textColor="@color/white"
-                android:textSize="18sp"/>
+                android:textSize="@dimen/t_16sp"/>
 
         </LinearLayout>
     </ScrollView>

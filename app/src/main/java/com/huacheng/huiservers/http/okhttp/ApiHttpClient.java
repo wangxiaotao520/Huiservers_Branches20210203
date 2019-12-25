@@ -1,7 +1,5 @@
 package com.huacheng.huiservers.http.okhttp;
 
-import com.huacheng.huiservers.http.MyCookieStore;
-
 /**
  * Description: 路径
  * created by wangxiaotao
@@ -368,7 +366,11 @@ public class ApiHttpClient {
     //邻里分类
     public static String GET_SOCIAL_CAT = API_URL + API_VERSION + "social/getSocialCategory/";
     //邻里列表
-    public static String GET_SOCIAL_LIST = API_URL + API_VERSION  + "social/get_social_list/";
+    public static String GET_SOCIAL_LIST = API_URL + API_VERSION + "social/get_social_list/";
+    //邻里删除
+    public static String SOCIAL_DELETE = API_URL + API_VERSION + "social/SocialDel/";
+    //我的邻里
+    public static String GET_USER_SOCIAL = API_URL + API_VERSION + "social/get_user_social_list/";
 
     /**
      * 刷新接口
@@ -514,6 +516,8 @@ public class ApiHttpClient {
         SET_ORDER_AMOUNT = API_URL + API_VERSION + "/shop/set_order_amount";
         BINDING_COMMUNITY = API_URL + API_VERSION + "property/binding_community/";
         GET_SOCIAL_CAT = API_URL + API_VERSION + "social/getSocialCategory/";
-        GET_SOCIAL_LIST = MyCookieStore.SERVERADDRESS + "social/get_social_list/";
+        GET_SOCIAL_LIST = API_URL + API_VERSION + "social/get_social_list/";
+        SOCIAL_DELETE = API_URL + API_VERSION + "social/SocialDel/";
+        GET_USER_SOCIAL = API_URL + API_VERSION + "social/get_user_social_list/";
     }
 }
