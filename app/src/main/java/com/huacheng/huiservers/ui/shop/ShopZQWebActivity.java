@@ -56,7 +56,7 @@ public class ShopZQWebActivity extends BaseActivity {
         tv_title = findViewById(R.id.tv_title);
         right_share = findViewById(R.id.right_share);
         right_share.setVisibility(View.VISIBLE);
-       // right_share.setBackground(getResources().getDrawable(R.mipmap.ic_share));
+        // right_share.setBackground(getResources().getDrawable(R.mipmap.ic_share));
         titleName.setText("活动详情");
     }
 
@@ -82,12 +82,12 @@ public class ShopZQWebActivity extends BaseActivity {
                 }
                 share_title = infos.getTitle() + "";
                 share_desc = infos.getTitle() + "";
-                if (type.equals("1")){
+                if (type.equals("1")) {
                     share_icon = MyCookieStore.URL + infos.getBanner();
-                }else {
+                } else {
                     share_icon = MyCookieStore.URL + infos.getImg();
                 }
-                share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "shop/share_article_info/id/" + infos.getId();
+                share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "shop/share_article_info/id/" + infos.getId() + "/article_type/" + type;
                 HashMap<String, String> params = new HashMap<>();
                 params.put("type", "prefecture_details");
                 params.put("id", infos.getId());
