@@ -30,17 +30,17 @@ import java.util.List;
  */
 public class CircleListAdapter extends CommonAdapter<ModelCircle> {
     private onItemDeleteListener mOnItemDeleteListener;
-    private int tag;
+   // private int tag;
 
     //删除接口
     public interface onItemDeleteListener {
         void onDeleteClick(String id);
     }
 
-    public CircleListAdapter(Context context, int layoutId, List<ModelCircle> datas, onItemDeleteListener mOnItemDeleteListener, int tag) {
+    public CircleListAdapter(Context context, int layoutId, List<ModelCircle> datas, onItemDeleteListener mOnItemDeleteListener) {
         super(context, layoutId, datas);
         this.mOnItemDeleteListener = mOnItemDeleteListener;
-        this.tag = tag;
+       // this.tag = tag;
     }
 
     @Override
@@ -53,26 +53,26 @@ public class CircleListAdapter extends CommonAdapter<ModelCircle> {
             FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_user_head), StringUtils.getImgUrl(item.getAvatars()));
             viewHolder.<TextView>getView(R.id.tv_username).setText(item.getNickname());
             viewHolder.<TextView>getView(R.id.tv_usertime).setText(item.getAddtime());
-            if (String.valueOf(BaseApplication.getUser().getUid()).equals(item.getUid())) {
-                viewHolder.<ImageView>getView(R.id.iv_del).setVisibility(View.VISIBLE);
-                viewHolder.<TextView>getView(R.id.tv_my_reply).setText(item.getReply_num() + "条新评论 >");
-                viewHolder.<ImageView>getView(R.id.iv_del).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mOnItemDeleteListener != null) {
-                            mOnItemDeleteListener.onDeleteClick(item.getId());
-                        }
-                    }
-                });
-                if (tag == 0) {//邻里首页
+            if(BaseApplication.getUser()!=null){
+                if (String.valueOf(BaseApplication.getUser().getUid()).equals(item.getUid())) {
+                    viewHolder.<ImageView>getView(R.id.iv_del).setVisibility(View.VISIBLE);
                     viewHolder.<RelativeLayout>getView(R.id.ry_my).setVisibility(View.VISIBLE);
+                    viewHolder.<TextView>getView(R.id.tv_my_reply).setText(item.getReply_num() + "条新评论 >");
+                    viewHolder.<ImageView>getView(R.id.iv_del).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (mOnItemDeleteListener != null) {
+                                mOnItemDeleteListener.onDeleteClick(item.getId());
+                            }
+                        }
+                    });
                 } else {
                     viewHolder.<RelativeLayout>getView(R.id.ry_my).setVisibility(View.GONE);
-                }
-            } else {
-                viewHolder.<ImageView>getView(R.id.iv_del).setVisibility(View.GONE);
+                    viewHolder.<ImageView>getView(R.id.iv_del).setVisibility(View.GONE);
 
+                }
             }
+
             byte[] bytes1 = Base64.decode(item.getContent(), Base64.DEFAULT);
             viewHolder.<TextView>getView(R.id.tv_content).setText(new String(bytes1));
             if (item.getImg_list() != null && item.getImg_list().size() > 0) {

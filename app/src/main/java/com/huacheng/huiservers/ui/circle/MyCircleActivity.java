@@ -65,7 +65,7 @@ public class MyCircleActivity extends BaseActivity implements CircleListAdapter.
         mRefreshLayout.setEnableLoadMore(false);
 
 
-        adapter = new CircleListAdapter(this, R.layout.item_circle_list, mDatas, this,1);
+        adapter = new CircleListAdapter(this, R.layout.item_circle_list, mDatas, this);
         mListview.setAdapter(adapter);
 
     }

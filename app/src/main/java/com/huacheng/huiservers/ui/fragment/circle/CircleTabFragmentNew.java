@@ -83,7 +83,7 @@ public class CircleTabFragmentNew extends BaseFragment implements CircleListAdap
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(true);
 
-        adapter = new CircleListAdapter(getActivity(), R.layout.item_circle_list, mDatas, this,0);
+        adapter = new CircleListAdapter(getActivity(), R.layout.item_circle_list, mDatas, this);
         mListView.setAdapter(adapter);
 
 
