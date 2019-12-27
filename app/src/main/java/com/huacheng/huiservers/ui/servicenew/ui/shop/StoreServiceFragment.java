@@ -4,15 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CheckedTextView;
-import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,7 +22,6 @@ import com.huacheng.huiservers.ui.servicenew.model.ModelServiceItem;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.ServiceFragmentAdapter;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
-import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lzy.widget.HeaderScrollHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -55,18 +48,19 @@ public class StoreServiceFragment extends BaseFragment implements View.OnClickLi
     //筛选条件展示tag
     private RelativeLayout rel_alltag;
     private TagFlowLayout mtagFlowLayout;
-    private View v_trans;
-    private LinearLayout ll_tag_container;
-    private FrameLayout fl_tag_click;
+//    private View v_trans;
+ //   private LinearLayout ll_tag_container;
+ //   private FrameLayout fl_tag_click;
     String[] filters;
     public List<CategoryBean> categoryBeanList=new ArrayList<>();
     private int selectedPosition=0;
-    private HorizontalScrollView h_scrollview;
+   // private HorizontalScrollView h_scrollview;
     private int page=1;
     private SmartRefreshLayout refreshLayout;
     private View rel_no_data;
     private String store_id="";
     private int total_Pages=0;
+    private TagAdapter<String> tagAdapter;
 
     @Override
     public void onAttach(Context context) {
@@ -84,10 +78,10 @@ public class StoreServiceFragment extends BaseFragment implements View.OnClickLi
         rel_no_data.setVisibility(View.GONE);
         rel_alltag = view.findViewById(R.id.rel_alltag);
         mtagFlowLayout = view.findViewById(R.id.flowlayout_taglist);
-        v_trans=view.findViewById(R.id.v_trans);
-        ll_tag_container=view.findViewById(R.id.ll_tag_container);
-        fl_tag_click=view.findViewById(R.id.fl_tag_click);
-        h_scrollview = view.findViewById(R.id.h_scrollview);
+ //       v_trans=view.findViewById(R.id.v_trans);
+  //      ll_tag_container=view.findViewById(R.id.ll_tag_container);
+   //     fl_tag_click=view.findViewById(R.id.fl_tag_click);
+   //     h_scrollview = view.findViewById(R.id.h_scrollview);
     }
 
     @Override
@@ -97,8 +91,8 @@ public class StoreServiceFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void initListener() {
-        fl_tag_click.setOnClickListener(this);
-        v_trans.setOnClickListener(this);
+//        fl_tag_click.setOnClickListener(this);
+//        v_trans.setOnClickListener(this);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -134,96 +128,101 @@ public class StoreServiceFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.fl_tag_click){
+//        if (v.getId()==R.id.fl_tag_click){
             //点击按钮
-            if (rel_alltag.getVisibility()==View.GONE){
-                if (filters==null){
-                    return;
-                }
-                    rel_alltag.setVisibility(View.VISIBLE);
-                    showTabTag();
-            }else {
-                    rel_alltag.setVisibility(View.GONE);
-            }
-        }else if (v.getId()==R.id.v_trans){
-            rel_alltag.setVisibility(View.GONE);
-        }
+//            if (rel_alltag.getVisibility()==View.GONE){
+//                if (filters==null){
+//                    return;
+//                }
+//                    rel_alltag.setVisibility(View.VISIBLE);
+//                    showTabTag();
+//            }else {
+//                    rel_alltag.setVisibility(View.GONE);
+//            }
+//        }else if (v.getId()==R.id.v_trans){
+//            rel_alltag.setVisibility(View.GONE);
+//        }
     }
     private void showTabTag() {
-        mtagFlowLayout.setAdapter(
-                new TagAdapter<String>(filters) {
 
-                    @Override
-                    public View getView(FlowLayout parent, int position, String mTitle2) {
-                        View convertView = LayoutInflater.from(mContext).inflate(R.layout.goods_tagtxt, mtagFlowLayout, false);
-                        TextView tv = convertView.findViewById(R.id.tv_shoptagtxt);
-                        if (selectedPosition == position) {
-                            tv.setSelected(true);
-                            tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shoptag_checked_bg));
-                            tv.setTextColor(getResources().getColor(R.color.white));
-                        } else {
-                            tv.setSelected(false);
-                            tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shoptag_normal_bg));
-                            tv.setTextColor(getResources().getColor(R.color.text_color));
-                        }
-                        tv.setText(mTitle2);
-                        return tv;
-                    }
+        tagAdapter = new TagAdapter<String>(filters) {
+
+            @Override
+            public View getView(FlowLayout parent, int position, String mTitle2) {
+                View convertView = LayoutInflater.from(mContext).inflate(R.layout.goods_tagtxt, mtagFlowLayout, false);
+                TextView tv = convertView.findViewById(R.id.tv_shoptagtxt);
+                if (selectedPosition == position) {
+                    tv.setSelected(true);
+                    tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shoptag_checked_bg));
+                    tv.setTextColor(getResources().getColor(R.color.orange_bg));
+                } else {
+                    tv.setSelected(false);
+                    tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shoptag_normal_bg));
+                    tv.setTextColor(getResources().getColor(R.color.gray_66));
                 }
-        );
+                tv.setText(mTitle2);
+                return tv;
+            }
+        };
+
+        mtagFlowLayout.setAdapter(tagAdapter );
 
         mtagFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 //   RotateUtils.rotateArrow(ivCategoryArrow, true);
-                rel_alltag.setVisibility(View.GONE);
+      //          rel_alltag.setVisibility(View.GONE);
                 // 请求
                 page=1;
                 showDialog(smallDialog);
                 requestData(position);
+               selectedPosition=position;
+               if (tagAdapter!=null){
+                   tagAdapter.notifyDataChanged();
+               }
                 return true;
             }
         });
     }
 
-    public void inflateTag(){
-        if (ll_tag_container.getChildCount() == 0) {
-            for (int i = 0; i < filters.length; i++) {
-                final CheckedTextView tv = new CheckedTextView(mContext);
-                tv.setText(filters[i] + "");
-                tv.setTextSize(14);
-                tv.setTextColor(mContext.getResources().getColorStateList(R.color.text_tag_species));
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.setMargins(DeviceUtils.dip2px(mActivity,28), 0, 0,0);
-                tv.setLayoutParams(params);
-                // 如果是秒杀或者拼团就设置如下的padding,不是就设置普通的padding
-                tv.setGravity(Gravity.CENTER_VERTICAL);
-                tv.setTag(i);
-                if (i==selectedPosition){
-                    tv.setChecked(true);
-                }else {
-                    tv.setChecked(false);
-                }
-                final  int final_I= i;
-                tv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = (int) v.getTag();
-                        if (tv.isChecked()) {
-
-                            //什么也不做
-                        } else {
-                           //请求数据
-                            page = 1;
-                            showDialog(smallDialog);
-                            requestData(final_I);
-                        }
-                    }
-                });
-                ll_tag_container.addView(tv);
-            }
-        }
-    }
+//    public void inflateTag(){
+//        if (ll_tag_container.getChildCount() == 0) {
+//            for (int i = 0; i < filters.length; i++) {
+//                final CheckedTextView tv = new CheckedTextView(mContext);
+//                tv.setText(filters[i] + "");
+//                tv.setTextSize(14);
+//                tv.setTextColor(mContext.getResources().getColorStateList(R.color.text_tag_species));
+//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                params.setMargins(DeviceUtils.dip2px(mActivity,28), 0, 0,0);
+//                tv.setLayoutParams(params);
+//                // 如果是秒杀或者拼团就设置如下的padding,不是就设置普通的padding
+//                tv.setGravity(Gravity.CENTER_VERTICAL);
+//                tv.setTag(i);
+//                if (i==selectedPosition){
+//                    tv.setChecked(true);
+//                }else {
+//                    tv.setChecked(false);
+//                }
+//                final  int final_I= i;
+//                tv.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        int position = (int) v.getTag();
+//                        if (tv.isChecked()) {
+//
+//                            //什么也不做
+//                        } else {
+//                           //请求数据
+//                            page = 1;
+//                            showDialog(smallDialog);
+//                            requestData(final_I);
+//                        }
+//                    }
+//                });
+//                ll_tag_container.addView(tv);
+//            }
+//        }
+//    }
 
     /**
      * 请求数据
@@ -242,7 +241,7 @@ public class StoreServiceFragment extends BaseFragment implements View.OnClickLi
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 listView.setIsLoading(false);
-                updateTag( final_i);
+
                 if (refreshLayout!=null){
                   refreshLayout.finishLoadMore();
                    refreshLayout.finishRefresh();
@@ -307,23 +306,23 @@ public class StoreServiceFragment extends BaseFragment implements View.OnClickLi
         });
     }
 
-    /**
-     * 请求成功后更新选中状态
-     */
-    private void updateTag(int position) {
-        selectedPosition=position;
-        if (ll_tag_container.getChildCount() > 0) {
-            for (int i = 0; i < ll_tag_container.getChildCount(); i++) {
-                CheckedTextView childAt = (CheckedTextView) ll_tag_container.getChildAt(i);
-                if (position==i){
-                    childAt.setChecked(true);
-                    h_scrollview.smoothScrollTo(childAt.getLeft()-DeviceUtils.dip2px(mActivity,12),0);
-                }else {
-                    childAt.setChecked(false);
-                }
-            }
-        }
-    }
+//    /**
+//     * 请求成功后更新选中状态
+//     */
+//    private void updateTag(int position) {
+//        selectedPosition=position;
+//        if (ll_tag_container.getChildCount() > 0) {
+//            for (int i = 0; i < ll_tag_container.getChildCount(); i++) {
+//                CheckedTextView childAt = (CheckedTextView) ll_tag_container.getChildAt(i);
+//                if (position==i){
+//                    childAt.setChecked(true);
+//                    h_scrollview.smoothScrollTo(childAt.getLeft()-DeviceUtils.dip2px(mActivity,12),0);
+//                }else {
+//                    childAt.setChecked(false);
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -404,7 +403,8 @@ public class StoreServiceFragment extends BaseFragment implements View.OnClickLi
         for (int i = 0; i < this.categoryBeanList.size(); i++) {
             filters[i]= this.categoryBeanList.get(i).getCategory_cn()+"";
         }
-        inflateTag();
+//        inflateTag();
+        showTabTag();
     }
 
 }

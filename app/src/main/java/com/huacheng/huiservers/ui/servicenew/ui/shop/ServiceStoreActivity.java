@@ -2,10 +2,12 @@ package com.huacheng.huiservers.ui.servicenew.ui.shop;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
@@ -25,7 +28,6 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.servicenew.inter.OnRefreshAndLoadMoreListener;
 import com.huacheng.huiservers.ui.servicenew.model.CategoryBean;
 import com.huacheng.huiservers.ui.servicenew.model.ModelStore;
-import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
 import com.huacheng.huiservers.utils.statusbar.SystemBarTintManager;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
@@ -45,6 +47,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
 /**
  * Description: 服务店铺Activity
  * created by wangxiaotao
@@ -56,12 +60,12 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
     private RelativeLayout rl_title;
     private LinearLayout lin_left;
     private TextView title_name;
-    private TextView tv_store_phone;
-    private TextView tv_service_num;
+//    private TextView tv_store_phone;
+//    private TextView tv_service_num;
     private ImageView iv_right;
     public SmartRefreshLayout refreshLayout;
     private HeaderViewPager scrollableLayout;
-    private SimpleDraweeView iv_head;
+    private ImageView iv_head;
     private RelativeLayout rl_head;
 
     protected SystemBarTintManager tintManager;
@@ -71,14 +75,20 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
     private TextView tv_service_tab;
     private TextView tv_comment_tab;
     private SimpleDraweeView sdv_head;
-    private RelativeLayout rl_more_service;
-    private RelativeLayout rl_communication;
+//    private RelativeLayout rl_more_service;
+//    private RelativeLayout rl_communication;
     private String store_id="";
     private ModelStore modelStore;
     private String share_url;
     private String share_title;
     private String share_desc;
     private String share_icon;
+    private TextView tv_store_name1;
+    private TextView tv_store_phone_number1;
+    private TextView tv_call_number1;
+    private View view_service_tab;
+    private View view_comment_tab;
+    private ImageView iv_left;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,11 +107,13 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
         status_bar.setAlpha(0);
         lin_left = findViewById(R.id.lin_left);
         title_name = findViewById(R.id.title_name);
-        tv_store_phone = findViewById(R.id.tv_store_phone);
-        tv_service_num = findViewById(R.id.tv_service_num);
+//        tv_store_phone = findViewById(R.id.tv_store_phone);
+//        tv_service_num = findViewById(R.id.tv_service_num);
         iv_right = findViewById(R.id.iv_right);
-        iv_right.setBackgroundResource(R.mipmap.ic_share);
+        iv_right.setBackgroundResource(R.mipmap.ic_vote_share);
         iv_right.setVisibility(View.VISIBLE);
+        iv_left = findViewById(R.id.iv_left);
+        iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_white);
         titleBg = findViewById(R.id.v_bg);
         titleBg.setAlpha(0);
         refreshLayout = findViewById(R.id.refreshLayout);
@@ -113,10 +125,17 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
         iv_head = findViewById(R.id.iv_head);
 
         tv_service_tab = findViewById(R.id.tv_service_tab);
+        view_service_tab = findViewById(R.id.view_service_tab);
         tv_comment_tab = findViewById(R.id.tv_comment_tab);
+        view_comment_tab = findViewById(R.id.view_comment_tab);
         sdv_head = findViewById(R.id.sdv_head);
-        rl_more_service = findViewById(R.id.rl_more_service);
-        rl_communication = findViewById(R.id.rl_communication);
+//        rl_more_service = findViewById(R.id.rl_more_service);
+//        rl_communication = findViewById(R.id.rl_communication);
+
+        tv_store_name1 = findViewById(R.id.tv_store_name1);
+        tv_store_phone_number1 = findViewById(R.id.tv_store_phone_number1);
+        tv_call_number1 = findViewById(R.id.tv_call_number1);
+        scrollableLayout.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -152,22 +171,36 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
      */
     private void inflateContent(ModelStore modelStore) {
        if (modelStore!=null){
+           scrollableLayout.setVisibility(View.VISIBLE);
            this.modelStore=modelStore;
-           title_name.setText(modelStore.getName()+"");
-           tv_store_phone.setText(modelStore.getTelphone()+"");
-           tv_service_num.setText("共"+modelStore.getServiceCount()+"个服务 >");
-           FrescoUtils.getInstance().setImageUri(iv_head,ApiHttpClient.IMG_SERVICE_URL+modelStore.getIndex_img());//头图
+ //          title_name.setText(modelStore.getName()+"");
+//           tv_store_phone.setText(modelStore.getTelphone()+"");
+//           tv_service_num.setText("共"+modelStore.getServiceCount()+"个服务 >");
+
+//          FrescoUtils.getInstance().setImageUri(iv_head,ApiHttpClient.IMG_SERVICE_URL+modelStore.getIndex_img());//头图
+
+           Glide.with(this).load(ApiHttpClient.IMG_SERVICE_URL+modelStore.getIndex_img())
+                   .error(R.color.default_color)
+                   // "3":模糊度；"3":图片缩放3倍后再进行模糊，缩放3-5倍个人感觉比较好。
+                   .bitmapTransform(new BlurTransformation(this, 3, 2))
+                   .placeholder(R.color.default_color).crossFade().into(iv_head);
            FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_SERVICE_URL+modelStore.getLogo());//logo
            List<CategoryBean> category = modelStore.getCategory();
            //
           ((StoreServiceFragment)currentFragment).setCategoryBeanList(category);
           ((StoreServiceFragment)currentFragment).setmDatas(modelStore.getService());
-          tv_comment_tab.setText("评论 "+modelStore.getCommentsCount());
+//          tv_comment_tab.setText("评论 "+modelStore.getCommentsCount());
+           tv_comment_tab.setText("评论");
+
            // 我将这三个方法放在这里，在Fragment初始化的，结果不能滑动了，分析是必须在headerviewpager必须在oncreate中调用一次
 //           switchFragmentNoBack(storeServiceFragment);
 //           //此方法
 //           scrollableLayout.setCurrentScrollableContainer(storeServiceFragment);
 //           setButtomUI(tv_service_tab);
+
+           tv_store_name1.setText(modelStore.getName()+"");
+           tv_store_phone_number1.setText("联系电话:"+modelStore.getTelphone()+"");
+
        }
     }
 
@@ -180,7 +213,8 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
                 //让头部具有差速动画,如果不需要,可以不用设置
                 rl_head.setTranslationY(currentY / 2);
                 //动态改变标题栏的透明度,注意转化为浮点型
-                float alpha = 1.0f * currentY / maxY;
+              float alpha = 1.0f * currentY / maxY;
+
                 refreshLayout.setEnableRefresh(alpha>0?false:true);
                 //
 //                if (currentFragment!=null&&((OnRefreshAndLoadMoreListener)currentFragment).canLoadMore()){
@@ -188,15 +222,33 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
 //                }else {
 //                    refreshLayout.setEnableLoadMore(false);
 //                }
-                titleBg.setAlpha(alpha);
+
+                float alpha_show = 1.0f * currentY / DeviceUtils.dip2px(mContext,50);
+                if (alpha_show>1){
+                    alpha_show=1;
+                }
+                refreshLayout.setEnableRefresh(alpha_show>0?false:true);
+                titleBg.setAlpha(alpha_show);
                 //注意头部局的颜色也需要改变
-                status_bar.setAlpha(alpha);
+                status_bar.setAlpha(alpha_show);
+                if (alpha_show>0){
+                    iv_left.setBackgroundResource(R.mipmap.arrow_left);
+                    if (modelStore!=null) {
+                        title_name.setText(modelStore.getName()+"");
+                    }
+                    iv_right.setBackgroundResource(R.mipmap.ic_vote_share);
+                }else {
+                    iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_white);
+                    title_name.setText("");
+                    //TODO 分享图标
+                    iv_right.setBackgroundResource(R.mipmap.ic_vote_share);
+                }
             }
         });
         tv_service_tab.setOnClickListener(this);
         tv_comment_tab.setOnClickListener(this);
-        rl_more_service.setOnClickListener(this);
-        rl_communication.setOnClickListener(this);
+//        rl_more_service.setOnClickListener(this);
+//        rl_communication.setOnClickListener(this);
         iv_right.setOnClickListener(this);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -214,6 +266,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
                 }
             }
         });
+        tv_call_number1.setOnClickListener(this);
     }
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -281,7 +334,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
 //            }else {
 //                refreshLayout.setEnableLoadMore(false);
 //            }
-        }else if (v.getId() == R.id.rl_communication){
+        }else if (v.getId() == R.id.tv_call_number1){
             if (modelStore==null){
                 return;
             }
@@ -301,13 +354,15 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
 
                 }
             }).show();
-        }else if (v.getId() == R.id.rl_more_service){
-            // 更多服务
-            Intent intent = new Intent(this, MerchantServiceListActivity.class);
-            intent.putExtra("tabType","service");
-            intent.putExtra("store_id",store_id+"");
-            startActivity(intent);
-        }else if (v.getId() == R.id.iv_right){
+        }
+//        else if (v.getId() == R.id.rl_more_service){
+//            // 更多服务
+//            Intent intent = new Intent(this, MerchantServiceListActivity.class);
+//            intent.putExtra("tabType","service");
+//            intent.putExtra("store_id",store_id+"");
+//            startActivity(intent);
+//        }
+        else if (v.getId() == R.id.iv_right){
             if (modelStore == null) {
                 return;
             }
@@ -353,11 +408,23 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
         for (int i = 0; i < txt_buttoms.length; i++) {// 否则遍历底部按钮，把被选中的id对应的按钮修改掉，再把其他的修改成非选择状态
             if (txt_buttoms[i].getId() != selected.getId()) {
 
-                txt_buttoms[i].setTextColor(this.getResources().getColor(R.color.grey96));
+                txt_buttoms[i].setTextColor(this.getResources().getColor(R.color.gray_66));
+                txt_buttoms[i].setTypeface(Typeface.DEFAULT );
+                txt_buttoms[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP,15);
             } else {
-                txt_buttoms[i].setTextColor(this.getResources().getColor(R.color.orange));
+                txt_buttoms[i].setTextColor(this.getResources().getColor(R.color.title_color));
+                txt_buttoms[i].setTypeface(Typeface.DEFAULT_BOLD);
+                txt_buttoms[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP,18);
             }
             continue;
         }
+        if (R.id.tv_service_tab==selected.getId()){
+            view_service_tab.setVisibility(View.VISIBLE);
+            view_comment_tab.setVisibility(View.GONE);
+        }else {
+            view_service_tab.setVisibility(View.GONE);
+            view_comment_tab.setVisibility(View.VISIBLE);
+        }
+
     }
 }
