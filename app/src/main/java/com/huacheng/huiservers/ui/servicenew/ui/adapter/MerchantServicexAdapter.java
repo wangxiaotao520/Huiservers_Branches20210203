@@ -161,7 +161,7 @@ public class MerchantServicexAdapter extends BaseAdapter {
                     holderService.tv_servicePrice.setText("");
                 }
 
-                holderService.lin_bottom_tags.setVisibility(View.GONE);
+               // holderService.lin_bottom_tags.setVisibility(View.GONE);
                 holderService.ll_service_container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -217,7 +217,7 @@ public class MerchantServicexAdapter extends BaseAdapter {
             tv_servicePrice = v.findViewById(R.id.tv_servicePrice);
             lin_merchant_card = v.findViewById(R.id.lin_merchant_card);
 
-            lin_bottom_tags = v.findViewById(R.id.lin_bottom_tags);
+           // lin_bottom_tags = v.findViewById(R.id.lin_bottom_tags);
             rl_servicex_item= v.findViewById(R.id.rl_servicex_item);
         }
     }
