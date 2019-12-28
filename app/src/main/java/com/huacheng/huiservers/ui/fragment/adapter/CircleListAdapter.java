@@ -30,17 +30,18 @@ import java.util.List;
  */
 public class CircleListAdapter extends CommonAdapter<ModelCircle> {
     private onItemDeleteListener mOnItemDeleteListener;
-   // private int tag;
+    private int tag;
 
     //删除接口
     public interface onItemDeleteListener {
         void onDeleteClick(String id);
+        void onJumpPinglun(ModelCircle item);
     }
 
-    public CircleListAdapter(Context context, int layoutId, List<ModelCircle> datas, onItemDeleteListener mOnItemDeleteListener) {
+    public CircleListAdapter(Context context, int layoutId, List<ModelCircle> datas, onItemDeleteListener mOnItemDeleteListener, int tag) {
         super(context, layoutId, datas);
         this.mOnItemDeleteListener = mOnItemDeleteListener;
-       // this.tag = tag;
+        this.tag = tag;
     }
 
     @Override
@@ -53,10 +54,9 @@ public class CircleListAdapter extends CommonAdapter<ModelCircle> {
             FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_user_head), StringUtils.getImgUrl(item.getAvatars()));
             viewHolder.<TextView>getView(R.id.tv_username).setText(item.getNickname());
             viewHolder.<TextView>getView(R.id.tv_usertime).setText(item.getAddtime());
-            if(BaseApplication.getUser()!=null){
+            if (BaseApplication.getUser() != null) {
                 if (String.valueOf(BaseApplication.getUser().getUid()).equals(item.getUid())) {
                     viewHolder.<ImageView>getView(R.id.iv_del).setVisibility(View.VISIBLE);
-                    viewHolder.<RelativeLayout>getView(R.id.ry_my).setVisibility(View.VISIBLE);
                     viewHolder.<TextView>getView(R.id.tv_my_reply).setText(item.getReply_num() + "条新评论 >");
                     viewHolder.<ImageView>getView(R.id.iv_del).setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -66,8 +66,22 @@ public class CircleListAdapter extends CommonAdapter<ModelCircle> {
                             }
                         }
                     });
+                    if (tag == 0) {
+                        viewHolder.<RelativeLayout>getView(R.id.ry_my).setVisibility(View.GONE);
+                    } else {
+                        viewHolder.<RelativeLayout>getView(R.id.ry_my).setVisibility(View.VISIBLE);
+                        viewHolder.<RelativeLayout>getView(R.id.ry_my).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (mOnItemDeleteListener != null) {
+                                    mOnItemDeleteListener.onJumpPinglun(item);
+                                }
+                            }
+                        });
+
+                    }
                 } else {
-                    viewHolder.<RelativeLayout>getView(R.id.ry_my).setVisibility(View.GONE);
+
                     viewHolder.<ImageView>getView(R.id.iv_del).setVisibility(View.GONE);
 
                 }

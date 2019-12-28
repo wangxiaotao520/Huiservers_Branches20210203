@@ -83,7 +83,7 @@ public class CircleTabFragmentNew extends BaseFragment implements CircleListAdap
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(true);
 
-        adapter = new CircleListAdapter(getActivity(), R.layout.item_circle_list, mDatas, this);
+        adapter = new CircleListAdapter(getActivity(), R.layout.item_circle_list, mDatas, this,0);
         mListView.setAdapter(adapter);
 
 
@@ -132,7 +132,7 @@ public class CircleTabFragmentNew extends BaseFragment implements CircleListAdap
         params.put("c_id", mCid);
         params.put("is_pro", mPro + "");
         params.put("p", page + "");
-        MyOkHttp.get().post(ApiHttpClient.GET_SOCIAL_LIST, params, new JsonResponseHandler() {
+        MyOkHttp.get().get(ApiHttpClient.GET_SOCIAL_LIST, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -153,14 +153,16 @@ public class CircleTabFragmentNew extends BaseFragment implements CircleListAdap
                         } else {
                             refreshLayout.setEnableLoadMore(true);
                         }
+                        adapter.notifyDataSetChanged();
                     } else {
                         if (page == 1) {
                             rel_no_data.setVisibility(View.VISIBLE);
                             mDatas.clear();
                         }
                         refreshLayout.setEnableLoadMore(false);
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
+
 
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
@@ -224,6 +226,11 @@ public class CircleTabFragmentNew extends BaseFragment implements CircleListAdap
                 }
             }
         }).show();//.setTitle("提示")
+
+    }
+
+    @Override
+    public void onJumpPinglun(ModelCircle item) {
 
     }
 

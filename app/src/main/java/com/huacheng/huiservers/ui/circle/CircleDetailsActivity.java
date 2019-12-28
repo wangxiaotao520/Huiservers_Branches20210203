@@ -167,7 +167,11 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
         // circle_comment = this.getIntent().getExtras().getString("circle_comment");
 //        isRefresh = this.getIntent().getExtras().getBoolean("refresh");
-
+        if (!NullUtil.isStringEmpty(this.getIntent().getExtras().getString("SCROLLtag"))) {
+            SCROLLtag="1";
+        }else {
+            SCROLLtag="0";
+        }
         preferencesLogin = this.getSharedPreferences("login", 0);
         login_type = preferencesLogin.getString("login_type", "");
         bitmapUtils = new BitmapUtils(this);
@@ -293,7 +297,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
                 }
                 if (mCirclebean.getReply_list() != null) {
-                    mTvPinglunNum.setText("评论("+mCirclebean.getReply_list().size()+")");
+                    mTvPinglunNum.setText("评论(" + mCirclebean.getReply_list().size() + ")");
                     mLinYescontent.setVisibility(View.VISIBLE);
                     mLinNodata.setVisibility(View.GONE);
                     cricle2detailListAdapter = new CircleDetailListAdapter(CircleDetailsActivity.this, mCirclebean.getReply_list());
@@ -318,6 +322,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                         }
                     });
                 } else {
+                    mTvPinglunNum.setText("评论");
                     mLinYescontent.setVisibility(View.GONE);
                     mLinNodata.setVisibility(View.VISIBLE);
                     //显示无评论图

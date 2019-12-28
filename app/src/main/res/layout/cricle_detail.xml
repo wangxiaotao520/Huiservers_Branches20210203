@@ -213,7 +213,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="评论"
+                            android:text=""
                             android:textColor="@color/blackgray"
                             android:textSize="@dimen/t_14sp"
                             android:textStyle="bold"/>

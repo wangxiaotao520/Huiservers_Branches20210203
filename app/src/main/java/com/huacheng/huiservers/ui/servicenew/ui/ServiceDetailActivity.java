@@ -3,7 +3,6 @@ package com.huacheng.huiservers.ui.servicenew.ui;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +23,7 @@ import com.example.xlhratingbar_lib.XLHRatingBar;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.dialog.ServiceDetailOrderDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
@@ -67,8 +67,6 @@ import butterknife.OnClick;
 public class ServiceDetailActivity extends BaseActivity {
     @BindView(R.id.ic_banner)
     SimpleDraweeView mIcBanner;
-    @BindView(R.id.tv_service_name)
-    TextView mTvServiceName;
     @BindView(R.id.list)
     ScrollviewListView mList;
     @BindView(R.id.sinple_icon)
@@ -86,7 +84,7 @@ public class ServiceDetailActivity extends BaseActivity {
     @BindView(R.id.ly_share)
     LinearLayout mLyShare;
     @BindView(R.id.title_rel)
-    LinearLayout mTitleRel;
+    RelativeLayout mTitleRel;
     @BindView(R.id.ly_call)
     LinearLayout mLyCall;
     @BindView(R.id.ly_store)
@@ -123,8 +121,12 @@ public class ServiceDetailActivity extends BaseActivity {
     TextView mTvStoreCoupon;
     @BindView(R.id.tv_store_num)
     TextView mTvStoreNum;
-
+    @BindView(R.id.tv_select_cat)
+    TextView mTvSelectCat;
+    @BindView(R.id.ly_select_cat)
+    LinearLayout mLySelectCat;
     View status_bar;
+
     int width;
     List<String> StoreCatedata = new ArrayList<>();
     ServiceCateAdapter cateAdapter;
@@ -132,6 +134,10 @@ public class ServiceDetailActivity extends BaseActivity {
     String tag_id, tag_name, tag_price;//服务标签id
     String call, service_id = "";
     ModelServiceDetail mModelOrdetDetail;
+    ModelServiceDetail.TagListBean select_cat = new ModelServiceDetail.TagListBean();
+    @BindView(R.id.ly_bottom)
+    LinearLayout mLyBottom;
+
     private String share_url;
     private String share_title;
     private String share_desc;
@@ -140,12 +146,11 @@ public class ServiceDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        mTitleRel.setBackgroundColor(Color.argb((int) 0, 0, 0, 0));
-        mTitleName.setTextColor(Color.argb((int) 0, 0, 0, 0));
         status_bar = findViewById(R.id.status_bar);
         status_bar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
-        status_bar.setAlpha(0);
-
+        status_bar.setAlpha(1);
+        mScrollView.setVisibility(View.GONE);
+        mLyBottom.setVisibility(View.GONE);
         cateAdapter = new ServiceCateAdapter(this, tagListBeans);
         mList.setAdapter(cateAdapter);
 
@@ -159,6 +164,7 @@ public class ServiceDetailActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+        //用不上了
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -170,7 +176,7 @@ public class ServiceDetailActivity extends BaseActivity {
                 cateAdapter.notifyDataSetChanged();
             }
         });
-        mScrollView.setScrollViewListener(new ScrollChangedScrollView.ScrollViewListener() {
+       /* mScrollView.setScrollViewListener(new ScrollChangedScrollView.ScrollViewListener() {
             @Override
             public void onScrollChanged(ScrollView scrollView, int x, int y, int oldx, int oldy) {
                 if (y <= 0) {   //设置标题的背景颜色
@@ -190,7 +196,7 @@ public class ServiceDetailActivity extends BaseActivity {
             public void onScrollStop(boolean isScrollStop) {
 
             }
-        });
+        });*/
     }
 
     /**
@@ -205,6 +211,8 @@ public class ServiceDetailActivity extends BaseActivity {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     mModelOrdetDetail = (ModelServiceDetail) JsonUtil.getInstance().parseJsonFromResponse(response, ModelServiceDetail.class);
+                    mScrollView.setVisibility(View.VISIBLE);
+                    mLyBottom.setVisibility(View.VISIBLE);
                     inflateContent(mModelOrdetDetail);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
@@ -223,7 +231,7 @@ public class ServiceDetailActivity extends BaseActivity {
     private void inflateContent(ModelServiceDetail mModelOrdetDetail) {
         if (mModelOrdetDetail != null) {
             mTitleName.setText(mModelOrdetDetail.getTitle());
-            mTvServiceName.setText(mModelOrdetDetail.getTitle());
+            //mTvServiceName.setText(mModelOrdetDetail.getTitle());
             //GlideUtils.getInstance().glideLoad(this, ApiHttpClient.IMG_SERVICE_URL + , mIcBanner, R.drawable.bg_default_rectange);
             String imgSize = mModelOrdetDetail.getTitle_img_size();
             if (!NullUtil.isStringEmpty(imgSize)) {
@@ -291,7 +299,7 @@ public class ServiceDetailActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.lin_left, R.id.tv_btn, R.id.ly_onclck_pingjia, R.id.ly_call, R.id.ly_store, R.id.ly_share})
+    @OnClick({R.id.lin_left, R.id.tv_btn, R.id.ly_onclck_pingjia, R.id.ly_call, R.id.ly_store, R.id.ly_share, R.id.ly_select_cat})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -379,6 +387,22 @@ public class ServiceDetailActivity extends BaseActivity {
                 });
 
                 break;
+            case R.id.ly_select_cat:
+
+                new ServiceDetailOrderDialog(this, tagListBeans, select_cat, new ServiceDetailOrderDialog.OnClickCatItemListener() {
+                    @Override
+                    public void onClickCatItem(int position) {
+                        ModelServiceDetail.TagListBean select = tagListBeans.get(position);
+                        mTvPrice.setText("¥" + select.getPrice());
+                        mTvSelectCat.setText(select.getTagname());
+                        tag_id = select.getId();
+                        tag_name = select.getTagname();
+                        tag_price = select.getPrice();
+                        select_cat = select;
+
+                    }
+                }).show();
+                break;
         }
     }
 
@@ -405,15 +429,17 @@ public class ServiceDetailActivity extends BaseActivity {
         if (tag_list != null && tag_list.size() > 0) {
             tagListBeans.clear();
             tagListBeans.addAll(tag_list);
-            cateAdapter.notifyDataSetChanged();
+            //cateAdapter.notifyDataSetChanged();
             //默认选中第一条
-            cateAdapter.setSelectItem(0);
-            mTvPrice.setText(tagListBeans.get(0).getPrice());
+            //cateAdapter.setSelectItem(0);
+            mTvPrice.setText("¥" + tagListBeans.get(0).getPrice());
+            mTvSelectCat.setText(tagListBeans.get(0).getTagname());
             tag_id = tagListBeans.get(0).getId();
             tag_name = tagListBeans.get(0).getTagname();
             tag_price = tagListBeans.get(0).getPrice();
+            select_cat = tagListBeans.get(0);
             //获取list显示数量
-            int totalHei;
+           /* int totalHei;
             View listItem = cateAdapter.getView(0, null, mList);
             listItem.measure(0, 0);
             if (tagListBeans.size() > 5) {//大于5条滚动
@@ -422,7 +448,7 @@ public class ServiceDetailActivity extends BaseActivity {
                 totalHei = (listItem.getMeasuredHeight() + mList.getDividerHeight()) * tagListBeans.size();
             }
             ViewGroup.LayoutParams params = mList.getLayoutParams();
-            params.height = totalHei;
+            params.height = totalHei;*/
         }
     }
 
@@ -434,7 +460,7 @@ public class ServiceDetailActivity extends BaseActivity {
     private void getPingjia(ModelServiceDetail.ScoreInfoBean scoreInfoBean) {
         if (scoreInfoBean != null) {
             mLyPingjia.setVisibility(View.VISIBLE);
-            mTvPingjiaNum.setText("共" + scoreInfoBean.getScore_num() + "条评论");
+            mTvPingjiaNum.setText("用户评论(" + scoreInfoBean.getScore_num() + ")");
             FrescoUtils.getInstance().setImageUri(mSdvHead, StringUtils.getImgUrl(scoreInfoBean.getAvatars()));
             mTvUserName.setText(scoreInfoBean.getNickname());
             mRatingBar.setCountSelected(Integer.valueOf(scoreInfoBean.getScore()));

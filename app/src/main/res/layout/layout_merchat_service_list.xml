@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:tab="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/title_rel"
         android:layout_width="fill_parent"
         android:layout_height="48dp"
@@ -14,41 +14,56 @@
 
         <LinearLayout
             android:id="@+id/lin_left"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="center"
+            android:padding="@dimen/margin">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/arrow_left" />
+                android:background="@drawable/arrow_left"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_weight="8">
+            android:layout_centerInParent="true"
+            >
 
-            <android.support.design.widget.TabLayout
+            <!--  <android.support.design.widget.TabLayout
+                  android:id="@+id/tl_tab"
+                  android:layout_width="match_parent"
+                  android:layout_height="48dp"
+                  android:layout_centerInParent="true"
+                  app:tabIndicatorColor="@color/orange"
+                  app:tabSelectedTextColor="@color/orange"
+                  app:tabTextAppearance="@style/TabLayoutStyleText15"
+                  android:paddingLeft="12dp"
+                  android:paddingRight="12dp"
+                  app:tabTextColor="@color/text_color" />-->
+            <com.huacheng.huiservers.view.widget.EnhanceTabLayout
                 android:id="@+id/tl_tab"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
                 android:layout_centerInParent="true"
-                app:tabIndicatorColor="@color/orange"
-                app:tabSelectedTextColor="@color/orange"
-                app:tabTextAppearance="@style/TabLayoutStyleText15"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                app:tabTextColor="@color/text_color" />
+                android:background="@color/white"
+                tab:tabIndicatorColor="#ED8D37"
+                tab:tabIndicatorHeight="2dp"
+                tab:tabIndicatorWidth="40dp"
+                tab:tabSelectTextColor="@color/orange_bg"
+                tab:tabTextColor="#666666"
+                tab:tab_Mode="mode_fixed">
 
-        </LinearLayout>
+            </com.huacheng.huiservers.view.widget.EnhanceTabLayout>
 
-    </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

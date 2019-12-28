@@ -15,8 +15,9 @@
 
         <LinearLayout
             android:id="@+id/lin_most"
-            android:layout_width="242dp"
-            android:layout_height="wrap_content"
+            android:layout_width="320dp"
+            android:layout_height="164dp"
+            android:background="@drawable/allshape_stroke_grey_f8"
             android:orientation="vertical">
 
             <!--fresco:roundingBorderColor="@color/line_f2"
@@ -25,10 +26,14 @@
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/sdv_premium_merchat_bg"
                 android:layout_width="match_parent"
-                android:layout_height="97dp"
+                android:layout_height="125dp"
                 fresco:placeholderImage="@drawable/ic_default_25"
                 fresco:placeholderImageScaleType="centerCrop"
-                fresco:roundedCornerRadius="15dp" />
+                app:roundTopRight="true"
+                app:roundTopLeft="true"
+                app:roundBottomRight="false"
+                app:roundBottomLeft="false"
+                fresco:roundedCornerRadius="5dp" />
 
             <TextView
                 android:id="@+id/tv_titleName"
@@ -36,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
                 android:singleLine="true"
-                android:textColor="@color/text_color"
+                android:layout_marginLeft="@dimen/margin"
+                android:textColor="@color/grey"
                 android:textSize="@dimen/t_15sp" />
 
         </LinearLayout>

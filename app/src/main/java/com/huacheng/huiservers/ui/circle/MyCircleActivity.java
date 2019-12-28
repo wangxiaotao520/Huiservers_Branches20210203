@@ -65,7 +65,7 @@ public class MyCircleActivity extends BaseActivity implements CircleListAdapter.
         mRefreshLayout.setEnableLoadMore(false);
 
 
-        adapter = new CircleListAdapter(this, R.layout.item_circle_list, mDatas, this);
+        adapter = new CircleListAdapter(this, R.layout.item_circle_list, mDatas, this,1);
         mListview.setAdapter(adapter);
 
     }
@@ -147,7 +147,7 @@ public class MyCircleActivity extends BaseActivity implements CircleListAdapter.
             params.put("community_id", sharePrefrenceUtil.getXiaoQuId());
         }
         params.put("p", page + "");
-        MyOkHttp.get().post(ApiHttpClient.GET_USER_SOCIAL, params, new JsonResponseHandler() {
+        MyOkHttp.get().get(ApiHttpClient.GET_USER_SOCIAL, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
@@ -208,6 +208,20 @@ public class MyCircleActivity extends BaseActivity implements CircleListAdapter.
 
             }
         }).show();//.setTitle("提示")
+    }
+
+    /**
+     * 跳转到评论位置
+     */
+    @Override
+    public void onJumpPinglun(ModelCircle item) {
+        Intent intent = new Intent();
+        intent.setClass(MyCircleActivity.this, CircleDetailsActivity.class);
+        intent.putExtra("id",item.getId());
+        intent.putExtra("mPro",item.getIs_pro());
+        intent.putExtra("SCROLLtag","1");//滑到评论位置
+        startActivity(intent);
+
     }
 
     /**

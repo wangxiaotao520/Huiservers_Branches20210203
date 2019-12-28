@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.base.BaseFragment;
+import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
 import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class MerchantServiceListActivity extends BaseActivity {
     String[] mTitle = new String[]{"商家", "服务"};
     private String keyword = "";
 
-    TabLayout mTabLayout;
+    EnhanceTabLayout mTabLayout;
     ViewPager mViewPager;
     List<BaseFragment> mFragments = new ArrayList<>();
     MerchantServiceListFragmentCommon currentFragment;
@@ -36,22 +37,26 @@ public class MerchantServiceListActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        lin_left = findViewById(R.id.lin_left);
+        mTabLayout = findViewById(R.id.tl_tab);
+        mViewPager = findViewById(R.id.vp_pager);
 
+        for (int i = 0; i < mTitle.length; i++) {
+            mTabLayout.addTab(mTitle[i]);
+        }
         for (int i = 0; i < mTitle.length; i++) {
             MerchantServiceListFragmentCommon fragmentCommon = new MerchantServiceListFragmentCommon();
             Bundle bundle = new Bundle();
             bundle.putInt("type", i);
-            if (!NullUtil.isStringEmpty(store_id)){
-                bundle.putString("store_id",store_id);
+            if (!NullUtil.isStringEmpty(store_id)) {
+                bundle.putString("store_id", store_id);
             }
             fragmentCommon.setArguments(bundle);
 //            fragmentCommon.setListViewOnTouchListener(this);
             mFragments.add(fragmentCommon);
         }
 
-        lin_left = findViewById(R.id.lin_left);
-        mTabLayout = findViewById(R.id.tl_tab);
-        mViewPager = findViewById(R.id.vp_pager);
+
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             //此方法用来显示tab上的名字
             @Override
@@ -70,8 +75,13 @@ public class MerchantServiceListActivity extends BaseActivity {
             }
 
         });
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(1); //0 设置缓存页面，当前页面的相邻N各页面都会被缓存
+
         mTabLayout.setupWithViewPager(mViewPager);
+        //在设置viewpager页面滑动监听时，创建TabLayout的滑动监听
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout.getTabLayout()));
+      /*  mViewPager.setOffscreenPageLimit(2);
+        mTabLayout.setupWithViewPager(mViewPager);*/
         currentFragment = (MerchantServiceListFragmentCommon) mFragments.get(0);
 
 
@@ -90,19 +100,41 @@ public class MerchantServiceListActivity extends BaseActivity {
                 finish();
             }
         });
-        mViewPager.setOnPageChangeListener(onPageChangeListener);
+       // mViewPager.setOnPageChangeListener(onPageChangeListener);
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() < mFragments.size()) {
+                    //在这里传入参数
+                    MerchantServiceListFragmentCommon fragmentCommon = (MerchantServiceListFragmentCommon) mFragments.get(tab.getPosition());
+                    //MyHousePropertyFragment fragmentCommon = (MyHousePropertyFragment) mFragments.get(tab.getPosition());
+                    currentFragment = fragmentCommon;
+                    currentFragment.searchRefresh();
+                }
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         String tabType = getIntent().getStringExtra("tabType");
         if (!NullUtil.isStringEmpty(tabType)) {
-            if ("service".equals(tabType)||"servicePop".equals(tabType)) {
-                mTabLayout.getTabAt(1).select();
+            if ("service".equals(tabType) || "servicePop".equals(tabType)) {
+                // mTabLayout.
+                //  mTabLayout.getTabAt(1).select();
                 mViewPager.setCurrentItem(1);
 
             }
         }
 
     }
-
+/*
     ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -118,7 +150,7 @@ public class MerchantServiceListActivity extends BaseActivity {
         @Override
         public void onPageScrollStateChanged(int state) {
         }
-    };
+    };*/
 
     @Override
     protected int getLayoutId() {
@@ -128,7 +160,7 @@ public class MerchantServiceListActivity extends BaseActivity {
     @Override
     protected void initIntentData() {
         Intent intent = getIntent();
-        if (intent!=null){
+        if (intent != null) {
             store_id = intent.getStringExtra("store_id");
 
         }
