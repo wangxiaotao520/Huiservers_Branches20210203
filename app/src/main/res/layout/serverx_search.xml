@@ -8,22 +8,79 @@
    android:fitsSystemWindows="false"
     android:orientation="vertical">
 
-    <include layout="@layout/search_bar" />
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tl_tab"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lin_search_block"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        app:tabIndicatorColor="@color/orange"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/orange"
-        android:paddingRight="12dp"
-        android:paddingLeft="12dp"
-        app:tabTextAppearance="@style/TabLayoutStyleText15"
-        app:tabTextColor="@color/text_color">
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
 
-    </android.support.design.widget.TabLayout>
+
+        <ImageView
+            android:id="@+id/search_back"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@mipmap/arrow_left"/>
+
+        <LinearLayout
+            android:id="@+id/ly_search"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+
+            android:background="@drawable/corner_20_gray"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/margin_20"
+                android:layout_height="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="2dp"
+                android:background="@mipmap/ic_sousuo2x"/>
+
+            <com.huacheng.huiservers.view.ClearEditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:hint="请输入搜索内容"
+                android:background="@null"
+                android:gravity="start|center_vertical"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:imeOptions="actionSearch"
+                android:textColorHint="#C4C4C4"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+        <com.huacheng.huiservers.view.widget.EnhanceTabLayout
+            android:id="@+id/tl_tab"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorWidth="30dp"
+            app:tabTextColor="#666666"
+            app:tab_Mode="mode_fixed"
+            android:background="@color/white"
+            app:tabSelectTextColor="#333333"
+            app:tabIndicatorColor="#ED8D37">
+
+    </com.huacheng.huiservers.view.widget.EnhanceTabLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/line"
+        android:layout_height="1px"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_pager"

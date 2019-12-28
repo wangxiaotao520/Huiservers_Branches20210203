@@ -25,23 +25,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="15dp">
-
-                    <View
-                        android:layout_width="@dimen/margin_3"
-                        android:layout_height="@dimen/margin_15"
-                        android:layout_marginRight="@dimen/margin_13"
-                        android:background="#7f7f7f"></View>
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:text="热门"
-                        android:textColor="#a6a6a6"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="10dp"
+                        android:text="热门搜索"
+                        android:textColor="@color/text_color"
                         android:textSize="@dimen/t_14sp" />
 
                 </LinearLayout>
@@ -72,37 +65,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="15dp">
-
-                        <View
-                            android:layout_width="@dimen/margin_3"
-                            android:layout_height="@dimen/margin_15"
-                            android:layout_marginRight="@dimen/margin_13"
-                            android:background="#7f7f7f"></View>
+                        android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/contentTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="历史"
-                            android:textColor="#a6a6a6"
+                            android:layout_alignParentLeft="true"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="@dimen/margin_15"
+                            android:text="搜索历史"
+                            android:textColor="@color/text_color"
                             android:textSize="@dimen/t_14sp" />
+
 
                     </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/tv_clear_history"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:paddingLeft="@dimen/margin_15"
-                        android:paddingRight="@dimen/margin_15"
-                        android:paddingTop="@dimen/margin_15"
-                        android:text="清除历史"
-                        android:textSize="@dimen/t_14sp" />
+
 
                 </RelativeLayout>
 
@@ -121,13 +101,25 @@
                             style="@style/common_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:divider="@color/all_gray"
-                            android:dividerHeight="1dp"
+                            android:divider="@color/line"
+                            android:dividerHeight="1px"
                             android:listSelector="@drawable/list_item_selector"
                             android:paddingLeft="15dp"
-                            android:paddingRight="15dp"></com.huacheng.huiservers.view.MyListView>
+                            android:paddingRight="15dp"/>
 
-
+                        <TextView
+                            android:id="@+id/tv_clear_history"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/margin_15"
+                            android:paddingRight="@dimen/margin_15"
+                            android:paddingBottom="20dp"
+                            android:layout_marginTop="30dp"
+                            android:textColor="@color/text_color"
+                            android:background="@color/transparents"
+                            android:layout_gravity="center_horizontal"
+                            android:text="清空搜索历史"
+                            android:textSize="@dimen/t_15sp" />
                     </LinearLayout>
 
                 </ScrollView>
