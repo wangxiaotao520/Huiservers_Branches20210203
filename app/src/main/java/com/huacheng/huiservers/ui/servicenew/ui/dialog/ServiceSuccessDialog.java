@@ -30,6 +30,7 @@ public class ServiceSuccessDialog extends Dialog implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_service_success);
         setCanceledOnTouchOutside(false);
+        setCancelable(false);
         TextView tv_btn = findViewById(R.id.tv_btn);
         tv_btn.setOnClickListener(this);
 

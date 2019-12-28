@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -60,10 +59,10 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
     TextView mTvAddress;
     @BindView(R.id.ly_address)
     LinearLayout mLyAddress;
-    @BindView(R.id.tv_center)
-    TextView mTvCenter;
-    @BindView(R.id.rl_title)
-    RelativeLayout mRlTitle;
+//    @BindView(R.id.tv_center)
+//    TextView mTvCenter;
+//    @BindView(R.id.rl_title)
+//    RelativeLayout mRlTitle;
     @BindView(R.id.edit_content)
     EditText mEditContent;
     @BindView(R.id.tv_num)
@@ -100,15 +99,15 @@ public class ServiceConfirmOrderActivity extends BaseActivity {
     }
 
     private void titleView() {
-        View view1 = findViewById(R.id.view1);
-        TextView textView1 = view1.findViewById(R.id.tv_center);
-        textView1.setText("服务项目");
-        View view2 = findViewById(R.id.view2);
-        TextView textView2 = view2.findViewById(R.id.tv_center);
-        textView2.setText("服务地址");
-        View view3 = findViewById(R.id.view3);
-        TextView textView3 = view3.findViewById(R.id.tv_center);
-        textView3.setText("备注");
+//        View view1 = findViewById(R.id.view1);
+//        TextView textView1 = view1.findViewById(R.id.tv_center);
+//        textView1.setText("服务项目");
+//        View view2 = findViewById(R.id.view2);
+//        TextView textView2 = view2.findViewById(R.id.tv_center);
+//        textView2.setText("服务地址");
+//        View view3 = findViewById(R.id.view3);
+//        TextView textView3 = view3.findViewById(R.id.tv_center);
+//        textView3.setText("备注");
 
     }
 
