@@ -34,12 +34,14 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelCoummnityList;
+import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.ModelHome;
 import com.huacheng.huiservers.model.ModelHomeCircle;
 import com.huacheng.huiservers.model.ModelHomeIndex;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.ModelVBaner;
 import com.huacheng.huiservers.ui.base.BaseFragment;
+import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
 import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeGridViewCateAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
@@ -583,18 +585,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     TextView tv_time = item_home_circle.findViewById(R.id.tv_time);
                     TextView tv_more_circle = item_home_circle.findViewById(R.id.tv_more_circle);
                     ImageView tv_more_circle_arrow = item_home_circle.findViewById(R.id.tv_more_circle_arrow);
-                    tv_more_circle.setOnClickListener(new OnDoubleClickListener() {
-                        @Override
-                        public void onNoDoubleClick(View v) {
-                            //查看更多
-                        }
-                    });
-                    tv_more_circle_arrow.setOnClickListener(new OnDoubleClickListener() {
-                        @Override
-                        public void onNoDoubleClick(View v) {
-                            //查看更多
-                        }
-                    });
+
                     ll_zixun_container_root.addView(item_home_circle);
                     //显示
                     final ModelHomeCircle modelHomeCircle = modelHome.getSocial_list().get(i);
@@ -615,6 +606,37 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                         tv_circle_name.setText(modelHomeCircle.getList().getC_name()+"");
                         tv_read_count.setText(modelHomeCircle.getList().getClick()+"阅读");
                         tv_time.setText(modelHomeCircle.getList().getAddtime()+"");
+
+                    tv_more_circle.setOnClickListener(new OnDoubleClickListener() {
+                        @Override
+                        public void onNoDoubleClick(View v) {
+                            //查看更多
+                            // 跳转更多
+                            ModelEventHome modelEventHome = new ModelEventHome();
+                            modelEventHome.setType(modelHomeCircle.getIndex());
+                            EventBus.getDefault().post(modelEventHome);
+                        }
+                    });
+                    tv_more_circle_arrow.setOnClickListener(new OnDoubleClickListener() {
+                        @Override
+                        public void onNoDoubleClick(View v) {
+                            //查看更多
+                            // 跳转更多
+                            ModelEventHome modelEventHome = new ModelEventHome();
+                            modelEventHome.setType(modelHomeCircle.getIndex());
+                            EventBus.getDefault().post(modelEventHome);
+                        }
+                    });
+                    item_home_circle.setOnClickListener(new OnDoubleClickListener() {
+                        @Override
+                        public void onNoDoubleClick(View v) {
+                            Intent  intent = new Intent(mActivity, CircleDetailsActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id", modelHomeCircle.getList().getId());
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    });
                 }
             }else {
                 ll_zixun_container.setVisibility(View.GONE);

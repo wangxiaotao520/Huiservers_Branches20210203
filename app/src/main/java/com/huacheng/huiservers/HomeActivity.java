@@ -30,7 +30,6 @@ import com.huacheng.huiservers.model.ModelQRCode;
 import com.huacheng.huiservers.ui.base.ActivityStackManager;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.AboutActivity;
-import com.huacheng.huiservers.ui.fragment.CircleFragment;
 import com.huacheng.huiservers.ui.fragment.CircleFragmentNew;
 import com.huacheng.huiservers.ui.fragment.HomeFragmentNew;
 import com.huacheng.huiservers.ui.fragment.MyCenterFrament;
@@ -350,7 +349,7 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
                 break;
             case R.id.rb_content_fragment_quanzi:
                 if (isEvent && modelEventHome != null) {//说明是点击的物业公告或者社区公告
-                    CircleFragment fragment = (CircleFragment) fragments.get(3);
+                    CircleFragmentNew fragment = (CircleFragmentNew) fragments.get(3);
                     Bundle bundle = new Bundle();
                     bundle.putInt("type_position", modelEventHome.getType());
                     fragment.setArguments(bundle);

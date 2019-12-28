@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
@@ -37,7 +36,7 @@ import java.util.List;
 public class StoreCommentFragment extends BaseFragment implements OnRefreshAndLoadMoreListener, HeaderScrollHelper.ScrollableContainer {
     private PagingListView listView;
     private RelativeLayout rel_alltag;
-    private LinearLayout ll_top;
+  //  private LinearLayout ll_top;
     private CommentFragmentAdapter adapter;
     private List<ModelCommentItem> mDatas=new ArrayList<>();
     private int page=1;
@@ -57,8 +56,8 @@ public class StoreCommentFragment extends BaseFragment implements OnRefreshAndLo
     public void initView(View view) {
         rel_alltag = view.findViewById(R.id.rel_alltag);
         rel_alltag.setVisibility(View.GONE);
-        ll_top = view.findViewById(R.id.ll_top);
-        ll_top.setVisibility(View.GONE);
+//        ll_top = view.findViewById(R.id.ll_top);
+//        ll_top.setVisibility(View.GONE);
         listView = (PagingListView) view.findViewById(R.id.listView);
         adapter=new CommentFragmentAdapter(mDatas,mActivity);
         listView.setAdapter(adapter);

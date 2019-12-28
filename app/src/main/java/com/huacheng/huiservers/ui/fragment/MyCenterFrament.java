@@ -17,6 +17,7 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.fragment.adapter.MyCenterAdapter;
 import com.huacheng.huiservers.ui.fragment.indexcat.HouseHandBookActivity;
+import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
 import com.huacheng.huiservers.ui.index.message.MessageIndexActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.shop.ShopZCListActivity;
@@ -180,6 +181,9 @@ public class MyCenterFrament extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.ry_help:
+                //todo 测试
+                intent = new Intent(mActivity, MyHousePropertyActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ry_about:
                 break;
