@@ -11,7 +11,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelShopIndex;
-import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopCommonAdapter;
+import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.HeaderViewPagerFragment;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
@@ -32,11 +32,11 @@ import java.util.List;
  * created by wangxiaotao
  * 2018/12/21 0021 下午 1:14
  */
-public class FragmentShopCommon extends HeaderViewPagerFragment implements ShopCommonAdapter.OnClickCallback {
+public class FragmentShopCommon extends HeaderViewPagerFragment implements HomeIndexGoodsCommonAdapter.OnClickCallback {
     private PagingListView listView;
     private View rel_no_data;
     private List<ModelShopIndex> mDatas=new ArrayList<>();//数据
-    private ShopCommonAdapter<ModelShopIndex> adapter;
+    private HomeIndexGoodsCommonAdapter<ModelShopIndex> adapter;
     private int page=1;
     int type;
     String c_id="";
@@ -47,7 +47,8 @@ public class FragmentShopCommon extends HeaderViewPagerFragment implements ShopC
     @Override
     public void initView(View view) {
         listView=view.findViewById(R.id.listView);
-        adapter = new ShopCommonAdapter<>(mActivity,mDatas,this);
+        adapter = new HomeIndexGoodsCommonAdapter<>(mActivity,mDatas,this);
+
         listView.setAdapter(adapter);
         setEnableLoadMore(false);
         rel_no_data = view.findViewById(R.id.rel_no_data);

@@ -2,23 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ll_grid_center"
         android:layout_width="match_parent"
         android:layout_height="115dp"
-        android:background="@drawable/shape_stroke"
-        android:orientation="vertical"
-        android:padding="1dp">
-
-        <ImageView
+        android:orientation="vertical">
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/iv_banner"
             android:layout_width="match_parent"
-            android:scaleType="fitXY"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            fresco:placeholderImage="@color/default_color"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:roundedCornerRadius="5dp" />
 
     </LinearLayout>
-
 
 </LinearLayout>

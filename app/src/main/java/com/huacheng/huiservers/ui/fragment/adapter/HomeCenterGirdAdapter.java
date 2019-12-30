@@ -6,16 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.libraryservice.utils.DeviceUtils;
-import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
 import java.util.List;
 
@@ -63,10 +63,12 @@ public class HomeCenterGirdAdapter extends BaseAdapter {
 
         //获取图片的宽高--start
         holder.ll_grid_center.getLayoutParams().width = (ToolUtils.getScreenWidth(mContext)- DeviceUtils.dip2px(mContext,30))/2;
-        Double d = Double.valueOf(holder.ll_grid_center.getLayoutParams().width) / 1.5;
-        holder.ll_grid_center.getLayoutParams().height = (new Double(d)).intValue();
-        GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL + list.get(position).getImg()
-                , holder.iv_banner, R.drawable.ic_default_15);
+//        Double d = Double.valueOf(holder.ll_grid_center.getLayoutParams().width) / 1.5;
+//        holder.ll_grid_center.getLayoutParams().height = (new Double(d)).intValue();
+//        GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL + list.get(position).getImg()
+//                , holder.iv_banner, R.drawable.ic_default_15);
+        holder.ll_grid_center.getLayoutParams().height = DeviceUtils.dip2px(mContext,115);
+        FrescoUtils.getInstance().setImageUri(holder.iv_banner, ApiHttpClient.IMG_URL + list.get(position).getImg());
 
         holder.iv_banner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +90,11 @@ public class HomeCenterGirdAdapter extends BaseAdapter {
 
     class ViewHoldler {
         LinearLayout ll_grid_center;
-        ImageView iv_banner;
+        SimpleDraweeView iv_banner;
 
         public ViewHoldler(View v) {
             ll_grid_center = (LinearLayout) v.findViewById(R.id.ll_grid_center);
-            iv_banner = (ImageView) v.findViewById(R.id.iv_banner);
+            iv_banner = (SimpleDraweeView) v.findViewById(R.id.iv_banner);
 
         }
     }

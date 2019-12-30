@@ -23,6 +23,7 @@
         android:layout_height="32dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="8"
+        android:layout_marginRight="15dp"
         android:background="@drawable/corner_20_gray"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -60,6 +61,7 @@
         android:gravity="center"
         android:text="搜索"
         android:textColor="#555555"
+        android:visibility="gone"
         android:textSize="18dp"/>
 
 
