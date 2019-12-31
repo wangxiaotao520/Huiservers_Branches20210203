@@ -74,7 +74,7 @@
                     android:paddingRight="5dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="社区公告"
+                    android:text="物业公告"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/gray_66"
                     android:textSize="13sp" />

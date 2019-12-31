@@ -245,17 +245,19 @@ public class HouserentDetailActivity extends BaseActivity {
             //判断显示数据是租房还是售房
             if (HouseRentType == 1) {
 
-                //TODO 这里付款方式前后台不统一的了
+                //1为月付，2为季付，3为半年付，4为年付，5为可贷款，6为全款
                 headerViewHolder.tv_fk_type_name.setText("付款方式");
                 if (houseRentInfo.getPay_type().equals("1")) {
                     headerViewHolder.mTvFkType.setText("月付");
                 } else if (houseRentInfo.getPay_type().equals("2")) {
                     headerViewHolder.mTvFkType.setText("季付");
                 } else if (houseRentInfo.getPay_type().equals("3")) {
-                    headerViewHolder.mTvFkType.setText("年付");
+                    headerViewHolder.mTvFkType.setText("半年付");
                 } else if (houseRentInfo.getPay_type().equals("4")) {
-                    headerViewHolder.mTvFkType.setText("可贷款");
+                    headerViewHolder.mTvFkType.setText("年付");
                 } else if (houseRentInfo.getPay_type().equals("5")) {
+                    headerViewHolder.mTvFkType.setText("可贷款");
+                }else {
                     headerViewHolder.mTvFkType.setText("全款");
                 }
                 headerViewHolder.mTvRuzhu.setText(houseRentInfo.getCheck_in());
@@ -276,18 +278,18 @@ public class HouserentDetailActivity extends BaseActivity {
                 headerViewHolder.tv_fk_type_name.setText("房屋单价");
                 headerViewHolder.mTvFkType.setText(houseRentInfo.getUnit_price() + "元");
                 headerViewHolder.mTvRuzhu.setText(houseRentInfo.getCheck_in());
-                //TODO 这里付款方式前后台不统一的了
+                //1为月付，2为季付，3为半年付，4为年付，5为可贷款，6为全款
                 headerViewHolder.tv_zq_time_name.setText("付款方式");
                 if (houseRentInfo.getPay_type().equals("1")) {
                     headerViewHolder.mTvZqTime.setText("月付");
                 } else if (houseRentInfo.getPay_type().equals("2")) {
                     headerViewHolder.mTvZqTime.setText("季付");
                 } else if (houseRentInfo.getPay_type().equals("3")) {
-                    headerViewHolder.mTvZqTime.setText("年付");
+                    headerViewHolder.mTvZqTime.setText("半年付");
                 } else if (houseRentInfo.getPay_type().equals("4")) {
-                    headerViewHolder.mTvZqTime.setText("可贷款");
+                    headerViewHolder.mTvZqTime.setText("年付");
                 } else if (houseRentInfo.getPay_type().equals("5")) {
-                    headerViewHolder.mTvZqTime.setText("全款");
+                    headerViewHolder.mTvZqTime.setText("可贷款");
                 }else {
                     headerViewHolder.mTvZqTime.setText("全款");
                 }

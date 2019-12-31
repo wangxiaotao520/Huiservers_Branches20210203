@@ -103,7 +103,6 @@ public class ShopFragment1 extends BaseFragment {
     private float alpha;  //透明度 标志滑动到的位置状态
     private List<ModelAds> adHead;
     private View view_tab_line;
-    private View view_tab_space;
     private View view_title_line;
 
     @Override
@@ -141,7 +140,6 @@ public class ShopFragment1 extends BaseFragment {
         mTabLayout = view.findViewById(R.id.tl_tab);
         mViewPager = view.findViewById(R.id.vp_pager);
         view_tab_line = view.findViewById(R.id.view_tab_line);
-        view_tab_space = view.findViewById(R.id.view_tab_space);
         view_title_line = view.findViewById(R.id.view_title_line);
     }
 
@@ -175,13 +173,11 @@ public class ShopFragment1 extends BaseFragment {
                 if (alpha>=1){
                     mTabLayout.setBackgroundColor(getResources().getColor(R.color.white));
                     view_tab_line.setVisibility(View.VISIBLE);
-                    view_tab_space.setVisibility(View.GONE);
-                    view_title_line.setVisibility(View.GONE);
+                    view_title_line.setBackgroundColor(getResources().getColor(R.color.white));
                 }else {
                     mTabLayout.setBackgroundColor(getResources().getColor(R.color.transparents));
-                    view_tab_line.setVisibility(View.GONE);
-                    view_tab_space.setVisibility(View.VISIBLE);
-                    view_title_line.setVisibility(View.VISIBLE);
+                    view_tab_line.setVisibility(View.INVISIBLE);
+                    view_title_line.setBackgroundColor(getResources().getColor(R.color.windowbackground));
                 }
 
             }
