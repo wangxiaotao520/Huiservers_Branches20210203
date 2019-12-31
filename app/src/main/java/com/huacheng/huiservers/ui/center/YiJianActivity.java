@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
@@ -27,9 +26,9 @@ import org.json.JSONObject;
 public class YiJianActivity extends BaseActivityOld implements View.OnClickListener {
 
     private LinearLayout lin_left;
-    private RelativeLayout rel_ti;
     private TextView title_name;
     private EditText editText;
+    private TextView txt_right1;
 
     @Override
     protected void init() {
@@ -37,15 +36,16 @@ public class YiJianActivity extends BaseActivityOld implements View.OnClickListe
         setContentView(R.layout.activity_yijian);
         //      SetTransStatus.GetStatus(this);
 
-        lin_left = (LinearLayout) findViewById(R.id.lin_left);
-        rel_ti = (RelativeLayout) findViewById(R.id.rel_ti);
-        editText = (EditText) findViewById(R.id.et_content);
-        title_name = (TextView) findViewById(R.id.title_name);
-
+        lin_left = findViewById(R.id.lin_left);
+        editText = findViewById(R.id.et_content);
+        title_name = findViewById(R.id.title_name);
+        txt_right1 = findViewById(R.id.txt_right1);
+        txt_right1.setText("提交");
+        txt_right1.setVisibility(View.VISIBLE);
         title_name.setText("意见反馈");
 
         lin_left.setOnClickListener(this);
-        rel_ti.setOnClickListener(this);
+        txt_right1.setOnClickListener(this);
 
     }
 
@@ -55,7 +55,7 @@ public class YiJianActivity extends BaseActivityOld implements View.OnClickListe
             case R.id.lin_left:
                 finish();
                 break;
-            case R.id.rel_ti:
+            case R.id.txt_right1:
                 if (TextUtils.isEmpty(editText.getText().toString().trim())) {
                     SmartToast.showInfo("请填写内容");
                 } else {

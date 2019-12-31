@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_nsm"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+              android:id="@+id/ll_nsm"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
 
-    android:clipToPadding="false"
-   android:fitsSystemWindows="false"
-    android:orientation="vertical">
+              android:clipToPadding="false"
+              android:fitsSystemWindows="false"
+              android:orientation="vertical">
 
-    <include layout="@layout/titlebar_center" />
+    <include layout="@layout/titlebar_center"/>
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:background="@color/all_gray"
-        android:layout_weight="7">
+        android:layout_weight="7"
+        android:background="@color/all_gray">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -44,8 +44,8 @@
                         android:layout_marginBottom="2dp"
                         android:gravity="center_vertical"
                         android:text="头像"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/t_18sp" />
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/t_16sp"/>
 
                     <TextView
                         android:id="@+id/tv_owner_mark"
@@ -58,40 +58,42 @@
                         android:text="业主"
                         android:textColor="@color/white"
                         android:textSize="10sp"
-                        android:visibility="gone" />
+                        android:visibility="gone"/>
                 </LinearLayout>
 
                 <com.huacheng.huiservers.view.CircularImage
                     android:id="@+id/img_head_1"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginRight="@dimen/margin"
                     android:layout_toLeftOf="@+id/go"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/ic_default_head" />
+                    android:background="@drawable/ic_default_head"
+                    android:scaleType="centerCrop"/>
 
                 <ImageView
                     android:id="@+id/go"
-                    android:background="@drawable/jiantou_you"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/jiantou_you"/>
             </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="10dp"
-                android:background="@color/view_background_color" />
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:background="@color/windowbackground"/>
 
             <RelativeLayout
                 android:id="@+id/rl_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:visibility="gone"
-                android:padding="15dp">
+                android:padding="15dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -100,7 +102,7 @@
                     android:gravity="center_vertical"
                     android:text="姓名"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/t_16sp" />
+                    android:textSize="@dimen/t_16sp"/>
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -113,7 +115,7 @@
                     android:gravity="right|center_vertical"
                     android:hint="请填写姓名"
                     android:textColor="@color/graynew2"
-                    android:textSize="@dimen/t_16sp" />
+                    android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
                     android:id="@+id/go1"
@@ -122,13 +124,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/arrow_right" />
+                    android:src="@drawable/arrow_right"/>
             </RelativeLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/graynew4" />
 
             <RelativeLayout
                 android:id="@+id/rl_nickname"
@@ -143,8 +140,8 @@
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:text="昵称"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/t_16sp" />
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/t_16sp"/>
 
                 <TextView
                     android:id="@+id/tv_nickname"
@@ -155,9 +152,10 @@
                     android:layout_toLeftOf="@+id/go2"
                     android:background="@null"
                     android:gravity="right|center_vertical"
-                    android:hint="请填写昵称"
-                    android:textColor="@color/graynew2"
-                    android:textSize="@dimen/t_16sp" />
+                    android:hint="请输入昵称"
+                    android:textColor="@color/gray_66"
+                    android:textColorHint="@color/gray4"
+                    android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
                     android:id="@+id/go2"
@@ -166,13 +164,15 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/jiantou_you" />
+                    android:src="@drawable/jiantou_you"/>
             </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/graynew4" />
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:background="@color/windowbackground"/>
 
             <RelativeLayout
                 android:id="@+id/rl_sex"
@@ -187,8 +187,8 @@
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:text="性别"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/t_16sp" />
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/t_16sp"/>
 
                 <TextView
                     android:id="@+id/tv_sex"
@@ -200,8 +200,9 @@
                     android:background="@null"
                     android:gravity="right|center_vertical"
                     android:hint="请选择性别"
-                    android:textColor="@color/graynew2"
-                    android:textSize="@dimen/t_16sp" />
+                    android:textColor="@color/gray_66"
+                    android:textColorHint="@color/gray4"
+                    android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
                     android:id="@+id/go3"
@@ -210,13 +211,15 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/jiantou_you" />
+                    android:src="@drawable/jiantou_you"/>
             </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/graynew4" />
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:background="@color/windowbackground"/>
 
             <RelativeLayout
                 android:id="@+id/rl_birthday"
@@ -231,8 +234,8 @@
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:text="出生日期"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/t_16sp" />
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/t_16sp"/>
 
                 <TextView
                     android:id="@+id/tv_birthday"
@@ -244,8 +247,9 @@
                     android:background="@null"
                     android:gravity="right|center_vertical"
                     android:hint="请选择出生日期"
-                    android:textColor="@color/graynew2"
-                    android:textSize="@dimen/t_16sp" />
+                    android:textColor="@color/gray_66"
+                    android:textColorHint="@color/gray4"
+                    android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
                     android:id="@+id/go5"
@@ -254,21 +258,21 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/jiantou_you" />
+                    android:src="@drawable/jiantou_you"/>
             </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="10dp"
-                android:background="@color/view_background_color" />
+                android:background="@color/view_background_color"/>
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/rl_changepwd"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="12dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -277,7 +281,7 @@
                     android:gravity="center_vertical"
                     android:text="修改密码"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/t_16sp" />
+                    android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -285,22 +289,22 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/jiantou_you" />
+                    android:src="@drawable/jiantou_you"/>
             </RelativeLayout>
 
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="10dp"
-                android:background="@color/view_background_color" />
+                android:background="@color/view_background_color"/>
 
             <RelativeLayout
                 android:id="@+id/rl_signout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="12dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -309,7 +313,7 @@
                     android:gravity="center"
                     android:text="退出登录"
                     android:textColor="#DA4937"
-                    android:textSize="@dimen/t_16sp" />
+                    android:textSize="@dimen/t_16sp"/>
 
             </RelativeLayout>
         </LinearLayout>

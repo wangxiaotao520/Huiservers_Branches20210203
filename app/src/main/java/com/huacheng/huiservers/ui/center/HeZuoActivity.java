@@ -16,6 +16,7 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.utils.TextCheckUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
 
 import org.json.JSONException;
@@ -48,6 +49,22 @@ public class HeZuoActivity extends BaseActivityOld implements View.OnClickListen
 
         lin_left.setOnClickListener(this);
         rel_ti.setOnClickListener(this);
+        //1、传入需要监听的EditText与TextView
+        TextCheckUtils textCheckUtils = new TextCheckUtils(et_name, et_phone, et_content);
+        //2、设置是否全部填写完成监听
+        textCheckUtils.setOnCompleteListener(new TextCheckUtils.OnCompleteListener() {
+            @Override
+            public void isComplete(boolean isComplete) {
+                if (isComplete) {
+                    rel_ti.setEnabled(true);
+                    rel_ti.setBackgroundResource(R.drawable.allshape_orange);
+
+                } else {
+                    rel_ti.setEnabled(false);
+                    rel_ti.setBackgroundResource(R.drawable.allshape_gray_solid_bb5);
+                }
+            }
+        });
     }
 
     @Override

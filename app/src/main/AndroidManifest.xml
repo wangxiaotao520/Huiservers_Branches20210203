@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.huacheng.huiservers">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.huacheng.huiservers">
 
     <!--<uses-sdk-->
     <!--android:minSdkVersion="19"-->
@@ -83,9 +83,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.NFC"/>
+
     <uses-feature android:name="android.hardware.nfc.hce"/>
-    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD" />
+
+    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
 
@@ -123,9 +125,9 @@
 
         <activity
             android:name="com.huacheng.huiservers.SplashUI"
-            android:label="@string/app_name"
             android:alwaysRetainTaskState="true"
             android:clearTaskOnLaunch="false"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.Slide">
 
             <!--<intent-filter>-->
@@ -986,6 +988,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
+
         <activity
             android:name=".ui.index.workorder.commit.PersonalWorkOrderCommitActivity"
             android:screenOrientation="portrait"
@@ -1021,6 +1024,7 @@
         <activity
             android:name="com.huacheng.huiservers.ui.index.workorder.commit.WorkPriceListActivity"
             android:screenOrientation="portrait"/>
+
         <receiver android:name=".jpush.NotificationClickReceiver">
             <intent-filter>
                 <action android:name="notification_clicked"/>
@@ -1029,10 +1033,10 @@
         <!--投诉建议-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.request.RequesDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.huacheng.huiservers.ui.index.request.RequestListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.huacheng.huiservers.ui.index.request.CommitRequestActivity"
             android:screenOrientation="portrait"
@@ -1042,11 +1046,11 @@
         <!--居家养老关联用户列表-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.oldservice.OldUserActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--居家养老添加关联用户界面-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.oldservice.AddOldUserActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--居家养老添加子女、老人界面-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.oldservice.AddOldRZUserActivity"
@@ -1063,67 +1067,72 @@
         <!--资讯详情-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.oldservice.ZXDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--充电记录-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.charge.ChargeHistoryActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--充电记录-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.charge.ChargeDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--充电消息-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.charge.ChargeMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--充电桩-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.charge.ChargeGridviewActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--全部服务分类-->
         <activity
             android:name="com.huacheng.huiservers.ui.fragment.indexcat.IndexAllServiesActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--通知公告-->
         <activity
             android:name="com.huacheng.huiservers.ui.fragment.indexcat.IndexNoticeListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--消息大厅-->
         <activity
             android:name="com.huacheng.huiservers.ui.index.message.MessageIndexActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--特卖专场-->
         <activity
             android:name="com.huacheng.huiservers.ui.shop.ShopZCListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--交房手册-->
         <activity
             android:name="com.huacheng.huiservers.ui.fragment.indexcat.HouseHandBookActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!--发帖-->
         <activity
             android:name="com.huacheng.huiservers.ui.circle.CircleReleaseActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name="com.huacheng.huiservers.ui.center.MyAboutActivity"
+            android:screenOrientation="portrait"
+            />
         <!--******************************银联支付********************************-->
         <meta-data
             android:name="CurrentEnvironment"
-            android:value="PROD" ><!--PROD or TEST-->
+            android:value="PROD"><!--PROD or TEST-->
         </meta-data>
 
         <meta-data
             android:name="PPPaySDK"
-            android:value="true" />
+            android:value="true"/>
 
         <uses-library
             android:name="org.simalliance.openmobileapi"
             android:required="false"/>
+
         <activity
             android:name="com.unionpay.uppay.PayActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name="com.unionpay.UPPayWapActivity"
@@ -1133,77 +1142,78 @@
         <activity
             android:name="com.huacheng.huiservers.pay.chinaums.UnifyPayActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"/>
         <activity
-        android:name="com.huacheng.huiservers.pay.chinaums.UnifyPayShadowActivity"
-        android:theme="@style/AppCompatTheme.Base.transparent"
-        android:screenOrientation="portrait"
-        android:windowSoftInputMode="stateHidden" />
+            android:name="com.huacheng.huiservers.pay.chinaums.UnifyPayShadowActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppCompatTheme.Base.transparent"
+            android:windowSoftInputMode="stateHidden"/>
         <!--******************************银联支付********************************-->
         <activity
             android:name=".ui.index.oldservice.CalendarViewActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.oldservice.OldServiceWarmActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.charge.ChargeScanActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"/>
         <activity
             android:name=".ui.index.charge.ChargingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.oldservice.OldMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.oldservice.OldHardwareActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.oldservice.HDDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.vote.VoteIndexActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.vote.VoteDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.vote.VoteMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".CommunityListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".CommunitySearchActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.servicenew.ServiceIndexActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.shop.StoreIndexActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.center.AddAddressActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.center.AddAddressActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             />
         <activity
             android:name=".ui.shop.ShopZQListActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.shop.ShopZqHuodongActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.shop.ShopZQWebActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.oldservice.OldServiceIndexActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.shop.ShopCartActivityNew"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".pay.chinaums.UnifyPayResultActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

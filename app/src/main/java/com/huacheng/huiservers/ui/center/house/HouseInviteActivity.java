@@ -14,7 +14,6 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.utils.UIUtils;
 
 import org.json.JSONObject;
 
@@ -58,6 +57,7 @@ public class HouseInviteActivity extends BaseActivityOld {
         getResult();
         mTitleName.setText("访客邀请");
         mTxtMianmi.setText("记录");
+        mTxtMianmi.setTextColor(getResources().getColor(R.color.gray_66));
         mTxtMianmi.setVisibility(View.VISIBLE);
 
 

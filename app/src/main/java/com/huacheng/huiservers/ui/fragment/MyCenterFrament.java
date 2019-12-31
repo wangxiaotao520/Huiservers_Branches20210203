@@ -5,29 +5,50 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseFragment;
+import com.huacheng.huiservers.ui.center.CenterMoneyActivity;
+import com.huacheng.huiservers.ui.center.CouponListActivity;
+import com.huacheng.huiservers.ui.center.HeZuoActivity;
+import com.huacheng.huiservers.ui.center.MyAboutActivity;
+import com.huacheng.huiservers.ui.center.MyInfoActivity;
+import com.huacheng.huiservers.ui.center.SetActivity;
+import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.fragment.adapter.MyCenterAdapter;
-import com.huacheng.huiservers.ui.fragment.indexcat.HouseHandBookActivity;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
-import com.huacheng.huiservers.ui.index.message.MessageIndexActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
-import com.huacheng.huiservers.ui.shop.ShopZCListActivity;
-import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
+import com.huacheng.huiservers.ui.index.workorder.commit.HouseListActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
+import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
+import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyGridview;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,22 +102,31 @@ public class MyCenterFrament extends BaseFragment {
     ScrollView mScroll;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
+    @BindView(R.id.iv_house)
+    ImageView mIvHouse;
     private List<PersoninfoBean> mDatas = new ArrayList<>();
     private MyCenterAdapter myCenterAdapter;
+    SharePrefrenceUtil prefrenceUtil;
+    PersoninfoBean bean;
 
     @Override
     public void initView(View view) {
         ButterKnife.bind(mActivity);
-
+        prefrenceUtil = new SharePrefrenceUtil(mActivity);
         mRefreshLayout.setEnableRefresh(true);
         mRefreshLayout.setEnableLoadMore(false);
 
         //状态栏
         mStatusBar = view.findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
+        mStatusBar.setAlpha(0);
 
-        for (int i = 0; i < 8; i++) {
-            mDatas.add(new PersoninfoBean());
+        String[] str = {"购物车", "商城订单", "服务订单", "生活账单", "租售房", "优惠券", "访客邀请"};
+        for (int i = 0; i < str.length; i++) {
+            PersoninfoBean selectCommon = new PersoninfoBean();
+            //selectCommon.setId((i + 1) + "");
+            selectCommon.setFullname(str[i]);
+            mDatas.add(selectCommon);
         }
 
         myCenterAdapter = new MyCenterAdapter(mActivity, R.layout.item_my_center, mDatas);
@@ -110,13 +140,138 @@ public class MyCenterFrament extends BaseFragment {
 
     }
 
+
     @Override
     public void initListener() {
+        mGridCat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                if (position == 0) {  //"购物车"
+                    Intent intent = new Intent(mActivity, ShopCartActivityNew.class);
+                    startActivityForResult(intent, 1);
+                } else if (position == 1) { //"商城订单"
+                    Intent intent = new Intent(getActivity(), ShopOrderListActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("type", "1111");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if (position == 2) {//"服务订单"
+                    Intent intent = new Intent(mContext, FragmentOrderListActivity.class);
+                    startActivity(intent);
+                } else if (position == 3) {//"生活账单"
+                    Intent intent = new Intent(mActivity, CenterMoneyActivity.class);
+                    startActivity(intent);
+                } else if (position == 4) {//"租售房"
+                    Intent intent = new Intent(mActivity, MyHousePropertyActivity.class);
+                    startActivity(intent);
+
+                } else if (position == 5) {//"优惠券"
+                    Intent intent = new Intent(getActivity(), CouponListActivity.class);//CouponListActivity
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tag", "center");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if (position == 6) { //"访客邀请"
+                    if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                        //Intent intent1 = new Intent(mContext, PropertyNewActivity.class);
+                        Intent intent1 = new Intent(mContext, HouseListActivity.class);
+                        intent1.putExtra("type", 1);
+                        intent1.putExtra("wuye_type", "house_invite");
+                        startActivity(intent1);
+                    } else {
+                        SmartToast.showInfo("该小区暂未开启此功能");
+                    }
+                }
+            }
+        });
+       /* mScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                //设置其透明度
+                float alpha = 0;
+                //向上滑动的距离
+                int scollYHeight = -mLyScroll.getTop();
+                if (scollYHeight >= DeviceUtils.dip2px(mActivity, 100)) {
+                    alpha = 1;//滑上去就一直显示
+                } else {
+                    alpha = scollYHeight / ((DeviceUtils.dip2px(mActivity, 100)) * 1.0f);
+                }
+                mTvTitle.setAlpha(alpha);
+                mStatusBar.setAlpha(alpha);
+
+                if (alpha == 0) {
+                    mTvTitle.setText("");
+                    mIvSet.setBackgroundResource(R.color.white);
+                    mIvMessage.setBackgroundResource(R.color.white);
+                } else {
+                    mIvSet.setBackgroundResource(R.color.orange_bg);
+                    mIvMessage.setBackgroundResource(R.color.orange_bg);
+                    mTvTitle.setText("个人中心");
+
+                }
+            }
+        });*/
     }
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        showDialog(smallDialog);
+        requestData();
+    }
+
+    private void requestData() {
+        Map<String, String> params = new HashMap<>();
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+            params.put("c_id", prefrenceUtil.getXiaoQuId());
+        }
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
+            params.put("province_cn", prefrenceUtil.getProvince_cn());
+            params.put("city_cn", prefrenceUtil.getCity_cn());
+            params.put("region_cn", prefrenceUtil.getRegion_cn());
+        }
+        MyOkHttp.get().post(Url_info.center_index, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                mRefreshLayout.finishRefresh();
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    bean = (PersoninfoBean) JsonUtil.getInstance().parseJsonFromResponse(response, PersoninfoBean.class);
+                    inflateContent(bean);
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                mRefreshLayout.finishRefresh();
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
+    private void inflateContent(PersoninfoBean bean) {
+        if (bean != null) {
+
+            mTvUserPhone.setText(bean.getUsername());
+            mTvLoginStatus.setText("已登录");
+            //头像显示
+            if (!StringUtils.isEmpty(bean.getAvatars())) {
+                FrescoUtils.getInstance().setImageUri(mIvHead, StringUtils.getImgUrl(bean.getAvatars()));
+            }
+            if ("1".equals(bean.getIs_bind_property())) {//未绑定
+                mLyHouse.setVisibility(View.VISIBLE);
+                mTvHouse.setText("认证房屋");
+                mIvHouse.setVisibility(View.VISIBLE);
+            } else {
+                mLyHouse.setVisibility(View.GONE);
+                mTvHouse.setText("已认证");
+                mIvHouse.setVisibility(View.GONE);
+            }
+        }
 
     }
 
@@ -145,47 +300,82 @@ public class MyCenterFrament extends BaseFragment {
 
     @OnClick({R.id.iv_set, R.id.iv_message, R.id.iv_head, R.id.ly_house, R.id.ly_workorder_daifuwu, R.id.ly_workorder_fuwuzhong, R.id.ly_workorder_daizhifu, R.id.ly_workorder_yiwancheng, R.id.ry_help, R.id.ry_about})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.iv_set:
-                startActivity(new Intent(mActivity, HouseHandBookActivity.class));
+                startActivity(new Intent(getActivity(), SetActivity.class));
+                // startActivity(new Intent(mActivity, HouseHandBookActivity.class));//交房手册
                 break;
             case R.id.iv_message:
-                startActivity(new Intent(mActivity, MessageIndexActivity.class));
+                //startActivity(new Intent(mActivity, MessageIndexActivity.class));//消息大厅
+                startActivity(new Intent(mActivity, OldMessageActivity.class));
                 break;
             case R.id.iv_head:
-                startActivity(new Intent(mActivity, ShopZCListActivity.class));
+                startActivity(new Intent(mActivity, MyInfoActivity.class));
+                //startActivity(new Intent(mActivity, ShopZCListActivity.class));//特卖专场
                 break;
-            case R.id.ly_house:
-                Intent intent = new Intent(mContext, ShopZQListActivity.class);
+            case R.id.ly_house:  //判断是否是业主 物业住宅绑定
+
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                    // Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                    intent = new Intent(mContext, HouseListActivity.class);
+                    intent.putExtra("type", 1);
+                    intent.putExtra("wuye_type", "bind");
+                    startActivity(intent);
+
+                } else {
+                    SmartToast.showInfo("该小区暂未开通服务");
+                }
+              /*  Intent intent = new Intent(mContext, ShopZQListActivity.class);
                 intent.putExtra("id", "3");
-                startActivity(intent);
+                startActivity(intent);*/
                 break;
             case R.id.ly_workorder_daifuwu:
-                intent = new Intent(mActivity, WorkOrderListActivity.class);
-                intent.putExtra("type", 0);
-                startActivity(intent);
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                    intent = new Intent(mActivity, WorkOrderListActivity.class);
+                    intent.putExtra("type", 0);
+                    startActivity(intent);
+                } else {
+                    SmartToast.showInfo("该小区暂未开通服务");
+                }
                 break;
             case R.id.ly_workorder_fuwuzhong:
-                intent = new Intent(mActivity, WorkOrderListActivity.class);
-                intent.putExtra("type", 1);
-                startActivity(intent);
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                    intent = new Intent(mActivity, WorkOrderListActivity.class);
+                    intent.putExtra("type", 1);
+                    startActivity(intent);
+                } else {
+                    SmartToast.showInfo("该小区暂未开通服务");
+                }
                 break;
             case R.id.ly_workorder_daizhifu:
-                intent = new Intent(mActivity, WorkOrderListActivity.class);
-                intent.putExtra("type", 2);
-                startActivity(intent);
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                    intent = new Intent(mActivity, WorkOrderListActivity.class);
+                    intent.putExtra("type", 2);
+                    startActivity(intent);
+                } else {
+                    SmartToast.showInfo("该小区暂未开通服务");
+                }
                 break;
             case R.id.ly_workorder_yiwancheng:
-                intent = new Intent(mActivity, WorkOrderListActivity.class);
-                intent.putExtra("type", 3);
-                startActivity(intent);
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                    intent = new Intent(mActivity, WorkOrderListActivity.class);
+                    intent.putExtra("type", 3);
+                    startActivity(intent);
+                } else {
+                    SmartToast.showInfo("该小区暂未开通服务");
+                }
                 break;
             case R.id.ry_help:
-                //todo 测试
-                intent = new Intent(mActivity, MyHousePropertyActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(mActivity, HeZuoActivity.class));
                 break;
             case R.id.ry_about:
+               /* intent = new Intent(mActivity, AboutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tag", "about");
+                intent.putExtras(bundle);
+                startActivity(intent);*/
+                startActivity(new Intent(mActivity, MyAboutActivity.class));
                 break;
         }
     }

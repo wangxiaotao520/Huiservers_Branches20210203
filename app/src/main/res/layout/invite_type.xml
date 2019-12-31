@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/all_gray"
+              android:background="@color/windowbackground"
               android:orientation="vertical">
 
 
@@ -20,7 +20,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                android:background="@color/all_gray"/>
+                android:background="@color/windowbackground"/>
 
 
             <LinearLayout
@@ -36,20 +36,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="二维码"
-                    android:textColor="@color/black"
+                    android:textColor="@color/grey"
                     android:textSize="@dimen/t_18sp"
                     />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
                     android:background="@drawable/icon_kaimen_saoma"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="i为您的亲友创建临时开门的密码"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray_66"
                     android:textSize="@dimen/t_14sp"
                     />
             </LinearLayout>
@@ -57,7 +59,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                android:background="@color/all_gray"/>
+                android:background="@color/windowbackground"/>
 
 
             <LinearLayout
@@ -73,20 +75,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="6位通行码"
-                    android:textColor="@color/black"
+                    android:textColor="@color/grey"
                     android:textSize="@dimen/t_18sp"
                     />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
                     android:background="@drawable/icon_kaimen_mima"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="i为您的亲友创建临时开门的6位通行码"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray_66"
                     android:textSize="@dimen/t_14sp"
                     />
             </LinearLayout>

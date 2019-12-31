@@ -1,7 +1,10 @@
 package com.huacheng.huiservers.ui.fragment.adapter;
 
 import android.content.Context;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -20,6 +23,9 @@ public class MyCenterAdapter extends CommonAdapter<PersoninfoBean> {
 
     @Override
     protected void convert(ViewHolder viewHolder, PersoninfoBean item, int position) {
+        // TODO: 2019/12/28 图标 
+        viewHolder.<ImageView>getView(R.id.iv_cat).setBackgroundResource(R.color.orange_bg);
+        viewHolder.<TextView>getView(R.id.tv_name).setText(item.getFullname());
 
     }
 }
