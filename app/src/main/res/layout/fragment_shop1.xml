@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:background="@color/windowbackground"
+    android:orientation="vertical">
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_height="44dp">
+
+        <ImageView
+            android:id="@+id/iv_shop_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/ic_s_search"
+            android:layout_marginLeft="12dp" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="商城"
+            android:gravity="center"
+            android:textColor="@color/title_color"
+            android:textSize="18sp"
+            android:layout_weight="1" />
+        <RelativeLayout
+            android:id="@+id/ry_gouwu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/lin_gouwuche"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/icon_center_gouwu" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_shop_num"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/circle"
+                android:gravity="center"
+                android:textSize="@dimen/t_10sp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+    </LinearLayout>
+    <View
+        android:id="@+id/view_title_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/windowbackground">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.lzy.widget.HeaderViewPager
+                    android:id="@+id/scrollableLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:hvp_topOffset="10dp">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_head"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <!--头部信息-->
+
+                        <LinearLayout
+                            android:id="@+id/ll_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="146dp">
+                                <com.huacheng.libraryservice.widget.GridViewNoScroll
+                                    android:id="@+id/gridview_shop"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fadingEdge="none"
+                                    android:fastScrollEnabled="false"
+                                    android:footerDividersEnabled="false"
+                                    android:background="@color/transparents"
+                                    android:gravity="center"
+                                    android:headerDividersEnabled="false"
+                                    android:listSelector="@android:color/transparent"
+                                    android:numColumns="5"
+                                    android:stretchMode="columnWidth"
+                                    android:paddingLeft="2dp"
+                                    android:paddingRight="2dp"
+                                    android:verticalSpacing="0dp"/>
+
+                            </FrameLayout>
+
+
+                            <!--<com.facebook.drawee.view.SimpleDraweeView-->
+                            <!--android:id="@+id/sdv_center"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="125dp"-->
+                            <!--fresco:placeholderImage="@color/default_color"-->
+                            <!--fresco:placeholderImageScaleType="centerCrop"-->
+                            <!--android:layout_marginTop="18dp"-->
+                            <!--android:layout_marginLeft="15dp"-->
+                            <!--android:layout_marginRight="15dp"-->
+                            <!--fresco:roundedCornerRadius="5dp" />-->
+
+                            <com.youth.banner.Banner
+                                android:id="@+id/banner"
+                                android:layout_width="match_parent"
+                                android:layout_height="125dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                fresco:indicator_drawable_selected="@drawable/allshape_oval_white"
+                                fresco:indicator_drawable_unselected="@drawable/allshape_oval_grey33"
+                                fresco:indicator_height="7dp"
+                                fresco:indicator_margin="@dimen/margin_5"
+                                fresco:indicator_width="7dp"
+                                android:layout_marginTop="18dp"
+                                android:layout_marginBottom="15dp"
+                                fresco:indicator_selected_height="10dp"
+                                fresco:indicator_selected_width="10dp"
+                                fresco:banner_default_image="@color/default_color"
+                                />
+
+                            <!--为你优选-->
+                            <LinearLayout
+                                android:id="@+id/ll_youxuan_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+                                <View
+
+                                    android:layout_width="match_parent"
+                                    android:background="@color/windowbackground"
+                                    android:layout_height="10dp"/>
+                                <LinearLayout
+                                    android:id="@+id/ll_youxuan_container"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:background="@color/white"
+                                    android:visibility="visible">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:background="@color/white"
+                                        android:orientation="horizontal">
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="15dp"
+                                            android:orientation="horizontal">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="16dp"
+                                                android:text="为你优选"
+                                                android:layout_gravity="center_vertical"
+                                                android:textSize="18sp"
+                                                android:textColor="@color/title_color" />
+                                            <View
+                                                android:layout_width="0dp"
+                                                android:layout_height="match_parent"
+                                                android:layout_weight="1" />
+                                            <TextView
+                                                android:id="@+id/tv_more_youxuan"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="16dp"
+                                                android:text="查看更多"
+                                                android:layout_gravity="center_vertical"
+                                                android:textSize="16sp"
+                                                android:visibility="gone"
+                                                android:textColor="@color/gray_99" />
+                                            <ImageView
+                                                android:id="@+id/tv_more_youxuan_arrow"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginRight="16dp"
+                                                android:layout_gravity="center_vertical"
+                                                android:layout_marginLeft="6dp"
+                                                android:visibility="gone"
+                                                android:background="@drawable/jiantou_you" />
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                                    <HorizontalScrollView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+                                        <LinearLayout
+                                            android:id="@+id/ll_youxuan_img_root"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal"
+                                            android:background="@color/white"
+                                            android:paddingLeft="15dp"
+                                            android:paddingBottom="15dp"
+                                            android:paddingTop="10dp">
+
+
+
+                                        </LinearLayout>
+                                    </HorizontalScrollView>
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                            <!--每日必逛-->
+                        <LinearLayout
+                            android:id="@+id/ll_biguang_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            android:orientation="vertical">
+                            <View
+                                android:layout_width="match_parent"
+                                android:background="@color/windowbackground"
+                                android:layout_height="10dp"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:background="@color/white"
+                                android:visibility="visible">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:background="@color/white"
+                                    android:orientation="horizontal">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="horizontal">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="16dp"
+                                            android:text="每日必逛"
+                                            android:layout_gravity="center_vertical"
+                                            android:textSize="18sp"
+                                            android:textColor="@color/title_color" />
+                                        <View
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1" />
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <com.huacheng.huiservers.view.MyGridview
+                                android:id="@+id/grid_ad"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp"
+                                android:paddingTop="15dp"
+                                android:paddingBottom="10dp"
+                                android:horizontalSpacing="5dp"
+                                android:numColumns="2"
+                                android:stretchMode="columnWidth">
+
+                            </com.huacheng.huiservers.view.MyGridview>
+                            </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:background="@color/windowbackground"
+                            android:layout_height="10dp"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+
+                    <!--<android.support.design.widget.TabLayout-->
+                        <!--android:id="@+id/tl_tab"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="45dp"-->
+                        <!--android:layout_marginBottom="10dp"-->
+                        <!--android:background="@color/transparents"-->
+                        <!--android:paddingLeft="12dp"-->
+                        <!--android:paddingRight="12dp"-->
+                        <!--app:tabIndicatorColor="@color/transparents"-->
+                        <!--app:tabMode="scrollable"-->
+                        <!--app:tabSelectedTextColor="@color/orange"-->
+                        <!--app:tabTextAppearance="@style/TabLayoutStyleText15"-->
+                        <!--app:tabTextColor="@color/text_color" />-->
+
+                    <com.huacheng.huiservers.view.widget.EnhanceTabLayout
+                        android:id="@+id/tl_tab"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:tabIndicatorHeight="2dp"
+                        app:tabIndicatorWidth="50dp"
+                        app:tabTextColor="#666666"
+                        app:tab_Mode="mode_scrollable"
+                        android:background="@color/transparents"
+                        app:tabSelectTextColor="#333333"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        app:tabIndicatorColor="#FA5F5B"/>
+                    <View
+                        android:id="@+id/view_tab_line"
+                        android:layout_width="match_parent"
+                        android:background="@color/line"
+                        android:layout_height="1px"/>
+
+                    <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1.5px"-->
+                    <!--android:layout_marginLeft="12dp"-->
+                    <!--android:layout_marginRight="12dp"-->
+                    <!--android:background="#EDEDED" />-->
+
+                    <com.huacheng.libraryservice.widget.CustomScrollViewPager
+                        android:id="@+id/vp_pager"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+                </com.lzy.widget.HeaderViewPager>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>
+

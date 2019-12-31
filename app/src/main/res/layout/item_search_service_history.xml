@@ -13,8 +13,8 @@
         android:gravity="center_vertical"
         android:paddingBottom="13dp"
         android:paddingTop="13dp"
-        android:text=""
-        android:textColor="@color/blacknew"
+        android:text="dsaf"
+        android:textColor="@color/gray_66"
         android:textSize="@dimen/t_14sp" />
 
     <ImageView

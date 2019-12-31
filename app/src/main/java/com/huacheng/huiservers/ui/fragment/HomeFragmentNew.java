@@ -49,6 +49,8 @@ import com.huacheng.huiservers.ui.fragment.adapter.VBannerAdapter;
 import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
@@ -641,7 +643,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             }else {
                 ll_zixun_container.setVisibility(View.GONE);
             }
-            //TODO
+            //
             //底部商品信息
             if (modelHome.getPro_list() != null && modelHome.getPro_list().size() > 0) {
                 mDatas.clear();
@@ -1001,7 +1003,39 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
     @Override
     public void onClickImage(int position) {
-        //TODO 点击下方商品图片
+        // 点击下方商品图片
+        if (position==-1){
+            return;
+        }
+        if (NullUtil.isStringEmpty(mDatas.get((int) position).getInventory()) || 0 >= Integer.valueOf(mDatas.get((int) position).getInventory())) {
+            SmartToast.showInfo("商品已售罄");
+        } else {
+            Intent intent = new Intent(mContext, ShopDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("shop_id", mDatas.get((int) position).getId());
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onClickShopCart(int position) {
+        //点击购物车
+        if ( ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+            Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+            mContext.startActivity(intent);
+
+        } else {
+
+            if ("2".equals(mDatas.get(position).getExist_hours())) {
+                SmartToast.showInfo("当前时间不在派送时间范围内");
+            } else {
+                if (mDatas.get(position) != null) {
+                    new CommonMethod(mDatas.get(position), null, mContext).getShopLimitTag();
+                }
+            }
+
+        }
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.fragment.AdapterShopIndexGridCate;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopFragmentStoreAdapter;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
@@ -31,7 +32,7 @@ public class ShopFragmentStore extends ShopFragmentCommonImp{
     public SmartRefreshLayout refreshLayout;
     private PagingListView listView;
     private List<String> mDatas = new ArrayList<>();
-    private List<String> mDatasCate = new ArrayList<>();
+    private List<ModelShopIndex> mDatasCate = new ArrayList<>();
     private ShopFragmentStoreAdapter shopFragmentStoreAdapter;
     private View headerView;
     private GridViewNoScroll gridview_shop;
@@ -92,7 +93,7 @@ public class ShopFragmentStore extends ShopFragmentCommonImp{
         adapterShopIndexGridCate = new AdapterShopIndexGridCate(mContext, R.layout.item_shop_cate_new, mDatasCate);
         gridview_shop.setAdapter(adapterShopIndexGridCate);
         for (int i = 0; i < 10; i++) {
-            mDatasCate.add("");
+            mDatasCate.add(new ModelShopIndex());
         }
         adapterShopIndexGridCate.notifyDataSetChanged();
         //

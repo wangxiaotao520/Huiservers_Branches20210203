@@ -1,10 +1,12 @@
 package com.huacheng.huiservers.ui.fragment.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,11 +81,21 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
             viewHolder. txt_shop_price1.setText("¥ "+item.getPrice());
             viewHolder. item_name1.setText(item.getTitle()+"");
 
+            viewHolder.txt_shop_original1.setText("¥ "+item.getOriginal());
+            viewHolder.txt_shop_original1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             viewHolder.view_goods1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener!=null){
                         listener.onClickImage(position*2);
+                    }
+                }
+            });
+            viewHolder.iv_add_shop_cart1.setOnClickListener(new OnDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    if (listener!=null){
+                        listener.onClickShopCart(position*2);
                     }
                 }
             });
@@ -101,13 +114,22 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
 
             viewHolder. txt_shop_price2.setText("¥ "+item.getPrice());
             viewHolder. item_name2.setText(item.getTitle()+"");
-
+            viewHolder.txt_shop_original2.setText("¥ "+item.getOriginal());
+            viewHolder.txt_shop_original2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
             viewHolder.view_goods2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener!=null){
                         listener.onClickImage(position*2+1);
+                    }
+                }
+            });
+            viewHolder.iv_add_shop_cart2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener!=null){
+                        listener.onClickShopCart(position*2+1);
                     }
                 }
             });
@@ -127,6 +149,8 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
         viewHolder. item_image1 = (SimpleDraweeView) view_goods1.findViewById(R.id.item_image);
         viewHolder. item_name1 = (TextView)view_goods1.findViewById(R.id.item_name);
         viewHolder. txt_shop_price1 = (TextView) view_goods1.findViewById(R.id.txt_shop_price);
+        viewHolder. txt_shop_original1 = (TextView) view_goods1.findViewById(R.id.txt_shop_original);
+        viewHolder. iv_add_shop_cart1 = (ImageView) view_goods1.findViewById(R.id.iv_add_shop_cart);
 
 
         //第二个商品的布局
@@ -136,6 +160,8 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
         viewHolder.item_image2 = (SimpleDraweeView) view_goods2.findViewById(R.id.item_image);
         viewHolder. item_name2 = (TextView)view_goods2.findViewById(R.id.item_name);
         viewHolder. txt_shop_price2 = (TextView) view_goods2.findViewById(R.id.txt_shop_price);
+        viewHolder. txt_shop_original2 = (TextView) view_goods2.findViewById(R.id.txt_shop_original);
+        viewHolder. iv_add_shop_cart2 = (ImageView) view_goods2.findViewById(R.id.iv_add_shop_cart);
 
 
     }
@@ -143,11 +169,13 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
     private class  ViewHolder {
         LinearLayout  ly_onclick1;
         SimpleDraweeView item_image1;
-        TextView item_name1, txt_shop_price1;
+        TextView item_name1, txt_shop_price1,txt_shop_original1;
+        ImageView iv_add_shop_cart1;
 
         LinearLayout  ly_onclick2;
         SimpleDraweeView item_image2;
-        TextView item_name2, txt_shop_price2;
+        TextView item_name2, txt_shop_price2,txt_shop_original2;
+        ImageView iv_add_shop_cart2;
 
         View view_goods1;
         View view_goods2;
@@ -157,5 +185,10 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
          * 点击Image
          */
         void onClickImage(int position);
+
+        /* * 点击购物车
+         * @param position
+         */
+        void onClickShopCart(int position);
     }
 }

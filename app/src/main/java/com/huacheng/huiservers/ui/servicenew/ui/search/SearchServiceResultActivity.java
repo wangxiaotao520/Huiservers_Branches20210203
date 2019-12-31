@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,9 +21,9 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.servicenew.model.ModelMerchantList;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceItem;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.MerchantServicexAdapter;
@@ -117,7 +118,36 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
 
     @Override
     protected void initListener() {
+        et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean isOK = true;
+                switch (actionId) {
 
+                    case EditorInfo.IME_ACTION_SEARCH:
+                        if (StringUtils.isEmpty(et_search.getText().toString())) {
+                            break;
+                        } else {
+                            String keyWords2 = et_search.getText().toString();
+                            hideSoftInput(et_search.getWindowToken());
+                            page = 1;
+                            showDialog(smallDialog);
+                            if (type == 0) {
+                                i_key = keyWords2;
+                                requestData();
+                            } else {
+                                s_key = keyWords2;
+                                requestDataService();
+                            }
+                        }
+                        break;
+                    default:
+                        isOK = false;
+                        break;
+
+                }
+                return isOK;
+            }});
     }
 
     @Override
@@ -133,9 +163,9 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
                     return;
                 } else {
                     String keyWords2 = et_search.getText().toString();
+                    hideSoftInput(et_search.getWindowToken());
                     page = 1;
-                    mDatas.clear();
-                    mDatas2.clear();
+                    showDialog(smallDialog);
                     if (type == 0) {
                         i_key = keyWords2;
                         requestData();
@@ -181,6 +211,7 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
         MyOkHttp.get().get(ApiHttpClient.GET_MERCHANTLIST, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
                 isRequesting = false;
 //                hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
@@ -217,7 +248,7 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 isRequesting = false;
-//                hideDialog(smallDialog);
+                hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
                 refreshLayout.finishLoadMore();
                 SmartToast.showInfo("网络异常，请检查网络设置");
@@ -244,7 +275,7 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 isRequesting = false;
-//                hideDialog(smallDialog);
+                hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
                 refreshLayout.finishLoadMore();
                 if (JsonUtil.getInstance().isSuccess(response)) {
@@ -279,7 +310,7 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 isRequesting = false;
-//                hideDialog(smallDialog);
+                hideDialog(smallDialog);
                 refreshLayout.finishRefresh();
                 refreshLayout.finishLoadMore();
                 SmartToast.showInfo("网络异常，请检查网络设置");

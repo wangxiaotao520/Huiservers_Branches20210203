@@ -64,6 +64,7 @@ public class FragmentServicexSearchCommon extends BaseFragment {
     int type;
     MyListView listView;
     SharePrefrenceUtil prefrenceUtil;
+    private TextView tv_clear_history;
 
     @Override
     public void onAttach(Context context) {
@@ -79,7 +80,8 @@ public class FragmentServicexSearchCommon extends BaseFragment {
         listView = view.findViewById(R.id.search_history_lv);
         prefrenceUtil = new SharePrefrenceUtil(mContext);
 
-        view.findViewById(R.id.tv_clear_history).setOnClickListener(new View.OnClickListener() {
+        tv_clear_history = view.findViewById(R.id.tv_clear_history);
+        tv_clear_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cleanHistory();
@@ -94,8 +96,10 @@ public class FragmentServicexSearchCommon extends BaseFragment {
         mPref = mContext.getSharedPreferences("servicex_input" + type, MODE_PRIVATE);
         SharedPreferences.Editor editor = mPref.edit();
         editor.remove(KEY_SEARCH_HISTORY_KEYWORD).commit();
-       // mHistoryKeywords.clear();
+        mHistoryKeywords.clear();
         histroyAdapter.notifyDataSetChanged();
+        tv_clear_history.setVisibility(View.GONE);
+        mSearchHistoryLl.setVisibility(View.GONE);
       //  mSearchHistoryLl.setVisibility(View.GONE);
 
     }
@@ -225,8 +229,10 @@ public class FragmentServicexSearchCommon extends BaseFragment {
         }
         if (mHistoryKeywords != null && mHistoryKeywords.size() > 0) {
             mSearchHistoryLl.setVisibility(View.VISIBLE);
+            tv_clear_history.setVisibility(View.VISIBLE);
         } else {
             mSearchHistoryLl.setVisibility(View.GONE);
+            tv_clear_history.setVisibility(View.GONE);
         }
         histroyAdapter = new ServiceSearchHistoryAdapter(mHistoryKeywords, type, mContext);
         listView.setAdapter(histroyAdapter);
@@ -265,7 +271,7 @@ public class FragmentServicexSearchCommon extends BaseFragment {
             lin_hotTag.setVisibility(View.VISIBLE);
             for (int i = 0; i < tags.size(); i++) {
                 TextView tv = (TextView) LayoutInflater.from(mContext).inflate(
-                        R.layout.search_label_tv1, mFlowLayout, false);
+                        R.layout.search_label_tv, mFlowLayout, false);
                 tv.setText(tags.get(i));
                 final String str = tv.getText().toString();
                 //点击事件
@@ -312,15 +318,17 @@ public class FragmentServicexSearchCommon extends BaseFragment {
     public void save(String str) {
         String text = str;
         if (!TextUtils.isEmpty(text)) {//&& !()
+            mPref = mContext.getSharedPreferences("servicex_input" + type, MODE_PRIVATE);
+            SharedPreferences.Editor editor = mPref.edit();
+            editor.remove(KEY_SEARCH_HISTORY_KEYWORD).commit();
+
             String oldText = mPref.getString(KEY_SEARCH_HISTORY_KEYWORD, "");
             if (oldText.contains(text)) {
 
             }else {
                 mHistoryKeywords.add(0, text);
             }
-            cleanHistory();
-            SharedPreferences.Editor editor;
-            editor = mPref.edit();
+
             String sp = "";
             for (int i = 0; i < mHistoryKeywords.size(); i++) {
                 if (i==mHistoryKeywords.size()-1){
