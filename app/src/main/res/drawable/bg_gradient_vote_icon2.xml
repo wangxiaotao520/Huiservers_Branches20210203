@@ -5,8 +5,8 @@
     <!-- angle=0，渐变色从左向右/ angle=90 从下往上-->
     <gradient
         android:angle="0"
-        android:startColor="#ED1C1C"
-        android:endColor="#F13B3B"
+        android:startColor="#3D9CEF"
+        android:endColor="#36AAFB"
         android:type="linear" />
     <corners
         android:radius="5dp"/>

@@ -13,12 +13,13 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelIndexVoteItem;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description:
+ * Description: 1是最美家庭 2.是新年vlog投票
  * created by wangxiaotao
  * 2019/9/3 0003 下午 4:40
  */
@@ -26,11 +27,13 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
     private Context mContext;
     private List<T> mDatas=new ArrayList<>();
     private OnClickItemListener listener;
+    private int type = 1;//1
 
-    public IndexVoteAdapter(Context mContext, List<T> mDatas,OnClickItemListener listener) {
+    public IndexVoteAdapter(Context mContext, List<T> mDatas,OnClickItemListener listener,int type) {
         this.mContext = mContext;
         this.mDatas = mDatas;
         this.listener=listener;
+        this.type=type;
     }
 
     @Override
@@ -88,6 +91,18 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
                 }
             });
 
+            if (type==2){
+                viewHolder.tv1_onClick1.setVisibility(View.VISIBLE);
+                viewHolder.tv1_onClick1.setOnClickListener(new OnDoubleClickListener() {
+                    @Override
+                    public void onNoDoubleClick(View v) {
+
+                    }
+                });
+            }else {
+                viewHolder.tv1_onClick1.setVisibility(View.GONE);
+            }
+
         }
         // 从数据里取值 第二个View
         if (position*2+1<mDatas.size()){
@@ -114,6 +129,18 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
                     listener.onClickVote(v,position*2+1);
                 }
             });
+            if (type==2){
+                viewHolder.tv2_onClick2.setVisibility(View.VISIBLE);
+                viewHolder.tv2_onClick2.setOnClickListener(new OnDoubleClickListener() {
+                    @Override
+                    public void onNoDoubleClick(View v) {
+
+                    }
+                });
+            }else {
+                viewHolder.tv2_onClick2.setVisibility(View.GONE);
+            }
+
         }else {
             //说明mdatas的总个数是奇数个
             viewHolder. ll_item_view2.setVisibility(View.GONE);
@@ -133,7 +160,9 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
         viewHolder. tv_vote_count2=convertView.findViewById(R.id.tv_vote_count2);
         viewHolder. tv_tag2=convertView.findViewById(R.id.tv_tag2);
         viewHolder. tv_onClick1=convertView.findViewById(R.id.tv_onClick1);
+        viewHolder. tv1_onClick1=convertView.findViewById(R.id.tv1_onClick1);
         viewHolder. tv_onClick2=convertView.findViewById(R.id.tv_onClick2);
+        viewHolder. tv2_onClick2=convertView.findViewById(R.id.tv2_onClick2);
     }
 
     static class  ViewHolder {
@@ -148,7 +177,9 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
         TextView  tv_famliy_name2;
         TextView  tv_vote_count2;
         TextView  tv_onClick1;
+        TextView  tv1_onClick1;
         TextView  tv_onClick2;
+        TextView  tv2_onClick2;
     }
     public  interface OnClickItemListener{
         /**
@@ -164,6 +195,11 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
          */
         void onClickVote(View v,int position);
 
-
+        /**
+         * 点击拉票
+         * @param v
+         * @param position
+         */
+        void onClickLapiao(View v,int position);
     }
 }

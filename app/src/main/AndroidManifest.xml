@@ -1215,5 +1215,14 @@
         <activity
             android:name=".pay.chinaums.UnifyPayResultActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.vote.VoteVlogIndexActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.vote.VoteVlogMessageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.vote.VoteRankListActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>
