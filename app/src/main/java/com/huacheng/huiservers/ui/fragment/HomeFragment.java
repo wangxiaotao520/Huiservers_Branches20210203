@@ -310,9 +310,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             }
         }).start();
 
+
         banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) {
+            public void onPageScrolled(int position , float positionOffset ,int positionOffsetPixels) {
 
             }
 
@@ -326,8 +327,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
             }
         });
-
-
     }
 
     @Override
@@ -399,6 +398,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         ry_onclick.setOnClickListener(this);
      //   ly_circle_more.setOnClickListener(this);
         iv_scancode.setOnClickListener(this);
+
     }
 
     private void scroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {

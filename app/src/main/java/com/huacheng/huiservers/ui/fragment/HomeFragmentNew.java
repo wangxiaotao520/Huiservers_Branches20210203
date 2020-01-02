@@ -1,7 +1,9 @@
 package com.huacheng.huiservers.ui.fragment;
 
 import android.Manifest;
+import android.animation.ArgbEvaluator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -142,6 +144,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private ImageView iv_rent;
     private ImageView iv_sell;
     private ImageView iv_release_rent_sell;
+    private int current_Color= Color.WHITE;//滑动时的color
 
     @Override
     public void initView(View view) {
@@ -251,16 +254,29 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
         banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
+            public void onPageScrolled(int position , float positionOffset ,int positionOffsetPixels) {
+                int COLOR_START = colors.get(position);
+                int COLOR_END = 0;
+                if (position+1>=colors.size()){
+                    COLOR_END =colors.get(0);
+                }else {
+                    COLOR_END=colors.get(position+1);
+                }
+                ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+                int COLOR = (int)(argbEvaluator.evaluate(positionOffset,COLOR_START, COLOR_END));
+                current_Color=COLOR;
+                if (alpha<1){
+                    iv_bg_title.setBackgroundColor(COLOR);
+                }
+                iv_bg_banner.setBackgroundColor(COLOR);
             }
 
             @Override
             public void onPageSelected(int i) {
-                if (alpha<1){
-                    iv_bg_title.setBackgroundColor(getResources().getColor(colors.get(i)));
-                }
-                iv_bg_banner.setBackgroundColor(getResources().getColor(colors.get(i)));
+//                if (alpha<1){
+//                    iv_bg_title.setBackgroundColor(getResources().getColor(colors.get(i)));
+//                }
+//                iv_bg_banner.setBackgroundColor(getResources().getColor(colors.get(i)));
                 current_banner_position=i;
             }
 
@@ -332,7 +348,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     }else {
                         ///TODO 滑下来
                         if (colors.size()>0&&colors.size()>current_banner_position){
-                            iv_bg_title.setBackgroundColor(getResources().getColor(colors.get(current_banner_position)));
+                           iv_bg_title.setBackgroundColor(current_Color);
                             view_title_line.setVisibility(View.GONE);
                         }
                         tv_xiaoqu.setTextColor(getResources().getColor(R.color.white));
@@ -471,9 +487,18 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     mDatas_img1.add(ApiHttpClient.IMG_URL+modelHome.getAd_top_list().get(i).getImg() + "");
                     //TODO 测试
                     if (i%2==0){
-                        colors.add(R.color.gray);
+                        if (i==0){
+                            colors.add(Color.BLUE);
+                        }else {
+                            colors.add(Color.parseColor("#ED2D2D"));
+                        }
                     }else {
-                        colors.add(R.color.red_ed);
+                        if (i==1){
+                            colors.add(Color.GREEN);
+                        }else {
+                            colors.add(Color.parseColor("#ED8D37"));
+                        }
+
                     }
                 }
                 banner.update(mDatas_img1);
