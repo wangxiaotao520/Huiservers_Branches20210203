@@ -1,13 +1,13 @@
 package com.huacheng.huiservers.http.okhttp;
 
 /**
- * Description: 路径
+ * Description: 接口
  * created by wangxiaotao
  * 谨记在下方定义完接口后要在下方invalidate中再写一遍
  */
 public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
-    public static String API_VERSION = "apk45/";
+    public static String API_VERSION = "apk46/";
     //测试
     public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
     public static String API_URL = "http://test.hui-shenghuo.cn/";
@@ -353,6 +353,24 @@ public class ApiHttpClient {
     public static String FAMILY_POLL = API_URL + API_VERSION + "family/family_poll";
     //活动首页分享
     public static String FAMILY_INDEX_SHARE = API_URL_SHARE + "home/index/beautiful_family";
+    /**
+     * Vlog活动投票
+     */
+    //首页
+    public static String VLOG_INDEX = API_URL + API_VERSION + "vlog/vlog_index";
+    //VLOG 投票
+    public static String VLOG_POLL = API_URL + API_VERSION + "vlog/vlog_poll";
+    //留言列表
+    public static String VLOG_MESSAGE_LIST = API_URL + API_VERSION + "vlog/vlog_message";
+    //提交留言
+    public static String VLOG_MESSAGE_ADD = API_URL + API_VERSION + "vlog/vlog_message_add";
+    //点赞
+    public static String VLOG_PRAISE = API_URL + API_VERSION + "vlog/vlog_praise";
+    //活动详情
+    public static String VLOG_INDEX_SHARE = API_URL_SHARE + "home/index/beautiful_vlog";
+    //排行榜
+    public static String VLOG_RANK_LIST = API_URL + API_VERSION + "vlog/vlogRanking";
+
 
     //我的小区
     public static String GET_MY_DISTRICT = API_URL + API_VERSION + "site/myDistrict";
@@ -519,5 +537,12 @@ public class ApiHttpClient {
         GET_SOCIAL_LIST = API_URL + API_VERSION + "social/get_social_list/";
         SOCIAL_DELETE = API_URL + API_VERSION + "social/SocialDel/";
         GET_USER_SOCIAL = API_URL + API_VERSION + "social/get_user_social_list/";
+        VLOG_INDEX = API_URL + API_VERSION + "vlog/vlog_index";
+        VLOG_POLL = API_URL + API_VERSION + "vlog/vlog_poll";
+        VLOG_PRAISE = API_URL + API_VERSION + "vlog/vlog_praise";
+        VLOG_INDEX_SHARE = API_URL_SHARE + "home/index/beautiful_vlog";
+        VLOG_MESSAGE_ADD = API_URL + API_VERSION + "vlog/vlog_message_add";
+        VLOG_MESSAGE_LIST = API_URL + API_VERSION + "vlog/vlog_message";
+        VLOG_RANK_LIST = API_URL_SHARE + "vlog/vlogRanking";
     }
 }
