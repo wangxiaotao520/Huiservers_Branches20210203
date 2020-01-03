@@ -231,7 +231,12 @@ public class VoteDetailActivity extends BaseActivity implements VotePresenter.On
                         dialog.dismiss();
                     }
                 }
-            });
+
+                @Override
+                public void lapaiao(Dialog dialog) {
+
+                }
+            },1);
             voteDialog.show();
 
         } else {

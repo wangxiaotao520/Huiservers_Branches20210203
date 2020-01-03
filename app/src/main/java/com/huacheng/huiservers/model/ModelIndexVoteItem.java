@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class ModelIndexVoteItem  {
     private String family_count;
+
+    private String vlog_count;
     private String message_count;
     private String djstime;
     private String startime;
@@ -93,6 +95,7 @@ public class ModelIndexVoteItem  {
     private String com_id;
     private String com_name;
     private String addtime;
+    private String link;
 
     public String getId() {
         return id;
@@ -166,4 +169,19 @@ public class ModelIndexVoteItem  {
         this.addtime = addtime;
     }
 
+    public String getVlog_count() {
+        return vlog_count;
+    }
+
+    public void setVlog_count(String vlog_count) {
+        this.vlog_count = vlog_count;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 }

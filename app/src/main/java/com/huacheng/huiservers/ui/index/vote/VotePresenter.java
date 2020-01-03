@@ -63,4 +63,36 @@ public class VotePresenter {
         });
 
     }
+    /**
+     * 投票Vlog
+     */
+    public void getTouPiaoVlog(final String vlog_id) {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("vlog_id", vlog_id);
+        MyOkHttp.get().post(ApiHttpClient.VLOG_POLL, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "成功");
+                    if (listener != null) {
+                        listener.onGetData(1,vlog_id, msg);
+                    }
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "数据获取失败");
+                    if (listener != null) {
+                        listener.onGetData(0,null, msg);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                if (listener != null) {
+                    listener.onGetData(-1, null,"网络错误,请检查网络设置");
+                }
+            }
+        });
+
+    }
 }

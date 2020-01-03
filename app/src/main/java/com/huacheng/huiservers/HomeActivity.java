@@ -4,17 +4,16 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.RadioButton;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.gson.Gson;
@@ -40,7 +39,6 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.QRCodeUtils;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -63,7 +61,7 @@ import static com.huacheng.huiservers.Jump.PHONE_STATE_REQUEST_CODE;
 /**
  * 主页Activity
  */
-public class HomeActivity extends BaseActivityOld implements OnCheckedChangeListener {
+public class HomeActivity extends BaseActivityOld implements  View.OnClickListener {
     private String login_type;
     private SharedPreferences preferencesLogin;
     public static HomeActivity instant;
@@ -72,7 +70,11 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
     private ArrayList<Fragment> fragments;
 
     private int current_fragment = 0;
-    private RadioButton[] rb;
+   // private RadioButton[] rb;
+    private int [] drawables_unselected= {R.drawable.home22,R.drawable.shop11,R.drawable.bt_fuwu11,R.drawable.circle11,R.drawable.people11};
+    private int [] drawables_selected= {R.drawable.home11,R.drawable.shop22,R.drawable.bt_fuwu22,R.drawable.circle22,R.drawable.people22};
+    private ImageView [] imageViews_bottom= new ImageView[5];
+    private TextView [] textViews_bottom= new TextView[5];
     View mStatusBar;
     private ModelEventHome modelEventHome;
     private boolean isEvent = false;
@@ -274,32 +276,68 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
 
         switchFragment(0);
         // }
-        mRadioGroup.setOnCheckedChangeListener(this);// 给定监听不解�?
-        mRadioGroup.check(R.id.rb_content_fragment_home);// 默认选择第一�?
+//        mRadioGroup.setOnCheckedChangeListener(this);// 给定监听不解�?
+//        mRadioGroup.check(R.id.rb_content_fragment_home);// 默认选择第一�?
 
-        //定义RadioButton数组用来装RadioButton，改变drawableTop大小
-        rb = new RadioButton[5];
-        //将RadioButton装进数组中
-        rb[0] = (RadioButton) findViewById(R.id.rb_content_fragment_home);
-        rb[1] = (RadioButton) findViewById(R.id.rb_content_fragment_shop);
-        //rb[2] = (RadioButton) findViewById(R.id.rb_content_fragment_fabu);
-        rb[2] = (RadioButton) findViewById(R.id.rb_content_fragment_service);
-        rb[3] = (RadioButton) findViewById(R.id.rb_content_fragment_quanzi);
+//        //定义RadioButton数组用来装RadioButton，改变drawableTop大小
+//        rb = new RadioButton[5];
+//        //将RadioButton装进数组中
+//        rb[0] = (RadioButton) findViewById(R.id.rb_content_fragment_home);
+//        rb[1] = (RadioButton) findViewById(R.id.rb_content_fragment_shop);
+//        //rb[2] = (RadioButton) findViewById(R.id.rb_content_fragment_fabu);
+//        rb[2] = (RadioButton) findViewById(R.id.rb_content_fragment_service);
+//        rb[3] = (RadioButton) findViewById(R.id.rb_content_fragment_quanzi);
+//
+//        rb[4] = (RadioButton) findViewById(R.id.rb_content_fragment_people);
+//        //rb[4] = (RadioButton) findViewById(R.id.rb_content_fragment_home);
+//        //for循环对每一个RadioButton图片进行缩放
+//        for (int i = 0; i < rb.length; i++) {
+//            //挨着给每个RadioButton加入drawable限制边距以控制显示大小
+//            Drawable[] drawables = rb[i].getCompoundDrawables();
+//            //获取drawables，2/5表示图片要缩小的比例
+//            // Rect r = new Rect(0, 0, drawables[1].getMinimumWidth() * 1 / 2, drawables[1].getMinimumHeight() * 1 / 2);
+//            Rect r = new Rect(0, 0, DeviceUtils.dip2px(this, 21), DeviceUtils.dip2px(this, 21));
+//            //定义一个Rect边界
+//            drawables[1].setBounds(r);
+//            //给每一个RadioButton设置图片大小
+//            rb[i].setCompoundDrawables(null, drawables[1], null, null);
+//        }
 
-        rb[4] = (RadioButton) findViewById(R.id.rb_content_fragment_people);
-        //rb[4] = (RadioButton) findViewById(R.id.rb_content_fragment_home);
-        //for循环对每一个RadioButton图片进行缩放
-        for (int i = 0; i < rb.length; i++) {
-            //挨着给每个RadioButton加入drawable限制边距以控制显示大小
-            Drawable[] drawables = rb[i].getCompoundDrawables();
-            //获取drawables，2/5表示图片要缩小的比例
-            // Rect r = new Rect(0, 0, drawables[1].getMinimumWidth() * 1 / 2, drawables[1].getMinimumHeight() * 1 / 2);
-            Rect r = new Rect(0, 0, DeviceUtils.dip2px(this, 21), DeviceUtils.dip2px(this, 21));
-            //定义一个Rect边界
-            drawables[1].setBounds(r);
-            //给每一个RadioButton设置图片大小
-            rb[i].setCompoundDrawables(null, drawables[1], null, null);
-        }
+        FrameLayout fl_home = findViewById(R.id.fl_home);
+        fl_home.setOnClickListener(this);
+        FrameLayout fl_shop = findViewById(R.id.fl_shop);
+        fl_shop.setOnClickListener(this);
+        FrameLayout fl_service = findViewById(R.id.fl_service);
+        fl_service.setOnClickListener(this);
+        FrameLayout fl_circle = findViewById(R.id.fl_circle);
+        fl_circle.setOnClickListener(this);
+        FrameLayout fl_my = findViewById(R.id.fl_my);
+        fl_my.setOnClickListener(this);
+
+        ImageView iv_home = findViewById(R.id.iv_home);
+        ImageView iv_shop = findViewById(R.id.iv_shop);
+        ImageView iv_service = findViewById(R.id.iv_service);
+        ImageView iv_circle = findViewById(R.id.iv_circle);
+        ImageView iv_my = findViewById(R.id.iv_my);
+        imageViews_bottom[0]=iv_home;
+        imageViews_bottom[1]=iv_shop;
+        imageViews_bottom[2]=iv_service;
+        imageViews_bottom[3]=iv_circle;
+        imageViews_bottom[4]=iv_my;
+
+        TextView tv_home = findViewById(R.id.tv_home);
+        TextView tv_shop = findViewById(R.id.tv_shop);
+        TextView tv_service = findViewById(R.id.tv_service);
+        TextView tv_circle = findViewById(R.id.tv_circle);
+        TextView tv_my = findViewById(R.id.tv_my);
+        textViews_bottom[0]=tv_home;
+        textViews_bottom[1]=tv_shop;
+        textViews_bottom[2]=tv_service;
+        textViews_bottom[3]=tv_circle;
+        textViews_bottom[4]=tv_my;
+        //TODO
+        changeBottomUI(0);
+        current_fragment=0;
         EventBus.getDefault().register(this);
         initJpush();
 
@@ -332,54 +370,54 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
         initJpush();
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        preferencesLogin = this.getSharedPreferences("login", 0);
-        login_type = preferencesLogin.getString("login_type", "");
-        switch (checkedId) {
-            case R.id.rb_content_fragment_home:
-                switchFragment(0);
-                current_fragment = 0;
-                break;
-            case R.id.rb_content_fragment_shop:
-                switchFragment(1);
-                current_fragment = 1;
-                break;
-            case R.id.rb_content_fragment_service:
-                switchFragment(2);
-                current_fragment = 2;
-                break;
-            case R.id.rb_content_fragment_quanzi:
-                if (isEvent && modelEventHome != null) {//说明是点击的物业公告或者社区公告
-                    CircleFragmentNew fragment = (CircleFragmentNew) fragments.get(3);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("type_position", modelEventHome.getType());
-                    fragment.setArguments(bundle);
-                }
-                switchFragment(3);
-                current_fragment = 3;
-
-                isEvent = false;
-                modelEventHome = null;
-                break;
-            case R.id.rb_content_fragment_people:
-                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
-                    Editor editor = preferencesLogin.edit();
-                    editor.putString("login_shop", "shop_login");
-                    editor.commit();
-                    startActivity(new Intent(this, LoginVerifyCodeActivity.class));
-                    mRadioGroup.check(R.id.rb_content_fragment_home);
-                } else {
-                    switchFragment(4);
-                    current_fragment = 4;
-                }
-
-                break;
-            default:
-                break;
-        }
-
-    }
+//    @Override
+//    public void onCheckedChanged(RadioGroup group, int checkedId) {
+//        preferencesLogin = this.getSharedPreferences("login", 0);
+//        login_type = preferencesLogin.getString("login_type", "");
+//        switch (checkedId) {
+//            case R.id.rb_content_fragment_home:
+//                switchFragment(0);
+//                current_fragment = 0;
+//                break;
+//            case R.id.rb_content_fragment_shop:
+//                switchFragment(1);
+//                current_fragment = 1;
+//                break;
+//            case R.id.rb_content_fragment_service:
+//                switchFragment(2);
+//                current_fragment = 2;
+//                break;
+//            case R.id.rb_content_fragment_quanzi:
+//                if (isEvent && modelEventHome != null) {//说明是点击的物业公告或者社区公告
+//                    CircleFragmentNew fragment = (CircleFragmentNew) fragments.get(3);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("type_position", modelEventHome.getType());
+//                    fragment.setArguments(bundle);
+//                }
+//                switchFragment(3);
+//                current_fragment = 3;
+//
+//                isEvent = false;
+//                modelEventHome = null;
+//                break;
+//            case R.id.rb_content_fragment_people:
+//                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+//                    Editor editor = preferencesLogin.edit();
+//                    editor.putString("login_shop", "shop_login");
+//                    editor.commit();
+//                    startActivity(new Intent(this, LoginVerifyCodeActivity.class));
+//                    mRadioGroup.check(R.id.rb_content_fragment_home);
+//                } else {
+//                    switchFragment(4);
+//                    current_fragment = 4;
+//                }
+//
+//                break;
+//            default:
+//                break;
+//        }
+//
+//    }
 
     @Override
     protected void onDestroy() {
@@ -468,10 +506,19 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
         if (model != null) {
             this.modelEventHome = model;
             if (model.getType() >= 0) {
-                isEvent = true;
-                if (rb != null && rb.length > 0) {
-                    rb[3].toggle();
+//                if (rb != null && rb.length > 0) {
+//                    rb[3].toggle();
+//                }
+                if (modelEventHome != null) {//说明是点击的物业公告或者社区公告
+                    CircleFragmentNew fragment = (CircleFragmentNew) fragments.get(3);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("type_position", modelEventHome.getType());
+                    fragment.setArguments(bundle);
                 }
+                switchFragment(3);
+                current_fragment = 3;
+                modelEventHome = null;
+                changeBottomUI(3);
             } else if (model.getType() == -1) {
                 //销毁当前页
                 finish();
@@ -479,4 +526,70 @@ public class HomeActivity extends BaseActivityOld implements OnCheckedChangeList
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fl_home:
+                switchFragment(0);
+                current_fragment = 0;
+                changeBottomUI(0);
+                break;
+            case R.id.fl_shop:
+                switchFragment(1);
+                current_fragment = 1;
+                changeBottomUI(1);
+                break;
+            case R.id.fl_service:
+                switchFragment(2);
+                current_fragment = 2;
+                changeBottomUI(2);
+                break;
+            case R.id.fl_circle:
+
+                switchFragment(3);
+                current_fragment = 3;
+                changeBottomUI(3);
+                break;
+            case R.id.fl_my:
+                preferencesLogin = this.getSharedPreferences("login", 0);
+                login_type = preferencesLogin.getString("login_type", "");
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                    Editor editor = preferencesLogin.edit();
+                    editor.putString("login_shop", "shop_login");
+                    editor.commit();
+                    startActivity(new Intent(this, LoginVerifyCodeActivity.class));
+                } else {
+                    switchFragment(4);
+                    current_fragment = 4;
+                    changeBottomUI(4);
+                }
+
+                break;
+                default:
+                    break;
+        }
+    }
+
+    /**
+     * 更改下方UI
+     * @param position
+     */
+    private void changeBottomUI(int position) {
+        //TODO 在这里判断有没有网络图片
+        for (int i = 0; i < textViews_bottom.length; i++) {
+            if (position==i){
+                textViews_bottom[i].setTextColor(getResources().getColor(R.color.orange_bg));
+            }else {
+                textViews_bottom[i].setTextColor(getResources().getColor(R.color.title_color));
+            }
+        }
+
+        for (int i = 0; i < imageViews_bottom.length; i++) {
+            if (position==i){
+                imageViews_bottom[i].setBackgroundResource(drawables_selected[i]);
+            }else {
+                imageViews_bottom[i].setBackgroundResource(drawables_unselected[i]);
+            }
+        }
+    }
 }

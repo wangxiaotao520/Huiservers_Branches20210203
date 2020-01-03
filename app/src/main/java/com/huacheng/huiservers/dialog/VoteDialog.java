@@ -19,20 +19,24 @@ import com.huacheng.huiservers.R;
  */
 public class VoteDialog extends AlertDialog implements View.OnClickListener {
     TextView tv_confirm;
+    TextView tv_lapiao;
     ImageView iv_cancel;
     private OnCustomDialogListener mOnCustomDialogListener;
     Context mContext;
+    int type =1;
 
-    public VoteDialog(Context context, OnCustomDialogListener customDialogListener) {
+    public VoteDialog(Context context, OnCustomDialogListener customDialogListener,int type) {
         super(context, R.style.my_dialog_DimEnabled);
         this.mContext = context;
         this.mOnCustomDialogListener = customDialogListener;
+        this.type=type;
 
     }
 
     // 定义回调事件，用于dialog的点击事件
     public interface OnCustomDialogListener {
         public void back(String tag, Dialog dialog);
+        public void lapaiao( Dialog dialog);
     }
 
     @Override
@@ -42,16 +46,28 @@ public class VoteDialog extends AlertDialog implements View.OnClickListener {
         setCancelable(false);
         iv_cancel = (ImageView) findViewById(R.id.iv_cancel);
         tv_confirm = (TextView) findViewById(R.id.tv_confirm);
+        tv_lapiao = (TextView) findViewById(R.id.tv_lapiao);
         iv_cancel.setOnClickListener(this);
         tv_confirm.setOnClickListener(this);
+        tv_lapiao.setOnClickListener(this);
+        if (type==2){
+            tv_lapiao.setVisibility(View.VISIBLE);
+        }else {
+            tv_lapiao.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_cancel:
+                dismiss();
+                break;
             case R.id.tv_confirm:
                 mOnCustomDialogListener.back("1", this);
+                break;
+            case R.id.tv_lapiao:
+                mOnCustomDialogListener.lapaiao( this);
                 break;
         }
     }

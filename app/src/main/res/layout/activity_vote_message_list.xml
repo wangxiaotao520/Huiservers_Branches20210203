@@ -74,10 +74,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/allshape_stroke_grey_old_message"
+                android:background="@drawable/allshape_gray_f8"
                 android:hint="写留言"
                 android:padding="8dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/title_color"
                 android:textColorHint="@color/graynew1"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="@dimen/t_15sp"/>

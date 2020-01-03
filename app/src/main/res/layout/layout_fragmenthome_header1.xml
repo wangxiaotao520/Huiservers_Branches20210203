@@ -10,11 +10,16 @@
         android:visibility="visible"
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="225dp">
+        android:layout_height="226dp">
         <ImageView
             android:id="@+id/iv_bg_banner"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="87dp"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/bg_banner_bottom_oval" />
 
         <com.huacheng.huiservers.view.ShadowLayout
             android:layout_centerInParent="true"

@@ -101,7 +101,7 @@ public class CouponListActivity extends BaseActivityOld {
             TextView tabSelect = (TextView) tab.getCustomView().findViewById(R.id.tab_item_textview);
           //  tabSelect.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             tabSelect.setText(tab.getText());
-            tabSelect.setTextColor(this.getResources().getColor(R.color.orange));
+            tabSelect.setTextColor(this.getResources().getColor(R.color.title_color));
         } else {
             TextView tabUnSelect = (TextView) tab.getCustomView().findViewById(R.id.tab_item_textview);
             tabUnSelect.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));

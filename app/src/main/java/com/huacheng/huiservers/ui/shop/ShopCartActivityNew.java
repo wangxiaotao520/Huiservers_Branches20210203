@@ -168,12 +168,26 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
             @Override
             public void onClick(View v) {
                 if (status==1){//结算
-                    if (NullUtil.isStringEmpty(selected_m_id)){
-                        //没有选中
-                        SmartToast.showInfo("请选中商品");
-                    }else {
-                        goToConfirm();
+//                    if (NullUtil.isStringEmpty(selected_m_id)){
+//                        //没有选中
+//                        SmartToast.showInfo("请选中商品");
+//                    }else {
+//                        goToConfirm();
+//                    }
+                    boolean flag =false;
+                    for (int i = 0; i < mDatas.size(); i++) {
+                        if (mDatas.get(i).isChecked()){
+                            flag=true;
+                            break;
+                        }
                     }
+                   if (flag==false){
+                       //没有选中
+                       SmartToast.showInfo("请选中商品");
+                   }else {
+                       goToConfirm();
+                   }
+
                 }else {
                     //判断有没有选中
                     boolean checked = false;
@@ -362,46 +376,55 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
 
         if (status==1){//结算状态
             //点击item
-            if (NullUtil.isStringEmpty(selected_m_id)){
-                //selected_m_id 为空 说明没有选过
-                mDatas.get(position).setChecked(true);
-                selected_m_id=mDatas.get(position).getM_id();
-                adapterShopCartNew.setSelected_m_id(selected_m_id);
-                adapterShopCartNew.notifyDataSetChanged();
-                calculatePrice();
-            }else {
-                //不为空说明有选中状态
-                if (selected_m_id.equals(mDatas.get(position).getM_id())){
-                    //可以选
-                    if (mDatas.get(position).isChecked()){//选中的 取消选中
+//            if (NullUtil.isStringEmpty(selected_m_id)){
+//                //selected_m_id 为空 说明没有选过
+//                mDatas.get(position).setChecked(true);
+//                selected_m_id=mDatas.get(position).getM_id();
+//                adapterShopCartNew.setSelected_m_id(selected_m_id);
+//                adapterShopCartNew.notifyDataSetChanged();
+//                calculatePrice();
+//            }else {
+//                //不为空说明有选中状态
+//                if (selected_m_id.equals(mDatas.get(position).getM_id())){
+//                    //可以选
+//                    if (mDatas.get(position).isChecked()){//选中的 取消选中
+//                        mDatas.get(position).setChecked(false);
+//                        selected_m_id="";
+//                        for (int i = 0; i < mDatas.size(); i++) {
+//                            if (mDatas.get(i).isChecked()){
+//                                selected_m_id =mDatas.get(i).getM_id();
+//                                break;
+//                            }
+//                        }
+//                    }else {
+//                        mDatas.get(position).setChecked(true);  //没有选中的
+//                        selected_m_id=mDatas.get(position).getM_id();
+//                    }
+//                    adapterShopCartNew.setSelected_m_id(selected_m_id);
+//                    adapterShopCartNew.notifyDataSetChanged();
+//                    calculatePrice();
+//                }else {
+//                    //不可以选
+//                    SmartToast.showInfo("只能选择同一店铺的商品");
+//                }
+//            }
+
+            if (mDatas.get(position).isChecked()){//选中的 取消选中
                         mDatas.get(position).setChecked(false);
-                        selected_m_id="";
-                        for (int i = 0; i < mDatas.size(); i++) {
-                            if (mDatas.get(i).isChecked()){
-                                selected_m_id =mDatas.get(i).getM_id();
-                                break;
-                            }
-                        }
                     }else {
                         mDatas.get(position).setChecked(true);  //没有选中的
-                        selected_m_id=mDatas.get(position).getM_id();
                     }
                     adapterShopCartNew.setSelected_m_id(selected_m_id);
                     adapterShopCartNew.notifyDataSetChanged();
                     calculatePrice();
-                }else {
-                    //不可以选
-                    SmartToast.showInfo("只能选择同一店铺的商品");
-                }
-            }
         }else {
             //删除状态
             if (mDatas.get(position).isChecked()){//选中的 取消选中
                 mDatas.get(position).setChecked(false);
-                selected_m_id="";
+              //  selected_m_id="";
             }else {
                 mDatas.get(position).setChecked(true);  //没有选中的
-                selected_m_id=mDatas.get(position).getM_id();
+             //   selected_m_id=mDatas.get(position).getM_id();
             }
             adapterShopCartNew.notifyDataSetChanged();
         }
@@ -413,31 +436,39 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
         if (status==2){
             return;
         }
-        if (NullUtil.isStringEmpty(selected_m_id)){
-            //点击 +
-            if (Integer.valueOf(mDatas.get(position).getInventory()) < Integer.valueOf(mDatas.get(position).getNumber() + 1)) {
-                SmartToast.showInfo("此商品已超出库存数量");
-            } else {
+//        if (NullUtil.isStringEmpty(selected_m_id)){
+//            //点击 +
+//            if (Integer.valueOf(mDatas.get(position).getInventory()) < Integer.valueOf(mDatas.get(position).getNumber() + 1)) {
+//                SmartToast.showInfo("此商品已超出库存数量");
+//            } else {
+//
+//                //加入购物车
+//                getShopLimit(position);
+//            }
+//        }else {
+//            //不为空说明有选中状态
+//            if (selected_m_id.equals(mDatas.get(position).getM_id())){
+//                //可以选
+//                if (Integer.valueOf(mDatas.get(position).getInventory()) < Integer.valueOf(mDatas.get(position).getNumber() + 1)) {
+//                    SmartToast.showInfo("此商品已超出库存数量");
+//                } else {
+//
+//                    //加入购物车
+//                    getShopLimit(position);
+//                }
+//            }else {
+//                //不可以选
+//                SmartToast.showInfo("只能选择同一店铺的商品");
+//            }
+//        }
 
-                //加入购物车
-                getShopLimit(position);
-            }
-        }else {
-            //不为空说明有选中状态
-            if (selected_m_id.equals(mDatas.get(position).getM_id())){
-                //可以选
+        //可以选
                 if (Integer.valueOf(mDatas.get(position).getInventory()) < Integer.valueOf(mDatas.get(position).getNumber() + 1)) {
                     SmartToast.showInfo("此商品已超出库存数量");
                 } else {
-
                     //加入购物车
                     getShopLimit(position);
                 }
-            }else {
-                //不可以选
-                SmartToast.showInfo("只能选择同一店铺的商品");
-            }
-        }
     }
     /**
      * 获取商品限购数量(0.4.1)（购物车+）
@@ -483,28 +514,33 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
         if (status==2){
             return;
         }
-        if (NullUtil.isStringEmpty(selected_m_id)){
-            //点击 -
-            if (mDatas.get(position).getNumber()==1) {
-                return;
-            }
-            mDatas.get(position).setNumber(mDatas.get(position).getNumber() - 1);
-            adapterShopCartNew.notifyDataSetChanged();
-            calculatePrice();
-        }else {
-            if (selected_m_id.equals(mDatas.get(position).getM_id())){
-                if (mDatas.get(position).getNumber()==1) {
-                    return;
-                }
-                mDatas.get(position).setNumber(mDatas.get(position).getNumber() - 1);
-                adapterShopCartNew.notifyDataSetChanged();
-                calculatePrice();
-            }else {
-                //不可以选
-                SmartToast.showInfo("只能选择同一店铺的商品");
-            }
+//        if (NullUtil.isStringEmpty(selected_m_id)){
+//            //点击 -
+//            if (mDatas.get(position).getNumber()==1) {
+//                return;
+//            }
+//            mDatas.get(position).setNumber(mDatas.get(position).getNumber() - 1);
+//            adapterShopCartNew.notifyDataSetChanged();
+//            calculatePrice();
+//        }else {
+//            if (selected_m_id.equals(mDatas.get(position).getM_id())){
+//                if (mDatas.get(position).getNumber()==1) {
+//                    return;
+//                }
+//                mDatas.get(position).setNumber(mDatas.get(position).getNumber() - 1);
+//                adapterShopCartNew.notifyDataSetChanged();
+//                calculatePrice();
+//            }else {
+//                //不可以选
+//                SmartToast.showInfo("只能选择同一店铺的商品");
+//            }
+//        }
+        if (mDatas.get(position).getNumber()==1) {
+            return;
         }
-
+        mDatas.get(position).setNumber(mDatas.get(position).getNumber() - 1);
+        adapterShopCartNew.notifyDataSetChanged();
+        calculatePrice();
     }
 
     /**

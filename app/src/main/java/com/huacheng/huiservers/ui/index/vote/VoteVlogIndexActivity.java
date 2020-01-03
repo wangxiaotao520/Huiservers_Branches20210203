@@ -36,6 +36,7 @@ import com.microquation.linkedme.android.log.LMErrorCode;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,12 +48,11 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Description: 投票首页Activity
- * （票选最美家庭）
+ * Description:2019年底 票选活动
  * created by wangxiaotao
- * 2019/9/3 0003 下午 4:20
+ * 2019/12/31 0031 下午 2:49
  */
-public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.OnClickItemListener, VotePresenter.OnGetDataListener {
+public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdapter.OnClickItemListener, VotePresenter.OnGetDataListener {
 
     private ImageView iv_right;
     protected PagingListView mListview;
@@ -61,9 +61,10 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
     protected IndexVoteAdapter mAdapter;
     private View headerView;
     private List<ModelIndexVoteItem> mDatas = new ArrayList<>();//数据
-    private LinearLayout ly_message;
-    private LinearLayout ly_huodong;
-    private TextView tv_family_num, tv_message_num, tv_piao_num;
+    private LinearLayout ly_comment;
+    private LinearLayout ly_vote_rank;
+    private LinearLayout ly_vote_detail;
+
     private int page = 1;
     private TextView tv_day, tv_hour, tv_second, tv_minute;
     private TextView tv_time_type;
@@ -72,8 +73,9 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
     long mDay, mHour, mMin, mSecond;
     private String share_url;
     private CountDownTimer countDownTimer;
-  //  private SparseArray<CountDownTimer> countDownCounters;
+    //  private SparseArray<CountDownTimer> countDownCounters;
     private CountDownTimer timer;
+    private TextView tv_vote_person_num;
 
     @Override
     protected void initView() {
@@ -88,7 +90,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
         titleName = findViewById(com.huacheng.libraryservice.R.id.title_name);
         tv_right = findViewById(com.huacheng.libraryservice.R.id.tv_right);
         iv_right = findViewById(R.id.iv_right);
-        titleName.setText("华晟杯“最美家庭”投票啦");
+        titleName.setText("活动详情");
 
         mListview = findViewById(R.id.listview);
         mRefreshLayout = findViewById(R.id.refreshLayout);
@@ -97,25 +99,26 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
         mRefreshLayout.setEnableRefresh(true);
         mRefreshLayout.setEnableLoadMore(false);
 
-      //  countDownCounters = new SparseArray<>();
-        headerView = LayoutInflater.from(this).inflate(R.layout.header_vote_index, null);
+        //  countDownCounters = new SparseArray<>();
+        headerView = LayoutInflater.from(this).inflate(R.layout.header_vote_vlog_index, null);
         initHeaderView();
         mListview.addHeaderView(headerView);
 
-        mAdapter = new IndexVoteAdapter<>(this, mDatas, this,1);
+        mAdapter = new IndexVoteAdapter<>(this, mDatas, this,2);
         mListview.setAdapter(mAdapter);
         mListview.setHasMoreItems(false);
+        headerView.setVisibility(View.INVISIBLE);
     }
 
     /**
      * 初始化headerview
      */
     private void initHeaderView() {
-        ly_message = headerView.findViewById(R.id.ly_message);
-        ly_huodong = headerView.findViewById(R.id.ly_huodong);
-        tv_family_num = headerView.findViewById(R.id.tv_family_num);
-        tv_message_num = headerView.findViewById(R.id.tv_message_num);
-        tv_piao_num = headerView.findViewById(R.id.tv_piao_num);
+        ly_comment = headerView.findViewById(R.id.ly_comment);
+        ly_vote_rank = headerView.findViewById(R.id.ly_vote_rank);
+        ly_vote_detail = headerView.findViewById(R.id.ly_vote_detail);
+        tv_vote_person_num = headerView.findViewById(R.id.tv_vote_person_num);
+
         tv_day = headerView.findViewById(R.id.tv_day);
         tv_hour = headerView.findViewById(R.id.tv_hour);
         tv_second = headerView.findViewById(R.id.tv_second);
@@ -145,13 +148,13 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                 requestData();
             }
         });
-        ly_message.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(VoteIndexActivity.this, VoteMessageActivity.class);
-                startActivity(intent);
-            }
-        });
+//        ly_message.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(VoteVlogIndexActivity.this, VoteMessageActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         iv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,14 +162,31 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                 share();
             }
         });
-        //点击活动介绍
-        ly_huodong.setOnClickListener(new View.OnClickListener() {
+        //点击活动评论
+        ly_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //分享
+                // 活动评论
+                Intent intent = new Intent(mContext, VoteVlogMessageActivity.class);
+                startActivity(intent);
+            }
+        });
+        ly_vote_rank.setOnClickListener(new OnDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                // 活动排名
+                Intent intent = new Intent(mContext, VoteRankListActivity.class);
+                startActivity(intent);
+            }
+        });
+        ly_vote_detail.setOnClickListener(new OnDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                // 活动详情
+              //  ShopZQWebActivity
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse(ApiHttpClient.FAMILY_INDEX_SHARE);
+                Uri content_url = Uri.parse(ApiHttpClient.VLOG_INDEX_SHARE);
                 intent.setData(content_url);
                 mContext.startActivity(intent);
             }
@@ -199,7 +219,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
         params.put("p", page + "");
-        MyOkHttp.get().post(ApiHttpClient.FAMILY_INDEX, params, new JsonResponseHandler() {
+        MyOkHttp.get().get(ApiHttpClient.VLOG_INDEX, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -210,15 +230,15 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ModelIndexVoteItem info = (ModelIndexVoteItem) JsonUtil.getInstance().parseJsonFromResponse(response, ModelIndexVoteItem.class);
                     if (info != null) {
+                        headerView.setVisibility(View.VISIBLE);
                         mInfo = info;
                         if (page==1){
                             //刷新的时候处理时间
-                            tv_family_num.setText(info.getFamily_count() + "");
-                            tv_message_num.setText(info.getMessage_count() + "");
-                            tv_piao_num.setText(info.getNumber() + "");
 
                             getTime();
                         }
+                        // 参与人数
+                        tv_vote_person_num.setText(info.getVlog_count()+"");
                         if (info.getList() != null && info.getList().size() > 0) {
                             mRelNoData.setVisibility(View.GONE);
                             if (page == 1) {
@@ -227,10 +247,10 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                             mDatas.addAll(info.getList());
                             page++;
                             if (page > info.getTotalPages()) {
-                             //   mRefreshLayout.setEnableLoadMore(false);
+                                //   mRefreshLayout.setEnableLoadMore(false);
                                 mListview.setHasMoreItems(false);
                             } else {
-                              //  mRefreshLayout.setEnableLoadMore(true);
+                                //  mRefreshLayout.setEnableLoadMore(true);
                                 mListview.setHasMoreItems(true);
                             }
                         } else {
@@ -239,7 +259,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                                 mDatas.clear();
                             }
                             mListview.setHasMoreItems(false);
-                         //   mRefreshLayout.setEnableLoadMore(false);
+                            //   mRefreshLayout.setEnableLoadMore(false);
                         }
                         mAdapter.notifyDataSetChanged();
 
@@ -293,24 +313,26 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
 
     @Override
     public void onClickItem(View v, int position) {
-        // SmartToast.showInfo("点击Item" + position);
-        Intent intent = new Intent(this, VoteDetailActivity.class);
-        intent.putExtra("id", mDatas.get(position).getId());
-        intent.putExtra("poll", tv_piao_num.getText().toString().trim());
-        startActivity(intent);
+        if (!NullUtil.isStringEmpty(mDatas.get(position).getLink())&&mDatas.get(position).getLink().contains("http")){
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            Uri content_url = Uri.parse(mDatas.get(position).getLink());
+            intent.setData(content_url);
+            mContext.startActivity(intent);
+        }
     }
 
     @Override
     public void onClickVote(View v, int position) {
         // SmartToast.showInfo("点击vote" + position);
         showDialog(smallDialog);
-        presenter.getTouPiao(mDatas.get(position).getId());
+        presenter.getTouPiaoVlog(mDatas.get(position).getId());
 
     }
 
     @Override
     public void onClickLapiao(View v, int position) {
-        //useless
+        //TODO 拉票
     }
 
     /**
@@ -326,7 +348,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                 page=1;
                 requestData();
             } else if (model.getType() == 1) {//详情返回首页刷新票数
-                tv_piao_num.setText(model.getIspiao() + "");//剩余投票次数
+
                 for (int i = 0; i < mDatas.size(); i++) {
                     if (model.getId().equals(mDatas.get(i).getId())) {
                         mDatas.get(i).setPoll(model.getIspoll());//当前家庭的票数
@@ -367,7 +389,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
                 public void back(String tag, Dialog dialog) {
                     if (tag.equals("1")) {
                         //当前界面投票
-                        tv_piao_num.setText((Integer.valueOf(tv_piao_num.getText().toString().trim()) - 1) + "");
+
                         for (int i = 0; i < mDatas.size(); i++) {
                             if (id.equals(mDatas.get(i).getId())) {
                                 mDatas.get(i).setPoll(mDatas.get(i).getPoll() + 1);
@@ -380,9 +402,9 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
 
                 @Override
                 public void lapaiao(Dialog dialog) {
-                    //useless
+                    //TODO 为他拉票
                 }
-            },1);
+            },2);
             voteDialog.show();
         } else {
             SmartToast.showInfo(msg);
@@ -447,7 +469,7 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
 
 
     private void handlerTime(long timeTmp, final int dicountTag, final long longDistanceEnd) {
-      //  CountDownTimer countDownTimer = countDownCounters.get(tv_hour.hashCode());
+        //  CountDownTimer countDownTimer = countDownCounters.get(tv_hour.hashCode());
         if (countDownTimer != null) {
             //将复用的倒计时清除
             countDownTimer.cancel();
@@ -456,36 +478,36 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
         //long timer = data.expirationTime;
         //timer = timer - System.currentTimeMillis();
         //expirationTime 与系统时间做比较，timer 小于零，则此时倒计时已经结束。
-            countDownTimer = new CountDownTimer(timeTmp, 1000) {
-                public void onTick(long millisUntilFinished) {
-                    String[] times = SetTime(millisUntilFinished);
-                   // mDay = Integer.parseInt(times[0]);
+        countDownTimer = new CountDownTimer(timeTmp, 1000) {
+            public void onTick(long millisUntilFinished) {
+                String[] times = SetTime(millisUntilFinished);
+                // mDay = Integer.parseInt(times[0]);
 
-                    //tv_XS_type.setText("距开始 " + (times[0]) + "天" + (times[1]) + "时" + (times[2]) + "分" + (times[3]) + "秒");
-                    tv_day.setText(fillZero(times[0]));
-                    tv_hour.setText(fillZero(times[1]));
-                    tv_minute.setText(fillZero(times[2]));
-                    tv_second.setText(fillZero(times[3]));
+                //tv_XS_type.setText("距开始 " + (times[0]) + "天" + (times[1]) + "时" + (times[2]) + "分" + (times[3]) + "秒");
+                tv_day.setText(fillZero(times[0]));
+                tv_hour.setText(fillZero(times[1]));
+                tv_minute.setText(fillZero(times[2]));
+                tv_second.setText(fillZero(times[3]));
+            }
+
+            public void onFinish(String redpackage_id) {
+                //结束了该轮倒计时
+                //1表示活动已开始，0表示活动已结束
+                if (dicountTag == 1) {
+                    tv_time_type.setText("距结束投票还剩");
+                    handlerTime(longDistanceEnd,0,0);
+
+                } else {
+                    tv_day.setText("00");
+                    tv_hour.setText("00");
+                    tv_minute.setText("00");
+                    tv_second.setText("00");
                 }
-
-                public void onFinish(String redpackage_id) {
-                    //结束了该轮倒计时
-                    //1表示活动已开始，0表示活动已结束
-                    if (dicountTag == 1) {
-                        tv_time_type.setText("距结束投票还剩");
-                        handlerTime(longDistanceEnd,0,0);
-
-                    } else {
-                        tv_day.setText("00");
-                        tv_hour.setText("00");
-                        tv_minute.setText("00");
-                        tv_second.setText("00");
-                    }
 //                    holder.statusTv.setText(data.name + ":结束");
-                }
-            }.start();
-            //将此 countDownTimer 放入list.
-         //   countDownCounters.put(tv_hour.hashCode(), countDownTimer);
+            }
+        }.start();
+        //将此 countDownTimer 放入list.
+        //   countDownCounters.put(tv_hour.hashCode(), countDownTimer);
 
     }
 
@@ -530,3 +552,4 @@ public class VoteIndexActivity extends BaseActivity implements IndexVoteAdapter.
     }
 
 }
+
