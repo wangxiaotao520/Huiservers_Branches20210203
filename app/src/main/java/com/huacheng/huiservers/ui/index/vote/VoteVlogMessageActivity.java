@@ -97,7 +97,7 @@ public class VoteVlogMessageActivity extends BaseActivity implements VoteMessage
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
         params.put("p", page + "");
-        MyOkHttp.get().post(ApiHttpClient.FAMILY_MESSAGE_LIST, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(ApiHttpClient.VLOG_MESSAGE_LIST, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -192,7 +192,7 @@ public class VoteVlogMessageActivity extends BaseActivity implements VoteMessage
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("message", mEtInput.getText().toString().trim());
-        MyOkHttp.get().post(ApiHttpClient.FAMILY_MESSAGE_ADD, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(ApiHttpClient.VLOG_MESSAGE_ADD, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -262,7 +262,7 @@ public class VoteVlogMessageActivity extends BaseActivity implements VoteMessage
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("msg_id", v.getId());
-        MyOkHttp.get().post(ApiHttpClient.FAMILY_PRAISE, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(ApiHttpClient.VLOG_PRAISE, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {

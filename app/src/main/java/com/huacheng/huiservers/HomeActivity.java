@@ -551,6 +551,8 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
                 changeBottomUI(3);
                 break;
             case R.id.fl_my:
+                preferencesLogin = this.getSharedPreferences("login", 0);
+                login_type = preferencesLogin.getString("login_type", "");
                 if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Editor editor = preferencesLogin.edit();
                     editor.putString("login_shop", "shop_login");
@@ -559,8 +561,9 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
                 } else {
                     switchFragment(4);
                     current_fragment = 4;
+                    changeBottomUI(4);
                 }
-                changeBottomUI(4);
+
                 break;
                 default:
                     break;

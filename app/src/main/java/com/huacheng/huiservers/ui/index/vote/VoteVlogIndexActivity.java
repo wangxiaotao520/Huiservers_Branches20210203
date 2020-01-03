@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -74,6 +75,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
     private CountDownTimer countDownTimer;
     //  private SparseArray<CountDownTimer> countDownCounters;
     private CountDownTimer timer;
+    private TextView tv_vote_person_num;
 
     @Override
     protected void initView() {
@@ -105,6 +107,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
         mAdapter = new IndexVoteAdapter<>(this, mDatas, this,2);
         mListview.setAdapter(mAdapter);
         mListview.setHasMoreItems(false);
+        headerView.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -114,6 +117,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
         ly_comment = headerView.findViewById(R.id.ly_comment);
         ly_vote_rank = headerView.findViewById(R.id.ly_vote_rank);
         ly_vote_detail = headerView.findViewById(R.id.ly_vote_detail);
+        tv_vote_person_num = headerView.findViewById(R.id.tv_vote_person_num);
 
         tv_day = headerView.findViewById(R.id.tv_day);
         tv_hour = headerView.findViewById(R.id.tv_hour);
@@ -162,13 +166,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
         ly_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //分享
-//                Intent intent = new Intent();
-//                intent.setAction("android.intent.action.VIEW");
-//                Uri content_url = Uri.parse(ApiHttpClient.FAMILY_INDEX_SHARE);
-//                intent.setData(content_url);
-//                mContext.startActivity(intent);
-                //todo 活动评论
+                // 活动评论
                 Intent intent = new Intent(mContext, VoteVlogMessageActivity.class);
                 startActivity(intent);
             }
@@ -176,7 +174,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
         ly_vote_rank.setOnClickListener(new OnDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                //todo 活动排名
+                // 活动排名
                 Intent intent = new Intent(mContext, VoteRankListActivity.class);
                 startActivity(intent);
             }
@@ -184,8 +182,13 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
         ly_vote_detail.setOnClickListener(new OnDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                //todo 活动详情
+                // 活动详情
               //  ShopZQWebActivity
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(ApiHttpClient.VLOG_INDEX_SHARE);
+                intent.setData(content_url);
+                mContext.startActivity(intent);
             }
         });
     }
@@ -216,7 +219,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
         params.put("p", page + "");
-        MyOkHttp.get().post(ApiHttpClient.FAMILY_INDEX, params, new JsonResponseHandler() {
+        MyOkHttp.get().get(ApiHttpClient.VLOG_INDEX, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -227,12 +230,15 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ModelIndexVoteItem info = (ModelIndexVoteItem) JsonUtil.getInstance().parseJsonFromResponse(response, ModelIndexVoteItem.class);
                     if (info != null) {
+                        headerView.setVisibility(View.VISIBLE);
                         mInfo = info;
                         if (page==1){
                             //刷新的时候处理时间
 
                             getTime();
                         }
+                        // 参与人数
+                        tv_vote_person_num.setText(info.getVlog_count()+"");
                         if (info.getList() != null && info.getList().size() > 0) {
                             mRelNoData.setVisibility(View.GONE);
                             if (page == 1) {
@@ -307,18 +313,20 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
 
     @Override
     public void onClickItem(View v, int position) {
-        // SmartToast.showInfo("点击Item" + position);
-        Intent intent = new Intent(this, VoteDetailActivity.class);
-        intent.putExtra("id", mDatas.get(position).getId());
-
-        startActivity(intent);
+        if (!NullUtil.isStringEmpty(mDatas.get(position).getLink())&&mDatas.get(position).getLink().contains("http")){
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            Uri content_url = Uri.parse(mDatas.get(position).getLink());
+            intent.setData(content_url);
+            mContext.startActivity(intent);
+        }
     }
 
     @Override
     public void onClickVote(View v, int position) {
         // SmartToast.showInfo("点击vote" + position);
         showDialog(smallDialog);
-        presenter.getTouPiao(mDatas.get(position).getId());
+        presenter.getTouPiaoVlog(mDatas.get(position).getId());
 
     }
 
