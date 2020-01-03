@@ -27,7 +27,7 @@
                     android:id="@+id/ry_bg"
                     android:layout_width="match_parent"
                     android:layout_height="165dp"
-                    android:background="@color/orange_bg"
+                    android:background="@mipmap/ic_center_top_img"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -47,8 +47,8 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:layout_gravity="center_vertical"
-                            android:visibility="visible"
-                            fresco:placeholderImage="@mipmap/bg_charge_banner"
+                            android:visibility="invisible"
+                            fresco:placeholderImage="@color/white"
                             fresco:retryImageScaleType="centerCrop"
                             fresco:roundAsCircle="true"
                             fresco:roundingBorderColor="#b3ffffff"
@@ -91,10 +91,10 @@
                             android:layout_gravity="right|center"
                             android:background="@drawable/allshape_white_k_35"
                             android:gravity="center"
-                            android:visibility="invisible"
-                            android:paddingRight="@dimen/margin"
+                            android:orientation="horizontal"
                             android:paddingLeft="@dimen/margin"
-                            android:orientation="horizontal">
+                            android:paddingRight="@dimen/margin"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:id="@+id/iv_house"
@@ -156,18 +156,12 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <RelativeLayout
+
+                            <ImageView
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
-                                android:background="@drawable/allshape_gray35"
-                                >
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:background="@color/orange_bg"/>
-                            </RelativeLayout>
+                                android:layout_centerInParent="true"
+                                android:background="@color/orange_bg"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -187,18 +181,11 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <RelativeLayout
+                            <ImageView
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
-                                android:background="@drawable/allshape_gray35"
-                                >
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:background="@color/orange_bg"/>
-                            </RelativeLayout>
+                                android:layout_centerInParent="true"
+                                android:background="@color/orange_bg"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -218,18 +205,11 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <RelativeLayout
+                            <ImageView
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
-                                android:background="@drawable/allshape_gray35"
-                                >
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:background="@color/orange_bg"/>
-                            </RelativeLayout>
+                                android:layout_centerInParent="true"
+                                android:background="@color/orange_bg"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -249,18 +229,11 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <RelativeLayout
+                            <ImageView
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
-                                android:background="@drawable/allshape_gray35"
-                                >
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:background="@color/orange_bg"/>
-                            </RelativeLayout>
+                                android:layout_centerInParent="true"
+                                android:background="@color/orange_bg"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -332,6 +305,7 @@
                     android:id="@+id/ry_about"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
+                    android:layout_marginBottom="50dp"
                     android:layout_marginTop="@dimen/margin"
                     android:background="@color/white"
                     android:paddingLeft="@dimen/margin_15"
@@ -376,32 +350,37 @@
 
                 <ImageView
                     android:id="@+id/iv_set"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/margin_15"
-                    android:background="@color/white"
-                    />
+                    android:background="@mipmap/ic_set_white" />
 
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:text=""
                     android:textColor="@color/grey"
-                    android:textSize="@dimen/t_18sp"
-                    android:visibility="invisible"
-                    tools:text="个人中心"/>
+                    android:textSize="@dimen/t_18sp"/>
 
                 <ImageView
                     android:id="@+id/iv_message"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_15"
-                    android:background="@color/white"
-                    />
+                    android:background="@mipmap/ic_set_white"/>
+
+                <View
+                    android:id="@+id/iv_title_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/windowbackground"
+                    android:visibility="gone"/>
             </RelativeLayout>
         </LinearLayout>
     </FrameLayout>

@@ -1,26 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/ly_onclick"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal">
+        android:paddingTop="10dp">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sdv_sec_kill"
+        <RelativeLayout
             android:layout_width="105dp"
-            android:layout_height="105dp"
-            fresco:placeholderImage="@color/default_color"
-            fresco:placeholderImageScaleType="centerCrop"
-            fresco:roundedCornerRadius="5dp" />
+            android:layout_height="105dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_sec_kill"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                fresco:placeholderImage="@color/default_color"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundedCornerRadius="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_tag"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_margin="@dimen/margin_5"
+                android:background="@drawable/shape_red_2"
+                android:gravity="center"
+                android:text="秒杀"
+                android:textColor="@color/white"
+                android:textSize="@dimen/t_11sp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_shouqing"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerInParent="true"
+                android:background="@color/orange_bg"
+                android:visibility="gone"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,6 +64,7 @@
                 android:text="【三只小熊】超级网红大辣条|内含肉铺 包邮5袋250g装"
                 android:textColor="@color/title_color"
                 android:textSize="@dimen/t_15sp"/>
+
             <TextView
                 android:id="@+id/tv_sub_title"
                 android:layout_width="match_parent"
@@ -51,35 +78,35 @@
                 android:textSize="@dimen/t_12sp"/>
 
 
-                <LinearLayout
-                    android:id="@+id/lin_price_container"
+            <LinearLayout
+                android:id="@+id/lin_price_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="17dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_shop_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="17dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_shop_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="¥ 9.90"
-                        android:textColor="#FF625e"
-                        android:textSize="@dimen/t_18sp"/>
+                    android:text="¥ 9.90"
+                    android:textColor="#FF625e"
+                    android:textSize="@dimen/t_18sp"/>
 
 
-                    <TextView
-                        android:id="@+id/tv_shop_price_original"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp"
-                        android:textColor="@color/gray_99"
-                        android:layout_gravity="bottom"
-                        android:text="¥108.0"
-                        android:textSize="@dimen/t_14sp"/>
+                <TextView
+                    android:id="@+id/tv_shop_price_original"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="9dp"
+                    android:text="¥108.0"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
 
-                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 

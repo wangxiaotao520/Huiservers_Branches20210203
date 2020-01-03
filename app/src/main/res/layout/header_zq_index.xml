@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:fresco="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -29,6 +30,7 @@
             android:background="@color/orange_bg"/>
 
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin"
@@ -41,23 +43,22 @@
             android:textColor="@color/orange_bg"
             android:textSize="@dimen/t_12sp"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin"
+        <com.huacheng.libraryservice.widget.verticalbannerview.VerticalBannerView
+            android:id="@+id/v_banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:text="华山论剑需谨慎：岳不群胎牛皮啦"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/t_14sp"/>
+            android:background="@color/white"
+            app:animDuration="900"
+            app:gap="3000"/>
 
         <ImageView
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_15"
-            android:background="@drawable/arrow_right"/>
+            android:background="@drawable/arrow_right"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <RelativeLayout

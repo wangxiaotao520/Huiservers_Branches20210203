@@ -110,7 +110,9 @@ public class CircleFragmentNew extends BaseFragment {
                 if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     startActivity(new Intent(getActivity(), LoginVerifyCodeActivity.class));
                 } else {
-                    showPopupWindow(ly_add);
+                    startActivity(new Intent(getActivity(), CircleReleaseActivity.class));
+                   // showPopupWindow(ly_add);
+
                 }
             }
         });

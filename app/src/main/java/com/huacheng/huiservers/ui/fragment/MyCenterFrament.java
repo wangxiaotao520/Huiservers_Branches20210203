@@ -1,7 +1,9 @@
 package com.huacheng.huiservers.ui.fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,7 @@ import com.huacheng.huiservers.ui.center.CenterMoneyActivity;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.HeZuoActivity;
 import com.huacheng.huiservers.ui.center.MyAboutActivity;
-import com.huacheng.huiservers.ui.center.MyInfoActivity;
+import com.huacheng.huiservers.ui.center.MyInfoCircleActivity;
 import com.huacheng.huiservers.ui.center.SetActivity;
 import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
@@ -43,6 +45,9 @@ import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -104,6 +109,8 @@ public class MyCenterFrament extends BaseFragment {
     TextView mTvTitle;
     @BindView(R.id.iv_house)
     ImageView mIvHouse;
+    @BindView(R.id.iv_title_line)
+    View mIvTitleLine;
     private List<PersoninfoBean> mDatas = new ArrayList<>();
     private MyCenterAdapter myCenterAdapter;
     SharePrefrenceUtil prefrenceUtil;
@@ -141,6 +148,7 @@ public class MyCenterFrament extends BaseFragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void initListener() {
         mGridCat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -185,33 +193,36 @@ public class MyCenterFrament extends BaseFragment {
                 }
             }
         });
-       /* mScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+        mScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 //设置其透明度
                 float alpha = 0;
                 //向上滑动的距离
-                int scollYHeight = -mLyScroll.getTop();
-                if (scollYHeight >= DeviceUtils.dip2px(mActivity, 100)) {
+                // int scollYHeight = -mLyScroll.getTop();
+                if (scrollY > 0) {
                     alpha = 1;//滑上去就一直显示
                 } else {
-                    alpha = scollYHeight / ((DeviceUtils.dip2px(mActivity, 100)) * 1.0f);
+                    alpha = 0;
                 }
-                mTvTitle.setAlpha(alpha);
                 mStatusBar.setAlpha(alpha);
-
                 if (alpha == 0) {
-                    mTvTitle.setText("");
-                    mIvSet.setBackgroundResource(R.color.white);
+                    mIvTitleLine.setVisibility(View.GONE);
+                    mIvSet.setBackgroundResource(R.mipmap.ic_set_white);
                     mIvMessage.setBackgroundResource(R.color.white);
+                    mLyScroll.setBackground(null);
+                    mTvTitle.setText("");
+
                 } else {
-                    mIvSet.setBackgroundResource(R.color.orange_bg);
+                    mIvTitleLine.setVisibility(View.VISIBLE);
+                    mLyScroll.setBackgroundResource(R.color.white);
+                    mIvSet.setBackgroundResource(R.mipmap.ic_set_black);
                     mIvMessage.setBackgroundResource(R.color.orange_bg);
                     mTvTitle.setText("个人中心");
 
                 }
             }
-        });*/
+        });
     }
 
     @Override
@@ -257,17 +268,19 @@ public class MyCenterFrament extends BaseFragment {
         if (bean != null) {
 
             mTvUserPhone.setText(bean.getUsername());
-            mTvLoginStatus.setText("已登录");
+            mTvLoginStatus.setText(bean.getNickname());
             //头像显示
             if (!StringUtils.isEmpty(bean.getAvatars())) {
+                mIvHead.setVisibility(View.VISIBLE);
                 FrescoUtils.getInstance().setImageUri(mIvHead, StringUtils.getImgUrl(bean.getAvatars()));
+            } else {
+                mIvHead.setVisibility(View.INVISIBLE);
             }
+            mLyHouse.setVisibility(View.VISIBLE);
             if ("1".equals(bean.getIs_bind_property())) {//未绑定
-                mLyHouse.setVisibility(View.VISIBLE);
                 mTvHouse.setText("认证房屋");
                 mIvHouse.setVisibility(View.VISIBLE);
             } else {
-                mLyHouse.setVisibility(View.GONE);
                 mTvHouse.setText("已认证");
                 mIvHouse.setVisibility(View.GONE);
             }
@@ -289,6 +302,7 @@ public class MyCenterFrament extends BaseFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
     }
 
@@ -296,6 +310,19 @@ public class MyCenterFrament extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(PersoninfoBean bean) {
+        //1.绑定房屋后刷新
+        //2.更换个人信息后刷新
+        requestData();
     }
 
     @OnClick({R.id.iv_set, R.id.iv_message, R.id.iv_head, R.id.ly_house, R.id.ly_workorder_daifuwu, R.id.ly_workorder_fuwuzhong, R.id.ly_workorder_daizhifu, R.id.ly_workorder_yiwancheng, R.id.ry_help, R.id.ry_about})
@@ -311,7 +338,10 @@ public class MyCenterFrament extends BaseFragment {
                 startActivity(new Intent(mActivity, OldMessageActivity.class));
                 break;
             case R.id.iv_head:
-                startActivity(new Intent(mActivity, MyInfoActivity.class));
+                intent = new Intent(mContext, MyInfoCircleActivity.class);
+                intent.putExtra("infoBean", bean);
+                startActivity(intent);
+                //startActivity(new Intent(mActivity, MyInfoActivity.class));
                 //startActivity(new Intent(mActivity, ShopZCListActivity.class));//特卖专场
                 break;
             case R.id.ly_house:  //判断是否是业主 物业住宅绑定

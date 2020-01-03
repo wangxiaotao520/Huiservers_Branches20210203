@@ -96,7 +96,7 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
             //根据条目位置设置图片
             ImageItem item = mData.get(position);
             if (isAdded && position == getItemCount() - 1) {
-                iv_img.setImageResource(R.drawable.icon_photo_add);
+                iv_img.setImageResource(R.mipmap.ic_add_release_photo);
                 clickPosition =-1;
             } else {
                 ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, item.path, iv_img, 0, 0);

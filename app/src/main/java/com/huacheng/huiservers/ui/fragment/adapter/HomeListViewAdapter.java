@@ -4,14 +4,14 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
@@ -32,12 +32,13 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
 
     @Override
     protected void convert(ViewHolder viewHolder, final ModelShopIndex item, final int position) {
-        //标记热卖 秒杀 上新
-        viewHolder.<ImageView>getView(R.id.iv_shop_list_flag).setVisibility(View.VISIBLE);
+        //标记热卖
         if (item.getDiscount().equals("1")) {
-            viewHolder.<ImageView>getView(R.id.iv_shop_list_flag).setBackground(mContext.getResources().getDrawable(R.drawable.ic_shoplist_spike));
+            viewHolder.<TextView>getView(R.id.tv_tag).setVisibility(View.VISIBLE);
+            //viewHolder.<ImageView>getView(R.id.iv_shop_list_flag).setBackground(mContext.getResources().getDrawable(R.drawable.ic_shoplist_spike));
         } else {
-            if (item.getIs_hot().equals("1")) {
+            viewHolder.<TextView>getView(R.id.tv_tag).setVisibility(View.GONE);
+          /*  if (item.getIs_hot().equals("1")) {
                 viewHolder.<ImageView>getView(R.id.iv_shop_list_flag).setBackground(mContext.getResources().getDrawable(R.drawable.ic_shoplist_hotsell));
 
             } else if (item.getIs_new().equals("1")) {
@@ -45,12 +46,21 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
             } else {
                 viewHolder.<ImageView>getView(R.id.iv_shop_list_flag).setBackground(null);
 
-            }
+            }*/
         }
-        GlideUtils.getInstance().glideLoad(mContext, MyCookieStore.URL + mDatas.get(position).getTitle_img(),
-                viewHolder.<ImageView>getView(R.id.iv_title_img), R.drawable.ic_default_rectange);
+        // TODO: 2020/1/3 标记售罄的图
+        //标记售罄
+        if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {
+            viewHolder.<ImageView>getView(R.id.iv_shouqing).setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.<ImageView>getView(R.id.iv_shouqing).setVisibility(View.GONE);
+        }
+        FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_sec_kill), MyCookieStore.URL + mDatas.get(position).getTitle_img());
+
         viewHolder.<TextView>getView(R.id.tv_title).setText(item.getTitle());
-        //商品标签
+        // TODO: 2020/1/3 副标题现在没有
+        viewHolder.<TextView>getView(R.id.tv_sub_title).setText("");
+       /* //商品标签
         viewHolder.<LinearLayout>getView(R.id.lin_goodslist_Tag).removeAllViews();
         if (item.getGoods_tag() != null && item.getGoods_tag().size() > 0) {
             for (int i = 0; i < item.getGoods_tag().size(); i++) {
@@ -61,32 +71,26 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
                     viewHolder.<LinearLayout>getView(R.id.lin_goodslist_Tag).addView(view);
                 }
             }
-        }
-        //显示是否售罄
-        if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {
-            viewHolder.<TextView>getView(R.id.tv_shouqing).setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.<TextView>getView(R.id.tv_shouqing).setVisibility(View.GONE);
-        }
+        }*/
         viewHolder.<TextView>getView(R.id.tv_shop_price).setText("¥" + item.getPrice());
         //是否有单位
-        if (!NullUtil.isStringEmpty(item.getUnit())) {
-            viewHolder.<TextView>getView(R.id.tv_shop_weight).setText("/" + item.getUnit());
-        } else {
-            viewHolder.<TextView>getView(R.id.tv_shop_weight).setText("");
-        }
+//        if (!NullUtil.isStringEmpty(item.getUnit())) {
+//            viewHolder.<TextView>getView(R.id.tv_shop_weight).setText("/" + item.getUnit());
+//        } else {
+//            viewHolder.<TextView>getView(R.id.tv_shop_weight).setText("");
+//        }
         viewHolder.<TextView>getView(R.id.tv_shop_price_original).setText("¥" + item.getOriginal());
         viewHolder.<TextView>getView(R.id.tv_shop_price_original).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        viewHolder.<TextView>getView(R.id.tv_orders_sold_num).setText("已售" + item.getOrder_num());
-
-        viewHolder.<ImageView>getView(R.id.iv_shopcar).setOnClickListener(new View.OnClickListener() {
+       // viewHolder.<TextView>getView(R.id.tv_orders_sold_num).setText("已售" + item.getOrder_num());
+       /* viewHolder.<ImageView>getView(R.id.iv_add).setVisibility(View.VISIBLE);
+        viewHolder.<ImageView>getView(R.id.iv_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
                     listener.onAddCartClick(item);
                 }
             }
-        });
+        });*/
     }
 
     public interface OnAddCartClickListener {

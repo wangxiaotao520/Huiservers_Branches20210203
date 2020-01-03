@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -83,7 +84,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
     private String result;
     private Intent intent;
     private Bundle bundle = new Bundle();
-
+    private ScrollView scrollView;
     private RxPermissions rxPermission;
 
 
@@ -99,6 +100,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
         setContentView(R.layout.my_info);
         MyCookieStore.My_info = 0;
         //    SetTransStatus.GetStatus(this);// 系统栏默认为黑色
+        scrollView =  findViewById(R.id.scrollView);
         lin_left = (LinearLayout) findViewById(R.id.lin_left);
         title_name = (TextView) findViewById(R.id.title_name);
         img_head_1 = (CircularImage) findViewById(R.id.img_head_1);
@@ -296,6 +298,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
             protected void setData(String json) {
                 hideDialog(smallDialog);
                 bean = cprotocol.getinfo3(json);
+                scrollView.setVisibility(View.VISIBLE);
                 //获取头像
                 if (bean.getAvatars().equals("null")) {
                 } else {

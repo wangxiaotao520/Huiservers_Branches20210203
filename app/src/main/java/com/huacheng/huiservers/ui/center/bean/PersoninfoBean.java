@@ -1,6 +1,8 @@
 package com.huacheng.huiservers.ui.center.bean;
 
-public class PersoninfoBean {
+import java.io.Serializable;
+
+public class PersoninfoBean implements Serializable{
 
 	private String uid;
 	private String username;

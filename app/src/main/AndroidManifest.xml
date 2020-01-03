@@ -1112,6 +1112,9 @@
         <activity
             android:name="com.huacheng.huiservers.ui.center.MyAboutActivity"
             android:screenOrientation="portrait"
+            />  <activity
+            android:name="com.huacheng.huiservers.ui.center.MyInfoCircleActivity"
+            android:screenOrientation="portrait"
             />
         <!--******************************银联支付********************************-->
         <meta-data

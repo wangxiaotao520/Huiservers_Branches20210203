@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,19 +21,23 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelShopIndex;
+import com.huacheng.huiservers.model.ModelVBaner;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeListViewAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.shop.adapter.VBannerZQAdapter;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.AppConstant;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
+import com.huacheng.libraryservice.widget.verticalbannerview.VerticalBannerView;
 import com.microquation.linkedme.android.log.LMErrorCode;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -62,7 +67,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private SharePrefrenceUtil prefrenceUtil;
     private HomeListViewAdapter adapter;
     private int page = 1;
-   // private ImageView iv_bg;
+    // private ImageView iv_bg;
     private SimpleDraweeView sdv_bg;
     private LinearLayout ly_serch;
     private LinearLayout ly_zq;
@@ -75,7 +80,10 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private String share_icon;
     private String id = "";
     ModelShopIndex modelIndex;
+    private VerticalBannerView v_banner;
     private ModelShopIndex modelindex;
+    private VBannerZQAdapter vBannerAdapter;
+    private List<ModelVBaner> mDatas_v_banner = new ArrayList<>();//垂直banner数据公告
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,7 +108,8 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         headerView = LayoutInflater.from(this).inflate(R.layout.header_zq_index, null);
         initHeaderView();
         listView.addHeaderView(headerView);
-        adapter = new HomeListViewAdapter(this, R.layout.shop_list_item_home, mDatas, this);
+        // adapter = new HomeListViewAdapter(this, R.layout.shop_list_item_home, mDatas, this);
+        adapter = new HomeListViewAdapter(this, R.layout.item_home_sec_kill, mDatas, this);
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
 
@@ -113,7 +122,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
 
     private void initHeaderView() {
         ly_zq = headerView.findViewById(R.id.ly_zq);
-
+        v_banner = headerView.findViewById(R.id.v_banner);
         sdv_bg = headerView.findViewById(R.id.sdv_bg);//根据比例来显示
 //        iv_bg = headerView.findViewById(R.id.iv_bg);//根据比例来显示
 //        final int gridWidth = DeviceUtils.getWindowWidth(ShopZQListActivity.this);
@@ -145,6 +154,26 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onLoadMoreItems() {
                 requestData();
+            }
+        });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == SCROLL_STATE_IDLE) {
+                    int scollYHeight = -headerView.getTop();
+                    if (scollYHeight < DeviceUtils.dip2px(mContext, 400)) {
+                        if (!v_banner.isStarted() && mDatas_v_banner.size() > 0) {
+                            v_banner.start();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
             }
         });
       /*  listView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -248,10 +277,24 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                         modelIndex = modelindex;
                         if (page == 1) {
                             String imageUrl = ApiHttpClient.IMG_SERVICE_URL + modelindex.getBanner();
-                            FrescoUtils.getInstance().setImageUri(sdv_bg,imageUrl);
+                            FrescoUtils.getInstance().setImageUri(sdv_bg, imageUrl);
                             setBanner(modelindex);
                             if (Integer.valueOf(modelindex.getIs_article()) > 0) {//显示专区活动栏
                                 ly_zq.setVisibility(View.VISIBLE);
+                                // TODO: 2020/1/3 轮播
+                                  /*  mDatas_v_banner.clear();
+                            mDatas_v_banner.addAll(modelHome.getP_social_list());
+                            if (!v_banner.isStarted()) {
+                                vBannerAdapter = new VBannerZQAdapter(mDatas_v_banner);
+                                v_banner.setAdapter(vBannerAdapter);
+                                v_banner.start();
+                            } else {
+                                if (vBannerAdapter!=null) {
+                                    vBannerAdapter.notifyDataChanged();
+                                }
+                                v_banner.stop();
+                                v_banner.start();
+                            }*/
                             } else {
                                 ly_zq.setVisibility(View.GONE);
                             }

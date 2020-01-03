@@ -44,8 +44,8 @@ public class NamenickVerfityActivity extends BaseActivityOld implements OnClickL
         et_content = (EditText) findViewById(R.id.et_content);
         // set
         title_name.setText("昵称");
-        right.setTextColor(getResources().getColor(R.color.rednew));
-        right.setText("提交");
+        right.setTextColor(getResources().getColor(R.color.orange_bg));
+        right.setText("确定");
         // get
         String nickname = getIntent().getExtras().getString("nickname");
         if (!nickname.equals("")) {
