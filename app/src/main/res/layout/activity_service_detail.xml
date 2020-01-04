@@ -37,8 +37,8 @@
                 android:padding="15dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:background="@mipmap/ic_arrow_left_black"/>
             </LinearLayout>
 
@@ -63,10 +63,10 @@
 
                 <ImageView
                     android:id="@+id/iv_share"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:background="@mipmap/ic_share"/>
+                    android:background="@mipmap/ic_share_black"/>
             </LinearLayout>
         </RelativeLayout>
 

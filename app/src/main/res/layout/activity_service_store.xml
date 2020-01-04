@@ -201,8 +201,8 @@
 
                     <ImageView
                         android:id="@+id/iv_left"
-                        android:layout_width="17dp"
-                        android:layout_height="18dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:background="@mipmap/ic_arrow_left_black" />
                 </LinearLayout>
 
@@ -233,12 +233,12 @@
 
                 <ImageView
                     android:id="@+id/iv_right"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:background="@mipmap/ic_share"
+                    android:background="@mipmap/ic_share_white"
                      />
             </RelativeLayout>
         </LinearLayout>

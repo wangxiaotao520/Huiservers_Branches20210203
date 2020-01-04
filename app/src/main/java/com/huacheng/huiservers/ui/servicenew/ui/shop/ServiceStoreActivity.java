@@ -110,7 +110,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
 //        tv_store_phone = findViewById(R.id.tv_store_phone);
 //        tv_service_num = findViewById(R.id.tv_service_num);
         iv_right = findViewById(R.id.iv_right);
-        iv_right.setBackgroundResource(R.mipmap.ic_vote_share);
+        iv_right.setBackgroundResource(R.mipmap.ic_share_white);
         iv_right.setVisibility(View.VISIBLE);
         iv_left = findViewById(R.id.iv_left);
         iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_white);
@@ -236,12 +236,12 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
                     if (modelStore!=null) {
                         title_name.setText(modelStore.getName()+"");
                     }
-                    iv_right.setBackgroundResource(R.mipmap.ic_vote_share);
+                    iv_right.setBackgroundResource(R.mipmap.ic_share_black);
                 }else {
                     iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_white);
                     title_name.setText("");
-                    //TODO 分享图标
-                    iv_right.setBackgroundResource(R.mipmap.ic_vote_share);
+                    // 分享图标
+                    iv_right.setBackgroundResource(R.mipmap.ic_share_white);
                 }
             }
         });
