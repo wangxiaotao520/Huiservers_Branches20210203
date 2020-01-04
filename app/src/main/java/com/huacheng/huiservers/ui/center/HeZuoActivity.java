@@ -17,7 +17,6 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.utils.TextCheckUtils;
-import com.huacheng.huiservers.utils.ToolUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,16 +75,18 @@ public class HeZuoActivity extends BaseActivityOld implements View.OnClickListen
 
             case R.id.rel_ti:
                 if (TextUtils.isEmpty(et_name.getText().toString().trim())) {
-                    SmartToast.showInfo("请填写姓名");
-                } else if (TextUtils.isEmpty(et_phone.getText().toString().trim())) {
-                    SmartToast.showInfo("请填写电话");
-                } else if (!ToolUtils.isMobileNO(et_phone.getText().toString().trim())) {
-                    SmartToast.showInfo("手机号码格式不正确");
-                } else if (TextUtils.isEmpty(et_content.getText().toString().trim())) {
-                    SmartToast.showInfo("请填写内容");
-                } else {
-                    getResult();
+                    return;
                 }
+                if (TextUtils.isEmpty(et_phone.getText().toString().trim())) {
+                    return;
+                } /*else if (!ToolUtils.isMobileNO(et_phone.getText().toString().trim())) {
+                    SmartToast.showInfo("手机号码格式不正确");
+                } else*/
+                if (TextUtils.isEmpty(et_content.getText().toString().trim())) {
+                    return;
+                }
+                getResult();
+
                 break;
             default:
                 break;

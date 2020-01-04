@@ -23,8 +23,21 @@ public class MyCenterAdapter extends CommonAdapter<PersoninfoBean> {
 
     @Override
     protected void convert(ViewHolder viewHolder, PersoninfoBean item, int position) {
-        // TODO: 2019/12/28 图标 
-        viewHolder.<ImageView>getView(R.id.iv_cat).setBackgroundResource(R.color.orange_bg);
+        if (position==0){
+            viewHolder.<ImageView>getView(R.id.iv_cat).setBackgroundResource(R.mipmap.ic_center_shopcar);
+        }else if (position==1){
+            viewHolder.<ImageView>getView(R.id.iv_cat).setBackgroundResource(R.mipmap.ic_center_shoporder);
+        }else if (position==2){
+            viewHolder.<ImageView>getView(R.id.iv_cat).setBackgroundResource(R.mipmap.ic_center_serviceorder);
+        }else if (position==3){
+            viewHolder.<ImageView>getView(R.id.iv_cat).setBackgroundResource(R.mipmap.ic_center_lifeorder);
+        }else if (position==4){
+            viewHolder.<ImageView>getView(R.id.iv_cat).setBackgroundResource(R.mipmap.ic_center_houserent);
+        }else if (position==5){
+            viewHolder.<ImageView>getView(R.id.iv_cat).setBackgroundResource(R.mipmap.ic_center_coupon);
+        }else if (position==6){
+            viewHolder.<ImageView>getView(R.id.iv_cat).setBackgroundResource(R.mipmap.ic_center_invite);
+        }
         viewHolder.<TextView>getView(R.id.tv_name).setText(item.getFullname());
 
     }

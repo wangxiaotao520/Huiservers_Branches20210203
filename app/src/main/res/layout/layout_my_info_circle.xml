@@ -47,7 +47,7 @@
                         android:layout_height="130dp"
                         android:fitsSystemWindows="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_15"
+                        android:background="@mipmap/bg_center_circle"
                         />
 
                     <RelativeLayout

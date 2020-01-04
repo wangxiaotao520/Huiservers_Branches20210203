@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="155dp"
-                android:background="@color/orange_bg"/>
+                android:background="@mipmap/bg_center_hezuo"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

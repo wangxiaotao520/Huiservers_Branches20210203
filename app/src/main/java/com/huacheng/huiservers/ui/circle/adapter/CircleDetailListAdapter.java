@@ -7,14 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
-import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.view.CircularImage;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class CircleDetailListAdapter extends BaseAdapter {
 
     public CircleDetailListAdapter(Context mContext, List<CircleDetailBean> mList) {
         this.mContext = mContext;
-        this.mList=mList;
+        this.mList = mList;
     }
 
     @Override
@@ -53,17 +52,16 @@ public class CircleDetailListAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.cricle_detail_list_item, null, false);
-            holder.tv_name= (TextView) convertView.findViewById(R.id.tv_name);
-            holder.tv_time= (TextView) convertView.findViewById(R.id.tv_time);
-            holder.tv_content= (TextView) convertView.findViewById(R.id.tv_content);
-            holder.iv_photo= (CircularImage) convertView.findViewById(R.id.iv_photo);
-            holder.tv_circledel= (TextView) convertView.findViewById(R.id.tv_circledel);
+            holder.tv_name = convertView.findViewById(R.id.tv_name);
+            holder.tv_time = convertView.findViewById(R.id.tv_time);
+            holder.tv_content = convertView.findViewById(R.id.tv_content);
+            holder.iv_photo = convertView.findViewById(R.id.iv_photo);
+            holder.iv_delete = convertView.findViewById(R.id.iv_delete);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Glide.with(mContext).load(StringUtils.getImgUrl(mList.get(position).getR_avatars())).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .placeholder(R.drawable.ic_default_head).error(R.drawable.ic_default_head).into(holder.iv_photo);
+        FrescoUtils.getInstance().setImageUri(holder.iv_photo, com.huacheng.huiservers.utils.StringUtils.getImgUrl(mList.get(position).getR_avatars()));
         holder.tv_name.setText(mList.get(position).getR_nickname());
         holder.tv_time.setText(mList.get(position).getAddtime());
         byte[] bytes = Base64.decode(mList.get(position).getContent(), Base64.DEFAULT);
@@ -72,8 +70,8 @@ public class CircleDetailListAdapter extends BaseAdapter {
         SharedPreferences pref = mContext.getSharedPreferences("login", 0);
         String uid = pref.getString("login_uid", "");
         if (uid.equals(mList.get(position).getUid())) {
-            holder.tv_circledel.setVisibility(View.VISIBLE);
-            holder.tv_circledel.setOnClickListener(new View.OnClickListener() {
+            holder.iv_delete.setVisibility(View.VISIBLE);
+            holder.iv_delete.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -84,7 +82,7 @@ public class CircleDetailListAdapter extends BaseAdapter {
             lp.setMargins(0, 0, 0, 0);
             holder.tv_time.setLayoutParams(lp);*/
         } else {
-            holder.tv_circledel.setVisibility(View.GONE);
+            holder.iv_delete.setVisibility(View.GONE);
            /* RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) holder.tv_time.getLayoutParams();
             lp.setMargins(0, 0, 50, 0);
             holder.tv_time.setLayoutParams(lp);*/
@@ -104,13 +102,14 @@ public class CircleDetailListAdapter extends BaseAdapter {
     public void setmOnItemDeleteListener(onItemDeleteListener mOnItemDeleteListener) {
         this.mOnItemDeleteListener = mOnItemDeleteListener;
     }
-    
+
     private class ViewHolder {
-        CircularImage iv_photo;
+        SimpleDraweeView iv_photo;
         TextView tv_name;
         TextView tv_time;
-        TextView tv_content,tv_circledel;
-        
+        TextView tv_content;
+        ImageView iv_delete;
+
 
     }
 }

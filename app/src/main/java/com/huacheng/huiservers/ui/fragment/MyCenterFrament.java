@@ -209,7 +209,7 @@ public class MyCenterFrament extends BaseFragment {
                 if (alpha == 0) {
                     mIvTitleLine.setVisibility(View.GONE);
                     mIvSet.setBackgroundResource(R.mipmap.ic_set_white);
-                    mIvMessage.setBackgroundResource(R.color.white);
+                    mIvMessage.setBackgroundResource(R.mipmap.ic_index_message_white);
                     mLyScroll.setBackground(null);
                     mTvTitle.setText("");
 
@@ -217,7 +217,7 @@ public class MyCenterFrament extends BaseFragment {
                     mIvTitleLine.setVisibility(View.VISIBLE);
                     mLyScroll.setBackgroundResource(R.color.white);
                     mIvSet.setBackgroundResource(R.mipmap.ic_set_black);
-                    mIvMessage.setBackgroundResource(R.color.orange_bg);
+                    mIvMessage.setBackgroundResource(R.mipmap.ic_index_message_black);
                     mTvTitle.setText("个人中心");
 
                 }

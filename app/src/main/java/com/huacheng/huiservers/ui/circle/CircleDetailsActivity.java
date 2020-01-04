@@ -19,6 +19,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -40,7 +41,7 @@ import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.lidroid.xutils.BitmapUtils;
 import com.microquation.linkedme.android.log.LMErrorCode;
@@ -103,7 +104,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
     @BindView(R.id.title_name)
     TextView mTitleName;
     @BindView(R.id.iv_photo)
-    CircularImage mIvPhoto;
+    SimpleDraweeView mIvPhoto;
     @BindView(R.id.tv_name)
     TextView mTvName;
     @BindView(R.id.tv_time)
@@ -168,9 +169,9 @@ public class CircleDetailsActivity extends BaseActivityOld {
         // circle_comment = this.getIntent().getExtras().getString("circle_comment");
 //        isRefresh = this.getIntent().getExtras().getBoolean("refresh");
         if (!NullUtil.isStringEmpty(this.getIntent().getExtras().getString("SCROLLtag"))) {
-            SCROLLtag="1";
-        }else {
-            SCROLLtag="0";
+            SCROLLtag = "1";
+        } else {
+            SCROLLtag = "0";
         }
         preferencesLogin = this.getSharedPreferences("login", 0);
         login_type = preferencesLogin.getString("login_type", "");
@@ -223,10 +224,9 @@ public class CircleDetailsActivity extends BaseActivityOld {
                 hideDialog(smallDialog);
                 mCirclebean = mCircleProtocol.getSocialDetail(json);
                 //顶部头像
-//                Glide.with(context).load(StringUtils.getImgUrl(mCirclebean.getAvatars())).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
-//                        .placeholder(R.drawable.ic_default_head).error(R.drawable.ic_default_head).into(mIvPhoto);
                 if (!NullUtil.isStringEmpty(mCirclebean.getAvatars())) {
-                    GlideUtils.getInstance().glideLoad(context, StringUtils.getImgUrl(mCirclebean.getAvatars()), mIvPhoto, R.drawable.ic_default_head);
+                    FrescoUtils.getInstance().setImageUri(mIvPhoto, StringUtils.getImgUrl(mCirclebean.getAvatars()));
+                    // GlideUtils.getInstance().glideLoad(context, StringUtils.getImgUrl(mCirclebean.getAvatars()), mIvPhoto, R.drawable.ic_default_head);
                 }
                 //底部头像
                /* Glide.with(context).load(MyCookieStore.URL + mCirclebean.getAvatars()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -239,10 +239,8 @@ public class CircleDetailsActivity extends BaseActivityOld {
                     //mTvName.setTextColor(context.getResources().getColor(R.color.black_jain_87));
                     mLinGuan.setVisibility(View.GONE);
                     mLinUser.setVisibility(View.VISIBLE);
-                    //System.out.println("NNNNNN+++++++++" + mCirclebean.getContent());
                     byte[] bytes = Base64.decode(mCirclebean.getContent(), Base64.DEFAULT);
                     mTvUserContent.setText(new String(bytes));
-                    //System.out.println("^^^^^^^^^+++++++++" + new String(bytes));
                     // mTvUserContent.setText("     " + mCirclebean.getContent());
                     //动态添加用户发表图片
                     getAddview();
@@ -251,7 +249,6 @@ public class CircleDetailsActivity extends BaseActivityOld {
                 } else {///官方图文混排
 
                     // mTvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-
                     if (isPro == 1) {
                         mLinGuan.setVisibility(View.VISIBLE);
                         mLinUser.setVisibility(View.VISIBLE);
@@ -293,8 +290,6 @@ public class CircleDetailsActivity extends BaseActivityOld {
                         mWebview.loadDataWithBaseURL(null, content1, "text/html", "utf-8", null);
                         LogUtils.d("[content1]" + content1);
                     }
-
-
                 }
                 if (mCirclebean.getReply_list() != null) {
                     mTvPinglunNum.setText("评论(" + mCirclebean.getReply_list().size() + ")");

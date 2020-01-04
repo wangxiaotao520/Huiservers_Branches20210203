@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/windowbackground"
@@ -14,15 +15,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:layout_marginTop="20dp"
+            android:layout_margin="@dimen/margin_15"
             android:orientation="horizontal">
 
-            <com.huacheng.huiservers.view.CircularImage
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/iv_photo"
                 android:layout_width="40dp"
-                android:layout_height="40dp"/>
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                fresco:placeholderImage="@drawable/ic_default_head"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundAsCircle="true"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,18 +48,12 @@
                         android:textColor="@color/orange_bg"
                         android:textSize="@dimen/t_15sp"/>
 
-                    <TextView
-                        android:id="@+id/tv_circledel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="7dp"
-                        android:layout_toLeftOf="@id/tv_circle_right"
-                        android:focusable="false"
-                        android:padding="8dp"
-                        android:text="删除"
-                        android:textColor="@color/black_jain_54"
-                        android:textSize="@dimen/t_14sp"/>
+                    <ImageView
+                        android:id="@+id/iv_delete"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/ic_delete_circle"/>
                 </LinearLayout>
 
                 <TextView

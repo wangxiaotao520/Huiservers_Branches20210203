@@ -27,7 +27,7 @@
                     android:id="@+id/ry_bg"
                     android:layout_width="match_parent"
                     android:layout_height="165dp"
-                    android:background="@mipmap/ic_center_top_img"
+                    android:background="@mipmap/bg_center_top_img"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -161,7 +161,7 @@
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
                                 android:layout_centerInParent="true"
-                                android:background="@color/orange_bg"/>
+                                android:background="@mipmap/ic_center_dfw"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -185,7 +185,7 @@
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
                                 android:layout_centerInParent="true"
-                                android:background="@color/orange_bg"/>
+                                android:background="@mipmap/ic_center_fwz"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -209,7 +209,7 @@
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
                                 android:layout_centerInParent="true"
-                                android:background="@color/orange_bg"/>
+                                android:background="@mipmap/ic_center_dzf"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -233,7 +233,7 @@
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
                                 android:layout_centerInParent="true"
-                                android:background="@color/orange_bg"/>
+                                android:background="@mipmap/ic_center_ywc"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -367,12 +367,12 @@
 
                 <ImageView
                     android:id="@+id/iv_message"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_15"
-                    android:background="@mipmap/ic_set_white"/>
+                    android:background="@mipmap/ic_index_message_white"/>
 
                 <View
                     android:id="@+id/iv_title_line"
