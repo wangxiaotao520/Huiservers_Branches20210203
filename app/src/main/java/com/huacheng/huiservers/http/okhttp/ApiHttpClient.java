@@ -109,6 +109,8 @@ public class ApiHttpClient {
     public static String GET_SERVICELIST = API_SERVICE_URL + "service/serviceList";
     //服务区域判断有无
     public static String GET_SERVICEMATCHING = API_SERVICE_URL + "index/serviceMatching";
+    //服务首页广告
+    public static String INDEX_SERVICE_AD_TOP = API_SERVICE_URL + "index/serviceClassifTop";
 
     /**
      * 物业
@@ -389,6 +391,8 @@ public class ApiHttpClient {
     public static String SOCIAL_DELETE = API_URL + API_VERSION + "social/SocialDel/";
     //我的邻里
     public static String GET_USER_SOCIAL = API_URL + API_VERSION + "social/get_user_social_list/";
+    //首页下方tab IMG
+    public static String IMG_BOTTOM = API_URL + API_VERSION + "index/index_Bottom";
 
     /**
      * 刷新接口
@@ -544,5 +548,7 @@ public class ApiHttpClient {
         VLOG_MESSAGE_ADD = API_URL + API_VERSION + "vlog/vlog_message_add";
         VLOG_MESSAGE_LIST = API_URL + API_VERSION + "vlog/vlog_message";
         VLOG_RANK_LIST = API_URL_SHARE + "vlog/vlogRanking";
+        INDEX_SERVICE_AD_TOP = API_SERVICE_URL + "index/serviceClassifTop";
+        IMG_BOTTOM = API_URL + API_VERSION + "index/index_Bottom";
     }
 }

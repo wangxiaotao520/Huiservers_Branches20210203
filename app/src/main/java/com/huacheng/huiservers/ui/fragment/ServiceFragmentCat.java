@@ -3,6 +3,7 @@ package com.huacheng.huiservers.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -11,10 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelAds;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.fragment.adapter.AdapterServiceCatOne;
 import com.huacheng.huiservers.ui.fragment.adapter.AdapterServiceCatTwo;
@@ -53,6 +56,8 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
     private int firstVisibleItem = 0;
     private Banner banner;
     private MyCornerImageLoader myImageLoader;
+    private List<ModelAds> listAds=new ArrayList<>();
+    private View ll_second_root;
 
 
     @Override
@@ -72,6 +77,8 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
         list_two = (ListView) view.findViewById(R.id.list_two);
         adapterTwo = new AdapterServiceCatTwo(mActivity, R.layout.shop_cate_item, mDatas, this);
         list_two.setAdapter(adapterTwo);
+        ll_second_root = view.findViewById(R.id.ll_second_root);
+        ll_second_root.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -128,13 +135,7 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
     @Override
     public void initData(Bundle savedInstanceState) {
         //banner
-        ArrayList<String> mDatas_img = new ArrayList<>();
-        mDatas_img.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
-        mDatas_img.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
-        mDatas_img.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        mDatas_img.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
-        mDatas_img.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        banner.update(mDatas_img);
+        getBanner();
 
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
@@ -144,6 +145,7 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
+                    ll_second_root.setVisibility(View.VISIBLE);
                     List<ModelServiceCat> list = (List<ModelServiceCat>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelServiceCat.class);
                     if (list.size() > 0) {
                         ll_list_left.setBackgroundColor(getResources().getColor(R.color.all_gray));
@@ -161,11 +163,56 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                hideDialog(smallDialog);
+               // hideDialog(smallDialog);
                 SmartToast.showInfo("网络异常，请检查网络设置");
 
             }
         });
+    }
+
+    /**
+     * 服务首页bannner
+     */
+    private void getBanner() {
+        HashMap<String, String> params = new HashMap<>();
+        // params.put("community_id",prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.put("c_id",prefrenceUtil.getXiaoQuId());
+        }
+        MyOkHttp.get().get(ApiHttpClient.INDEX_SERVICE_AD_TOP, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                   List <ModelAds>list = (List<ModelAds>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelAds.class);
+                   listAds.clear();
+                   listAds.addAll(list);
+                   if (list !=null&& list.size() > 0) {
+                        banner.setVisibility(View.VISIBLE);
+
+                        ArrayList<String> mDatas_img1 = new ArrayList<>();
+                        for (int i = 0; i < list.size(); i++) {
+                            mDatas_img1.add(ApiHttpClient.IMG_URL+ list.get(i).getImg() + "");
+                        }
+                        banner.update(mDatas_img1);
+                    }else {
+                        banner.setVisibility(View.GONE);
+                    }
+                } else {
+//                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+//                    SmartToast.showInfo(msg);
+                    banner.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+//                hideDialog(smallDialog);
+//                SmartToast.showInfo("网络异常，请检查网络设置");
+                banner.setVisibility(View.GONE);
+
+            }
+        });
+
     }
 
     @Override
@@ -196,7 +243,20 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
         banner.setImageLoader(myImageLoader).setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                //TODO 点击banner
+                //点击banner
+                if (listAds.size()>0){
+                    ModelAds ads = listAds.get(position);
+                    if (TextUtils.isEmpty(ads.getUrl())) {
+                        if ("0".equals(ads.getUrl_type()) || TextUtils.isEmpty(ads.getUrl_type())) {
+                            new Jump(getActivity(), ads.getType_name(), ads.getAdv_inside_url());
+                        } else {
+                            new Jump(getActivity(), ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
+                        }
+                    } else {//URL不为空时外链
+                        new Jump(getActivity(), ads.getUrl());
+
+                    }
+                }
             }
         }).start();
 

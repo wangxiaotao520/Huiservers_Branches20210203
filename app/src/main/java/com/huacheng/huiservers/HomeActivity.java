@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelEventHome;
+import com.huacheng.huiservers.model.ModelIndexBottomUI;
 import com.huacheng.huiservers.model.ModelLoginOverTime;
 import com.huacheng.huiservers.model.ModelQRCode;
 import com.huacheng.huiservers.ui.base.ActivityStackManager;
@@ -41,6 +43,7 @@ import com.huacheng.huiservers.utils.QRCodeUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -78,6 +81,10 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
     View mStatusBar;
     private ModelEventHome modelEventHome;
     private boolean isEvent = false;
+    private ModelIndexBottomUI  modelIndexBottomUI;
+
+    private String [] img_unselected= new String[5]; //网络选择的图片
+    private String [] img_selected= new String[5];  //网络未选择的图片
 
     /**
      * 点击切换fragment
@@ -335,12 +342,52 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
         textViews_bottom[2]=tv_service;
         textViews_bottom[3]=tv_circle;
         textViews_bottom[4]=tv_my;
-        //TODO
+
         changeBottomUI(0);
         current_fragment=0;
+        requestBottomUI();
         EventBus.getDefault().register(this);
         initJpush();
 
+    }
+
+    /**
+     * 请求下方tab图片
+     */
+    private void requestBottomUI() {
+        HashMap<String, String> params = new HashMap<>();
+        MyOkHttp.get().get(ApiHttpClient.IMG_BOTTOM, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    modelIndexBottomUI= (ModelIndexBottomUI) JsonUtil.getInstance().parseJsonFromResponse(response,ModelIndexBottomUI.class);
+                    if(modelIndexBottomUI!=null){
+                        //付志斌接口干得好事 2020 01 04
+                        img_selected[0]=ApiHttpClient.IMG_URL+modelIndexBottomUI.getApp_index_selected();
+                        img_selected[1]=ApiHttpClient.IMG_URL+modelIndexBottomUI.getApp_shop_selected();
+                        img_selected[2]=ApiHttpClient.IMG_URL+modelIndexBottomUI.getApp_service_selected();
+                        img_selected[3]=ApiHttpClient.IMG_URL+modelIndexBottomUI.getApp_social_selected();
+                        img_selected[4]=ApiHttpClient.IMG_URL+modelIndexBottomUI.getApp_my_selected();
+
+                        img_unselected[0]=ApiHttpClient.IMG_URL+modelIndexBottomUI.getApp_index_not_selected();
+                        img_unselected[1]=ApiHttpClient.IMG_URL+modelIndexBottomUI.getApp_shop_not_selected();
+                        img_unselected[2]=ApiHttpClient.IMG_URL+modelIndexBottomUI.getApp_service_not_selected();
+                        img_unselected[3]=ApiHttpClient.IMG_URL+modelIndexBottomUI.getApp_social_not_selected();
+                        img_unselected[4]=ApiHttpClient.IMG_URL+modelIndexBottomUI.getApp_my_not_selected();
+                        changeBottomUI(current_fragment);
+                    }
+                } else {
+//                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+//                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+//                SmartToast.showInfo("网络异常，请检查网络设置");
+
+            }
+        });
     }
 
     private void initJpush() {
@@ -575,20 +622,38 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
      * @param position
      */
     private void changeBottomUI(int position) {
-        //TODO 在这里判断有没有网络图片
-        for (int i = 0; i < textViews_bottom.length; i++) {
-            if (position==i){
-                textViews_bottom[i].setTextColor(getResources().getColor(R.color.orange_bg));
-            }else {
-                textViews_bottom[i].setTextColor(getResources().getColor(R.color.title_color));
+        // 在这里判断有没有网络图片
+        if (modelIndexBottomUI!=null&&!NullUtil.isStringEmpty(modelIndexBottomUI.getApp_dibu_color_selected())&&modelIndexBottomUI.getApp_dibu_color_selected().contains("#")){
+            //有网络图片
+            for (int i = 0; i < textViews_bottom.length; i++) {
+                if (position==i){
+                    textViews_bottom[i].setTextColor(Color.parseColor(modelIndexBottomUI.getApp_dibu_color_selected()+""));
+                }else {
+                    textViews_bottom[i].setTextColor(Color.parseColor(modelIndexBottomUI.getApp_dibu_color_not_selected()+""));
+                }
             }
-        }
+            for (int i = 0; i < imageViews_bottom.length; i++) {
+                if (position==i){
+                    GlideUtils.getInstance().glideLoad(this,img_selected[i],imageViews_bottom[i],drawables_selected[i]);
+                }else {
+                    GlideUtils.getInstance().glideLoad(this,img_unselected[i],imageViews_bottom[i],drawables_unselected[i]);
+                }
+            }
+        }else {
+            for (int i = 0; i < textViews_bottom.length; i++) {
+                if (position==i){
+                    textViews_bottom[i].setTextColor(getResources().getColor(R.color.orange_bg));
+                }else {
+                    textViews_bottom[i].setTextColor(getResources().getColor(R.color.title_color));
+                }
+            }
 
-        for (int i = 0; i < imageViews_bottom.length; i++) {
-            if (position==i){
-                imageViews_bottom[i].setBackgroundResource(drawables_selected[i]);
-            }else {
-                imageViews_bottom[i].setBackgroundResource(drawables_unselected[i]);
+            for (int i = 0; i < imageViews_bottom.length; i++) {
+                if (position==i){
+                    imageViews_bottom[i].setImageResource(drawables_selected[i]);
+                }else {
+                    imageViews_bottom[i].setImageResource(drawables_unselected[i]);
+                }
             }
         }
     }

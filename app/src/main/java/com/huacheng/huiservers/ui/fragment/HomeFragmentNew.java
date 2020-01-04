@@ -264,7 +264,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 if (modelHome!=null&&modelHome.getAd_top_list() != null && modelHome.getAd_top_list().size() > 0) {
                     ModelAds ads=modelHome.getAd_top_list().get(position);
                     if (TextUtils.isEmpty(ads.getUrl())) {
-                        if (ads.getUrl_type().equals("0") || TextUtils.isEmpty(ads.getUrl_type())) {
+                        if ("0".equals(ads.getUrl_type()) || TextUtils.isEmpty(ads.getUrl_type())) {
                              new Jump(getActivity(), ads.getType_name(), ads.getAdv_inside_url());
                         } else {
                              new Jump(getActivity(), ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());

@@ -58,7 +58,9 @@
                         android:layout_width="23dp"
                         android:layout_height="23dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@drawable/home22" />
+                        android:background="@color/transparents"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/home22" />
                     <TextView
                         android:id="@+id/tv_home"
                         android:text="首页"
@@ -87,7 +89,9 @@
                         android:layout_width="23dp"
                         android:layout_height="23dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@drawable/shop11" />
+                        android:background="@color/transparents"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/shop11" />
                     <TextView
                         android:id="@+id/tv_shop"
                         android:text="商城"
@@ -116,7 +120,10 @@
                         android:layout_width="23dp"
                         android:layout_height="23dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@drawable/bt_fuwu11" />
+                        android:src="@drawable/bt_fuwu11"
+                        android:scaleType="fitXY"
+                        android:background="@color/transparents"
+                        />
                     <TextView
                         android:id="@+id/tv_service"
                         android:text="服务"
@@ -145,7 +152,10 @@
                         android:layout_width="23dp"
                         android:layout_height="23dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@drawable/circle11" />
+                        android:src="@drawable/circle11"
+                        android:scaleType="fitXY"
+                        android:background="@color/transparents"
+                        />
                     <TextView
                         android:id="@+id/tv_circle"
                         android:text="邻里"
@@ -174,7 +184,10 @@
                         android:layout_width="23dp"
                         android:layout_height="23dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@drawable/people11" />
+                        android:src="@drawable/people11"
+                        android:scaleType="fitXY"
+                        android:background="@color/transparents"
+                        />
                     <TextView
                         android:id="@+id/tv_my"
                         android:text="我的"

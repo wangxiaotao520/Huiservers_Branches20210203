@@ -65,6 +65,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:id="@+id/ll_second_root"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -104,6 +105,7 @@
                     fresco:indicator_selected_height="10dp"
                     fresco:indicator_selected_width="10dp"
                     fresco:indicator_width="7dp"
+                    android:visibility="gone"
                     />
 
                 <LinearLayout
