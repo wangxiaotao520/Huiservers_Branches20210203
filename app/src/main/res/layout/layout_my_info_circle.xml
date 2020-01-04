@@ -94,7 +94,7 @@
                 app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:navigationIcon="@mipmap/arrow_left"
+                app:navigationIcon="@mipmap/ic_arrow_left_black"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 >
 
@@ -153,6 +153,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_15"
-            android:background="@mipmap/arrow_left"/>
+            android:background="@mipmap/ic_arrow_left_black"/>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

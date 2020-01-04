@@ -54,9 +54,9 @@ public class PropertyWYInfoAdapter1 extends CommonAdapter<ModelWuye>{
         viewHolder.<TextView>getView(R.id.tv_timePrice).setText(item.getSumvalue() + "元");
         viewHolder.<ImageView>getView(R.id.iv_check).setVisibility(View.VISIBLE);
         if (item.isChecked()){
-            viewHolder.<ImageView>getView(R.id.iv_check).setBackgroundResource(R.drawable.icon_shop_onclick);
+            viewHolder.<ImageView>getView(R.id.iv_check).setBackgroundResource(R.mipmap.ic_selected_rctange_orange);
         }else {
-            viewHolder.<ImageView>getView(R.id.iv_check).setBackgroundResource(R.drawable.icon_shop_no);
+            viewHolder.<ImageView>getView(R.id.iv_check).setBackgroundResource(R.mipmap.ic_unselected_rctange_orange);
         }
 
         viewHolder.<RelativeLayout>getView(R.id.rl_click).setOnClickListener(new OnDoubleClickListener() {

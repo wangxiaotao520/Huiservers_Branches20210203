@@ -29,7 +29,7 @@
                 android:layout_height="14dp"
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
-                android:background="@mipmap/ic_sousuo2x"/>
+                android:background="@mipmap/ic_search_grey"/>
 
             <TextView
                 android:layout_width="wrap_content"

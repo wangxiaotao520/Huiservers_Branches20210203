@@ -232,7 +232,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
                 //注意头部局的颜色也需要改变
                 status_bar.setAlpha(alpha_show);
                 if (alpha_show>0){
-                    iv_left.setBackgroundResource(R.mipmap.arrow_left);
+                    iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_black);
                     if (modelStore!=null) {
                         title_name.setText(modelStore.getName()+"");
                     }

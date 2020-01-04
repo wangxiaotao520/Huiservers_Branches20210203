@@ -1652,9 +1652,9 @@ public final class R {
     public static final class mipmap {
         private mipmap() {}
 
-        public static int arrow_left = 0x7f110001;
-        public static int default_image_small = 0x7f110002;
-        public static int dialog_loading_img = 0x7f110003;
+        public static int default_image_small = 0x7f110001;
+        public static int dialog_loading_img = 0x7f110002;
+        public static int ic_arrow_left_black = 0x7f110003;
         public static int ic_arrow_right = 0x7f110004;
         public static int ic_launcher = 0x7f110005;
         public static int ic_launcher_round = 0x7f110006;
@@ -1663,31 +1663,32 @@ public final class R {
         public static int ic_more_wechat = 0x7f110009;
         public static int ic_more_wecircle = 0x7f11000a;
         public static int ic_share = 0x7f11000b;
-        public static int page_focuese = 0x7f11000c;
-        public static int page_focuese_topad = 0x7f11000d;
-        public static int page_indicator = 0x7f11000e;
-        public static int page_indicator_focused = 0x7f11000f;
-        public static int page_unfocused = 0x7f110010;
-        public static int page_unfocused_topad = 0x7f110011;
-        public static int ssdk_auth_title_back = 0x7f110012;
-        public static int ssdk_back_arr = 0x7f110013;
-        public static int ssdk_checkboxed = 0x7f110014;
-        public static int ssdk_country_back_arrow = 0x7f110015;
-        public static int ssdk_country_cl_divider = 0x7f110016;
-        public static int ssdk_country_clear_search = 0x7f110017;
-        public static int ssdk_country_search_icon = 0x7f110018;
-        public static int ssdk_country_sharesdk_icon = 0x7f110019;
-        public static int ssdk_exception_icon = 0x7f11001a;
-        public static int ssdk_identify_icon = 0x7f11001b;
-        public static int ssdk_input_bg_focus = 0x7f11001c;
-        public static int ssdk_left_back = 0x7f11001d;
-        public static int ssdk_load_dot_white = 0x7f11001e;
-        public static int ssdk_loading = 0x7f11001f;
-        public static int ssdk_logo = 0x7f110020;
-        public static int ssdk_mobile_logo = 0x7f110021;
-        public static int ssdk_title_div = 0x7f110022;
-        public static int ssdk_weibo_common_shadow_top = 0x7f110023;
-        public static int ssdk_weibo_empty_failed = 0x7f110024;
+        public static int ic_share_black = 0x7f11000c;
+        public static int page_focuese = 0x7f11000d;
+        public static int page_focuese_topad = 0x7f11000e;
+        public static int page_indicator = 0x7f11000f;
+        public static int page_indicator_focused = 0x7f110010;
+        public static int page_unfocused = 0x7f110011;
+        public static int page_unfocused_topad = 0x7f110012;
+        public static int ssdk_auth_title_back = 0x7f110013;
+        public static int ssdk_back_arr = 0x7f110014;
+        public static int ssdk_checkboxed = 0x7f110015;
+        public static int ssdk_country_back_arrow = 0x7f110016;
+        public static int ssdk_country_cl_divider = 0x7f110017;
+        public static int ssdk_country_clear_search = 0x7f110018;
+        public static int ssdk_country_search_icon = 0x7f110019;
+        public static int ssdk_country_sharesdk_icon = 0x7f11001a;
+        public static int ssdk_exception_icon = 0x7f11001b;
+        public static int ssdk_identify_icon = 0x7f11001c;
+        public static int ssdk_input_bg_focus = 0x7f11001d;
+        public static int ssdk_left_back = 0x7f11001e;
+        public static int ssdk_load_dot_white = 0x7f11001f;
+        public static int ssdk_loading = 0x7f110020;
+        public static int ssdk_logo = 0x7f110021;
+        public static int ssdk_mobile_logo = 0x7f110022;
+        public static int ssdk_title_div = 0x7f110023;
+        public static int ssdk_weibo_common_shadow_top = 0x7f110024;
+        public static int ssdk_weibo_empty_failed = 0x7f110025;
     }
     public static final class string {
         private string() {}

@@ -203,7 +203,7 @@
                         android:id="@+id/iv_left"
                         android:layout_width="17dp"
                         android:layout_height="18dp"
-                        android:background="@mipmap/arrow_left" />
+                        android:background="@mipmap/ic_arrow_left_black" />
                 </LinearLayout>
 
                 <TextView

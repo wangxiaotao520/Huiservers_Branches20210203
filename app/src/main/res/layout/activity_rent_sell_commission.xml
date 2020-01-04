@@ -21,10 +21,10 @@
         </WebView>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1.5px"
-        android:background="@color/line"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1.5px"-->
+        <!--android:background="@color/line"/>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -62,7 +62,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@color/windowbackground"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/bg_release_rent_list"
         android:layout_height="140dp">
 
     </FrameLayout>
@@ -72,7 +73,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@color/windowbackground"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/bg_release_sell_list"
         android:layout_height="140dp">
 
     </FrameLayout>

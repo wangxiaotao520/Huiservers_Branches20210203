@@ -76,7 +76,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginRight="15dp"
-                    android:src="@mipmap/arrow_left"/>
+                    android:src="@mipmap/ic_arrow_left_black"/>
             </RelativeLayout>
 
         </LinearLayout>

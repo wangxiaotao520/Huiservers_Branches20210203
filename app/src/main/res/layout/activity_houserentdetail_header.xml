@@ -337,7 +337,7 @@
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:background="@color/orange_bg"
+                        android:background="@mipmap/ic_rent_sale_tips"
                         android:layout_gravity="center_vertical"
                         />
 

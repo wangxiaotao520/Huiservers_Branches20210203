@@ -21,7 +21,7 @@ import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.bean.HouseBean;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
-import com.huacheng.huiservers.ui.index.workorder.commit.HouseListActivity;
+import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.NullUtil;

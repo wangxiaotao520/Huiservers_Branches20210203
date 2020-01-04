@@ -71,8 +71,8 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
 
     private int current_fragment = 0;
    // private RadioButton[] rb;
-    private int [] drawables_unselected= {R.drawable.home22,R.drawable.shop11,R.drawable.bt_fuwu11,R.drawable.circle11,R.drawable.people11};
-    private int [] drawables_selected= {R.drawable.home11,R.drawable.shop22,R.drawable.bt_fuwu22,R.drawable.circle22,R.drawable.people22};
+    private int [] drawables_unselected= {R.drawable.home11,R.drawable.shop11,R.drawable.bt_fuwu11,R.drawable.circle11,R.drawable.people11};
+    private int [] drawables_selected= {R.drawable.home22,R.drawable.shop22,R.drawable.bt_fuwu22,R.drawable.circle22,R.drawable.people22};
     private ImageView [] imageViews_bottom= new ImageView[5];
     private TextView [] textViews_bottom= new TextView[5];
     View mStatusBar;

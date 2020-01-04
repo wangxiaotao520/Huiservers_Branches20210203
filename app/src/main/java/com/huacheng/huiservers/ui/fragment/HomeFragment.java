@@ -60,7 +60,7 @@ import com.huacheng.huiservers.ui.fragment.presenter.PropertyPrester;
 import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
-import com.huacheng.huiservers.ui.index.workorder.commit.HouseListActivity;
+import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;

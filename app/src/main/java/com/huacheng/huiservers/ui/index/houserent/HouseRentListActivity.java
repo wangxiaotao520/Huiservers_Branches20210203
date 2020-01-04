@@ -233,7 +233,6 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                     defaultid=mDatas_tag.get(position).getId();
 //                    tv_order_type.setText(mDatas_tag.get(position).getStatus());
 //                    tv_order_type.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    //TODO 显示不同的排序图标
                 }
                 HouseRentTagListBean houseRentTagListBean = mDatas_tag.get(position);
                 if (!houseRentTagListBean.isSelected()){
@@ -712,7 +711,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
             }
             inflateFlowTagLayout();
             showpopup2();
-            iv_rent_sale.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
+            iv_rent_sale.setBackgroundResource(R.mipmap.ic_arrow_up_orange_sloid);
             tv_confirm.setVisibility(View.VISIBLE);
         }else if (type==1){
             ll_custom_search.setVisibility(View.VISIBLE);
@@ -743,12 +742,12 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
             }
             inflateFlowTagLayout();
             showpopup2();
-            iv_acreage.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
+            iv_acreage.setBackgroundResource(R.mipmap.ic_arrow_up_orange_sloid);
             tv_confirm.setVisibility(View.VISIBLE);
         }else if (type==2){
 
             ll_custom_search.setVisibility(View.GONE);
-            iv_house_type.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
+            iv_house_type.setBackgroundResource(R.mipmap.ic_arrow_up_orange_sloid);
             tv_tag_title.setText("房型选择");
             mDatas_tag2.clear();
             for (int i = 0; i < datas.size(); i++) {
@@ -762,11 +761,10 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
             }
             inflateFlowTagLayout();
             showpopup2();
-            iv_acreage.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
             tv_confirm.setVisibility(View.GONE);
         }else if (type==3){
-        //    iv_order_type.setBackgroundResource(R.mipmap.ic_arrow_up_grey);
-            //TODO 显示筛选图标
+            iv_order_type.setBackgroundResource(R.mipmap.ic_rent_order_orange);
+            // 显示筛选图标
             mDatas_tag.clear();
             mDatas_tag.addAll(datas);
             houseRentTagAdapter.notifyDataSetChanged();
@@ -894,10 +892,10 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
      * 隐藏筛选条件
      */
     private void hideSearchTag() {
-        iv_rent_sale.setBackgroundResource(R.mipmap.ic_arrow_down_grey);
-        iv_acreage.setBackgroundResource(R.mipmap.ic_arrow_down_grey);
-        iv_house_type.setBackgroundResource(R.mipmap.ic_arrow_down_grey);
-    //    iv_order_type.setBackgroundResource(R.mipmap.ic_arrow_down_grey);
+        iv_rent_sale.setBackgroundResource(R.mipmap.ic_arrow_down_grey_sloid);
+        iv_acreage.setBackgroundResource(R.mipmap.ic_arrow_down_grey_sloid);
+        iv_house_type.setBackgroundResource(R.mipmap.ic_arrow_down_grey_sloid);
+        iv_order_type.setBackgroundResource(R.mipmap.ic_rent_order_black);
         if (edt_low_price!=null){
             hideSoftInput(edt_low_price.getWindowToken());
         }

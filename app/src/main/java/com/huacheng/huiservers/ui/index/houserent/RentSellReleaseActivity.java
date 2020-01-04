@@ -3,7 +3,6 @@ package com.huacheng.huiservers.ui.index.houserent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -126,8 +125,8 @@ public class RentSellReleaseActivity extends BaseActivity {
         }else {
             titleName.setText("发布售房信息");
         }
-        TextPaint tp = titleName.getPaint();
-        tp.setFakeBoldText(true);
+//        TextPaint tp = titleName.getPaint();
+//        tp.setFakeBoldText(true);
 
         //如果是小数，位数保留两个，位数限制在7位
         ToolUtils.filterDecimalDigits(etReleArea);

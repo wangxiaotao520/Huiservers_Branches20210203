@@ -22,9 +22,9 @@
 
             <ImageView
                 android:id="@+id/left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/arrow_left" />
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_arrow_left_black" />
         </LinearLayout>
 
         <TextView
@@ -190,7 +190,7 @@
     <View
         android:id="@+id/v_head_line"
         android:layout_width="fill_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="1.5px"
         android:background="@color/line" />
 
 </LinearLayout>

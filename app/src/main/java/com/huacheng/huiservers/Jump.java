@@ -43,7 +43,7 @@ import com.huacheng.huiservers.ui.index.oldservice.OldServiceIndexActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.request.CommitRequestActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteIndexActivity;
-import com.huacheng.huiservers.ui.index.workorder.commit.HouseListActivity;
+import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;

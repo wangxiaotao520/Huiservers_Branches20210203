@@ -448,7 +448,7 @@ public class HouserentDetailActivity extends BaseActivity {
                 title_name.setText("");
                 iv_back.setBackgroundResource(R.mipmap.ic_arrow_left_white);
             }else {
-                iv_back.setBackgroundResource(R.mipmap.arrow_left);
+                iv_back.setBackgroundResource(R.mipmap.ic_arrow_left_black);
                 if (HouseRentType==1){
                     title_name.setText("租房详情");
                 }else {

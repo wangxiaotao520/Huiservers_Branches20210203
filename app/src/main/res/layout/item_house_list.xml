@@ -28,10 +28,10 @@
 
             <ImageView
                 android:id="@+id/iv_bg"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="35dp"
+                android:layout_height="47dp"
                 android:layout_centerInParent="true"
-                android:background="@color/red_bg"/>
+                android:background="@mipmap/ic_house_list"/>
 
         </RelativeLayout>
 
@@ -69,17 +69,17 @@
 
         <LinearLayout
             android:id="@+id/ly_delete"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/margin_5"
             android:gravity="center"
             android:visibility="gone">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/icon_invite_delete"/>
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/ic_delete"/>
         </LinearLayout>
 
     </RelativeLayout>

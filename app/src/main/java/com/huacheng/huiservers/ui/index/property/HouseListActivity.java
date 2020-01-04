@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.index.workorder.commit;
+package com.huacheng.huiservers.ui.index.property;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -23,10 +23,6 @@ import com.huacheng.huiservers.ui.center.bean.HouseBean;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.center.house.HouseInviteActivity;
 import com.huacheng.huiservers.ui.index.openDoor.OpenLanActivity;
-import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
-import com.huacheng.huiservers.ui.index.property.PropertyHomeListActivity;
-import com.huacheng.huiservers.ui.index.property.PropertyHomeNewJFActivity;
-import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterHouseList;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -86,6 +82,16 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         mRefreshLayout.setEnableLoadMore(false);*/
         mAdapter = new AdapterHouseList(this, R.layout.item_house_list, mDatas, type, this);
         mListview.setAdapter(mAdapter);
+
+        if ("property".equals(wuye_type)) {
+            mRight.setVisibility(View.VISIBLE);
+        } else if ("open_door".equals(wuye_type)) {
+            //一键开门
+            mRight.setVisibility(View.GONE);
+        } else if ("house_invite".equals(wuye_type)) {
+            //访客邀请
+            mRight.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

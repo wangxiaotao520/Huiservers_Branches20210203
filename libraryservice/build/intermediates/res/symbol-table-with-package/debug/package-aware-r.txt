@@ -1591,9 +1591,9 @@ layout share_app_popupwindow
 layout support_simple_spinner_dropdown_item
 layout titlebar_center
 layout toast_layout_with_img
-mipmap arrow_left
 mipmap default_image_small
 mipmap dialog_loading_img
+mipmap ic_arrow_left_black
 mipmap ic_arrow_right
 mipmap ic_launcher
 mipmap ic_launcher_round
@@ -1602,6 +1602,7 @@ mipmap ic_more_qzone
 mipmap ic_more_wechat
 mipmap ic_more_wecircle
 mipmap ic_share
+mipmap ic_share_black
 mipmap page_focuese
 mipmap page_focuese_topad
 mipmap page_indicator

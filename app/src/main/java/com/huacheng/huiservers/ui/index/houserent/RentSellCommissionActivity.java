@@ -1,17 +1,19 @@
 package com.huacheng.huiservers.ui.index.houserent;
 
 import android.content.Intent;
-import android.text.TextPaint;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,8 +42,15 @@ public class RentSellCommissionActivity extends BaseActivity {
         ButterKnife.bind(this);
         findTitleViews();
         titleName.setText("租售委托");
-        TextPaint tp = titleName.getPaint();
-        tp.setFakeBoldText(true);
+//        TextPaint tp = titleName.getPaint();
+//        tp.setFakeBoldText(true);
+
+        int height=(int)((DeviceUtils.getWindowWidth(this)-DeviceUtils.dip2px(this,30))*430*1f/1020);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DeviceUtils.getWindowWidth(this)-DeviceUtils.dip2px(this,30), height);
+        params.gravity= Gravity.CENTER_HORIZONTAL;
+        params.setMargins(0,DeviceUtils.dip2px(this,10),0,0);
+        fl_house_rent.setLayoutParams(params);
+        fl_house_sell.setLayoutParams(params);
     }
 
     @Override

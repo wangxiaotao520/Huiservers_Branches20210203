@@ -30,6 +30,7 @@ import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.model.ModelWorkPersonalCatItem;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.bean.HouseBean;
+import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.index.workorder.JpushWorkPresenter;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;

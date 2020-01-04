@@ -104,7 +104,8 @@
             <ImageView
                 android:layout_width="54dp"
                 android:layout_height="54dp"
-                android:background="@color/orange_bg"
+                android:background="@mipmap/bg_notice_background"
+                android:layout_marginLeft="2dp"
                 android:layout_gravity="center" />
 
         </FrameLayout>
@@ -386,23 +387,23 @@
                     android:layout_width="0dp"
                     android:layout_height="101dp"
                     android:layout_weight="1"
-                    android:background="@color/windowbackground" />
+                    android:background="@mipmap/bg_index_rent_house" />
                 <View
-                    android:layout_width="10dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"/>
                 <ImageView
                     android:id="@+id/iv_sell"
                     android:layout_width="0dp"
                     android:layout_height="101dp"
                     android:layout_weight="1"
-                    android:background="@color/windowbackground" />
+                    android:background="@mipmap/bg_index_sell_house" />
             </LinearLayout>
             <ImageView
                 android:id="@+id/iv_release_rent_sell"
                 android:layout_width="match_parent"
                 android:layout_height="101dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/windowbackground" />
+                android:background="@mipmap/bg_index_release_house" />
 
         </LinearLayout>
 

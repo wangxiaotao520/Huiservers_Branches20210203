@@ -23,8 +23,8 @@
             android:orientation="vertical">
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/graynew4"/>
+                android:layout_height="1.5px"
+                android:background="@color/line"/>
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
@@ -47,6 +47,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <LinearLayout
+                    android:layout_marginTop="2dp"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/title_color"
                         android:textSize="11dp"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="3dp" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -75,6 +76,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <LinearLayout
+                    android:layout_marginTop="2dp"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -93,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/title_color"
                         android:textSize="11dp"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="3dp" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -103,6 +105,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <LinearLayout
+                    android:layout_marginTop="2dp"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -121,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/title_color"
                         android:textSize="11dp"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="3dp" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -131,6 +134,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <LinearLayout
+                    android:layout_marginTop="2dp"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,7 +153,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/title_color"
                         android:textSize="11dp"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="3dp" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -159,6 +163,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
                 <LinearLayout
+                    android:layout_marginTop="2dp"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -177,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/title_color"
                         android:textSize="11dp"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="3dp" />
 
                 </LinearLayout>
             </FrameLayout>
