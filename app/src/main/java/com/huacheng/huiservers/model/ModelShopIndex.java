@@ -57,6 +57,9 @@ public class ModelShopIndex {
     private String  banner;
     private String  is_article;
 
+
+    private String description;//首页副标题
+
     public String getContent() {
         return content;
     }
@@ -430,5 +433,14 @@ public class ModelShopIndex {
     public void setCurrent_times(long current_times) {
         this.current_times = current_times;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 
 }

@@ -20,6 +20,9 @@ public class ModelHome implements Serializable {
     private  List<ModelShopIndex>  pro_list;//商品信息
 
 
+    private List<ModelShopIndex>seckill;//秒杀
+
+
     public List<ModelAds> getAd_top_list() {
         return ad_top_list;
     }
@@ -82,5 +85,14 @@ public class ModelHome implements Serializable {
 
     public void setPro_list(List<ModelShopIndex> pro_list) {
         this.pro_list = pro_list;
+    }
+
+
+    public List<ModelShopIndex> getSeckill() {
+        return seckill;
+    }
+
+    public void setSeckill(List<ModelShopIndex> seckill) {
+        this.seckill = seckill;
     }
 }

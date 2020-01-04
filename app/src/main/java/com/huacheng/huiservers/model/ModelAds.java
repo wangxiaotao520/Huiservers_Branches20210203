@@ -18,6 +18,9 @@ public class ModelAds {
     private String img_size;
     private String url_type_cn;
 
+
+    private String index_color;
+
     public String getUrl_type_cn() {
         return url_type_cn;
     }
@@ -97,4 +100,12 @@ public class ModelAds {
     public void setImg_size(String img_size) {
         this.img_size = img_size;
     }
+    public String getIndex_color() {
+        return index_color;
+    }
+
+    public void setIndex_color(String index_color) {
+        this.index_color = index_color;
+    }
+
 }

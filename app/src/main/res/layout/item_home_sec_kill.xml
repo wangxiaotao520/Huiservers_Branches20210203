@@ -47,36 +47,41 @@
                 android:background="@color/orange_bg"
                 android:visibility="gone"/>
         </RelativeLayout>
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_title"
+            android:layout_height="105dp">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:ellipsize="end"
-                android:lines="2"
-                android:text="【三只小熊】超级网红大辣条|内含肉铺 包邮5袋250g装"
-                android:textColor="@color/title_color"
-                android:textSize="@dimen/t_15sp"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_sub_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="9dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="食用油中的吴彦祖，买上就是赚到"
-                android:textColor="@color/gray_99"
-                android:textSize="@dimen/t_12sp"/>
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="【三只小熊】超级网红大"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_15sp"/>
 
+                <TextView
+                    android:id="@+id/tv_sub_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="食用油中的吴彦祖，买上就是赚到"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_12sp"/>
+
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/lin_price_container"
@@ -85,6 +90,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="17dp"
+                android:layout_alignParentBottom="true"
                 android:orientation="horizontal">
 
                 <TextView
@@ -93,6 +99,7 @@
                     android:layout_height="wrap_content"
                     android:text="¥ 9.90"
                     android:textColor="#FF625e"
+                    android:textStyle="bold"
                     android:textSize="@dimen/t_18sp"/>
 
 
@@ -103,12 +110,12 @@
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="9dp"
                     android:text="¥108.0"
+                    android:layout_marginBottom="1dp"
                     android:textColor="@color/gray_99"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 </LinearLayout>

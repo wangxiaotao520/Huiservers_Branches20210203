@@ -55,6 +55,7 @@ import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopXSTimeListActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
@@ -112,8 +113,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private GridViewNoScroll gridview_home;
     private MyCornerImageLoader myImageLoader;
 
-    //TODO 测试
-    List<Integer> colors = new ArrayList<>();
+
+    List<Integer> colors = new ArrayList<>();//banner颜色
     //头布局
     private View headerView;
     private int current_banner_position = 0 ;
@@ -151,6 +152,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private int current_Color= Color.WHITE;//滑动时的color
     private ImageView iv_title_arrow;
     private ModelHome modelHome;
+    private TextView tv_sec_kill_more;
+    private ImageView tv_more_sec_kill_arrow;
 
     @Override
     public void initView(View view) {
@@ -223,8 +226,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
         //慧秒杀
         ll_sec_kill_container = headerView.findViewById(R.id.ll_sec_kill_container);
-        TextView tv_sec_kill_more = headerView.findViewById(R.id.tv_sec_kill_more);
-        ImageView tv_more_sec_kill_arrow = headerView.findViewById(R.id.tv_more_sec_kill_arrow);
+        tv_sec_kill_more = headerView.findViewById(R.id.tv_sec_kill_more);
+        tv_more_sec_kill_arrow = headerView.findViewById(R.id.tv_more_sec_kill_arrow);
         ll_sec_kill_container_root = headerView.findViewById(R.id.ll_sec_kill_container_root);
         //附近美食
         ll_nearby_food_container = headerView.findViewById(R.id.ll_nearby_food_container);
@@ -398,6 +401,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         iv_sell.setOnClickListener(this);
         iv_release_rent_sell.setOnClickListener(this);
         iv_scancode.setOnClickListener(this);
+        tv_sec_kill_more.setOnClickListener(this);
+        tv_more_sec_kill_arrow.setOnClickListener(this);
     }
 
     @Override
@@ -508,30 +513,20 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 ArrayList<String> mDatas_img1 = new ArrayList<>();
                 for (int i = 0; i < modelHome.getAd_top_list().size(); i++) {
                     mDatas_img1.add(ApiHttpClient.IMG_URL+modelHome.getAd_top_list().get(i).getImg() + "");
-                    //TODO 测试
-                    if (i%2==0){
-                        if (i==0){
-                            colors.add(Color.BLUE);
-                        }else {
-                            colors.add(Color.parseColor("#ED2D2D"));
-                        }
+                    if (NullUtil.isStringEmpty(modelHome.getAd_top_list().get(i).getIndex_color())){
+                        colors.add(Color.WHITE);
                     }else {
-                        if (i==1){
-                            colors.add(Color.GREEN);
-                        }else {
-                            colors.add(Color.parseColor("#ED8D37"));
-                        }
-
+                        colors.add(Color.parseColor(modelHome.getAd_top_list().get(i).getIndex_color()));
                     }
                 }
                 banner.update(mDatas_img1);
             }
-
             //分类导航
             if (modelHome.getMenu_list() != null && modelHome.getMenu_list().size() > 0) {
                 fl_grid_container.setVisibility(View.VISIBLE);
                 if (homeGridViewCateAdapter==null){
                     for (int i = 0; i < modelHome.getMenu_list().size(); i++) {
+                        //todo
                         if (i>7) {
                             break;
                         }
@@ -554,8 +549,14 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             }
             //grid背景图
           //  iv_bg_grid.setBackgroundColor(getResources().getColor(R.color.blue));
-            iv_center.setImageResource(R.mipmap.bg_charge_banner);
-
+            //手册协议
+            if (modelHome.getArticle_list() != null && modelHome.getArticle_list().size() > 0) {
+                iv_center.setVisibility(View.VISIBLE);
+                //todo 手册协议
+                iv_center.setImageResource(R.mipmap.bg_charge_banner);
+            } else {
+                iv_center.setVisibility(View.GONE);
+            }
 
             //通知公告
             if (modelHome.getP_social_list() != null && modelHome.getP_social_list().size() > 0) {
@@ -576,47 +577,64 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             } else {
                 ly_notice.setVisibility(View.GONE);
             }
-            //特卖专场
-            ll_on_sale_container.setVisibility(View.VISIBLE);
-            ll_on_sale_img_root.removeAllViews();
-            for (int i = 0; i <7; i++) {
-                View item_home_on_sale = LayoutInflater.from(mActivity).inflate(R.layout.item_home_on_sale, null);
-                SimpleDraweeView sdv_on_sale = item_home_on_sale.findViewById(R.id.sdv_on_sale);
-                ll_on_sale_img_root.addView(item_home_on_sale);
-            }
+            //TODO 特卖专场  还没有
+            ll_on_sale_container.setVisibility(View.GONE);
+//            ll_on_sale_img_root.removeAllViews();
+//            for (int i = 0; i <7; i++) {
+//                View item_home_on_sale = LayoutInflater.from(mActivity).inflate(R.layout.item_home_on_sale, null);
+//                SimpleDraweeView sdv_on_sale = item_home_on_sale.findViewById(R.id.sdv_on_sale);
+//                ll_on_sale_img_root.addView(item_home_on_sale);
+//            }
             //慧秒杀
-            ll_sec_kill_container.setVisibility(View.VISIBLE);
-            ll_sec_kill_container_root.removeAllViews();
-            for (int i = 0; i <6; i++) {
-                View item_home_sec_kill = LayoutInflater.from(mActivity).inflate(R.layout.item_home_sec_kill, null);
-                LinearLayout ly_onclick = item_home_sec_kill.findViewById(R.id.ly_onclick);
-                ly_onclick.setOnClickListener(new OnDoubleClickListener() {
-                    @Override
-                    public void onNoDoubleClick(View v) {
+            List<ModelShopIndex> seckill_list = modelHome.getSeckill();
+            if (seckill_list!=null&&seckill_list.size()>0){
+                ll_sec_kill_container.setVisibility(View.VISIBLE);
+                ll_sec_kill_container_root.removeAllViews();
+                for (int i = 0; i <seckill_list.size(); i++) {
+                    View item_home_sec_kill = LayoutInflater.from(mActivity).inflate(R.layout.item_home_sec_kill, null);
+                    LinearLayout ly_onclick = item_home_sec_kill.findViewById(R.id.ly_onclick);
 
-                    }
-                });
-                SimpleDraweeView sdv_sec_kill = item_home_sec_kill.findViewById(R.id.sdv_sec_kill);
-                TextView tv_title = item_home_sec_kill.findViewById(R.id.tv_title);
-                TextView tv_sub_title = item_home_sec_kill.findViewById(R.id.tv_sub_title);
-                TextView tv_shop_price = item_home_sec_kill.findViewById(R.id.tv_shop_price);
-                TextView tv_shop_price_original = item_home_sec_kill.findViewById(R.id.tv_shop_price_original);
-                tv_shop_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                ll_sec_kill_container_root.addView(item_home_sec_kill);
+                    SimpleDraweeView sdv_sec_kill = item_home_sec_kill.findViewById(R.id.sdv_sec_kill);
+                    TextView tv_title = item_home_sec_kill.findViewById(R.id.tv_title);
+                    TextView tv_sub_title = item_home_sec_kill.findViewById(R.id.tv_sub_title);
+                    TextView tv_shop_price = item_home_sec_kill.findViewById(R.id.tv_shop_price);
+                    TextView tv_shop_price_original = item_home_sec_kill.findViewById(R.id.tv_shop_price_original);
+                    tv_shop_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                    final ModelShopIndex shopIndex = seckill_list.get(i);
+                    FrescoUtils.getInstance().setImageUri(sdv_sec_kill,ApiHttpClient.IMG_URL + shopIndex.getTitle_img());
+                    tv_title.setText(shopIndex.getTitle()+"");
+                    tv_sub_title.setText(shopIndex.getDescription()+"");
+                    tv_shop_price.setText("¥ " +shopIndex.getPrice());
+                    tv_shop_price_original.setText("¥ " +shopIndex.getOriginal()+"");
+
+                    ly_onclick.setOnClickListener(new OnDoubleClickListener() {
+                        @Override
+                        public void onNoDoubleClick(View v) {
+                            Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("shop_id", shopIndex.getId());
+                            intent.putExtras(bundle);
+                            mContext.startActivity(intent);
+                        }
+                    });
+                    ll_sec_kill_container_root.addView(item_home_sec_kill);
+                }
+            }else {
+                ll_sec_kill_container.setVisibility(View.GONE);
             }
 
-            //附近美食
-            ll_nearby_food_container.setVisibility(View.VISIBLE);
-            ll_nearby_food_img_root.removeAllViews();
-            for (int i = 0; i <7; i++) {
-                View item_home_nearby_food = LayoutInflater.from(mActivity).inflate(R.layout.item_home_nearby_food, null);
-                SimpleDraweeView sdv_nearby_food = item_home_nearby_food.findViewById(R.id.sdv_nearby_food);
-                TextView tv_nearby_food_name = item_home_nearby_food.findViewById(R.id.tv_nearby_food_name);
-                TextView tv_nearby_food_price = item_home_nearby_food.findViewById(R.id.tv_nearby_food_price);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0,0,DeviceUtils.dip2px(mActivity,10),0);
-                ll_nearby_food_img_root.addView(item_home_nearby_food,params);
-            }
+            //todo 附近美食
+            ll_nearby_food_container.setVisibility(View.GONE);
+//            ll_nearby_food_img_root.removeAllViews();
+//            for (int i = 0; i <7; i++) {
+//                View item_home_nearby_food = LayoutInflater.from(mActivity).inflate(R.layout.item_home_nearby_food, null);
+//                SimpleDraweeView sdv_nearby_food = item_home_nearby_food.findViewById(R.id.sdv_nearby_food);
+//                TextView tv_nearby_food_name = item_home_nearby_food.findViewById(R.id.tv_nearby_food_name);
+//                TextView tv_nearby_food_price = item_home_nearby_food.findViewById(R.id.tv_nearby_food_price);
+//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                params.setMargins(0,0,DeviceUtils.dip2px(mActivity,10),0);
+//                ll_nearby_food_img_root.addView(item_home_nearby_food,params);
+//            }
             //租售房服务
 
             //热门资讯
@@ -1124,6 +1142,16 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     startActivity(intent);
                 }
 
+                break;
+            case R.id.tv_sec_kill_more:
+            case R.id.tv_more_sec_kill_arrow:
+                //秒杀查看更多
+                intent=new Intent();
+                intent.setClass(mActivity, ShopXSTimeListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("cateID", "1");
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
                 default:
                     break;

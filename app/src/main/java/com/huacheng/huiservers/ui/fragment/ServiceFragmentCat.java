@@ -163,7 +163,7 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-               // hideDialog(smallDialog);
+                hideDialog(smallDialog);
                 SmartToast.showInfo("网络异常，请检查网络设置");
 
             }
