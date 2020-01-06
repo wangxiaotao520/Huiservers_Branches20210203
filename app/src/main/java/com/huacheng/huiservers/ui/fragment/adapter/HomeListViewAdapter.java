@@ -35,6 +35,7 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
         //标记热卖
         if (item.getDiscount().equals("1")) {
             viewHolder.<TextView>getView(R.id.tv_tag).setVisibility(View.VISIBLE);
+            viewHolder.<TextView>getView(R.id.tv_tag).setText("秒杀");
             //viewHolder.<ImageView>getView(R.id.iv_shop_list_flag).setBackground(mContext.getResources().getDrawable(R.drawable.ic_shoplist_spike));
         } else {
             viewHolder.<TextView>getView(R.id.tv_tag).setVisibility(View.GONE);
@@ -58,8 +59,13 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
         FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_sec_kill), MyCookieStore.URL + mDatas.get(position).getTitle_img());
 
         viewHolder.<TextView>getView(R.id.tv_title).setText(item.getTitle());
-        // TODO: 2020/1/3 副标题现在没有
-        viewHolder.<TextView>getView(R.id.tv_sub_title).setText("");
+        if (!NullUtil.isStringEmpty(item.getDescription())){
+            //  副标题
+            viewHolder.<TextView>getView(R.id.tv_sub_title).setText(item.getDescription()+"");
+        }else {
+            viewHolder.<TextView>getView(R.id.tv_sub_title).setText("");
+        }
+
        /* //商品标签
         viewHolder.<LinearLayout>getView(R.id.lin_goodslist_Tag).removeAllViews();
         if (item.getGoods_tag() != null && item.getGoods_tag().size() > 0) {
@@ -94,6 +100,6 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
     }
 
     public interface OnAddCartClickListener {
-        void onAddCartClick(ModelShopIndex item);
+        void onAddCartClick(ModelShopIndex item,int position);
     }
 }

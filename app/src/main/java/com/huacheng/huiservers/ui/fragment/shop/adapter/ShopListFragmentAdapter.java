@@ -17,14 +17,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
-import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
 import java.util.List;
 
@@ -106,23 +107,37 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
             final RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) holder;
             recyclerViewHolder.itemView.setTag(position);
 
-            recyclerViewHolder.iv_shop_list_flag.setVisibility(View.VISIBLE);
+        //    recyclerViewHolder.iv_shop_list_flag.setVisibility(View.VISIBLE);
             ModelShopIndex index = mDatas.get(position);
             String discount = index.getDiscount();
             if (discount.equals("1")) {
-                recyclerViewHolder.iv_shop_list_flag.setBackgroundResource(R.drawable.ic_shoplist_spike);
+               // recyclerViewHolder.iv_shop_list_flag.setBackgroundResource(R.drawable.ic_shoplist_spike);
+                recyclerViewHolder.tv_tag.setText("秒杀");
+                recyclerViewHolder.tv_tag.setVisibility(View.VISIBLE);
             } else {
                 if (index.getIs_hot().equals("1")) {
-                    recyclerViewHolder.iv_shop_list_flag.setBackgroundResource(R.drawable.ic_shoplist_hotsell);
+                 //   recyclerViewHolder.iv_shop_list_flag.setBackgroundResource(R.drawable.ic_shoplist_hotsell);
+                    recyclerViewHolder.tv_tag.setText("热卖");
+                    recyclerViewHolder.tv_tag.setVisibility(View.VISIBLE);
                 } else if (index.getIs_new().equals("1")) {
-                    recyclerViewHolder.iv_shop_list_flag.setBackgroundResource(R.drawable.ic_shoplist_newest);
+                 //   recyclerViewHolder.iv_shop_list_flag.setBackgroundResource(R.drawable.ic_shoplist_newest);
+                    recyclerViewHolder.tv_tag.setText("上新");
+                    recyclerViewHolder.tv_tag.setVisibility(View.VISIBLE);
                 } else {
-                    recyclerViewHolder.iv_shop_list_flag.setBackground(null);
+                  //  recyclerViewHolder.iv_shop_list_flag.setBackground(null);
+                    recyclerViewHolder.tv_tag.setVisibility(View.GONE);
                 }
             }
-            GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + mDatas.get(position).getTitle_img(),recyclerViewHolder.iv_title_img,R.drawable.ic_default_rectange);
+         //   GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + mDatas.get(position).getTitle_img(),recyclerViewHolder.iv_title_img,R.drawable.ic_default_rectange);
+
+            FrescoUtils.getInstance().setImageUri(recyclerViewHolder.iv_title_img, ApiHttpClient.IMG_URL + mDatas.get(position).getTitle_img());
 
             recyclerViewHolder.tv_title.setText(mDatas.get(position).getTitle());
+            if (!NullUtil.isStringEmpty(mDatas.get(position).getDescription())){
+                recyclerViewHolder.tv_sub_title.setText(mDatas.get(position).getDescription());
+            }else {
+                recyclerViewHolder.tv_sub_title.setText("");
+            }
 
             recyclerViewHolder.lin_goodslist_Tag.removeAllViews();
             if (mDatas.get(position).getGoods_tag() != null) {
@@ -305,15 +320,16 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView iv_shop_list_flag, iv_title_img, iv_shopcar;
-        TextView tv_title, tv_shop_price, tv_shop_weight, tv_orders_sold_num, tv_shop_price_original, tv_shouqing;
+        ImageView iv_shop_list_flag, iv_shopcar;
+        SimpleDraweeView iv_title_img;
+        TextView tv_title, tv_shop_price, tv_shop_weight, tv_orders_sold_num, tv_shop_price_original, tv_shouqing,tv_sub_title,tv_tag;
 
         LinearLayout lin_goodslist_Tag, ly_onclick, lin_shop_list_car;
 
         RecyclerViewHolder(View itemView) {
             super(itemView);
             iv_shop_list_flag = (ImageView) itemView.findViewById(R.id.iv_shop_list_flag);
-            iv_title_img = (ImageView) itemView.findViewById(R.id.iv_title_img);
+            iv_title_img = (SimpleDraweeView) itemView.findViewById(R.id.iv_title_img);
             iv_shopcar = (ImageView) itemView.findViewById(R.id.iv_shopcar);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
             tv_shouqing = (TextView) itemView.findViewById(R.id.tv_shouqing);
@@ -323,6 +339,8 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
             tv_shop_weight = (TextView) itemView.findViewById(R.id.tv_shop_weight);
             tv_shop_price_original = (TextView) itemView.findViewById(R.id.tv_shop_price_original);
             tv_orders_sold_num = (TextView) itemView.findViewById(R.id.tv_orders_sold_num);
+            tv_sub_title = (TextView) itemView.findViewById(R.id.tv_sub_title);
+            tv_tag = (TextView) itemView.findViewById(R.id.tv_tag);
 
 
         }

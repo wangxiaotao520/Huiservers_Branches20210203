@@ -393,7 +393,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
      * @param item
      */
     @Override
-    public void onAddCartClick(ModelShopIndex item) {
+    public void onAddCartClick(ModelShopIndex item,int position) {
         if (item != null) {
             if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
                 if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {

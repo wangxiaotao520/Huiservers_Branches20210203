@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
@@ -107,6 +106,7 @@ public class ShopListActivity extends BaseActivityOld {
     //    private boolean showWaitDialog = true;
     RecyclerViewLayoutManager noBugManager;
     private boolean is_Requesting = false;
+
     @Override
     protected void init() {
         super.init();
@@ -132,10 +132,10 @@ public class ShopListActivity extends BaseActivityOld {
     protected void onResume() {
         super.onResume();
 
-        if (MyCookieStore.shopcar_notify == 1) {
-            new CommonMethod(txtShopNum, this).getCartNum();
-            MyCookieStore.shopcar_notify = 0;
-        }
+//        if (MyCookieStore.shopcar_notify == 1) {
+//            new CommonMethod(txtShopNum, this).getCartNum();
+//            MyCookieStore.shopcar_notify = 0;
+//        }
 
     }
 
@@ -284,7 +284,7 @@ public class ShopListActivity extends BaseActivityOld {
 
     }
 
-    private ShopListFragmentAdapter fragmentShopListAdapter;
+ private ShopListFragmentAdapter fragmentShopListAdapter;
 
     private int totalPage = 0;// 总页数
     private int page = 1;// 当前页

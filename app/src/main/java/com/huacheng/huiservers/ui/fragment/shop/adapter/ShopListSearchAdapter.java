@@ -3,6 +3,7 @@ package com.huacheng.huiservers.ui.fragment.shop.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,15 +15,16 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
+import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
 import java.util.List;
 
@@ -107,6 +109,7 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             final RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) holder;
             recyclerViewHolder.itemView.setTag(position);
 
+            recyclerViewHolder.iv_shop_list_flag.setVisibility(View.GONE);
             if (mDatas.get(position).getIs_hot().equals("1") && mDatas.get(position).getIs_new().equals("1")) {
                 recyclerViewHolder.iv_shop_list_flag.setBackground(mContext.getResources().getDrawable(R.drawable.ic_shoplist_hotsell));
             } else {
@@ -124,9 +127,18 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             }
 
-            Glide.with(mContext).load(mDatas.get(position).getTitle_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .placeholder(R.drawable.icon_girdview).into(recyclerViewHolder.iv_title_img);
+//            Glide.with(mContext).load(mDatas.get(position).getTitle_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .placeholder(R.drawable.icon_girdview).into(recyclerViewHolder.iv_title_img);
+
+            //   GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + mDatas.get(position).getTitle_img(),recyclerViewHolder.iv_title_img,R.drawable.ic_default_rectange);
+
+            FrescoUtils.getInstance().setImageUri(recyclerViewHolder.iv_title_img,  mDatas.get(position).getTitle_img());
             recyclerViewHolder.tv_title.setText(mDatas.get(position).getTitle());
+            if (!NullUtil.isStringEmpty(mDatas.get(position).getDescription())){
+                recyclerViewHolder.tv_sub_title.setText(mDatas.get(position).getDescription());
+            }else {
+                recyclerViewHolder.tv_sub_title.setText("");
+            }
 
             recyclerViewHolder.lin_goodslist_Tag.removeAllViews();
             if (mDatas.get(position).getGoods_tag() != null) {
@@ -143,6 +155,7 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             recyclerViewHolder.tv_shop_price.setText("¥" + mDatas.get(position).getPrice() + "/");
             recyclerViewHolder.tv_shop_weight.setText(mDatas.get(position).getUnit());
             recyclerViewHolder.tv_shop_price_original.setText("¥" + mDatas.get(position).getOriginal() + "元");
+            recyclerViewHolder.tv_shop_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             recyclerViewHolder.tv_orders_sold_num.setText("已售" + mDatas.get(position).getOrder_num() + "单");
 
             recyclerViewHolder.iv_shopcar.setOnClickListener(new View.OnClickListener() {
@@ -274,8 +287,9 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView iv_shop_list_flag, iv_title_img, iv_shopcar;
-        TextView tv_title, tv_shop_price, tv_shop_weight, tv_orders_sold_num, tv_shop_price_original;
+        ImageView iv_shop_list_flag, iv_shopcar;
+        TextView tv_title, tv_shop_price, tv_shop_weight, tv_orders_sold_num, tv_shop_price_original, tv_sub_title ;
+        SimpleDraweeView iv_title_img;
 
         LinearLayout lin_goodslist_Tag,ly_onclick;
 
@@ -283,7 +297,7 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             super(itemView);
             ly_onclick = (LinearLayout) itemView.findViewById(R.id.ly_onclick);
             iv_shop_list_flag = (ImageView) itemView.findViewById(R.id.iv_shop_list_flag);
-            iv_title_img = (ImageView) itemView.findViewById(R.id.iv_title_img);
+            iv_title_img = (SimpleDraweeView) itemView.findViewById(R.id.iv_title_img);
             iv_shopcar = (ImageView) itemView.findViewById(R.id.iv_shopcar);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
             lin_goodslist_Tag = (LinearLayout) itemView.findViewById(R.id.lin_goodslist_Tag);
@@ -291,6 +305,7 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             tv_shop_weight = (TextView) itemView.findViewById(R.id.tv_shop_weight);
             tv_shop_price_original = (TextView) itemView.findViewById(R.id.tv_shop_price_original);
             tv_orders_sold_num = (TextView) itemView.findViewById(R.id.tv_orders_sold_num);
+            tv_sub_title = (TextView) itemView.findViewById(R.id.tv_sub_title);
 
         }
     }

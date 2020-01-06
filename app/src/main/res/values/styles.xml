@@ -166,7 +166,7 @@
     </declare-styleable>
 
     <style name="TabLayoutTextStyle">
-        <item name="android:textSize">@dimen/t_18sp</item>
+        <item name="android:textSize">@dimen/t_16sp</item>
     </style>
 
     <style name="TabLayoutStyleText15">

@@ -115,6 +115,16 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
         // 设置加载更多监听
         search_back.setOnClickListener(this);
         txt_search.setOnClickListener(this);
+        et_search.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent1 = new Intent(SearchResultActivity.this, SearchShopActivity.class);
+                intent1.putExtra("keywords", keywords);
+                setResult(11, intent1);
+                finish();
+                return false;
+            }
+        });
 
     }
 
@@ -177,6 +187,12 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
                 Intent intent = new Intent(this, SearchShopActivity.class);
                 intent.putExtra("keywords", keywords);
                 setResult(11, intent);
+                finish();
+                break;
+            case R.id.et_search:
+                Intent intent1 = new Intent(this, SearchShopActivity.class);
+                intent1.putExtra("keywords", keywords);
+                setResult(11, intent1);
                 finish();
                 break;
             default:

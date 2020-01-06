@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/all_gray"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:background="@color/all_gray"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ly_onclick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/shoplist_divider_height"
-        android:background="@drawable/corners_white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="107dp"
             android:layout_height="107dp">
 
-            <ImageView
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_title_img"-->
+                <!--android:layout_width="107dp"-->
+                <!--android:layout_height="107dp"/>-->
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/iv_title_img"
                 android:layout_width="107dp"
-                android:layout_height="107dp"/>
+                android:layout_height="107dp"
+                fresco:placeholderImage="@color/default_color"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundedCornerRadius="5dp"/>
+
 
             <TextView
                 android:id="@+id/tv_shouqing"
@@ -34,56 +46,85 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/t_12sp"
                 />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
             <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:ellipsize="end"
-                android:lines="2"
-                android:text=""
-                android:textColor="@color/black_jain_87"
-                android:textSize="@dimen/t_14sp"/>
-
+                android:id="@+id/tv_tag"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_margin="@dimen/margin_5"
+                android:background="@drawable/shape_red_2"
+                android:gravity="center"
+                android:text="秒杀"
+                android:textColor="@color/white"
+                android:textSize="@dimen/t_11sp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="107dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/margin_5"
-                android:paddingTop="@dimen/margin_5">
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:text=""
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_15sp"/>
+                <TextView
+                    android:id="@+id/tv_sub_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="食用油中的吴彦祖，买上就是赚到"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_12sp"/>
+
 
                 <LinearLayout
-                    android:id="@+id/lin_goodslist_Tag"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="8"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:paddingBottom="@dimen/margin_5"
+                    android:paddingTop="@dimen/margin_5">
+
+                    <LinearLayout
+                        android:id="@+id/lin_goodslist_Tag"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:visibility="gone"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/iv_shopcar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/margin"
+                        android:layout_weight="2"
+                        android:src="@drawable/ic_shop524"/>
 
                 </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/iv_shopcar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/margin"
-                    android:layout_weight="2"
-                    android:src="@drawable/ic_shop524"/>
 
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="3dp"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -98,30 +139,31 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="9dp"
                         android:text=""
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/t_14sp"/>
+                        android:textColor="#FF625E"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
 
                     <TextView
                         android:id="@+id/tv_shop_weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/t_12sp"/>
+                        android:textColor="#FF625E"
+                        android:textStyle="bold"
+                        android:textSize="18sp"/>
 
                     <TextView
                         android:id="@+id/tv_shop_price_original"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin"
-                        android:textColor="@color/gray4"
+                        android:textColor="@color/gray_99"
 
                         android:textSize="@dimen/t_12sp"/>
 
-
                 </LinearLayout>
-
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tv_orders_sold_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -133,8 +175,8 @@
                     android:textSize="@dimen/t_10sp"/>
             </RelativeLayout>
 
+        </RelativeLayout>
 
-        </LinearLayout>
 
     </LinearLayout>
 

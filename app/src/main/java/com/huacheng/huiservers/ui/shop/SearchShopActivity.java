@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -23,6 +25,7 @@ import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.shop.adapter.SearchHistoryAdapter;
 import com.huacheng.huiservers.view.FlowLayout;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,6 +96,35 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
 
         search_back.setOnClickListener(this);
         txt_search.setOnClickListener(this);
+        input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean isOK = true;
+                switch (actionId) {
+
+                    case EditorInfo.IME_ACTION_SEARCH:
+                        String search_text = input.getText().toString().trim();
+                        if (NullUtil.isStringEmpty(search_text)){
+                            break;
+                        }
+                        intent.setClass(SearchShopActivity.this, SearchResultActivity.class);
+                        intent.putExtra("keystr", input.getText().toString().trim());
+                        if (type == 1) {
+                            intent.putExtra("store_id", store_id);
+                        } else if (type == 2) {
+                            intent.putExtra("act_id", act_id);
+                        }
+                        intent.putExtra("type", type);
+                        startActivity(intent);
+                        save(input.getText().toString());
+                        break;
+                    default:
+                        isOK = false;
+                        break;
+
+                }
+                return isOK;
+            }});
 
     }
 

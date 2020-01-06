@@ -1227,5 +1227,8 @@
         <activity
             android:name=".ui.index.vote.VoteRankListActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.shop.ShopSecKillListActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

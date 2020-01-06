@@ -55,7 +55,7 @@ import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
-import com.huacheng.huiservers.ui.shop.ShopXSTimeListActivity;
+import com.huacheng.huiservers.ui.shop.ShopSecKillListActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
@@ -1147,7 +1147,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             case R.id.tv_more_sec_kill_arrow:
                 //秒杀查看更多
                 intent=new Intent();
-                intent.setClass(mActivity, ShopXSTimeListActivity.class);
+                intent.setClass(mActivity, ShopSecKillListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("cateID", "1");
                 intent.putExtras(bundle);

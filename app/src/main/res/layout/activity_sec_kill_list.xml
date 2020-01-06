@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#FA5F5B"/>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="#FA5F5B"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/lin_left"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/left"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/ic_arrow_left_white" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:maxEms="10"
+            android:singleLine="true"
+            android:text="慧秒杀"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t_21sp" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FA5F5B">
+        <com.huacheng.huiservers.view.widget.EnhanceTabLayout
+            android:id="@+id/tl_tab"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorWidth="50dp"
+            app:tabTextColor="#F8F8F8"
+            app:tab_Mode="mode_scrollable"
+            android:background="#FA5F5B"
+            app:tabSelectTextColor="@color/white"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            app:tabIndicatorColor="@color/white"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:background="#FA5F5B"
+        android:visibility="gone"
+        android:layout_height="5dp"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/windowbackground"
+        />
+
+</LinearLayout>
