@@ -11,6 +11,7 @@ public class ModelShopIndex {
 
     private List<ModelShopIndex> cate_list;
     private List<ModelShopIndex> pro_list;
+    private List<ModelVBaner> article_one;
     private ModelShopIndex pro_discount_list;
     private String id;
     private String parent_id;
@@ -57,12 +58,27 @@ public class ModelShopIndex {
     private String  banner;
     private String  is_article;
 
-
     private String description;//首页副标题
 
 
     private String icon_img;//特卖专场的图片
+    private int  totalPages;
 
+    public List<ModelVBaner> getArticle_one() {
+        return article_one;
+    }
+
+    public void setArticle_one(List<ModelVBaner> article_one) {
+        this.article_one = article_one;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
 
     public String getContent() {
         return content;

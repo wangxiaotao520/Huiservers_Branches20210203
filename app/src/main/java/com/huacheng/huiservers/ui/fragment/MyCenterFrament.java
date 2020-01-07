@@ -331,7 +331,6 @@ public class MyCenterFrament extends BaseFragment {
         switch (view.getId()) {
             case R.id.iv_set:
                 startActivity(new Intent(getActivity(), SetActivity.class));
-                // startActivity(new Intent(mActivity, HouseHandBookActivity.class));//交房手册
                 break;
             case R.id.iv_message:
                 //startActivity(new Intent(mActivity, MessageIndexActivity.class));//消息大厅
@@ -342,7 +341,6 @@ public class MyCenterFrament extends BaseFragment {
                 intent.putExtra("infoBean", bean);
                 startActivity(intent);
                 //startActivity(new Intent(mActivity, MyInfoActivity.class));
-                //startActivity(new Intent(mActivity, ShopZCListActivity.class));//特卖专场
                 break;
             case R.id.ly_house:  //判断是否是业主 物业住宅绑定
 

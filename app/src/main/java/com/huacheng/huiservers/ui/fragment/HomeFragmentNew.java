@@ -42,6 +42,7 @@ import com.huacheng.huiservers.model.ModelEventHome;
 import com.huacheng.huiservers.model.ModelHome;
 import com.huacheng.huiservers.model.ModelHomeCircle;
 import com.huacheng.huiservers.model.ModelHomeIndex;
+import com.huacheng.huiservers.model.ModelIndex;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.ModelVBaner;
 import com.huacheng.huiservers.ui.base.BaseFragment;
@@ -50,12 +51,15 @@ import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeGridViewCateAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.VBannerAdapter;
+import com.huacheng.huiservers.ui.fragment.indexcat.HouseHandBookActivity;
 import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopSecKillListActivity;
+import com.huacheng.huiservers.ui.shop.ShopZCListActivity;
+import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
@@ -83,6 +87,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,10 +122,10 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     List<Integer> colors = new ArrayList<>();//banner颜色
     //头布局
     private View headerView;
-    private int current_banner_position = 0 ;
+    private int current_banner_position = 0;
     private float alpha;//用来计算滑动
     private HomeGridViewCateAdapter homeGridViewCateAdapter;
-    private List<ModelHomeIndex> mcatelist=new ArrayList<>();
+    private List<ModelHomeIndex> mcatelist = new ArrayList<>();
     private List<ModelVBaner> mDatas_v_banner = new ArrayList<>();//首页垂直banner数据公告
     private ImageView iv_bg_grid;//grid 背景图
     private ImageView iv_center;
@@ -138,31 +143,32 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private LinearLayout ll_sec_kill_container_root;
     private LinearLayout ll_zixun_container_root;
     HomeIndexGoodsCommonAdapter adapter;
-    private List<ModelShopIndex> mDatas=new ArrayList<>();//数据
+    private List<ModelShopIndex> mDatas = new ArrayList<>();//数据
 
     private RxPermissions rxPermissions;
     private AMapLocationClient mlocationClient;
     private AMapLocationClientOption mLocationOption;
     private boolean isInitLocaion = false;
 
-    private String location_provice="", location_district="", location_city="";//用户第一次使用时定位
+    private String location_provice = "", location_district = "", location_city = "";//用户第一次使用时定位
     private ImageView iv_rent;
     private ImageView iv_sell;
     private ImageView iv_release_rent_sell;
-    private int current_Color= Color.WHITE;//滑动时的color
+    private int current_Color = Color.WHITE;//滑动时的color
     private ImageView iv_title_arrow;
     private ModelHome modelHome;
     private TextView tv_sec_kill_more;
     private ImageView tv_more_sec_kill_arrow;
     private TextView tv_more_sale;
     private ImageView tv_more_sale_arrow;
+    List<ModelIndex> mDatas_Article=new ArrayList<>();
 
     @Override
     public void initView(View view) {
-        rxPermissions=new RxPermissions(mActivity);
+        rxPermissions = new RxPermissions(mActivity);
         prefrenceUtil = new SharePrefrenceUtil(mActivity);
         iv_bg_title = view.findViewById(R.id.iv_bg_title);
-        mStatusBar=view.findViewById(R.id.status_bar);
+        mStatusBar = view.findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
         tv_xiaoqu = view.findViewById(R.id.tv_xiaoqu);
         tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName());
@@ -170,7 +176,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         iv_message = view.findViewById(R.id.iv_message);
         iv_red = view.findViewById(R.id.iv_red);
         iv_scancode = view.findViewById(R.id.iv_scancode);
-        view_title_line=view.findViewById(R.id.view_title_line);
+        view_title_line = view.findViewById(R.id.view_title_line);
         view_title_line.setVisibility(View.VISIBLE);
         refreshLayout = view.findViewById(R.id.refreshLayout);
         //    recyclerView=view.findViewById(R.id.recyclerview);
@@ -179,11 +185,12 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         refreshLayout.setEnableRefresh(true);
 
         initHeaderView();
-        adapter=new HomeIndexGoodsCommonAdapter(mContext, mDatas, this);
+        adapter = new HomeIndexGoodsCommonAdapter(mContext, mDatas, this);
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
         initLocation();
     }
+
     private void initLocation() {
         if (mlocationClient == null) {
             mlocationClient = new AMapLocationClient(mActivity);
@@ -202,24 +209,25 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         }
 
     }
+
     /**
      * 头部的View
      */
     private void initHeaderView() {
         headerView = LayoutInflater.from(mActivity).inflate(R.layout.layout_fragmenthome_header1, null);
         //banner
-       banner = headerView.findViewById(R.id.banner);
-       setBanner();
-       iv_bg_banner = headerView.findViewById(R.id.iv_bg_banner);
-       //grid
-       fl_grid_container = headerView.findViewById(R.id.fl_grid_container);
-       gridview_home = headerView.findViewById(R.id.gridview_home);
-       iv_bg_grid = headerView.findViewById(R.id.iv_bg_grid);
-       //中部图片
-       iv_center = headerView.findViewById(R.id.iv_center);
-       //通知公告
-       ly_notice = headerView.findViewById(R.id.ly_notice);
-       v_banner = headerView.findViewById(R.id.v_banner);
+        banner = headerView.findViewById(R.id.banner);
+        setBanner();
+        iv_bg_banner = headerView.findViewById(R.id.iv_bg_banner);
+        //grid
+        fl_grid_container = headerView.findViewById(R.id.fl_grid_container);
+        gridview_home = headerView.findViewById(R.id.gridview_home);
+        iv_bg_grid = headerView.findViewById(R.id.iv_bg_grid);
+        //中部图片
+        iv_center = headerView.findViewById(R.id.iv_center);
+        //通知公告
+        ly_notice = headerView.findViewById(R.id.ly_notice);
+        v_banner = headerView.findViewById(R.id.v_banner);
         //特卖
         ll_on_sale_container = headerView.findViewById(R.id.ll_on_sale_container);
         tv_more_sale = headerView.findViewById(R.id.tv_more_sale);
@@ -238,12 +246,12 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         ll_nearby_food_img_root = headerView.findViewById(R.id.ll_nearby_food_img_root);
         //租售房
         iv_rent = headerView.findViewById(R.id.iv_rent);
-        int height_rent=(int)((DeviceUtils.getWindowWidth(mActivity)-DeviceUtils.dip2px(mActivity,30))*308*1f/(501*2));
-        iv_rent.setLayoutParams(new LinearLayout.LayoutParams((int)((DeviceUtils.getWindowWidth(mActivity)-DeviceUtils.dip2px(mActivity,30))*1f/2), height_rent));
+        int height_rent = (int) ((DeviceUtils.getWindowWidth(mActivity) - DeviceUtils.dip2px(mActivity, 30)) * 308 * 1f / (501 * 2));
+        iv_rent.setLayoutParams(new LinearLayout.LayoutParams((int) ((DeviceUtils.getWindowWidth(mActivity) - DeviceUtils.dip2px(mActivity, 30)) * 1f / 2), height_rent));
         iv_sell = headerView.findViewById(R.id.iv_sell);
-        iv_sell.setLayoutParams(new LinearLayout.LayoutParams((int)((DeviceUtils.getWindowWidth(mActivity)-DeviceUtils.dip2px(mActivity,30))*1f/2), height_rent));
+        iv_sell.setLayoutParams(new LinearLayout.LayoutParams((int) ((DeviceUtils.getWindowWidth(mActivity) - DeviceUtils.dip2px(mActivity, 30)) * 1f / 2), height_rent));
         iv_release_rent_sell = headerView.findViewById(R.id.iv_release_rent_sell);
-        int height_release=(int)((DeviceUtils.getWindowWidth(mActivity)-DeviceUtils.dip2px(mActivity,30))*307*1f/1010);
+        int height_release = (int) ((DeviceUtils.getWindowWidth(mActivity) - DeviceUtils.dip2px(mActivity, 30)) * 307 * 1f / 1010);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height_release);
         iv_release_rent_sell.setLayoutParams(params);
         //资讯
@@ -255,8 +263,9 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         listView.addHeaderView(headerView);
 
     }
+
     private void setBanner() {
-        myImageLoader= new MyCornerImageLoader();
+        myImageLoader = new MyCornerImageLoader();
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner.setImageLoader(myImageLoader);
         banner.isAutoPlay(true);//设置是否轮播
@@ -266,16 +275,16 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             @Override
             public void OnBannerClick(int position) {
                 // 点击banner
-                if (modelHome!=null&&modelHome.getAd_top_list() != null && modelHome.getAd_top_list().size() > 0) {
-                    ModelAds ads=modelHome.getAd_top_list().get(position);
+                if (modelHome != null && modelHome.getAd_top_list() != null && modelHome.getAd_top_list().size() > 0) {
+                    ModelAds ads = modelHome.getAd_top_list().get(position);
                     if (TextUtils.isEmpty(ads.getUrl())) {
                         if ("0".equals(ads.getUrl_type()) || TextUtils.isEmpty(ads.getUrl_type())) {
-                             new Jump(getActivity(), ads.getType_name(), ads.getAdv_inside_url());
+                            new Jump(getActivity(), ads.getType_name(), ads.getAdv_inside_url());
                         } else {
-                             new Jump(getActivity(), ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
+                            new Jump(getActivity(), ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
                         }
                     } else {//URL不为空时外链
-                         new Jump(getActivity(), ads.getUrl());
+                        new Jump(getActivity(), ads.getUrl());
 
                     }
                 }
@@ -284,18 +293,18 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
         banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position , float positionOffset ,int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 int COLOR_START = colors.get(position);
                 int COLOR_END = 0;
-                if (position+1>=colors.size()){
-                    COLOR_END =colors.get(0);
-                }else {
-                    COLOR_END=colors.get(position+1);
+                if (position + 1 >= colors.size()) {
+                    COLOR_END = colors.get(0);
+                } else {
+                    COLOR_END = colors.get(position + 1);
                 }
                 ArgbEvaluator argbEvaluator = new ArgbEvaluator();
-                int COLOR = (int)(argbEvaluator.evaluate(positionOffset,COLOR_START, COLOR_END));
-                current_Color=COLOR;
-                if (alpha<1){
+                int COLOR = (int) (argbEvaluator.evaluate(positionOffset, COLOR_START, COLOR_END));
+                current_Color = COLOR;
+                if (alpha < 1) {
                     iv_bg_title.setBackgroundColor(COLOR);
                     view_title_line.setBackgroundColor(COLOR);
                 }
@@ -308,7 +317,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 //                    iv_bg_title.setBackgroundColor(getResources().getColor(colors.get(i)));
 //                }
 //                iv_bg_banner.setBackgroundColor(getResources().getColor(colors.get(i)));
-                current_banner_position=i;
+                current_banner_position = i;
             }
 
             @Override
@@ -329,7 +338,6 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     public void initListener() {
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
 
 
             @Override
@@ -355,12 +363,12 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     alpha = 0;
                     //向上滑动的距离
                     int scollYHeight = -headerView.getTop();
-                    if (scollYHeight >= DeviceUtils.dip2px(mActivity, 225) ) {
+                    if (scollYHeight >= DeviceUtils.dip2px(mActivity, 225)) {
                         alpha = 1;//滑上去就一直显示
                     } else {
-                        alpha = scollYHeight / ((DeviceUtils.dip2px(mActivity, 225) ) * 1.0f);
+                        alpha = scollYHeight / ((DeviceUtils.dip2px(mActivity, 225)) * 1.0f);
                     }
-                    if (alpha ==1){
+                    if (alpha == 1) {
                         // 滑上去了
                         iv_bg_title.setBackgroundColor(getResources().getColor(R.color.white));
                         tv_xiaoqu.setTextColor(getResources().getColor(R.color.title_color));
@@ -369,10 +377,10 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                         iv_title_arrow.setBackgroundResource(R.mipmap.ic_arrow_black_sloid);
                         view_title_line.setBackgroundColor(Color.parseColor("#f5f5f9"));
 
-                    }else {
+                    } else {
                         /// 滑下来
-                        if (colors.size()>0&&colors.size()>current_banner_position){
-                           iv_bg_title.setBackgroundColor(current_Color);
+                        if (colors.size() > 0 && colors.size() > current_banner_position) {
+                            iv_bg_title.setBackgroundColor(current_Color);
                             view_title_line.setBackgroundColor(current_Color);
                         }
                         tv_xiaoqu.setTextColor(getResources().getColor(R.color.white));
@@ -405,34 +413,38 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         iv_scancode.setOnClickListener(this);
         tv_sec_kill_more.setOnClickListener(this);
         tv_more_sec_kill_arrow.setOnClickListener(this);
+        tv_more_sale.setOnClickListener(this);
+        tv_more_sale_arrow.setOnClickListener(this);
+        iv_center.setOnClickListener(this);
     }
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuName())){
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuName())) {
             //1.小区名字不为空的情况
-            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
-            if (NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName() + "");
+            if (NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
                 //两种情况 旧的线上用户覆盖安装肯定没有省市区
                 prefrenceUtil.setProvince_cn("山西省");
                 prefrenceUtil.setCity_cn("晋中市");
                 prefrenceUtil.setRegion_cn("榆次区");
-            }else {
+            } else {
                 //新用户肯定有省市区也有名字
             }
             showDialog(smallDialog);
             requestData();
-        }else {
+        } else {
             //2.小区名字为空的情况(第一次进来)
             requestLocationPermission();
         }
 
     }
+
     /**
      * 请求
      */
     private void requestLocationPermission() {
-        rxPermissions.request( Manifest.permission.ACCESS_COARSE_LOCATION)
+        rxPermissions.request(Manifest.permission.ACCESS_COARSE_LOCATION)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean isGranted) throws Exception {
@@ -449,7 +461,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                             prefrenceUtil.setProvince_cn("山西省");
                             prefrenceUtil.setCity_cn("晋中市");
                             prefrenceUtil.setRegion_cn("榆次区");
-                            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+                            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName() + "");
                             showDialog(smallDialog);
                             requestData();
 
@@ -464,10 +476,10 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
         // 小区id 要判断
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
             params.put("c_id", prefrenceUtil.getXiaoQuId());
         }
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
             params.put("province_cn", prefrenceUtil.getProvince_cn());
             params.put("city_cn", prefrenceUtil.getCity_cn());
             params.put("region_cn", prefrenceUtil.getRegion_cn());
@@ -503,10 +515,11 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
     /**
      * 获取首页的数据
+     *
      * @param modelHome
      */
-    private void getIndexData(ModelHome modelHome) {
-        if (modelHome!=null){
+    private void getIndexData(final ModelHome modelHome) {
+        if (modelHome != null) {
             headerView.setVisibility(View.VISIBLE);
             //banner
             colors.clear();
@@ -514,10 +527,10 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
                 ArrayList<String> mDatas_img1 = new ArrayList<>();
                 for (int i = 0; i < modelHome.getAd_top_list().size(); i++) {
-                    mDatas_img1.add(ApiHttpClient.IMG_URL+modelHome.getAd_top_list().get(i).getImg() + "");
-                    if (NullUtil.isStringEmpty(modelHome.getAd_top_list().get(i).getIndex_color())){
+                    mDatas_img1.add(ApiHttpClient.IMG_URL + modelHome.getAd_top_list().get(i).getImg() + "");
+                    if (NullUtil.isStringEmpty(modelHome.getAd_top_list().get(i).getIndex_color())) {
                         colors.add(Color.WHITE);
-                    }else {
+                    } else {
                         colors.add(Color.parseColor(modelHome.getAd_top_list().get(i).getIndex_color()));
                     }
                 }
@@ -526,36 +539,38 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             //分类导航
             if (modelHome.getMenu_list() != null && modelHome.getMenu_list().size() > 0) {
                 fl_grid_container.setVisibility(View.VISIBLE);
-                if (homeGridViewCateAdapter==null){
+                if (homeGridViewCateAdapter == null) {
                     for (int i = 0; i < modelHome.getMenu_list().size(); i++) {
                         //todo
-                        if (i>7) {
+                        if (i > 7) {
                             break;
                         }
                         mcatelist.add(modelHome.getMenu_list().get(i));
                     }
-                    homeGridViewCateAdapter = new HomeGridViewCateAdapter(mActivity, mcatelist,1,this);
+                    homeGridViewCateAdapter = new HomeGridViewCateAdapter(mActivity, mcatelist, 1, this);
                     gridview_home.setAdapter(homeGridViewCateAdapter);
-                }else {
+                } else {
                     mcatelist.clear();
                     for (int i = 0; i < modelHome.getMenu_list().size(); i++) {
-                        if (i>7) {
+                        if (i > 7) {
                             break;
                         }
                         mcatelist.add(modelHome.getMenu_list().get(i));
                     }
                     homeGridViewCateAdapter.notifyDataSetChanged();
                 }
-            }else {
+            } else {
                 fl_grid_container.setVisibility(View.GONE);
             }
             //grid背景图
-          //  iv_bg_grid.setBackgroundColor(getResources().getColor(R.color.blue));
+            //  iv_bg_grid.setBackgroundColor(getResources().getColor(R.color.blue));
             //手册协议
             if (modelHome.getArticle_list() != null && modelHome.getArticle_list().size() > 0) {
                 iv_center.setVisibility(View.VISIBLE);
                 //todo 手册协议
                 iv_center.setImageResource(R.mipmap.bg_charge_banner);
+                mDatas_Article.clear();
+                mDatas_Article.addAll(modelHome.getArticle_list());
             } else {
                 iv_center.setVisibility(View.GONE);
             }
@@ -570,7 +585,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     v_banner.setAdapter(vBannerAdapter);
                     v_banner.start();
                 } else {
-                    if (vBannerAdapter!=null) {
+                    if (vBannerAdapter != null) {
                         vBannerAdapter.notifyDataChanged();
                     }
                     v_banner.stop();
@@ -580,34 +595,35 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 ly_notice.setVisibility(View.GONE);
             }
             // 特卖专场
-            if (modelHome.getSpecial()!=null&&modelHome.getSpecial().size()>0){
+            if (modelHome.getSpecial() != null && modelHome.getSpecial().size() > 0) {
                 ll_on_sale_container.setVisibility(View.VISIBLE);
                 ll_on_sale_img_root.removeAllViews();
-            for (int i = 0; i <modelHome.getSpecial().size(); i++) {
-                View item_home_on_sale = LayoutInflater.from(mActivity).inflate(R.layout.item_home_on_sale, null);
-                SimpleDraweeView sdv_on_sale = item_home_on_sale.findViewById(R.id.sdv_on_sale);
+                for (int i = 0; i < modelHome.getSpecial().size(); i++) {
+                    View item_home_on_sale = LayoutInflater.from(mActivity).inflate(R.layout.item_home_on_sale, null);
+                    SimpleDraweeView sdv_on_sale = item_home_on_sale.findViewById(R.id.sdv_on_sale);
+                    final String id = modelHome.getSpecial().get(i).getId();
+                    FrescoUtils.getInstance().setImageUri(sdv_on_sale, ApiHttpClient.IMG_URL + modelHome.getSpecial().get(i).getIcon_img());
+                    sdv_on_sale.setOnClickListener(new OnDoubleClickListener() {
+                        @Override
+                        public void onNoDoubleClick(View v) {
+                            Intent intent = new Intent(mActivity, ShopZQListActivity.class);
+                            intent.putExtra("id", id);
+                            startActivity(intent);
+                        }
+                    });
+                    ll_on_sale_img_root.addView(item_home_on_sale);
+                }
 
-                FrescoUtils.getInstance().setImageUri(sdv_on_sale,ApiHttpClient.IMG_URL+modelHome.getSpecial().get(i).getIcon_img());
-
-                sdv_on_sale.setOnClickListener(new OnDoubleClickListener() {
-                    @Override
-                    public void onNoDoubleClick(View v) {
-                        //TODO 特卖转场点击 ApiHttpClient.IMG_URL+modelHome.getSpecial().get(i).getId()
-                    }
-                });
-                ll_on_sale_img_root.addView(item_home_on_sale);
-            }
-
-            }else {
+            } else {
                 ll_on_sale_container.setVisibility(View.GONE);
             }
 
             //慧秒杀
             List<ModelShopIndex> seckill_list = modelHome.getSeckill();
-            if (seckill_list!=null&&seckill_list.size()>0){
+            if (seckill_list != null && seckill_list.size() > 0) {
                 ll_sec_kill_container.setVisibility(View.VISIBLE);
                 ll_sec_kill_container_root.removeAllViews();
-                for (int i = 0; i <seckill_list.size(); i++) {
+                for (int i = 0; i < seckill_list.size(); i++) {
                     View item_home_sec_kill = LayoutInflater.from(mActivity).inflate(R.layout.item_home_sec_kill, null);
                     LinearLayout ly_onclick = item_home_sec_kill.findViewById(R.id.ly_onclick);
 
@@ -618,16 +634,16 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     TextView tv_shop_price_original = item_home_sec_kill.findViewById(R.id.tv_shop_price_original);
                     tv_shop_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                     final ModelShopIndex shopIndex = seckill_list.get(i);
-                    FrescoUtils.getInstance().setImageUri(sdv_sec_kill,ApiHttpClient.IMG_URL + shopIndex.getTitle_img());
-                    tv_title.setText(shopIndex.getTitle()+"");
-                    tv_sub_title.setText(shopIndex.getDescription()+"");
-                    tv_shop_price.setText("¥ " +shopIndex.getPrice());
-                    tv_shop_price_original.setText("¥ " +shopIndex.getOriginal()+"");
+                    FrescoUtils.getInstance().setImageUri(sdv_sec_kill, ApiHttpClient.IMG_URL + shopIndex.getTitle_img());
+                    tv_title.setText(shopIndex.getTitle() + "");
+                    tv_sub_title.setText(shopIndex.getDescription() + "");
+                    tv_shop_price.setText("¥ " + shopIndex.getPrice());
+                    tv_shop_price_original.setText("¥ " + shopIndex.getOriginal() + "");
 
                     ly_onclick.setOnClickListener(new OnDoubleClickListener() {
                         @Override
                         public void onNoDoubleClick(View v) {
-                            Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                            Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("shop_id", shopIndex.getId());
                             intent.putExtras(bundle);
@@ -636,7 +652,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     });
                     ll_sec_kill_container_root.addView(item_home_sec_kill);
                 }
-            }else {
+            } else {
                 ll_sec_kill_container.setVisibility(View.GONE);
             }
 
@@ -656,7 +672,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
             //热门资讯
             ll_zixun_container.setVisibility(View.VISIBLE);
-            if (modelHome.getSocial_list() != null&&modelHome.getSocial_list().size()>0) {
+            if (modelHome.getSocial_list() != null && modelHome.getSocial_list().size() > 0) {
                 ll_zixun_container.setVisibility(View.VISIBLE);
                 ll_zixun_container_root.removeAllViews();
                 for (int i = 0; i < modelHome.getSocial_list().size(); i++) {
@@ -673,23 +689,23 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     ll_zixun_container_root.addView(item_home_circle);
                     //显示
                     final ModelHomeCircle modelHomeCircle = modelHome.getSocial_list().get(i);
-                        tv_title.setText(modelHomeCircle.getTitle()+"");
-                        byte[] bytes2 = Base64.decode(modelHomeCircle.getList().getTitle(), Base64.DEFAULT);
-                        tv_content.setText(new String(bytes2));
-                        if (modelHomeCircle.getList().getImg_list() != null && modelHomeCircle.getList().getImg_list().size() > 0) {
-                            if (!TextUtils.isEmpty(modelHomeCircle.getList().getImg_list().get(0).getImg())) {
+                    tv_title.setText(modelHomeCircle.getTitle() + "");
+                    byte[] bytes2 = Base64.decode(modelHomeCircle.getList().getTitle(), Base64.DEFAULT);
+                    tv_content.setText(new String(bytes2));
+                    if (modelHomeCircle.getList().getImg_list() != null && modelHomeCircle.getList().getImg_list().size() > 0) {
+                        if (!TextUtils.isEmpty(modelHomeCircle.getList().getImg_list().get(0).getImg())) {
 
-                                FrescoUtils.getInstance().setImageUri(sdv_circle,ApiHttpClient.IMG_URL + modelHomeCircle.getList().getImg_list().get(0).getImg());
-                                sdv_circle.setVisibility(View.VISIBLE);
-                            } else {
-                                sdv_circle.setVisibility(View.GONE);
-                            }
+                            FrescoUtils.getInstance().setImageUri(sdv_circle, ApiHttpClient.IMG_URL + modelHomeCircle.getList().getImg_list().get(0).getImg());
+                            sdv_circle.setVisibility(View.VISIBLE);
                         } else {
                             sdv_circle.setVisibility(View.GONE);
                         }
-                        tv_circle_name.setText(modelHomeCircle.getList().getC_name()+"");
-                        tv_read_count.setText(modelHomeCircle.getList().getClick()+"阅读");
-                        tv_time.setText(modelHomeCircle.getList().getAddtime()+"");
+                    } else {
+                        sdv_circle.setVisibility(View.GONE);
+                    }
+                    tv_circle_name.setText(modelHomeCircle.getList().getC_name() + "");
+                    tv_read_count.setText(modelHomeCircle.getList().getClick() + "阅读");
+                    tv_time.setText(modelHomeCircle.getList().getAddtime() + "");
 
                     tv_more_circle.setOnClickListener(new OnDoubleClickListener() {
                         @Override
@@ -714,7 +730,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     item_home_circle.setOnClickListener(new OnDoubleClickListener() {
                         @Override
                         public void onNoDoubleClick(View v) {
-                            Intent  intent = new Intent(mActivity, CircleDetailsActivity.class);
+                            Intent intent = new Intent(mActivity, CircleDetailsActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("id", modelHomeCircle.getList().getId());
                             intent.putExtras(bundle);
@@ -722,7 +738,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                         }
                     });
                 }
-            }else {
+            } else {
                 ll_zixun_container.setVisibility(View.GONE);
             }
             //
@@ -769,7 +785,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 //定位完成的时间
                 //  sb.append("定位时间: " + Utils.formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss") + "\n");
                 if (!isInitLocaion) {
-                    if (NullUtil.isStringEmpty(location.getDistrict())){
+                    if (NullUtil.isStringEmpty(location.getDistrict())) {
 //                        hideDialog(smallDialog);
 //                        // tvResult.setText("定位失败，loc is null");
 //                        text_city.setText("定位失败...点击重新定位");
@@ -779,7 +795,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 //                                startLocation();
 //                            }
 //                        });
-                    }else {
+                    } else {
                         isInitLocaion = true;
                         //默认选中
                         mlocationClient.stopLocation();
@@ -787,7 +803,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                         location_city = location.getCity() + "";
                         location_district = location.getDistrict() + "";
 
-                        getPOIsearch(location.getLongitude(),location.getLatitude());
+                        getPOIsearch(location.getLongitude(), location.getLatitude());
 
                     }
                 }
@@ -805,7 +821,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 prefrenceUtil.setProvince_cn("山西省");
                 prefrenceUtil.setCity_cn("晋中市");
                 prefrenceUtil.setRegion_cn("榆次区");
-                tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+                tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName() + "");
                 showDialog(smallDialog);
                 requestData();
             }
@@ -819,20 +835,20 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             prefrenceUtil.setProvince_cn("山西省");
             prefrenceUtil.setCity_cn("晋中市");
             prefrenceUtil.setRegion_cn("榆次区");
-            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName() + "");
             showDialog(smallDialog);
             requestData();
         }
     }
 
     private String[] SetTime(long time) {
-       long mDay = time / (1000 * 60 * 60 * 24);
+        long mDay = time / (1000 * 60 * 60 * 24);
         long mHour = (time - mDay * (1000 * 60 * 60 * 24))
                 / (1000 * 60 * 60);
         long mMin = (time - mDay * (1000 * 60 * 60 * 24) - mHour
                 * (1000 * 60 * 60))
                 / (1000 * 60);
-        long  mSecond = (time - mDay * (1000 * 60 * 60 * 24) - mHour
+        long mSecond = (time - mDay * (1000 * 60 * 60 * 24) - mHour
                 * (1000 * 60 * 60) - mMin * (1000 * 60))
                 / 1000;
         String[] str = new String[4];
@@ -850,6 +866,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         else
             return time;
     }
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home_new;
@@ -870,7 +887,6 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         //结束轮播
         banner.stopAutoPlay();
     }
-
 
 
     @Override
@@ -897,8 +913,10 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
         super.onDestroy();
     }
+
     /**
      * 调用高德地图搜索周边住宅
+     *
      * @param longitude
      * @param latitude
      */
@@ -916,9 +934,9 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         PoiSearch.Query query = result.getQuery();
         ArrayList<PoiItem> pois = result.getPois();
 
-        if (pois!=null&&pois.size()>0){
+        if (pois != null && pois.size() > 0) {
 
-            String community_name=pois.get(0).toString();
+            String community_name = pois.get(0).toString();
             String address = pois.get(0).getSnippet();
             //    prefrenceUtil.clearPreference(mActivity);
             // 选择上了小区
@@ -943,14 +961,15 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
     /**
      * 根据小区名字请求小区id
+     *
      * @param item
      */
     private void requestCommunityId(final ModelCoummnityList item) {
         showDialog(smallDialog);
         smallDialog.setTipTextView("加载中...");
         HashMap<String, String> params = new HashMap<>();
-        if (!NullUtil.isStringEmpty(item.getName())){
-            params.put("community_name",item.getName()+"");
+        if (!NullUtil.isStringEmpty(item.getName())) {
+            params.put("community_name", item.getName() + "");
         }
         MyOkHttp.get().post(ApiHttpClient.GET_COMMUNITY_ID, params, new JsonResponseHandler() {
             @Override
@@ -958,11 +977,11 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 //  hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     try {
-                        if (response.has("data")){
+                        if (response.has("data")) {
                             //匹配成功
                             JSONObject data = response.getJSONObject("data");
                             prefrenceUtil.clearPreference(mContext);
-                            if (!NullUtil.isStringEmpty(data.getString("id"))){
+                            if (!NullUtil.isStringEmpty(data.getString("id"))) {
                                 prefrenceUtil.setXiaoQuId(data.getString("id"));
                                 prefrenceUtil.setCompanyId(data.getString("company_id"));
                             }
@@ -972,12 +991,12 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                             prefrenceUtil.setProvince_cn(location_provice);
                             prefrenceUtil.setCity_cn(location_city);
                             prefrenceUtil.setRegion_cn(location_district);
-                            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+                            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName() + "");
                             showDialog(smallDialog);
                             smallDialog.setTipTextView("加载中...");
                             requestData();
                             getsubmitCommunityId(data.getString("id"));
-                        }else {
+                        } else {
                             //匹配失败
                             prefrenceUtil.clearPreference(mContext);
                             prefrenceUtil.setXiaoQuId("");
@@ -987,7 +1006,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                             prefrenceUtil.setProvince_cn(location_provice);
                             prefrenceUtil.setCity_cn(location_city);
                             prefrenceUtil.setRegion_cn(location_district);
-                            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+                            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName() + "");
                             showDialog(smallDialog);
                             smallDialog.setTipTextView("加载中...");
                             requestData();
@@ -1005,7 +1024,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                         prefrenceUtil.setProvince_cn(location_provice);
                         prefrenceUtil.setCity_cn(location_city);
                         prefrenceUtil.setRegion_cn(location_district);
-                        tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");
+                        tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName() + "");
                         showDialog(smallDialog);
                         smallDialog.setTipTextView("加载中...");
                         requestData();
@@ -1033,7 +1052,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     //提交小区id
     private void getsubmitCommunityId(String community_id) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("community_id", community_id+"");
+        params.put("community_id", community_id + "");
 
         MyOkHttp.get().post(ApiHttpClient.SELECT_COMMUNITY, params, new JsonResponseHandler() {
             @Override
@@ -1086,13 +1105,13 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     @Override
     public void onClickImage(int position) {
         // 点击下方商品图片
-        if (position==-1){
+        if (position == -1) {
             return;
         }
         if (NullUtil.isStringEmpty(mDatas.get((int) position).getInventory()) || 0 >= Integer.valueOf(mDatas.get((int) position).getInventory())) {
             SmartToast.showInfo("商品已售罄");
         } else {
-            Intent intent = new Intent(mContext, ShopDetailActivity.class);
+            Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
             Bundle bundle = new Bundle();
             bundle.putString("shop_id", mDatas.get((int) position).getId());
             intent.putExtras(bundle);
@@ -1103,7 +1122,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     @Override
     public void onClickShopCart(int position) {
         //点击购物车
-        if ( ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
+        if (ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
             Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
             mContext.startActivity(intent);
 
@@ -1122,8 +1141,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
 
     @Override
     public void onClick(View v) {
-        Intent intent=null;
-        switch (v.getId()){
+        Intent intent = null;
+        switch (v.getId()) {
             case R.id.tv_xiaoqu:
                 intent = new Intent(getActivity(), CommunityListActivity.class);
                 startActivityForResult(intent, 111);
@@ -1152,9 +1171,9 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 break;
             case R.id.iv_scancode:
                 //扫描二维码
-                if (LoginUtils.hasLoginUser()){
+                if (LoginUtils.hasLoginUser()) {
                     scanCode();
-                }else {
+                } else {
                     intent = new Intent(mActivity, LoginVerifyCodeActivity.class);
                     startActivity(intent);
                 }
@@ -1163,7 +1182,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             case R.id.tv_sec_kill_more:
             case R.id.tv_more_sec_kill_arrow:
                 //秒杀查看更多
-                intent=new Intent();
+                intent = new Intent();
                 intent.setClass(mActivity, ShopSecKillListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("cateID", "1");
@@ -1172,18 +1191,25 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 break;
             case R.id.tv_more_sale:
             case R.id.tv_more_sale_arrow:
-                //todo 特卖专场查看更多
-
+                //特卖专场查看更多
+                intent = new Intent(mContext, ShopZCListActivity.class);
+                startActivity(intent);
                 break;
-                default:
-                    break;
+            case R.id.iv_center:
+                intent = new Intent(mActivity, HouseHandBookActivity.class);
+                intent.putExtra("mDatas", (Serializable) mDatas_Article);
+                startActivity(intent);//交房手册
+                break;
+            default:
+                break;
         }
     }
+
     /**
      * 扫二维码
      */
     private void scanCode() {
-        new RxPermissions(mActivity).request( Manifest.permission.CAMERA)
+        new RxPermissions(mActivity).request(Manifest.permission.CAMERA)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean isGranted) throws Exception {

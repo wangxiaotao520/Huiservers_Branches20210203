@@ -1,8 +1,13 @@
 package com.huacheng.huiservers.ui.fragment.indexcat;
 
 import android.content.Context;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.center.bean.HouseBean;
+import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.model.ModelIndex;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
@@ -13,25 +18,16 @@ import java.util.List;
  * 时间：2019/12/17 12:01
  * created by DFF
  */
-public class HouseHandBookAdapter extends CommonAdapter<HouseBean> {
+public class HouseHandBookAdapter extends CommonAdapter<ModelIndex> {
 
-    public HouseHandBookAdapter(Context context, int layoutId, List<HouseBean> datas) {
+    public HouseHandBookAdapter(Context context, int layoutId, List<ModelIndex> datas) {
         super(context, layoutId, datas);
 
     }
 
     @Override
-    protected void convert(ViewHolder viewHolder, HouseBean item, int position) {
-
-      /*  viewHolder.<TextView>getView(R.id.tv_adress).setText(item.getAddress_cn());
-        viewHolder.<TextView>getView(R.id.tv_name).setText(item.getNickname());
-        viewHolder.<TextView>getView(R.id.tv_phone).setText(item.getUsername());
-        if (item.getWork_type().equals("1")) {
-            viewHolder.<TextView>getView(R.id.tv_type_name).setText("自用报修");
-        } else {
-            viewHolder.<TextView>getView(R.id.tv_type_name).setText("公共报修");
-        }
-        viewHolder.<TextView>getView(R.id.tv_comment).setText(item.getCate_pid_cn());
-        viewHolder.<TextView>getView(R.id.tv_status).setText(item.getWork_status_cn());*/
+    protected void convert(ViewHolder viewHolder, ModelIndex item, int position) {
+        GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL + item.getArticle_image(), viewHolder.<ImageView>getView(R.id.iv_tag), R.color.white);
+        viewHolder.<TextView>getView(R.id.tv_title).setText(item.getTitle());
     }
 }

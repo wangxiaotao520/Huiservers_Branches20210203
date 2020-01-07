@@ -385,6 +385,8 @@ public class ShopProtocol {
                         tjinfos.setUsername(tjObj.getString("username"));
                         tjinfos.setDescription(tjObj.getString("description"));
                         tjinfos.setScore(tjObj.getString("score"));
+                        tjinfos.setAddtime(tjObj.getString("addtime"));
+                        tjinfos.setAvatars(tjObj.getString("avatars"));
                         tjList.add(tjinfos);
                     }
                     info.setScore(tjList);
@@ -651,6 +653,9 @@ public class ShopProtocol {
                     getfinfo.setScore(obj.getString("score"));
                     getfinfo.setUsername(obj.getString("username"));
                     getfinfo.setDescription(obj.getString("description"));
+                    getfinfo.setDescription(obj.getString("description"));
+                    getfinfo.setAddtime(obj.getString("addtime"));
+                    getfinfo.setAvatars(obj.getString("avatars"));
                     getfinfo.setTotal_Pages(obj.getString("total_Pages"));
                     info.add(getfinfo);
                 }

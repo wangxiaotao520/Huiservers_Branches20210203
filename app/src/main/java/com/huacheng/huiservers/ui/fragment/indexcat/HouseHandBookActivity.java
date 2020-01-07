@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.model.ModelIndex;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
-import com.huacheng.huiservers.ui.center.bean.HouseBean;
 import com.huacheng.huiservers.ui.index.HomeArticleWebviewActivity;
 
 import java.util.ArrayList;
@@ -19,18 +19,15 @@ import java.util.List;
  */
 public class HouseHandBookActivity extends BaseListActivity {
 
-    List<HouseBean> mDatas = new ArrayList<>();
+    List<ModelIndex> mDatas = new ArrayList<>();
 
     @Override
     protected void initView() {
         super.initView();
         titleName.setText("交房手册");
 
-        mRefreshLayout.setEnableRefresh(true);
+        mRefreshLayout.setEnableRefresh(false);
         mRefreshLayout.setEnableLoadMore(false);
-        for (int i = 0; i < 8; i++) {
-            mDatas.add(new HouseBean());
-        }
 
         mAdapter = new HouseHandBookAdapter(this, R.layout.item_house_handbook, mDatas);
         mListview.setAdapter(mAdapter);
@@ -43,11 +40,16 @@ public class HouseHandBookActivity extends BaseListActivity {
     }
 
     @Override
+    protected void initIntentData() {
+        super.initIntentData();
+       mDatas = (List<ModelIndex>) this.getIntent().getSerializableExtra("mDatas");
+    }
+
+    @Override
     protected void onListViewItemClick(AdapterView adapterView, View view, int position, long id) {
         Intent intent = new Intent(mContext, HomeArticleWebviewActivity.class);
-        // TODO: 2019/12/17 跳转传参
-        intent.putExtra("articleTitle", "");
-        intent.putExtra("articleCnt", "");
+        intent.putExtra("articleTitle", mDatas.get(position).getTitle());
+        intent.putExtra("articleCnt",  mDatas.get(position).getContent());
         startActivity(intent);
     }
 }

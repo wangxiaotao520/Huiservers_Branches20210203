@@ -67,9 +67,13 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
     private String store_id = "";
     private LinearLayout ly_all;
     private LinearLayout ly_serch;
-    private LinearLayout ly_scroll;
     private LinearLayout lin_left;
-    private LinearLayout lin_share;
+    private LinearLayout ly_share;
+    private ImageView iv_share;
+    private ImageView iv_left;
+    private ImageView iv_serch;
+    private RelativeLayout ry_title;
+    private TextView titleName;
     private String share_url;
     private String share_title;
     private String share_desc;
@@ -88,10 +92,19 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         mRefreshLayout = findViewById(R.id.refreshLayout);
         mRelNoData = findViewById(R.id.rel_no_data);
 
+
+        ry_title = findViewById(R.id.ry_title);
         ly_serch = findViewById(R.id.ly_serch);
-        ly_scroll = findViewById(R.id.ly_scroll);
+        iv_serch = findViewById(R.id.iv_serch);
         lin_left = findViewById(R.id.lin_left);
-        lin_share = findViewById(R.id.lin_share);
+        iv_left = findViewById(R.id.iv_left);
+        titleName = findViewById(R.id.titleName);
+        ly_share = findViewById(R.id.ly_share);
+        iv_share = findViewById(R.id.iv_share);
+        iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_white);
+        ry_title.setBackground(null);
+        iv_share.setBackgroundResource(R.mipmap.ic_share_white);
+        iv_serch.setBackgroundResource(R.color.white);
 
         mRefreshLayout.setEnableRefresh(true);
         mRefreshLayout.setEnableLoadMore(false);
@@ -101,12 +114,10 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         adapter = new ShopCommonAdapter<>(this, mDatas, this);
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
-
-        ly_scroll.setAlpha(0);
         //状态栏
         mStatusBar = findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
-        mStatusBar.setAlpha((float) 0);
+        mStatusBar.setAlpha(0);
     }
 
     private void initHeaderView() {
@@ -152,7 +163,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         });
         ly_serch.setOnClickListener(this);
         lin_left.setOnClickListener(this);
-        lin_share.setOnClickListener(this);
+        ly_share.setOnClickListener(this);
     }
 
     @Override
@@ -182,17 +193,27 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
             float alpha = 0;
             //向上滑动的距离
             int scollYHeight = -headerView.getTop();
-            if (scollYHeight >= DeviceUtils.dip2px(this, 100)) {
+            if (scollYHeight >= DeviceUtils.dip2px(this, 10)) {
                 alpha = 1;//滑上去就一直显示
             } else {
-                alpha = scollYHeight / ((DeviceUtils.dip2px(this, 100)) * 1.0f);
+                alpha = scollYHeight / ((DeviceUtils.dip2px(this, 10)) * 1.0f);
             }
-            if (alpha <= 0) {
-                alpha = 0;
-            }
-            ly_scroll.setBackgroundColor(getResources().getColor(R.color.white));
             mStatusBar.setAlpha(alpha);
-            ly_scroll.setAlpha(alpha);
+            if (alpha == 1) {
+                titleName.setText(modelShopIndex.getMerchant_name());
+                ry_title.setBackgroundColor(getResources().getColor(R.color.white));
+                iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_black);
+                iv_share.setBackgroundResource(R.mipmap.ic_share_black);
+                iv_serch.setBackgroundResource(R.color.orange_bg);
+            } else {
+                titleName.setText("");
+                iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_white);
+                ry_title.setBackground(null);
+                iv_share.setBackgroundResource(R.mipmap.ic_share_white);
+                iv_serch.setBackgroundResource(R.color.white);
+            }
+
+
         }
     }
 
@@ -212,7 +233,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                 mRefreshLayout.finishRefresh();
                 mRefreshLayout.finishLoadMore();
                 listView.setIsLoading(false);
-                lin_share.setClickable(true);
+                ly_share.setClickable(true);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ModelShopIndex shopIndex = (ModelShopIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelShopIndex.class);
                     // List<ModelShopIndex> shopIndexList = (List<ModelShopIndex>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelShopIndex.class);
@@ -223,7 +244,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                             ly_all.setVisibility(View.VISIBLE);
                             tv_store_address.setText(shopIndex.getAddress());
                             tv_store_name.setText(shopIndex.getMerchant_name());
-                            GlideUtils.getInstance().glideLoad(StoreIndexActivity.this,ApiHttpClient.IMG_URL+shopIndex.getBackground(),iv_bg,R.mipmap.ic_store_bg);
+                            GlideUtils.getInstance().glideLoad(StoreIndexActivity.this, ApiHttpClient.IMG_URL + shopIndex.getBackground(), iv_bg, R.mipmap.ic_store_bg);
                             FrescoUtils.getInstance().setImageUri(iv_store_head, ApiHttpClient.IMG_URL + shopIndex.getLogo());
                         }
                         inflateContent(shopIndex.getGoods());
@@ -243,7 +264,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                 mRefreshLayout.finishLoadMore();
                 listView.setHasMoreItems(false);
                 listView.setIsLoading(false);
-                lin_share.setClickable(false);
+                ly_share.setClickable(false);
                 SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     mRefreshLayout.setEnableLoadMore(false);
@@ -339,14 +360,14 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         switch (v.getId()) {
             case R.id.ly_serch://搜索
                 intent.setClass(this, SearchShopActivity.class);
-                intent.putExtra("type",1);
+                intent.putExtra("type", 1);
                 intent.putExtra("store_id", store_id);
                 startActivity(intent);
                 break;
             case R.id.lin_left://返回
                 finish();
                 break;
-            case R.id.lin_share://分享
+            case R.id.ly_share://分享
                 if (NullUtil.isStringEmpty(modelShopIndex.getId())) {
                     return;
                 }
@@ -387,7 +408,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
      */
     private void showSharePop(String share_title, String share_desc, String share_icon, String share_url_new) {
         PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, share_icon, share_url_new, AppConstant.SHARE_COMMON);
-        popup.showBottom(lin_share);
+        popup.showBottom(ly_share);
     }
 
 }

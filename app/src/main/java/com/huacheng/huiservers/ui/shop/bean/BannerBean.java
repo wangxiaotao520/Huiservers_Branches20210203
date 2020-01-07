@@ -91,6 +91,15 @@ public class BannerBean implements Serializable {
     private String new_reply_num;
     private String tempPass;
     private int is_pro;//是否是物业公告字段
+    private boolean is_select;
+
+    public boolean isIs_select() {
+        return is_select;
+    }
+
+    public void setIs_select(boolean is_select) {
+        this.is_select = is_select;
+    }
 
     public int getIs_pro() {
         return is_pro;

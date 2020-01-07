@@ -215,6 +215,8 @@ public class ApiHttpClient {
     public static String SHOP_MARKIING_ARTICE = API_URL + API_VERSION + "/shop/area_marketing_article";
     //专区活动详情界面
     public static String SHOP_MARKIING_ARTICE_DETAILS = API_URL + API_VERSION + "/shop/area_marketing_article_info";
+    //特卖专场
+    public static String SHOP_MARKIING_ARTICE_LIST = API_URL + API_VERSION + "/shop/area_marketing_activities_List";
 
     //付款成功后极光推送
     public static String PAY_SERVICE_SUCCESS = API_URL + API_VERSION + "Jpush/service_order_toAmountWorker_push";
@@ -550,5 +552,6 @@ public class ApiHttpClient {
         VLOG_RANK_LIST = API_URL_SHARE + "vlog/vlogRanking";
         INDEX_SERVICE_AD_TOP = API_SERVICE_URL + "index/serviceClassifTop";
         IMG_BOTTOM = API_URL + API_VERSION + "index/index_Bottom";
+        SHOP_MARKIING_ARTICE_LIST = API_URL + API_VERSION + "/shop/area_marketing_activities_List";
     }
 }

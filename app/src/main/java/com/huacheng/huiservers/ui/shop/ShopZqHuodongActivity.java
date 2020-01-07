@@ -37,7 +37,8 @@ public class ShopZqHuodongActivity extends BaseListActivity<BannerBean> {
         findTitleViews();
         titleName.setText("专区活动");
 
-        shopZQAdapter = new ShopZQAdapter(this, R.layout.circle_list_item, mDatas);
+        //shopZQAdapter = new ShopZQAdapter(this, R.layout.circle_list_item, mDatas);
+        shopZQAdapter = new ShopZQAdapter(this, R.layout.item_circle_list, mDatas);
         mListview.setAdapter(shopZQAdapter);
     }
 

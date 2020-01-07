@@ -21,7 +21,7 @@
         android:layout_height="40dp"
         android:background="@color/white"
         android:gravity="center_vertical"
-        >
+        android:visibility="invisible">
 
         <ImageView
             android:layout_width="59dp"
@@ -30,7 +30,6 @@
             android:background="@color/orange_bg"/>
 
         <TextView
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin"
@@ -41,7 +40,8 @@
             android:paddingTop="2dp"
             android:text="热门"
             android:textColor="@color/orange_bg"
-            android:textSize="@dimen/t_12sp"/>
+            android:textSize="@dimen/t_12sp"
+            android:visibility="gone"/>
 
         <com.huacheng.libraryservice.widget.verticalbannerview.VerticalBannerView
             android:id="@+id/v_banner"
@@ -62,11 +62,13 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/ry_all"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/margin"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="invisible">
 
         <LinearLayout
             android:id="@+id/ly_all"

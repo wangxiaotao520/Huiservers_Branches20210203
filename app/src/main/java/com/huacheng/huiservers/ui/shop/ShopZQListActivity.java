@@ -74,6 +74,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private LinearLayout ly_scroll;
     private LinearLayout lin_left;
     private LinearLayout ly_share;
+    private RelativeLayout ry_all;
     private String share_url;
     private String share_title;
     private String share_desc;
@@ -123,6 +124,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private void initHeaderView() {
         ly_zq = headerView.findViewById(R.id.ly_zq);
         v_banner = headerView.findViewById(R.id.v_banner);
+        ry_all = headerView.findViewById(R.id.ry_all);
         sdv_bg = headerView.findViewById(R.id.sdv_bg);//根据比例来显示
 //        iv_bg = headerView.findViewById(R.id.iv_bg);//根据比例来显示
 //        final int gridWidth = DeviceUtils.getWindowWidth(ShopZQListActivity.this);
@@ -157,8 +159,6 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
             }
         });
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (scrollState == SCROLL_STATE_IDLE) {
@@ -176,17 +176,6 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
 
             }
         });
-      /*  listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                scroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
-            }
-        });*/
         ly_serch.setOnClickListener(this);
         lin_left.setOnClickListener(this);
         ly_share.setOnClickListener(this);
@@ -227,27 +216,6 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
 
     }
 
-   /* private void scroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if (headerView != null) {
-            //设置其透明度
-            float alpha = 0;
-            //向上滑动的距离
-            int scollYHeight = -headerView.getTop();
-            if (scollYHeight >= DeviceUtils.dip2px(this, 100)) {
-                alpha = 1;//滑上去就一直显示
-
-            } else {
-                alpha = scollYHeight / (DeviceUtils.dip2px(this, 100) * 1.0f);
-            }
-            if (alpha < 0) {
-                alpha = 0;
-            }
-            ly_scroll.setBackgroundColor(getResources().getColor(R.color.white));
-            mStatusBar.setAlpha(alpha);
-            ly_scroll.setAlpha(alpha);
-        }
-    }*/
-
     /**
      * 请求数据
      */
@@ -281,20 +249,19 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                             setBanner(modelindex);
                             if (Integer.valueOf(modelindex.getIs_article()) > 0) {//显示专区活动栏
                                 ly_zq.setVisibility(View.VISIBLE);
-                                // TODO: 2020/1/3 轮播
-                                  /*  mDatas_v_banner.clear();
-                            mDatas_v_banner.addAll(modelHome.getP_social_list());
-                            if (!v_banner.isStarted()) {
-                                vBannerAdapter = new VBannerZQAdapter(mDatas_v_banner);
-                                v_banner.setAdapter(vBannerAdapter);
-                                v_banner.start();
-                            } else {
-                                if (vBannerAdapter!=null) {
-                                    vBannerAdapter.notifyDataChanged();
+                                mDatas_v_banner.clear();
+                                mDatas_v_banner.addAll(modelindex.getArticle_one());
+                                if (!v_banner.isStarted()) {
+                                    vBannerAdapter = new VBannerZQAdapter(mDatas_v_banner);
+                                    v_banner.setAdapter(vBannerAdapter);
+                                    v_banner.start();
+                                } else {
+                                    if (vBannerAdapter != null) {
+                                        vBannerAdapter.notifyDataChanged();
+                                    }
+                                    v_banner.stop();
+                                    v_banner.start();
                                 }
-                                v_banner.stop();
-                                v_banner.start();
-                            }*/
                             } else {
                                 ly_zq.setVisibility(View.GONE);
                             }
@@ -353,6 +320,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
      * @param
      */
     private void inflateContent(ModelShopIndex modelindex) {
+        ry_all.setVisibility(View.VISIBLE);
         if (modelindex.getPro_list() != null && modelindex.getPro_list().size() > 0) {
             mRelNoData.setVisibility(View.GONE);
             List<ModelShopIndex> list_new = modelindex.getPro_list();
@@ -378,7 +346,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         } else {
             if (page == 1) {
                 // 占位图显示出来
-                // mRelNoData.setVisibility(View.VISIBLE);
+               // mRelNoData.setVisibility(View.VISIBLE);
                 mDatas.clear();
             }
             listView.setHasMoreItems(false);
@@ -393,7 +361,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
      * @param item
      */
     @Override
-    public void onAddCartClick(ModelShopIndex item,int position) {
+    public void onAddCartClick(ModelShopIndex item, int position) {
         if (item != null) {
             if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
                 if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {

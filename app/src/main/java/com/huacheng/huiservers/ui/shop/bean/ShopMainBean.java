@@ -19,7 +19,24 @@ public class ShopMainBean {
 	private String description;
 	private String text_color;
 	private String total_Pages;
-	
+	private String addtime;
+	private String avatars;
+
+	public String getAddtime() {
+		return addtime;
+	}
+
+	public void setAddtime(String addtime) {
+		this.addtime = addtime;
+	}
+
+	public String getAvatars() {
+		return avatars;
+	}
+
+	public void setAvatars(String avatars) {
+		this.avatars = avatars;
+	}
 
 	public String getText_color() {
 		return text_color;
