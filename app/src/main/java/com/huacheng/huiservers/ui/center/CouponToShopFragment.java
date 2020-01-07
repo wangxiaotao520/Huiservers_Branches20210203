@@ -21,6 +21,7 @@ import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
 import com.huacheng.huiservers.ui.center.adapter.CouponListToShopAdapter;
 import com.huacheng.huiservers.ui.center.bean.CouponBean;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivity;
+import com.huacheng.huiservers.ui.shop.ConfirmOrderActivityNew;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.view.MyListView;
 
@@ -208,7 +209,7 @@ public class CouponToShopFragment extends BaseFragmentOld {
             protected void setData(String json) {
                 hideDialog(smallDialog);
                 couponBean = protocol.getOrderCouPon(json);
-                Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+                Intent intent = new Intent(getActivity(), ConfirmOrderActivityNew.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("coupon_id", coupon_id);
                 bundle.putString("coupon_price", couponBean.getAmount());

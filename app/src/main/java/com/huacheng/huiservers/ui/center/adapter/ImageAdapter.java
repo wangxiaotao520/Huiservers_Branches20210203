@@ -5,11 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.ui.shop.bean.BannerBean;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.lidroid.xutils.BitmapUtils;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class ImageAdapter extends BaseAdapter{
 	public int getCount() {
 		if (beans.size()==0) {
 			return 0;
-		}else if(beans.size()>=3)
-			return 3;
+		}else if(beans.size()>=4)
+			return 4;
 		else{
 			return beans.size();
 		}
@@ -52,16 +53,18 @@ public class ImageAdapter extends BaseAdapter{
 		if (view==null) {
 			holder = new ViewHolder(); 
 			view = LayoutInflater.from(context).inflate(R.layout.image_item, null);
-			holder.img = (ImageView) view.findViewById(R.id.img);
+			holder.img = (SimpleDraweeView) view.findViewById(R.id.img);
 			view.setTag(holder);
 		}else{ 
 			holder=(ViewHolder)view.getTag(); 
 		} 
-		bitmapUtils1.display(holder.img, MyCookieStore.URL+beans.get(arg0).getOne_img());
+	//	bitmapUtils1.display(holder.img, MyCookieStore.URL+beans.get(arg0).getOne_img());
+
+		FrescoUtils.getInstance().setImageUri(holder.img,MyCookieStore.URL+beans.get(arg0).getOne_img());
 		return view;
 	}
 	class ViewHolder{
-		private  ImageView img;
+		private SimpleDraweeView img;
 
 	}
 }

@@ -47,11 +47,10 @@
 
             <LinearLayout
                 android:id="@+id/ll_check"
-                android:layout_width="0dp"
+                android:layout_width="79dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="horizontal">
 
                 <CheckBox
@@ -71,25 +70,40 @@
                     android:text="全选"
                     android:textColor="@color/c_title"
                     android:textSize="@dimen/t_14sp"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_check_all"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/shape_oval_grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全选"
+                    android:textColor="@color/title_color"
+                    android:layout_marginLeft="5dp"
+                    />
             </LinearLayout>
+
+
 
             <RelativeLayout
                 android:id="@+id/cart_rl_allprie_total"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1.2"
-                android:gravity="center_vertical">
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/tv_cart_Allprice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
                     android:text="合计 :"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="@color/c_title"
-                    android:textSize="@dimen/t_18sp" />
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_12sp" />
 
                 <TextView
                     android:id="@+id/tv_cart_total"
@@ -97,10 +111,13 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tv_cart_Allprice"
                     android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
                     android:singleLine="true"
                     android:text="¥0.00 "
-                    android:textColor="@color/red_ed"
-                    android:textSize="@dimen/t_18sp" />
+                    android:textColor="#FA5F5B"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/t_14sp" />
 
                 <TextView
                     android:id="@+id/tv_cart_select_num"
@@ -129,9 +146,12 @@
                     android:id="@+id/tv_cart_buy_or_del"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:background="@drawable/allshape_zorange_5"
+                    android:background="@drawable/allshape_red_35"
                     android:gravity="center"
-                    android:padding="@dimen/margin"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
                     android:text="去结算"
                     android:textColor="@color/white"
                     android:textSize="@dimen/t_14sp" />

@@ -154,6 +154,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private ModelHome modelHome;
     private TextView tv_sec_kill_more;
     private ImageView tv_more_sec_kill_arrow;
+    private TextView tv_more_sale;
+    private ImageView tv_more_sale_arrow;
 
     @Override
     public void initView(View view) {
@@ -220,8 +222,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
        v_banner = headerView.findViewById(R.id.v_banner);
         //特卖
         ll_on_sale_container = headerView.findViewById(R.id.ll_on_sale_container);
-        TextView tv_more_sale = headerView.findViewById(R.id.tv_more_sale);
-        ImageView tv_more_sale_arrow = headerView.findViewById(R.id.tv_more_sale_arrow);
+        tv_more_sale = headerView.findViewById(R.id.tv_more_sale);
+        tv_more_sale_arrow = headerView.findViewById(R.id.tv_more_sale_arrow);
         ll_on_sale_img_root = headerView.findViewById(R.id.ll_on_sale_img_root);
 
         //慧秒杀
@@ -577,14 +579,29 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             } else {
                 ly_notice.setVisibility(View.GONE);
             }
-            //TODO 特卖专场  还没有
-            ll_on_sale_container.setVisibility(View.GONE);
-//            ll_on_sale_img_root.removeAllViews();
-//            for (int i = 0; i <7; i++) {
-//                View item_home_on_sale = LayoutInflater.from(mActivity).inflate(R.layout.item_home_on_sale, null);
-//                SimpleDraweeView sdv_on_sale = item_home_on_sale.findViewById(R.id.sdv_on_sale);
-//                ll_on_sale_img_root.addView(item_home_on_sale);
-//            }
+            // 特卖专场
+            if (modelHome.getSpecial()!=null&&modelHome.getSpecial().size()>0){
+                ll_on_sale_container.setVisibility(View.VISIBLE);
+                ll_on_sale_img_root.removeAllViews();
+            for (int i = 0; i <modelHome.getSpecial().size(); i++) {
+                View item_home_on_sale = LayoutInflater.from(mActivity).inflate(R.layout.item_home_on_sale, null);
+                SimpleDraweeView sdv_on_sale = item_home_on_sale.findViewById(R.id.sdv_on_sale);
+
+                FrescoUtils.getInstance().setImageUri(sdv_on_sale,ApiHttpClient.IMG_URL+modelHome.getSpecial().get(i).getIcon_img());
+
+                sdv_on_sale.setOnClickListener(new OnDoubleClickListener() {
+                    @Override
+                    public void onNoDoubleClick(View v) {
+                        //TODO 特卖转场点击 ApiHttpClient.IMG_URL+modelHome.getSpecial().get(i).getId()
+                    }
+                });
+                ll_on_sale_img_root.addView(item_home_on_sale);
+            }
+
+            }else {
+                ll_on_sale_container.setVisibility(View.GONE);
+            }
+
             //慧秒杀
             List<ModelShopIndex> seckill_list = modelHome.getSeckill();
             if (seckill_list!=null&&seckill_list.size()>0){
@@ -1152,6 +1169,11 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 bundle.putString("cateID", "1");
                 intent.putExtras(bundle);
                 startActivity(intent);
+                break;
+            case R.id.tv_more_sale:
+            case R.id.tv_more_sale_arrow:
+                //todo 特卖专场查看更多
+
                 break;
                 default:
                     break;

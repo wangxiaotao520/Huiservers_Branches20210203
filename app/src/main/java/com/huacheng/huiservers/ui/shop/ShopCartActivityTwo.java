@@ -551,7 +551,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
             price = (TextView) view.findViewById(R.id.tv_price);
             add = (TextView) view.findViewById(R.id.tv_add);
             red = (TextView) view.findViewById(R.id.tv_reduce);
-            txt_paisong = (TextView) view.findViewById(R.id.txt_paisongtime);
+          //  txt_paisong = (TextView) view.findViewById(R.id.txt_paisongtime);
             txt_type = (TextView) view.findViewById(R.id.txt_type);
             //simg_detel = (ImageView) view.findViewById(R.id.img_detel);
             tv_yuan_price = (TextView) view.findViewById(R.id.tv_yuan_price);
@@ -732,7 +732,7 @@ public class ShopCartActivityTwo extends BaseActivityOld implements OnClickListe
 
     private void getex() {//取消判断商品是否在派送范围时间
 
-        Intent intent = new Intent(ShopCartActivityTwo.this, ConfirmOrderActivity.class);
+        Intent intent = new Intent(ShopCartActivityTwo.this, ConfirmOrderActivityNew.class);
         Bundle bundle = new Bundle();
         bundle.putString("all", totalPrice + "");
         bundle.putSerializable("pro", (Serializable) pro);

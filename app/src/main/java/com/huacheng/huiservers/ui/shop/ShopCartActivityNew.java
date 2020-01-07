@@ -1,9 +1,11 @@
 package com.huacheng.huiservers.ui.shop;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -26,6 +28,7 @@ import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -60,6 +63,9 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
     private TextView tv_cart_buy_or_del;
     private View cart_rl_allprie_total;
     private RelativeLayout rel_no_data;
+    private LinearLayout ll_check;
+    private ImageView iv_check_all;
+    private boolean isCheckAll = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,8 +78,9 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
         prefrenceUtil=new SharePrefrenceUtil(this);
         findTitleViews();
         tv_right = findViewById(R.id.right);
-        tv_right.setText("编辑");
+        tv_right.setText("管理");
         tv_right.setVisibility(View.VISIBLE);
+        tv_right.setTextColor(Color.parseColor("#FA5F5B"));
         titleName.setText("购物车");
         mListView=findViewById(R.id.listview);
         rel_no_data = findViewById(R.id.rel_no_data);
@@ -86,6 +93,9 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
         tv_cart_select_num = findViewById(R.id.tv_cart_select_num);
         lin_goumai = findViewById(R.id.lin_goumai);
         tv_cart_buy_or_del = findViewById(R.id.tv_cart_buy_or_del);
+
+        ll_check = findViewById(R.id.ll_check);
+        iv_check_all = findViewById(R.id.iv_check_all);
     }
 
 
@@ -123,6 +133,7 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
                         adapterShopCartNew.notifyDataSetChanged();
                         calculatePrice();
                         cart_rl_allprie_total.setVisibility(View.VISIBLE);
+                        ll_check.setVisibility(View.VISIBLE);
                         tv_cart_buy_or_del.setText("去结算");
                         tv_right.setText("编辑");
                         mListView.postDelayed(new Runnable() {
@@ -140,6 +151,7 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
                         adapterShopCartNew.notifyDataSetChanged();
                         calculatePrice();
                         cart_rl_allprie_total.setVisibility(View.VISIBLE);
+                        ll_check.setVisibility(View.VISIBLE);
                         tv_cart_buy_or_del.setText("去结算");
                         tv_right.setText("编辑");
                         // 空数据
@@ -223,6 +235,7 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
                     adapterShopCartNew.notifyDataSetChanged();
                     adapterShopCartNew.setStatus(2);
                     cart_rl_allprie_total.setVisibility(View.INVISIBLE);
+                    ll_check.setVisibility(View.INVISIBLE);
                     tv_cart_buy_or_del.setText("确认删除");
                     tv_right.setText("取消");
                 }else {
@@ -236,10 +249,30 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
                     adapterShopCartNew.notifyDataSetChanged();
                     calculatePrice();
                     cart_rl_allprie_total.setVisibility(View.VISIBLE);
+                    ll_check.setVisibility(View.VISIBLE);
                     tv_cart_buy_or_del.setText("去结算");
                     tv_right.setText("编辑");
                 }
 
+            }
+        });
+
+        ll_check.setOnClickListener(new OnDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                if (isCheckAll==false){
+                    for (int i = 0; i < mDatas.size(); i++) {
+                        mDatas.get(i).setChecked(true);
+                    }
+                    adapterShopCartNew.notifyDataSetChanged();
+                    calculatePrice();
+                }else {
+                    for (int i = 0; i < mDatas.size(); i++) {
+                        mDatas.get(i).setChecked(false);
+                    }
+                    adapterShopCartNew.notifyDataSetChanged();
+                    calculatePrice();
+                }
             }
         });
     }
@@ -301,7 +334,7 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
                 }
 
         }
-        Intent intent = new Intent(this, ConfirmOrderActivity.class);
+        Intent intent = new Intent(this, ConfirmOrderActivityNew.class);
         Bundle bundle = new Bundle();
         bundle.putString("all", totalPrice + "");
         bundle.putSerializable("pro", (Serializable) pro);
@@ -547,11 +580,14 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
      * 计算商品价格
      */
     private void calculatePrice() {
+        int count = 0;
         if (mDatas.size()>0){
             totalPrice= (float) 0;
+
             for (int i = 0; i < mDatas.size(); i++) {
                 if (mDatas.get(i).isChecked()){
                     totalPrice=totalPrice+mDatas.get(i).getNumber() * mDatas.get(i).getPrice();
+                    count++;
                 }
 
             }
@@ -560,7 +596,19 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
         }else {
             totalPrice= (float) 0;
         }
-        tv_cart_total.setText("¥" + totalPrice + "");
+        tv_cart_total.setText("¥ " + totalPrice + "");
+        if (count==0){
+            tv_cart_buy_or_del.setText("去结算");
+        }else {
+            tv_cart_buy_or_del.setText("去结算"+"("+count+")");
+        }
+        if (count==mDatas.size()){
+            iv_check_all.setBackgroundResource(R.drawable.icon_shop_onclick);
+            isCheckAll=true;
+        }else {
+            iv_check_all.setBackgroundResource(R.drawable.shape_oval_grey);
+            isCheckAll=false;
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -60,6 +60,10 @@ public class ModelShopIndex {
 
     private String description;//首页副标题
 
+
+    private String icon_img;//特卖专场的图片
+
+
     public String getContent() {
         return content;
     }
@@ -442,5 +446,11 @@ public class ModelShopIndex {
         this.description = description;
     }
 
+    public String getIcon_img() {
+        return icon_img;
+    }
 
+    public void setIcon_img(String icon_img) {
+        this.icon_img = icon_img;
+    }
 }

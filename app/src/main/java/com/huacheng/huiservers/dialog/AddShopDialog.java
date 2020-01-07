@@ -28,7 +28,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.shop.ConfirmOrderActivity;
+import com.huacheng.huiservers.ui.shop.ConfirmOrderActivityNew;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
 import com.huacheng.huiservers.ui.shop.bean.XGBean;
@@ -339,7 +339,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
         if (strExist_hours.equals("2")) {
             SmartToast.showInfo("当前时间不在派送时间范围内");
         } else {
-            Intent intent = new Intent(context, ConfirmOrderActivity.class);
+            Intent intent = new Intent(context, ConfirmOrderActivityNew.class);
             Bundle bundle = new Bundle();
             bundle.putString("all", totalPrice + "");
             bundle.putSerializable("pro", (Serializable) pro);

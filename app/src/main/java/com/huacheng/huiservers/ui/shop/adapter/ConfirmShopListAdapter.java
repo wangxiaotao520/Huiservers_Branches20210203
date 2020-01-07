@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
@@ -22,6 +24,7 @@ import com.huacheng.huiservers.ui.shop.bean.ConfirmBean;
 import com.huacheng.huiservers.ui.shop.bean.SubmitOrderBean;
 import com.huacheng.huiservers.view.HorizontalListView;
 import com.huacheng.huiservers.view.SwitchButton;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.Serializable;
@@ -94,6 +97,7 @@ public class ConfirmShopListAdapter extends BaseAdapter {
             //holder.rg_colleague = (RadioGroup) convertView.findViewById(R.id.rg_colleague);
             holder.txt_baoguo = (TextView) convertView.findViewById(R.id.txt_baoguo);
             holder.btn_style = (SwitchButton) convertView.findViewById(R.id.btn_style);
+            holder.rel_see = convertView.findViewById(R.id.rel_see);
             holder.lin_onclick = (LinearLayout) convertView.findViewById(R.id.lin_onclick);
             // holder.lin_market = (LinearLayout) convertView.findViewById(R.id.lin_market);
             holder.hor_scroll = (HorizontalListView) convertView.findViewById(R.id.hor_scroll);
@@ -101,13 +105,19 @@ public class ConfirmShopListAdapter extends BaseAdapter {
             holder.tv_peisong = convertView.findViewById(R.id.tv_peisong);
             holder.tv_peisong_price = convertView.findViewById(R.id.tv_peisong_price);
 
-            convertView.setTag(holder);
+           holder.fl_one_goods =convertView.findViewById(R.id.fl_one_goods);
+           holder.sdv_one =convertView.findViewById(R.id.sdv_one);
+           holder.tv_title_one =convertView.findViewById(R.id.tv_title_one);
+           holder.tv_sub_title_one =convertView.findViewById(R.id.tv_sub_title_one);
+           holder.tv_shop_price_one =convertView.findViewById(R.id.tv_shop_price_one);
+           holder.tv_num_one =convertView.findViewById(R.id.tv_num_one);
+
+           convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         //holder.txt_store.setText(mList.get(position).getMerchant_name());
-        holder.txt_num.setText("共" + mList.get(position).getNumber() + "件");
-        holder.txt_danprice.setText("¥" + mList.get(position).getHalf_amount());
+
         // holder.txt_baoguo.setText("包裹" + (position + 1));
         holder.txt_baoguo.setText(mList.get(position).getMerchant_name());
      //   MyCookieStore.Confirmlist.get(position).setStyle("1");
@@ -164,9 +174,22 @@ public class ConfirmShopListAdapter extends BaseAdapter {
                 mContext.startActivity(intent);
             }
         });
-        //这里图片的显示是个适配器   控制图片数量
-        ImageAdapter imageAdapter = new ImageAdapter(mContext, mList.get(position).getImg());
-        holder.hor_scroll.setAdapter(imageAdapter);
+        if (mList.get(position).getImg().size()==1){
+            holder.fl_one_goods.setVisibility(View.VISIBLE);
+            holder.rel_see.setVisibility(View.GONE);
+            FrescoUtils.getInstance().setImageUri(holder.sdv_one,MyCookieStore.URL+mList.get(position).getImg().get(0).getOne_img());
+            //TODO 其他数据还没填充服务器没有返回
+            holder.tv_num_one.setText("× "+mList.get(position).getNumber());
+        }else {
+            holder.fl_one_goods.setVisibility(View.GONE);
+            holder.rel_see.setVisibility(View.VISIBLE);
+            //这里图片的显示是个适配器   控制图片数量
+            ImageAdapter imageAdapter = new ImageAdapter(mContext, mList.get(position).getImg());
+            holder.hor_scroll.setAdapter(imageAdapter);
+            holder.txt_num.setText("共" + mList.get(position).getNumber() + "件");
+            holder.txt_danprice.setText("¥" + mList.get(position).getHalf_amount());
+        }
+
         //convertView.setOnTouchListener(this);
         holder.ly_peisong.setOnClickListener(new OnClickListener() {
             @Override
@@ -178,12 +201,12 @@ public class ConfirmShopListAdapter extends BaseAdapter {
         });
         ConfirmBean confirmBean = mList.get(position);
         if (confirmBean.getDeliversBean_selected()!=null){
-            holder.tv_peisong.setText(confirmBean.getDeliversBean_selected().getName()+"");
-            holder.tv_peisong_price.setText("¥ " +confirmBean.getDeliversBean_selected().getDis_fee());
+            holder.tv_peisong.setText(confirmBean.getDeliversBean_selected().getName()+"( "+ "¥" +confirmBean.getDeliversBean_selected().getDis_fee()+" )");
+         //   holder.tv_peisong_price.setText("¥ " +confirmBean.getDeliversBean_selected().getDis_fee());
         }else {
             //todo 没有地址的情况 或者后台没设置配送方式的情况（bug）
             holder.tv_peisong.setText("");
-            holder.tv_peisong_price.setText("¥ 0");
+         //   holder.tv_peisong_price.setText("¥ 0");
         }
 
         return convertView;
@@ -218,6 +241,18 @@ public class ConfirmShopListAdapter extends BaseAdapter {
         private TextView tv_peisong;
         //配送费
         private TextView tv_peisong_price ;
+        //多个商品的布局
+        LinearLayout rel_see;
+
+        //单个儿商品的
+        FrameLayout fl_one_goods;
+        SimpleDraweeView sdv_one;
+        TextView tv_title_one;
+        TextView tv_sub_title_one;
+        TextView tv_shop_price_one;
+        TextView tv_num_one;
+
+
     }
 
     private void isCheckd() {

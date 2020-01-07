@@ -588,6 +588,10 @@
             android:name="com.huacheng.huiservers.ui.shop.ConfirmOrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity
+            android:name="com.huacheng.huiservers.ui.shop.ConfirmOrderActivityNew"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <!-- 查看全部订单界面 -->
         <activity
             android:name="com.huacheng.huiservers.ui.shop.SeeAllOrderActivity"

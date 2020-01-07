@@ -41,7 +41,7 @@ public class SeeAllOrderActivity extends BaseActivityOld implements OnClickListe
 		lin_left=(LinearLayout) findViewById(R.id.lin_left);
 		lin_left.setOnClickListener(this);
 		title_name=(TextView) findViewById(R.id.title_name);
-		title_name.setText("确认订单列表");
+		title_name.setText("商品清单");
 		list_center=(ListView) findViewById(R.id.list_center);
 
 	}

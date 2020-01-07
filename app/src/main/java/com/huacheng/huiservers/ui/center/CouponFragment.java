@@ -10,19 +10,18 @@ import android.widget.ScrollView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.HttpHelper;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.protocol.CenterProtocol;
+import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
 import com.huacheng.huiservers.ui.center.bean.CouponBean;
-import com.huacheng.huiservers.ui.base.BaseFragmentOld;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.model.protocol.CenterProtocol;
-import com.huacheng.huiservers.ui.shop.ConfirmOrderActivity;
+import com.huacheng.huiservers.ui.shop.ConfirmOrderActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.ui.shop.ShopListActivity;
-import com.huacheng.huiservers.http.MyCookieStore;
-import com.huacheng.huiservers.utils.UIUtils;
-import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.view.MyListView;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
 
 import java.util.List;
 
@@ -261,7 +260,7 @@ public class CouponFragment extends BaseFragmentOld {
             @Override
             protected void setData(String json) {
                 couponBean = protocol.getOrderCouPon(json);
-                Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+                Intent intent = new Intent(getActivity(), ConfirmOrderActivityNew.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("coupon_id", coupon_id);
                 bundle.putString("coupon_price", couponBean.getAmount());

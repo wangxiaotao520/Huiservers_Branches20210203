@@ -19,8 +19,9 @@ public class ModelHome implements Serializable {
     private List<ModelAds> ad_center_list;//中部广告
     private  List<ModelShopIndex>  pro_list;//商品信息
 
-
     private List<ModelShopIndex>seckill;//秒杀
+
+    private List<ModelShopIndex> special ;//特卖专场
 
 
     public List<ModelAds> getAd_top_list() {
@@ -94,5 +95,13 @@ public class ModelHome implements Serializable {
 
     public void setSeckill(List<ModelShopIndex> seckill) {
         this.seckill = seckill;
+    }
+
+    public List<ModelShopIndex> getSpecial() {
+        return special;
+    }
+
+    public void setSpecial(List<ModelShopIndex> special) {
+        this.special = special;
     }
 }

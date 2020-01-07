@@ -7,11 +7,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.ui.shop.bean.DataBean;
 import com.huacheng.libraryservice.utils.NullUtil;
-import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
@@ -48,11 +49,14 @@ public class AdapterShopCartNew extends CommonAdapter<DataBean> {
         viewHolder.<TextView>getView(R.id.tv_intro).setText(item.getTitle());
         viewHolder.<TextView>getView(R.id.tv_price).setText("¥" + item.getPrice());
         viewHolder.<TextView>getView(R.id.tv_num).setText(item.getNumber() + "");
-        GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + item.getTitle_img(),viewHolder.<ImageView>getView(R.id.iv_adapter_list_pic),R.color.windowbackground);
+       // GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + item.getTitle_img(),viewHolder.<ImageView>getView(R.id.iv_adapter_list_pic),R.color.windowbackground);
+
+        FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.iv_adapter_list_pic),MyCookieStore.URL + item.getTitle_img());
+
         if (item.isChecked()){
             viewHolder.<ImageView>getView(R.id.iv_check).setBackgroundResource(R.drawable.icon_shop_onclick);
         }else {
-            viewHolder.<ImageView>getView(R.id.iv_check).setBackgroundResource(R.drawable.icon_shop_no);
+            viewHolder.<ImageView>getView(R.id.iv_check).setBackgroundResource(R.drawable.shape_oval_grey);
         }
 
         viewHolder.<TextView>getView( R.id.txt_type).setText(item.getTagname());
@@ -82,18 +86,18 @@ public class AdapterShopCartNew extends CommonAdapter<DataBean> {
         });
         //变化选中状态的颜色
         if (NullUtil.isStringEmpty(selected_m_id)){
-            viewHolder.<TextView>getView(R.id.tv_m_name).setTextColor(Color.parseColor("#555555"));
-            viewHolder.<TextView>getView(R.id.tv_intro).setTextColor(Color.parseColor("#555555"));
-            viewHolder.<TextView>getView(R.id.tv_price).setTextColor(Color.parseColor("#555555"));
-            viewHolder.<TextView>getView(R.id.tv_num).setTextColor(Color.parseColor("#555555"));
-            viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.c_title3));
+            viewHolder.<TextView>getView(R.id.tv_m_name).setTextColor(Color.parseColor("#333333"));
+            viewHolder.<TextView>getView(R.id.tv_intro).setTextColor(Color.parseColor("#333333"));
+            viewHolder.<TextView>getView(R.id.tv_price).setTextColor(Color.parseColor("#333333"));
+            viewHolder.<TextView>getView(R.id.tv_num).setTextColor(Color.parseColor("#333333"));
+            viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.gray_99));
         }else {
             if (item.getM_id().equals(selected_m_id)){
-                viewHolder.<TextView>getView(R.id.tv_m_name).setTextColor(Color.parseColor("#555555"));
-                viewHolder.<TextView>getView(R.id.tv_intro).setTextColor(Color.parseColor("#555555"));
-                viewHolder.<TextView>getView(R.id.tv_price).setTextColor(Color.parseColor("#555555"));
-                viewHolder.<TextView>getView(R.id.tv_num).setTextColor(Color.parseColor("#555555"));
-                viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.c_title3));
+                viewHolder.<TextView>getView(R.id.tv_m_name).setTextColor(Color.parseColor("#333333"));
+                viewHolder.<TextView>getView(R.id.tv_intro).setTextColor(Color.parseColor("#333333"));
+                viewHolder.<TextView>getView(R.id.tv_price).setTextColor(Color.parseColor("#333333"));
+                viewHolder.<TextView>getView(R.id.tv_num).setTextColor(Color.parseColor("#333333"));
+                viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.gray_99));
             }else {
                 viewHolder.<TextView>getView(R.id.tv_m_name).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
                 viewHolder.<TextView>getView(R.id.tv_intro).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
