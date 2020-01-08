@@ -19,9 +19,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.model.ModelShopIndex;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.model.ModelShopIndex;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
 
@@ -192,7 +192,7 @@ public class ShopXSListNoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             recyclerViewHolder.ly_onclick.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                    Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("shop_id", mBeanList.get(position).getId());
                     intent.putExtras(bundle);

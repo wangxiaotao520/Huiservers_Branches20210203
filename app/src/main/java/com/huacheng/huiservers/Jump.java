@@ -49,7 +49,7 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopListActivity;
 import com.huacheng.huiservers.ui.shop.ShopSecKillListActivity;
 import com.huacheng.huiservers.ui.shop.ShopWBActivity;
@@ -126,7 +126,7 @@ public class Jump {
             } else if (type.equals("2")) {//跳转到商城详情
                 //跳转到详情页
                 final String strurl = url;
-                Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("url", url);
                 mContext.startActivity(intent);

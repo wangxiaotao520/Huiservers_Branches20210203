@@ -59,13 +59,13 @@ import com.huacheng.huiservers.ui.fragment.adapter.VBannerAdapter;
 import com.huacheng.huiservers.ui.fragment.presenter.PropertyPrester;
 import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
-import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
+import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.adapter.MyGridViewAdpter;
 import com.huacheng.huiservers.ui.shop.adapter.MyViewPagerAdapter;
 import com.huacheng.huiservers.utils.CommonMethod;
@@ -352,7 +352,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 if (NullUtil.isStringEmpty(mDatas.get((int) id).getInventory()) || 0 >= Integer.valueOf(mDatas.get((int) id).getInventory())) {
                     SmartToast.showInfo("商品已售罄");
                 } else {
-                    Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                    Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("shop_id", mDatas.get((int) id).getId());
                     intent.putExtras(bundle);

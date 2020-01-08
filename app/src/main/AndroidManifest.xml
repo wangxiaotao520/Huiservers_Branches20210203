@@ -921,6 +921,9 @@
             android:name=".ui.center.ShopOrderListActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.shop.ShopOrderListActivityNew"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.center.ALLWebViewActivity"
             android:screenOrientation="portrait"/>
         <activity

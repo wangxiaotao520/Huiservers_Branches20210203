@@ -185,7 +185,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("shop_id", mDatas.get((int) id).getId());
                 intent.putExtras(bundle);

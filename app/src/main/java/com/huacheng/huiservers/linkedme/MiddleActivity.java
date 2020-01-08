@@ -10,6 +10,7 @@ import com.huacheng.huiservers.ui.index.vote.VoteDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
 import com.huacheng.huiservers.ui.shop.ShopZQWebActivity;
 import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
@@ -52,7 +53,7 @@ public class MiddleActivity extends AppCompatActivity {
             if (type != null) {
                 if (type.equals("goods_details")) {//商品详情
                     String shop_id = hashMap.get("id");
-                    Intent intent = new Intent(this, ShopDetailActivity.class);
+                    Intent intent = new Intent(this, ShopDetailActivityNew.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("shop_id", shop_id);
                     intent.putExtras(bundle);

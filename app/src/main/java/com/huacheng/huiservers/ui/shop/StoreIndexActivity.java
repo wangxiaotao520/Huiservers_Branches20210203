@@ -347,7 +347,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
     @Override
     public void onClickImage(int position) {
         //点击图片
-        Intent intent = new Intent(mContext, ShopDetailActivity.class);
+        Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
         Bundle bundle = new Bundle();
         bundle.putString("shop_id", mDatas.get(position).getId());
         intent.putExtras(bundle);

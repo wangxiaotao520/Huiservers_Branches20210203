@@ -22,7 +22,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
@@ -162,7 +162,7 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
                     if (mDatas.get(position).getInventory().equals("0") || TextUtils.isEmpty(mDatas.get(position).getInventory())) {
                         SmartToast.showInfo("商品已售罄");
                     } else {
-                        Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                        Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("shop_id", mDatas.get(position).getId());
                         intent.putExtras(bundle);

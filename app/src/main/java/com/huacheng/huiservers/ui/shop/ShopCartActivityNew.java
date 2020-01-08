@@ -78,7 +78,7 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
         prefrenceUtil=new SharePrefrenceUtil(this);
         findTitleViews();
         tv_right = findViewById(R.id.right);
-        tv_right.setText("管理");
+        tv_right.setText("编辑");
         tv_right.setVisibility(View.VISIBLE);
         tv_right.setTextColor(Color.parseColor("#FA5F5B"));
         titleName.setText("购物车");

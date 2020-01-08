@@ -21,13 +21,11 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseFragment;
-import com.huacheng.huiservers.ui.center.CenterMoneyActivity;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.HeZuoActivity;
 import com.huacheng.huiservers.ui.center.MyAboutActivity;
 import com.huacheng.huiservers.ui.center.MyInfoCircleActivity;
 import com.huacheng.huiservers.ui.center.SetActivity;
-import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.fragment.adapter.MyCenterAdapter;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
@@ -36,6 +34,7 @@ import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
+import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyGridview;
@@ -159,7 +158,7 @@ public class MyCenterFrament extends BaseFragment {
                     Intent intent = new Intent(mActivity, ShopCartActivityNew.class);
                     startActivityForResult(intent, 1);
                 } else if (position == 1) { //"商城订单"
-                    Intent intent = new Intent(getActivity(), ShopOrderListActivity.class);
+                    Intent intent = new Intent(getActivity(), ShopOrderListActivityNew.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("type", "1111");
                     intent.putExtras(bundle);
@@ -168,8 +167,16 @@ public class MyCenterFrament extends BaseFragment {
                     Intent intent = new Intent(mContext, FragmentOrderListActivity.class);
                     startActivity(intent);
                 } else if (position == 3) {//"生活账单"
-                    Intent intent = new Intent(mActivity, CenterMoneyActivity.class);
-                    startActivity(intent);
+                    if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                        // Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                        Intent intent = new Intent(mContext, HouseListActivity.class);
+                        intent.putExtra("type", 1);
+                        intent.putExtra("wuye_type", "bind");
+                        startActivity(intent);
+
+                    } else {
+                        SmartToast.showInfo("该小区暂未开通服务");
+                    }
                 } else if (position == 4) {//"租售房"
                     Intent intent = new Intent(mActivity, MyHousePropertyActivity.class);
                     startActivity(intent);

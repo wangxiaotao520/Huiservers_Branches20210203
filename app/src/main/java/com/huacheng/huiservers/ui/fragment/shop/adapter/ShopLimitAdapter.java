@@ -17,9 +17,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.model.ModelShopIndex;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.model.ModelShopIndex;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
 
@@ -108,7 +108,7 @@ public class ShopLimitAdapter extends BaseAdapter {
         holder.linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("shop_id", shopIndex.getId());
                 intent.putExtras(bundle);

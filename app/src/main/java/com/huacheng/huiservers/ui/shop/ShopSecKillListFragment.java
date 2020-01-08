@@ -83,7 +83,7 @@ public class ShopSecKillListFragment extends BaseFragment implements HomeListVie
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                //商品详情
-                Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("shop_id", mBeanALList.get(position).getId());
                 intent.putExtras(bundle);

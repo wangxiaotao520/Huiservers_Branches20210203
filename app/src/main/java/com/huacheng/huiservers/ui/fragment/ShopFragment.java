@@ -48,7 +48,7 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.SearchShopActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopCateActivity;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopXSTimeListActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
@@ -527,7 +527,7 @@ public class ShopFragment extends BaseFragment implements View.OnClickListener, 
             linear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                    Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("shop_id", shopIndex.getId());
                     intent.putExtras(bundle);

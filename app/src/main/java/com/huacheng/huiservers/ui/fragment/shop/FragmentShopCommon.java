@@ -14,7 +14,7 @@ import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.HeaderViewPagerFragment;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
@@ -263,7 +263,7 @@ public class FragmentShopCommon extends HeaderViewPagerFragment implements HomeI
     @Override
     public void onClickImage(int position) {
         //点击图片
-        Intent intent = new Intent(mContext, ShopDetailActivity.class);
+        Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
         Bundle bundle = new Bundle();
         bundle.putString("shop_id", mDatas.get(position).getId());
         intent.putExtras(bundle);

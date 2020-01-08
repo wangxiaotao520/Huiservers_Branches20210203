@@ -10,6 +10,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -38,7 +40,8 @@ public class EnhanceTabLayout extends FrameLayout {
     private int mIndicatorHeight;
     private int mIndicatorWidth;
     private int mTabMode;
-  //  private int mTabTextSize;
+    private int mTabTextSize;
+
 
     public EnhanceTabLayout(@NonNull Context context) {
         super(context);
@@ -68,7 +71,10 @@ public class EnhanceTabLayout extends FrameLayout {
         mSelectTextColor = typedArray.getColor(R.styleable.EnhanceTabLayout_tabSelectTextColor,context.getResources().getColor(R.color.colorAccent));
         mIndicatorHeight = typedArray.getDimensionPixelSize(R.styleable.EnhanceTabLayout_tabIndicatorHeight,1);
         mIndicatorWidth = typedArray.getDimensionPixelSize(R.styleable.EnhanceTabLayout_tabIndicatorWidth,0);
-   //     mTabTextSize = typedArray.getDimensionPixelSize(R.styleable.EnhanceTabLayout_tabTextSize,13);
+        mTabTextSize = (int) typedArray.getDimensionPixelSize(R.styleable.EnhanceTabLayout_tabTextSize,0);
+        if (mTabTextSize==0){
+            mTabTextSize= DeviceUtils.dip2px(context,15);
+        }
         mTabMode = typedArray.getInt(R.styleable.EnhanceTabLayout_tab_Mode,2);
         typedArray.recycle();
     }
@@ -154,7 +160,7 @@ public class EnhanceTabLayout extends FrameLayout {
      */
     public void addTab(String tab){
         mTabList.add(tab);
-        View customView = getTabView(getContext(),tab,mIndicatorWidth,mIndicatorHeight,0);
+        View customView = getTabView(getContext(),tab,mIndicatorWidth,mIndicatorHeight,mTabTextSize);
         mCustomViewList.add(customView);
         mTabLayout.addTab(mTabLayout.newTab().setCustomView(customView));
     }
@@ -229,7 +235,7 @@ public class EnhanceTabLayout extends FrameLayout {
             indicator.setLayoutParams(layoutParams);
         }
         // 字体大小没设置
-     //   tabText.setTextSize(textSize);
+        tabText.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
         tabText.setText(text);
         tabText.setTextColor(mUnSelectTextColor);
         return view;

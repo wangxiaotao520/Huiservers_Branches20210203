@@ -21,7 +21,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
@@ -187,7 +187,7 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             recyclerViewHolder.ly_onclick.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                    Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("shop_id", mDatas.get(position).getId());
                     intent.putExtras(bundle);

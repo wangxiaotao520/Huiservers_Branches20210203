@@ -20,6 +20,7 @@ import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
 import com.huacheng.huiservers.ui.center.bean.CouponBean;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopListActivity;
 import com.huacheng.huiservers.view.MyListView;
 
@@ -196,7 +197,7 @@ public class CouponFragment extends BaseFragmentOld {
     private void goTo(CouponBean couponBean) {
         if (tag.equals("center") || tag.equals("jump")) {
             if (!couponBean.getShop_id().equals("0")) {//跳转到商品详情页
-                intent.setClass(getActivity(), ShopDetailActivity.class);
+                intent.setClass(getActivity(), ShopDetailActivityNew.class);
                 bundle.putString("shop_id", couponBean.getShop_id());
                 intent.putExtras(bundle);
                 getActivity().startActivity(intent);

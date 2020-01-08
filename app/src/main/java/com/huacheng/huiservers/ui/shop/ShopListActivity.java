@@ -327,7 +327,7 @@ public class ShopListActivity extends BaseActivityOld {
                                 @Override
                                 public void onItemClick(int position) {
 
-                                    Intent intent = new Intent(ShopListActivity.this, ShopDetailActivity.class);
+                                    Intent intent = new Intent(ShopListActivity.this, ShopDetailActivityNew.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putString("shop_id", proListAll.get(position).getId());
                                     intent.putExtras(bundle);

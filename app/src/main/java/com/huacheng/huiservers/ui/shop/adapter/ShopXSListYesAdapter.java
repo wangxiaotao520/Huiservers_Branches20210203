@@ -23,7 +23,7 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.model.ModelShopIndex;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.CustomProgressBar;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
@@ -228,10 +228,10 @@ public class ShopXSListYesAdapter extends RecyclerView.Adapter<RecyclerView.View
                     if (mBeanList.get(position).getInventory().equals("0") || TextUtils.isEmpty(mBeanList.get(position).getInventory())) {
                         SmartToast.showInfo("商品已售罄");
                     } else {
-                        Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                        Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("shop_id", mBeanList.get(position).getId());
-                        System.out.println("shop_id********" + mBeanList.get(position).getId());
+                   //     System.out.println("shop_id********" + mBeanList.get(position).getId());
                         intent.putExtras(bundle);
                         mContext.startActivity(intent);
                     }

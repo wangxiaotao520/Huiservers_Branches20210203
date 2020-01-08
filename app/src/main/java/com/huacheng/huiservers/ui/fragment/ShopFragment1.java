@@ -38,7 +38,7 @@ import com.huacheng.huiservers.ui.fragment.shop.FragmentShopCommon;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.SearchShopActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
+import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
@@ -502,7 +502,7 @@ public class ShopFragment1 extends BaseFragment {
                    item_img_view.setOnClickListener(new OnDoubleClickListener() {
                        @Override
                        public void onNoDoubleClick(View v) {
-                           Intent intent = new Intent(mContext, ShopDetailActivity.class);
+                           Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                            Bundle bundle = new Bundle();
                            bundle.putString("shop_id", shopIndex.getId());
                            intent.putExtras(bundle);
