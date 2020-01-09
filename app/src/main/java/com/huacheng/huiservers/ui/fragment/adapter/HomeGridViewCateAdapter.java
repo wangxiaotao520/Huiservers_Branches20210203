@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.fragment.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,8 +13,10 @@ import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.model.ModelHomeIndex;
+import com.huacheng.huiservers.ui.fragment.indexcat.IndexAllServiesActivity;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,8 +47,15 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return lists.size();
-
+        if (type==1){
+            if (lists.size()>=8) {
+                return 8;
+            }else {
+                return lists.size();
+            }
+        }else {
+            return lists.size();
+        }
     }
 
     @Override
@@ -76,57 +86,90 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        //重新确定position因为拿到的总是数据源，数据源是分页加载到每页的GridView上的
-        final int pos = position;
-        //假设mPagerSize=8，假如点击的是第二页（即mIndex=1）上的第二个位置item(position=1),那么这个item的实际位置就是pos=9
-        holder.tv_name.setText(lists.get(pos).getMenu_name() + "");
-//		holder.txt_shop_price.setText("¥"+lists.get(pos).getMin_price() + "");
-        GlideUtils.getInstance().glideLoad(context, MyCookieStore.URL + lists.get(pos).getMenu_logo(), holder.iv_nul, R.drawable.ic_default);
-
-         holder.ly_onclick.setOnClickListener(new View.OnClickListener() {
-          @Override
-             public void onClick(View v) {
-                String type = lists.get(pos).getUrl_type();
-                String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
-                if (Arrays.asList(typeStr).contains(type)) {
-                    Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
-                            lists.get(pos).getUrl_type_cn());
-                } else {
-                    Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
-                            lists.get(pos).getUrl_type_cn());
-                }
-          }
-            });
 
         //type 1 首页分类 2 我的服务 3 更多服务
         if (type == 1) {
             holder.iv_cancel.setVisibility(View.GONE);
-        } else {
-            if (lists.get(pos).isIsselect()) {
-                holder.iv_cancel.setVisibility(View.VISIBLE);
-                if (type == 2) {
-                    holder.tv_name.setText("我的服务" + (pos + 1));
-                    holder.iv_cancel.setBackgroundColor(context.getResources().getColor(R.color.red_ed));
-                } else {
-                    holder.tv_name.setText("更多服务" + (pos + 1));
-                    holder.iv_cancel.setBackgroundColor(context.getResources().getColor(R.color.orange_bg));
-                }
-                holder.iv_cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (listener!=null) {
-                            listener.onClickImg(v,pos,type);
+            final int pos = position;
+            if (position==7){
+                holder.tv_name.setText( "查看更多");
+                holder.iv_nul.setImageResource(R.drawable.iv_icon_all);
+            }else {
+                //假设mPagerSize=8，假如点击的是第二页（即mIndex=1）上的第二个位置item(position=1),那么这个item的实际位置就是pos=9
+                holder.tv_name.setText(lists.get(pos).getMenu_name() + "");
+//		holder.txt_shop_price.setText("¥"+lists.get(pos).getMin_price() + "");
+                GlideUtils.getInstance().glideLoad(context, MyCookieStore.URL + lists.get(pos).getMenu_logo(), holder.iv_nul, R.color.default_color);
+            }
+
+            holder.ly_onclick.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (pos ==7){
+                        Intent intent = new Intent(context, IndexAllServiesActivity.class);
+                        intent.putExtra("myCatelist",(ArrayList<ModelHomeIndex>)lists);
+                        context.startActivity(intent);
+                    }else {
+                        String type = lists.get(pos).getUrl_type();
+                        String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
+                        if (Arrays.asList(typeStr).contains(type)) {
+                            Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
+                                    lists.get(pos).getUrl_type_cn());
+                        } else {
+                            Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
+                                    lists.get(pos).getUrl_type_cn());
                         }
                     }
-                });
-            } else {
-                holder.iv_cancel.setVisibility(View.GONE);
-                if (type == 2) {
-                    holder.tv_name.setText("我的服务" + (pos + 1));
-                } else {
-                    holder.tv_name.setText("更多服务" + (pos + 1));
                 }
-            }
+            });
+        } else {
+            //这里暂时先处理这种逻辑
+//            if (lists.get(pos).isIsselect()) {
+//                holder.iv_cancel.setVisibility(View.VISIBLE);
+//                if (type == 2) {
+//                    holder.tv_name.setText("我的服务" + (pos + 1));
+//                    holder.iv_cancel.setBackgroundColor(context.getResources().getColor(R.color.red_ed));
+//                } else {
+//                    holder.tv_name.setText("更多服务" + (pos + 1));
+//                    holder.iv_cancel.setBackgroundColor(context.getResources().getColor(R.color.orange_bg));
+//                }
+//                holder.iv_cancel.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if (listener!=null) {
+//                            listener.onClickImg(v,pos,type);
+//                        }
+//                    }
+//                });
+//            } else {
+//                holder.iv_cancel.setVisibility(View.GONE);
+//                if (type == 2) {
+//                    holder.tv_name.setText("我的服务" + (pos + 1));
+//                } else {
+//                    holder.tv_name.setText("更多服务" + (pos + 1));
+//                }
+//            }
+            holder.iv_cancel.setVisibility(View.GONE);
+            //重新确定position因为拿到的总是数据源，数据源是分页加载到每页的GridView上的
+            final int pos = position;
+            //假设mPagerSize=8，假如点击的是第二页（即mIndex=1）上的第二个位置item(position=1),那么这个item的实际位置就是pos=9
+            holder.tv_name.setText(lists.get(pos).getMenu_name() + "");
+//		holder.txt_shop_price.setText("¥"+lists.get(pos).getMin_price() + "");
+            GlideUtils.getInstance().glideLoad(context, MyCookieStore.URL + lists.get(pos).getMenu_logo(), holder.iv_nul, R.color.default_color);
+
+            holder.ly_onclick.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String type = lists.get(pos).getUrl_type();
+                    String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
+                    if (Arrays.asList(typeStr).contains(type)) {
+                        Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
+                                lists.get(pos).getUrl_type_cn());
+                    } else {
+                        Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
+                                lists.get(pos).getUrl_type_cn());
+                    }
+                }
+            });
 
         }
         return convertView;

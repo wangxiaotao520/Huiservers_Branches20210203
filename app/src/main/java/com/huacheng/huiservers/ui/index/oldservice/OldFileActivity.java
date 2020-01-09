@@ -330,10 +330,27 @@ public class OldFileActivity extends BaseActivity {
                 if (mDatas.get((int) id).getList_type()==1){
                     return;
                 }
-                Intent intent = new Intent(mContext, OldFileDetailActivity.class);
-                intent.putExtra("o_company_id",modelOldIndexTop.getO_company_id()+"");
-                intent.putExtra("checkup_id",mDatas.get((int) id).getId()+"");
-                mContext.startActivity(intent);
+
+                if ("1".equals(mDatas.get((int) id).getType())){
+                   // viewHolder.<TextView>getView(R.id.tv_tijian_type).setText( "常规体检");
+                    //常规体检
+                    Intent intent = new Intent(mContext, OldFileDetailActivity.class);
+                    intent.putExtra("o_company_id",modelOldIndexTop.getO_company_id()+"");
+                    intent.putExtra("checkup_id",mDatas.get((int) id).getId()+"");
+                    mContext.startActivity(intent);
+                }else if ("2".equals(mDatas.get((int) id).getType())){
+                  //  "智能硬件体检"
+                    Intent intent = new Intent(mContext, OldFileDetailHardwareActivity.class);
+                    intent.putExtra("o_company_id",modelOldIndexTop.getO_company_id()+"");
+                    intent.putExtra("physicalID",mDatas.get((int) id).getPhysicalID()+"");
+                    intent.putExtra("p_id",modelOldIndexTop.getOld_id()+""+"");
+                    intent.putExtra("model",mDatas.get((int) id));
+                    mContext.startActivity(intent);
+                }else if ("3".equals(mDatas.get((int) id).getType())){
+                   //
+                }
+
+
             }
         });
     }

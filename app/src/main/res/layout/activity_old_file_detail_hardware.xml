@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowbackground"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/titlebar_center"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            android:orientation="vertical"
+            android:id="@+id/ll_root"
+            android:paddingBottom="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="体检类型"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_tijian_type"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="体检时间"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_tijian_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="体检编号"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_tijian_bianhao"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:background="@color/windowbackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="健康汇总"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="身高"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_height"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="体重"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/blackgray"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="BM"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_BM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=" (正常范围：18.5~23.9)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="血氧饱和度"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_xuyang_baohe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=" (正常范围>94%)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="收缩压"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_shousouya"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=" (正常范围90~120)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="舒张压"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_shuzhangya"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=" (正常范围60~80)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="脉搏"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_maibo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="脂肪率"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_zhifanglv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=" (正常范围11.1~24)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="肌肉率"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_jiroulv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=" (正常范围49.4~59.4)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="体水分率"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_ti_shuifen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=" (正常范围42~68)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="基础代谢"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_daixie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=" (正常范围1100~2400)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="骨量"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_guliang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=" (正常范围2.0~4.1)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="内脂肪等级"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_neizhifang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/blackgray"
+                        android:textSize="@dimen/t_14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text=" (正常范围1~9)"
+                        android:textColor="@color/gray_99"
+                        android:textSize="@dimen/t_14sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_40"
+                android:background="@color/windowbackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="健康指导建议"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_normal_suggestion"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="常规建议"
+                    android:textStyle="bold"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_15sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_normal_suggestion_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp"
+                android:orientation="vertical">
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_sport_suggestion"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="运动建议"
+                    android:textStyle="bold"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_15sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_sport_suggestion_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_eat_suggestion"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="饮食建议"
+                    android:textStyle="bold"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_15sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_eat_suggestion_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="10dp"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_zhongyi_suggestion"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_weight="3"
+                    android:text="中医建议"
+                    android:textStyle="bold"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_15sp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_zhongyi_suggestion_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="15dp"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

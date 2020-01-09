@@ -328,8 +328,10 @@ public class ApiHttpClient {
     public static String PENSION_OLDFILE_DETAIL = API_URL + API_VERSION + "pension/peopleSee";
     //体检记录
     public static String PENSION_CHECKUP_LIST = API_URL + API_VERSION + "pension/checkupList";
-    //体检记录详情
+    //体检记录详情(常规记录)
     public static String PENSION_CHECKUP_ONE_SEE = API_URL + API_VERSION + "pension/checkupOneSee";
+    //体检记录详情(智能硬件)
+    public static String PENSION_BELTER_DETAILS = API_URL + API_VERSION + "/pension/belter_details";
     //资讯详情
     public static String PENSION_SOCIAL_DETAIL = API_URL + API_VERSION + "pension/pensionSocialdetails";
     //活动详情
@@ -553,5 +555,6 @@ public class ApiHttpClient {
         INDEX_SERVICE_AD_TOP = API_SERVICE_URL + "index/serviceClassifTop";
         IMG_BOTTOM = API_URL + API_VERSION + "index/index_Bottom";
         SHOP_MARKIING_ARTICE_LIST = API_URL + API_VERSION + "/shop/area_marketing_activities_List";
+        PENSION_BELTER_DETAILS = API_URL + API_VERSION + "/pension/belter_details";
     }
 }

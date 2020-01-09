@@ -27,18 +27,22 @@ public class OldFileAdapter extends CommonAdapter<ModelOldCheckRecord> {
     protected void convert(ViewHolder viewHolder, ModelOldCheckRecord item, int position) {
         if (item.getList_type()==0){
             viewHolder.<LinearLayout>getView(R.id.ll_content).setVisibility(View.VISIBLE);
-            viewHolder.<TextView>getView(R.id.item_num).setText("体检记录" + (position+1));
+       //     viewHolder.<TextView>getView(R.id.item_num).setText("体检记录" + (position+1));
             if ("1".equals(item.getType())){
-                viewHolder.<TextView>getView(R.id.tv_tijian_type).setText( " 常规体检");
+                viewHolder.<TextView>getView(R.id.tv_tijian_type).setText( "常规体检");
             }else if ("2".equals(item.getType())){
-                viewHolder.<TextView>getView(R.id.tv_tijian_type).setText(" 智能硬件体检");
+                viewHolder.<TextView>getView(R.id.tv_tijian_type).setText("智能硬件体检");
             }else if ("3".equals(item.getType())){
-                viewHolder.<TextView>getView(R.id.tv_tijian_type).setText( " 合作医院体检");
+                viewHolder.<TextView>getView(R.id.tv_tijian_type).setText( "合作医院体检");
             }
 
 
-            viewHolder.<TextView>getView(R.id.tv_tijian_time).setText(StringUtils.getDateToString(item.getChecktime(),"8"));
-            viewHolder.<TextView>getView(R.id.tv_tijian_content).setText(item.getDescribe()+"");
+            viewHolder.<TextView>getView(R.id.tv_tijian_time).setText("体检时间："+StringUtils.getDateToString(item.getChecktime(),"8"));
+
+            viewHolder.<TextView>getView(R.id.tv_xinlv).setText(item.getHr()+"bmp");
+            viewHolder.<TextView>getView(R.id.tv_xueya).setText(item.getBp_max()+"/"+item.getBp_min()+"mmhg");
+            viewHolder.<TextView>getView(R.id.tv_xuetang).setText(item.getGlu()+"nmol/L");
+//            viewHolder.<TextView>getView(R.id.tv_tijian_content).setText(item.getDescribe()+"");
 
 //            viewHolder.<LinearLayout>getView(R.id.ly_detail).setOnClickListener(new View.OnClickListener() {
 //                @Override

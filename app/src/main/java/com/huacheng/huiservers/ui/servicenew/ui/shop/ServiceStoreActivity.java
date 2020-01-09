@@ -182,7 +182,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
            Glide.with(this).load(ApiHttpClient.IMG_SERVICE_URL+modelStore.getIndex_img())
                    .error(R.color.default_color)
                    // "3":模糊度；"3":图片缩放3倍后再进行模糊，缩放3-5倍个人感觉比较好。
-                   .bitmapTransform(new BlurTransformation(this, 3, 2))
+                  .bitmapTransform(new BlurTransformation(this, 3, 2))
                    .placeholder(R.color.default_color).crossFade().into(iv_head);
            FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_SERVICE_URL+modelStore.getLogo());//logo
            List<CategoryBean> category = modelStore.getCategory();

@@ -2,6 +2,7 @@ package com.huacheng.huiservers.model;
 
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * 时间：2018/6/2 17:12
  * 功能描述:Huiservers
  */
-public class ModelHomeIndex {
+public class ModelHomeIndex implements Serializable{
     private String id;
     private String menu_name;
     private String menu_logo;

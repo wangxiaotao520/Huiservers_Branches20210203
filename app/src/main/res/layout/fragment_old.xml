@@ -298,7 +298,6 @@
                     tab:tab_Mode="mode_fixed"
                     android:background="@color/white"
                     tab:tabSelectTextColor="#333333"
-                    android:layout_marginBottom="10dp"
                     tab:tabIndicatorColor="#ED8D37">
 
                 </com.huacheng.huiservers.view.widget.EnhanceTabLayout>

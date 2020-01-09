@@ -40,7 +40,7 @@ import java.util.List;
 public class FragmentShopOrderListNew extends BaseFragment implements AdapterShopOrderListNew.OnClickShopOrderListListener {
     SharePrefrenceUtil prefrenceUtil;
     private int total_Page=1;
-    private int type;//"0全部","1待付款","2待收货","3已完成","4已取消", "5退款/售后"
+    private int type;//"0全部","1待付款","2待收货","3已完成", "4退款/售后"
 
     private SmartRefreshLayout refreshLayout;
     private PagingListView listView;
@@ -157,9 +157,6 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
         } else if (type == 3) {
             params.put("status", "3");
         }else if (type == 4) {
-            //TODO
-            params.put("status", "3");
-        }else {
             //TODO
             params.put("status", "3");
         }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <TextView
+       android:id="@+id/tv_str"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+        android:text="1、冲调后请尽量一次饮完，剩下的奶液建议弃掉，勿保留。"
+        android:textColor="@color/title_color"
+       android:textSize="14sp"
+       />
+
+</LinearLayout>

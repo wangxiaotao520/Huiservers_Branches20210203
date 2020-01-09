@@ -175,5 +175,5 @@ android {
      implementation 'com.haibin:calendarview:3.6.4'
      implementation project(':circleprogress')
      //高斯模糊 等转换库
-     implementation 'jp.wasabeef:glide-transformations:2.0.1'
+   //  implementation 'jp.wasabeef:glide-transformations:2.0.1'
  }

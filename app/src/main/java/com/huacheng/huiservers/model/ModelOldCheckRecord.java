@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * created by wangxiaotao
  * 2019/8/28 0028 下午 7:04
  */
-public class ModelOldCheckRecord {
+public class ModelOldCheckRecord implements Serializable{
     private int totalPages;
     /**
      * id : 1
@@ -15,14 +16,25 @@ public class ModelOldCheckRecord {
      * describe : 12121212
      * checktime : 123123
      */
-
     private String id;
     private String type;
     private String describe;
     private String checktime;
 
-
     private int list_type ;//0是正常//1是造的空数据
+    /**
+     * physicalID : BT200104153804160000000001578383914361
+     * hr : 80
+     * bp_max : 123
+     * bp_min : 80
+     * glu : 23
+     */
+
+    private String physicalID;
+    private String hr; //心率
+    private String bp_max;//血压
+    private String bp_min;
+    private String glu; //血糖
 
 
     public int getTotalPages() {
@@ -81,5 +93,45 @@ public class ModelOldCheckRecord {
 
     public void setList_type(int list_type) {
         this.list_type = list_type;
+    }
+
+    public String getPhysicalID() {
+        return physicalID;
+    }
+
+    public void setPhysicalID(String physicalID) {
+        this.physicalID = physicalID;
+    }
+
+    public String getHr() {
+        return hr;
+    }
+
+    public void setHr(String hr) {
+        this.hr = hr;
+    }
+
+    public String getBp_max() {
+        return bp_max;
+    }
+
+    public void setBp_max(String bp_max) {
+        this.bp_max = bp_max;
+    }
+
+    public String getBp_min() {
+        return bp_min;
+    }
+
+    public void setBp_min(String bp_min) {
+        this.bp_min = bp_min;
+    }
+
+    public String getGlu() {
+        return glu;
+    }
+
+    public void setGlu(String glu) {
+        this.glu = glu;
     }
 }

@@ -69,6 +69,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
     SharePrefrenceUtil prefrenceUtil;
 
     private String location_provice="", location_district="", location_city="",location_code="";//
+    private String longitude="",latitude="";
     private int jump_type = 1;  //1从首页点进来 2.从商城选择收货地址点进来
     private String cat_search_name="商务住宅";
     private LinearLayout ll_empty_my_community;
@@ -290,7 +291,8 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                         //默认选中
                         mlocationClient.stopLocation();
                         getPOIsearch(location.getLongitude(),location.getLatitude());
-
+                        longitude=location.getLongitude()+"";
+                        latitude=location.getLatitude()+"";
                     }
                 }
             } else {

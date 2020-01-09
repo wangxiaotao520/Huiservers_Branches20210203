@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * 类描述：老人档案体检记录详情
+ * 类描述：老人档案体检记录详情(常规体检)
  * 时间：2019/8/17 15:56
  * created by DFF
  */

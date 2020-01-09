@@ -22,9 +22,9 @@
 
             <ImageView
                 android:id="@+id/left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_arrow_left_black"/>
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/ic_arrow_left_black"/>
 
             <TextView
                 android:id="@+id/tv_cancel"
@@ -55,6 +55,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="@dimen/margin_15"
+            android:visibility="gone"
             android:text="编辑"
             android:textColor="@color/orange_bg"
             android:textSize="@dimen/t_16sp"
@@ -110,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
                 android:background="@color/white"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView

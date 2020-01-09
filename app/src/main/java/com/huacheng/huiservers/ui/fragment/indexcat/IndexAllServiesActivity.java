@@ -1,7 +1,6 @@
 package com.huacheng.huiservers.ui.fragment.indexcat;
 
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,19 +44,12 @@ public class IndexAllServiesActivity extends BaseActivity implements View.OnClic
         txt_right = findViewById(R.id.txt_right);
         gridview_my = findViewById(R.id.gridview_my);
         gridview_other = findViewById(R.id.gridview_other);
-        myCatelist.clear();
-        for (int i = 0; i < 5; i++) {
-            myCatelist.add(new ModelHomeIndex());
-        }
-        otherCatelist.clear();
-        for (int i = 0; i < 6; i++) {
-            otherCatelist.add(new ModelHomeIndex());
-        }
+
         myGridViewCateAdapter = new HomeGridViewCateAdapter(this, myCatelist, 2, this);
         gridview_my.setAdapter(myGridViewCateAdapter);
 
-        otherGridViewCateAdapter = new HomeGridViewCateAdapter(this, otherCatelist, 3, this);
-        gridview_other.setAdapter(otherGridViewCateAdapter);
+//        otherGridViewCateAdapter = new HomeGridViewCateAdapter(this, otherCatelist, 3, this);
+//        gridview_other.setAdapter(otherGridViewCateAdapter);
 
     }
 
@@ -72,20 +64,20 @@ public class IndexAllServiesActivity extends BaseActivity implements View.OnClic
         if (!isSure) {
             lin_left.setOnClickListener(this);
         } else {
-            gridview_my.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                }
-            });
-            gridview_other.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                }
-            });
+//            gridview_my.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//
+//                }
+//            });
+//            gridview_other.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//
+//                }
+//            });
         }
         txt_right.setOnClickListener(this);
 
@@ -98,7 +90,7 @@ public class IndexAllServiesActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void initIntentData() {
-
+        myCatelist= (List<ModelHomeIndex>) getIntent().getSerializableExtra("myCatelist");
     }
 
     @Override
