@@ -7,6 +7,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@mipmap/ic_vote_bg"/>
+        android:src="@mipmap/bg_vote_vlog_title"
+        android:scaleType="centerCrop"
+        />
 
 </LinearLayout>

@@ -10,7 +10,9 @@
         android:id="@+id/iv_vote_vlog_top_bg"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@mipmap/ic_vote_bg"/>
+        android:src="@mipmap/bg_vote_vlog_title"
+        android:scaleType="centerCrop"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +31,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@color/orange_bg"
+                android:background="@mipmap/ic_vlog_rank"
                 android:layout_marginBottom="8dp"
                 />
 
@@ -60,7 +62,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@color/orange_bg"
+                android:background="@mipmap/ic_vlog_comment"
                 android:layout_marginBottom="8dp"
                 />
 
@@ -90,7 +92,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@color/orange_bg"
+                android:background="@mipmap/ic_vlog_detail"
                 android:layout_marginBottom="8dp"
                 />
 
@@ -277,7 +279,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_vote_index_bg"/>
+            android:background="@mipmap/bg_vote_index_center"/>
 
     </LinearLayout>
 </LinearLayout>

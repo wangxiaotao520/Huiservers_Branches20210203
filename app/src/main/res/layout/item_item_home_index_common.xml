@@ -86,7 +86,7 @@
                 android:id="@+id/iv_add_shop_cart"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@color/windowbackground"
+                android:background="@mipmap/ic_shop_cart_bg_red"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"

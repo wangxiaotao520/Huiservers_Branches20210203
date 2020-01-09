@@ -541,10 +541,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 fl_grid_container.setVisibility(View.VISIBLE);
                 if (homeGridViewCateAdapter == null) {
                     for (int i = 0; i < modelHome.getMenu_list().size(); i++) {
-                        //todo
-                        if (i > 7) {
-                            break;
-                        }
+
                         mcatelist.add(modelHome.getMenu_list().get(i));
                     }
                     homeGridViewCateAdapter = new HomeGridViewCateAdapter(mActivity, mcatelist, 1, this);
@@ -552,9 +549,6 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 } else {
                     mcatelist.clear();
                     for (int i = 0; i < modelHome.getMenu_list().size(); i++) {
-                        if (i > 7) {
-                            break;
-                        }
                         mcatelist.add(modelHome.getMenu_list().get(i));
                     }
                     homeGridViewCateAdapter.notifyDataSetChanged();
@@ -747,6 +741,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 mDatas.clear();
                 mDatas.addAll(modelHome.getPro_list());
                 listView.setHasMoreItems(false);
+                adapter.notifyDataSetChanged();
             }
         }
 

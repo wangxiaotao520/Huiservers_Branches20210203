@@ -93,7 +93,7 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
             final int pos = position;
             if (position==7){
                 holder.tv_name.setText( "查看更多");
-                holder.iv_nul.setImageResource(R.drawable.iv_icon_all);
+                holder.iv_nul.setImageResource(R.mipmap.ic_more_cate);
             }else {
                 //假设mPagerSize=8，假如点击的是第二页（即mIndex=1）上的第二个位置item(position=1),那么这个item的实际位置就是pos=9
                 holder.tv_name.setText(lists.get(pos).getMenu_name() + "");

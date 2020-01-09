@@ -36,8 +36,8 @@
                         android:layout_height="55dp"
                         android:gravity="center_vertical"
                         android:text="您已使用的优惠券"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/t_18sp" />
+                        android:textColor="@color/title_color"
+                        android:textSize="@dimen/t_16sp" />
 
                 </LinearLayout>
 

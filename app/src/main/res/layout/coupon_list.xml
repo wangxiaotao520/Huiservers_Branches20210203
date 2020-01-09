@@ -30,8 +30,8 @@
                 android:padding="15dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:background="@drawable/ic_arrow_left_black" />
             </LinearLayout>
 
@@ -58,8 +58,8 @@
                 android:layout_marginRight="@dimen/margin"
                 android:padding="@dimen/margin_5"
                 android:text="记录"
-                android:textColor="@color/black"
-                android:textSize="@dimen/t_16sp" />
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/t_15sp" />
 
         </RelativeLayout>
 

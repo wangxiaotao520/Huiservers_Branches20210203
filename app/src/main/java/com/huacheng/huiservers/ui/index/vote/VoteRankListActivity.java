@@ -44,12 +44,15 @@ public class VoteRankListActivity extends BaseListActivity<ModelVlogRankList>{
                 if (position==0){
                     viewHolder.<ImageView>getView(R.id.iv_123).setVisibility(View.VISIBLE);
                     viewHolder.<TextView>getView(R.id.tv_rank).setVisibility(View.GONE);
+                    viewHolder.<ImageView>getView(R.id.iv_123).setBackgroundResource(R.mipmap.ic_vote_rank1);
                 }else if (position==1){
                     viewHolder.<ImageView>getView(R.id.iv_123).setVisibility(View.VISIBLE);
                     viewHolder.<TextView>getView(R.id.tv_rank).setVisibility(View.GONE);
+                    viewHolder.<ImageView>getView(R.id.iv_123).setBackgroundResource(R.mipmap.ic_vote_rank2);
                 }else if (position==2){
                     viewHolder.<ImageView>getView(R.id.iv_123).setVisibility(View.VISIBLE);
                     viewHolder.<TextView>getView(R.id.tv_rank).setVisibility(View.GONE);
+                    viewHolder.<ImageView>getView(R.id.iv_123).setBackgroundResource(R.mipmap.ic_vote_rank3);
                 }else {
                     viewHolder.<ImageView>getView(R.id.iv_123).setVisibility(View.GONE);
                     viewHolder.<TextView>getView(R.id.tv_rank).setVisibility(View.VISIBLE);
