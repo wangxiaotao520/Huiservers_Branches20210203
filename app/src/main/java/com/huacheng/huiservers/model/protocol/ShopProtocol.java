@@ -356,6 +356,8 @@ public class ShopProtocol {
                 info.setAdvertorial(obj.getString("advertorial"));
                 info.setShop_cate_etime(obj.getString("shop_cate_etime"));
                 info.setShop_cate_stime(obj.getString("shop_cate_stime"));
+                info.setOrder_num(obj.getString("order_num"));
+                info.setScore_count(obj.getString("score_count"));
 
                 info.setDiscount(obj.getString("discount"));
                 info.setDistance_start(obj.getString("distance_start"));
@@ -387,7 +389,21 @@ public class ShopProtocol {
                         tjinfos.setScore(tjObj.getString("score"));
                         tjinfos.setAddtime(tjObj.getString("addtime"));
                         tjinfos.setAvatars(tjObj.getString("avatars"));
+                        tjinfos.setP_tag_name(tjObj.getString("p_tag_name"));
+
+                        String score_img = tjObj.getString("score_img");
+                        JSONArray scorearray = new JSONArray(score_img);
+                        List<BannerBean> score_imglist = new ArrayList<>();
+                        for (int i = 0; i < score_imglist.size(); i++) {
+                            JSONObject scoreObj = scorearray.getJSONObject(j);
+                            BannerBean sscore_imginfo = new BannerBean();
+                            sscore_imginfo.setId(scoreObj.getString("id"));
+                            sscore_imginfo.setImg(scoreObj.getString("img"));
+                            score_imglist.add(sscore_imginfo);
+                        }
+                        tjinfos.setScore_img(score_imglist);
                         tjList.add(tjinfos);
+
                     }
                     info.setScore(tjList);
                 }
@@ -656,7 +672,20 @@ public class ShopProtocol {
                     getfinfo.setDescription(obj.getString("description"));
                     getfinfo.setAddtime(obj.getString("addtime"));
                     getfinfo.setAvatars(obj.getString("avatars"));
+                    getfinfo.setP_tag_name(obj.getString("p_tag_name"));
                     getfinfo.setTotal_Pages(obj.getString("total_Pages"));
+
+                    String score_img = obj.getString("score_img");
+                    JSONArray scorearray = new JSONArray(score_img);
+                    List<BannerBean> score_imglist = new ArrayList<>();
+                    for (int j = 0; j < score_imglist.size(); j++) {
+                        JSONObject scoreObj = scorearray.getJSONObject(j);
+                        BannerBean sscore_imginfo = new BannerBean();
+                        sscore_imginfo.setId(scoreObj.getString("id"));
+                        sscore_imginfo.setImg(scoreObj.getString("img"));
+                        score_imglist.add(sscore_imginfo);
+                    }
+                    getfinfo.setScore_img(score_imglist);
                     info.add(getfinfo);
                 }
             }

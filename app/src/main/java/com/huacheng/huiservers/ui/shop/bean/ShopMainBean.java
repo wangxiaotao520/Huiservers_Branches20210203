@@ -20,7 +20,25 @@ public class ShopMainBean {
 	private String text_color;
 	private String total_Pages;
 	private String addtime;
+	private String p_tag_name;
 	private String avatars;
+	private List<BannerBean> score_img;//评价图片
+
+	public String getP_tag_name() {
+		return p_tag_name;
+	}
+
+	public void setP_tag_name(String p_tag_name) {
+		this.p_tag_name = p_tag_name;
+	}
+
+	public List<BannerBean> getScore_img() {
+		return score_img;
+	}
+
+	public void setScore_img(List<BannerBean> score_img) {
+		this.score_img = score_img;
+	}
 
 	public String getAddtime() {
 		return addtime;

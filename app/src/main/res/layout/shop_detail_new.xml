@@ -53,39 +53,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/margin_45"
                         android:layout_alignParentBottom="true"
-                        android:background="@color/colorPrimary"
-                        android:visibility="gone">
+                        android:background="@mipmap/bg_shop_seckill"
+                        android:visibility="gone"
+                        >
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="108dp"
                             android:orientation="vertical">
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/margin_3"
-                                android:background="@drawable/bg_timelimit">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="15dp"
-                                    android:layout_marginLeft="@dimen/margin_3"
-                                    android:gravity="center"
-                                    android:text="限时抢购"
-                                    android:textColor="@color/white"
-                                    android:textSize="11sp"/>
-
-                            </LinearLayout>
-
                             <TextView
+                                android:id="@+id/tv_seckill_num"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginTop="3dp"
-                                android:text="火热进行中，快来抢购，先到先得"
+                                android:text="总计0份"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/t_14sp"
+                                android:textSize="@dimen/t_11sp"
                                 android:textStyle="italic"/>
 
                         </LinearLayout>
@@ -95,32 +82,25 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:background="@drawable/bg_timelimit_interval"
+                            android:layout_marginRight="@dimen/margin_20"
                             android:orientation="vertical"
-                            android:visibility="gone">
+                            >
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="@dimen/margin_5"
                                 android:layout_marginTop="@dimen/margin_3"
-                                android:gravity="right"
+                                android:gravity="center"
                                 android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="12dp"
-                                    android:layout_height="12dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginRight="@dimen/margin_5"
-                                    android:src="@drawable/ic_time_countdown"/>
 
                                 <TextView
                                     android:id="@+id/tv_time_tag"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text=""
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/t_12sp"/>
+                                    android:textColor="@color/grey"
+                                    android:textSize="@dimen/t_11sp"/>
                             </LinearLayout>
 
 
@@ -146,12 +126,12 @@
                                     android:id="@+id/tv_downcount_day"
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/margin_15"
-                                    android:background="@drawable/shape3_bgwhite"
+                                    android:background="@drawable/shape_red_2"
                                     android:gravity="center"
                                     android:paddingLeft="@dimen/margin_2"
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
-                                    android:textColor="@color/rednew"
+                                    android:textColor="@color/white"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -160,19 +140,19 @@
                                     android:layout_marginLeft="@dimen/margin_3"
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text="天"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
                                     android:id="@+id/tv_downcount_hour"
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/margin_15"
-                                    android:background="@drawable/shape3_bgwhite"
+                                    android:background="@drawable/shape_red_2"
                                     android:gravity="center"
                                     android:paddingLeft="@dimen/margin_2"
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
-                                    android:textColor="@color/rednew"
+                                    android:textColor="@color/white"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -181,19 +161,19 @@
                                     android:layout_marginLeft="@dimen/margin_3"
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text=":"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
                                     android:id="@+id/tv_downcount_minute"
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/margin_15"
-                                    android:background="@drawable/shape3_bgwhite"
+                                    android:background="@drawable/shape_red_2"
                                     android:gravity="center"
                                     android:paddingLeft="@dimen/margin_2"
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
-                                    android:textColor="@color/rednew"
+                                    android:textColor="@color/white"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -202,19 +182,19 @@
                                     android:layout_marginLeft="@dimen/margin_3"
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text=":"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
                                     android:id="@+id/tv_downcount_second"
                                     android:layout_width="wrap_content"
                                     android:layout_height="@dimen/margin_15"
-                                    android:background="@drawable/shape3_bgwhite"
+                                    android:background="@drawable/shape_red_2"
                                     android:gravity="center"
                                     android:paddingLeft="@dimen/margin_2"
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
-                                    android:textColor="@color/rednew"
+                                    android:textColor="@color/white"
                                     android:textSize="@dimen/t_10sp"/>
 
                             </LinearLayout>
@@ -291,11 +271,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin"
+                            android:text="当前时间不在派送时间范围内"
                             android:textColor="#FFFA5F5B"
                             android:textSize="@dimen/t_14sp"
                             android:textStyle="bold"
-                            android:visibility="gone"
-                            android:text="当前时间不在派送时间范围内"/>
+                            android:visibility="gone"/>
 
                     </LinearLayout>
 
@@ -304,9 +284,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:paddingBottom="@dimen/margin_15"
                         android:paddingLeft="@dimen/margin_15"
                         android:paddingRight="@dimen/margin_15"
-                        android:paddingBottom="@dimen/margin_15"
                         >
 
                     </LinearLayout>
@@ -395,7 +375,7 @@
                                 android:layout_weight="1"
                                 android:textColor="@color/grey96"
                                 android:textSize="@dimen/t_14sp"
-                                tools:text="商品评价(999+)"/>
+                                tools:text="商品评价(0+)"/>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -412,14 +392,37 @@
                                     android:textSize="@dimen/t_13sp"/>
 
                                 <ImageView
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/margin_5"
-                                    android:background="@color/orange_bg"/>
+                                    android:background="@mipmap/ic_arrow_right_orange"/>
                             </LinearLayout>
                         </LinearLayout>
 
                         <include layout="@layout/shop_detail_list_item"/>
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="10dp"
+                            android:background="@color/all_gray"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ly_pingjia_null"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="@dimen/margin_15"
+                            android:gravity="center_vertical"
+                            android:text="暂无商品评价"
+                            android:textColor="@color/gray_66"
+                            android:textSize="@dimen/t_14sp"
+                            />
 
                         <View
                             android:layout_width="fill_parent"
@@ -580,7 +583,7 @@
                 android:id="@+id/status_bar"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-             />
+                />
 
             <RelativeLayout
                 android:id="@+id/title_rel"
@@ -596,15 +599,14 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/allshape_gray_round"
                     android:gravity="center"
                     >
 
                     <ImageView
                         android:id="@+id/left"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@mipmap/ic_arrow_left_white"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@mipmap/ic_shop_left_white"
                         />
                 </LinearLayout>
 
@@ -625,23 +627,22 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
-
+                <!--  android:background="@drawable/allshape_gray_round"-->
                 <LinearLayout
                     android:id="@+id/ly_share"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/allshape_gray_round"
                     android:gravity="center"
                     >
 
                     <ImageView
                         android:id="@+id/iv_share"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/ic_share_white"/>
+                        android:background="@mipmap/ic_shop_share_white"/>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -649,8 +650,8 @@
                 android:id="@+id/view_title_line"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:visibility="gone"
-                android:background="@color/windowbackground"/>
+                android:background="@color/windowbackground"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </RelativeLayout>
@@ -731,9 +732,9 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/icon_center_gouwu"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_shop_cart_black"/>
                         </RelativeLayout>
 
                         <TextView
@@ -819,20 +820,18 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/icon_hint"/>
-
                 <TextView
                     android:id="@+id/tv_XS_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:background="@drawable/allshape_red_no_onclick35"
                     android:gravity="center"
                     android:padding="@dimen/margin"
                     android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/t_18sp"/>
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t_16sp"/>
 
             </LinearLayout>
         </LinearLayout>

@@ -5,6 +5,7 @@
           android:layout_marginLeft="10dp"
           android:background="@drawable/tag_bg"
           android:gravity="center"
+          android:id="@+id/tv_tag"
           android:layout_marginTop="@dimen/margin"
           android:text="Helloworld"
           android:textColor="@drawable/text_color"

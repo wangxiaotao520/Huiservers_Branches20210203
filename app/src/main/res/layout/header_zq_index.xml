@@ -24,10 +24,10 @@
         android:visibility="invisible">
 
         <ImageView
-            android:layout_width="59dp"
-            android:layout_height="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_15"
-            android:background="@color/orange_bg"/>
+            android:background="@mipmap/ic_shop_zq_txt"/>
 
         <TextView
             android:layout_width="wrap_content"

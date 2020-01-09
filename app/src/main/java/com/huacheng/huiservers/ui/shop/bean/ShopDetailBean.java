@@ -43,11 +43,20 @@ public class ShopDetailBean implements Serializable{
     private ShopDetailBean merchant;//店铺信息
     private String merchant_name;
     private String logo;
+    private String score_count;
     private String background;
     private String is_hot, is_new, order_num;
     private String discount, distance_start, distance_end;
     private long current_times;//倒计时用来的时间
     private long current_times1;//倒计时用的时间，开启第二个倒计时的time
+
+    public String getScore_count() {
+        return score_count;
+    }
+
+    public void setScore_count(String score_count) {
+        this.score_count = score_count;
+    }
 
     public String getBackground() {
         return background;

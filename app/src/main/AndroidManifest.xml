@@ -1133,6 +1133,22 @@
             android:name="com.huacheng.huiservers.ui.shop.ShopDetailActivityNew"
             android:screenOrientation="portrait"
             />
+        <!--  商城订单详情页-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.shop.ShopOrderDetailActivityNew"
+            android:screenOrientation="portrait"
+            />
+        <!--  商城订单详情待评价 申请退款的全部商品页-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.shop.ShopOrderNoPingjiaActivity"
+            android:screenOrientation="portrait"
+            />
+        <!--  提交评价 申请退款页-->
+        <activity
+            android:name="com.huacheng.huiservers.ui.shop.ShopOrderPingJiaAddTuikuanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            />
         <!--******************************银联支付********************************-->
         <meta-data
             android:name="CurrentEnvironment"

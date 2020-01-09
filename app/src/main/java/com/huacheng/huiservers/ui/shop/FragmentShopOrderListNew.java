@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.shop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -94,6 +95,8 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //商品详情
+                Intent intent =new Intent(mActivity,ShopOrderDetailActivityNew.class);
+                startActivity(intent);
 
             }
         });

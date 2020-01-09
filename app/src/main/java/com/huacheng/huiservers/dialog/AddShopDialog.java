@@ -16,10 +16,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
@@ -38,8 +38,8 @@ import com.huacheng.huiservers.view.widget.FlowTag.FlowTagLayout;
 import com.huacheng.huiservers.view.widget.FlowTag.OnTagSelectListener;
 import com.huacheng.huiservers.view.widget.FlowTag.TagAdapter;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.lidroid.xutils.BitmapUtils;
 
 import org.json.JSONObject;
 
@@ -52,13 +52,12 @@ import java.util.List;
 public class AddShopDialog extends Dialog implements OnClickListener {
     private FlowTagLayout mSizeFlowTagLayout;
     private TagAdapter<String> mSizeTagAdapter;
-    private LinearLayout back;
+    private ImageView back;
     private Context context;
     private String id, morenPrice, tagname, tagid, unit, invenyory, strtag;
-    private ImageView img_fu_jian, img_zheng_jia, img_title;
+    private ImageView img_fu_jian, img_zheng_jia;
     private TextView txt_btn, txt_price, txt_yuan_price;
     ShopProtocol protocol = new ShopProtocol();
-    BitmapUtils bitmapUtils;
     private Boolean isbool = true;
     EditText edit_num;
     TextView txt_inv, txt_title;
@@ -67,6 +66,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
     SharePrefrenceUtil prefrenceUtil;
     ShopDetailBean cartnum = new ShopDetailBean();
     PriorityListener listener;
+    private SimpleDraweeView img_title;
 
     public interface OnCustomDialogListener {
         public void back(String name);
@@ -97,7 +97,6 @@ public class AddShopDialog extends Dialog implements OnClickListener {
         this.context = context;
         this.id = id;
         //this.CxgBean = CxgBean;
-        bitmapUtils = new BitmapUtils(context);
         this.txt_shop_num = txt_shop_num;
         this.beans = beans;
         this.detailBean = detailBean;
@@ -113,10 +112,10 @@ public class AddShopDialog extends Dialog implements OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.add_shop);
         prefrenceUtil = new SharePrefrenceUtil(context);
-        back = (LinearLayout) findViewById(R.id.back);//取消
+        back = findViewById(R.id.back);//取消
         txt_title = (TextView) findViewById(R.id.txt_title);//名称
         txt_inv = (TextView) findViewById(R.id.txt_inv);//库存
-        img_title = (ImageView) findViewById(R.id.img_title);//头图
+        img_title =  findViewById(R.id.img_title);//头图
         img_fu_jian = (ImageView) findViewById(R.id.img_fu_jian);//减号
         img_zheng_jia = (ImageView) findViewById(R.id.img_zheng_jia);//加号
         edit_num = (EditText) findViewById(R.id.edit_num);//选择数量
@@ -158,7 +157,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                         unit = beans.get(i).getUnit();
                         invenyory = beans.get(i).getInventory();
                         txt_title.setText("已选：" + beans.get(i).getTagname());
-                        txt_inv.setText("库存" + invenyory + beans.get(i).getUnit());
+                        txt_inv.setText("库存：" + invenyory + beans.get(i).getUnit());
                         if (invenyory.equals("0")) {
                             edit_num.setText("0");
                         }else {
@@ -186,7 +185,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
         if (detailBean.getTitle_img() == null) {
 
         } else {
-            bitmapUtils.display(img_title, MyCookieStore.URL + detailBean.getTitle_img());
+            FrescoUtils.getInstance().setImageUri(img_title,MyCookieStore.URL + detailBean.getTitle_img());
         }
         setCanceledOnTouchOutside(true);//
         getWindow().setGravity(Gravity.BOTTOM); //此处可以设置dialog显示的位置
@@ -198,6 +197,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
         lp.width = (int) (display.getWidth()); //设置宽度
         getWindow().setAttributes(lp);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        setCanceledOnTouchOutside(false);
         edit_num.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

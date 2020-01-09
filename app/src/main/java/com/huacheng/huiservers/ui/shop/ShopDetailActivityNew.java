@@ -40,6 +40,7 @@ import com.huacheng.huiservers.jpush.MyReceiver;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.center.geren.adapter.CircleItemImageAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopMainBean;
@@ -142,6 +143,8 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
     private TextView tv_pingjia_content;
     private TextView tv_pingjia_guige;
     private MyGridview gridView;
+    private LinearLayout ly_pingjia_null;
+    private TextView tv_seckill_num;
 
 
     @Override
@@ -201,7 +204,6 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
         left = findViewById(R.id.left);
         lin_left.setOnClickListener(this);
         title_name = findViewById(R.id.title_name);
-        title_name.setTextColor(getResources().getColor(R.color.orange_backg));
         sv_bodyContainer = findViewById(R.id.anchor_bodyContainer);
         //ll_shop_tuijian = (LinearLayout) findViewById(R.id.ll_shop_tuijian);
         view_title_line = findViewById(R.id.view_title_line);
@@ -229,19 +231,14 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
         ly_onclck_pingjia = findViewById(R.id.ly_onclck_pingjia);
         ly_pingjia = findViewById(R.id.ly_pingjia);// 评价
         tv_pingjia_num = findViewById(R.id.tv_pingjia_num);
-       /* sdv_head = findViewById(R.id.sdv_head);
-        tv_user_name = findViewById(R.id.tv_user_name);
+        sdv_user_head = findViewById(R.id.sdv_user_head);
+        tv_pingjia_name = findViewById(R.id.tv_pingjia_name);
         ratingBar = findViewById(R.id.ratingBar);
-        tv_time = findViewById(R.id.tv_time);
-        tv_content = findViewById(R.id.tv_content);
-        tv_reply = findViewById(R.id.tv_reply);*/
-       sdv_user_head= findViewById(R.id.sdv_user_head);
-        tv_pingjia_name= findViewById(R.id.tv_pingjia_name);
-       ratingBar=findViewById(R.id.ratingBar);
-        tv_pingjia_time=findViewById(R.id.tv_pingjia_time);
-        tv_pingjia_content=findViewById(R.id.tv_pingjia_content);
-        tv_pingjia_guige=findViewById(R.id.tv_pingjia_guige);
-       gridView=findViewById(R.id.gridView);
+        tv_pingjia_time = findViewById(R.id.tv_pingjia_time);
+        tv_pingjia_content = findViewById(R.id.tv_pingjia_content);
+        tv_pingjia_guige = findViewById(R.id.tv_pingjia_guige);
+        gridView = findViewById(R.id.gridView);
+        ly_pingjia_null = findViewById(R.id.ly_pingjia_null);
 
         txt_name = findViewById(R.id.txt_name);
         txt_content = findViewById(R.id.txt_content);
@@ -264,6 +261,7 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
         rel_shop_limit_bg = findViewById(R.id.rel_shop_limit_bg);
         tv_time_type = findViewById(R.id.tv_time_type); // 商品描述图片列表id
         lin_downcount = findViewById(R.id.lin_downcount);
+        tv_seckill_num = findViewById(R.id.tv_seckill_num);
 
         tv_downcount_day = findViewById(R.id.tv_downcount_day);
         tv_downcount_hour = findViewById(R.id.tv_downcount_hour);
@@ -315,7 +313,9 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
                 txt_content.setText(detailBean.getDescription());
                 txt_price.setText("¥" + detailBean.getPrice());
                 txt_yuan_price.setText("¥" + detailBean.getOriginal());
-                txt_num.setText("剩余：" + detailBean.getInventory() + " " + detailBean.getUnit());
+                tv_seckill_num.setText("总计：" + detailBean.getInventory() + " " + detailBean.getUnit());
+                //txt_num.setText("已剩：" + detailBean.getInventory() + " " + detailBean.getUnit());
+                txt_num.setText("已售：" + detailBean.getOrder_num() + " " + detailBean.getUnit());
                 //tag_name.setText(detailBean.getTagname());//默认选择已选择的商品规格
                 if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
                     txt_paisong.setVisibility(View.VISIBLE);
@@ -397,21 +397,21 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
                 mStatusBar.setAlpha(alpha);
                 if (alpha == 0) {
                     lin_left.setBackgroundResource(R.drawable.allshape_gray_round);
-                    left.setBackgroundResource(R.mipmap.ic_arrow_left_white);
+                    left.setBackgroundResource(R.mipmap.ic_shop_left_white);
                     view_title_line.setVisibility(View.GONE);
                     ly_share.setBackgroundResource(R.drawable.allshape_gray_round);
-                    iv_share.setBackgroundResource(R.mipmap.ic_share_white);
+                    iv_share.setBackgroundResource(R.mipmap.ic_shop_share_white);
                     lin_title.setBackground(null);
                     title_name.setText("");
 
                 } else {
                     lin_left.setBackground(null);
                     ly_share.setBackground(null);
-                    left.setBackgroundResource(R.mipmap.ic_arrow_left_black);
+                    left.setBackgroundResource(R.mipmap.ic_shop_left_black);
                     view_title_line.setVisibility(View.VISIBLE);
                     lin_title.setBackgroundResource(R.color.white);
-                    iv_share.setBackgroundResource(R.mipmap.ic_share_black);
-                    title_name.setText(detailBean.getTitle());
+                    iv_share.setBackgroundResource(R.mipmap.ic_shop_share_black);
+                    title_name.setText("商品详情");
 
                 }
             }
@@ -442,13 +442,13 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
         if (!NullUtil.isStringEmpty(distanceStart) && !NullUtil.isStringEmpty(distanceEnd)) {
             long distance_long = Long.parseLong(distanceStart);
             if (distance_long > 0) {
-                distance_str = "距开始";
+                distance_str = "距离活动开始";
                 distance_tag = 1;
                 distance_int = Long.parseLong(distanceStart);
                 lin_XS_bottom.setVisibility(View.VISIBLE);//底部限时抢购
                 lin_bottom.setVisibility(View.GONE);//购物车
             } else {
-                distance_str = "距结束";
+                distance_str = "距离活动结束";
                 distance_tag = 0;
                 distance_int = Long.parseLong(distanceEnd);
                 lin_XS_bottom.setVisibility(View.GONE);//底部限时抢购
@@ -499,7 +499,8 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
                     String[] times = SetTime(millisUntilFinished);
                     mDay = Integer.parseInt(times[0]);
 
-                    tv_XS_type.setText("距开始 " + (times[0]) + "天" + (times[1]) + "时" + (times[2]) + "分" + (times[3]) + "秒");
+                    //tv_XS_type.setText("距开始 " + (times[0]) + "天" + (times[1]) + "时" + (times[2]) + "分" + (times[3]) + "秒");
+                    tv_XS_type.setText("活动暂未开始");
                     lin_downcount.setVisibility(View.VISIBLE);
 
                     tv_downcount_day.setText(fillZero(times[0]));
@@ -516,7 +517,7 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
                         lin_bottom.setVisibility(View.VISIBLE);//购物车
                         lin_XS_bottom.setVisibility(View.GONE);//底部限时抢购
                         txt_time_type = "距结束";
-                        tv_time_tag.setText("距结束还剩");
+                        tv_time_tag.setText("距离活动结束还剩");
 
                         handlerEndTime(longDistanceEnd);
 
@@ -624,19 +625,20 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
     private void getpingjia() {
         if (detailBean.getScore() != null && detailBean.getScore().size() > 0) {
             ly_pingjia.setVisibility(View.VISIBLE);
-            tv_pingjia_num.setText("商品评价(" + detailBean.getScore().size() + ")");
+            ly_pingjia_null.setVisibility(View.GONE);
+            tv_pingjia_num.setText("商品评价(" + detailBean.getScore_count() + ")");
             FrescoUtils.getInstance().setImageUri(sdv_user_head, StringUtils.getImgUrl(detailBean.getScore().get(0).getAvatars()));
             ratingBar.setCountSelected(Integer.valueOf(detailBean.getScore().get(0).getScore()));
             tv_pingjia_name.setText(detailBean.getScore().get(0).getUsername());
             tv_pingjia_content.setText(detailBean.getScore().get(0).getDescription());
             tv_pingjia_time.setText(StringUtils.getDateToString(detailBean.getScore().get(0).getAddtime(), "2"));
-            // TODO: 2020/1/7 商品图片 规格
-            tv_pingjia_guige.setText("");
-            /*ShopDetailListAdapter listAdapter = new ShopDetailListAdapter(ShopDetailActivityNew.this, detailBean.getScore());
-            list_pingjia.setAdapter(listAdapter);*/
+            tv_pingjia_guige.setText(detailBean.getScore().get(0).getP_tag_name());
+            CircleItemImageAdapter mGridViewAdapter = new CircleItemImageAdapter(this, detailBean.getScore().get(0).getScore_img());
+            gridView.setAdapter(mGridViewAdapter);
             // istag = 1;
         } else {
             ly_pingjia.setVisibility(View.GONE);
+            ly_pingjia_null.setVisibility(View.VISIBLE);
             // istag = 2;
         }
     }

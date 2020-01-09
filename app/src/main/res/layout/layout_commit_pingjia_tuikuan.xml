@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xlhRatingBar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/titlebar_center"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ly_pingjia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_15">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sdv_pingjia"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    fresco:placeholderImage="@color/default_color"
+                    fresco:placeholderImageScaleType="centerCrop"
+                    fresco:roundedCornerRadius="5dp"/>
+
+                <com.example.xlhratingbar_lib.XLHRatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    xlhRatingBar:canEdit="true"
+                    xlhRatingBar:countSelected="5"
+                    xlhRatingBar:differentSize="false"
+                    xlhRatingBar:dividerWidth="5dp"
+                    xlhRatingBar:starCount="5"
+                    xlhRatingBar:stateResId="@drawable/select_rating_bar_big"
+                    xlhRatingBar:widthAndHeight="22dp"/>
+
+                <TextView
+                    android:id="@+id/tv_pingjia_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:text="非常满意"
+                    android:textColor="@color/gray_99"
+                    android:textSize="@dimen/t_14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ly_tuikuan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <include layout="@layout/item_shop_order_detail"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_margin="15dp"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="说点什么..."
+                android:textColor="@color/text_color"
+                android:textColorHint="@color/gray4"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="@dimen/t_15sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingBottom="15dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:choiceMode="singleChoice"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbarStyle="outsideOverlay"
+                    tools:listitem="@layout/list_item_image"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

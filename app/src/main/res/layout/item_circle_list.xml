@@ -142,10 +142,10 @@
             </LinearLayout>
 
             <ImageView
-                android:visibility="gone"
+
                 android:id="@+id/iv_del"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:background="@mipmap/ic_delete_circle"
                 />
 

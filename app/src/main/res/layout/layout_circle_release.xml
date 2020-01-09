@@ -69,14 +69,20 @@
                 android:textColor="@color/gray_66"
                 android:textSize="@dimen/t_14sp"/>
 
-            <com.zhy.view.flowlayout.TagFlowLayout
+          <!--  <com.zhy.view.flowlayout.TagFlowLayout
                 android:id="@+id/id_flowlayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
                 android:layout_marginLeft="@dimen/margin_5"
                 zhy:max_select="1">
-            </com.zhy.view.flowlayout.TagFlowLayout>
+            </com.zhy.view.flowlayout.TagFlowLayout>-->
+            <com.huacheng.huiservers.view.widget.FlowTag.FlowTagLayout
+                android:id="@+id/id_flowlayout"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
 
 
         </LinearLayout>
