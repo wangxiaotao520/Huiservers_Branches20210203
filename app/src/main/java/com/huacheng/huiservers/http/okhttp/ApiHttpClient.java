@@ -359,6 +359,8 @@ public class ApiHttpClient {
     public static String FAMILY_POLL = API_URL + API_VERSION + "family/family_poll";
     //活动首页分享
     public static String FAMILY_INDEX_SHARE = API_URL_SHARE + "home/index/beautiful_family";
+    //VLOG投票活动分享
+    public static String VLOG_HOME_INDEX_SHARE = API_URL_SHARE + "home/index/vlog_list";
     /**
      * Vlog活动投票
      */
@@ -556,5 +558,6 @@ public class ApiHttpClient {
         IMG_BOTTOM = API_URL + API_VERSION + "index/index_Bottom";
         SHOP_MARKIING_ARTICE_LIST = API_URL + API_VERSION + "/shop/area_marketing_activities_List";
         PENSION_BELTER_DETAILS = API_URL + API_VERSION + "/pension/belter_details";
+        VLOG_HOME_INDEX_SHARE = API_URL_SHARE + "home/index/vlog_list ";
     }
 }

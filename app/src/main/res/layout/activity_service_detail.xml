@@ -239,10 +239,10 @@
                             android:textSize="@dimen/t_13sp"/>
 
                         <ImageView
-                            android:layout_width="15dp"
+                            android:layout_width="8dp"
                             android:layout_height="15dp"
                             android:layout_marginLeft="@dimen/margin_5"
-                            android:background="@color/orange_bg"/>
+                            android:background="@mipmap/ic_arrow_right_orange"/>
                     </LinearLayout>
                 </LinearLayout>
 

@@ -96,7 +96,9 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
                 viewHolder.tv1_onClick1.setOnClickListener(new OnDoubleClickListener() {
                     @Override
                     public void onNoDoubleClick(View v) {
-
+                        if (listener!=null){
+                            listener.onClickLapiao(v,position*2);
+                        }
                     }
                 });
             }else {
@@ -134,7 +136,8 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
                 viewHolder.tv2_onClick2.setOnClickListener(new OnDoubleClickListener() {
                     @Override
                     public void onNoDoubleClick(View v) {
-
+                        if (listener!=null)
+                            listener.onClickLapiao(v,position*2+1);
                     }
                 });
             }else {

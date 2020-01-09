@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteDetailActivity;
+import com.huacheng.huiservers.ui.index.vote.VoteVlogIndexActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
@@ -104,6 +105,9 @@ public class MiddleActivity extends AppCompatActivity {
                     Intent intent = new Intent(this, CircleDetailsActivity.class);
                     intent.putExtra("id", id + "");
                     intent.putExtra("mPro", sub_type + "");
+                    startActivity(intent);
+                }else if (type.equals("vlog_vote_details")){
+                    Intent intent = new Intent(this, VoteVlogIndexActivity.class);
                     startActivity(intent);
                 }
             }

@@ -195,8 +195,9 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
 
     //活动链接分享
     private void share() {
-        share_url = ApiHttpClient.FAMILY_INDEX_SHARE;
+        share_url = ApiHttpClient.VLOG_HOME_INDEX_SHARE;
         HashMap<String, String> params = new HashMap<>();
+        params.put("type", "vlog_vote_details");
         showDialog(smallDialog);
         LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, "", params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
             @Override
@@ -206,15 +207,38 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
                 if (error == null) {
 
                     String share_url_new = share_url + "?linkedme=" + url;
-                    showSharePop("华晟杯“最美家庭”投票啦", "谁是最美家庭，由您来决定，快来投票吧！", bitmap, share_url_new);
+                    showSharePop("鼠你有财免单红包", "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", bitmap, share_url_new);
                 } else {
                     //可以看报错
                     String share_url_new = share_url + "?linkedme=" + "";
-                    showSharePop("华晟杯“最美家庭”投票啦", "谁是最美家庭，由您来决定，快来投票吧！", bitmap, share_url_new);
+                    showSharePop("鼠你有财免单红包", "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", bitmap, share_url_new);
                 }
             }
         });
     }
+    //活动拉票
+    private void shareLaPiao(final ModelIndexVoteItem item) {
+        share_url = ApiHttpClient.VLOG_HOME_INDEX_SHARE;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("type", "vlog_vote_details");
+        showDialog(smallDialog);
+        LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, "", params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
+            @Override
+            public void onGetUrl(String url, LMErrorCode error) {
+                hideDialog(smallDialog);
+
+                if (error == null) {
+                    String share_url_new = share_url + "?linkedme=" + url;
+                    showSharePop(item.getNumber()+" "+item.getTitle(), "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", ApiHttpClient.IMG_URL+item.getImg(), share_url_new);
+                } else {
+                    //可以看报错
+                    String share_url_new = share_url + "?linkedme=" + "";
+                    showSharePop(item.getNumber()+" "+item.getTitle(), "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", ApiHttpClient.IMG_URL+item.getImg(), share_url_new);
+                }
+            }
+        });
+    }
+
 
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
@@ -332,7 +356,8 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
 
     @Override
     public void onClickLapiao(View v, int position) {
-        //TODO 拉票
+        // 拉票
+        shareLaPiao(mDatas.get(position));
     }
 
     /**
@@ -402,7 +427,17 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
 
                 @Override
                 public void lapaiao(Dialog dialog) {
-                    //TODO 为他拉票
+                    ModelIndexVoteItem item=null;
+                    for (int i = 0; i < mDatas.size(); i++) {
+                        if (id.equals(mDatas.get(i).getId())) {
+                            item=mDatas.get(i);
+                        }
+                    }
+                    // 为他拉票
+                    if (item!=null){
+                        shareLaPiao(item);
+                    }
+                    dialog.dismiss();
                 }
             },2);
             voteDialog.show();
@@ -421,6 +456,18 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
      * @param share_url_new
      */
     private void showSharePop(String share_title, String share_desc, Bitmap bitmap, String share_url_new) {
+        PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, bitmap, share_url_new, AppConstant.SHARE_COMMON);
+        popup.showBottom(iv_right);
+    }
+    /**
+     * 显示分享弹窗2
+     *
+     * @param share_title
+     * @param share_desc
+     * @param bitmap
+     * @param share_url_new
+     */
+    private void showSharePop(String share_title, String share_desc, String bitmap, String share_url_new) {
         PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, bitmap, share_url_new, AppConstant.SHARE_COMMON);
         popup.showBottom(iv_right);
     }
