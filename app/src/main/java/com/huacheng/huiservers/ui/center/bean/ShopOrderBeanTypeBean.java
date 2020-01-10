@@ -4,7 +4,13 @@ import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 
 import java.util.List;
 
+/**
+ * 商品 订单列表 订单详情
+ */
 public class ShopOrderBeanTypeBean {
+
+	private List<ShopOrderBeanTypeBean> list;
+	private int totalPages;
 
 	private String id;
 	private String uid;
@@ -16,6 +22,7 @@ public class ShopOrderBeanTypeBean {
 	private String amount;
 	private List<BannerBean> img;//详情商品轮播图片路径
 	private List<BannerBean> order_info;
+	private String p_m_name;
 
 	public List<BannerBean> getImg() {
 		return img;
@@ -93,6 +100,29 @@ public class ShopOrderBeanTypeBean {
 	}
 	public void setTotal_Pages(String total_Pages) {
 		this.total_Pages = total_Pages;
+	}
+	public List<ShopOrderBeanTypeBean> getList() {
+		return list;
+	}
+
+	public void setList(List<ShopOrderBeanTypeBean> list) {
+		this.list = list;
+	}
+
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+
+	public String getP_m_name() {
+		return p_m_name;
+	}
+
+	public void setP_m_name(String p_m_name) {
+		this.p_m_name = p_m_name;
 	}
 
 }

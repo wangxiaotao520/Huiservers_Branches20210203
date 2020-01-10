@@ -46,7 +46,7 @@ public class ShopOrderListActivityNew  extends BaseActivity {
     }
 
     private void contentInflate() {
-        mTitle = new String[]{"全部","待付款","待收货","已完成", "退款/售后"};
+        mTitle = new String[]{"待付款","待收货","已完成", "退款/售后"};
 //        for (int i = 0; i < tabTxt.length; i++) {
 //            tabLayout.addTab(tabLayout.newTab().setText(tabTxt[i]));
 //        }

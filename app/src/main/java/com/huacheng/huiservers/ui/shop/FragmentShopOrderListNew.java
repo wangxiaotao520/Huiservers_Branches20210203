@@ -41,7 +41,7 @@ import java.util.List;
 public class FragmentShopOrderListNew extends BaseFragment implements AdapterShopOrderListNew.OnClickShopOrderListListener {
     SharePrefrenceUtil prefrenceUtil;
     private int total_Page=1;
-    private int type;//"0全部","1待付款","2待收货","3已完成", "4退款/售后"
+    private int type;//"0待付款","1待收货","2已完成", "3退款/售后"
 
     private SmartRefreshLayout refreshLayout;
     private PagingListView listView;
@@ -80,7 +80,7 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(false);
         listView = view.findViewById(R.id.listview);
-        adapter = new AdapterShopOrderListNew(mActivity, R.layout.item_shop_order_list_new, mBeanALList, this);
+        adapter = new AdapterShopOrderListNew(mActivity, R.layout.item_shop_order_list_new, mBeanALList, this,type);
         listView.setAdapter(adapter);
     }
 
@@ -95,8 +95,10 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //商品详情
+                //todo 跳转订单详情
                 Intent intent =new Intent(mActivity,ShopOrderDetailActivityNew.class);
                 startActivity(intent);
+
 
             }
         });
@@ -131,13 +133,13 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
             }
         }
         //从支付成功页跳转到订单
-        if (type == 1 && !NullUtil.isStringEmpty(mType_back) && "type_zf_dfk".equals(mType_back)) {
+        if (type == 0 && !NullUtil.isStringEmpty(mType_back) && "type_zf_dfk".equals(mType_back)) {
             isInit = true;
             if (refreshLayout != null) {
                 refreshLayout.autoRefresh();
             }
         }
-        if (type == 2 && !NullUtil.isStringEmpty(mType_back) && "type_zf_dsh".equals(mType_back)) {
+        if (type == 3 && !NullUtil.isStringEmpty(mType_back) && "type_zf_dsh".equals(mType_back)) {
             isInit = true;
             if (refreshLayout != null) {
                 refreshLayout.autoRefresh();
@@ -152,20 +154,15 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
         // 根据接口请求数据
         HashMap<String, String> params = new HashMap<>();
         if (type == 0) {
-            params.put("status", "0");
-        } else if (type == 1) {
             params.put("status", "1");
-        } else if (type == 2) {
+        } else if (type == 1) {
             params.put("status", "2");
+        } else if (type == 2) {
+            params.put("status", "3");
         } else if (type == 3) {
-            params.put("status", "3");
-        }else if (type == 4) {
-            //TODO
-            params.put("status", "3");
+            params.put("status", "4");
         }
-
         params.put("p", page + "");
-
         MyOkHttp.get().get(ApiHttpClient.GET_SHOP_ORDER_LIST, params,  new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -174,9 +171,9 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
                 listView.setIsLoading(false);
                 if (JsonUtil.getInstance().isSuccess(response)){
 
-                    List<ShopOrderBeanTypeBean> modelOrderList = (List<ShopOrderBeanTypeBean>) com.huacheng.libraryservice.utils.json.JsonUtil.getInstance().getDataArrayByName(response, "data", ShopOrderBeanTypeBean.class);
-
-                        if (modelOrderList!=null&&modelOrderList.size()>0){
+                    ShopOrderBeanTypeBean shopOrderBeanTypeBean = (ShopOrderBeanTypeBean)JsonUtil.getInstance().parseJsonFromResponse(response,  ShopOrderBeanTypeBean.class);
+                    List<ShopOrderBeanTypeBean> list = shopOrderBeanTypeBean.getList();
+                    if (shopOrderBeanTypeBean!=null&&shopOrderBeanTypeBean.getList()!=null&&shopOrderBeanTypeBean.getList().size()>0){
                             if (page==1){
                                 mBeanALList.clear();
                                 listView.post(new Runnable() {
@@ -186,9 +183,9 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
                                     }
                                 });
                             }
-                            mBeanALList.addAll(modelOrderList);
+                            mBeanALList.addAll(list);
                             page++;
-                            total_Page=Integer.valueOf(mBeanALList.get(0).getTotal_Pages());// 设置总页数
+                            total_Page=shopOrderBeanTypeBean.getTotalPages();// 设置总页数
                             rel_no_data.setVisibility(View.GONE);
                             adapter.notifyDataSetChanged();
                             if (page>total_Page){
@@ -250,21 +247,40 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
     @Override
     public void onClickPay(ShopOrderBeanTypeBean item, int position) {
         //支付
+        //todo
+        SmartToast.showInfo("去支付");
     }
 
     @Override
     public void onClickReBuy(ShopOrderBeanTypeBean item, int position) {
         //再次购买
+        //useless
     }
 
     @Override
     public void onClickConfirm(ShopOrderBeanTypeBean item, int position) {
         //确认收货
+        //useless
     }
 
     @Override
     public void onClickPinjia(ShopOrderBeanTypeBean item, int position) {
         //评价
+        //useless
+    }
+
+    @Override
+    public void onClickDelete(ShopOrderBeanTypeBean item, int position) {
+        //删除订单
+        //todo
+        SmartToast.showInfo("删除订单");
+    }
+
+    @Override
+    public void onClickItemMultiImage(ShopOrderBeanTypeBean item, int position) {
+        //todo 跳转订单详情
+        Intent intent =new Intent(mActivity,ShopOrderDetailActivityNew.class);
+        startActivity(intent);
     }
 
     /**
