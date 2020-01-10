@@ -26,6 +26,9 @@ public class ShopDetailBean implements Serializable{
     private String exist_hours;//师傅打烊
     private String is_coupon;//判断是否有优惠券
     private String pro_num;//包裹件数
+
+    private String pro_amount;//商品价格
+    private String coupon_amount;//优惠券价格
     private String send_amount;//配送费
     private List<BannerBean> goods_tag;//中部商家保证
     private List<BannerBean> imgs;//详情商品轮播图片路径
@@ -466,5 +469,21 @@ public class ShopDetailBean implements Serializable{
         this.imgs = imgs;
     }
 
+    public String getPro_amount() {
+        return pro_amount;
+    }
+
+    public void setPro_amount(String pro_amount) {
+        this.pro_amount = pro_amount;
+    }
+
+
+    public String getCoupon_amount() {
+        return coupon_amount;
+    }
+
+    public void setCoupon_amount(String coupon_amount) {
+        this.coupon_amount = coupon_amount;
+    }
 
 }

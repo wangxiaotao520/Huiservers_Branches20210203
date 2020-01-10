@@ -126,12 +126,10 @@ public class ConfirmShopListAdapter extends BaseAdapter {
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (isChecked){
                     MyCookieStore.Confirmlist.get(position).setStyle("2");//自提
-                    System.out.println("99999---" + MyCookieStore.Confirmlist.get(position).getId());
-                    System.out.println("99999---" + MyCookieStore.Confirmlist.get(position).getStyle());
+
                 }else {
                     MyCookieStore.Confirmlist.get(position).setStyle("1");//送货
-                    System.out.println("%%%%---" + MyCookieStore.Confirmlist.get(position).getId());
-                    System.out.println("%%%%---" + MyCookieStore.Confirmlist.get(position).getStyle());
+
                 }
             }
         });
@@ -178,8 +176,12 @@ public class ConfirmShopListAdapter extends BaseAdapter {
             holder.fl_one_goods.setVisibility(View.VISIBLE);
             holder.rel_see.setVisibility(View.GONE);
             FrescoUtils.getInstance().setImageUri(holder.sdv_one,MyCookieStore.URL+mList.get(position).getImg().get(0).getOne_img());
-            //TODO 其他数据还没填充服务器没有返回
-            holder.tv_num_one.setText("× "+mList.get(position).getNumber());
+            //其他数据还没填充服务器没有返回
+            holder.tv_title_one.setText(""+mList.get(position).getImg().get(0).getP_title());
+            holder.tv_sub_title_one.setText(""+mList.get(position).getImg().get(0).getTagname());
+            holder.tv_shop_price_one.setText("¥ "+mList.get(position).getImg().get(0).getPrice());
+
+            holder.tv_num_one.setText("× "+mList.get(position).getImg().get(0).getNumber());
         }else {
             holder.fl_one_goods.setVisibility(View.GONE);
             holder.rel_see.setVisibility(View.VISIBLE);
@@ -187,7 +189,7 @@ public class ConfirmShopListAdapter extends BaseAdapter {
             ImageAdapter imageAdapter = new ImageAdapter(mContext, mList.get(position).getImg());
             holder.hor_scroll.setAdapter(imageAdapter);
             holder.txt_num.setText("共" + mList.get(position).getNumber() + "件");
-            holder.txt_danprice.setText("¥" + mList.get(position).getHalf_amount());
+            holder.txt_danprice.setText("¥ " + mList.get(position).getHalf_amount());
         }
 
         //convertView.setOnTouchListener(this);

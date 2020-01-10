@@ -52,6 +52,7 @@ public class SeeAllOrderListAdapter extends BaseAdapter {
 			holder.txt_name= (TextView) arg1.findViewById(R.id.txt_name);
 			holder.txt_num= (TextView) arg1.findViewById(R.id.txt_num);
 			holder.txt_price= (TextView) arg1.findViewById(R.id.txt_price);
+			holder.tag_name= (TextView) arg1.findViewById(R.id.tag_name);
 			arg1.setTag(holder);
 		}else{ 
 			holder=(ViewHolder)arg1.getTag(); 
@@ -59,15 +60,16 @@ public class SeeAllOrderListAdapter extends BaseAdapter {
 	//	bitmapUtils.display(holder.img_title, MyCookieStore.URL+list.get(arg0).getP_title_img());
 		FrescoUtils.getInstance().setImageUri(holder.img_title,MyCookieStore.URL+list.get(arg0).getP_title_img());
 
-		holder.txt_name.setText(list.get(arg0).getP_title());
-		holder.txt_num.setText(list.get(arg0).getNumber());
+		holder.txt_name.setText(list.get(arg0).getP_title()+"");
+		holder.txt_num.setText(list.get(arg0).getNumber()+"");
+		holder.tag_name.setText(list.get(arg0).getTagname()+"");
 		holder.txt_price.setText("¥"+list.get(arg0).getPrice());
 		return arg1;
 	}
 	public  class ViewHolder {
 		//private ImageView img_title;
 		private SimpleDraweeView img_title ;
-		private TextView txt_name,txt_num,txt_price;
+		private TextView txt_name,txt_num,txt_price,tag_name;
 	}
 
 }

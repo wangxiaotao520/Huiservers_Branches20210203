@@ -633,7 +633,6 @@ public class ShopProtocol {
             String status = jsonObject.getString("status");
             String data = jsonObject.getString("data");
             if (StringUtils.isEquals(status, "1")) {
-                System.out.println("obj====" + jsonObject);
                 JSONArray array = new JSONArray(data);
                 for (int i = 0; i < array.length(); i++) {
                     BannerBean allinfo = new BannerBean();
@@ -644,6 +643,7 @@ public class ShopProtocol {
                     allinfo.setP_title(obj.getString("p_title"));
                     allinfo.setPrice(obj.getString("price"));
                     allinfo.setNumber(obj.getString("number"));
+                    allinfo.setTagname(obj.getString("tagname"));
                     info.add(allinfo);
                 }
             }

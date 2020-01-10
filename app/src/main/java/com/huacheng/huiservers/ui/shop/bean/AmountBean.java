@@ -10,6 +10,9 @@ public class AmountBean {
 
 
     String amount ;
+
+
+    String send_amount ;
     public String getAmount() {
         return amount;
     }
@@ -17,4 +20,13 @@ public class AmountBean {
     public void setAmount(String amount) {
         this.amount = amount;
     }
+
+    public String getSend_amount() {
+        return send_amount;
+    }
+
+    public void setSend_amount(String send_amount) {
+        this.send_amount = send_amount;
+    }
+
 }

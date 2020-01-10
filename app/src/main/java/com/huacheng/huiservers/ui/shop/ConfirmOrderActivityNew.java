@@ -117,7 +117,7 @@ public class ConfirmOrderActivityNew extends BaseActivityOld implements View.OnC
         lin_noadress.setOnClickListener(this);
         lin_yesaddress.setOnClickListener(this);
         smallDialog.setCanceledOnTouchOutside(false);
-        //TODO 价格等待接口返回
+        // 价格等待接口返回
         tv_all_shop_price = findViewById(R.id.tv_all_shop_price);
         tv_all_yunfei = findViewById(R.id.tv_all_yunfei);
         tv_all_coupon = findViewById(R.id.tv_all_coupon);
@@ -272,6 +272,11 @@ public class ConfirmOrderActivityNew extends BaseActivityOld implements View.OnC
                             } else {
                                 txt_youhuiquan.setText("暂无可用优惠券");
                             }
+                            //新增
+                            tv_all_shop_price.setText("¥ "+bean.getPro_amount());
+                            tv_all_yunfei.setText("＋ ¥ "+bean.getSend_amount());
+                            tv_all_coupon.setText("－ ¥ "+bean.getCoupon_amount());
+
                             //获取选中
                             for (int i = 0; i < bean.getPro_data().size(); i++) {
                                 //配送方式一定不能为空
@@ -432,9 +437,6 @@ public class ConfirmOrderActivityNew extends BaseActivityOld implements View.OnC
                 coupon_id = data.getExtras().getString("coupon_id");
                 coupon_name = data.getExtras().getString("coupon_name");
                 txt_youhuiquan.setText(coupon_name);
-                System.out.println("--------" + coupon_name);
-                System.out.println("parseDouble======" + Double.parseDouble(bean.getAmount()));
-                System.out.println("parseDouble======" + Double.parseDouble(coupon_price));
                 Double double1 = Double.parseDouble(bean.getAmount());
                 Double double2 = Double.parseDouble(coupon_price);
                 all_money = double1 - double2;
@@ -530,6 +532,7 @@ public class ConfirmOrderActivityNew extends BaseActivityOld implements View.OnC
                     AmountBean bean = (AmountBean) JsonUtil.getInstance().parseJsonFromResponse(response, AmountBean.class);
                     txt_all_money.setText("" + bean.getAmount());
                     all_money = Double.parseDouble(bean.getAmount());
+                    tv_all_yunfei.setText("＋ ¥ "+bean.getSend_amount());
                     setFloat();
                 } else {
                     try {
