@@ -52,7 +52,7 @@ public class ShopOrderNoPingjiaActivity extends BaseListActivity implements Shop
     }
 
     /**
-     * 申请退款以及评价
+     * 申请退款、评价、确认收货
      *
      * @param type
      * @param item
@@ -60,13 +60,16 @@ public class ShopOrderNoPingjiaActivity extends BaseListActivity implements Shop
     @Override
     public void onClickButton(int type, XorderDetailBean item) {
         if (type == 1) {//退款
-
+            Intent intent = new Intent(this, ShopOrderPingJiaAddTuikuanActivity.class);
+            intent.putExtra("type", 1);
+            startActivity(intent);
         } else if (type == 2) {//评价
-
+            Intent intent = new Intent(this, ShopOrderPingJiaAddTuikuanActivity.class);
+            intent.putExtra("type", 2);
+            startActivity(intent);
+        } else if (type == 3) {//确认收货
+            // TODO: 2020/1/10 这里是弹窗还是什么？
         }
-        Intent intent=new Intent(this,ShopOrderPingJiaAddTuikuanActivity.class);
-        intent.putExtra("type",type);
-        startActivity(intent);
 
 
     }

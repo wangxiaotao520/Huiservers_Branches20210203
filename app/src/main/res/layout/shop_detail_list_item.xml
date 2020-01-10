@@ -97,6 +97,23 @@
 
         </com.huacheng.huiservers.view.MyGridview>
 
+        <HorizontalScrollView
+            android:id="@+id/hsv_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
         <TextView
             android:id="@+id/tv_pingjia_guige"
             android:layout_width="wrap_content"

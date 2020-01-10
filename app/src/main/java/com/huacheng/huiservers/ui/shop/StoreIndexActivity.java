@@ -23,7 +23,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopCommonAdapter;
+import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
@@ -51,7 +51,7 @@ import java.util.List;
  * 时间：2019/11/8 10:59
  * created by DFF
  */
-public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapter.OnClickCallback, View.OnClickListener {
+public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCommonAdapter.OnClickCallback, View.OnClickListener {
     View mStatusBar;
     private View headerView;
     protected PagingListView listView;
@@ -62,7 +62,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
     private TextView tv_store_address;
     private ImageView iv_bg;
     private List<ModelShopIndex> mDatas = new ArrayList<>();//数据
-    private ShopCommonAdapter<ModelShopIndex> adapter;
+    private HomeIndexGoodsCommonAdapter adapter;
     private int page = 1;
     private String store_id = "";
     private LinearLayout ly_all;
@@ -111,7 +111,9 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
         headerView = LayoutInflater.from(this).inflate(R.layout.header_store_index, null);
         initHeaderView();
         listView.addHeaderView(headerView);
-        adapter = new ShopCommonAdapter<>(this, mDatas, this);
+      /*  adapter = new ShopCommonAdapter<>(this, mDatas, this);
+        listView.setAdapter(adapter);*/
+        adapter = new HomeIndexGoodsCommonAdapter(mContext, mDatas, this);
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
         //状态栏
@@ -204,13 +206,13 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
                 ry_title.setBackgroundColor(getResources().getColor(R.color.white));
                 iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_black);
                 iv_share.setBackgroundResource(R.mipmap.ic_share_black);
-                iv_serch.setBackgroundResource(R.color.orange_bg);
+                iv_serch.setBackgroundResource(R.mipmap.ic_search_black);
             } else {
                 titleName.setText("");
                 iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_white);
                 ry_title.setBackground(null);
                 iv_share.setBackgroundResource(R.mipmap.ic_share_white);
-                iv_serch.setBackgroundResource(R.color.white);
+                iv_serch.setBackgroundResource(R.mipmap.ic_search_white);
             }
 
 
@@ -313,11 +315,23 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
 
     }
 
-    /**
-     * 购物车点击
-     *
-     * @param position
-     */
+    @Override
+    public void onClickImage(int position) {
+        // 点击下方商品图片
+        if (position == -1) {
+            return;
+        }
+        if (NullUtil.isStringEmpty(mDatas.get((int) position).getInventory()) || 0 >= Integer.valueOf(mDatas.get((int) position).getInventory())) {
+            SmartToast.showInfo("商品已售罄");
+        } else {
+            Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("shop_id", mDatas.get((int) position).getId());
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
+        }
+    }
+
     @Override
     public void onClickShopCart(int position) {
         //点击购物车
@@ -327,7 +341,7 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
 
         } else {
 
-            if (mDatas.get(position).getExist_hours().equals("2")) {
+            if ("2".equals(mDatas.get(position).getExist_hours())) {
                 SmartToast.showInfo("当前时间不在派送时间范围内");
             } else {
                 if (mDatas.get(position) != null) {
@@ -336,22 +350,6 @@ public class StoreIndexActivity extends BaseActivity implements ShopCommonAdapte
             }
 
         }
-
-    }
-
-    /**
-     * 点击商品
-     *
-     * @param position
-     */
-    @Override
-    public void onClickImage(int position) {
-        //点击图片
-        Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("shop_id", mDatas.get(position).getId());
-        intent.putExtras(bundle);
-        mContext.startActivity(intent);
     }
 
     @Override

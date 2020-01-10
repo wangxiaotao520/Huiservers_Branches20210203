@@ -199,7 +199,10 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                 startActivity(intent);
                 break;
             case R.id.tv_goumai://是再次购买也是确认收货
-
+                intent = new Intent(this, ShopOrderNoPingjiaActivity.class);
+                intent.putExtra("type", 3);
+                intent.putExtra("type_name", "确认收货商品列表");
+                startActivity(intent);
                 break;
         }
     }

@@ -66,6 +66,8 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
     private LinearLayout ll_check;
     private ImageView iv_check_all;
     private boolean isCheckAll = false;
+    private ImageView img_data;
+    private TextView tv_text;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,6 +86,8 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
         titleName.setText("购物车");
         mListView=findViewById(R.id.listview);
         rel_no_data = findViewById(R.id.rel_no_data);
+        img_data = findViewById(R.id.img_data);
+        tv_text = findViewById(R.id.tv_text);
         adapterShopCartNew = new AdapterShopCartNew(this, R.layout.cart_list_item, mDatas,this,selected_m_id,status);
         mListView.setAdapter(adapterShopCartNew);
         bottom_bar = findViewById(R.id.bottom_bar);
@@ -156,6 +160,8 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
                         tv_right.setText("编辑");
                         // 空数据
                         rel_no_data.setVisibility(View.VISIBLE);
+                        img_data.setBackgroundResource(R.mipmap.bg_no_car_data);
+                        tv_text.setText("购物车里空空如也");
                     }
                 }else {
                     try {

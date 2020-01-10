@@ -265,7 +265,7 @@ public class MyReceiver extends BroadcastReceiver {
         //可以点击通知栏的删除按钮删除
         builder.setAutoCancel(true);
         //系统状态栏显示的小图标
-        builder.setSmallIcon(R.drawable.app_logo);
+        builder.setSmallIcon(R.mipmap.ic_news_app_logo);
         notification = builder.build();
 
         String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
@@ -337,7 +337,7 @@ public class MyReceiver extends BroadcastReceiver {
         //可以点击通知栏的删除按钮删除
         builder.setAutoCancel(true);
         //系统状态栏显示的小图标
-        builder.setSmallIcon(R.drawable.app_logo);
+        builder.setSmallIcon(R.mipmap.ic_news_app_logo);
         notification = builder.build();
 
         String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);

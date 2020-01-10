@@ -31,7 +31,7 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    fresco:placeholderImage="@drawable/app_logo"
+                    fresco:placeholderImage="@mipmap/ic_news_app_logo"
                     fresco:placeholderImageScaleType="centerCrop"
                    fresco:roundedCornerRadius="@dimen/margin_5" />
 

@@ -33,15 +33,13 @@
                 fresco:placeholderImageScaleType="centerCrop"
                 fresco:roundedCornerRadius="5dp"/>
 
-
             <TextView
                 android:id="@+id/tv_shouqing"
-                android:layout_width="fill_parent"
-                android:layout_height="25dp"
-                android:layout_alignParentBottom="true"
-                android:background="#66000000"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/ic_shop_shouqing"
                 android:gravity="center"
-                android:text="已售罄"
                 android:visibility="gone"
                 android:textColor="@color/white"
                 android:textSize="@dimen/t_12sp"

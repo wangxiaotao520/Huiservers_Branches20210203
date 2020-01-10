@@ -20,12 +20,12 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ly_daifukuan_bg"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:background="@color/red_guotao"
+                android:background="@mipmap/bg_shop_order_detail"
                 android:gravity="center"
                 android:orientation="vertical">
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
                         android:id="@+id/iv_status"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="@color/white"/>
+                        android:background="@mipmap/ic_shop_order_daifukuan"/>
 
                     <TextView
                         android:id="@+id/tv_status"
@@ -65,13 +65,13 @@
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:padding="@dimen/margin_15"
-                android:visibility="gone">
+              >
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/red_guotao"/>
+                    android:background="@mipmap/ic_shop_order_address"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -499,7 +499,7 @@
                     android:layout_marginLeft="@dimen/margin"
                     android:background="@drawable/allshape_red_35"
                     android:gravity="center"
-                    android:text="再次购买"
+                    android:text="确认收货"
                     android:textColor="@color/white"
                     android:textSize="@dimen/t_14sp"/>
             </LinearLayout>

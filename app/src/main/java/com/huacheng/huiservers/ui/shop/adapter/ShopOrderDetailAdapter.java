@@ -43,6 +43,10 @@ public class ShopOrderDetailAdapter extends CommonAdapter<XorderDetailBean> {
             viewHolder.<TextView>getView(R.id.tv_btn).setText("评价");
             viewHolder.<TextView>getView(R.id.tv_btn).setTextColor(mContext.getResources().getColor(R.color.red_guotao));
             viewHolder.<TextView>getView(R.id.tv_btn).setBackgroundResource(R.drawable.allshape_stroke_red_guotao35);
+        }else if (type == 3) {
+            viewHolder.<TextView>getView(R.id.tv_btn).setText("确认收货");
+            viewHolder.<TextView>getView(R.id.tv_btn).setTextColor(mContext.getResources().getColor(R.color.red_guotao));
+            viewHolder.<TextView>getView(R.id.tv_btn).setBackgroundResource(R.drawable.allshape_stroke_red_guotao35);
         }
         viewHolder.<TextView>getView(R.id.tv_btn).setOnClickListener(new View.OnClickListener() {
             @Override

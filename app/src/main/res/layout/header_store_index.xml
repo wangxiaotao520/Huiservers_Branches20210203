@@ -52,14 +52,29 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/t_15sp"/>
 
-                <TextView
-                    android:id="@+id/tv_store_address"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginTop="2dp"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/t_12sp"/>
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_shop_index_address"/>
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/margin_5"
+                        android:id="@+id/tv_store_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/t_12sp"/>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -67,17 +82,17 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/shape_whtie_top_left_right"
-            android:layout_alignParentBottom="true">
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shape_whtie_top_left_right">
 
             <LinearLayout
                 android:id="@+id/ly_all"
-                android:visibility="invisible"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="invisible">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -100,6 +115,12 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:layout_marginRight="@dimen/margin_15"
+                android:background="@color/windowbackground"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_alignParentBottom="true"
                 android:background="@color/windowbackground"/>
         </RelativeLayout>
     </RelativeLayout>

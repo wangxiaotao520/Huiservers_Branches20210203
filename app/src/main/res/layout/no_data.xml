@@ -15,10 +15,10 @@
 
         <ImageView
             android:id="@+id/img_data"
-            android:layout_width="115dp"
-            android:layout_height="115dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/nodata1" />
+            android:background="@mipmap/bg_no_data" />
 
         <TextView
             android:id="@+id/tv_text"
@@ -27,8 +27,7 @@
             android:layout_below="@id/img_data"
             android:layout_centerHorizontal="true"
             android:paddingLeft="@dimen/margin"
-            android:layout_marginTop="35dp"
-            android:text="暂时没有数据哦"
+            android:text="暂无数据"
             android:textColor="@color/gray_99"
             android:textSize="@dimen/t_16sp" />
     </RelativeLayout>

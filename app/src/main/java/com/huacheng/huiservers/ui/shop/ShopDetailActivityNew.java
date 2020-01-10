@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -40,7 +41,6 @@ import com.huacheng.huiservers.jpush.MyReceiver;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.center.geren.adapter.CircleItemImageAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopMainBean;
@@ -145,6 +145,8 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
     private MyGridview gridView;
     private LinearLayout ly_pingjia_null;
     private TextView tv_seckill_num;
+    private HorizontalScrollView hsv_view;
+    private LinearLayout scroll_view;
 
 
     @Override
@@ -238,6 +240,8 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
         tv_pingjia_content = findViewById(R.id.tv_pingjia_content);
         tv_pingjia_guige = findViewById(R.id.tv_pingjia_guige);
         gridView = findViewById(R.id.gridView);
+        hsv_view = findViewById(R.id.hsv_view);
+        scroll_view = findViewById(R.id.scroll_view);
         ly_pingjia_null = findViewById(R.id.ly_pingjia_null);
 
         txt_name = findViewById(R.id.txt_name);
@@ -396,17 +400,13 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
                 }
                 mStatusBar.setAlpha(alpha);
                 if (alpha == 0) {
-                    lin_left.setBackgroundResource(R.drawable.allshape_gray_round);
                     left.setBackgroundResource(R.mipmap.ic_shop_left_white);
                     view_title_line.setVisibility(View.GONE);
-                    ly_share.setBackgroundResource(R.drawable.allshape_gray_round);
                     iv_share.setBackgroundResource(R.mipmap.ic_shop_share_white);
                     lin_title.setBackground(null);
                     title_name.setText("");
 
                 } else {
-                    lin_left.setBackground(null);
-                    ly_share.setBackground(null);
                     left.setBackgroundResource(R.mipmap.ic_shop_left_black);
                     view_title_line.setVisibility(View.VISIBLE);
                     lin_title.setBackgroundResource(R.color.white);
@@ -633,8 +633,22 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
             tv_pingjia_content.setText(detailBean.getScore().get(0).getDescription());
             tv_pingjia_time.setText(StringUtils.getDateToString(detailBean.getScore().get(0).getAddtime(), "2"));
             tv_pingjia_guige.setText(detailBean.getScore().get(0).getP_tag_name());
-            CircleItemImageAdapter mGridViewAdapter = new CircleItemImageAdapter(this, detailBean.getScore().get(0).getScore_img());
-            gridView.setAdapter(mGridViewAdapter);
+            //评价图片
+            gridView.setVisibility(View.GONE);
+            scroll_view.removeAllViews();
+            if (detailBean.getScore().get(0).getScore_img() != null && detailBean.getScore().get(0).getScore_img().size() > 0) {
+                hsv_view.setVisibility(View.VISIBLE);
+                for (int i = 0; i < detailBean.getScore().get(0).getScore_img().size(); i++) {
+                    View view = LinearLayout.inflate(ShopDetailActivityNew.this, R.layout.circle_image_item, null);
+                    ImageView img = view.findViewById(R.id.imageView);
+                    GlideUtils.getInstance().glideLoad(this,MyCookieStore.URL + detailBean.getScore().get(0).getScore_img().get(i).getImg(),img,R.drawable.icon_girdview);
+                    scroll_view.addView(view);
+                }
+            } else {
+                hsv_view.setVisibility(View.GONE);
+            }
+          /*  CircleItemImageAdapter mGridViewAdapter = new CircleItemImageAdapter(this, detailBean.getScore().get(0).getScore_img());
+            gridView.setAdapter(mGridViewAdapter);*/
             // istag = 1;
         } else {
             ly_pingjia.setVisibility(View.GONE);

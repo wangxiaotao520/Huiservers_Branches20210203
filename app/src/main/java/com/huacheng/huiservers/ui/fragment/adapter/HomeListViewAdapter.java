@@ -49,7 +49,6 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
 
             }*/
         }
-        // TODO: 2020/1/3 标记售罄的图
         //标记售罄
         if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {
             viewHolder.<ImageView>getView(R.id.iv_shouqing).setVisibility(View.VISIBLE);

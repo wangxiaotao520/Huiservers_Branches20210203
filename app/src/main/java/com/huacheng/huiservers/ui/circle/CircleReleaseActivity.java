@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import io.reactivex.functions.Consumer;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
@@ -79,7 +80,7 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
     List<String> mList = new ArrayList<>();
     List<BannerBean> mDatas = new ArrayList<>();
     private String circle_id = "";
-    private int list_selected_position = -1;
+    //  private int list_selected_position = -1;
 
     @Override
     protected void initView() {
@@ -132,6 +133,8 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
         });
     }
 
+    int selectedPosition = -1;
+
     private void addFlowView() {
         if (mList.size() > 0) {
             final LayoutInflater mInflater = LayoutInflater.from(mContext);
@@ -141,19 +144,30 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
                 public View getView(FlowLayout parent, int position, String s) {
                     TextView tv = (TextView) mInflater.inflate(R.layout.tv,
                             id_flowlayout, false);
-                    tv.setText("# "+mList.get(position));
+                    tv.setText("# " + mList.get(position));
+                    for (int i = 0; i < mDatas.size(); i++) {
+                        if (mDatas.get(i).isSelect()) {
+                            selectedPosition = i;
+                        }
+                    }
                     return tv;
                 }
             };
             //adapter.setSelectedList(list_selected_position);
             id_flowlayout.setAdapter(adapter);
-
-            id_flowlayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            id_flowlayout.setOnSelectListener(new TagFlowLayout.OnSelectListener() {
                 @Override
-                public boolean onTagClick(View view, int position, FlowLayout parent) {
-                    circle_id = mDatas.get(position).getId();
-                    list_selected_position = position;
-                    return true;
+                public void onSelected(Set<Integer> selectPosSet) {
+                    SmartToast.showInfo("======" + selectPosSet);
+                    circle_id="";
+                    if (selectPosSet.isEmpty()){
+                        circle_id="";
+                    }else {
+                        for (Integer integer : selectPosSet) {
+                            circle_id = mDatas.get(integer).getId();
+                        }
+                    }
+
                 }
             });
         }
@@ -164,7 +178,7 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
         lin_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ToolUtils(et_content,CircleReleaseActivity.this ).closeInputMethod();
+                new ToolUtils(et_content, CircleReleaseActivity.this).closeInputMethod();
                 finish();
             }
         });
@@ -458,7 +472,7 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
                         for (int i = 0; i < backList.size(); i++) {
                             String back_path = backList.get(i);
                             ImageItem item = new ImageItem();
-                            item.path=back_path;
+                            item.path = back_path;
                             selImageList.add(item);
                         }
                         if (adapter != null) {
@@ -471,7 +485,7 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
                 default:
                     break;
             }
-        }else if (resultCode == ImagePicker.RESULT_CODE_BACK){
+        } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
             //预览图片返回
             if (data != null && requestCode == REQUEST_CODE_PREVIEW) {
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);
@@ -483,6 +497,7 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
             }
         }
     }
+
     public static void delFolder(String folderPath) {
         try {
             delAllFile(folderPath); //删除完里面所有内容

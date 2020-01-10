@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -11,11 +13,14 @@ import android.widget.TextView;
 import com.example.xlhratingbar_lib.XLHRatingBar;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.geren.adapter.CircleItemImageAdapter;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopMainBean;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.zhy.adapter.abslistview.CommonAdapter;
 
 import java.util.List;
 
@@ -71,7 +76,7 @@ public class ShopDetailListAdapter extends BaseAdapter {
             holder.tv_pingjia_guige = arg1.findViewById(R.id.tv_pingjia_guige);
             holder.gridView = arg1.findViewById(R.id.gridView);
             holder.view = arg1.findViewById(R.id.view);
-
+            holder.hsv_view = arg1.findViewById(R.id.hsv_view);
             //holder.txt_name=(TextView) arg1.findViewById(R.id.txt_name);
             //holder.txt_content=(TextView) arg1.findViewById(R.id.txt_content);
             //holder.room_ratingbar=(RatingBar) arg1.findViewById(R.id.room_ratingbar);
@@ -87,10 +92,20 @@ public class ShopDetailListAdapter extends BaseAdapter {
         holder.tv_pingjia_content.setText(bean.get(arg0).getDescription());
         holder.tv_pingjia_guige.setText(bean.get(arg0).getP_tag_name());
         holder.view.setVisibility(View.VISIBLE);
+        holder.hsv_view.setVisibility(View.GONE);
         if (bean.get(arg0).getScore_img() != null && bean.get(arg0).getScore_img().size() > 0) {
             holder.gridView.setVisibility(View.VISIBLE);
-            CircleItemImageAdapter mGridViewAdapter = new CircleItemImageAdapter(context, bean.get(arg0).getScore_img());
-            holder.gridView.setAdapter(mGridViewAdapter);
+
+            CommonAdapter commonAdapter = new CommonAdapter<BannerBean>(context, R.layout.circle_image_item, bean.get(arg0).getScore_img()) {
+
+                @Override
+                protected void convert(com.zhy.adapter.abslistview.ViewHolder viewHolder, BannerBean item, int position) {
+                    GlideUtils.getInstance().glideLoad(mContext, MyCookieStore.URL + item.getImg(), viewHolder.<ImageView>getView(R.id.imageView), R.drawable.icon_girdview);
+                }
+            };
+            holder.gridView.setAdapter(commonAdapter);
+           /* CircleItemImageAdapter mGridViewAdapter = new CircleItemImageAdapter(context, bean.get(arg0).getScore_img());
+            holder.gridView.setAdapter(mGridViewAdapter);*/
         } else {
             holder.gridView.setVisibility(View.GONE);
         }
@@ -111,6 +126,7 @@ public class ShopDetailListAdapter extends BaseAdapter {
         private TextView tv_pingjia_guige;
         private MyGridview gridView;
         private View view;
+        private HorizontalScrollView hsv_view;
     }
 
 }

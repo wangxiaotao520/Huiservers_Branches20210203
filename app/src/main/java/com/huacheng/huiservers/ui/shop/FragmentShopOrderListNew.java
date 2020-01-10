@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
@@ -51,6 +53,8 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
     private AdapterShopOrderListNew adapter;
     private boolean isInit=false;
     private String mType_back;
+    private ImageView img_data;
+    private TextView tv_text;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,8 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
         view.findViewById(R.id.rl_title).setVisibility(View.GONE);
         refreshLayout = view.findViewById(R.id.refreshLayout);
         rel_no_data = view.findViewById(R.id.rel_no_data);
+        img_data = view.findViewById(R.id.img_data);
+        tv_text = view.findViewById(R.id.tv_text);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(false);
         listView = view.findViewById(R.id.listview);
@@ -199,6 +205,8 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
                             if (page==1){
                                 mBeanALList.clear();
                                 rel_no_data.setVisibility(View.VISIBLE);
+                                img_data.setBackgroundResource(R.mipmap.bg_no_shop_order_data);
+                                tv_text.setText("暂无订单");
                                 adapter.notifyDataSetChanged();
                                 total_Page=0;
                             }

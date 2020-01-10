@@ -175,7 +175,7 @@ public class NotifyManager {
      */
     public NotificationCompat.Builder getDefaultBuilder(@NonNull String channelId) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId);
-        builder.setSmallIcon(R.drawable.app_logo);
+        builder.setSmallIcon(R.mipmap.ic_news_app_logo);
                // .setColor(Color.parseColor("#E92110"));
         return builder;
     }

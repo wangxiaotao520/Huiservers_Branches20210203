@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linear"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/transparents"
-    android:orientation="vertical">
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparents"
+                android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ly_onclick"
@@ -14,8 +14,8 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:background="@drawable/allshape_white"
-        android:paddingBottom="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="8dp">
 
         <LinearLayout
             android:id="@+id/lin_top"
@@ -24,15 +24,41 @@
             android:layout_gravity="center"
             android:gravity="center">
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/item_image"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                fresco:placeholderImage="@color/default_color"
-                fresco:placeholderImageScaleType="centerCrop"
-                fresco:roundedCornerRadius="5dp"
-                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/item_image"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    fresco:placeholderImage="@color/default_color"
+                    fresco:placeholderImageScaleType="centerCrop"
+                    fresco:roundedCornerRadius="5dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_shouqing"
+                    android:layout_centerInParent="true"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
+                    android:visibility="gone"
+                    android:background="@mipmap/ic_shop_shouqing"/>
+
+                <TextView
+                    android:id="@+id/tv_tag"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="@dimen/margin_5"
+                    android:background="@drawable/shape_red_2"
+                    android:gravity="center"
+                    android:text="秒杀"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t_11sp"
+                    android:visibility="gone"/>
+
+
+            </RelativeLayout>
         </LinearLayout>
 
 
@@ -50,7 +76,6 @@
             android:textSize="@dimen/t_15sp"/>
 
 
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,38 +87,39 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/txt_shop_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="23.00"
-                    android:textStyle="bold"
                     android:textColor="#FF625e"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+
                 <TextView
                     android:id="@+id/txt_shop_original"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23.00"
                     android:layout_gravity="bottom"
-                    android:layout_marginLeft="4dp"
                     android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="23.00"
                     android:textColor="@color/gray_99"
                     android:textSize="12dp"/>
             </LinearLayout>
-            
+
             <ImageView
                 android:id="@+id/iv_add_shop_cart"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@mipmap/ic_shop_cart_bg_red"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/ic_shop_cart_bg_red"
                 />
         </RelativeLayout>
     </LinearLayout>
-
 
 
 </RelativeLayout>

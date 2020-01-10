@@ -15,6 +15,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.libraryservice.utils.DeviceUtils;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.stx.xhb.xbanner.OnDoubleClickListener;
 
@@ -83,6 +84,19 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
 
             viewHolder.txt_shop_original1.setText("¥ "+item.getOriginal());
             viewHolder.txt_shop_original1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            //是否售罄
+            if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {
+                viewHolder.iv_shouqing1.setVisibility(View.VISIBLE);
+            }else {
+                viewHolder.iv_shouqing1.setVisibility(View.GONE);
+            }
+            //是否秒杀
+            if ("1".equals(item.getDiscount())){
+                viewHolder.tv_tag1.setVisibility(View.VISIBLE);
+            }else {
+                viewHolder.tv_tag1.setVisibility(View.GONE);
+            }
+
             viewHolder.view_goods1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -116,7 +130,18 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
             viewHolder. item_name2.setText(item.getTitle()+"");
             viewHolder.txt_shop_original2.setText("¥ "+item.getOriginal());
             viewHolder.txt_shop_original2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-
+            //是否售罄
+            if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {
+                viewHolder.iv_shouqing2.setVisibility(View.VISIBLE);
+            }else {
+                viewHolder.iv_shouqing2.setVisibility(View.GONE);
+            }
+            //是否秒杀
+            if ("1".equals(item.getDiscount())){
+                viewHolder.tv_tag2.setVisibility(View.VISIBLE);
+            }else {
+                viewHolder.tv_tag2.setVisibility(View.GONE);
+            }
             viewHolder.view_goods2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -151,6 +176,8 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
         viewHolder. txt_shop_price1 = (TextView) view_goods1.findViewById(R.id.txt_shop_price);
         viewHolder. txt_shop_original1 = (TextView) view_goods1.findViewById(R.id.txt_shop_original);
         viewHolder. iv_add_shop_cart1 = (ImageView) view_goods1.findViewById(R.id.iv_add_shop_cart);
+        viewHolder. iv_shouqing1 = (ImageView) view_goods1.findViewById(R.id.iv_shouqing);
+        viewHolder. tv_tag1 = (TextView) view_goods1.findViewById(R.id.tv_tag);
 
 
         //第二个商品的布局
@@ -162,6 +189,8 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
         viewHolder. txt_shop_price2 = (TextView) view_goods2.findViewById(R.id.txt_shop_price);
         viewHolder. txt_shop_original2 = (TextView) view_goods2.findViewById(R.id.txt_shop_original);
         viewHolder. iv_add_shop_cart2 = (ImageView) view_goods2.findViewById(R.id.iv_add_shop_cart);
+        viewHolder. iv_shouqing2 = (ImageView) view_goods2.findViewById(R.id.iv_shouqing);
+        viewHolder. tv_tag2= (TextView) view_goods2.findViewById(R.id.tv_tag);
 
 
     }
@@ -176,6 +205,11 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
         SimpleDraweeView item_image2;
         TextView item_name2, txt_shop_price2,txt_shop_original2;
         ImageView iv_add_shop_cart2;
+
+        ImageView iv_shouqing1;
+        ImageView iv_shouqing2;
+        TextView tv_tag1;
+        TextView tv_tag2;
 
         View view_goods1;
         View view_goods2;
