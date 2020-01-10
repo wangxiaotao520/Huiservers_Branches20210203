@@ -57,9 +57,9 @@ public class OrderDetailCommonAdapter<T> extends BaseAdapter{
         }
         ModelOrderDetailCommon item = (ModelOrderDetailCommon) getItem(position);
         if (item.isSelected()==false){
-            viewHolder.iv_check.setBackgroundResource(R.mipmap.ic_order_detail_uncheck);
+            viewHolder.iv_check.setBackgroundResource(R.mipmap.ic_unselected_rctange_orange);
         }else {
-            viewHolder.iv_check.setBackgroundResource(R.mipmap.ic_order_detail_check);
+            viewHolder.iv_check.setBackgroundResource(R.mipmap.ic_selected_rctange_orange);
         }
         viewHolder.tv_reason.setText(""+item.getC_name());
         viewHolder.tv_example.setText(""+item.getC_text());

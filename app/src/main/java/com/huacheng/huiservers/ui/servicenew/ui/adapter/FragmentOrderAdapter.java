@@ -83,39 +83,39 @@ public class FragmentOrderAdapter extends BaseAdapter {
 
             if (mdatas.get(position).getStatus().equals("1")) {
                 viewHolder.mTvStatusTxt.setText("待派单");
-                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
-                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type1));
+//                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
+//                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type1));
                 viewHolder.mTvBtnType.setText("取消订单");
                 viewHolder.mTvBtnType.setVisibility(View.VISIBLE);
                 viewHolder.mLyComment.setVisibility(View.GONE);
 
             } else if (mdatas.get(position).getStatus().equals("2")) {
                 viewHolder.mTvStatusTxt.setText("已派单");
-                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
-                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type1));
+//                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
+//                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type1));
                 viewHolder.mTvBtnType.setText("取消订单");
                 viewHolder.mTvBtnType.setVisibility(View.VISIBLE);
                 viewHolder.mLyComment.setVisibility(View.GONE);
 
             } else if (mdatas.get(position).getStatus().equals("3")) {
                 viewHolder.mTvStatusTxt.setText("服务中");
-                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
-                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type2));
+//                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
+//                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type2));
                 viewHolder.mTvBtnType.setVisibility(View.GONE);
                 viewHolder.mLyComment.setVisibility(View.GONE);
 
             } else if (mdatas.get(position).getStatus().equals("4")) {//已完成订单 但是未评价状态
                 viewHolder.mTvStatusTxt.setText("待评价");
-                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
-                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type2));
+//                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
+//                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type2));
                 viewHolder.mTvBtnType.setVisibility(View.VISIBLE);
                 viewHolder.mTvBtnType.setText("评价");
                 viewHolder.mLyComment.setVisibility(View.GONE);
 
             } else if (mdatas.get(position).getStatus().equals("5")) {//已完成并且是已评价状态
                 viewHolder.mTvStatusTxt.setText("完成");
-                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
-                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type3));
+//                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
+//                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type3));
                 viewHolder.mTvBtnType.setVisibility(View.GONE);
                 viewHolder.mLyComment.setVisibility(View.VISIBLE);
 
@@ -124,7 +124,7 @@ public class FragmentOrderAdapter extends BaseAdapter {
                 viewHolder.mTvComment.setText(mdatas.get(position).getEvaluate());
 
             } else if (mdatas.get(position).getStatus().equals("6")) {//订单已取消
-                viewHolder.mTvStatusTxt.setText("订单已取消");
+                viewHolder.mTvStatusTxt.setText("已取消");
                 viewHolder.mIvStatus.setVisibility(View.GONE);
                 viewHolder.mTvBtnType.setVisibility(View.GONE);
                 viewHolder.mLyComment.setVisibility(View.GONE);
@@ -134,16 +134,16 @@ public class FragmentOrderAdapter extends BaseAdapter {
 
             if (mdatas.get(position).getStatus().equals("1")) {
                 viewHolder.mTvStatusTxt.setText("待派单");
-                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
-                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type1));
+//                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
+//                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type1));
                 viewHolder.mTvBtnType.setText("取消订单");
                 viewHolder.mTvBtnType.setVisibility(View.VISIBLE);
                 viewHolder.mLyComment.setVisibility(View.GONE);
 
             } else if (mdatas.get(position).getStatus().equals("2")) {
                 viewHolder.mTvStatusTxt.setText("已派单");
-                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
-                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type1));
+//                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
+//                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type1));
                 viewHolder.mTvBtnType.setText("取消订单");
                 viewHolder.mTvBtnType.setVisibility(View.VISIBLE);
                 viewHolder.mLyComment.setVisibility(View.GONE);
@@ -153,15 +153,15 @@ public class FragmentOrderAdapter extends BaseAdapter {
 
             if (mdatas.get(position).getStatus().equals("3")) {
                 viewHolder.mTvStatusTxt.setText("服务中");
-                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
-                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type2));
+//                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
+//                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type2));
                 viewHolder.mTvBtnType.setVisibility(View.GONE);
                 viewHolder.mLyComment.setVisibility(View.GONE);
 
             } else if (mdatas.get(position).getStatus().equals("4")) {//已完成订单 但是未评价状态
                 viewHolder.mTvStatusTxt.setText("待评价");
-                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
-                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type2));
+//                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
+//                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type2));
                 viewHolder.mTvBtnType.setVisibility(View.VISIBLE);
                 viewHolder.mTvBtnType.setText("评价");
                 viewHolder.mLyComment.setVisibility(View.GONE);
@@ -171,8 +171,8 @@ public class FragmentOrderAdapter extends BaseAdapter {
 
             if (mdatas.get(position).getStatus().equals("5")) {//已完成并且是已评价状态
                 viewHolder.mTvStatusTxt.setText("完成");
-                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
-                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type3));
+//                viewHolder.mIvStatus.setVisibility(View.VISIBLE);
+//                viewHolder.mIvStatus.setBackground(mContext.getResources().getDrawable(R.mipmap.ic_service_order_type3));
                 viewHolder.mTvBtnType.setVisibility(View.GONE);
                 viewHolder.mLyComment.setVisibility(View.VISIBLE);
 

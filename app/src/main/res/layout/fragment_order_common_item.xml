@@ -3,18 +3,20 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:fresco="http://schemas.android.com/tools"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
               android:background="@color/white"
               android:descendantFocusability="blocksDescendants"
               android:orientation="vertical">
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-
+<View
+    android:layout_width="match_parent"
+    android:background="@color/windowbackground"
+    android:layout_height="10dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,10 +25,12 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/sinple_icon"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                fresco:placeholderImageScaleType="centerCrop"
-                fresco:placeholderImage="@drawable/ic_default_rectange" />
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                app:placeholderImageScaleType="centerCrop"
+                app:placeholderImage="@color/default_color"
+                app:roundedCornerRadius="5dp"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +49,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="三国防生的合格后 "
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/title_color"
+                        android:layout_marginTop="10dp"
                         android:textSize="@dimen/t_14sp"/>
 
 
@@ -61,13 +66,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="待服务 "
-                            android:textColor="@color/text_color"
-                            android:textSize="@dimen/t_12sp"/>
+                            android:textColor="#FF625E"
+                            android:textSize="@dimen/t_14sp"/>
 
                         <ImageView
                             android:id="@+id/iv_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:background="@mipmap/ic_service_order_type1"/>
 
                     </LinearLayout>
@@ -78,18 +84,20 @@
                     android:id="@+id/tv_adress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_5"
-                    android:text="地址地址地址地址地址地址"
-                    android:textColor="@color/grey96"
+                    android:layout_marginTop="1dp"
+                    android:text="地址地址地址地址地址地址地址地址地址地址地址地址"
+                    android:textColor="@color/gray_99"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:textSize="@dimen/t_12sp"/>
 
                 <TextView
                     android:id="@+id/tv_beizhu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginTop="2dp"
                     android:text="备注："
-                    android:textColor="@color/grey96"
+                    android:textColor="@color/gray_99"
                     android:textSize="@dimen/t_12sp"/>
 
             </LinearLayout>
@@ -98,18 +106,15 @@
 
         <TextView
             android:id="@+id/tv_btn_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
             android:layout_gravity="right"
             android:layout_marginBottom="@dimen/margin"
             android:layout_marginRight="@dimen/margin_15"
-            android:background="@drawable/allshape_10_gray"
-            android:paddingBottom="3dp"
-            android:paddingLeft="@dimen/margin"
-            android:paddingRight="@dimen/margin"
-            android:paddingTop="3dp"
+            android:background="@drawable/allshape_stroke_red_guotao35"
             android:text="取消订单"
-            android:textColor="@color/grey96"
+            android:textColor="@color/red_guotao"
+            android:gravity="center"
             android:textSize="@dimen/t_14sp"/>
 
         <LinearLayout
@@ -121,7 +126,7 @@
             android:layout_marginRight="@dimen/margin_15"
             android:background="@color/windowbackground"
             android:orientation="vertical"
-            android:padding="@dimen/margin_15">
+            android:padding="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -138,7 +143,7 @@
                     xlhRatingBar:dividerWidth="2dp"
                     xlhRatingBar:starCount="5"
                     xlhRatingBar:stateResId="@drawable/layer_rating_bar"
-                    xlhRatingBar:widthAndHeight="24dp"/>
+                    xlhRatingBar:widthAndHeight="18dp"/>
 
                 <TextView
                     android:id="@+id/tv_comment_time"
@@ -146,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="3月20日"
-                    android:textColor="@color/grey96"/>
+                    android:textColor="@color/gray_99"/>
 
             </RelativeLayout>
 
@@ -158,7 +163,7 @@
                 android:layout_marginTop="@dimen/margin"
                 android:lineSpacingExtra="@dimen/margin_5"
                 android:text="莲花过人头；层层的叶子中间，尔其纤腰束素，有些怕人，薄薄的青雾浮起在荷塘里。静静地泻在这一片叶子和花"
-                android:textColor="@color/grey96"
+                android:textColor="@color/gray_99"
                 android:textSize="@dimen/t_12sp"/>
 
             <LinearLayout
@@ -170,10 +175,10 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="1.5px"
                     android:layout_marginBottom="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin_15"
-                    android:background="@color/black_fan_27"/>
+                    android:background="@color/line"/>
 
                 <TextView
                     android:id="@+id/tv_reply"
@@ -182,7 +187,7 @@
                     android:layout_alignParentRight="true"
                     android:lineSpacingExtra="@dimen/margin_5"
                     android:text="莲花过人头；层层的叶子中间，尔其纤腰束素，有些怕人，薄薄的青雾浮起在荷塘里。静静地泻在这一片叶子和花"
-                    android:textColor="@color/grey96"
+                    android:textColor="@color/gray_99"
                     android:textSize="@dimen/t_12sp"/>
 
 
@@ -190,10 +195,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/margin_15"
-        android:layout_marginRight="@dimen/margin_15"
-        android:background="@color/black_fan_27"/>
 </LinearLayout>

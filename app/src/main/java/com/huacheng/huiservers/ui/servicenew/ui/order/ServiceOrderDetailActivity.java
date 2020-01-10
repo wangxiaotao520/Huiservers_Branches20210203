@@ -61,6 +61,7 @@ public class ServiceOrderDetailActivity extends BaseActivity implements View.OnC
     private TextView tv_tousu;
     private String order_id;
     ModelServiceOrderDetail model;
+    private View ll_root;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,6 +92,8 @@ public class ServiceOrderDetailActivity extends BaseActivity implements View.OnC
         tv_cancel = findViewById(R.id.tv_cancel);
         tv_pingjia = findViewById(R.id.tv_pingjia);
         tv_tousu = findViewById(R.id.tv_tousu);
+        ll_root = findViewById(R.id.ll_root);
+        ll_root.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -105,6 +108,7 @@ public class ServiceOrderDetailActivity extends BaseActivity implements View.OnC
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
+                    ll_root.setVisibility(View.VISIBLE);
                     ModelServiceOrderDetail model = (ModelServiceOrderDetail) JsonUtil.getInstance().parseJsonFromResponse(response, ModelServiceOrderDetail.class);
                     inflateContent(model);
                 } else {

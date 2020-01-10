@@ -6,11 +6,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="14dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/allshape_greyf2"
+        android:layout_height="45dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -19,7 +18,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginLeft="16dp"
-            android:background="@mipmap/ic_order_detail_check" />
+            android:background="@mipmap/ic_unselected_rctange_orange" />
 
         <TextView
             android:id="@+id/tv_reason"
@@ -28,8 +27,8 @@
             android:layout_marginLeft="14dp"
             android:text="服务上拒绝服务"
             android:singleLine="true"
-            android:textColor="@color/text_color"
-            android:textSize="14sp" />
+            android:textColor="@color/title_color"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="0dp"
@@ -43,8 +42,8 @@
             android:layout_marginRight="14dp"
             android:singleLine="true"
             android:text="要求绕开平台线下付款"
-            android:textColor="#929292"
-            android:textSize="12sp" />
+            android:textColor="#bbbbbb"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

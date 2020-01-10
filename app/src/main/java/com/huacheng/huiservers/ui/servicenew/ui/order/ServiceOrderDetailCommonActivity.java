@@ -69,12 +69,16 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
             titleName.setText("发表评价");
         }
         FrameLayout fl_icon_container = findViewById(R.id.fl_icon_container);
-        ImageView iv_cancel_reason = findViewById(R.id.iv_cancel_reason);
-        ImageView iv_jubao = findViewById(R.id.iv_jubao);
+    //    ImageView iv_cancel_reason = findViewById(R.id.iv_cancel_reason);
+    //    ImageView iv_jubao = findViewById(R.id.iv_jubao);
+
+        TextView tv_title_cancel_tousu = findViewById(R.id.tv_title_cancel_tousu);
         LinearLayout ll_pingjia_container = findViewById(R.id.ll_pingjia_container);
         ratingBar = findViewById(R.id.ratingBar);
         tv_pingjia_intro = findViewById(R.id.tv_pingjia_intro);
-        ImageView iv_other_icon = findViewById(R.id.iv_other_icon);
+       // ImageView iv_other_icon = findViewById(R.id.iv_other_icon);
+        TextView tv_other = findViewById(R.id.tv_other);
+
         et_live_content = findViewById(R.id.et_live_content);
         tv_text_count = findViewById(R.id.tv_text_count);
         tv_btn = findViewById(R.id.tv_btn);
@@ -84,23 +88,34 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
         if (type==0){
             ll_pingjia_container.setVisibility(View.GONE);
             fl_icon_container.setVisibility(View.VISIBLE);
-            iv_cancel_reason.setVisibility(View.VISIBLE);
+         //   iv_cancel_reason.setVisibility(View.VISIBLE);
+            tv_title_cancel_tousu.setVisibility(View.VISIBLE);
+            tv_title_cancel_tousu.setText("取消原因");
+
             list_view.setVisibility(View.VISIBLE);
-            iv_other_icon.setVisibility(View.VISIBLE);
+          //  iv_other_icon.setVisibility(View.VISIBLE);
+            tv_other.setVisibility(View.VISIBLE);
+            tv_other.setText("其他");
             tv_btn.setText("取消订单");
         }else if (type==1){
             ll_pingjia_container.setVisibility(View.GONE);
             fl_icon_container.setVisibility(View.VISIBLE);
-            iv_jubao.setVisibility(View.VISIBLE);
+           // iv_jubao.setVisibility(View.VISIBLE);
+            tv_title_cancel_tousu.setVisibility(View.VISIBLE);
+            tv_title_cancel_tousu.setText("举报商家");
             list_view.setVisibility(View.VISIBLE);
-            iv_other_icon.setVisibility(View.VISIBLE);
+           // iv_other_icon.setVisibility(View.VISIBLE);
+            tv_other.setVisibility(View.VISIBLE);
+            tv_other.setText("其他");
             tv_btn.setText("提交投诉");
         }else {
             ll_pingjia_container.setVisibility(View.VISIBLE);
             fl_icon_container.setVisibility(View.VISIBLE);
             list_view.setVisibility(View.GONE);
-            iv_other_icon.setVisibility(View.GONE);
+            tv_title_cancel_tousu.setVisibility(View.GONE);
+          //  iv_other_icon.setVisibility(View.GONE);
             ll_no_name.setVisibility(View.VISIBLE);
+            tv_other.setVisibility(View.GONE);
             tv_btn.setText("发布评价");
         }
         ratingBar.setCountSelected(5);
@@ -249,10 +264,10 @@ public class ServiceOrderDetailCommonActivity extends BaseActivity {
            public void onClick(View v) {
                if (!is_check_noname){
                    is_check_noname=true;
-                   iv_check.setBackgroundResource(R.mipmap.ic_order_detail_check);
+                   iv_check.setBackgroundResource(R.mipmap.ic_selected_rctange_orange);
                }else {
                    is_check_noname=false;
-                   iv_check.setBackgroundResource(R.mipmap.ic_order_detail_uncheck);
+                   iv_check.setBackgroundResource(R.mipmap.ic_unselected_rctange_orange);
                }
            }
        });
