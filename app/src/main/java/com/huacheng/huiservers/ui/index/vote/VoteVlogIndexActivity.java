@@ -207,11 +207,11 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
                 if (error == null) {
 
                     String share_url_new = share_url + "?linkedme=" + url;
-                    showSharePop("鼠你有财免单红包", "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", bitmap, share_url_new);
+                    showSharePop("鼠你有财免单红包决赛榜", "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", bitmap, share_url_new);
                 } else {
                     //可以看报错
                     String share_url_new = share_url + "?linkedme=" + "";
-                    showSharePop("鼠你有财免单红包", "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", bitmap, share_url_new);
+                    showSharePop("鼠你有财免单红包决赛榜", "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", bitmap, share_url_new);
                 }
             }
         });

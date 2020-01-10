@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.center.bean.ModelAddressList;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class NewAddressAdapter extends BaseAdapter {
             holder.txt_phone = (TextView) convertView.findViewById(R.id.txt_phone);
             holder.txt_address = (TextView) convertView.findViewById(R.id.txt_address);
             holder.iv_bianji_address = (ImageView) convertView.findViewById(R.id.iv_bianji_address);
+            holder.tv_bianji_address = (TextView) convertView.findViewById(R.id.tv_bianji_address);
 
             convertView.setTag(holder);
         } else {
@@ -69,12 +71,14 @@ public class NewAddressAdapter extends BaseAdapter {
 
         if (modelAddressList.getIs_do()==1) {
             holder.txt_name.setTextColor(mContext.getResources().getColor(R.color.title_color));
-            holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.title_color));
-            holder.txt_address.setTextColor(mContext.getResources().getColor(R.color.text_color_hint));
+            holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.gray_99));
+            holder.txt_address.setTextColor(mContext.getResources().getColor(R.color.title_color));
+            holder.tv_bianji_address.setTextColor(mContext.getResources().getColor(R.color.gray_99));
         }else {
             holder.txt_name.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
             holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
             holder.txt_address.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
+            holder.tv_bianji_address.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
         }
         holder.txt_name.setText(modelAddressList.getConsignee_name()+"");
         holder.txt_phone.setText(modelAddressList.getConsignee_mobile()+"");
@@ -87,12 +91,19 @@ public class NewAddressAdapter extends BaseAdapter {
                 }
             }
         });
-
+        holder.tv_bianji_address.setOnClickListener(new OnDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                if (listener!=null){
+                    listener.onClickBianji(arg0);
+                }
+            }
+        });
         return convertView;
     }
 
     public class ViewHolder {
-        private TextView txt_name, txt_phone, txt_address;
+        private TextView txt_name, txt_phone, txt_address,tv_bianji_address;
         private ImageView iv_bianji_address;
     }
     public interface  OnClickBianjiListener{

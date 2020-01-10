@@ -79,9 +79,9 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
         }
         TextView mRight = (TextView) findViewById(R.id.right);
         mRight.setTextColor(this.getResources().getColor(R.color.colorPrimary));
-        mRight.setText("添加");
+        mRight.setText("新增地址");
         mRight.setVisibility(View.VISIBLE);
-        title_name.setText("收货地址");
+        title_name.setText("我的收货地址");
         new_addressAdapter = new NewAddressAdapter(AddressListActivity.this, mDatas,this);
         mListAddress.setAdapter(new_addressAdapter);
         listonclick();
