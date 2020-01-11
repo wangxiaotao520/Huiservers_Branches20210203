@@ -69,6 +69,7 @@ import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.widget.GridViewNoScroll;
 import com.huacheng.libraryservice.widget.verticalbannerview.VerticalBannerView;
@@ -562,7 +563,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             if (modelHome.getArticle_list() != null && modelHome.getArticle_list().size() > 0) {
                 iv_center.setVisibility(View.VISIBLE);
                 //todo 手册协议
-                iv_center.setImageResource(R.mipmap.bg_charge_banner);
+              //  iv_center.setImageResource(R.mipmap.bg_jiaofang_shouce);
+                GlideUtils.getInstance().glideLoad(mActivity,ApiHttpClient.IMG_URL+"huacheng/activity/19/04/22/xinfangshouce.gif",iv_center,R.mipmap.bg_jiaofang_shouce);
                 mDatas_Article.clear();
                 mDatas_Article.addAll(modelHome.getArticle_list());
             } else {

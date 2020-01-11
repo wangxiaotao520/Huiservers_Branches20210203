@@ -12,12 +12,17 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.dialog.DownLoadDialog;
 import com.huacheng.huiservers.dialog.PrivacyPolicyDialog;
@@ -31,7 +36,9 @@ import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tinkerpatch.sdk.TinkerPatch;
 
@@ -105,8 +112,23 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 
         updateprester = new Updateprester(this, this);
 
-        goinit();
 
+
+        ImageView iv_image_top = findViewById(R.id.iv_image_top);
+        int height =  (int) ((DeviceUtils.getWindowWidth(this) ) * 1920 * 1f / 1080);
+
+        if ((DeviceUtils.getWindowHeight(this) -DeviceUtils.dip2px(this,64))>=height){
+            //下方显示专门空出来64dp显示
+        }else {
+            height=ViewGroup.LayoutParams.MATCH_PARENT;
+            //否则就是全屏显示
+        }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        iv_image_top.setLayoutParams(params);
+        SimpleDraweeView sdv_logo = findViewById(R.id.sdv_logo);
+        FrescoUtils.getInstance().setImageUri(sdv_logo,"");
+
+       goinit();
     }
 
 
@@ -314,9 +336,14 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
         //一定要调用这个方法
         hasLoginUser();
         // 新版修改 无论怎样先跳到首页
-        Intent intent = new Intent(SplashUI.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        },1500);
 
         // 无论怎样热更新下载补丁
         if (BuildConfig.TINKER_ENABLE) {

@@ -63,7 +63,7 @@ public class AdapterShopIndexGridCate  extends CommonAdapter<ModelShopIndex>{
         } else if (mDatas.size() >= 10) {
             if (position == 9) {
                 viewHolder.<TextView>getView(R.id.tv_name).setText("全部");
-                viewHolder.<ImageView>getView(R.id.iv_img).setImageResource(R.mipmap.ic_more_cate);
+                viewHolder.<ImageView>getView(R.id.iv_img).setImageResource(R.mipmap.ic_index_more);
                 viewHolder.<LinearLayout>getView(R.id.ly_onclick).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

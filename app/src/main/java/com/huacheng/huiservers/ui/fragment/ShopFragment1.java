@@ -451,7 +451,6 @@ public class ShopFragment1 extends BaseFragment {
             gridview_shop.setVisibility(View.VISIBLE);
             mDatasCate.clear();
             mDatasCate.addAll(info.getCate_list());
-            //todo
             adapterShopIndexGridCate = new AdapterShopIndexGridCate(mContext, R.layout.item_shop_cate_new, mDatasCate);
             gridview_shop.setAdapter(adapterShopIndexGridCate);
 

@@ -44,6 +44,8 @@ import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.request.CommitRequestActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteIndexActivity;
+import com.huacheng.huiservers.ui.index.vote.VoteVlogIndexActivity;
+import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
@@ -395,7 +397,100 @@ public class Jump {
                     Intent intent = new Intent(mContext, VoteIndexActivity.class);
                     mContext.startActivity(intent);
                 }
-            }
+            }else if (type.equals("34")){
+             //公共报修
+             if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
+                 if (NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId()+"")){
+                     SmartToast.showInfo("该小区暂未开通此服务");
+
+                 }
+                 //判断是否物业绑定
+                 smallDialog=new SmallDialog(mContext);
+                 smallDialog.show();
+                 MyOkHttp.get().post(ApiHttpClient.CHECK_BIND_PROPERTY, null, new JsonResponseHandler() {
+                     @Override
+                     public void onSuccess(int statusCode, JSONObject response) {
+                         if (smallDialog!=null){
+                             smallDialog.dismiss();
+                         }
+                         if (JsonUtil.getInstance().isSuccess(response)) {
+                             ModelLogin bean = (ModelLogin) JsonUtil.getInstance().parseJsonFromResponse(response, ModelLogin.class);
+                             if (bean != null && bean.getIs_bind_property().equals("2")) {
+                                 Intent intent = new Intent(mContext, PublicWorkOrderCommitActivity.class);
+                                 mContext.startActivity(intent);
+                             } else {
+                                 Intent intent = new Intent(mContext, PropertyBindHomeActivity.class);
+                                 intent.putExtra("wuye_type", "public_repair");
+                                 mContext.startActivity(intent);
+                             }
+                         }
+                     }
+
+                     @Override
+                     public void onFailure(int statusCode, String error_msg) {
+                         SmartToast.showInfo("网络异常,请检查网络设置");
+                         if (smallDialog!=null){
+                             smallDialog.dismiss();
+                         }
+                     }
+                 });
+
+             } else {
+                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                 mContext.startActivity(intent);
+             }
+         }else if (type.equals("35")){
+             //自用报修
+             if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
+                 if (NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId()+"")){
+                     SmartToast.showInfo("该小区暂未开通此服务");
+
+                 }
+                 //判断是否物业绑定
+                 smallDialog=new SmallDialog(mContext);
+                 smallDialog.show();
+                 MyOkHttp.get().post(ApiHttpClient.CHECK_BIND_PROPERTY, null, new JsonResponseHandler() {
+                     @Override
+                     public void onSuccess(int statusCode, JSONObject response) {
+                         if (smallDialog!=null){
+                             smallDialog.dismiss();
+                         }
+                         if (JsonUtil.getInstance().isSuccess(response)) {
+                             ModelLogin bean = (ModelLogin) JsonUtil.getInstance().parseJsonFromResponse(response, ModelLogin.class);
+                             if (bean != null && bean.getIs_bind_property().equals("2")) {
+                                 Intent intent = new Intent(mContext, PersonalWorkOrderCommitActivity.class);
+                                 mContext.startActivity(intent);
+                             } else {
+                                 Intent intent = new Intent(mContext, PropertyBindHomeActivity.class);
+                                 intent.putExtra("wuye_type", "person_repair");
+                                 mContext.startActivity(intent);
+                             }
+                         }
+                     }
+
+                     @Override
+                     public void onFailure(int statusCode, String error_msg) {
+                         SmartToast.showInfo("网络异常,请检查网络设置");
+                         if (smallDialog!=null){
+                             smallDialog.dismiss();
+                         }
+                     }
+                 });
+
+             } else {
+                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                 mContext.startActivity(intent);
+             }
+         }else if (type.equals("36")){
+             //VLOG 投票
+             if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                 mContext.startActivity(intent);
+             } else {
+                 Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
+                 mContext.startActivity(intent);
+             }
+         }
         }
 
     }

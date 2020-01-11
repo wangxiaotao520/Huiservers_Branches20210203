@@ -27,7 +27,7 @@ public class HouseHandBookAdapter extends CommonAdapter<ModelIndex> {
 
     @Override
     protected void convert(ViewHolder viewHolder, ModelIndex item, int position) {
-        GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL + item.getArticle_image(), viewHolder.<ImageView>getView(R.id.iv_tag), R.color.white);
+        GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL + item.getArticle_image(), viewHolder.<ImageView>getView(R.id.iv_tag), R.color.default_color);
         viewHolder.<TextView>getView(R.id.tv_title).setText(item.getTitle());
     }
 }

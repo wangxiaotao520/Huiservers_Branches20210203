@@ -105,7 +105,7 @@
                 android:layout_width="54dp"
                 android:layout_height="54dp"
                 android:background="@mipmap/bg_notice_background"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="10dp"
                 android:layout_gravity="center" />
 
         </FrameLayout>
