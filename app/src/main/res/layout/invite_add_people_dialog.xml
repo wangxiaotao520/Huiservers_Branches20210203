@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/white"
+              android:background="@drawable/allshape_white_corners2"
               android:orientation="vertical">
 
 
@@ -31,16 +31,13 @@
                     android:layout_weight="1"
                     android:background="@drawable/shape_xu"
                     android:layerType="software"
-                    android:textColor="@color/gray4"
-                    />
+                    android:textColor="@color/gray_99" />
 
                 <TextView
                     android:layout_width="7dp"
                     android:layout_height="7dp"
                     android:background="@drawable/circle_gray"
-                    android:textColor="@color/gray2"
-                    />
-
+                    android:textColor="@color/gray_99" />
 
             </LinearLayout>
 
@@ -58,10 +55,8 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="生成通行码"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/t_18sp"
-                    />
-
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_18sp" />
 
             </LinearLayout>
 
@@ -78,8 +73,7 @@
                     android:layout_alignParentRight="true"
                     android:background="@drawable/circle_gray"
                     android:gravity="center"
-                    android:textColor="@color/gray2"
-                    />
+                    android:textColor="@color/gray_99" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -89,8 +83,7 @@
                     android:background="@drawable/shape_xu"
                     android:gravity="center"
                     android:layerType="software"
-                    android:textColor="@color/gray4"
-                    />
+                    android:textColor="@color/gray_99" />
             </LinearLayout>
         </LinearLayout>
 
@@ -110,10 +103,9 @@
                 android:ellipsize="end"
                 android:hint="请输入访客姓名"
                 android:singleLine="true"
-                android:textColor="@color/c_title"
-                android:textColorHint="@color/gray4"
-                android:textSize="@dimen/t_14sp"
-               />
+                android:textColor="@color/title_color"
+                android:textColorHint="@color/gray_99"
+                android:textSize="@dimen/t_14sp" />
 
             <View
                 android:layout_width="fill_parent"
@@ -126,7 +118,7 @@
         android:id="@+id/lin_btn"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/orange5"
+        android:background="@color/orange_bg"
         android:gravity="center"
         android:orientation="horizontal">
 

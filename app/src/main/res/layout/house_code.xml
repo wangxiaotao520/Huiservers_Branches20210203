@@ -52,7 +52,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="小区大门和单元门的临时密码"
-                            android:textColor="@color/black"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"
                             />
 
@@ -107,7 +107,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1.有效期至  2018.3.19  08:00"
-                            android:textColor="@color/black"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"
                             />
 
@@ -116,7 +116,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin"
                             android:text="2.可打开小区大门1次，单元门1次"
-                            android:textColor="@color/black"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"
                             />
 
@@ -125,7 +125,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin"
                             android:text="3.请屏幕朝上，放到门口机扫描区"
-                            android:textColor="@color/black"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"
                             />
 
@@ -179,7 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/orange5"
+            android:background="@color/orange_bg"
             android:gravity="center"
             android:text="分享"
             android:textColor="@color/white"
