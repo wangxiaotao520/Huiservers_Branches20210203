@@ -608,12 +608,17 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
         }else {
             tv_cart_buy_or_del.setText("去结算"+"("+count+")");
         }
-        if (count==mDatas.size()){
-            iv_check_all.setBackgroundResource(R.drawable.icon_shop_onclick);
-            isCheckAll=true;
-        }else {
+        if (mDatas.size()==0){
             iv_check_all.setBackgroundResource(R.drawable.shape_oval_grey);
             isCheckAll=false;
+        }else {
+            if (count==mDatas.size()){
+                iv_check_all.setBackgroundResource(R.drawable.icon_shop_onclick);
+                isCheckAll=true;
+            }else {
+                iv_check_all.setBackgroundResource(R.drawable.shape_oval_grey);
+                isCheckAll=false;
+            }
         }
     }
 

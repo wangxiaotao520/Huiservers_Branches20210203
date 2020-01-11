@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -69,6 +70,7 @@ public class WorkOrderListcommon extends BaseFragment {
         mListView = view.findViewById(R.id.listview);
         refreshLayout = view.findViewById(R.id.refreshLayout);
         rel_no_data = view.findViewById(R.id.rel_no_data);
+        ((ImageView)view.findViewById(R.id.img_data)).setBackgroundResource(R.mipmap.bg_no_service_order_data);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(true);
 

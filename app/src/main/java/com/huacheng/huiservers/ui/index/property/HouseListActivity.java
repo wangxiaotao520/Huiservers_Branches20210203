@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,6 +57,8 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
     MyListView mListview;
     @BindView(R.id.ly_add)
     LinearLayout mLyAdd;
+    @BindView(R.id.img_no_data)
+    ImageView img_no_data;
    /* @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;*/
     @BindView(R.id.rel_no_data)
@@ -90,7 +93,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
             mRight.setVisibility(View.GONE);
         } else if ("house_invite".equals(wuye_type)) {
             //访客邀请
-            mRight.setVisibility(View.VISIBLE);
+            mRight.setVisibility(View.GONE);
         }
     }
 
@@ -119,10 +122,19 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     if (type==0){
                         mLyAdd.setVisibility(View.GONE);
                         if (mDatas.size() == 0) {
-                            mRelNoData.setVisibility(View.VISIBLE);
+                          //  mRelNoData.setVisibility(View.VISIBLE);
+                            img_no_data.setVisibility(View.VISIBLE);
+                        }else {
+                            img_no_data.setVisibility(View.GONE);
                         }
                     }else {
                         mLyAdd.setVisibility(View.VISIBLE);
+                        if (mDatas.size() == 0) {
+                            //  mRelNoData.setVisibility(View.VISIBLE);
+                            img_no_data.setVisibility(View.VISIBLE);
+                        }else {
+                            img_no_data.setVisibility(View.GONE);
+                        }
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败");
@@ -289,6 +301,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     if (mDatas.size()==0){
                         //刷新个人中心
                         EventBus.getDefault().post(new PersoninfoBean());
+                        img_no_data.setVisibility(View.VISIBLE);
                     }
                 }else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");

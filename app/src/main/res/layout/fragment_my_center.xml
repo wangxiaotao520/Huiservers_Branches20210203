@@ -101,7 +101,7 @@
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
                                 android:layout_marginRight="2dp"
-                                android:background="@color/white"
+                                android:background="@mipmap/ic_my_white_icon"
                                 />
 
                             <TextView
