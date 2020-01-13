@@ -148,12 +148,11 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
                         EventBus.getDefault().post(XorderDetail);
                         finish();
                     }
-                    SmartToast.showInfo("评价成功");
                     //删除缓存文件夹中的图片
                     ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
                     break;
                 case 2:
-                    mTvRight.setText("提交");
+                    mTvRight.setText("确认");
                     mTvRight.setClickable(true);
                     String strmsg = (String) msg.obj;
                     SmartToast.showInfo(strmsg);

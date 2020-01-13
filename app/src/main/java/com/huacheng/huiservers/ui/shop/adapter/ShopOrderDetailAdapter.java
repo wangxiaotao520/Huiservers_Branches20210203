@@ -3,6 +3,7 @@ package com.huacheng.huiservers.ui.shop.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,14 +27,11 @@ import java.util.List;
  * created by DFF
  */
 public class ShopOrderDetailAdapter extends CommonAdapter<XorderDetailBean> {
-    private int type;//0详情界面 1 申请退款 2 评价
     private OnClickShopDetailListener mListener;
     private String status;
-    BannerBean item_info;
 
-    public ShopOrderDetailAdapter(Context context, int layoutId, List<XorderDetailBean> datas, int type, OnClickShopDetailListener mListener, String status) {
+    public ShopOrderDetailAdapter(Context context, int layoutId, List<XorderDetailBean> datas, OnClickShopDetailListener mListener, String status) {
         super(context, layoutId, datas);
-        this.type = type;
         this.status = status;
         this.mListener = mListener;
     }
@@ -49,6 +47,8 @@ public class ShopOrderDetailAdapter extends CommonAdapter<XorderDetailBean> {
             viewHolder.<MyListView>getView(R.id.listview).setVisibility(View.GONE);
             viewHolder.<TextView>getView(R.id.txt_baoguo).setVisibility(View.VISIBLE);
             viewHolder.<TextView>getView(R.id.txt_baoguo).setText(item.getP_m_name());
+            viewHolder.<ImageView>getView(R.id.iv_jiantou1).setVisibility(View.GONE);//箭头不显示
+            viewHolder.<ImageView>getView(R.id.iv_jiantou2).setVisibility(View.GONE);//箭头不显示
             //待付款状态下数据商户1个商品显示
             if (item.getImg().size() == 1) {
                 viewHolder.<FrameLayout>getView(R.id.fl_one_goods).setVisibility(View.VISIBLE);

@@ -141,13 +141,20 @@
                     android:textSize="@dimen/t_12sp"/>
             </LinearLayout>
 
-            <ImageView
+            <LinearLayout
+                android:id="@+id/ly_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center">
 
-                android:id="@+id/iv_del"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@mipmap/ic_delete_circle"
-                />
+                <ImageView
+                    android:id="@+id/iv_del"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@mipmap/ic_delete_circle"
+                    />
+            </LinearLayout>
+
 
         </LinearLayout>
 

@@ -7,14 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,7 +23,6 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
-import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -57,7 +54,7 @@ public class MyInfoCircleActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        isStatusBar = true;
+        //isStatusBar = true;
         EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
     }
@@ -65,9 +62,9 @@ public class MyInfoCircleActivity extends BaseActivity {
     @Override
     protected void initView() {
         //状态栏
-        mStatusBar = findViewById(R.id.status_bar);
+       /* mStatusBar = findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
-        mStatusBar.setAlpha(0);
+        mStatusBar.setAlpha(0);*/
 
         appbar = findViewById(R.id.appbar);
         collapsing_toolbar = findViewById(R.id.collapsing_toolbar);

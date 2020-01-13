@@ -183,6 +183,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:layout_marginRight="@dimen/margin_15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
@@ -210,9 +211,9 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/iv_jiantou1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_15"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/jiantou_you"/>
                 </LinearLayout>
@@ -306,6 +307,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
             android:layout_weight="1"
             android:gravity="right"
             android:text=""
@@ -313,10 +315,10 @@
             android:textSize="@dimen/t_14sp"/>
 
         <ImageView
+            android:id="@+id/iv_jiantou2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
             android:src="@drawable/jiantou_you"/>
 

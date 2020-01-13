@@ -50,7 +50,7 @@
                     android:layout_gravity="center_vertical"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="商品详情"
+                    android:text="订单详情"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/t_18sp"/>
 
@@ -206,15 +206,11 @@
                         android:textSize="@dimen/t_14sp"
                         tools:text="下单时间：2020-01-04 16:41:56"/>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin"
-                        android:background="@color/white"/>
-
                     <TextView
                         android:id="@+id/tv_peisong_style"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:layout_marginTop="@dimen/margin"
                         android:gravity="center_vertical"
                         android:textColor="@color/grey"
                         android:textSize="@dimen/t_14sp"
@@ -301,11 +297,13 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ly_bottom_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin"
                     android:background="@color/white"
                     android:orientation="vertical"
+                    android:visibility="invisible"
                     android:padding="@dimen/margin_15">
 
                     <LinearLayout

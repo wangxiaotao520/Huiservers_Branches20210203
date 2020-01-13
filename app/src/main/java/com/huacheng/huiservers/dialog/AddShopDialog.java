@@ -176,6 +176,8 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                     isbool = true;
                 } else {
                     isbool = false;
+                    txt_title.setText("已选：");
+                    //没有选中便签 商品信息不展示
                     //Toast.makeText(context, "没有选择标签", Toast.LENGTH_SHORT).show();
                 }
             }

@@ -30,6 +30,7 @@ import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
+import com.huacheng.libraryservice.utils.timer.CountDownTimer;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -132,6 +133,8 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
     View mStatusBar1;
     @BindView(R.id.view_title_line1)
     View mViewTitleLine1;
+    @BindView(R.id.ly_bottom_price)
+    LinearLayout mLyBottomPrice;
     private ShopOrderDetailAdapter adapter;
     String order_id;
     String p_m_id;
@@ -140,6 +143,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
     List<XorderDetailBean> mAllDatas = new ArrayList<>();
     private ShopOrderDetetePrester mPresenter;
     private ShopOrderCaoZuoPrester mCaozuoPresenter;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void initView() {
@@ -152,7 +156,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
         mStatusBar1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         mStatusBar1.setAlpha(0);
 
-        adapter = new ShopOrderDetailAdapter(this, R.layout.item_shop_order_detail, mAllDatas, 0, this, list_status);
+        adapter = new ShopOrderDetailAdapter(this, R.layout.item_shop_order_detail, mAllDatas, this, list_status);
         mListview.setAdapter(adapter);
 
     }
@@ -216,6 +220,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
         mTvOrderNum.setText("订单编号：" + mXorderDetailBean.getOrder_number());
         mTvXiadanTime.setText("下单时间：" + StringUtils.getDateToString(mXorderDetailBean.getAddtime(), "1"));
         //价格显示
+        mLyBottomPrice.setVisibility(View.VISIBLE);//价格布局显示
         mTvAllShopPrice.setText("¥ " + mXorderDetailBean.getPro_amount());
         mTvAllYunfei.setText("＋ ¥ " + mXorderDetailBean.getSend_amount());
         mTvAllCoupon.setText("－ ¥ " + mXorderDetailBean.getCoupon_amount());
@@ -233,11 +238,9 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
             mLyDaifukuanBg.setBackgroundResource(R.mipmap.bg_shop_order_detail);
             mIvStatus.setBackgroundResource(R.mipmap.ic_shop_order_daifukuan);
             mTvStatusInfo.setVisibility(View.VISIBLE);
-            //下单时间
-            Long.parseLong(mXorderDetailBean.getPay_time());
+            //剩余下单时间
+            setTime();
 
-
-            mTvStatusInfo.setText("需支付：¥ " + mXorderDetailBean.getAmount() + "    剩余" + "30分钟");
             mTvStatus.setText("等待付款");
             //支付以及配送信息底部不显示
             mTvPeisongStyle.setVisibility(View.GONE);
@@ -292,6 +295,54 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
             mLyBottom.setVisibility(View.GONE);
             //支付以及配送信息显示
             isPay();
+        }
+    }
+
+    /**
+     * 获取时间
+     */
+    private void setTime() {
+        //下单时间
+        long pay_time = Long.parseLong(mXorderDetailBean.getAddtime()) * 1000;
+        //获取当前时间
+        long now_time = System.currentTimeMillis();
+        //下单时间加上30分钟 减去当前的时间就是剩余的时间
+        long three_time = 30 * 60 * 1000;
+        long time = pay_time + three_time - now_time;
+
+        //  CountDownTimer countDownTimer = countDownCounters.get(tv_hour.hashCode());
+        if (countDownTimer != null) {
+            //将复用的倒计时清除
+            countDownTimer.cancel();
+        }
+        // 数据
+        countDownTimer = new CountDownTimer(time, 1000) {
+            public void onTick(long millisUntilFinished) {
+
+                long time = millisUntilFinished / (1000 * 60);
+
+                mTvStatusInfo.setText("需支付：¥ " + mXorderDetailBean.getAmount() + "    剩余：" + time + "分钟");
+
+            }
+
+            public void onFinish(String redpackage_id) {
+                mTvStatusInfo.setText("已过期");
+                //结束了该轮倒计时
+//              holder.statusTv.setText(data.name + ":结束");
+            }
+        }.start();
+        //将此 countDownTimer 放入list.
+        //   countDownCounters.put(tv_hour.hashCode(), countDownTimer);
+    }
+
+    /**
+     * 销毁倒计时
+     */
+    private void cannelAllTimers() {
+        if (countDownTimer == null) {
+            return;
+        } else {
+            countDownTimer.cancel();
         }
 
     }
@@ -385,7 +436,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                         mViewTitleLine.setVisibility(View.VISIBLE);
                         mLeft.setBackgroundResource(R.mipmap.ic_arrow_left_black);
                         mLinTitle.setBackgroundResource(R.color.white);
-                        mTitleName.setText("商品详情");
+                        mTitleName.setText("订单详情");
 
                     }
                 }
@@ -427,6 +478,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+        this.cannelAllTimers();
     }
 
     @OnClick({R.id.lin_left, R.id.tv_delete, R.id.tv_tuikuan, R.id.tv_pingjia, R.id.tv_goumai, R.id.left1})
@@ -458,14 +510,14 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
             case R.id.tv_tuikuan:
                 params.put("id", order_id);
                 params.put("type", "1");
-                params.put("p_m_id",p_m_id);
+                params.put("p_m_id", p_m_id);
                 params.put("status", list_status);
                 mCaozuoPresenter.getCaoZuoShopInfo(params, "1");
                 break;
             case R.id.tv_pingjia:
                 params.put("id", order_id);
                 params.put("type", "3");
-                params.put("p_m_id",p_m_id);
+                params.put("p_m_id", p_m_id);
                 params.put("status", list_status);
                 mCaozuoPresenter.getCaoZuoShopInfo(params, "3");
 
@@ -484,7 +536,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                 } else if ("2".equals(list_status)) {
                     params.put("id", order_id);
                     params.put("type", "2");
-                    params.put("p_m_id",p_m_id);
+                    params.put("p_m_id", p_m_id);
                     params.put("status", list_status);
                     mCaozuoPresenter.getCaoZuoShopInfo(params, "2");
                 }
@@ -567,7 +619,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                         intent.putExtra("type", 1);
                         intent.putExtra("type_name", "退款");
                         intent.putExtra("id", order_id);
-                        intent.putExtra("p_m_id",p_m_id);
+                        intent.putExtra("p_m_id", p_m_id);
                         intent.putExtra("status", list_status);
                         startActivity(intent);
                     } else if ("2".equals(type)) {//收货
@@ -575,7 +627,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                         intent.putExtra("type", 2);
                         intent.putExtra("type_name", "确认收货");
                         intent.putExtra("id", order_id);
-                        intent.putExtra("p_m_id",p_m_id);
+                        intent.putExtra("p_m_id", p_m_id);
                         intent.putExtra("status", list_status);
                         startActivity(intent);
                     } else if ("3".equals(type)) {//评价
@@ -583,7 +635,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                         intent.putExtra("type", 3);
                         intent.putExtra("type_name", "评价");
                         intent.putExtra("id", order_id);
-                        intent.putExtra("p_m_id",p_m_id);
+                        intent.putExtra("p_m_id", p_m_id);
                         intent.putExtra("status", list_status);
                         startActivity(intent);
                     }
@@ -638,7 +690,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                     requestData();
                 }
 
-            }  else if (info.getBack_type() == 5) {//收货
+            } else if (info.getBack_type() == 5) {//收货
                 if (info.getShouhuo_type() == 1) {//直接返回列表
                     finish();
                 } else {//刷新详情界面

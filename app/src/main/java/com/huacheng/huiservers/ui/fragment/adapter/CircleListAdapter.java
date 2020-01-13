@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,9 +55,9 @@ public class CircleListAdapter extends CommonAdapter<ModelCircle> {
             viewHolder.<TextView>getView(R.id.tv_usertime).setText(item.getAddtime());
             if (BaseApplication.getUser() != null) {
                 if (String.valueOf(BaseApplication.getUser().getUid()).equals(item.getUid())) {
-                    viewHolder.<ImageView>getView(R.id.iv_del).setVisibility(View.VISIBLE);
+                    viewHolder.<LinearLayout>getView(R.id.ly_delete).setVisibility(View.VISIBLE);
                     viewHolder.<TextView>getView(R.id.tv_my_reply).setText(item.getReply_num() + "条新评论 >");
-                    viewHolder.<ImageView>getView(R.id.iv_del).setOnClickListener(new View.OnClickListener() {
+                    viewHolder.<LinearLayout>getView(R.id.ly_delete).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (mOnItemDeleteListener != null) {
@@ -82,7 +81,7 @@ public class CircleListAdapter extends CommonAdapter<ModelCircle> {
                     }
                 } else {
 
-                    viewHolder.<ImageView>getView(R.id.iv_del).setVisibility(View.GONE);
+                    viewHolder.<LinearLayout>getView(R.id.ly_delete).setVisibility(View.GONE);
 
                 }
             }
