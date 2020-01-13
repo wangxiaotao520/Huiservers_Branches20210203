@@ -17,13 +17,14 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
+import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
 import com.huacheng.huiservers.ui.center.geren.bean.PayTypeBean;
 import com.huacheng.huiservers.ui.index.charge.ChargingActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
+import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
 import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.stx.xhb.xbanner.OnDoubleClickListener;
@@ -195,10 +196,7 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
                 }else if (pay_result_type==3){
                     //支付失败
                     if (type.equals(CanstantPay.PAY_SHOP_CONFIRM_ORDER)){
-                        Intent intent = new Intent(mContext, ShopOrderListActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("type", "type_zf_dfk");
-                        intent.putExtras(bundle);
+                        Intent intent = new Intent(mContext, ShopOrderListActivityNew.class);
                         startActivity(intent);
                     }
                     finish();
@@ -209,22 +207,16 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
                         // 支付成功后判断优惠券id不为空的话请求优惠券接口
 
                 Intent intent = new Intent(mContext,
-                        ShopOrderListActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("type", "type_zf_dsh");
-                intent.putExtras(bundle);
+                        ShopOrderListActivityNew.class);
                 startActivity(intent);
                 // 支付完成后finish掉购物车页 立即支付页
                 finish();
                     }else if (type.equals(CanstantPay.PAY_SHOP_ORDER_DETAIL)){
-
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putString("item_detete_id", "");
-                intent.putExtras(bundle);
-                setResult(333, intent);
-                finish();
-
+                        XorderDetailBean XorderDetail = new XorderDetailBean();
+                        XorderDetail.setId(order_id);
+                        XorderDetail.setBack_type(4);
+                        EventBus.getDefault().post(XorderDetail);
+                        finish();
                     }else if(type.equals(CanstantPay.PAY_SERVICE)){
                 Intent intent = new Intent(mContext, FragmentOrderListActivity.class);
                 intent.putExtra("type", "pay_finish");

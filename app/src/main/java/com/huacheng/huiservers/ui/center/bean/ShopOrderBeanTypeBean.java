@@ -20,9 +20,18 @@ public class ShopOrderBeanTypeBean {
 	private String status;
 	private String addtime;
 	private String amount;
+	private String p_m_id;
 	private List<BannerBean> img;//详情商品轮播图片路径
 	private List<BannerBean> order_info;
 	private String p_m_name;
+
+	public String getP_m_id() {
+		return p_m_id;
+	}
+
+	public void setP_m_id(String p_m_id) {
+		this.p_m_id = p_m_id;
+	}
 
 	public List<BannerBean> getImg() {
 		return img;

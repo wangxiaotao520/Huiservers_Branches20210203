@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.shop;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,7 +9,12 @@ import android.support.v4.view.ViewPager;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
 import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -20,7 +26,7 @@ import butterknife.ButterKnife;
  * created by wangxiaotao
  * 2020/1/8 0008 上午 8:43
  */
-public class ShopOrderListActivityNew  extends BaseActivity {
+public class ShopOrderListActivityNew extends BaseActivity {
 
 
     @BindView(R.id.tablayout)
@@ -46,7 +52,7 @@ public class ShopOrderListActivityNew  extends BaseActivity {
     }
 
     private void contentInflate() {
-        mTitle = new String[]{"待付款","待收货","已完成", "退款/售后"};
+        mTitle = new String[]{"待付款", "待收货", "已完成", "退款/售后"};
 //        for (int i = 0; i < tabTxt.length; i++) {
 //            tabLayout.addTab(tabLayout.newTab().setText(tabTxt[i]));
 //        }
@@ -57,16 +63,16 @@ public class ShopOrderListActivityNew  extends BaseActivity {
 //                tab.setCustomView(getTabView(i));
 //            }
 //        }
-        for(int i=0;i<mTitle.length;i++){
+        for (int i = 0; i < mTitle.length; i++) {
             tabLayout.addTab(mTitle[i]);
         }
 
         for (int i = 0; i < mTitle.length; i++) {
             FragmentShopOrderListNew shopOrderListCommon = new FragmentShopOrderListNew();
             Bundle bundle = new Bundle();
-            if (type_back.equals("type_zf_dfk") || type_back.equals("type_zf_dsh")) {
+           /* if (type_back.equals("type_zf_dfk") || type_back.equals("type_zf_dsh")) {
                 bundle.putString("type_back", type_back);
-            }
+            }*/
             bundle.putInt("type", i);
             shopOrderListCommon.setArguments(bundle);
             mFragments.add(shopOrderListCommon);
@@ -96,14 +102,18 @@ public class ShopOrderListActivityNew  extends BaseActivity {
         //在设置viewpager页面滑动监听时，创建TabLayout的滑动监听
         viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout.getTabLayout()));
 
-        currentFragment = mFragments.get(0);
-
-
+      /*  if (type_back.equals("type_zf_dfk")) {
+            viewpager.setCurrentItem(0);
+        } else if (type_back.equals("type_zf_dsh")) {
+            viewpager.setCurrentItem(0);
+        } else {*/
+            currentFragment = mFragments.get(0);
+       // }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition()<mFragments.size()){
+                if (tab.getPosition() < mFragments.size()) {
                     //在这里传入参数
                     FragmentShopOrderListNew fragmentCommon = (FragmentShopOrderListNew) mFragments.get(tab.getPosition());
                     currentFragment = fragmentCommon;
@@ -124,7 +134,6 @@ public class ShopOrderListActivityNew  extends BaseActivity {
     }
 
 
-
     @Override
     protected void initData() {
 
@@ -141,10 +150,9 @@ public class ShopOrderListActivityNew  extends BaseActivity {
     }
 
 
-
     @Override
     protected void initIntentData() {
-        type_back = this.getIntent().getExtras().getString("type");
+      //  type_back = this.getIntent().getExtras().getString("type");
 
     }
 
@@ -158,37 +166,42 @@ public class ShopOrderListActivityNew  extends BaseActivity {
 
     }
 
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        EventBus.getDefault().register(this);
-//        super.onCreate(savedInstanceState);
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
-//        EventBus.getDefault().unregister(this);
-//        super.onDestroy();
-//
-//    }
-    //TODO
-//    /**
-//     * 评价完成 申请退款 订单中支付成功
-//     *
-//     * @param str_type
-//     */
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void back(String str_type) {
-//
-//        if (str_type.equals("pj")) {//评价
-//            mViewPager.setCurrentItem(0);
-//        } else if (str_type.equals("tk_sh")) {//退款 以及收货
-//            mViewPager.setCurrentItem(3);
-//        } else if (str_type.equals("zf")) {//订单中支付成功
-//            mViewPager.setCurrentItem(2);
-//        }
-//        if (currentFragment != null) {
-//            currentFragment.onTabRefresh(null);
-//        }
-//    }
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+
+    }
+
+    /**
+     * 评价完成 申请退款 订单中支付成功
+     *
+     * @param info
+     */
+    //1删除 2.评价 3.退款   4 支付成功 5收货
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void back(XorderDetailBean info) {
+        if (info != null) {
+            if (info.getBack_type() == 4) {//支付成功
+                viewpager.setCurrentItem(0);
+                currentFragment.setRefreh();
+            } else if (info.getBack_type() == 2) {//评价
+                //viewpager.setCurrentItem(2);
+            } else if (info.getBack_type() == 3) {//退款
+                viewpager.setCurrentItem(3);
+                currentFragment.setRefreh();
+            } else if (info.getBack_type() == 5) {//收货
+                viewpager.setCurrentItem(2);
+                currentFragment.setRefreh();
+            }
+
+        }
+    }
 }
 

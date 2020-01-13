@@ -1,9 +1,12 @@
 package com.huacheng.huiservers.ui.shop;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -16,20 +19,35 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.example.xlhratingbar_lib.XLHRatingBar;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
+import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.utils.uploadimage.GlideImageLoader;
 import com.huacheng.huiservers.utils.uploadimage.ImagePickerAdapter;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,11 +63,12 @@ import top.zibin.luban.OnCompressListener;
  * created by DFF
  */
 public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener {
+
     @BindView(R.id.lin_left)
     LinearLayout mLinLeft;
     @BindView(R.id.title_name)
     TextView mTitleName;
-    @BindView(R.id.right)
+    @BindView(R.id.txt_right)
     TextView mTvRight;
     @BindView(R.id.sdv_pingjia)
     SimpleDraweeView mSdvPingjia;
@@ -59,8 +78,8 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
     TextView mTvPingjiaContent;
     @BindView(R.id.ly_pingjia)
     LinearLayout mLyPingjia;
-    @BindView(R.id.tv_store_name)
-    TextView mTvStoreName;
+    @BindView(R.id.tv_status)
+    TextView mTvStatus;
     @BindView(R.id.sdv_one)
     SimpleDraweeView mSdvOne;
     @BindView(R.id.tv_title_one)
@@ -73,17 +92,16 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
     TextView mTvNumOne;
     @BindView(R.id.lin_price_container)
     LinearLayout mLinPriceContainer;
-    @BindView(R.id.ly_onclick)
-    LinearLayout mLyOnclick;
     @BindView(R.id.tv_btn)
     TextView mTvBtn;
+    @BindView(R.id.ly_onclick)
+    LinearLayout mLyOnclick;
     @BindView(R.id.ly_tuikuan)
     LinearLayout mLyTuikuan;
     @BindView(R.id.et_content)
     EditText mEtContent;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
-
     private int type = 0;
     private RxPermissions rxPermission;
     public static final int ACT_SELECT_PHOTO = 111;//选择图片
@@ -94,20 +112,65 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
     private ImagePickerAdapter adapter;
     private ArrayList<File> images_submit = new ArrayList<>();
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
+    private BannerBean data_info;
     private int maxImgCount = 9;//允许选择图片最大数
-
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    if (type == 1) {//退款
+                        XorderDetailBean XorderDetail = new XorderDetailBean();
+                        XorderDetail.setId(data_info.getId());
+                        XorderDetail.setBack_type(3);
+                        XorderDetail.setTuikuan_type(1);
+                        EventBus.getDefault().post(XorderDetail);
+                        finish();
+                    } else if (type == 3) {//退款
+                        XorderDetailBean XorderDetail = new XorderDetailBean();
+                        XorderDetail.setId(data_info.getId());
+                        XorderDetail.setBack_type(3);
+                        XorderDetail.setTuikuan_type(2);
+                        EventBus.getDefault().post(XorderDetail);
+                        finish();
+                    } else if (type == 2) {//评价
+                        XorderDetailBean XorderDetail = new XorderDetailBean();
+                        XorderDetail.setId(data_info.getId());
+                        XorderDetail.setBack_type(2);
+                        XorderDetail.setPingjia_type(1);
+                        EventBus.getDefault().post(XorderDetail);
+                        finish();
+                    } else if (type == 4) {//评价
+                        XorderDetailBean XorderDetail = new XorderDetailBean();
+                        XorderDetail.setId(data_info.getId());
+                        XorderDetail.setBack_type(2);
+                        XorderDetail.setPingjia_type(2);
+                        EventBus.getDefault().post(XorderDetail);
+                        finish();
+                    }
+                    SmartToast.showInfo("评价成功");
+                    //删除缓存文件夹中的图片
+                    ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
+                    break;
+                case 2:
+                    mTvRight.setText("提交");
+                    mTvRight.setClickable(true);
+                    String strmsg = (String) msg.obj;
+                    SmartToast.showInfo(strmsg);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
     @Override
     protected void initView() {
         ButterKnife.bind(this);
         rxPermission = new RxPermissions(this);
-        if (type == 1) {
+        if (type == 1 || type == 3) {
             mTitleName.setText("退款");
-            mLyPingjia.setVisibility(View.GONE);
-            mLyTuikuan.setVisibility(View.VISIBLE);
-        } else if (type == 2) {
+        } else if (type == 2 || type == 4) {
             mTitleName.setText("评价");
-            mLyPingjia.setVisibility(View.VISIBLE);
-            mLyTuikuan.setVisibility(View.GONE);
         }
         mTvRight.setVisibility(View.VISIBLE);
         mTvRight.setText("确定");
@@ -118,6 +181,21 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
 
     @Override
     protected void initData() {
+        if (type == 1 || type == 3) {
+            mLyPingjia.setVisibility(View.GONE);
+            mLyTuikuan.setVisibility(View.VISIBLE);
+            mTvStatus.setVisibility(View.GONE);
+            FrescoUtils.getInstance().setImageUri(mSdvOne, MyCookieStore.URL + data_info.getP_title_img());
+            mTvTitleOne.setText("" + data_info.getP_title());
+            mTvSubTitleOne.setText("" + data_info.getTagname());
+            mTvShopPriceOne.setText("¥ " + data_info.getPrice());
+            mTvNumOne.setText("× " + data_info.getNumber());
+            data_info.getP_title();
+        } else if (type == 2 || type == 4) {
+            mLyPingjia.setVisibility(View.VISIBLE);
+            mLyTuikuan.setVisibility(View.GONE);
+            FrescoUtils.getInstance().setImageUri(mSdvPingjia, ApiHttpClient.IMG_URL + data_info.getP_title_img());
+        }
 
     }
 
@@ -149,7 +227,21 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
         mTvRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (TextUtils.isEmpty(mEtContent.getText().toString().trim())) {
+                    SmartToast.showInfo("请填写内容");
+                } else {
+                    // 换了一种压缩图片的方式
+                    try {
+                        if (selImageList.size() > 0) {
+                            showDialog(smallDialog);
+                            compressImg();
+                        } else {
+                            getSubmit(type);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }
@@ -161,7 +253,8 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
 
     @Override
     protected void initIntentData() {
-        type = this.getIntent().getIntExtra("type", 0);
+        type = this.getIntent().getIntExtra("is_type", 0);
+        data_info = (BannerBean) this.getIntent().getSerializableExtra("data_info");
 
     }
 
@@ -181,7 +274,80 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
 
     }
 
-    private void getSubmit() throws IOException {// 发布圈子
+    String url;
+
+    private void getSubmit(final int type) throws IOException {// 发布圈子
+        showDialog(smallDialog);
+        RequestParams params = new RequestParams();
+        HashMap<String, File> params_file = new HashMap<>();
+        if (type == 1 || type == 3) {
+
+            params.addBodyParameter("oid", data_info.getOid());//订单id
+            params.addBodyParameter("order_info_id", data_info.getId());//商品信息id
+            params.addBodyParameter("pic_num", selImageList.size() + "");
+            params.addBodyParameter("cancel_reason", mEtContent.getText().toString());
+            //添加新压缩
+            if (images_submit.size() > 0) {
+                for (int i1 = 0; i1 < images_submit.size(); i1++) {
+                    params_file.put("refundimg" + i1, images_submit.get(i1));
+                }
+            }
+
+            url = Url_info.shop_refund;
+        } else if (type == 2 || type == 4) {
+
+            params.addBodyParameter("oid", data_info.getOid());//订单id
+            params.addBodyParameter("p_id", data_info.getP_id());//商品id
+            params.addBodyParameter("order_info_id", data_info.getId());//商品信息id
+            params.addBodyParameter("score", mRatingBar.getCountSelected() + "");
+            params.addBodyParameter("pic_num", selImageList.size() + "");
+            params.addBodyParameter("description", mEtContent.getText().toString());
+            // 换了一种压缩图片的方式
+            //添加新压缩
+            if (images_submit.size() > 0) {
+                for (int i1 = 0; i1 < images_submit.size(); i1++) {
+                    params_file.put("scoreimg" + i1, images_submit.get(i1));
+                }
+            }
+            url = Url_info.shopping_order_score;
+        }
+
+        MyOkHttp.get().upload(url, params.getParams(), params_file, new RawResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, String response) {
+                hideDialog(smallDialog);
+                JSONObject jsonObject;
+                try {
+                    jsonObject = new JSONObject(response);
+                    String status = jsonObject.getString("status");
+                    String data = jsonObject.getString("data");
+                    String strmsg = jsonObject.getString("msg");
+                    if (status.equals("1")) {
+                        System.out.println("666666");
+                        Message msg = new Message();
+                        msg.what = 1;
+                        mHandler.sendMessage(msg);
+                    } else {
+                        Message msg = new Message();
+                        msg.what = 2;
+                        msg.obj = strmsg;
+                        mHandler.sendMessage(msg);
+                    }
+                } catch ( JSONException e) {
+                    hideDialog(smallDialog);
+                    mTvRight.setEnabled(false);
+                    e.printStackTrace();
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                mTvRight.setEnabled(true);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
     }
 
     /**
@@ -220,8 +386,7 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
                                 @Override
                                 public void run() {
                                     try {
-                                        // TODO: 2020/1/9
-                                        getSubmit();
+                                        getSubmit(type);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }

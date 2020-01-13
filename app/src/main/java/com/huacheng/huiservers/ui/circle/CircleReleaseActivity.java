@@ -158,7 +158,6 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
             id_flowlayout.setOnSelectListener(new TagFlowLayout.OnSelectListener() {
                 @Override
                 public void onSelected(Set<Integer> selectPosSet) {
-                    SmartToast.showInfo("======" + selectPosSet);
                     circle_id="";
                     if (selectPosSet.isEmpty()){
                         circle_id="";

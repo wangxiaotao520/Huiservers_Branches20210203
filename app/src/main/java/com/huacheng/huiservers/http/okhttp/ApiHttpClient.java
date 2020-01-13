@@ -222,8 +222,12 @@ public class ApiHttpClient {
     public static String PAY_SERVICE_SUCCESS = API_URL + API_VERSION + "Jpush/service_order_toAmountWorker_push";
     //商城订单列表
     public static String GET_SHOP_ORDER_LIST = API_URL + API_VERSION + "userCenter/shopping_order";
+    //商城订单详情
+    public static String GET_SHOP_ORDER_DETAILS = API_URL + API_VERSION + "userCenter/shopping_order_details";
     //商城订单列表待付款删除
     public static String GET_SHOP_ORDER_DEL = API_URL + API_VERSION + "userCenter/del_shopping_order";
+  // 购物订单操作页面(退款/收货/评价) 接口
+    public static String GET_SHOP_ORDER_OPERTE = API_URL + API_VERSION + "userCenter/shopping_order_operate";
 
     //用户提交/取消工单推送接口
     public static String USERTOWORKERSUBMIT = API_URL + API_VERSION + "Jpush/userToWorkerSubmit";
@@ -559,5 +563,7 @@ public class ApiHttpClient {
         SHOP_MARKIING_ARTICE_LIST = API_URL + API_VERSION + "/shop/area_marketing_activities_List";
         PENSION_BELTER_DETAILS = API_URL + API_VERSION + "/pension/belter_details";
         VLOG_HOME_INDEX_SHARE = API_URL_SHARE + "home/index/vlog_list ";
+        GET_SHOP_ORDER_DETAILS = API_URL + API_VERSION + "userCenter/shopping_order_details";
+        GET_SHOP_ORDER_OPERTE = API_URL + API_VERSION + "userCenter/shopping_order_operate";
     }
 }
