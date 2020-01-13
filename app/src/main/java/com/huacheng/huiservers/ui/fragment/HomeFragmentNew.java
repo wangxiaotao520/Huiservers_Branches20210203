@@ -54,6 +54,7 @@ import com.huacheng.huiservers.ui.fragment.adapter.VBannerAdapter;
 import com.huacheng.huiservers.ui.fragment.indexcat.HouseHandBookActivity;
 import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
@@ -190,6 +191,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         listView.setAdapter(adapter);
         listView.setHasMoreItems(false);
         initLocation();
+
+
     }
 
     private void initLocation() {
@@ -417,6 +420,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         tv_more_sale.setOnClickListener(this);
         tv_more_sale_arrow.setOnClickListener(this);
         iv_center.setOnClickListener(this);
+        iv_message.setOnClickListener(this);
     }
 
     @Override
@@ -562,7 +566,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             //手册协议
             if (modelHome.getArticle_list() != null && modelHome.getArticle_list().size() > 0) {
                 iv_center.setVisibility(View.VISIBLE);
-                //todo 手册协议
+                // 手册协议
               //  iv_center.setImageResource(R.mipmap.bg_jiaofang_shouce);
                 GlideUtils.getInstance().glideLoad(mActivity,ApiHttpClient.IMG_URL+"huacheng/activity/19/04/22/xinfangshouce.gif",iv_center,R.mipmap.bg_jiaofang_shouce);
                 mDatas_Article.clear();
@@ -1196,6 +1200,10 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 intent = new Intent(mActivity, HouseHandBookActivity.class);
                 intent.putExtra("mDatas", (Serializable) mDatas_Article);
                 startActivity(intent);//交房手册
+                break;
+            case R.id.iv_message:
+                //消息（目前只有养老消息）
+                startActivity(new Intent(mActivity, OldMessageActivity.class));
                 break;
             default:
                 break;

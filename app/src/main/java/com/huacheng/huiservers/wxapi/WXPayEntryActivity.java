@@ -24,7 +24,6 @@ import com.huacheng.huiservers.model.EventBusWorkOrderModel;
 import com.huacheng.huiservers.model.ModelEventWX;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.center.NewShopOrderDetailActivity;
-import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.geren.WiredHistoryActivity;
 import com.huacheng.huiservers.ui.center.geren.WiredIndexActivity;
 import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
@@ -33,6 +32,7 @@ import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
+import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -401,7 +401,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
                 String strPush = protocol2.setShop(json);
                 if (strPush.equals("1")) {
                     if (push_tag.equals("2")) {
-                        Intent intent = new Intent(WXPayEntryActivity.this, ShopOrderListActivity.class);
+                        Intent intent = new Intent(WXPayEntryActivity.this, ShopOrderListActivityNew.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("type", "type_zf_dsh");
                         intent.putExtras(bundle);

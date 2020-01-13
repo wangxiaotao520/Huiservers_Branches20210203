@@ -25,17 +25,17 @@ import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.MyInfoActivity;
 import com.huacheng.huiservers.ui.center.MyRenvationActivity;
 import com.huacheng.huiservers.ui.center.SetActivity;
-import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.circle.MyCircleActivity;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
 import com.huacheng.huiservers.ui.index.message.MessageIndexActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
-import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
+import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
+import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -341,7 +341,7 @@ public class MyFragmentNew extends BaseFragment implements View.OnClickListener 
 
                 break;
             case R.id.rl_shop_order_list:// 商城订单
-                intent = new Intent(getActivity(), ShopOrderListActivity.class);
+                intent = new Intent(getActivity(), ShopOrderListActivityNew.class);
                 bundle.putString("type", "1111");
                 intent.putExtras(bundle);
                 startActivity(intent);

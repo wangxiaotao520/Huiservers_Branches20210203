@@ -203,7 +203,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
             @Override
             public void onGetUrl(String url, LMErrorCode error) {
                 hideDialog(smallDialog);
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_vote_bg_rectange, null);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_vote_vlog_share, null);
                 if (error == null) {
 
                     String share_url_new = share_url + "?linkedme=" + url;

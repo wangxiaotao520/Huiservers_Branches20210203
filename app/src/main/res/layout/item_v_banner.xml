@@ -28,11 +28,11 @@
                     android:text="物业公告"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/gray_66"
-                    android:textSize="13dp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/tv_title1"
@@ -72,12 +72,12 @@
                     android:background="@drawable/allshape_notice_corner2"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
                     android:text="物业公告"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/gray_66"
-                    android:textSize="13dp" />
+                    android:textSize="12dp" />
 
                 <TextView
                     android:id="@+id/tv_title2"

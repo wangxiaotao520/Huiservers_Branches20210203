@@ -591,8 +591,8 @@
                 android:layout_height="45dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/margin_15"
-                android:paddingRight="@dimen/margin_15">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <LinearLayout
                     android:id="@+id/lin_left"
@@ -754,7 +754,7 @@
                         android:layout_height="wrap_content"
                         android:text="购物车"
                         android:textColor="@color/grey"
-                        android:textSize="@dimen/t_12sp"/>
+                        android:textSize="@dimen/t_14sp"/>
 
                 </LinearLayout>
 

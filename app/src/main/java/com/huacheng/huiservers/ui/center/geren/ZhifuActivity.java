@@ -37,7 +37,6 @@ import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.pay.PayResult;
 import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.center.ShopOrderListActivity;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.ui.center.geren.adapter.PayAdapter;
 import com.huacheng.huiservers.ui.center.geren.bean.PayTypeBean;
@@ -50,6 +49,7 @@ import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
+import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
 import com.huacheng.huiservers.ui.shop.bean.BestpayMerchant;
 import com.huacheng.huiservers.utils.ParamsUtil;
 import com.huacheng.huiservers.utils.StreamUtil;
@@ -374,7 +374,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                     setResult(100, intent);
                 } else if (type.equals("shop_1")) {// 购物车里付款成功
 
-                    Intent intent = new Intent(this, ShopOrderListActivity.class);
+                    Intent intent = new Intent(this, ShopOrderListActivityNew.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("type", "type_zf_dfk");
                     intent.putExtras(bundle);
@@ -643,7 +643,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                 intent.putExtras(bundle);
                 setResult(100, intent);
             } else if (type.equals("shop_1")) {// 购物车里付款
-                Intent intent = new Intent(this, ShopOrderListActivity.class);
+                Intent intent = new Intent(this, ShopOrderListActivityNew.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "type_zf_dfk");
                 intent.putExtras(bundle);
@@ -703,7 +703,7 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
                 if (str_push.equals("1")) {
                     if (isStr.equals("2")) {
                         Intent intent = new Intent(ZhifuActivity.this,
-                                ShopOrderListActivity.class);
+                                ShopOrderListActivityNew.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("type", "type_zf_dsh");
                         intent.putExtras(bundle);

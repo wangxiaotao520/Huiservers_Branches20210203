@@ -88,6 +88,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     private TextView tv_dad_mom; //身份
     private TextView tv_name;  //姓名
     private ImageView iv_sex;  //性别
+    private ImageView iv_vip;  //性别
     private LinearLayout ll_age_address; //年龄地址
     private TextView tv_age;  //年龄
     private TextView tv_address; //地址
@@ -191,6 +192,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         tv_dad_mom = view.findViewById(R.id.tv_dad_mom);
         tv_name = view.findViewById(R.id.tv_name);
         iv_sex = view.findViewById(R.id.iv_sex);
+        iv_vip = view.findViewById(R.id.iv_vip);
         ll_age_address = view.findViewById(R.id.ll_age_address);
         tv_age = view.findViewById(R.id.tv_age);
         tv_address = view.findViewById(R.id.tv_address);
@@ -209,6 +211,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         rl_data = view.findViewById(R.id.rl_data);
         rl_warm = view.findViewById(R.id.rl_warm);
         rl_medicine = view.findViewById(R.id.rl_medicine);
+        iv_vip.setVisibility(View.GONE);
     }
 
     @Override
@@ -352,6 +355,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             }else {
                                 FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(modelOldIndexTop.getPhoto()+""));
                             }
+                            iv_vip.setVisibility("1".equals(modelOldIndexTop.getIs_vip())?View.VISIBLE:View.GONE);
                         }else if (2== type){
                             //2.子女认证
                             rl_title_container.setBackgroundResource(R.mipmap.bg_old_blue);
@@ -366,6 +370,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             tv_dad_mom.setText(modelOldIndexTop.getCall());
                             tv_change_person.setText("切换长者");
                             par_uid= modelOldIndexTop.getPar_uid()+"";
+                            iv_vip.setVisibility("1".equals(modelOldIndexTop.getIs_vip())?View.VISIBLE:View.GONE);
                             // 头像
                          //   FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
                             if (NullUtil.isStringEmpty(StringUtils.getImgUrl(modelOldIndexTop.getPhoto()))) {

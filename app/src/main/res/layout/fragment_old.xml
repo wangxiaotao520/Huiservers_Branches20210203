@@ -102,6 +102,13 @@
                                 android:background="@mipmap/ic_man_white"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="9dp" />
+                            <ImageView
+                                android:id="@+id/iv_vip"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:background="@mipmap/ic_old_vip"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="9dp" />
 
                         </LinearLayout>
                         <LinearLayout

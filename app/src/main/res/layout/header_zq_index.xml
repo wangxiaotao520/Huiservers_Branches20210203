@@ -11,7 +11,7 @@
         android:id="@+id/sdv_bg"
         android:layout_width="match_parent"
         android:layout_height="208dp"
-        fresco:placeholderImage="@drawable/icon_girdview"
+        fresco:placeholderImage="@color/default_color"
         fresco:placeholderImageScaleType="centerCrop"
         fresco:roundAsCircle="false"/>
 
