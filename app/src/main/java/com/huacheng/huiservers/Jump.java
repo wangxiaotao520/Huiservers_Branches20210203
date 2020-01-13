@@ -641,7 +641,7 @@ public class Jump {
                 Intent intent = new Intent(mContext, HouseListActivity.class);
                 intent.putExtra("type", 1);
                 intent.putExtra("wuye_type", "property");
-                startActivity(intent);
+                mContext.startActivity(intent);
 
             }
 

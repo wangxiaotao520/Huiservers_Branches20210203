@@ -178,10 +178,15 @@ public class MyCenterFrament extends BaseFragment {
                 } else if (position == 3) {//"生活账单"
                     if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
                         // Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+//                        Intent intent = new Intent(mContext, HouseListActivity.class);
+//                        intent.putExtra("type", 1);
+//                        intent.putExtra("wuye_type", "bind");
+//                        startActivity(intent);
+
                         Intent intent = new Intent(mContext, HouseListActivity.class);
                         intent.putExtra("type", 1);
-                        intent.putExtra("wuye_type", "bind");
-                        startActivity(intent);
+                        intent.putExtra("wuye_type", "property");
+                        mContext.startActivity(intent);
 
                     } else {
                         SmartToast.showInfo("该小区暂未开通服务");

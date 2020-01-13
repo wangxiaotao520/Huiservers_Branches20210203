@@ -702,7 +702,6 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
                     }
                 });
 
-
                 lin_img.addView(view);
             }
             detailBean.getImgs().clear();

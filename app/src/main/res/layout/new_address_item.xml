@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/list_selector"
             android:orientation="vertical"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="52dp"
             android:padding="15dp">
 
             <LinearLayout
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_8"
-                android:text="山西省晋中市榆次"
+                android:text="山西省晋中市榆次山西省晋中市榆次山西省晋中市榆次山西省晋中市榆次"
                 android:textSize="@dimen/t_14sp"
                 android:textColor="@color/title_color"/>
         </LinearLayout>

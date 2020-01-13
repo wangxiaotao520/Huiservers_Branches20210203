@@ -34,6 +34,10 @@
                     android:layout_height="170dp"
                     fresco:placeholderImage="@color/default_color"
                     fresco:placeholderImageScaleType="centerCrop"
+                    fresco:roundTopRight="true"
+                    fresco:roundTopLeft="true"
+                    fresco:roundBottomRight="false"
+                    fresco:roundBottomLeft="false"
                     fresco:roundedCornerRadius="5dp"
                     />
 

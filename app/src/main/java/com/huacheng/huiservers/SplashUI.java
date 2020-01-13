@@ -165,7 +165,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                     if (tag.equals("2")) {//同意
                         getUpdate();
                         dialog1.dismiss();
-                        CacheUtils.putBoolean(SplashUI.this, SplashUI.IS_FIRST_OPEN, false);
+                     //   CacheUtils.putBoolean(SplashUI.this, SplashUI.IS_FIRST_OPEN, false);
                     } else {//退出APP
                         finish();
                     }
@@ -339,9 +339,18 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashUI.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
+                if (isFirstOpen){
+                    //第一次打开进引导页
+                    CacheUtils.putBoolean(SplashUI.this, SplashUI.IS_FIRST_OPEN, false);
+                    isFirstOpen=false;
+                    Intent intent = new Intent(SplashUI.this, GuideUI.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         },1500);
 

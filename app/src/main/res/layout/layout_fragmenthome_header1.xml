@@ -133,8 +133,7 @@
         android:orientation="vertical"
         android:background="@color/white"
         android:layout_marginTop="10dp"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -150,6 +149,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="特卖专场"
+                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
                     android:textColor="@color/title_color" />
@@ -223,6 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="慧秒杀"
+                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
                     android:textColor="@color/title_color" />
@@ -289,6 +290,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="附近美食"
+                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
                     android:textColor="@color/title_color" />
@@ -358,6 +360,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="租售房服务"
+                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
                     android:textColor="@color/title_color" />
@@ -378,7 +381,13 @@
             android:paddingRight="15dp"
             android:background="@color/white"
             android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_release_rent_sell"
+                android:layout_width="match_parent"
+                android:layout_height="101dp"
+                android:background="@mipmap/bg_index_release_house" />
             <LinearLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -398,12 +407,7 @@
                     android:layout_weight="1"
                     android:background="@mipmap/bg_index_sell_house" />
             </LinearLayout>
-            <ImageView
-                android:id="@+id/iv_release_rent_sell"
-                android:layout_width="match_parent"
-                android:layout_height="101dp"
-                android:layout_marginTop="10dp"
-                android:background="@mipmap/bg_index_release_house" />
+
 
         </LinearLayout>
 
@@ -451,6 +455,7 @@
             android:text="常买常逛"
             android:layout_gravity="center_vertical"
             android:textSize="18sp"
+            android:textStyle="bold"
             android:textColor="@color/title_color" />
         <View
             android:layout_width="40dp"

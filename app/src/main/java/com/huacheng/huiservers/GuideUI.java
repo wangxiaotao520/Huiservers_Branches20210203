@@ -2,21 +2,23 @@ package com.huacheng.huiservers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.utils.CacheUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * 首次进入应用的欢迎页
@@ -26,13 +28,20 @@ import java.util.TimerTask;
 public class GuideUI extends BaseActivity implements OnPageChangeListener {
 
     private ViewPager viewPager;
-    private List<ImageView> imageViewList;
+    private List<View> imageViewList;
     private SharePrefrenceUtil sharePrefrenceUtil;
     private String login_type;
     SharedPreferences preferencesLogin;
 
     private String token;
     private String tokenSecret;
+    private int[] imageResIds;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar=true;
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initView() {
@@ -46,16 +55,19 @@ public class GuideUI extends BaseActivity implements OnPageChangeListener {
 
     @Override
     protected void initData() {
-        int[] imageResIds = { R.drawable.guide1,R.drawable.guide2,R.drawable.guide3};//
-        imageViewList = new ArrayList<ImageView>();
-        ImageView iv;
+        //
+        imageResIds = new int[]{ R.drawable.guide1,R.drawable.guide2,R.drawable.guide3,R.drawable.guide4};
+        imageViewList = new ArrayList<View>();
+
         for (int i = 0; i < imageResIds.length; i++) {
-            iv = new ImageView(this);
-            iv.setBackgroundResource(imageResIds[i]);
-            imageViewList.add(iv);
+            View view = LayoutInflater.from(this).inflate(R.layout.layout_image_guide, null);
+            ImageView iv = view.findViewById(R.id.iv_image);
+            iv.setImageResource(imageResIds[i]);
+            imageViewList.add(view);
         }
         MyAdapter mAdapter = new MyAdapter();
         viewPager.setAdapter(mAdapter);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setOnPageChangeListener(this);
     }
 
@@ -66,29 +78,31 @@ public class GuideUI extends BaseActivity implements OnPageChangeListener {
 
     @Override
     public void onPageSelected(int position) {
-        if (position == (imageViewList.size() - 1)) {
-            CacheUtils.putBoolean(this, SplashUI.IS_FIRST_OPEN, false);
-            Timer timer = new Timer();
-            TimerTask tt = new TimerTask() {
+//        if (position == (imageViewList.size() - 1)) {
+//            CacheUtils.putBoolean(this, SplashUI.IS_FIRST_OPEN, false);
+//            Timer timer = new Timer();
+//            TimerTask tt = new TimerTask() {
+//
+//                @Override
+//                public void run() {
+//
+//                    if (sharePrefrenceUtil.getIsChooseXiaoqu().equals("1")) {
+//                        Intent intent = new Intent(GuideUI.this, HomeActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    } else {
+//                        Intent intent = new Intent();
+//                        intent = new Intent(GuideUI.this, XiaoquActivity.class);
+//                        intent.putExtra("type", "splash");
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                }
+//            };
+//            timer.schedule(tt, 1000);
+//        }
 
-                @Override
-                public void run() {
 
-                    if (sharePrefrenceUtil.getIsChooseXiaoqu().equals("1")) {
-                        Intent intent = new Intent(GuideUI.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Intent intent = new Intent();
-                        intent = new Intent(GuideUI.this, XiaoquActivity.class);
-                        intent.putExtra("type", "splash");
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            };
-            timer.schedule(tt, 1000);
-        }
     }
 
     @Override
@@ -141,9 +155,25 @@ public class GuideUI extends BaseActivity implements OnPageChangeListener {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ImageView imageView = imageViewList.get(position);
-            container.addView(imageView);
-            return imageView;
+            View view = imageViewList.get(position);
+            ImageView iv_image = view.findViewById(R.id.iv_image);
+            iv_image.setImageResource(imageResIds[position]);
+            TextView tv_btn_call = view.findViewById(R.id.tv_btn_call);
+            if (position==imageViewList.size()-1){
+                tv_btn_call.setVisibility(View.VISIBLE);
+                tv_btn_call.setOnClickListener(new OnDoubleClickListener() {
+                    @Override
+                    public void onNoDoubleClick(View v) {
+                        Intent intent = new Intent(GuideUI.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }else {
+                tv_btn_call.setVisibility(View.GONE);
+            }
+            container.addView(view);
+            return view;
         }
 
 

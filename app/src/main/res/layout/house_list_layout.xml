@@ -84,7 +84,7 @@
                             android:text="添加房屋"
                             android:textColor="@color/white"
                             android:textSize="@dimen/t_18sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="normal"/>
 
                     </LinearLayout>
                 </LinearLayout>

@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.EditText;
@@ -18,6 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
@@ -26,7 +31,9 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.protocol.CircleProtocol;
 import com.huacheng.huiservers.model.protocol.CommonProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
@@ -37,12 +44,13 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.UIUtils;
+import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.AppConstant;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
-import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.lidroid.xutils.BitmapUtils;
 import com.microquation.linkedme.android.log.LMErrorCode;
@@ -226,88 +234,97 @@ public class CircleDetailsActivity extends BaseActivityOld {
         RequestParams params = new RequestParams();
         params.addBodyParameter("id", circle_id);
         params.addBodyParameter("is_pro", isPro + "");
-        HttpHelper hh = new HttpHelper(info.get_social, params, CircleDetailsActivity.this) {
 
+        MyOkHttp.get().post(info.get_social, params.getParams(), new JsonResponseHandler() {
             @Override
-            protected void setData(String json) {
+            public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
-                mCirclebean = mCircleProtocol.getSocialDetail(json);
-                //顶部头像
-                if (!NullUtil.isStringEmpty(mCirclebean.getAvatars())) {
-                    FrescoUtils.getInstance().setImageUri(mIvPhoto, StringUtils.getImgUrl(mCirclebean.getAvatars()));
-                    // GlideUtils.getInstance().glideLoad(context, StringUtils.getImgUrl(mCirclebean.getAvatars()), mIvPhoto, R.drawable.ic_default_head);
-                }
-                //底部头像
+                //    mCirclebean = mCircleProtocol.getSocialDetail(json);
+                mCirclebean = (CircleDetailBean) JsonUtil.getInstance().parseJsonFromResponse(response, CircleDetailBean.class);
+
+
+                if ("1".equals(SCROLLtag)) {//值为1 的时候  代表评论成功执行这段话
+                    scrollToPosition();
+
+                }else {
+                    //顶部头像
+                    if (!NullUtil.isStringEmpty(mCirclebean.getAvatars())) {
+                        FrescoUtils.getInstance().setImageUri(mIvPhoto, StringUtils.getImgUrl(mCirclebean.getAvatars()));
+                        // GlideUtils.getInstance().glideLoad(context, StringUtils.getImgUrl(mCirclebean.getAvatars()), mIvPhoto, R.drawable.ic_default_head);
+                    }
+                    //底部头像
                /* Glide.with(context).load(MyCookieStore.URL + mCirclebean.getAvatars()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
                         .placeholder(R.drawable.ic_default_head).error(R.drawable.ic_default_head).into(mIvPhotoBootom);*/
-
-                mTvName.setText(mCirclebean.getNickname());
-                mTvTime.setText(mCirclebean.getAddtime());
-                //判断内容是官方发布还是用户发布admin_id为0标识为用户发布
-                if (mCirclebean.getAdmin_id().equals("0")) {//用户发布
-                    //mTvName.setTextColor(context.getResources().getColor(R.color.black_jain_87));
-                    mLinGuan.setVisibility(View.GONE);
-                    mLinUser.setVisibility(View.VISIBLE);
-                    byte[] bytes = Base64.decode(mCirclebean.getContent(), Base64.DEFAULT);
-                    mTvUserContent.setText(new String(bytes));
-                    // mTvUserContent.setText("     " + mCirclebean.getContent());
-                    //动态添加用户发表图片
-                    getAddview();
-
-                    ll_title1.setVisibility(View.GONE);
-                    ll_title2.setVisibility(View.VISIBLE);
-                } else {///官方图文混排
-                    ll_title1.setVisibility(View.VISIBLE);
-                    ll_title2.setVisibility(View.GONE);
-                    //显示头部
-                    byte[] bytes1 = Base64.decode(mCirclebean.getTitle(), Base64.DEFAULT);
-                    tv_title1.setText(new String(bytes1));
-                    tv_sub_title1.setText("发布源："+mCirclebean.getNickname()+"    "+mCirclebean.getAddtime());
-
-                    // mTvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-                    if (isPro == 1) {
-                        mLinGuan.setVisibility(View.VISIBLE);
+                    mTvName.setText(mCirclebean.getNickname());
+                    mTvTime.setText(mCirclebean.getAddtime());
+                    //判断内容是官方发布还是用户发布admin_id为0标识为用户发布
+                    if ("0".equals(mCirclebean.getAdmin_id())) {//用户发布
+                        //mTvName.setTextColor(context.getResources().getColor(R.color.black_jain_87));
+                        mLinGuan.setVisibility(View.GONE);
                         mLinUser.setVisibility(View.VISIBLE);
+                        byte[] bytes = Base64.decode(mCirclebean.getContent(), Base64.DEFAULT);
+                        mTvUserContent.setText(new String(bytes));
+                        // mTvUserContent.setText("     " + mCirclebean.getContent());
+                        //动态添加用户发表图片
                         getAddview();
-                    } else {
-                        mLinGuan.setVisibility(View.VISIBLE);
-                        mLinUser.setVisibility(View.GONE);
+
+                        ll_title1.setVisibility(View.GONE);
+                        ll_title2.setVisibility(View.VISIBLE);
+                    } else {///官方图文混排
+                        ll_title1.setVisibility(View.VISIBLE);
+                        ll_title2.setVisibility(View.GONE);
+                        //显示头部
+                        byte[] bytes1 = Base64.decode(mCirclebean.getTitle(), Base64.DEFAULT);
+                        tv_title1.setText(new String(bytes1));
+                        tv_sub_title1.setText("发布源："+mCirclebean.getNickname()+"    "+mCirclebean.getAddtime());
+
+                        // mTvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                        if (isPro == 1) {
+                            mLinGuan.setVisibility(View.VISIBLE);
+                            mLinUser.setVisibility(View.VISIBLE);
+                            getAddview();
+                        } else {
+                            mLinGuan.setVisibility(View.VISIBLE);
+                            mLinUser.setVisibility(View.GONE);
+                        }
+
+                        //能够的调用JavaScript代码
+                        mWebview.getSettings().setJavaScriptEnabled(true);
+                        // 设置允许JS弹窗
+                        //        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+                        // 设置可以支持缩放
+                        mWebview.getSettings().setSupportZoom(true);
+                        mWebview.getSettings().setBuiltInZoomControls(true);
+                        // 设置隐藏缩放工具控制条
+                        mWebview.getSettings().setDisplayZoomControls(false);
+                        //扩大比例的缩放
+                        mWebview.getSettings().setUseWideViewPort(false);
+                        //自适应屏幕
+                        mWebview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+                        mWebview.getSettings().setLoadWithOverviewMode(true);
+
+                        //设置字体大小
+                        mWebview.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
+                        byte[] bytes = Base64.decode(mCirclebean.getContent(), Base64.DEFAULT);
+                        //加载HTML字符串进行显示
+                        // mWebview.loadDataWithBaseURL(null, getNewContent(new String(bytes)), "text/html", "utf-8", null);
+                        String content = new String(bytes);
+                        if (!"".equals(content)) {
+                            String css = "<style type=\"text/css\"> " +
+                                    "img {" +
+                                    "max-width: 100% !important;" +//限定图片宽度填充屏幕
+                                    "height:auto !important;" +//限定图片高度自动
+                                    "}" +
+                                    "</style>";
+                            content1 = "<head>" + css + "</head><body>" + content + "</body></html>";
+                            mWebview.loadDataWithBaseURL(null, content1, "text/html", "utf-8", null);
+                            LogUtils.d("[content1]" + content1);
+                        }
                     }
 
-                    //能够的调用JavaScript代码
-                    mWebview.getSettings().setJavaScriptEnabled(true);
-                    // 设置允许JS弹窗
-                    //        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-                    // 设置可以支持缩放
-                    mWebview.getSettings().setSupportZoom(true);
-                    mWebview.getSettings().setBuiltInZoomControls(true);
-                    // 设置隐藏缩放工具控制条
-                    mWebview.getSettings().setDisplayZoomControls(false);
-                    //扩大比例的缩放
-                    mWebview.getSettings().setUseWideViewPort(false);
-                    //自适应屏幕
-                    mWebview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-                    mWebview.getSettings().setLoadWithOverviewMode(true);
-
-                    //设置字体大小
-                    mWebview.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
-                    byte[] bytes = Base64.decode(mCirclebean.getContent(), Base64.DEFAULT);
-                    //加载HTML字符串进行显示
-                    // mWebview.loadDataWithBaseURL(null, getNewContent(new String(bytes)), "text/html", "utf-8", null);
-                    String content = new String(bytes);
-                    if (!"".equals(content)) {
-                        String css = "<style type=\"text/css\"> " +
-                                "img {" +
-                                "max-width: 100% !important;" +//限定图片宽度填充屏幕
-                                "height:auto !important;" +//限定图片高度自动
-                                "}" +
-                                "</style>";
-                        content1 = "<head>" + css + "</head><body>" + content + "</body></html>";
-                        mWebview.loadDataWithBaseURL(null, content1, "text/html", "utf-8", null);
-                        LogUtils.d("[content1]" + content1);
-                    }
                 }
-                if (mCirclebean.getReply_list() != null) {
+                //评论每次都调用
+                if (mCirclebean.getReply_list() != null&&mCirclebean.getReply_list().size()>0) {
                     mTvPinglunNum.setText("评论(" + mCirclebean.getReply_list().size() + ")");
                     mLinYescontent.setVisibility(View.VISIBLE);
                     mLinNodata.setVisibility(View.GONE);
@@ -348,20 +365,14 @@ public class CircleDetailsActivity extends BaseActivityOld {
                     linComment.setVisibility(View.GONE);
                     mLinPinglun.setVisibility(View.GONE);
                 }
-                if (SCROLLtag.equals("1")) {//值为1 的时候  代表评论成功执行这段话
-                    scrollToPosition();
-
-                }
-//                linComment.setVisibility(View.GONE);
-
             }
 
             @Override
-            protected void requestFailure(Exception error, String msg) {
+            public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
-        };
+        });
     }
 
     /**
@@ -380,17 +391,19 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
             @Override
             protected void setData(String json) {
-                hideDialog(smallDialog);
+               // hideDialog(smallDialog);
                 String result = new CommonProtocol().getResult(json);
                 if (result.equals("1")) {
-                    mLinImg.removeAllViews();
+              //      mLinImg.removeAllViews();
                     SCROLLtag = "1";
+                    showDialog(smallDialog);
                     getdata();
 
                     // scrollToPosition();
                     mCirclebean.setType(1);
                     EventBus.getDefault().post(mCirclebean);
                 } else {
+                    hideDialog(smallDialog);
                     SmartToast.showInfo("删除失败");
                 }
             }
@@ -416,21 +429,23 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
             @Override
             protected void setData(String json) {
-                hideDialog(smallDialog);
+              //  hideDialog(smallDialog);
                 try {
                     JSONObject jsonObject = new JSONObject(json);
                     String status = jsonObject.getString("status");
                     if (StringUtils.isEquals(status, "1")) {
 //                        MyCookieStore.Circle_refresh = 1;
-                        SmartToast.showInfo("评论成功");
-                        mLinImg.removeAllViews();
+                  //      SmartToast.showInfo("评论成功");
+                    //    mLinImg.removeAllViews();
                         SCROLLtag = "1";
+                        showDialog(smallDialog);
                         getdata();
 
                         // scrollToPosition();
                         mCirclebean.setType(0);
                         EventBus.getDefault().post(mCirclebean);
                     } else {
+                        hideDialog(smallDialog);
                         SmartToast.showInfo(jsonObject.getString("msg"));
                     }
                 } catch (Exception e) {
@@ -449,15 +464,41 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
     protected void getAddview() {
         mLinImg.removeAllViews();
-        if (mCirclebean.getImg_list() != null) {
+        if (mCirclebean.getImg_list() != null&&mCirclebean.getImg_list().size()>0) {
             for (int i = 0; i < mCirclebean.getImg_list().size(); i++) {
                 View view = LinearLayout.inflate(CircleDetailsActivity.this, R.layout.cricle_detail_imgdesc_item, null);
-                ImageView img = (ImageView) view.findViewById(R.id.img);
+                final ImageView img = (ImageView) view.findViewById(R.id.img);
 
                 //
              //   bitmapUtils.display(img, MyCookieStore.URL + mCirclebean.getImg_list().get(i).getImg());//"http://property.hui-shenghuo.cn/"
+                img.setBackgroundColor(getResources().getColor(R.color.default_color));
+                final int gridWidth = DeviceUtils.getWindowWidth(CircleDetailsActivity.this);
+                int nWidth = gridWidth;
+                int nHeight = (int) (1 * nWidth);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);
+                img.setLayoutParams(layoutParams);
 
-                GlideUtils.getInstance().glideLoad(this,MyCookieStore.URL + mCirclebean.getImg_list().get(i).getImg(),img,R.color.default_color);
+              //  GlideUtils.getInstance().glideLoad(this,MyCookieStore.URL + mCirclebean.getImg_list().get(i).getImg(),img,R.color.default_color);
+                Glide.with(getApplicationContext()).load(MyCookieStore.URL +mCirclebean.getImg_list().get(i).getImg()).placeholder(R.drawable.ic_default_rectange).error(R.drawable.ic_default_rectange).into(new SimpleTarget<GlideDrawable>() {
+                    @Override
+                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                        int width = resource.getIntrinsicWidth();
+                        int height = resource.getIntrinsicHeight();
+                        final int gridWidth = DeviceUtils.getWindowWidth(CircleDetailsActivity.this)-DeviceUtils.dip2px(CircleDetailsActivity.this,30);
+                        int nWidth = gridWidth;
+                        int nHeight = (int) (3 * nWidth);
+                        float scale = (float) height / width;
+                        if (scale < 3) {
+                            nHeight = (int) (scale * nWidth);
+                        }
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);
+                        //layoutParams.setMargins(0, 0, 0, 15);;
+                        img.setLayoutParams(layoutParams);
+                        img.setScaleType(ImageView.ScaleType.FIT_XY);
+                        img.setImageDrawable(resource);
+                    }
+                });
+
                 mLinImg.addView(view);
             }
             if (SCROLLtag.equals("1")) {//值为1 的时候  代表评论成功执行这段话
