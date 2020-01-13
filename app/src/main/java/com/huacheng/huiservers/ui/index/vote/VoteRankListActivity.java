@@ -56,8 +56,13 @@ public class VoteRankListActivity extends BaseListActivity<ModelVlogRankList>{
                 }else {
                     viewHolder.<ImageView>getView(R.id.iv_123).setVisibility(View.GONE);
                     viewHolder.<TextView>getView(R.id.tv_rank).setVisibility(View.VISIBLE);
+
                 }
-                viewHolder.<TextView>getView(R.id.tv_rank).setText(item.getRanking()+"");
+                if ("0".equals(item.getPoll())) {
+                    viewHolder.<TextView>getView(R.id.tv_rank).setText("——");
+                }else {
+                    viewHolder.<TextView>getView(R.id.tv_rank).setText(item.getRanking()+"");
+                }
                 viewHolder.<TextView>getView(R.id.tv_num).setText(item.getNumber()+"号");
                 viewHolder.<TextView>getView(R.id.tv_name).setText(item.getTitle()+"");
                 viewHolder.<TextView>getView(R.id.tv_piao_num).setText(item.getPoll()+"票");
