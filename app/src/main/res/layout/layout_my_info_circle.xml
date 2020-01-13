@@ -120,6 +120,7 @@
             android:layout_marginTop="@dimen/margin"
             android:background="@color/white"
             tab:tabIndicatorColor="#ED8D37"
+            android:paddingLeft="@dimen/margin"
             tab:tabIndicatorHeight="2dp"
             tab:tabIndicatorWidth="60dp"
             tab:tabSelectTextColor="#333333"

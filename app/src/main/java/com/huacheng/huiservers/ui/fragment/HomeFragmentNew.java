@@ -1203,7 +1203,13 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 break;
             case R.id.iv_message:
                 //消息（目前只有养老消息）
+                if (ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                    intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                    mContext.startActivity(intent);
+
+                } else {
                 startActivity(new Intent(mActivity, OldMessageActivity.class));
+                }
                 break;
             default:
                 break;
