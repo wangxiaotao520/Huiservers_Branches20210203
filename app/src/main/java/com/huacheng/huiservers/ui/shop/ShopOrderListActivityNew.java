@@ -107,8 +107,8 @@ public class ShopOrderListActivityNew extends BaseActivity {
         } else if (type_back.equals("type_zf_dsh")) {
             viewpager.setCurrentItem(0);
         } else {*/
-            currentFragment = mFragments.get(0);
-       // }
+        currentFragment = mFragments.get(0);
+        // }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -152,7 +152,7 @@ public class ShopOrderListActivityNew extends BaseActivity {
 
     @Override
     protected void initIntentData() {
-      //  type_back = this.getIntent().getExtras().getString("type");
+        //  type_back = this.getIntent().getExtras().getString("type");
 
     }
 
@@ -194,11 +194,15 @@ public class ShopOrderListActivityNew extends BaseActivity {
             } else if (info.getBack_type() == 2) {//评价
                 //viewpager.setCurrentItem(2);
             } else if (info.getBack_type() == 3) {//退款
-                viewpager.setCurrentItem(3);
-                currentFragment.setRefreh();
+                if (info.getTuikuan_type() == 1) {
+                    viewpager.setCurrentItem(3);
+                    currentFragment.setRefreh();
+                }
             } else if (info.getBack_type() == 5) {//收货
-                viewpager.setCurrentItem(2);
-                currentFragment.setRefreh();
+                if (info.getShouhuo_type() == 1) {
+                    viewpager.setCurrentItem(2);
+                    currentFragment.setRefreh();
+                }
             }
 
         }

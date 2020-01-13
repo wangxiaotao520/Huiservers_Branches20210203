@@ -137,17 +137,17 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
                         XorderDetailBean XorderDetail = new XorderDetailBean();
                         XorderDetail.setId(data_info.getId());
                         XorderDetail.setBack_type(2);
-                        XorderDetail.setPingjia_type(1);
+                       // XorderDetail.setPingjia_type(1);//这个没有用到
                         EventBus.getDefault().post(XorderDetail);
                         finish();
-                    } else if (type == 4) {//评价
+                    } /*else if (type == 4) {//评价
                         XorderDetailBean XorderDetail = new XorderDetailBean();
                         XorderDetail.setId(data_info.getId());
                         XorderDetail.setBack_type(2);
-                        XorderDetail.setPingjia_type(2);
+                        XorderDetail.setPingjia_type(2);//这个没有用到
                         EventBus.getDefault().post(XorderDetail);
                         finish();
-                    }
+                    }*/
                     //删除缓存文件夹中的图片
                     ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
                     break;
@@ -190,7 +190,7 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
             mTvShopPriceOne.setText("¥ " + data_info.getPrice());
             mTvNumOne.setText("× " + data_info.getNumber());
             data_info.getP_title();
-        } else if (type == 2 || type == 4) {
+        } else if (type == 2) {
             mLyPingjia.setVisibility(View.VISIBLE);
             mLyTuikuan.setVisibility(View.GONE);
             FrescoUtils.getInstance().setImageUri(mSdvPingjia, ApiHttpClient.IMG_URL + data_info.getP_title_img());
@@ -293,7 +293,7 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
             }
 
             url = Url_info.shop_refund;
-        } else if (type == 2 || type == 4) {
+        } else if (type == 2) {
 
             params.addBodyParameter("oid", data_info.getOid());//订单id
             params.addBodyParameter("p_id", data_info.getP_id());//商品id

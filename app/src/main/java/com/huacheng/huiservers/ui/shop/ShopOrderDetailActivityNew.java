@@ -677,12 +677,13 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
     public void back(XorderDetailBean info) {
         if (info != null) {
             if (info.getBack_type() == 2) {//评价
-                //退款刷新
-                if (info.getPingjia_type() == 1) {//直接返回列表
+                //评价不需要判断 直接刷新数据 然后返回列表
+              /*  if (info.getPingjia_type() == 1) {//直接返回列表
                     finish();
                 } else {//刷新详情界面
                     requestData();
-                }
+                }*/
+                requestData();
             } else if (info.getBack_type() == 3) {//退款
                 if (info.getTuikuan_type() == 1) {//直接返回列表
                     finish();
@@ -696,6 +697,8 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                 } else {//刷新详情界面
                     requestData();
                 }
+            } else if (info.getBack_type() == 4) {//收货
+               finish();
             }
         }
     }

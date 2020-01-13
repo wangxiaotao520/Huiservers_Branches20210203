@@ -271,12 +271,8 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin"
-                        android:background="@color/white"/>
-
                     <TextView
+                        android:layout_marginTop="@dimen/margin"
                         android:id="@+id/tv_pay_style"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
