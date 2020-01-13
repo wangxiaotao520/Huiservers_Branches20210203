@@ -634,9 +634,9 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
             }
             for (int i = 0; i < imageViews_bottom.length; i++) {
                 if (position==i){
-                    GlideUtils.getInstance().glideLoad(this,img_selected[i],imageViews_bottom[i],drawables_selected[i]);
+                    GlideUtils.getInstance().glideLoad(this,img_selected[i],imageViews_bottom[i],R.color.white,drawables_selected[i]);
                 }else {
-                    GlideUtils.getInstance().glideLoad(this,img_unselected[i],imageViews_bottom[i],drawables_unselected[i]);
+                    GlideUtils.getInstance().glideLoad(this,img_unselected[i],imageViews_bottom[i],R.color.white,drawables_unselected[i]);
                 }
             }
         }else {

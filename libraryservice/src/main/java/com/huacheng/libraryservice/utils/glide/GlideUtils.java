@@ -60,6 +60,14 @@ public class GlideUtils {
             Log.e(TAG, "Picture loading failed,activity is Destroyed");
         }
     }
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public void glideLoad(Activity activity, String url, ImageView imageView, int default_image,int error_image) {
+        if (!activity.isDestroyed()) {
+            Glide.with(activity).load(url).error(error_image).placeholder(default_image).crossFade().into(imageView);
+        } else {
+            Log.e(TAG, "Picture loading failed,activity is Destroyed");
+        }
+    }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void glideLoadWithCorner(Activity activity, String url, ImageView imageView, int default_image) {
