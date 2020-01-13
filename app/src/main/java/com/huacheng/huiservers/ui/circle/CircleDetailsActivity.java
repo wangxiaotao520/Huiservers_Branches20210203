@@ -42,6 +42,7 @@ import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.lidroid.xutils.BitmapUtils;
 import com.microquation.linkedme.android.log.LMErrorCode;
@@ -128,6 +129,14 @@ public class CircleDetailsActivity extends BaseActivityOld {
     LinearLayout mLinImg;
     @BindView(R.id.iv_photo_bootom)
     CircularImage mIvPhotoBootom;
+    @BindView(R.id.ll_title1)
+    LinearLayout ll_title1;
+    @BindView(R.id.ll_title2)
+    LinearLayout ll_title2;
+    @BindView(R.id.tv_title1)
+    TextView tv_title1;
+    @BindView(R.id.tv_sub_title1)
+    TextView tv_sub_title1;
 
 
     private String SCROLLtag = "0";
@@ -245,8 +254,15 @@ public class CircleDetailsActivity extends BaseActivityOld {
                     //动态添加用户发表图片
                     getAddview();
 
-
+                    ll_title1.setVisibility(View.GONE);
+                    ll_title2.setVisibility(View.VISIBLE);
                 } else {///官方图文混排
+                    ll_title1.setVisibility(View.VISIBLE);
+                    ll_title2.setVisibility(View.GONE);
+                    //显示头部
+                    byte[] bytes1 = Base64.decode(mCirclebean.getTitle(), Base64.DEFAULT);
+                    tv_title1.setText(new String(bytes1));
+                    tv_sub_title1.setText("发布源："+mCirclebean.getNickname()+"    "+mCirclebean.getAddtime());
 
                     // mTvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                     if (isPro == 1) {
@@ -439,7 +455,9 @@ public class CircleDetailsActivity extends BaseActivityOld {
                 ImageView img = (ImageView) view.findViewById(R.id.img);
 
                 //
-                bitmapUtils.display(img, MyCookieStore.URL + mCirclebean.getImg_list().get(i).getImg());//"http://property.hui-shenghuo.cn/"
+             //   bitmapUtils.display(img, MyCookieStore.URL + mCirclebean.getImg_list().get(i).getImg());//"http://property.hui-shenghuo.cn/"
+
+                GlideUtils.getInstance().glideLoad(this,MyCookieStore.URL + mCirclebean.getImg_list().get(i).getImg(),img,R.color.default_color);
                 mLinImg.addView(view);
             }
             if (SCROLLtag.equals("1")) {//值为1 的时候  代表评论成功执行这段话
