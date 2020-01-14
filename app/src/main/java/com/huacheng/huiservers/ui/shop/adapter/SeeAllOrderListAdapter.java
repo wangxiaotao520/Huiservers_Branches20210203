@@ -63,7 +63,7 @@ public class SeeAllOrderListAdapter extends BaseAdapter {
 		holder.txt_name.setText(list.get(arg0).getP_title()+"");
 		holder.txt_num.setText(list.get(arg0).getNumber()+"");
 		holder.tag_name.setText(list.get(arg0).getTagname()+"");
-		holder.txt_price.setText("¥"+list.get(arg0).getPrice());
+		holder.txt_price.setText("¥ "+list.get(arg0).getPrice());
 		return arg1;
 	}
 	public  class ViewHolder {

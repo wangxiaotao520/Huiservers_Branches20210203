@@ -47,7 +47,7 @@ public class AdapterShopCartNew extends CommonAdapter<DataBean> {
             viewHolder.<LinearLayout>getView(R.id.ll_m_title).setVisibility(View.GONE);
         }
         viewHolder.<TextView>getView(R.id.tv_intro).setText(item.getTitle());
-        viewHolder.<TextView>getView(R.id.tv_price).setText("¥" + item.getPrice());
+        viewHolder.<TextView>getView(R.id.tv_price).setText("¥ " + item.getPrice());
         viewHolder.<TextView>getView(R.id.tv_num).setText(item.getNumber() + "");
        // GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + item.getTitle_img(),viewHolder.<ImageView>getView(R.id.iv_adapter_list_pic),R.color.windowbackground);
 
@@ -88,14 +88,14 @@ public class AdapterShopCartNew extends CommonAdapter<DataBean> {
         if (NullUtil.isStringEmpty(selected_m_id)){
             viewHolder.<TextView>getView(R.id.tv_m_name).setTextColor(Color.parseColor("#333333"));
             viewHolder.<TextView>getView(R.id.tv_intro).setTextColor(Color.parseColor("#333333"));
-            viewHolder.<TextView>getView(R.id.tv_price).setTextColor(Color.parseColor("#333333"));
+            viewHolder.<TextView>getView(R.id.tv_price).setTextColor(Color.parseColor("#FF625E"));
             viewHolder.<TextView>getView(R.id.tv_num).setTextColor(Color.parseColor("#333333"));
             viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.gray_99));
         }else {
             if (item.getM_id().equals(selected_m_id)){
                 viewHolder.<TextView>getView(R.id.tv_m_name).setTextColor(Color.parseColor("#333333"));
                 viewHolder.<TextView>getView(R.id.tv_intro).setTextColor(Color.parseColor("#333333"));
-                viewHolder.<TextView>getView(R.id.tv_price).setTextColor(Color.parseColor("#333333"));
+                viewHolder.<TextView>getView(R.id.tv_price).setTextColor(Color.parseColor("#FF625E"));
                 viewHolder.<TextView>getView(R.id.tv_num).setTextColor(Color.parseColor("#333333"));
                 viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.gray_99));
             }else {
@@ -105,6 +105,11 @@ public class AdapterShopCartNew extends CommonAdapter<DataBean> {
                 viewHolder.<TextView>getView(R.id.tv_num).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
                 viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
             }
+        }
+        if (position==mDatas.size()-1){
+            viewHolder.<View>getView(R.id.view_bottom).setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.<View>getView(R.id.view_bottom).setVisibility(View.GONE);
         }
 
     }
