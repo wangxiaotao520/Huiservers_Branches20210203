@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.shop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,10 +19,12 @@ import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopMainBean;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyGridview;
+import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopDetailListAdapter extends BaseAdapter {
@@ -95,12 +98,23 @@ public class ShopDetailListAdapter extends BaseAdapter {
         holder.hsv_view.setVisibility(View.GONE);
         if (bean.get(arg0).getScore_img() != null && bean.get(arg0).getScore_img().size() > 0) {
             holder.gridView.setVisibility(View.VISIBLE);
-
+            final ArrayList<String> lists = new ArrayList<>();
+            for (int i = 0; i < bean.get(arg0).getScore_img().size(); i++) {
+                lists.add(MyCookieStore.URL + bean.get(arg0).getScore_img().get(i).getImg());
+            }
             CommonAdapter commonAdapter = new CommonAdapter<BannerBean>(context, R.layout.circle_image_item, bean.get(arg0).getScore_img()) {
 
                 @Override
-                protected void convert(com.zhy.adapter.abslistview.ViewHolder viewHolder, BannerBean item, int position) {
+                protected void convert(com.zhy.adapter.abslistview.ViewHolder viewHolder, BannerBean item, final int position) {
                     GlideUtils.getInstance().glideLoad(mContext, MyCookieStore.URL + item.getImg(), viewHolder.<ImageView>getView(R.id.imageView), R.drawable.icon_girdview);
+
+                    viewHolder.<ImageView>getView(R.id.imageView).setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            imageBrower(position, lists);
+                        }
+                    });
                 }
             };
             holder.gridView.setAdapter(commonAdapter);
@@ -113,7 +127,13 @@ public class ShopDetailListAdapter extends BaseAdapter {
         //holder.txt_name.setText(bean.get(arg0).getUsername());
         //holder.txt_content.setText(bean.get(arg0).getDescription());
         return arg1;
+    } protected void imageBrower(int position, ArrayList<String> urls2) {
+        Intent intent = new Intent(context, PhotoViewPagerAcitivity.class);
+        intent.putExtra("img_list",urls2);
+        intent.putExtra("position",position);
+        context.startActivity(intent);
     }
+
 
     public class ViewHolder {
         private TextView txt_name, txt_content;

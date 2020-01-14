@@ -49,6 +49,7 @@ import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import com.huacheng.huiservers.view.MyGridview;
+import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.huiservers.view.ScrollChangedScrollView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
@@ -638,10 +639,24 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
             scroll_view.removeAllViews();
             if (detailBean.getScore().get(0).getScore_img() != null && detailBean.getScore().get(0).getScore_img().size() > 0) {
                 hsv_view.setVisibility(View.VISIBLE);
+                final ArrayList<String> lists = new ArrayList<>();
+                for (int i = 0; i < detailBean.getScore().get(0).getScore_img().size(); i++) {
+                    lists.add(MyCookieStore.URL + detailBean.getScore().get(0).getScore_img().get(i).getImg());
+                }
                 for (int i = 0; i < detailBean.getScore().get(0).getScore_img().size(); i++) {
                     View view = LinearLayout.inflate(ShopDetailActivityNew.this, R.layout.circle_image_item, null);
                     ImageView img = view.findViewById(R.id.imageView);
                     GlideUtils.getInstance().glideLoad(this,MyCookieStore.URL + detailBean.getScore().get(0).getScore_img().get(i).getImg(),img,R.drawable.icon_girdview);
+                    final int finalI = i;
+                    img.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(ShopDetailActivityNew.this, PhotoViewPagerAcitivity.class);
+                            intent.putExtra("img_list",lists);
+                            intent.putExtra("position", finalI);
+                            startActivity(intent);
+                        }
+                    });
                     scroll_view.addView(view);
                 }
             } else {
@@ -813,7 +828,7 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
                             if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
                                 SmartToast.showInfo("当前时间不在派送时间范围内");
                             } else {
-                                getTag("2");
+                                getTag("3");
                             }
                         }
                     } else {
@@ -821,7 +836,7 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
                             SmartToast.showInfo("当前时间不在派送时间范围内");
                         } else {
 
-                            getTag("2");
+                            getTag("3");
                         }
                     }
 

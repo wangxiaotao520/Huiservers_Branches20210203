@@ -390,18 +390,19 @@ public class ShopProtocol {
                         tjinfos.setAddtime(tjObj.getString("addtime"));
                         tjinfos.setAvatars(tjObj.getString("avatars"));
                         tjinfos.setP_tag_name(tjObj.getString("p_tag_name"));
-
                         String score_img = tjObj.getString("score_img");
-                        JSONArray scorearray = new JSONArray(score_img);
-                        List<BannerBean> score_imglist = new ArrayList<>();
-                        for (int i = 0; i < score_imglist.size(); i++) {
-                            JSONObject scoreObj = scorearray.getJSONObject(j);
-                            BannerBean sscore_imginfo = new BannerBean();
-                            sscore_imginfo.setId(scoreObj.getString("id"));
-                            sscore_imginfo.setImg(scoreObj.getString("img"));
-                            score_imglist.add(sscore_imginfo);
+                        if (!score_img.equals("[]")){
+                            JSONArray scorearray = new JSONArray(score_img);
+                            List<BannerBean> score_imglist = new ArrayList<>();
+                            for (int i = 0; i < scorearray.length(); i++) {
+                                JSONObject scoreObj = scorearray.getJSONObject(j);
+                                BannerBean sscore_imginfo = new BannerBean();
+                                sscore_imginfo.setId(scoreObj.getString("id"));
+                                sscore_imginfo.setImg(scoreObj.getString("img"));
+                                score_imglist.add(sscore_imginfo);
+                            }
+                            tjinfos.setScore_img(score_imglist);
                         }
-                        tjinfos.setScore_img(score_imglist);
                         tjList.add(tjinfos);
 
                     }
@@ -676,16 +677,18 @@ public class ShopProtocol {
                     getfinfo.setTotal_Pages(obj.getString("total_Pages"));
 
                     String score_img = obj.getString("score_img");
-                    JSONArray scorearray = new JSONArray(score_img);
                     List<BannerBean> score_imglist = new ArrayList<>();
-                    for (int j = 0; j < score_imglist.size(); j++) {
-                        JSONObject scoreObj = scorearray.getJSONObject(j);
-                        BannerBean sscore_imginfo = new BannerBean();
-                        sscore_imginfo.setId(scoreObj.getString("id"));
-                        sscore_imginfo.setImg(scoreObj.getString("img"));
-                        score_imglist.add(sscore_imginfo);
+                    if (!score_img.equals("[]")) {
+                        JSONArray scorearray = new JSONArray(score_img);
+                        for (int j = 0; j < scorearray.length(); j++) {
+                            JSONObject scoreObj = scorearray.getJSONObject(j);
+                            BannerBean sscore_imginfo = new BannerBean();
+                            sscore_imginfo.setId(scoreObj.getString("id"));
+                            sscore_imginfo.setImg(scoreObj.getString("img"));
+                            score_imglist.add(sscore_imginfo);
+                        }
+                        getfinfo.setScore_img(score_imglist);
                     }
-                    getfinfo.setScore_img(score_imglist);
                     info.add(getfinfo);
                 }
             }

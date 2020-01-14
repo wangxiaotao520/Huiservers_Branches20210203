@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
@@ -75,8 +76,10 @@ public class AddShopDialog extends Dialog implements OnClickListener {
     List<ShopDetailBean> beans = new ArrayList<ShopDetailBean>();
     //XGBean xgBean = new XGBean();
     XGBean CxgBean;
-    private  int type= 0;//0 是+ ;1.立即购买 2.加入购物车
-
+    private int type = 0;//0 是+ ;1.立即购买 2.加入购物车
+    private LinearLayout ly_bottom_btn;
+    private TextView txt_car;
+    private TextView txt_goumai;
 
     /**
      * 自定义Dialog监听器
@@ -115,7 +118,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
         back = findViewById(R.id.back);//取消
         txt_title = (TextView) findViewById(R.id.txt_title);//名称
         txt_inv = (TextView) findViewById(R.id.txt_inv);//库存
-        img_title =  findViewById(R.id.img_title);//头图
+        img_title = findViewById(R.id.img_title);//头图
         img_fu_jian = (ImageView) findViewById(R.id.img_fu_jian);//减号
         img_zheng_jia = (ImageView) findViewById(R.id.img_zheng_jia);//加号
         edit_num = (EditText) findViewById(R.id.edit_num);//选择数量
@@ -124,14 +127,28 @@ public class AddShopDialog extends Dialog implements OnClickListener {
         /*edit_num.setFocusable(false);//让EditText失去焦点，然后获取点击事件
         edit_num.setOnClickListener(this);*/
         txt_btn = (TextView) findViewById(R.id.txt_btn);//确定
+        ly_bottom_btn = (LinearLayout) findViewById(R.id.ly_bottom_btn);
+
+        txt_car = (TextView) findViewById(R.id.txt_car);//加入购物车
+        txt_goumai = (TextView) findViewById(R.id.txt_goumai);//购买
         txt_price = (TextView) findViewById(R.id.txt_price);//价格
         txt_yuan_price = (TextView) findViewById(R.id.txt_yuan_price);
         txt_yuan_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); // 中划线
         back.setOnClickListener(this);
         txt_btn.setOnClickListener(this);
+        txt_car.setOnClickListener(this);
+        txt_goumai.setOnClickListener(this);
+        txt_btn.setOnClickListener(this);
         img_fu_jian.setOnClickListener(this);
         img_zheng_jia.setOnClickListener(this);
 
+        if ("3".equals(strtag)) {//为3 是从商品规格点击进来的 显示两个按钮
+            txt_btn.setVisibility(View.GONE);
+            ly_bottom_btn.setVisibility(View.VISIBLE);
+        } else {
+            txt_btn.setVisibility(View.VISIBLE);
+            ly_bottom_btn.setVisibility(View.GONE);
+        }
         //尺寸
         mSizeFlowTagLayout = (FlowTagLayout) findViewById(R.id.size_flow_layout);
         mSizeTagAdapter = new TagAdapter<String>(context);
@@ -160,7 +177,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                         txt_inv.setText("库存：" + invenyory + beans.get(i).getUnit());
                         if (invenyory.equals("0")) {
                             edit_num.setText("0");
-                        }else {
+                        } else {
                             edit_num.setText("1");
                         }
                         if (beans.get(i).getUnit().equals("")) {
@@ -187,7 +204,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
         if (detailBean.getTitle_img() == null) {
 
         } else {
-            FrescoUtils.getInstance().setImageUri(img_title,MyCookieStore.URL + detailBean.getTitle_img());
+            FrescoUtils.getInstance().setImageUri(img_title, MyCookieStore.URL + detailBean.getTitle_img());
         }
         setCanceledOnTouchOutside(true);//
         getWindow().setGravity(Gravity.BOTTOM); //此处可以设置dialog显示的位置
@@ -248,7 +265,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                 txt_inv.setText("库存：" + beans.get(i).getInventory() + beans.get(i).getUnit());
                 if ("0".equals(beans.get(i).getInventory())) {
                     edit_num.setText("0");
-                }else {
+                } else {
                     edit_num.setText("1");
                 }
             } else {
@@ -286,7 +303,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                     if (Integer.valueOf(invenyory) <= (Integer.valueOf(edit_num.getText().toString().trim()))) {
                         SmartToast.showInfo("已售罄");
                     } else {
-                        type=0;
+                        type = 0;
                         getShopLimit();
                     }
                 }
@@ -301,10 +318,45 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                         } else {
 
                             if (strtag.equals("1")) {//tag值为1是立即购买
-                                type=1;
+                                type = 1;
                             } else if (strtag.equals("2")) {//tag值为2是加入购物车
-                                type=2;
+                                type = 2;
                             }
+                            getShopLimit();
+                        }
+                    }
+                } else {
+                    SmartToast.showInfo("请选择产品类型");
+                }
+                break;
+
+            case R.id.txt_car://加入购物车
+                if (isbool == true) {
+                    if ("0".equals(invenyory)) {
+                        SmartToast.showInfo("已售罄");
+                    } else {
+                        if (Integer.valueOf(invenyory) < (Integer.valueOf(edit_num.getText().toString().trim()))) {
+                            SmartToast.showInfo("已售罄");
+                        } else {
+                            //tag值为2是加入购物车
+                            type = 2;
+                            getShopLimit();
+                        }
+                    }
+                } else {
+                    SmartToast.showInfo("请选择产品类型");
+                }
+                break;
+            case R.id.txt_goumai://立即购买
+                if (isbool == true) {
+                    if ("0".equals(invenyory)) {
+                        SmartToast.showInfo("已售罄");
+                    } else {
+                        if (Integer.valueOf(invenyory) < (Integer.valueOf(edit_num.getText().toString().trim()))) {
+                            SmartToast.showInfo("已售罄");
+                        } else {
+                            //tag值为1是立即购买
+                            type = 1;
                             getShopLimit();
                         }
                     }
@@ -352,7 +404,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
     }
 
     private void getAddShop() {//加入购物车
-        if (smallDialog != null&&!smallDialog.isShowing()) {
+        if (smallDialog != null && !smallDialog.isShowing()) {
             smallDialog.show();
         }
         Url_info info = new Url_info(context);
@@ -399,7 +451,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
 //        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
 //            params.addBodyParameter("c_id", prefrenceUtil.getXiaoQuId());
 //        }
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())){
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getProvince_cn())) {
             params.addBodyParameter("province_cn", prefrenceUtil.getProvince_cn());
             params.addBodyParameter("city_cn", prefrenceUtil.getCity_cn());
             params.addBodyParameter("region_cn", prefrenceUtil.getRegion_cn());
@@ -428,46 +480,46 @@ public class AddShopDialog extends Dialog implements OnClickListener {
      * wangxiaotao
      */
     private void getShopLimit() {
-        if (smallDialog!=null){
+        if (smallDialog != null) {
             smallDialog.show();
         }
-        HashMap<String ,String> params = new HashMap<String,String>();
+        HashMap<String, String> params = new HashMap<String, String>();
         params.put("p_id", id);
         params.put("tagid", tagid);
         String num = edit_num.getText().toString().trim();
-        if (type==0){//+1
+        if (type == 0) {//+1
             int num_int = Integer.parseInt(num);
-            params.put("num",(num_int+1)+"");
-        }else {
-            params.put("num",num);
+            params.put("num", (num_int + 1) + "");
+        } else {
+            params.put("num", num);
         }
         MyOkHttp.get().post(Url_info.shop_limit, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-                if (JsonUtil.getInstance().isSuccess(response)){
+                if (JsonUtil.getInstance().isSuccess(response)) {
                     // 允许购买
-                    if (type==0){
-                        if (smallDialog!=null){
+                    if (type == 0) {
+                        if (smallDialog != null) {
                             smallDialog.dismiss();
                         }
                         String num = edit_num.getText().toString().trim();
                         int num_int = Integer.parseInt(num);
-                        edit_num.setText((num_int+1)+"");
-                    }else if (type==1){
+                        edit_num.setText((num_int + 1) + "");
+                    } else if (type == 1) {
                         //立即购买
-                        if (smallDialog!=null){
+                        if (smallDialog != null) {
                             smallDialog.dismiss();
                         }
                         getSubmiter();
-                    }else if (type==2){//加入购物车
+                    } else if (type == 2) {//加入购物车
                         getAddShop();
                     }
 
-                }else {
-                    if (smallDialog!=null){
+                } else {
+                    if (smallDialog != null) {
                         smallDialog.dismiss();
                     }
-                    String msg = JsonUtil.getInstance().getMsgFromResponse(response,"超出限购");
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "超出限购");
                     SmartToast.showInfo(msg);
                 }
 
@@ -475,7 +527,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                if (smallDialog!=null){
+                if (smallDialog != null) {
                     smallDialog.dismiss();
                 }
                 SmartToast.showInfo("网络异常，请检查网络设置");
