@@ -31,6 +31,7 @@ import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -442,6 +443,55 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                 }
             }
         });
+        //退款点击
+        mTvTuikuan.setOnClickListener(new OnDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("id", order_id);
+                params.put("type", "1");
+                params.put("p_m_id", p_m_id);
+                params.put("status", list_status);
+                mCaozuoPresenter.getCaoZuoShopInfo(params, "1");
+            }
+        });
+        //评价
+        mTvPingjia.setOnClickListener(new OnDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("id", order_id);
+                params.put("type", "3");
+                params.put("p_m_id", p_m_id);
+                params.put("status", list_status);
+                mCaozuoPresenter.getCaoZuoShopInfo(params, "3");
+            }
+        });
+
+        //是支付也是收货
+        mTvGoumai.setOnClickListener(new OnDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                if ("1".equals(list_status)) {
+                    Intent intent = new Intent(ShopOrderDetailActivityNew.this, UnifyPayActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("o_id", mXorderDetailBean.getId());
+                    bundle.putString("price", mXorderDetailBean.getAmount() + "");
+                    bundle.putString("type", "shop");
+                    bundle.putString("order_type", "gw");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                } else if ("2".equals(list_status)) {
+                    HashMap<String, String> params = new HashMap<>();
+                    params.put("id", order_id);
+                    params.put("type", "2");
+                    params.put("p_m_id", p_m_id);
+                    params.put("status", list_status);
+                    mCaozuoPresenter.getCaoZuoShopInfo(params, "2");
+                }
+            }
+        });
     }
 
     @Override
@@ -481,10 +531,8 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
         this.cannelAllTimers();
     }
 
-    @OnClick({R.id.lin_left, R.id.tv_delete, R.id.tv_tuikuan, R.id.tv_pingjia, R.id.tv_goumai, R.id.left1})
+    @OnClick({R.id.lin_left, R.id.tv_delete, R.id.left1})
     public void onViewClicked(View view) {
-        Intent intent;
-        HashMap<String, String> params = new HashMap<>();
         switch (view.getId()) {
             case R.id.lin_left:
                 finish();
@@ -507,40 +555,7 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                 }).show();//.setTitle("提示")
 
                 break;
-            case R.id.tv_tuikuan:
-                params.put("id", order_id);
-                params.put("type", "1");
-                params.put("p_m_id", p_m_id);
-                params.put("status", list_status);
-                mCaozuoPresenter.getCaoZuoShopInfo(params, "1");
-                break;
-            case R.id.tv_pingjia:
-                params.put("id", order_id);
-                params.put("type", "3");
-                params.put("p_m_id", p_m_id);
-                params.put("status", list_status);
-                mCaozuoPresenter.getCaoZuoShopInfo(params, "3");
 
-                break;
-            case R.id.tv_goumai://是支付也是确认收货
-                if ("1".equals(list_status)) {
-                    intent = new Intent(this, UnifyPayActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("o_id", mXorderDetailBean.getId());
-                    bundle.putString("price", mXorderDetailBean.getAmount() + "");
-                    bundle.putString("type", "shop");
-                    bundle.putString("order_type", "gw");
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-
-                } else if ("2".equals(list_status)) {
-                    params.put("id", order_id);
-                    params.put("type", "2");
-                    params.put("p_m_id", p_m_id);
-                    params.put("status", list_status);
-                    mCaozuoPresenter.getCaoZuoShopInfo(params, "2");
-                }
-                break;
         }
     }
 
@@ -698,8 +713,9 @@ public class ShopOrderDetailActivityNew extends BaseActivity implements ShopOrde
                     requestData();
                 }
             } else if (info.getBack_type() == 4) {//收货
-               finish();
+                finish();
             }
         }
     }
+
 }
