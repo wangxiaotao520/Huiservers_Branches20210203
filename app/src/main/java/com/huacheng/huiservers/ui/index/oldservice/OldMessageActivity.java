@@ -3,6 +3,7 @@ package com.huacheng.huiservers.ui.index.oldservice;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
@@ -34,7 +35,9 @@ public class OldMessageActivity extends BaseListActivity<ModelOldMessage> implem
         mListview.setAdapter(mAdapter);
 
         ImageView img_data = findViewById(R.id.img_data);
-        img_data.setBackgroundResource(R.mipmap.bg_message_empty);
+        img_data.setBackgroundResource(R.mipmap.bg_no_message_data);
+        TextView tv_text = findViewById(R.id.tv_text);
+        tv_text.setText("暂无消息");
 
     }
 

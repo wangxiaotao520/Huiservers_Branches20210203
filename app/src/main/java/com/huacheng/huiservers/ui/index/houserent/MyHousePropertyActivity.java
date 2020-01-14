@@ -31,7 +31,7 @@ public class MyHousePropertyActivity extends BaseActivity {
 
     @BindView(R.id.viewpager)
     ViewPager viewpager;
-
+    View v_head_line;
     ArrayList<MyHousePropertyFragment> mFragmentList = new ArrayList<>();
     MyHousePropertyFragment currentFragment;
 
@@ -44,7 +44,8 @@ public class MyHousePropertyActivity extends BaseActivity {
         findTitleViews();
         titleName.setText("我的房产");
         //   titleName.setTypeface(Typeface.DEFAULT_BOLD);//set title bold
-
+        v_head_line=findViewById(R.id.v_head_line);
+        v_head_line.setVisibility(View.GONE);
         /*TextPaint tp = titleName.getPaint();
         tp.setFakeBoldText(true);*/
         contentInflate();

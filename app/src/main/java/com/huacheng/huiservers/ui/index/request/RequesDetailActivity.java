@@ -152,17 +152,17 @@ public class RequesDetailActivity extends BaseActivity {
 
                 mlinear_repair_photo.removeAllViews();
                 for (int i = 0; i < modelRequest.getImg_list().size(); i++) {
-                    ImageView imageView = new ImageView(this);
-                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,
-                            100);//两个50分别为添加图片的大小
-                    // imageView.setImageResource(R.drawable.ic_launcher);
-                    GlideUtils.getInstance().glideLoad(RequesDetailActivity.this, ApiHttpClient.IMG_URL
-                            + modelRequest.getImg_list().get(i).getImg(), imageView, R.drawable.ic_default_head);
-                    params.setMargins(0, 0, 20, 0);
-                    imageView.setLayoutParams(params);
-                    //点击图片放大
-                    final int finalI = i;
+                        ImageView imageView = new ImageView(this);
+                        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,
+                                100);//两个50分别为添加图片的大小
+                        // imageView.setImageResource(R.drawable.ic_launcher);
+                        GlideUtils.getInstance().glideLoad(RequesDetailActivity.this, ApiHttpClient.IMG_URL
+                                + modelRequest.getImg_list().get(i).getImg(), imageView, R.drawable.icon_girdview);
+                        params.setMargins(0, 0, 20, 0);
+                        imageView.setLayoutParams(params);
+                        //点击图片放大
+                        final int finalI = i;
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

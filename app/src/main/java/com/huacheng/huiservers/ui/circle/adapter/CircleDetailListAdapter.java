@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -56,7 +57,7 @@ public class CircleDetailListAdapter extends BaseAdapter {
             holder.tv_time = convertView.findViewById(R.id.tv_time);
             holder.tv_content = convertView.findViewById(R.id.tv_content);
             holder.iv_photo = convertView.findViewById(R.id.iv_photo);
-            holder.iv_delete = convertView.findViewById(R.id.iv_delete);
+            holder.ly_delete = convertView.findViewById(R.id.ly_delete);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -70,8 +71,8 @@ public class CircleDetailListAdapter extends BaseAdapter {
         SharedPreferences pref = mContext.getSharedPreferences("login", 0);
         String uid = pref.getString("login_uid", "");
         if (uid.equals(mList.get(position).getUid())) {
-            holder.iv_delete.setVisibility(View.VISIBLE);
-            holder.iv_delete.setOnClickListener(new View.OnClickListener() {
+            holder.ly_delete.setVisibility(View.VISIBLE);
+            holder.ly_delete.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -82,7 +83,7 @@ public class CircleDetailListAdapter extends BaseAdapter {
             lp.setMargins(0, 0, 0, 0);
             holder.tv_time.setLayoutParams(lp);*/
         } else {
-            holder.iv_delete.setVisibility(View.GONE);
+            holder.ly_delete.setVisibility(View.GONE);
            /* RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) holder.tv_time.getLayoutParams();
             lp.setMargins(0, 0, 50, 0);
             holder.tv_time.setLayoutParams(lp);*/
@@ -109,6 +110,7 @@ public class CircleDetailListAdapter extends BaseAdapter {
         TextView tv_time;
         TextView tv_content;
         ImageView iv_delete;
+        LinearLayout ly_delete;
 
 
     }

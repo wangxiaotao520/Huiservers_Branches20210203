@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
@@ -32,6 +33,7 @@ public class WorkOrderListActivity extends BaseActivity {
     ViewPager mViewPager;
     WorkOrderListcommon currentFragment;
     private int type;
+    View v_head_line;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class WorkOrderListActivity extends BaseActivity {
     @Override
     protected void initView() {
         findTitleViews();
+        v_head_line=findViewById(R.id.v_head_line);
+        v_head_line.setVisibility(View.GONE);
         titleName.setText("工单管理");
         for (int i = 0; i < mTitle.length; i++) {
             WorkOrderListcommon workOrderListSecondcommon = new WorkOrderListcommon();

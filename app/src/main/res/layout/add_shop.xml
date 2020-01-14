@@ -246,7 +246,7 @@
             <TextView
                 android:id="@+id/txt_btn"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/title_height"
+                android:layout_height="45dp"
                 android:layout_margin="@dimen/margin"
                 android:background="@drawable/allshape_red_shopdetail35"
                 android:gravity="center"

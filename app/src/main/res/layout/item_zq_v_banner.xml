@@ -31,7 +31,7 @@
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/orange_bg"
                     android:textSize="13sp" />
 
                 <TextView

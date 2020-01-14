@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
@@ -39,6 +41,8 @@ public class CouponToShopFragment extends BaseFragmentOld {
     CouponListToShopAdapter toShopMyAdapter, toShopUnusedAdapter;
     CouponListMyAdapter myAdapter, unusedAdapter;
     RelativeLayout rel_no_data1;
+    ImageView img_data;
+    TextView tv_text;
 
     CouponBean couponBean;
     List<CouponBean> myCoupon40list, unusedCouponlist;
@@ -69,6 +73,8 @@ public class CouponToShopFragment extends BaseFragmentOld {
         listview_unusedCoupon = findViewById(R.id.listview_unusedCoupon);
 
         rel_no_data1 = findViewById(R.id.rel_no_data);
+        img_data = findViewById(R.id.img_data);
+        tv_text = findViewById(R.id.tv_text);
 
         tag = getActivity().getIntent().getExtras().getString("tag");
         if (tag.equals("order")) {
@@ -149,10 +155,14 @@ public class CouponToShopFragment extends BaseFragmentOld {
                     }
                     if (myCoupon40list == null && unusedCouponlist == null) {
                         rel_no_data1.setVisibility(View.VISIBLE);
+                        img_data.setBackgroundResource(R.mipmap.bg_no_coupon_data);
+                        tv_text.setText("暂无优惠券");
                         scrollView1.setVisibility(View.GONE);
                     }
                 } else {
                     rel_no_data1.setVisibility(View.VISIBLE);
+                    img_data.setBackgroundResource(R.mipmap.bg_no_coupon_data);
+                    tv_text.setText("暂无优惠券");
                     scrollView1.setVisibility(View.GONE);
                 }
             }

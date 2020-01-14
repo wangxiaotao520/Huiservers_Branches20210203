@@ -199,7 +199,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
         lp.width = (int) (display.getWidth()); //设置宽度
         getWindow().setAttributes(lp);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-        setCanceledOnTouchOutside(false);
+        //setCanceledOnTouchOutside(false);
         edit_num.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

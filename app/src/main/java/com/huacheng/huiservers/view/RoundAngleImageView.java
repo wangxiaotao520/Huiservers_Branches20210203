@@ -16,8 +16,8 @@ import android.util.AttributeSet;
 public class RoundAngleImageView extends android.support.v7.widget.AppCompatImageView {
 
     private Paint paint;
-    private int roundWidth = 20;
-    private int roundHeight = 20;
+    private int roundWidth = 10;
+    private int roundHeight = 10;
     private Paint paint2;
 
     public RoundAngleImageView(Context context, AttributeSet attrs, int defStyle) {

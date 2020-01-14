@@ -69,6 +69,9 @@ public class MyInfoCircleFragment extends BaseFragment {
     private SharePrefrenceUtil sharePrefrenceUtil;
     private List<ModelCircle> mDatas = new ArrayList<>();
 
+
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -251,6 +254,7 @@ public class MyInfoCircleFragment extends BaseFragment {
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     List<ModelCircle> mlist = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelCircle.class);
                     if (mlist != null && mlist.size() > 0) {
+                        ll_no_data.setVisibility(View.GONE);
                         if (page == 1) {
                             mDatas.clear();
                         }
@@ -266,12 +270,14 @@ public class MyInfoCircleFragment extends BaseFragment {
                     } else {
                         if (page == 1) {
                             mDatas.clear();
+                            ll_no_data.setVisibility(View.VISIBLE);
                         }
                         mLoadMoreWrapper.setLoadMoreView(0);
                         mLoadMoreWrapper.notifyDataSetChanged();
                     }
 
                 } else {
+                    ll_no_data.setVisibility(View.VISIBLE);
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
                     SmartToast.showInfo(msg);
                 }

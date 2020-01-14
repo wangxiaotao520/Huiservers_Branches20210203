@@ -3,6 +3,7 @@ package com.huacheng.huiservers.ui.shop;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -43,6 +44,11 @@ public class ShopZCListActivity extends BaseListActivity {
             @Override
             protected void convert(ViewHolder viewHolder, ModelShopIndex item, int position) {
                 FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_bg), ApiHttpClient.IMG_URL + item.getIcon_img());
+                if (mDatas.size()-1==position){
+                    viewHolder.<TextView>getView(R.id.tv_line).setVisibility(View.VISIBLE);
+                }else {
+                    viewHolder.<TextView>getView(R.id.tv_line).setVisibility(View.GONE);
+                }
             }
         };
         mListview.setAdapter(mAdapter);

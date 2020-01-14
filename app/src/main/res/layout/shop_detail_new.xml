@@ -263,7 +263,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin"
-                            android:textColor="@color/grey"
+                            android:textColor="@color/gray_99"
                             android:textSize="@dimen/t_13sp"
                             tools:text="这里的泡面非常实惠，居家必备"/>
 
@@ -528,6 +528,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"></LinearLayout>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:textSize="@dimen/t_12sp"
+                    android:textColor="@color/gray_99"
+                    android:background="@color/windowbackground"
+                    android:text="没有更多内容了"/>
+
 
                 <LinearLayout
                     android:id="@+id/ll_shop_tuijian"
@@ -755,7 +764,7 @@
                         android:layout_height="wrap_content"
                         android:text="购物车"
                         android:textColor="@color/grey"
-                        android:textSize="@dimen/t_14sp"/>
+                        android:textSize="@dimen/t_12sp"/>
 
                 </LinearLayout>
 

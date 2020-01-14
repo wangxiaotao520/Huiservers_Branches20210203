@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
@@ -19,7 +21,6 @@ import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
 import com.huacheng.huiservers.ui.center.bean.CouponBean;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivityNew;
-import com.huacheng.huiservers.ui.shop.ShopDetailActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopListActivity;
 import com.huacheng.huiservers.view.MyListView;
@@ -37,6 +38,8 @@ public class CouponFragment extends BaseFragmentOld {
     MyListView listview_myCoupon40, listview_unusedCoupon;
     CouponListMyAdapter myAdapter, unusedAdapter;
     RelativeLayout rel_no_data;
+    ImageView img_data;
+    TextView tv_text;
     CouponBean couponBean;
     List<CouponBean> myCoupon40list, unusedCouponlist;
     private String tag, coupon_id, all_shop_id, all_shop_money, jump_url, url;
@@ -64,6 +67,8 @@ public class CouponFragment extends BaseFragmentOld {
         listview_myCoupon40 = findViewById(R.id.listview_myCoupon40);
         listview_unusedCoupon = findViewById(R.id.listview_unusedCoupon);
         rel_no_data = findViewById(R.id.rel_no_data);
+        img_data = findViewById(R.id.img_data);
+        tv_text = findViewById(R.id.tv_text);
 
         tag = getActivity().getIntent().getExtras().getString("tag");
         if (tag.equals("order")) {
@@ -179,10 +184,14 @@ public class CouponFragment extends BaseFragmentOld {
                     if (myCoupon40list == null && unusedCouponlist == null) {
                         scrollView.setVisibility(View.GONE);
                         rel_no_data.setVisibility(View.VISIBLE);
+                        img_data.setBackgroundResource(R.mipmap.bg_no_coupon_data);
+                        tv_text.setText("暂无优惠券");
                     }
                 } else {
                     scrollView.setVisibility(View.GONE);
                     rel_no_data.setVisibility(View.VISIBLE);
+                    img_data.setBackgroundResource(R.mipmap.bg_no_coupon_data);
+                    tv_text.setText("暂无优惠券");
                 }
             }
 

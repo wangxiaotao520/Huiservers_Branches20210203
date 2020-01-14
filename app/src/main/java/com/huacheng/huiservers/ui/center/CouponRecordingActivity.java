@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.center;
 
 import android.app.Dialog;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -42,6 +43,8 @@ public class CouponRecordingActivity extends BaseActivityOld {
     RelativeLayout relNoData;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
+    ImageView img_data;
+    TextView tv_text;
 
     Dialog waitDialog;
     CouponRecordingAdapter useAdapter;
@@ -55,6 +58,8 @@ public class CouponRecordingActivity extends BaseActivityOld {
         ButterKnife.bind(this);
     //    SetTransStatus.GetStatus(this);//系统栏默认为黑色
         titleName.setText("记录");
+        img_data = findViewById(R.id.img_data);
+        tv_text = findViewById(R.id.tv_text);
         couponRecording();
     }
 
@@ -79,10 +84,14 @@ public class CouponRecordingActivity extends BaseActivityOld {
                     } else {
                         scrollView.setVisibility(View.GONE);
                         relNoData.setVisibility(View.VISIBLE);
+                        img_data.setBackgroundResource(R.mipmap.bg_no_coupon_data);
+                        tv_text.setText("暂无优惠券");
                     }
                 } else {
                     scrollView.setVisibility(View.GONE);
                     relNoData.setVisibility(View.VISIBLE);
+                    img_data.setBackgroundResource(R.mipmap.bg_no_coupon_data);
+                    tv_text.setText("暂无优惠券");
 
                 }
             }

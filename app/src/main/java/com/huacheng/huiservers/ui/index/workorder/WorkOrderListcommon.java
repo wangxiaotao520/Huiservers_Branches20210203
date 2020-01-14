@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
@@ -71,6 +72,7 @@ public class WorkOrderListcommon extends BaseFragment {
         refreshLayout = view.findViewById(R.id.refreshLayout);
         rel_no_data = view.findViewById(R.id.rel_no_data);
         ((ImageView)view.findViewById(R.id.img_data)).setBackgroundResource(R.mipmap.bg_no_service_order_data);
+        ((TextView)view.findViewById(R.id.tv_text)).setText("暂无工单");
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(true);
 

@@ -28,6 +28,7 @@ import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
+import com.stx.xhb.xbanner.OnDoubleClickListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
@@ -168,9 +169,9 @@ public class CommitRequestActivity extends BaseActivity {
 
             }
         });
-        tv_commit.setOnClickListener(new View.OnClickListener() {
+        tv_commit.setOnClickListener(new OnDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 commit();
             }
         });
