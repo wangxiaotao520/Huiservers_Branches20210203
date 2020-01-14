@@ -5,10 +5,12 @@
  */
 package com.huacheng.huiservers.utils;
 
-import java.util.List;
-
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.text.TextUtils;
 import android.util.Log;
+
+import java.util.List;
 
 /**
  * 日志输出控制类 (Description)
@@ -155,4 +157,20 @@ public class LogUtils {
 		}
 		i("---end---");
 	}
+
+	/**
+	 * 判断是release包还是debug
+	 * @param context
+	 * @return
+	 */
+	public static boolean isApkDebugable(Context context) {
+		try {
+			ApplicationInfo info= context.getApplicationInfo();
+			return (info.flags&ApplicationInfo.FLAG_DEBUGGABLE)!=0;
+		} catch (Exception e) {
+
+		}
+		return false;
+	}
+
 }

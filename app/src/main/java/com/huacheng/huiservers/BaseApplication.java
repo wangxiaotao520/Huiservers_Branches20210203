@@ -19,6 +19,8 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.coder.zzq.smartshow.toast.core.SmartShow;
 import com.huacheng.huiservers.linkedme.MiddleActivity;
 import com.huacheng.huiservers.model.ModelUser;
+import com.huacheng.huiservers.utils.CrashHandler;
+import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.microquation.linkedme.android.LinkedME;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -141,6 +143,12 @@ public class BaseApplication extends Application {
         SmartToast.setting()
 //                .backgroundColorRes(R.color.colorPrimary)
                 .dismissOnLeave(false);
+
+        //TODO 崩溃处理
+        if (!LogUtils.isApkDebugable(this)){
+           CrashHandler.getCrashHander().init(this);
+        }
+
     }
     /**
      * 我们需要确保至少对主进程跟patch进程初始化 TinkerPatch

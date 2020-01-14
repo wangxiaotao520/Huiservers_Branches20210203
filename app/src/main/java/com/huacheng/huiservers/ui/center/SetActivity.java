@@ -27,6 +27,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.ActivityStackManager;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.utils.update.AppUpdate;
@@ -275,6 +276,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
                     // 清除登陆保存的值
                     SharedPreferences preferences1 = SetActivity.this.getSharedPreferences("login", 0);
                     preferences1.edit().clear().commit();
+                    ActivityStackManager.getActivityStackManager().finishAllActivity();
                     HomeActivity.instant.finish();
                     BaseApplication.removeALLActivity_();
                     ApiHttpClient.setTokenInfo(null, null);

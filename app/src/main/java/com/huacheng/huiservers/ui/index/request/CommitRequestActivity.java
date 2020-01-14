@@ -3,7 +3,9 @@ package com.huacheng.huiservers.ui.index.request;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -20,14 +22,17 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.bean.HouseBean;
-import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
+import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -70,6 +75,18 @@ public class CommitRequestActivity extends BaseActivity {
     private String company_id = ""; //公司id
     private String room_id = ""; //房间id
     private TextView tv_nickname;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 
     @Override
     protected void initView() {
@@ -458,6 +475,19 @@ public class CommitRequestActivity extends BaseActivity {
                     tv_address.setText(item.getCommunity_address());
                 }
                 break;
+        }
+    }
+
+    /**
+     * 删除图片
+     * @param photo
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDeletePhoto(ModelPhoto photo){
+        if (photo!=null){
+            int position = photo.getPosition();
+            photoList.remove(position);
+            gridviewImgsAdapter.notifyDataSetChanged();
         }
     }
 }

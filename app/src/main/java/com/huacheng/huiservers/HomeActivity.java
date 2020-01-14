@@ -498,6 +498,7 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
         ApiHttpClient.setTokenInfo(null, null);
         SmartToast.showInfo("登录失效");
         BaseActivityOld.finishAll();
+        removeALLActivity();
         BaseActivityOld.destoryActivity();
         ActivityStackManager.getActivityStackManager().finishAllActivity();
         finish();

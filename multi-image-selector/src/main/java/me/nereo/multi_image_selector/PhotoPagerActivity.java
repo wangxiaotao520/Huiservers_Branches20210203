@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,7 +40,7 @@ public class PhotoPagerActivity extends AppCompatActivity {
     screenManager.setStatusBar(false, this);
     screenManager.setScreenRoate(false, this);
     super.onCreate(savedInstanceState);
-    requestWindowFeature(Window.FEATURE_NO_TITLE);
+  // requestWindowFeature(Window.FEATURE_NO_TITLE);
     setContentView(R.layout.activity_photo_pager);
 
     mBack = (ImageView)findViewById(R.id.btn_back);
