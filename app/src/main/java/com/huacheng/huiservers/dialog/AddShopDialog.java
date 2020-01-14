@@ -245,7 +245,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                 listener.refreshPriorityUI(beans.get(i).getTagname());
                 invenyory = beans.get(i).getInventory();
                 txt_title.setText("已选：" + beans.get(i).getTagname());
-                txt_inv.setText("库存" + beans.get(i).getInventory() + beans.get(i).getUnit());
+                txt_inv.setText("库存：" + beans.get(i).getInventory() + beans.get(i).getUnit());
                 if ("0".equals(beans.get(i).getInventory())) {
                     edit_num.setText("0");
                 }else {

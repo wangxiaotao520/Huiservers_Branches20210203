@@ -337,6 +337,9 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
                 for (int i = 0; i < mBeanALList.size(); i++) {
                     if (mBeanALList.get(i).getId().equals(info.getId())) {
                         mBeanALList.remove(i);
+                        if (mBeanALList.size()==1){
+                            rel_no_data.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -361,6 +364,7 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
                 for (int i = 0; i < mBeanALList.size(); i++) {
                     if (mBeanALList.get(i).getImg().size() == 1) {
                         mBeanALList.remove(i);
+                        rel_no_data.setVisibility(View.VISIBLE);
                     } else {
                         for (int i1 = 0; i1 < mBeanALList.get(i).getImg().size(); i1++) {
                             if (mBeanALList.get(i).getImg().get(i1).getInfo_id().equals(info.getId())) {
@@ -379,6 +383,7 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
                 for (int i = 0; i < mBeanALList.size(); i++) {
                     if (mBeanALList.get(i).getImg().size() == 1) {
                         mBeanALList.remove(i);
+                        rel_no_data.setVisibility(View.VISIBLE);
                     } else {
                         for (int i1 = 0; i1 < mBeanALList.get(i).getImg().size(); i1++) {
                             if (mBeanALList.get(i).getImg().get(i1).getInfo_id().equals(info.getId())) {
