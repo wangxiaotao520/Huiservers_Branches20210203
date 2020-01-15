@@ -42,6 +42,7 @@ import com.huacheng.huiservers.ui.circle.adapter.CircleDetailListAdapter;
 import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.LogUtils;
+import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.utils.json.JsonUtil;
@@ -157,6 +158,8 @@ public class CircleDetailsActivity extends BaseActivityOld {
     private String share_desc;
     private String share_icon;
 
+    SharePrefrenceUtil prefrenceUtil;
+
 
     /**
      * 滑动到指定位置
@@ -191,6 +194,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
             SCROLLtag = "0";
         }
         preferencesLogin = this.getSharedPreferences("login", 0);
+        prefrenceUtil = new SharePrefrenceUtil(this);
         login_type = preferencesLogin.getString("login_type", "");
         bitmapUtils = new BitmapUtils(this);
         mTitleName.setText("邻里详情");
@@ -560,7 +564,12 @@ public class CircleDetailsActivity extends BaseActivityOld {
                 }
                 share_desc = mCirclebean.getShare_content();
                 share_icon = StringUtils.getImgUrl(mCirclebean.getShare_img());
-                share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "social/socialShare/id/" + circle_id;
+                if (isPro ==1){
+                    share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "social/socialShare/id/" + circle_id+"/is_pro/1/hui_community_id/"+prefrenceUtil.getXiaoQuId();
+                }else {
+                    share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "social/socialShare/id/" + circle_id;
+                }
+
                 HashMap<String, String> params = new HashMap<>();
                 params.put("type", "circle_details");
                 params.put("id", circle_id);

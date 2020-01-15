@@ -117,8 +117,12 @@ public class ShopZCListActivity extends BaseListActivity {
 
     @Override
     protected void onListViewItemClick(AdapterView adapterView, View view, int position, long id) {
+        if (id==-1){
+            return;
+        }
         Intent intent = new Intent(mContext, ShopZQListActivity.class);
         intent.putExtra("id", mDatas.get(position).getId());
+        intent.putExtra("title", mDatas.get(position).getTitle()+"");
         startActivity(intent);
     }
 }

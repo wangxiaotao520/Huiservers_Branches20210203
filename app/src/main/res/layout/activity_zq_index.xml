@@ -21,18 +21,17 @@
                 android:layout_height="10dp"
                 android:background="@color/white"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_below="@id/status_bar"
                 android:gravity="center_vertical"
-                >
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/lin_left"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:layout_centerVertical="true"
                     android:gravity="center"
                     android:padding="@dimen/margin">
 
@@ -45,13 +44,15 @@
 
                 <TextView
                     android:id="@+id/titleName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
                     android:text="专区名称"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:textColor="@color/title_color"
-                    android:textSize="@dimen/t_21sp"
-                    />
+                    android:textSize="@dimen/t_21sp" />
 
                 <LinearLayout
                     android:id="@+id/ly_share"
@@ -84,7 +85,7 @@
                         android:layout_height="30dp"
                         android:src="@mipmap/ic_search_black"/>
                 </LinearLayout>
-            </RelativeLayout>
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"

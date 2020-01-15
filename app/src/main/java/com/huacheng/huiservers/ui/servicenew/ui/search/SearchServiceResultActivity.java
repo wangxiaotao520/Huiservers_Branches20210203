@@ -208,7 +208,7 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
             params.put("region_cn", prefrenceUtil.getProvince_cn() + prefrenceUtil.getCity_cn() + prefrenceUtil.getRegion_cn());
         }
 
-        MyOkHttp.get().get(ApiHttpClient.GET_MERCHANTLIST, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(ApiHttpClient.GET_MERCHANTLIST, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
@@ -271,7 +271,7 @@ public class SearchServiceResultActivity extends BaseActivity implements OnClick
             params.put("region_cn", prefrenceUtil.getProvince_cn() + prefrenceUtil.getCity_cn() + prefrenceUtil.getRegion_cn());
         }
         params.put("p", page + "");
-        MyOkHttp.get().get(ApiHttpClient.GET_SERVICELIST, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(ApiHttpClient.GET_SERVICELIST, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 isRequesting = false;

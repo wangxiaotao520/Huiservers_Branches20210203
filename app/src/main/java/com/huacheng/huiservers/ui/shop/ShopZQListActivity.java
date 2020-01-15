@@ -85,6 +85,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     private ModelShopIndex modelindex;
     private VBannerZQAdapter vBannerAdapter;
     private List<ModelVBaner> mDatas_v_banner = new ArrayList<>();//垂直banner数据公告
+    String title = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,6 +120,13 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         mStatusBar = findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         mStatusBar.setAlpha((float) 0);
+
+        titleName=findViewById(R.id.titleName);
+        if (NullUtil.isStringEmpty(title)){
+            titleName.setText("");
+        }else {
+            titleName.setText(title+"");
+        }
     }
 
     private void initHeaderView() {
@@ -185,6 +193,9 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (id<0){
+                    return;
+                }
                 Intent intent = new Intent(mContext, ShopDetailActivityNew.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("shop_id", mDatas.get((int) id).getId());
@@ -203,6 +214,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void initIntentData() {
         id = this.getIntent().getStringExtra("id");
+        title = this.getIntent().getStringExtra("title");
 
     }
 
@@ -243,6 +255,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                     modelindex = (ModelShopIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelShopIndex.class);
                     if (modelindex != null) {
                         modelIndex = modelindex;
+                        titleName.setText(modelindex.getTitle()+"");
                         if (page == 1) {
                             String imageUrl = ApiHttpClient.IMG_SERVICE_URL + modelindex.getBanner();
                             FrescoUtils.getInstance().setImageUri(sdv_bg, imageUrl);

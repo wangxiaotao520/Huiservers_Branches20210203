@@ -19,9 +19,9 @@
 
             <ImageView
                 android:id="@+id/iv_img"
-                android:layout_width="32dp"
+                android:layout_width="30dp"
                 android:scaleType="fitXY"
-                android:layout_height="32dp" />
+                android:layout_height="30dp" />
 
             <TextView
                 android:id="@+id/tv_name"
