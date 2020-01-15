@@ -24,7 +24,7 @@
                 android:id="@+id/left"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_arrow_left_black" />
+                android:background="@mipmap/ic_arrow_left_black" />
         </LinearLayout>
 
         <TextView

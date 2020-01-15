@@ -95,9 +95,9 @@ public class EducationListActivity extends BaseActivityOld implements View.OnCli
         String URLnew = intent.getStringExtra("urlnew");
         cid = URLnew.substring(URLnew.lastIndexOf("/") + 1, URLnew.length());
         titleName = intent.getStringExtra("name");
-        if (!TextUtils.isEmpty(titleName)) {
-            title_name.setText(titleName);
-        }
+//        if (!TextUtils.isEmpty(titleName)) {
+//            title_name.setText(titleName);
+//        }
         showDialog(smallDialog);
         getdata("1");
         lin_left.setOnClickListener(this);
@@ -203,7 +203,7 @@ public class EducationListActivity extends BaseActivityOld implements View.OnCli
             protected void setData(String json) {
                 hideDialog(smallDialog);
                 bean = protocol.getActivitys(json, "1");
-                System.out.println("-=---" + beans);
+             //   System.out.println("-=---" + beans);
                 if (bean.size() != 0) {
                     rel_no_data.setVisibility(View.GONE);
                     swipeRefreshLayout.setVisibility(View.VISIBLE);
@@ -219,7 +219,9 @@ public class EducationListActivity extends BaseActivityOld implements View.OnCli
                 } else {
                     rel_no_data.setVisibility(View.VISIBLE);
                     swipeRefreshLayout.setVisibility(View.GONE);
-
+                    if (!TextUtils.isEmpty(titleName)) {
+                        title_name.setText(titleName);
+                    }
                 }
             }
 
