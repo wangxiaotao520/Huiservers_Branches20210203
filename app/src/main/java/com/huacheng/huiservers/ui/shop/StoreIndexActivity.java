@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
@@ -32,7 +33,6 @@ import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
-import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.microquation.linkedme.android.log.LMErrorCode;
@@ -45,6 +45,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 /**
  * 类描述：店铺首页
@@ -246,7 +248,13 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
                             ly_all.setVisibility(View.VISIBLE);
                             tv_store_address.setText(shopIndex.getAddress());
                             tv_store_name.setText(shopIndex.getMerchant_name());
-                            GlideUtils.getInstance().glideLoad(StoreIndexActivity.this, ApiHttpClient.IMG_URL + shopIndex.getBackground(), iv_bg, R.mipmap.ic_store_bg);
+                           // GlideUtils.getInstance().glideLoad(StoreIndexActivity.this, ApiHttpClient.IMG_URL + shopIndex.getBackground(), iv_bg, R.mipmap.ic_store_bg);
+                            Glide.with(mContext).load(ApiHttpClient.IMG_URL + shopIndex.getBackground())
+                                    .error(R.color.default_color)
+                                    // "3":模糊度；"3":图片缩放3倍后再进行模糊，缩放3-5倍个人感觉比较好。
+                                    .bitmapTransform(new BlurTransformation(mContext, 3, 2))
+                                    .placeholder(R.color.default_color).crossFade().into(iv_bg);
+
                             FrescoUtils.getInstance().setImageUri(iv_store_head, ApiHttpClient.IMG_URL + shopIndex.getLogo());
                         }
                         inflateContent(shopIndex.getGoods());
