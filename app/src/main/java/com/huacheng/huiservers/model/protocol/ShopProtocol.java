@@ -395,7 +395,7 @@ public class ShopProtocol {
                             JSONArray scorearray = new JSONArray(score_img);
                             List<BannerBean> score_imglist = new ArrayList<>();
                             for (int i = 0; i < scorearray.length(); i++) {
-                                JSONObject scoreObj = scorearray.getJSONObject(j);
+                                JSONObject scoreObj = scorearray.getJSONObject(i);
                                 BannerBean sscore_imginfo = new BannerBean();
                                 sscore_imginfo.setId(scoreObj.getString("id"));
                                 sscore_imginfo.setImg(scoreObj.getString("img"));

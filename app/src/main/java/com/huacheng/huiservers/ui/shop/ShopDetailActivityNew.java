@@ -646,6 +646,7 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
                 for (int i = 0; i < detailBean.getScore().get(0).getScore_img().size(); i++) {
                     View view = LinearLayout.inflate(ShopDetailActivityNew.this, R.layout.circle_image_item, null);
                     ImageView img = view.findViewById(R.id.imageView);
+                    img.setPadding(0,0,10,0);
                     GlideUtils.getInstance().glideLoad(this,MyCookieStore.URL + detailBean.getScore().get(0).getScore_img().get(i).getImg(),img,R.drawable.icon_girdview);
                     final int finalI = i;
                     img.setOnClickListener(new OnClickListener() {
