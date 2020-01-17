@@ -151,7 +151,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
     private String SCROLLtag = "0";
     private String commentSuccess = "0";
 
-    private int isPro = 0;//是否是物业公告
+    private String isPro = "0";//是否是物业公告
     private Handler handler = new Handler();
     private String share_url;
     private String share_title;
@@ -184,7 +184,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
         //       SetTransStatus.GetStatus(this);
         MyCookieStore.My_notify = 1;
         circle_id = this.getIntent().getExtras().getString("id");
-        isPro = this.getIntent().getExtras().getInt("mPro");
+        isPro = this.getIntent().getExtras().getString("mPro");
 
         // circle_comment = this.getIntent().getExtras().getString("circle_comment");
 //        isRefresh = this.getIntent().getExtras().getBoolean("refresh");
@@ -283,7 +283,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                         tv_sub_title1.setText("发布源："+mCirclebean.getNickname()+"    "+mCirclebean.getAddtime());
 
                         // mTvName.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-                        if (isPro == 1) {
+                        if ("1".equals(isPro)) {
                             mLinGuan.setVisibility(View.VISIBLE);
                             mLinUser.setVisibility(View.VISIBLE);
                             getAddview();
@@ -564,7 +564,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                 }
                 share_desc = mCirclebean.getShare_content();
                 share_icon = StringUtils.getImgUrl(mCirclebean.getShare_img());
-                if (isPro ==1){
+                if ("1".equals(isPro)){
                     share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "social/socialShare/id/" + circle_id+"/is_pro/1/hui_community_id/"+prefrenceUtil.getXiaoQuId();
                 }else {
                     share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "social/socialShare/id/" + circle_id;

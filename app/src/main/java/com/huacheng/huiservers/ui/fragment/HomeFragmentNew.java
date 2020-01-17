@@ -733,6 +733,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                             Intent intent = new Intent(mActivity, CircleDetailsActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("id", modelHomeCircle.getList().getId());
+                            bundle.putString("mPro", modelHomeCircle.getList().getIs_pro()+"");
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }

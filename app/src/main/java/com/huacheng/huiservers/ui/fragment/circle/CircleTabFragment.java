@@ -138,7 +138,7 @@ public class CircleTabFragment extends BaseFragmentOld {
                     Intent intent = new Intent();
                     intent.setClass(mActivity, CircleDetailsActivity.class);
                     intent.putExtra("id", beans2.get(position).getId());
-                    intent.putExtra("mPro", mPro);
+                    intent.putExtra("mPro", mPro+"");
                     startActivity(intent);
                 }
             }
