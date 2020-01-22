@@ -18,7 +18,7 @@ import com.huacheng.huiservers.ui.login.ResigerShengmingActivity;
  * created by DFF
  */
 public class MyAboutActivity extends BaseActivity implements View.OnClickListener {
-    private RelativeLayout rel_yijian, rel_dial_number, rel_privacy;
+    private RelativeLayout rel_yijian, rel_dial_number, rel_privacy,rel_fuwu;
     private TextView tv_call_number;
 
     @Override
@@ -28,6 +28,7 @@ public class MyAboutActivity extends BaseActivity implements View.OnClickListene
 
         rel_yijian = findViewById(R.id.rel_yijian);// 意见反馈
         rel_privacy = findViewById(R.id.rel_privacy);// 隐私政策
+        rel_fuwu = findViewById(R.id.rel_fuwu);// 服务协议
         rel_dial_number = findViewById(R.id.rel_dial_number);//拨打电话
         tv_call_number = findViewById(R.id.tv_call_number);//
     }
@@ -42,6 +43,7 @@ public class MyAboutActivity extends BaseActivity implements View.OnClickListene
         rel_yijian.setOnClickListener(this);
         rel_privacy.setOnClickListener(this);
         rel_dial_number.setOnClickListener(this);
+        rel_fuwu.setOnClickListener(this);
     }
 
     @Override
@@ -87,10 +89,15 @@ public class MyAboutActivity extends BaseActivity implements View.OnClickListene
                     }
                 }).show();//.setTitle("提示")
                 break;
-            case R.id.rel_privacy:
+            case R.id.rel_privacy://隐私政策
                 Intent intent = new Intent(this, ResigerShengmingActivity.class);
                 intent.putExtra("type", 0);
                 startActivity(intent);
+                break;
+            case R.id.rel_fuwu://服务协议
+                Intent intent1 = new Intent(this, ResigerShengmingActivity.class);
+                intent1.putExtra("type", 1);
+                startActivity(intent1);
                 break;
             default:
                 break;

@@ -52,6 +52,37 @@
                 android:background="@color/windowbackground"/>
 
             <RelativeLayout
+                android:id="@+id/rel_fuwu"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="@dimen/margin_13">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="服务协议"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/t_16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:background="@drawable/jiantou_you"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:background="@color/windowbackground"/>
+            <RelativeLayout
                 android:id="@+id/rel_privacy"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

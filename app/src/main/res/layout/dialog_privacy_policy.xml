@@ -17,7 +17,7 @@
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/margin_20"
             android:paddingTop="29dp"
-            android:text="用户隐私政策概要"
+            android:text="服务协议和隐私政策"
             android:textColor="@color/title_color"
             android:textSize="@dimen/t_18sp"/>
 
