@@ -9,11 +9,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.model.ModelHomeIndex;
 import com.huacheng.huiservers.ui.fragment.indexcat.IndexAllServiesActivity;
+import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 
 import java.util.ArrayList;
@@ -31,12 +34,14 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
     private List<ModelHomeIndex> lists;//数据源
     private int type;
     private OnClickItemListener listener;
+    private SharePrefrenceUtil prefrenceUtil;
 
     public HomeGridViewCateAdapter(Context context, List<ModelHomeIndex> lists, int type, OnClickItemListener listener) {
         this.context = context;
         this.lists = lists;
         this.type = type;
         this.listener = listener;
+        prefrenceUtil=new SharePrefrenceUtil(context);
 
     }
 
@@ -104,19 +109,41 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
             holder.ly_onclick.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (pos ==7){
-                        Intent intent = new Intent(context, IndexAllServiesActivity.class);
-                        intent.putExtra("myCatelist",(ArrayList<ModelHomeIndex>)lists);
-                        context.startActivity(intent);
+                    if("1".equals(lists.get(pos).getPid())){//若等于1即物业服务方面的导航 则需要判断是否匹配到小区
+                        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){//匹配住了
+                            if (pos ==7){
+                                Intent intent = new Intent(context, IndexAllServiesActivity.class);
+                                intent.putExtra("myCatelist",(ArrayList<ModelHomeIndex>)lists);
+                                context.startActivity(intent);
+                            }else {
+                                String type = lists.get(pos).getUrl_type();
+                                String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
+                                if (Arrays.asList(typeStr).contains(type)) {
+                                    Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
+                                            lists.get(pos).getUrl_type_cn());
+                                } else {
+                                    Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
+                                            lists.get(pos).getUrl_type_cn());
+                                }
+                            }
+                        }else {
+                            SmartToast.showInfo("该小区暂未开通此服务");
+                        }
                     }else {
-                        String type = lists.get(pos).getUrl_type();
-                        String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
-                        if (Arrays.asList(typeStr).contains(type)) {
-                            Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
-                                    lists.get(pos).getUrl_type_cn());
-                        } else {
-                            Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
-                                    lists.get(pos).getUrl_type_cn());
+                        if (pos ==7){
+                            Intent intent = new Intent(context, IndexAllServiesActivity.class);
+                            intent.putExtra("myCatelist",(ArrayList<ModelHomeIndex>)lists);
+                            context.startActivity(intent);
+                        }else {
+                            String type = lists.get(pos).getUrl_type();
+                            String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
+                            if (Arrays.asList(typeStr).contains(type)) {
+                                Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
+                                        lists.get(pos).getUrl_type_cn());
+                            } else {
+                                Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
+                                        lists.get(pos).getUrl_type_cn());
+                            }
                         }
                     }
                 }
