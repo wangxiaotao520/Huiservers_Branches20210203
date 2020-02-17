@@ -55,6 +55,7 @@
     <!-- 弹出菜单 -->
     <style name="popUpwindow_anim">
         <item name="android:windowEnterAnimation">@anim/push_up_in</item>
+        <item name="android:windowExitAnimation">@anim/push_out</item>
     </style>
 
     <style name="AppTheme.Slide" parent="@style/AppCompatTheme.Base">

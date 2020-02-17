@@ -417,7 +417,7 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 share_title = modelIndex.getTitle() + "";
                 share_desc = modelIndex.getContent() + "";
                 share_icon = MyCookieStore.URL + modelIndex.getBanner();
-                share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "shop/special/id/" + id;
+                share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "shop/special/id/" + id+ "/hui_community_id/" +prefrenceUtil.getXiaoQuId() ;
                 HashMap<String, String> params = new HashMap<>();
                 params.put("type", "prefecture_list");
                 params.put("id", id);

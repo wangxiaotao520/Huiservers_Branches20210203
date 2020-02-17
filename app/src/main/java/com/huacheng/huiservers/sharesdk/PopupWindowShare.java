@@ -198,8 +198,9 @@ public class PopupWindowShare implements OnClickListener {
             }
             startShare(QZone.NAME);
         }
-
-
+        if (mPopupWindow!=null) {
+            mPopupWindow.dismiss();
+        }
     }
 
 
