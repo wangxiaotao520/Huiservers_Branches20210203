@@ -159,6 +159,8 @@ public abstract class HttpHelper {
                             setData(response);
                         } else if (HttpHelper.this.url.contains(Url_info.submit_order_before)) {//确认订单信息
                             setData(response);
+                        }else if (HttpHelper.this.url.contains(Url_info.goods_search)) {
+                            setData(response);
                         } else {
                             SmartToast.showInfo(msg);
                         }

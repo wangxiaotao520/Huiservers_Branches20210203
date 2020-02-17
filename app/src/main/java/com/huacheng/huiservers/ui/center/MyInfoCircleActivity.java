@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,7 +56,7 @@ public class MyInfoCircleActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        //isStatusBar = true;
+        isStatusBar = true;
         EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
     }
@@ -69,11 +71,14 @@ public class MyInfoCircleActivity extends BaseActivity {
         appbar = findViewById(R.id.appbar);
         collapsing_toolbar = findViewById(R.id.collapsing_toolbar);
         toolbar = findViewById(R.id.toolbar);
-        tv_title = findViewById(R.id.tv_title);
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) toolbar.getLayoutParams();
+        layoutParams.setMargins(0, TDevice.getStatuBarHeight(this),0,0);
+//        tv_title = findViewById(R.id.tv_title);
+        toolbar.setLayoutParams(layoutParams);
         mEnhanceTabLayout = findViewById(R.id.enhance_tab_layout);
         setSupportActionBar(toolbar);
         toolbar.setTitle(infoBean.getNickname());
-        tv_title.setText(infoBean.getNickname());
+//        tv_title.setText(infoBean.getNickname());
 //      设置标题
         collapsing_toolbar.setTitle(infoBean.getNickname());
         sdv_image = findViewById(R.id.sdv_image);
