@@ -1264,5 +1264,9 @@
         <activity
             android:name=".ui.shop.ShopSecKillListActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.index.coronavirus.QrImageActivity" />
+        <activity
+            android:name=".ui.index.coronavirus.investigate.InvestigateActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

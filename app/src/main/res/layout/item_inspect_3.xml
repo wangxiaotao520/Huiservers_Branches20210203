@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+<View
+    android:layout_width="match_parent"
+    android:layout_height="8dp"
+    android:background="@color/windowbackground" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:gravity="center_vertical"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="4dp"
+        android:layout_height="9dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/allshape_orange_10"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_weight="1"
+        android:text="设备的开门是否需要维修？"
+        android:textColor="@color/title_color"
+        android:textSize="15sp"/>
+
+</LinearLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:background="@color/line" />
+
+<EditText
+    android:id="@+id/et_content"
+    android:layout_width="fill_parent"
+    android:layout_height="120dp"
+    android:padding="15dp"
+    android:background="@color/white"
+    android:gravity="top"
+    android:hint="请输入..."
+    android:textColor="@color/text_color"
+    android:textColorHint="@color/text_color_hint"
+    android:textCursorDrawable="@drawable/color_cursor"
+    android:textSize="15sp" />
+
+</LinearLayout>

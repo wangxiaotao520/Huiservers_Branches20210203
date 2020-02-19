@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--复选框-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@mipmap/ic_selected_rctange_orange" android:state_checked="true"></item>
+    <item android:drawable="@mipmap/ic_selected_rctange_orange" android:state_selected="true"></item>
+    <item android:drawable="@mipmap/ic_unselected_rctange_orange"></item>
+</selector>

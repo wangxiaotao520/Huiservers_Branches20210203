@@ -30,6 +30,8 @@ public class SelectImgAdapter<T>extends BaseAdapter{
     private List<T> mDatas = new ArrayList<>();
 
     private boolean isShowDelete=true;
+    private boolean isShowAdd = true;
+
 
     public SelectImgAdapter(Context mContext, List<T> mDatas) {
         this.mContext = mContext;
@@ -38,10 +40,15 @@ public class SelectImgAdapter<T>extends BaseAdapter{
 
     @Override
     public int getCount() {
-        if (mDatas.size() >= MAX_COUNT) {
-            return MAX_COUNT;
-        } else {
-            return mDatas.size() + 1;
+
+        if (isShowAdd){
+            if (mDatas.size() >= MAX_COUNT) {
+                return MAX_COUNT;
+            } else {
+                return mDatas.size() + 1;
+            }
+        }else {
+            return mDatas.size();
         }
     }
 
@@ -58,18 +65,21 @@ public class SelectImgAdapter<T>extends BaseAdapter{
 
     @Override
     public int getItemViewType(int position) {
-        if (mDatas != null) {
-            if (mDatas.size() == 0) {
-                return TYPE_ADD;
-            } else if (mDatas.size() < 9 && mDatas.size() > 0) {
-                if (position < mDatas.size()) {
-                    return TYPE_NORMAL;
-                } else {
-                    return TYPE_ADD;
-                }
 
-            } else if (mDatas.size() >= 9) {
-                return TYPE_NORMAL;
+        if (mDatas != null) {
+            if (isShowAdd){
+                if (mDatas.size() == 0) {
+                    return TYPE_ADD;
+                } else if (mDatas.size() < 9 && mDatas.size() > 0) {
+                    if (position < mDatas.size()) {
+                        return TYPE_NORMAL;
+                    } else {
+                        return TYPE_ADD;
+                    }
+
+                } else if (mDatas.size() >= 9) {
+                    return TYPE_NORMAL;
+                }
             }
         }
         return TYPE_NORMAL;
@@ -211,6 +221,12 @@ public class SelectImgAdapter<T>extends BaseAdapter{
     public void setShowDelete(boolean showDelete) {
         isShowDelete = showDelete;
     }
+    public boolean isShowAdd() {
+        return isShowAdd;
+    }
 
+    public void setShowAdd(boolean showAdd) {
+        isShowAdd = showAdd;
+    }
 }
 

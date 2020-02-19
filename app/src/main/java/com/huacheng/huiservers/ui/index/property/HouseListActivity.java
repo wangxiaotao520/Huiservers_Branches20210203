@@ -23,6 +23,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.bean.HouseBean;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.center.house.HouseInviteActivity;
+import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestigateActivity;
 import com.huacheng.huiservers.ui.index.openDoor.OpenLanActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterHouseList;
 import com.huacheng.huiservers.view.MyListView;
@@ -94,6 +95,10 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         } else if ("house_invite".equals(wuye_type)) {
             //访客邀请
             mRight.setVisibility(View.GONE);
+        } else if ("investigate".equals(wuye_type)){
+            //问卷调查
+            mRight.setVisibility(View.VISIBLE);
+            mRight.setText("历史记录");
         }
     }
 
@@ -163,7 +168,12 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         mRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HouseListActivity.this, PropertyPaymentActivity.class));
+                if ("investigate".equals(wuye_type)){
+                    //TODO
+                    SmartToast.show("历史记录");
+                }else {
+                    startActivity(new Intent(HouseListActivity.this, PropertyPaymentActivity.class));
+                }
             }
         });
         //添加房屋
@@ -204,6 +214,12 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     } else if ("house_invite".equals(wuye_type)) {
                         //访客邀请
                         checkHouseInvite(mDatas.get(position).getRoom_id());
+                    }else if ("investigate".equals(wuye_type)){
+                        //问卷调查
+                        Intent intent;
+                        intent = new Intent(mContext, InvestigateActivity.class);
+                        intent.putExtra("room_id", mDatas.get(position).getRoom_id());
+                        startActivity(intent);
                     }
                 }
             }

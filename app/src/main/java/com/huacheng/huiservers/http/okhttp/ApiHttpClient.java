@@ -403,6 +403,13 @@ public class ApiHttpClient {
     public static String GET_USER_SOCIAL = API_URL + API_VERSION + "social/get_user_social_list/";
     //首页下方tab IMG
     public static String IMG_BOTTOM = API_URL + API_VERSION + "index/index_Bottom";
+    //todo
+    //调查问卷页
+    public static String GET_INVESTIGATE_INFORMATION = API_URL + API_VERSION + "";
+    //提交调查问卷
+    public static String COMMIT_INVESTIGATE = API_URL + API_VERSION + "";
+    //调查问卷详情
+    public static String GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
 
     /**
      * 刷新接口
@@ -565,5 +572,9 @@ public class ApiHttpClient {
         VLOG_HOME_INDEX_SHARE = API_URL_SHARE + "home/index/vlog_list ";
         GET_SHOP_ORDER_DETAILS = API_URL + API_VERSION + "userCenter/shopping_order_details";
         GET_SHOP_ORDER_OPERTE = API_URL + API_VERSION + "userCenter/shopping_order_operate";
+        //TODO
+        GET_INVESTIGATE_INFORMATION = API_URL + API_VERSION + "";
+        COMMIT_INVESTIGATE = API_URL + API_VERSION + "";
+        GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
     }
 }

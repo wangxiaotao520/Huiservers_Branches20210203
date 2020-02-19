@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/titlebar_center"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_title_img"
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:layout_height="200dp"/>
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/title_color"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="战胜疫情从我做起全力守护组织健康拥有1 更好明天"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/tv_sub_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_66"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="战役是战争的一个局部，直接服务和受制于战争全局 也 不同程度地影响战争全局。它直接运用战斗也为战斗的 成败所直接影响。现代战役，通常是诸军种、兵种共同 进行的合同战役。"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_99"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="日期：2020.01.03 14:22:22"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
