@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:background="@color/windowbackground"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@drawable/allshape_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:paddingTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="关于讨伐任我行时间调整的通知（决战紫荆之.巅）的问卷调查"
+            android:textColor="@color/title_color"
+            android:textSize="15dp"
+            android:maxLines="2"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="最近听说岳不群那厮很嚣张，需要老夫过去治一治11..."
+            android:textColor="@color/gray_99"
+            android:textSize="13dp"
+            android:maxLines="2"
+            android:textStyle="normal"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2020.02.06 15:44:21"
+            android:textColor="@color/gray_99"
+            android:textSize="13dp"
+            android:maxLines="2"
+            android:textStyle="normal"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

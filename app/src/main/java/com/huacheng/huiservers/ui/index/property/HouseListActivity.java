@@ -218,6 +218,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                         //问卷调查
                         Intent intent;
                         intent = new Intent(mContext, InvestigateActivity.class);
+                        intent.putExtra("jump_type",1);
                         intent.putExtra("room_id", mDatas.get(position).getRoom_id());
                         startActivity(intent);
                     }
