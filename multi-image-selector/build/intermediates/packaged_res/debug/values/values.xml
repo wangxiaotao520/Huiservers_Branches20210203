@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blue">#ff17a0e9</color>
-    <color name="pager_bg">#CA000000</color>
     <declare-styleable name="StatusBarHeightView">
         <attr format="integer" name="use_type">
             <enum name="use_height" value="0"/>

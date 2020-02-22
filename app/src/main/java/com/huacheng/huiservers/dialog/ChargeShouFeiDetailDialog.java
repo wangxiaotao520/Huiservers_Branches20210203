@@ -135,13 +135,13 @@ public class ChargeShouFeiDetailDialog extends Dialog implements View.OnClickLis
                 this.dismiss();
 
                 break;
-            case R.id.tv_sure:
-                if (listener != null) {
-                    listener.onEnSure(list_selected_position);
-                }
-                this.dismiss();
-
-                break;
+//            case R.id.tv_sure:
+//                if (listener != null) {
+//                    listener.onEnSure(list_selected_position);
+//                }
+//                this.dismiss();
+//
+//                break;
         }
 
     }

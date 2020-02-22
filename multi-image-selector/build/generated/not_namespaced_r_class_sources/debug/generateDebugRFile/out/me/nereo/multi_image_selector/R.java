@@ -14,14 +14,6 @@ public final class R {
 
         public static int use_type = 0x7f040001;
     }
-    public static final class color {
-        private color() {}
-
-        public static int blue = 0x7f060001;
-        public static int default_text_color = 0x7f060002;
-        public static int folder_text_color = 0x7f060003;
-        public static int pager_bg = 0x7f060004;
-    }
     public static final class dimen {
         private dimen() {}
 
@@ -33,30 +25,24 @@ public final class R {
         private drawable() {}
 
         public static int action_btn = 0x7f090001;
-        public static int asv = 0x7f090002;
-        public static int asy = 0x7f090003;
-        public static int btn_back = 0x7f090004;
-        public static int btn_selected = 0x7f090005;
-        public static int btn_unselected = 0x7f090006;
-        public static int checked = 0x7f090007;
-        public static int circle_blue = 0x7f090008;
-        public static int circle_border_gray = 0x7f090009;
-        public static int default_check = 0x7f09000a;
-        public static int default_check_s = 0x7f09000b;
-        public static int default_error = 0x7f09000c;
-        public static int ic_back_white = 0x7f09000d;
-        public static int ic_broken_image_black_48dp = 0x7f09000e;
-        public static int ic_menu_back = 0x7f09000f;
-        public static int ic_photo_black_48dp = 0x7f090010;
-        public static int img_back = 0x7f090011;
-        public static int native_video = 0x7f090012;
-        public static int selector_image_radiobtn = 0x7f090013;
-        public static int selector_indicator = 0x7f090014;
-        public static int selector_radiobtn = 0x7f090015;
-        public static int take_photo = 0x7f090016;
-        public static int take_video = 0x7f090017;
-        public static int text_indicator = 0x7f090018;
-        public static int unchecked = 0x7f090019;
+        public static int btn_back = 0x7f090002;
+        public static int btn_selected = 0x7f090003;
+        public static int btn_unselected = 0x7f090004;
+        public static int checked = 0x7f090005;
+        public static int circle_blue = 0x7f090006;
+        public static int circle_border_gray = 0x7f090007;
+        public static int default_check = 0x7f090008;
+        public static int default_error = 0x7f090009;
+        public static int ic_back_white = 0x7f09000a;
+        public static int ic_photo_black_48dp = 0x7f09000b;
+        public static int img_back = 0x7f09000c;
+        public static int native_video = 0x7f09000d;
+        public static int selector_image_radiobtn = 0x7f09000e;
+        public static int selector_radiobtn = 0x7f09000f;
+        public static int take_photo = 0x7f090010;
+        public static int take_video = 0x7f090011;
+        public static int text_indicator = 0x7f090012;
+        public static int unchecked = 0x7f090013;
     }
     public static final class id {
         private id() {}

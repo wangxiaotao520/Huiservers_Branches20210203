@@ -839,21 +839,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
-        <!--用户协议-->
-        <!--测试页-->
-        <!--居家养老首页-->
-        <activity
-            android:name="com.huacheng.huiservers.ui.index.oldhome.OldHomeActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <!--居家养老列表首页-->
-        <activity
-            android:name="com.huacheng.huiservers.ui.index.oldhome.OldHomeListActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <!--扫码支付-->
-
-        <!--0803物业列表 -->
         <!--单个缴费界面-->
         <activity
             android:name=".ui.index.property.PropertyHomeListActivity"

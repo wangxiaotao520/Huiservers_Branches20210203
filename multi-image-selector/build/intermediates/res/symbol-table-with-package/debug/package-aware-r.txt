@@ -1,15 +1,9 @@
 me.nereo.multi_image_selector
 attr use_type
-color blue
-color default_text_color
-color folder_text_color
-color pager_bg
 dimen folder_cover_size
 dimen image_size
 dimen space_size
 drawable action_btn
-drawable asv
-drawable asy
 drawable btn_back
 drawable btn_selected
 drawable btn_unselected
@@ -17,16 +11,12 @@ drawable checked
 drawable circle_blue
 drawable circle_border_gray
 drawable default_check
-drawable default_check_s
 drawable default_error
 drawable ic_back_white
-drawable ic_broken_image_black_48dp
-drawable ic_menu_back
 drawable ic_photo_black_48dp
 drawable img_back
 drawable native_video
 drawable selector_image_radiobtn
-drawable selector_indicator
 drawable selector_radiobtn
 drawable take_photo
 drawable take_video
