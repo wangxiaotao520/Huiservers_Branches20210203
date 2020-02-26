@@ -163,10 +163,15 @@ public class CircleTabFragmentNew extends BaseFragment implements CircleListAdap
                         adapter.notifyDataSetChanged();
                     }
 
-
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
                     SmartToast.showInfo(msg);
+                    if (page == 1) {
+                        rel_no_data.setVisibility(View.VISIBLE);
+                        mDatas.clear();
+                    }
+                    refreshLayout.setEnableLoadMore(false);
+                    adapter.notifyDataSetChanged();
                 }
             }
 

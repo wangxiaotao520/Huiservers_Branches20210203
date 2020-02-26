@@ -1256,5 +1256,8 @@
         <activity
             android:name=".ui.index.coronavirus.investigate.InvestHistoryListActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.coronavirus.LongTermPassCheckActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

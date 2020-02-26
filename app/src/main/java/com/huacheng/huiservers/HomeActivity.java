@@ -348,6 +348,25 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
         requestBottomUI();
         EventBus.getDefault().register(this);
         initJpush();
+        initJump();
+
+    }
+
+    /**
+     * 初始化跳转
+     */
+    private void initJump() {
+        Intent intent = this.getIntent();
+        if (intent != null) {
+            // String type = intent.getStringExtra("type");
+            String from = intent.getStringExtra("from");
+            //和banner一模一样
+            if ("ad".equals(from)) {
+                String guide_url_type_id = intent.getStringExtra("guide_url_type_id");
+                String guide_type_name = intent.getStringExtra("guide_type_name");
+                new Jump(this, guide_url_type_id, guide_type_name, "", "");
+            }
+        }
 
     }
 
@@ -586,6 +605,13 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
                 switchFragment(1);
                 current_fragment = 1;
                 changeBottomUI(1);
+//                //TODO 测试
+////                Intent intent = new Intent(this, HouseListActivity.class);
+////                intent.putExtra("type", 1);
+////                intent.putExtra("wuye_type", "investigate");
+////                startActivity(intent);
+//                Intent intent = new Intent(this, LongTermPassCheckActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.fl_service:
                 switchFragment(2);

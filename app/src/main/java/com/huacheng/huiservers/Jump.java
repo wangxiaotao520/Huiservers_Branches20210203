@@ -269,11 +269,22 @@ public class Jump {
                 transaction.commit();*/
 
             } else if (type.equals("13")) {//圈子详情
-                id = url.substring(url.lastIndexOf("/") + 1, url.length());
+                String isPro="0";
+                String id = "0";
+                String[] split = url.split("/");
+                for (int i = 0; i < split.length; i++) {
+                    if ("id".equals(split[i])){
+                        id=split[i+1];
+                    }
+                    if ("is_pro".equals(split[i])){
+                        isPro=split[i+1];
+                    }
+                }
                 Intent intent = new Intent(mContext, CircleDetailsActivity.class);
                 Bundle bundle = new Bundle();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 bundle.putString("id", id);
+                bundle.putString("mPro",isPro );
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             } else if (type.equals("20")) {  //广告位跳转至东森易购
