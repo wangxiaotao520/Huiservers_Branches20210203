@@ -499,6 +499,19 @@ public class Jump {
                     Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
                     mContext.startActivity(intent);
                 }
+            }else if (type.equals("37")){
+                //调查问卷
+                if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                    Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                    mContext.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mContext, HouseListActivity.class);
+                    intent.putExtra("type", 1);
+                     intent.putExtra("wuye_type", "investigate");
+                    mContext. startActivity(intent);
+                }
+            }else if (type.equals("38")){
+                //TODO 通行证
             }
         }else {
          if (type.equals("30")){//活动投票
@@ -602,6 +615,19 @@ public class Jump {
                  Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
                  mContext.startActivity(intent);
              }
+         }else if (type.equals("37")){
+             //调查问卷
+             if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                 mContext.startActivity(intent);
+             } else {
+                 Intent intent = new Intent(mContext, HouseListActivity.class);
+                 intent.putExtra("type", 1);
+                 intent.putExtra("wuye_type", "investigate");
+                 mContext. startActivity(intent);
+             }
+         }else if (type.equals("38")){
+             //TODO 通行证
          }
         }
 
