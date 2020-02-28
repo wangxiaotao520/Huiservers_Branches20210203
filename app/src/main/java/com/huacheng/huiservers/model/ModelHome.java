@@ -23,6 +23,8 @@ public class ModelHome implements Serializable {
 
     private List<ModelShopIndex> special ;//特卖专场
 
+    private List<ModelAds> ad_again_list ;//中部广告 (调查问卷)
+
 
     public List<ModelAds> getAd_top_list() {
         return ad_top_list;
@@ -104,4 +106,14 @@ public class ModelHome implements Serializable {
     public void setSpecial(List<ModelShopIndex> special) {
         this.special = special;
     }
+
+
+    public List<ModelAds> getAd_again_list() {
+        return ad_again_list;
+    }
+
+    public void setAd_again_list(List<ModelAds> ad_again_list) {
+        this.ad_again_list = ad_again_list;
+    }
+
 }

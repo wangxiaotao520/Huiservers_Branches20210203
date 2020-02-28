@@ -63,7 +63,7 @@ public class DeviceUtils {
     }
 
     /**
-     * 获取屏幕高度
+     * 获取屏幕高度(不包括状态栏的高度)
      *
      * @param context
      * @return

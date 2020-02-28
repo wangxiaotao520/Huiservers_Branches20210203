@@ -164,6 +164,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private TextView tv_more_sale;
     private ImageView tv_more_sale_arrow;
     List<ModelIndex> mDatas_Article=new ArrayList<>();
+    private Banner banner_middle;
 
     @Override
     public void initView(View view) {
@@ -261,10 +262,62 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         //资讯
         ll_zixun_container = headerView.findViewById(R.id.ll_zixun_container);
         ll_zixun_container_root = headerView.findViewById(R.id.ll_zixun_container_root);
-
-
+        //中部广告
+        banner_middle = headerView.findViewById(R.id.banner_middle);
+        setBannerMiddle();
         headerView.setVisibility(View.INVISIBLE);
         listView.addHeaderView(headerView);
+
+    }
+
+    /**
+     * 中部banner
+     */
+    private void setBannerMiddle() {
+        if (myImageLoader==null){
+            myImageLoader=new MyCornerImageLoader();
+        }
+        banner_middle.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner_middle.setImageLoader(myImageLoader);
+        banner_middle.isAutoPlay(true);//设置是否轮播
+        banner_middle.setIndicatorGravity(BannerConfig.CENTER);//小圆点位置
+        banner_middle.setDelayTime(4000);
+        banner_middle.setImageLoader(myImageLoader).setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                // 点击banner
+                if (modelHome != null && modelHome.getAd_again_list() != null && modelHome.getAd_again_list().size() > 0) {
+                    ModelAds ads = modelHome.getAd_again_list().get(position);
+                    if (TextUtils.isEmpty(ads.getUrl())) {
+                        if ("0".equals(ads.getUrl_type()) || TextUtils.isEmpty(ads.getUrl_type())) {
+                            new Jump(mActivity, ads.getType_name(), ads.getAdv_inside_url());
+                        } else {
+                            new Jump(mActivity, ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
+                        }
+                    } else {//URL不为空时外链
+                        new Jump(mActivity, ads.getUrl());
+
+                    }
+                }
+            }
+        }).start();
+
+        banner_middle.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
 
     }
 
@@ -561,6 +614,17 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             } else {
                 fl_grid_container.setVisibility(View.GONE);
             }
+            //中部广告
+            if (modelHome.getAd_again_list() != null && modelHome.getAd_again_list().size() > 0) {
+                banner_middle.setVisibility(View.VISIBLE);
+                ArrayList<String> mDatas_img1 = new ArrayList<>();
+                for (int i = 0; i < modelHome.getAd_again_list().size(); i++) {
+                    mDatas_img1.add(ApiHttpClient.IMG_URL + modelHome.getAd_again_list().get(i).getImg() + "");
+                }
+                banner_middle.update(mDatas_img1);
+            }else {
+                banner_middle.setVisibility(View.GONE);
+            }
             //grid背景图
             //  iv_bg_grid.setBackgroundColor(getResources().getColor(R.color.blue));
             //手册协议
@@ -656,7 +720,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 ll_sec_kill_container.setVisibility(View.GONE);
             }
 
-            //todo 附近美食
+            // 附近美食
             ll_nearby_food_container.setVisibility(View.GONE);
 //            ll_nearby_food_img_root.removeAllViews();
 //            for (int i = 0; i <7; i++) {

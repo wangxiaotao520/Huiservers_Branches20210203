@@ -269,11 +269,22 @@ public class Jump {
                 transaction.commit();*/
 
             } else if (type.equals("13")) {//圈子详情
-                id = url.substring(url.lastIndexOf("/") + 1, url.length());
+                String isPro="0";
+                String id = "0";
+                String[] split = url.split("/");
+                for (int i = 0; i < split.length; i++) {
+                    if ("id".equals(split[i])){
+                        id=split[i+1];
+                    }
+                    if ("is_pro".equals(split[i])){
+                        isPro=split[i+1];
+                    }
+                }
                 Intent intent = new Intent(mContext, CircleDetailsActivity.class);
                 Bundle bundle = new Bundle();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 bundle.putString("id", id);
+                bundle.putString("mPro",isPro );
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             } else if (type.equals("20")) {  //广告位跳转至东森易购
@@ -488,6 +499,19 @@ public class Jump {
                     Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
                     mContext.startActivity(intent);
                 }
+            }else if (type.equals("37")){
+                //调查问卷
+                if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                    Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                    mContext.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mContext, HouseListActivity.class);
+                    intent.putExtra("type", 1);
+                     intent.putExtra("wuye_type", "investigate");
+                    mContext. startActivity(intent);
+                }
+            }else if (type.equals("38")){
+                //TODO 通行证
             }
         }else {
          if (type.equals("30")){//活动投票
@@ -591,6 +615,19 @@ public class Jump {
                  Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
                  mContext.startActivity(intent);
              }
+         }else if (type.equals("37")){
+             //调查问卷
+             if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                 mContext.startActivity(intent);
+             } else {
+                 Intent intent = new Intent(mContext, HouseListActivity.class);
+                 intent.putExtra("type", 1);
+                 intent.putExtra("wuye_type", "investigate");
+                 mContext. startActivity(intent);
+             }
+         }else if (type.equals("38")){
+             //TODO 通行证
          }
         }
 

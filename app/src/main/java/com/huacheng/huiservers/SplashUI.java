@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -17,20 +18,30 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.dialog.DownLoadDialog;
 import com.huacheng.huiservers.dialog.PrivacyPolicyDialog;
 import com.huacheng.huiservers.dialog.UpdateDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelSplashImg;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.utils.CacheUtils;
+import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
@@ -38,9 +49,13 @@ import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tinkerpatch.sdk.TinkerPatch;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.HashMap;
@@ -74,6 +89,17 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
     private String tokenSecret;
     public static final int ACT_REQUEST_DOWNLOAD = 101;
     private RxPermissions rxPermission;
+    private TextView tv_tiaoguo;
+    private Handler handler = new Handler(); //倒计时跳过
+    private Runnable runnable_goOn=new Runnable() {
+        @Override
+        public void run() {
+            goOn();
+        }
+    };
+    private ImageView iv_image_top;
+    private RelativeLayout rl_bottom;
+    private ModelSplashImg modelSplashImg;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,23 +138,94 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 
         updateprester = new Updateprester(this, this);
 
+        tv_tiaoguo = findViewById(R.id.tv_tiaoguo);
+        tv_tiaoguo.setVisibility(View.GONE);
+        tv_tiaoguo.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                //点击跳过
+                if (handler!=null){
+                    handler.removeCallbacks(runnable_goOn);
+                }
+                //一定要调用这个方法
+                hasLoginUser();
+                if (isFirstOpen){
+                    //第一次打开进引导页
+                    CacheUtils.putBoolean(SplashUI.this, SplashUI.IS_FIRST_OPEN, false);
+                    isFirstOpen=false;
+                    Intent intent = new Intent(SplashUI.this, GuideUI.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                // 无论怎样热更新下载补丁
+                if (BuildConfig.TINKER_ENABLE) {
+                    TinkerPatch.with().fetchPatchUpdate(true);
+                }
+            }
+        });
+        iv_image_top = findViewById(R.id.iv_image_top);
+        iv_image_top.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                //点击启动页图
+                if (modelSplashImg!=null){
+                    if (!"0".equals(modelSplashImg.getGuide_url_type_id())&&!NullUtil.isStringEmpty(modelSplashImg.getGuide_type_name())){
+                        //点击跳过
+                        if (handler!=null){
+                            handler.removeCallbacks(runnable_goOn);
+                        }
+                        //一定要调用这个方法
+                        hasLoginUser();
+                        if (isFirstOpen){
+                            //第一次打开进引导页
+                            CacheUtils.putBoolean(SplashUI.this, SplashUI.IS_FIRST_OPEN, false);
+                            isFirstOpen=false;
+                            Intent intent = new Intent(SplashUI.this, GuideUI.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+                            //TODO jpush ad
+                            intent.putExtra("from","ad");
+                            intent.putExtra("guide_url_type_id",modelSplashImg.getGuide_url_type_id());
+                            intent.putExtra("guide_type_name",modelSplashImg.getGuide_type_name());
+                            startActivity(intent);
+                            finish();
+                        }
+                        // 无论怎样热更新下载补丁
+                        if (BuildConfig.TINKER_ENABLE) {
+                            TinkerPatch.with().fetchPatchUpdate(true);
+                        }
+                    }
+                }
+            }
+        });
+        rl_bottom = findViewById(R.id.rl_bottom);
+        int height =  (int) ((DeviceUtils.getWindowWidth(SplashUI.this) ) * 1920 * 1f / 1080);
+        int height_bottom = DeviceUtils.dip2px(SplashUI.this,64);//底部布局的高度
 
-
-        ImageView iv_image_top = findViewById(R.id.iv_image_top);
-        int height =  (int) ((DeviceUtils.getWindowWidth(this) ) * 1920 * 1f / 1080);
-
-        if ((DeviceUtils.getWindowHeight(this) -DeviceUtils.dip2px(this,64))>=height){
-            //下方显示专门空出来64dp显示
+        if ((DeviceUtils.getWindowHeight(SplashUI.this)+ TDevice.getStatuBarHeight(this) -DeviceUtils.dip2px(SplashUI.this,64))>=height){
+            //下方显示专门空出来至少64dp显示
+            //计算下方布局的高度
+            height_bottom=DeviceUtils.getWindowHeight(SplashUI.this)+ TDevice.getStatuBarHeight(this)-height;
         }else {
-            height=ViewGroup.LayoutParams.MATCH_PARENT;
+            height= ViewGroup.LayoutParams.MATCH_PARENT;
             //否则就是全屏显示
         }
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
         iv_image_top.setLayoutParams(params);
+        //设置底部布局的高度
+        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height_bottom);
+        params1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        rl_bottom.setLayoutParams(params1);
+
         SimpleDraweeView sdv_logo = findViewById(R.id.sdv_logo);
         FrescoUtils.getInstance().setImageUri(sdv_logo,"");
-
-       goinit();
+        goinit();
     }
 
 
@@ -233,7 +330,8 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                         } else {
                             //非强制更新点取消
                             dialog.dismiss();
-                            goOn();
+                           // goOn();
+                           getSplashImg();
                         }
                     }
                 });
@@ -263,76 +361,12 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 
         } else {
             //没有新版本
-            goOn();
+          //  goOn();
+          getSplashImg();
         }
     }
 
     private void goOn() {
-//        if (!hasLoginUser()) {//未登录
-//            if (sharePrefrenceUtil.getIsChooseXiaoqu().equals("1")) {
-//                // 选择了小区 要根据小区判断域名
-//                ConfigUtils.get().getApiConfig(sharePrefrenceUtil.getXiaoQuId(), new ConfigUtils.OnGetConfigListener() {
-//                    @Override
-//                    public void onGetConfig(int status, ModelConfig modelConfig) {
-//                        if (status == 1) {
-//                            if (modelConfig != null) {
-//                                ApiHttpClient.API_URL = modelConfig.getHui_domain_name() + "/";
-//                                ApiHttpClient.invalidateApi();
-//                                Url_info.invalidateApi();
-//                                //保存企业id
-//                                sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id() + "");
-//                                Intent intent = new Intent(SplashUI.this, HomeActivity.class);
-//                                startActivity(intent);
-//                                finish();
-//                            }
-//
-//                        } else if (status == -1) {
-//                            //网络错误
-//                            SmartToast.showInfo("网络错误，请检查网络设置");
-//                        }
-//                    }
-//                });
-//
-//            } else {
-//                Intent intent = new Intent(SplashUI.this, XiaoquActivity.class);
-//                intent.putExtra("type", "splash");
-//                startActivity(intent);
-//                finish();
-//
-//            }
-//        } else {//登录了
-//            //登录了，要根据小区判断域名
-//            ConfigUtils.get().getApiConfig(sharePrefrenceUtil.getXiaoQuId(), new ConfigUtils.OnGetConfigListener() {
-//                @Override
-//                public void onGetConfig(int status, ModelConfig modelConfig) {
-//                    if (status == 1) {
-//                        if (modelConfig != null) {
-//                            ApiHttpClient.API_URL = modelConfig.getHui_domain_name() + "/";
-//                            ApiHttpClient.invalidateApi();
-//                            Url_info.invalidateApi();
-//                            //保存企业id
-//                            sharePrefrenceUtil.setCompanyId(modelConfig.getCompany_id() + "");
-//                            Intent intent = new Intent(SplashUI.this, HomeActivity.class);
-//                            Intent intent_come = getIntent();
-//                            if (intent_come != null && intent_come.hasExtra("from")) {
-//                                intent.putExtra("from", "jpush");
-//                                if (intent_come.hasExtra("type")) {
-//                                    intent.putExtra("url_type", intent_come.getStringExtra("url_type"));
-//                                    // intentTo.putExtra("type", intent_come.getStringExtra("type"));
-//                                    intent.putExtra("j_id", intent_come.getStringExtra("j_id"));
-//                                }
-//                            }
-//                            startActivity(intent);
-//                            finish();
-//                        }
-//                    } else if (status == -1) {
-//                        //网络错误
-//                        SmartToast.showInfo("网络错误，请检查网络设置");
-//                    }
-//                }
-//            });
-//
-//        }
         //一定要调用这个方法
         hasLoginUser();
         // 新版修改 无论怎样先跳到首页
@@ -358,6 +392,79 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
         if (BuildConfig.TINKER_ENABLE) {
             TinkerPatch.with().fetchPatchUpdate(true);
         }
+    }
+
+    /**
+     * 获取首页img
+     */
+    private void getSplashImg() {
+        HashMap<String, String> params = new HashMap<>();
+        MyOkHttp.get().get(ApiHttpClient.GET_GUIDE_IMG, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    modelSplashImg = (ModelSplashImg) JsonUtil.getInstance().parseJsonFromResponse(response, ModelSplashImg.class);
+                    if ("1".equals(modelSplashImg.getGuide_img_display())){
+                        //从服务器获取图片
+                        // 获取到首页图片后  //todo 默认图没设置了
+                        Glide.with(getApplicationContext()).load(ApiHttpClient.IMG_URL+ modelSplashImg.getGuide_android_img()).placeholder(R.drawable.white).error(R.color.white).into(new SimpleTarget<GlideDrawable>() {
+                            @Override
+                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                                iv_image_top.setImageDrawable(resource);
+                                //判断是否有倒计时
+                                if ("1".equals(modelSplashImg.getGuide_time_display())){
+                                    //有倒计时 倒计时5s
+                                    tv_tiaoguo.setVisibility(View.VISIBLE);
+                                    handler.postDelayed(runnable_goOn,4000);
+
+                                }else {
+                                    //无倒计时
+                                    goOn();
+                                }
+                                //bg_splash_img1
+                            }
+
+                            @Override
+                            public void onLoadStarted(Drawable placeholder) {
+                                // 开始加载图片
+
+                            }
+
+                            @Override
+                            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                                //图片加载失败
+                                showLocalImgAndGoOn();
+
+                            }
+                        });
+                    }else {
+                        //网络上没有图片
+                        showLocalImgAndGoOn();
+                    }
+
+                } else {
+                    // 请求失败 显示本地图片
+                    showLocalImgAndGoOn();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+//                SmartToast.showInfo("网络异常，请检查网络设置");
+                // 请求失败 显示本地图片
+                showLocalImgAndGoOn();
+
+            }
+        });
+    }
+
+    /**
+     * 显示本地图片
+     */
+    private void showLocalImgAndGoOn() {
+        //todo iv_image_top 显示本地图片
+        iv_image_top.setImageResource(R.mipmap.bg_splash_img1);
+        goOn();
     }
 
     private boolean hasLoginUser() {
@@ -387,6 +494,9 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (handler!=null){
+            handler.removeCallbacks(runnable_goOn);
+        }
     }
 
     @Override

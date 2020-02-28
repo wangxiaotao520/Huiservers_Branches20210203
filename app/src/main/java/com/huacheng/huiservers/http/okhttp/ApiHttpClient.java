@@ -411,6 +411,9 @@ public class ApiHttpClient {
     //调查问卷详情
     public static String GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
 
+    //启动页广告图
+    public static String GET_GUIDE_IMG = API_URL + API_VERSION + "index/guide_img";
+
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -572,9 +575,11 @@ public class ApiHttpClient {
         VLOG_HOME_INDEX_SHARE = API_URL_SHARE + "home/index/vlog_list ";
         GET_SHOP_ORDER_DETAILS = API_URL + API_VERSION + "userCenter/shopping_order_details";
         GET_SHOP_ORDER_OPERTE = API_URL + API_VERSION + "userCenter/shopping_order_operate";
+        GET_GUIDE_IMG = API_URL + API_VERSION + "index/guide_img";
         //TODO
         GET_INVESTIGATE_INFORMATION = API_URL + API_VERSION + "";
         COMMIT_INVESTIGATE = API_URL + API_VERSION + "";
         GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
+
     }
 }
