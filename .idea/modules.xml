@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Huiservers_Branches.iml" filepath="$PROJECT_DIR$/Huiservers_Branches.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HuiServices.iml" filepath="$PROJECT_DIR$/HuiServices.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/banner/banner.iml" filepath="$PROJECT_DIR$/banner/banner.iml" />
       <module fileurl="file://$PROJECT_DIR$/base-adapter-library/base-adapter-library.iml" filepath="$PROJECT_DIR$/base-adapter-library/base-adapter-library.iml" />
