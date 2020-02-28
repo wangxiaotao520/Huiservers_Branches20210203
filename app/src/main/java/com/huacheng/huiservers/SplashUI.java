@@ -218,7 +218,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
             height= ViewGroup.LayoutParams.MATCH_PARENT;
             //否则就是全屏显示
             //先让上方图片布局显示这个
-            iv_image_top.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            iv_image_top.setScaleType(ImageView.ScaleType.FIT_CENTER);
             iv_image_top.setImageResource(R.mipmap.bg_splash_img1);
         }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
