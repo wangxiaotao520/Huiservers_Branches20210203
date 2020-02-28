@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -189,8 +190,8 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                             finish();
                         }else {
                             Intent intent = new Intent(SplashUI.this, HomeActivity.class);
-                            //TODO jpush ad
-                            intent.putExtra("from","ad");
+                            // 带参数的跳转
+                            intent.putExtra("from","ad"); // jpush 和ad
                             intent.putExtra("guide_url_type_id",modelSplashImg.getGuide_url_type_id());
                             intent.putExtra("guide_type_name",modelSplashImg.getGuide_type_name());
                             startActivity(intent);
@@ -208,20 +209,24 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
         int height =  (int) ((DeviceUtils.getWindowWidth(SplashUI.this) ) * 1920 * 1f / 1080);
         int height_bottom = DeviceUtils.dip2px(SplashUI.this,64);//底部布局的高度
 
-        if ((DeviceUtils.getWindowHeight(SplashUI.this)+ TDevice.getStatuBarHeight(this) -DeviceUtils.dip2px(SplashUI.this,64))>=height){
+        if ((TDevice.getScreenHeight(this) -DeviceUtils.dip2px(SplashUI.this,64))>=height){
             //下方显示专门空出来至少64dp显示
             //计算下方布局的高度
-            height_bottom=DeviceUtils.getWindowHeight(SplashUI.this)+ TDevice.getStatuBarHeight(this)-height;
+         //   height_bottom= (int) (TDevice.getScreenHeight(this)-height);
+            iv_image_top.setImageResource(R.color.white);
         }else {
             height= ViewGroup.LayoutParams.MATCH_PARENT;
             //否则就是全屏显示
+            //先让上方图片布局显示这个
+            iv_image_top.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            iv_image_top.setImageResource(R.mipmap.bg_splash_img1);
         }
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
         iv_image_top.setLayoutParams(params);
         //设置底部布局的高度
-        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height_bottom);
-        params1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        rl_bottom.setLayoutParams(params1);
+//        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height_bottom);
+//        params1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//        rl_bottom.setLayoutParams(params1);
 
         SimpleDraweeView sdv_logo = findViewById(R.id.sdv_logo);
         FrescoUtils.getInstance().setImageUri(sdv_logo,"");
@@ -406,10 +411,11 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                     modelSplashImg = (ModelSplashImg) JsonUtil.getInstance().parseJsonFromResponse(response, ModelSplashImg.class);
                     if ("1".equals(modelSplashImg.getGuide_img_display())){
                         //从服务器获取图片
-                        // 获取到首页图片后  //todo 默认图没设置了
+                        // 获取到首页图片后
                         Glide.with(getApplicationContext()).load(ApiHttpClient.IMG_URL+ modelSplashImg.getGuide_android_img()).placeholder(R.drawable.white).error(R.color.white).into(new SimpleTarget<GlideDrawable>() {
                             @Override
                             public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                                iv_image_top.setScaleType(ImageView.ScaleType.FIT_XY);
                                 iv_image_top.setImageDrawable(resource);
                                 //判断是否有倒计时
                                 if ("1".equals(modelSplashImg.getGuide_time_display())){
@@ -462,8 +468,8 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
      * 显示本地图片
      */
     private void showLocalImgAndGoOn() {
-        //todo iv_image_top 显示本地图片
-        iv_image_top.setImageResource(R.mipmap.bg_splash_img1);
+        // iv_image_top 保持原样儿就行
+       // iv_image_top.setImageResource(R.mipmap.bg_splash_img1);
         goOn();
     }
 
