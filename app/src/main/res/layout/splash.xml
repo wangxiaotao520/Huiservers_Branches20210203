@@ -11,14 +11,23 @@
         android:src="@drawable/welcome1"
         android:visibility="gone"
         android:scaleType="fitCenter" />
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:id="@+id/iv_image_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop" />
         <RelativeLayout
             android:id="@+id/rl_bottom"
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_height="wrap_content">
+            android:layout_weight="1"
+            android:layout_height="0dp">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_centerInParent="true"
@@ -43,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14dp"
-                        android:textColor="#E42D14"
+                        android:textColor="@color/orange"
                         android:text="社 区 慧 生 活" />
                     <TextView
                         android:layout_marginTop="5dp"
@@ -56,26 +65,20 @@
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
-        <ImageView
-            android:id="@+id/iv_image_top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY" />
 
-        <TextView
-            android:id="@+id/tv_tiaoguo"
-            android:layout_alignParentRight="true"
-            android:layout_width="55dp"
-            android:layout_height="30dp"
-            android:text="跳过"
-            android:textColor="@color/white"
-            android:background="@drawable/allshape_black_45p"
-            android:textSize="13dp"
-            android:gravity="center"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="50dp" />
 
-    </RelativeLayout>
-
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_tiaoguo"
+        android:layout_alignParentRight="true"
+        android:layout_width="55dp"
+        android:layout_height="30dp"
+        android:text="跳过"
+        android:textColor="@color/white"
+        android:background="@drawable/allshape_black_45p"
+        android:textSize="13dp"
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp" />
 
 </RelativeLayout>
