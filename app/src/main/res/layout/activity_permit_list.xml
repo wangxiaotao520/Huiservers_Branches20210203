@@ -20,8 +20,8 @@
         tab:tab_Mode="mode_fixed"
         android:background="@color/white"
         tab:tabTextSize="14dp"
-        tab:tabSelectTextColor="@color/red_guotao"
-        tab:tabIndicatorColor="@color/red_guotao">
+        tab:tabSelectTextColor="@color/orange"
+        tab:tabIndicatorColor="@color/orange">
 
     </com.huacheng.huiservers.view.widget.EnhanceTabLayout>
     <View

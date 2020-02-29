@@ -173,8 +173,8 @@ public class MyCenterFrament extends BaseFragment {
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else if (position == 2) {//"服务订单"
-                    Intent intent = new Intent(mContext, FragmentOrderListActivity.class);
-                    startActivity(intent);
+                   Intent intent = new Intent(mContext, FragmentOrderListActivity.class);
+                   startActivity(intent);
                 } else if (position == 3) {//"生活账单"
                     if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
                         // Intent intent = new Intent(getActivity(), PropertyNewActivity.class);

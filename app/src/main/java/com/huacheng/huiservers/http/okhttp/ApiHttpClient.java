@@ -410,6 +410,15 @@ public class ApiHttpClient {
     public static String COMMIT_INVESTIGATE = API_URL + API_VERSION + "investigate/record";
     //调查问卷详情
     public static String GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
+    /**
+     * 通行证
+     */
+    //申请通行证列表
+    public static String GET_PERMIT_SET_LIST = API_URL + API_VERSION + "propertyPass/pass_check_set_list";
+    //通行证列表
+    public static String GET_PERMIT_LIST = API_URL + API_VERSION + "propertyPass/pass_check_list";
+    //通行证详情
+    public static String GET_PERMIT_DETAIL = API_URL + API_VERSION + "propertyPass/pass_check_details";
     //调查问卷历史记录
     public static String GET_INVESTIGATE_HISTORY_LIST = API_URL + API_VERSION + "investigate/record_list";
 
@@ -587,5 +596,8 @@ public class ApiHttpClient {
         GET_INVESTIGATE_HISTORY_LIST = API_URL + API_VERSION + "investigate/record_list";
         GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
 
+        GET_PERMIT_SET_LIST = API_URL + API_VERSION + "propertyPass/pass_check_set_list";
+        GET_PERMIT_DETAIL = API_URL + API_VERSION + "propertyPass/pass_check_details";
+        GET_PERMIT_LIST = API_URL + API_VERSION + "propertyPass/pass_check_list";
     }
 }

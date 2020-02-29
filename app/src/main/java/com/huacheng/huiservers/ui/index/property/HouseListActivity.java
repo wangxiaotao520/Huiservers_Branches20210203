@@ -23,6 +23,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.bean.HouseBean;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.center.house.HouseInviteActivity;
+import com.huacheng.huiservers.ui.index.coronavirus.PermitListActivity;
 import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestHistoryListActivity;
 import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestigateActivity;
 import com.huacheng.huiservers.ui.index.openDoor.OpenLanActivity;
@@ -103,6 +104,10 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
             mRight.setVisibility(View.VISIBLE);
             mRight.setText("历史记录");
             this.id = getIntent().getStringExtra("id");
+        } else if ("permit".equals(wuye_type)){
+            //通行证
+            mRight.setVisibility(View.GONE);
+            mRight.setText("历史记录");
         }
     }
 
@@ -240,6 +245,14 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                         intent.putExtra("room_id",mDatas.get(position).getRoom_id());
                         startActivity(intent);
                         finish();
+                    }else if ("permit".equals(wuye_type)){
+                        //通行证
+                        Intent intent;
+                        intent = new Intent(mContext, PermitListActivity.class);
+                        //intent.putExtra("jump_type",1);
+                        intent.putExtra("company_id", mDatas.get(position).getCompany_id());
+                        intent.putExtra("community_id", mDatas.get(position).getCommunity_id());
+                        startActivity(intent);
                     }
                 }
             }
