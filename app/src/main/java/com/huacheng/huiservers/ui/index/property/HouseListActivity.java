@@ -23,6 +23,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.bean.HouseBean;
 import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
 import com.huacheng.huiservers.ui.center.house.HouseInviteActivity;
+import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestHistoryListActivity;
 import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestigateActivity;
 import com.huacheng.huiservers.ui.index.openDoor.OpenLanActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterHouseList;
@@ -70,6 +71,8 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
     private List<HouseBean> mDatas = new ArrayList<>();
     AdapterHouseList mAdapter;
 
+    String id = ""; //计划id 调查问卷
+
     @Override
     protected void initView() {
         ButterKnife.bind(this);
@@ -99,6 +102,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
             //问卷调查
             mRight.setVisibility(View.VISIBLE);
             mRight.setText("历史记录");
+            this.id = getIntent().getStringExtra("id");
         }
     }
 
@@ -111,7 +115,14 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
         if (type == 1) {
-            type_url = ApiHttpClient.BINDING_COMMUNITY;
+            if ("investigate".equals(wuye_type)) {
+                type_url = ApiHttpClient. INVESTIGATE_HOME_LIST;
+                //计划id
+                params.put("id",id);
+            }else {
+                type_url = ApiHttpClient.BINDING_COMMUNITY;
+            }
+
         } else {
             type_url = ApiHttpClient.GET_WORK_HOUSE_ADDRESS;
         }
@@ -169,8 +180,8 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
             @Override
             public void onClick(View v) {
                 if ("investigate".equals(wuye_type)){
-                    //TODO
-                    SmartToast.show("历史记录");
+                    //调查问卷的历史记录
+                    startActivity(new Intent(HouseListActivity.this, InvestHistoryListActivity.class));
                 }else {
                     startActivity(new Intent(HouseListActivity.this, PropertyPaymentActivity.class));
                 }
@@ -219,8 +230,16 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                         Intent intent;
                         intent = new Intent(mContext, InvestigateActivity.class);
                         intent.putExtra("jump_type",1);
-                        intent.putExtra("room_id", mDatas.get(position).getRoom_id());
+                        intent.putExtra("plan_id", mDatas.get(position).getPlan_id());
+                        intent.putExtra("info_id", mDatas.get(position).getInfo_id());
+                        intent.putExtra("address",mDatas.get(position).getAddress());
+                        intent.putExtra("fullname",mDatas.get(position).getFullname());
+                        intent.putExtra("mobile",mDatas.get(position).getMobile());
+                        intent.putExtra("community_id",mDatas.get(position).getCommunity_id());
+                        intent.putExtra("community_name",mDatas.get(position).getCommunity_name());
+                        intent.putExtra("room_id",mDatas.get(position).getRoom_id());
                         startActivity(intent);
+                        finish();
                     }
                 }
             }

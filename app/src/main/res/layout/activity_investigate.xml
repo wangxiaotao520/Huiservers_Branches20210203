@@ -11,6 +11,7 @@
             android:id="@+id/ll_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <ImageView
@@ -27,7 +28,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="战胜疫情从我做起全力守护组织健康拥有1 更好明天"
+                android:text=""
                 android:textSize="18dp"
                 android:textStyle="bold"
                 />
@@ -39,7 +40,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="战役是战争的一个局部，直接服务和受制于战争全局 也 不同程度地影响战争全局。它直接运用战斗也为战斗的 成败所直接影响。现代战役，通常是诸军种、兵种共同 进行的合同战役。"
+                android:text=""
                 android:textSize="14dp"
                 android:textStyle="normal" />
             <TextView
@@ -49,8 +50,9 @@
                 android:textColor="@color/gray_99"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:text="日期：2020.01.03 14:22:22"
+                android:text=""
                 android:textSize="14dp"
+                android:layout_marginBottom="15dp"
                 android:textStyle="normal" />
         </LinearLayout>
     </ScrollView>

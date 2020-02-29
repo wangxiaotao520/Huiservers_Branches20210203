@@ -405,14 +405,18 @@ public class ApiHttpClient {
     public static String IMG_BOTTOM = API_URL + API_VERSION + "index/index_Bottom";
     //todo
     //调查问卷页
-    public static String GET_INVESTIGATE_INFORMATION = API_URL + API_VERSION + "";
+    public static String GET_INVESTIGATE_INFORMATION = API_URL + API_VERSION + "investigate/question";
     //提交调查问卷
-    public static String COMMIT_INVESTIGATE = API_URL + API_VERSION + "";
+    public static String COMMIT_INVESTIGATE = API_URL + API_VERSION + "investigate/record";
     //调查问卷详情
     public static String GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
+    //调查问卷历史记录
+    public static String GET_INVESTIGATE_HISTORY_LIST = API_URL + API_VERSION + "investigate/record_list";
 
     //启动页广告图
     public static String GET_GUIDE_IMG = API_URL + API_VERSION + "index/guide_img";
+    //调查问卷房屋列表
+    public static String INVESTIGATE_HOME_LIST = API_URL + API_VERSION + "investigate/home_list";
 
     /**
      * 刷新接口
@@ -576,9 +580,11 @@ public class ApiHttpClient {
         GET_SHOP_ORDER_DETAILS = API_URL + API_VERSION + "userCenter/shopping_order_details";
         GET_SHOP_ORDER_OPERTE = API_URL + API_VERSION + "userCenter/shopping_order_operate";
         GET_GUIDE_IMG = API_URL + API_VERSION + "index/guide_img";
+        INVESTIGATE_HOME_LIST = API_URL + API_VERSION + "investigate/home_list";
         //TODO
-        GET_INVESTIGATE_INFORMATION = API_URL + API_VERSION + "";
-        COMMIT_INVESTIGATE = API_URL + API_VERSION + "";
+        GET_INVESTIGATE_INFORMATION = API_URL + API_VERSION + "investigate/question";
+        COMMIT_INVESTIGATE = API_URL + API_VERSION + "investigate/record";
+        GET_INVESTIGATE_HISTORY_LIST = API_URL + API_VERSION + "investigate/record_list";
         GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
 
     }

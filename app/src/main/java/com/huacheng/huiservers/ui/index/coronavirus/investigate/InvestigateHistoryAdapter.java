@@ -1,8 +1,11 @@
 package com.huacheng.huiservers.ui.index.coronavirus.investigate;
 
 import android.content.Context;
+import android.widget.TextView;
 
+import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.ModelInvestigateList;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
@@ -20,6 +23,8 @@ public class InvestigateHistoryAdapter extends CommonAdapter<ModelInvestigateLis
 
     @Override
     protected void convert(ViewHolder viewHolder, ModelInvestigateList item, int position) {
-
+        viewHolder.<TextView>getView(R.id.tv_title).setText(""+item.getTitle());
+        viewHolder.<TextView>getView(R.id.tv_sub_title).setText(""+item.getIntroduce());
+        viewHolder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(item.getAddtime(),"7"));
     }
 }

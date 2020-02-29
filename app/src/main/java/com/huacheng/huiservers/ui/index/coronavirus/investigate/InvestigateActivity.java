@@ -2,13 +2,8 @@ package com.huacheng.huiservers.ui.index.coronavirus.investigate;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +16,6 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
@@ -30,10 +24,11 @@ import com.huacheng.huiservers.model.ModelIvestigateInformation;
 import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
-import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.widget.GridViewNoScroll;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -43,14 +38,13 @@ import com.zhy.adapter.abslistview.ViewHolder;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.functions.Consumer;
-import me.nereo.multi_image_selector.utils.FileUtils;
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
@@ -82,9 +76,16 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
     private static final int REQUEST_CAMERA = 100;
     private File mTmpFile;
     private int jump_type = 1; //1是问题提交  2是详情
-    private String id = ""; //任务id
-    private String task_info_id = "";//任务详情id
-    private String equipment_id = "";//设备id
+    private String info_id = ""; //任务id
+    private String plan_id = "";//任务详情id
+    private String community_id="";
+    private String community_name="";
+    private String address="";
+    private String fullname="";
+    private String mobile="";
+    private String room_id="";
+    private String question_id="";
+
     private int inspect_status = 1; //设备巡检情况  //1是正常2是异常//TODO 要删掉
     private String name = ""; //设备名称
     private ImageView iv_right;
@@ -97,7 +98,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
     protected void initView() {
         rxPermission = new RxPermissions(this);
         findTitleViews();
-        titleName.setText("调查问卷");
+        titleName.setText("问卷调查");
         iv_right = findViewById(R.id.iv_right);
         iv_right.setBackgroundResource(R.mipmap.ic_share_black);
         iv_right.setVisibility(View.VISIBLE);
@@ -118,17 +119,34 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
         }
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("id", id+"");
-        params.put("task_info_id", task_info_id);
+        params.put("info_id", info_id+"");
+        params.put("plan_id", plan_id);
         MyOkHttp.get().post(url, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    List<ModelIvestigateInformation> data = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelIvestigateInformation.class);
-                    mDatas.clear();
-                    mDatas.addAll(data);
-                    inflateContent();
+                    ModelIvestigateInformation information = (ModelIvestigateInformation) JsonUtil.getInstance().parseJsonFromResponse(response, ModelIvestigateInformation.class);
+                  if (information!=null){
+                        if (information.getPlan()!=null){
+                            GlideUtils.getInstance().glideLoad(InvestigateActivity.this,ApiHttpClient.IMG_URL+information.getPlan().getImg(),iv_title_img,R.color.default_color);
+                            tv_title.setText(information.getPlan().getTitle()+"");
+                            tv_sub_title.setText(information.getPlan().getIntroduce()+"");
+                            tv_time.setText("日期："+StringUtils.getDateToString(information.getPlan().getAddtime(),"7"));
+                            question_id=information.getPlan().getQuestion_id()+"";
+                        }
+                        if (information.getData()!=null&&information.getData().size()>0){
+                            List<ModelIvestigateInformation> data =information.getData();
+                            mDatas.clear();
+                            mDatas.addAll(data);
+                            inflateContent();
+                        }
+
+                  }else {
+                      String msg = JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败");
+                      SmartToast.showInfo(msg);
+                  }
+//
                 }
             }
 
@@ -158,7 +176,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                     final CommonAdapter<ModelIvestigateInformation.CheckBean> adapter = new CommonAdapter<ModelIvestigateInformation.CheckBean>(this, R.layout.item_item_inspect1, checkBeans) {
                         @Override
                         protected void convert(ViewHolder viewHolder, ModelIvestigateInformation.CheckBean item, int position) {
-                            //TODO 颜色要换
+                            // 颜色要换
                             viewHolder.<ImageView>getView(R.id.iv_select).setBackgroundResource(R.drawable.selector_radio);
                             if (item.isSelected()) {
                                 viewHolder.<ImageView>getView(R.id.iv_select).setSelected(true);
@@ -205,6 +223,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                                 }
                                 adapter.notifyDataSetChanged();
                             }
+                          //  checkButton();
                         }
                     });
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -274,6 +293,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                                 }
                                 mDatas_commit_check.add(modelInspectCommit_check);
                             }
+                         //   checkButton();
                         }
                     });
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -318,7 +338,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                                         @Override
                                         public void accept(Boolean isGranted) throws Exception {
                                             if (isGranted) {
-                                                jumpToCamera(position);
+                                                jumpToImageSelector(position);
                                             } else {
                                                 SmartToast.showInfo("未打开摄像头权限");
                                             }
@@ -354,7 +374,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                             Intent intent = new Intent(InvestigateActivity.this, PhotoViewPagerAcitivity.class);
                             intent.putExtra("img_list", imgs);
                             intent.putExtra("position", position);
-                            intent.putExtra("isShowDelete", true);
+                            intent.putExtra("isShowDelete", false);
                             startActivity(intent);
 
                         }
@@ -392,44 +412,69 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
     }
 
     /**
-     * 跳转到照相机
-     *
+     * 跳转到图片选择页
      * @param position
      */
-    private void jumpToCamera(int position) {
-        Intent fullIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (fullIntent.resolveActivity(getPackageManager()) != null) {
-            try {
-                mTmpFile = FileUtils.createTmpFile(this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            // 获取uri
-            if (mTmpFile != null && mTmpFile.exists()) {
-                Uri uri = null;
-                if (Build.VERSION.SDK_INT >= 24) {
-                    ContentValues contentValues = new ContentValues(1);
-                    contentValues.put(MediaStore.Images.Media.DATA, mTmpFile.getAbsolutePath());
-                    uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-                } else {
-                    uri = Uri.fromFile(mTmpFile);
-                }
-                // 跳转
-                fullIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                fullIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                startActivityForResult(fullIntent, REQUEST_CAMERA);
-            } else {
-                SmartToast.showInfo("图片错误");
-            }
-        } else {
-            SmartToast.showInfo("没有系统相机");
-        }
+    private void jumpToImageSelector(int position) {
+        Intent imageIntent = new Intent(this, MultiImageSelectorActivity.class);
+        // 是否显示相机
+        imageIntent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
 
+        // 单选多选 (MultiImageSelectorActivity.MODE_SINGLE OR MultiImageSelectorActivity.MODE_SINGLE)
+        imageIntent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);
+        // 默认选择
+
+        ArrayList<String> list_jump = new ArrayList<String>();
+        for (int i = 0; i < photoList.size(); i++) {
+            //只要localpath不为空则说明是刚选上的
+            if (!NullUtil.isStringEmpty(photoList.get(i).getLocal_path())) {
+                list_jump.add(photoList.get(i).getLocal_path());
+            }
+        }
+        imageIntent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 4);
+
+        imageIntent.putExtra(MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, list_jump);
+        startActivityForResult(imageIntent, ACT_SELECT_PHOTO);
     }
+//    /**
+//     * 跳转到照相机
+//     *
+//     * @param position
+//     */
+//    private void jumpToCamera(int position) {
+//        Intent fullIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (fullIntent.resolveActivity(getPackageManager()) != null) {
+//            try {
+//                mTmpFile = FileUtils.createTmpFile(this);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            // 获取uri
+//            if (mTmpFile != null && mTmpFile.exists()) {
+//                Uri uri = null;
+//                if (Build.VERSION.SDK_INT >= 24) {
+//                    ContentValues contentValues = new ContentValues(1);
+//                    contentValues.put(MediaStore.Images.Media.DATA, mTmpFile.getAbsolutePath());
+//                    uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+//                } else {
+//                    uri = Uri.fromFile(mTmpFile);
+//                }
+//                // 跳转
+//                fullIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//                fullIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//                startActivityForResult(fullIntent, REQUEST_CAMERA);
+//            } else {
+//                SmartToast.showInfo("图片错误");
+//            }
+//        } else {
+//            SmartToast.showInfo("没有系统相机");
+//        }
+//
+//    }
 
     @Override
     protected void initListener() {
-
+       // mDatas_edittext也得判断 这里有bug
     }
 
     @Override
@@ -440,10 +485,15 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void initIntentData() {
         this.jump_type = this.getIntent().getIntExtra("jump_type", 1);
-//        this.id = this.getIntent().getStringExtra("id");
-//        this.task_info_id = this.getIntent().getStringExtra("task_info_id");
-//        this.equipment_id = this.getIntent().getStringExtra("equipment_id");
-//        this.name = this.getIntent().getStringExtra("name");
+        this.info_id = this.getIntent().getStringExtra("info_id");
+        this.plan_id = this.getIntent().getStringExtra("plan_id");
+        this.community_id = this.getIntent().getStringExtra("community_id");
+        this.community_name = this.getIntent().getStringExtra("community_name");
+        this.address = this.getIntent().getStringExtra("address");
+        this.mobile = this.getIntent().getStringExtra("mobile");
+        this.room_id = this.getIntent().getStringExtra("room_id");
+        this.fullname = this.getIntent().getStringExtra("fullname");
+
 
     }
 
@@ -462,14 +512,32 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case REQUEST_CAMERA:
-                    String back_path = mTmpFile.getAbsolutePath();
-                    ModelPhoto modelPhoto = new ModelPhoto();
-                    modelPhoto.setLocal_path(back_path);
-                    photoList.add(modelPhoto);
-                    // 将新图上传
-                    if (gridviewImgsAdapter != null) {
-                        gridviewImgsAdapter.notifyDataSetChanged();
+//                case REQUEST_CAMERA:
+//                    String back_path = mTmpFile.getAbsolutePath();
+//                    ModelPhoto modelPhoto = new ModelPhoto();
+//                    modelPhoto.setLocal_path(back_path);
+//                    photoList.add(modelPhoto);
+//                    // 将新图上传
+//                    if (gridviewImgsAdapter != null) {
+//                        gridviewImgsAdapter.notifyDataSetChanged();
+//                    }
+//                    break;
+                case ACT_SELECT_PHOTO:
+                    if (data != null) {
+                        ArrayList<String> backList = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                        // 删除成功后判断哪些是新图，
+                        photoList.clear();
+                        for (int i = 0; i < backList.size(); i++) {
+                            String back_path = backList.get(i);
+                            ModelPhoto modelPhoto = new ModelPhoto();
+                            modelPhoto.setLocal_path(back_path);
+                            photoList.add(modelPhoto);
+                        }
+                        // 将新图上传
+                        if (gridviewImgsAdapter != null) {
+                            gridviewImgsAdapter.notifyDataSetChanged();
+                        }
+                    //    checkButton();
                     }
                     break;
                 default:
@@ -498,26 +566,36 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
 
                 checkInspectStatus();
                 if (inspect_status == 2) {
-                    new CommomDialog(InvestigateActivity.this, R.style.my_dialog_DimEnabled,
-                            "设备出现异常情况，是否提交工单", new CommomDialog.OnCloseListener() {
-                        @Override
-                        public void onClick(Dialog dialog, boolean confirm) {
-                            if (confirm){
-                                if (mDatas_commit_img.size() > 0) {//说明有图片
-                                    showDialog(smallDialog);
-                                    smallDialog.setTipTextView("压缩中");
-                                    waterMarkList.clear();
-                                    images_submit.clear();
-                                    zipPhoto(new HashMap<String, String>());
+//                    new CommomDialog(InvestigateActivity.this, R.style.my_dialog_DimEnabled,
+//                            "设备出现异常情况，是否提交工单", new CommomDialog.OnCloseListener() {
+//                        @Override
+//                        public void onClick(Dialog dialog, boolean confirm) {
+//                            if (confirm){
+//                                if (mDatas_commit_img.size() > 0) {//说明有图片
+//                                    showDialog(smallDialog);
+//                                    smallDialog.setTipTextView("压缩中");
+//                                    waterMarkList.clear();
+//                                    images_submit.clear();
+//                                    zipPhoto(new HashMap<String, String>());
+//
+//                                } else {
+//                                    commitIndeed();
+//                                }
+//                            }else {
+//                                dialog.dismiss();
+//                            }
+//                        }
+//                    }).show();
+                    if (mDatas_commit_img.size() > 0) {//说明有图片
+                        showDialog(smallDialog);
+                        smallDialog.setTipTextView("压缩中");
+                        waterMarkList.clear();
+                        images_submit.clear();
+                        zipPhoto(new HashMap<String, String>());
 
-                                } else {
-                                    commitIndeed();
-                                }
-                            }else {
-                                dialog.dismiss();
-                            }
-                        }
-                    }).show();
+                    } else {
+                        commitIndeed();
+                    }
 
                 } else {
                     if (mDatas_commit_img.size() > 0) {//说明有图片
@@ -534,6 +612,27 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * button的状态
+     */
+    private void checkButton() {
+        //先将文本框的内容添加进去
+        if (mDatas_edittext.size() > 0) {
+            for (int i = 0; i < mDatas_edittext.size(); i++) {
+                String text = mDatas_edittext.get(i).getText().toString().trim();
+                if (!NullUtil.isStringEmpty(text)) {
+                    ModelIvestigateCommit modelInspectCommit = mDatas_commit_text.get(i);
+                    modelInspectCommit.setForm_val("" + text);
+                }
+            }
+        }
+        if (!checkReady()) {
+           tv_commit.setBackgroundResource(R.drawable.allshape_gray_solid_bb5);
+        }else {
+            tv_commit.setBackgroundResource(R.drawable.allshape_orange);
         }
     }
 
@@ -622,8 +721,15 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("params", json_commit + "");
-        params.put("task_info_id", task_info_id + "");
-        params.put("id", id + "");
+        params.put("plan_id", plan_id + "");
+        params.put("info_id", info_id + "");
+        params.put("question_id", question_id + "");
+        params.put("community_id", community_id + "");
+        params.put("community_name", community_name + "");
+        params.put("address", address + "");
+        params.put("fullname", fullname + "");
+        params.put("mobile", mobile + "");
+        params.put("room_id", room_id + "");
         if (inspect_status==2){//有异常的时候传1 //正常传0
             params.put("yichang", 1 + "");
         }
@@ -633,15 +739,16 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     setResult(RESULT_OK);
-                    if (inspect_status==2){
-                        //有异常 提交工单
-                        Intent intent = new Intent(InvestigateActivity.this, PublicWorkOrderCommitActivity.class);
-                        intent.putExtra("task_info_id", task_info_id);
-                        intent.putExtra("equipment_id", equipment_id);
-                        startActivity(intent);
-                    }else {
-                        SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交成功"));
-                    }
+//                    if (inspect_status==2){
+//                        //有异常 提交工单
+////                        Intent intent = new Intent(InvestigateActivity.this, PublicWorkOrderCommitActivity.class);
+////                        intent.putExtra("task_info_id", task_info_id);
+////                        intent.putExtra("equipment_id", equipment_id);
+////                        startActivity(intent);
+//                    }else {
+//                        SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交成功"));
+//                    }
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交成功"));
                     finish();
                 } else {
                     SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交失败"));
@@ -678,8 +785,15 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
         String json_commit = gson.toJson(mDatas_commit);
         showDialog(smallDialog);
         params.put("params", json_commit + "");
-        params.put("task_info_id", task_info_id + "");
-        params.put("id", id + "");
+        params.put("plan_id", plan_id + "");
+        params.put("info_id", info_id + "");
+        params.put("question_id", question_id + "");
+        params.put("community_id", community_id + "");
+        params.put("community_name", community_name + "");
+        params.put("address", address + "");
+        params.put("fullname", fullname + "");
+        params.put("mobile", mobile + "");
+        params.put("room_id", room_id + "");
         if (inspect_status==2){//有异常的时候传1 //正常传0
             params.put("yichang", 1 + "");
         }
@@ -689,15 +803,16 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     setResult(RESULT_OK);
-                    if (inspect_status==2){
-                        //有异常 提交工单
-                        Intent intent = new Intent(InvestigateActivity.this, PublicWorkOrderCommitActivity.class);
-                        intent.putExtra("task_info_id", task_info_id);
-                        intent.putExtra("equipment_id", equipment_id);
-                        startActivity(intent);
-                    }else {
-                        SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交成功"));
-                    }
+//                    if (inspect_status==2){
+//                        //有异常 提交工单
+////                        Intent intent = new Intent(InvestigateActivity.this, PublicWorkOrderCommitActivity.class);
+////                        intent.putExtra("task_info_id", task_info_id);
+////                        intent.putExtra("equipment_id", equipment_id);
+////                        startActivity(intent);
+//                    }else {
+//                        SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交成功"));
+//                    }
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交成功"));
                     finish();
                 } else {
                     SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交失败"));
@@ -713,7 +828,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
     }
 
     /**
-     * 判断设备有无异常情况
+     * 判断有无异常情况
      */
     private void checkInspectStatus() {
         for (int i = 0; i < mDatas.size(); i++) {
@@ -764,13 +879,13 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                         }
                     }
                     if (isReady == false) {
-                        SmartToast.showInfo("有单选框为空");
+                       SmartToast.showInfo("有单选框为空");
                         break Loop;
                     }
                 } else if ("2".equals(model.getForm_type())) {
                     isReady = false;
                     if (mDatas_commit_check.size() == 0) {
-                        SmartToast.showInfo("有复选框为空");
+                       SmartToast.showInfo("有复选框为空");
                         break Loop;
                     }
                     for (int i1 = 0; i1 < mDatas_commit_check.size(); i1++) {
@@ -784,7 +899,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                         }
                     }
                     if (isReady == false) {
-                        SmartToast.showInfo("有复选框为空");
+                       SmartToast.showInfo("有复选框为空");
                         break Loop;
                     }
                 } else if ("3".equals(model.getForm_type())) {
@@ -792,7 +907,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                     for (int i1 = 0; i1 < mDatas_commit_text.size(); i1++) {
                         ModelIvestigateCommit modelInspectCommit = mDatas_commit_text.get(i1);
                         if (NullUtil.isStringEmpty(modelInspectCommit.getForm_val())) {
-                            SmartToast.showInfo("有文本框为空");
+                           SmartToast.showInfo("有文本框为空");
                             isReady = false;
                             break Loop;
                         }
@@ -801,7 +916,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                 } else if ("4".equals(model.getForm_type())) {
                     if (photoList.size() == 0) {
                         isReady = false;
-                        SmartToast.showInfo("图片不能为空");
+                      SmartToast.showInfo("图片不能为空");
                         break Loop;
                     }
                 }

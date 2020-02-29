@@ -41,7 +41,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:listSelector="@null"/>
+        android:background="@android:color/transparent"
+        android:divider="@null"
+        android:fastScrollEnabled="false"
+        android:listSelector="@android:color/transparent" />
 
 
 </LinearLayout>
