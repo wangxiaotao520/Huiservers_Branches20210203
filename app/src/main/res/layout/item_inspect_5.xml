@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_gravity="center"
-            android:background="@drawable/allshape_gray_solid_bb5"
+            android:background="@drawable/allshape_orange"
             android:gravity="center"
             android:text="提交"
             android:textColor="@color/white"

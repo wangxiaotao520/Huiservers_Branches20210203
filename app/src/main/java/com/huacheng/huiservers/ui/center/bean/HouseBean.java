@@ -73,6 +73,20 @@ public class HouseBean implements Serializable {
             uptime,
             total_Pages;
 
+    //调查问卷
+    private String info_id;
+    private String plan_id;
+    private String fullname;
+    private String mobile;
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
     public String getCommunity_address() {
         return community_address;
     }
@@ -613,6 +627,30 @@ public class HouseBean implements Serializable {
 
     public void setWuye_type(String wuye_type) {
         this.wuye_type = wuye_type;
+    }
+
+    public String getInfo_id() {
+        return info_id;
+    }
+
+    public void setInfo_id(String info_id) {
+        this.info_id = info_id;
+    }
+
+    public String getPlan_id() {
+        return plan_id;
+    }
+
+    public void setPlan_id(String plan_id) {
+        this.plan_id = plan_id;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
 }

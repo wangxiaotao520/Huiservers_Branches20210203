@@ -390,14 +390,14 @@ public class Jump {
                 String cateid = url.substring(url.lastIndexOf("/") + 1, url.length());
                 intent = new Intent(mContext, StoreIndexActivity.class);
                 intent.putExtra("store_id", cateid);
-                startActivity(intent);
+                mContext.startActivity(intent);
             }else if (type.equals("33")){
                 //专区
                 Intent intent = new Intent();
                 String cateid = url.substring(url.lastIndexOf("/") + 1, url.length());
                 intent = new Intent(mContext, ShopZQListActivity.class);
                 intent.putExtra("id", cateid);
-                startActivity(intent);
+                mContext.startActivity(intent);
             }else if (type.equals("30")){//活动投票
                 if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
@@ -501,6 +501,13 @@ public class Jump {
                 }
             }else if (type.equals("37")){
                 //调查问卷
+                String id = "0";//计划id
+                String[] split = url.split("/");
+                for (int i = 0; i < split.length; i++) {
+                    if ("id".equals(split[i])){
+                        id=split[i+1];
+                    }
+                }
                 if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                     mContext.startActivity(intent);
@@ -508,6 +515,7 @@ public class Jump {
                     Intent intent = new Intent(mContext, HouseListActivity.class);
                     intent.putExtra("type", 1);
                      intent.putExtra("wuye_type", "investigate");
+                     intent.putExtra("id", id);
                     mContext. startActivity(intent);
                 }
             }else if (type.equals("38")){
@@ -617,15 +625,6 @@ public class Jump {
              }
          }else if (type.equals("37")){
              //调查问卷
-             if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
-                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
-                 mContext.startActivity(intent);
-             } else {
-                 Intent intent = new Intent(mContext, HouseListActivity.class);
-                 intent.putExtra("type", 1);
-                 intent.putExtra("wuye_type", "investigate");
-                 mContext. startActivity(intent);
-             }
          }else if (type.equals("38")){
              //TODO 通行证
          }
