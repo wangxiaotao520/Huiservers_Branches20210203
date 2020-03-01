@@ -150,13 +150,37 @@ public class PermitDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //重新提交
-                Intent intent = new Intent(PermitDetailActivity.this, SubmitPermitActivity.class);
-                intent.putExtra("company_id", company_id);
-                intent.putExtra("id", id);
-                intent.putExtra("status", "3");
-                intent.putExtra("info", permitInfo);
-                startActivity(intent);
-                startActivity(intent);
+                if ("2".equals(permitInfo.getType())) {//长期
+                    Intent intent = new Intent(PermitDetailActivity.this, LongTermPassCheckActivity.class);
+                    intent.putExtra("company_id", company_id);
+                    intent.putExtra("id", id);
+                    intent.putExtra("community_id", permitInfo.getCommunity_id());
+                    intent.putExtra("community_name", permitInfo.getCommunity_name());
+                    intent.putExtra("room_id", permitInfo.getRoom_id());
+                    intent.putExtra("room_info", permitInfo.getRoom_info());
+                    intent.putExtra("owner_name", permitInfo.getOwner_name());
+                    intent.putExtra("id_card", permitInfo.getId_card());
+                    intent.putExtra("phone", permitInfo.getPhone());
+                    intent.putExtra("car_number", permitInfo.getCar_number());
+                    intent.putExtra("jump_type", 2);
+                    startActivity(intent);
+                } else {//临时 访客
+                    Intent intent = new Intent(PermitDetailActivity.this, SubmitPermitActivity.class);
+                    intent.putExtra("company_id", company_id);
+                    intent.putExtra("id", id);
+                    intent.putExtra("community_id", permitInfo.getCommunity_id());
+                    intent.putExtra("community_name", permitInfo.getCommunity_name());
+                    intent.putExtra("room_id", permitInfo.getRoom_id());
+                    intent.putExtra("room_info", permitInfo.getRoom_info());
+                    intent.putExtra("owner_name", permitInfo.getOwner_name());
+                    intent.putExtra("id_card", permitInfo.getId_card());
+                    intent.putExtra("phone", permitInfo.getPhone());
+                    intent.putExtra("car_number", permitInfo.getCar_number());
+                    intent.putExtra("address", permitInfo.getAddress());
+                    intent.putExtra("note", permitInfo.getNote());
+                    intent.putExtra("type", permitInfo.getType());
+                    startActivity(intent);
+                }
             }
         });
     }
