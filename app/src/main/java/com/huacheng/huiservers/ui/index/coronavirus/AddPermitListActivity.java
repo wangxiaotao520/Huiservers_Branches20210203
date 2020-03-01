@@ -89,6 +89,7 @@ public class AddPermitListActivity extends BaseListActivity<ModelPermit> {
             Intent intent = new Intent(this, SubmitPermitActivity.class);
             intent.putExtra("company_id", company_id);
             intent.putExtra("id", mDatas.get(position).getId());
+            intent.putExtra("status",  mDatas.get(position).getStatus());
             startActivity(intent);
         }
 

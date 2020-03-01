@@ -8,7 +8,6 @@
 
     <LinearLayout
         android:id="@+id/ly_all"
-        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_15"
@@ -47,16 +46,18 @@
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_centerInParent="true"
-                    android:background="@color/orange" />
+                    android:background="@color/white" />
 
                 <TextView
+                    android:id="@+id/tv_shixiao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="二维码已失效"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/t_16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
@@ -276,6 +277,22 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="@dimen/margin_15"
+            android:layout_marginBottom="35dp"
+            android:background="@drawable/allshape_orange"
+            android:gravity="center"
+            android:text="重新提交"
+            android:textColor="@color/white"
+            android:textSize="@dimen/t_16sp"
+            android:visibility="gone" />
+
     </LinearLayout>
 
 

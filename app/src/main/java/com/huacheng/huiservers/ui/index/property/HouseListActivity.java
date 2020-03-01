@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.dialog.PermitDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -62,8 +63,8 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
     LinearLayout mLyAdd;
     @BindView(R.id.img_no_data)
     ImageView img_no_data;
-   /* @BindView(R.id.refreshLayout)
-    SmartRefreshLayout mRefreshLayout;*/
+    /* @BindView(R.id.refreshLayout)
+     SmartRefreshLayout mRefreshLayout;*/
     @BindView(R.id.rel_no_data)
     RelativeLayout mRelNoData;
     private int type = 0;//0投诉建议/报修工单 1物业缴费
@@ -99,12 +100,12 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         } else if ("house_invite".equals(wuye_type)) {
             //访客邀请
             mRight.setVisibility(View.GONE);
-        } else if ("investigate".equals(wuye_type)){
+        } else if ("investigate".equals(wuye_type)) {
             //问卷调查
             mRight.setVisibility(View.VISIBLE);
             mRight.setText("历史记录");
             this.id = getIntent().getStringExtra("id");
-        } else if ("permit".equals(wuye_type)){
+        } else if ("permit".equals(wuye_type)) {
             //通行证
             mRight.setVisibility(View.GONE);
             mRight.setText("历史记录");
@@ -121,10 +122,10 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         HashMap<String, String> params = new HashMap<>();
         if (type == 1) {
             if ("investigate".equals(wuye_type)) {
-                type_url = ApiHttpClient. INVESTIGATE_HOME_LIST;
+                type_url = ApiHttpClient.INVESTIGATE_HOME_LIST;
                 //计划id
-                params.put("id",id);
-            }else {
+                params.put("id", id);
+            } else {
                 type_url = ApiHttpClient.BINDING_COMMUNITY;
             }
 
@@ -140,20 +141,20 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     mDatas.clear();
                     mDatas.addAll(data);
                     mAdapter.notifyDataSetChanged();
-                    if (type==0){
+                    if (type == 0) {
                         mLyAdd.setVisibility(View.GONE);
                         if (mDatas.size() == 0) {
-                          //  mRelNoData.setVisibility(View.VISIBLE);
+                            //  mRelNoData.setVisibility(View.VISIBLE);
                             img_no_data.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             img_no_data.setVisibility(View.GONE);
                         }
-                    }else {
+                    } else {
                         mLyAdd.setVisibility(View.VISIBLE);
                         if (mDatas.size() == 0) {
                             //  mRelNoData.setVisibility(View.VISIBLE);
                             img_no_data.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             img_no_data.setVisibility(View.GONE);
                         }
                     }
@@ -184,10 +185,10 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         mRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ("investigate".equals(wuye_type)){
+                if ("investigate".equals(wuye_type)) {
                     //调查问卷的历史记录
                     startActivity(new Intent(HouseListActivity.this, InvestHistoryListActivity.class));
-                }else {
+                } else {
                     startActivity(new Intent(HouseListActivity.this, PropertyPaymentActivity.class));
                 }
             }
@@ -230,29 +231,26 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     } else if ("house_invite".equals(wuye_type)) {
                         //访客邀请
                         checkHouseInvite(mDatas.get(position).getRoom_id());
-                    }else if ("investigate".equals(wuye_type)){
+                    } else if ("investigate".equals(wuye_type)) {
                         //问卷调查
                         Intent intent;
                         intent = new Intent(mContext, InvestigateActivity.class);
-                        intent.putExtra("jump_type",1);
+                        intent.putExtra("jump_type", 1);
                         intent.putExtra("plan_id", mDatas.get(position).getPlan_id());
                         intent.putExtra("info_id", mDatas.get(position).getInfo_id());
-                        intent.putExtra("address",mDatas.get(position).getAddress());
-                        intent.putExtra("fullname",mDatas.get(position).getFullname());
-                        intent.putExtra("mobile",mDatas.get(position).getMobile());
-                        intent.putExtra("community_id",mDatas.get(position).getCommunity_id());
-                        intent.putExtra("community_name",mDatas.get(position).getCommunity_name());
-                        intent.putExtra("room_id",mDatas.get(position).getRoom_id());
+                        intent.putExtra("address", mDatas.get(position).getAddress());
+                        intent.putExtra("fullname", mDatas.get(position).getFullname());
+                        intent.putExtra("mobile", mDatas.get(position).getMobile());
+                        intent.putExtra("community_id", mDatas.get(position).getCommunity_id());
+                        intent.putExtra("community_name", mDatas.get(position).getCommunity_name());
+                        intent.putExtra("room_id", mDatas.get(position).getRoom_id());
                         startActivity(intent);
                         finish();
-                    }else if ("permit".equals(wuye_type)){
+                    } else if ("permit".equals(wuye_type)) {
                         //通行证
-                        Intent intent;
-                        intent = new Intent(mContext, PermitListActivity.class);
-                        //intent.putExtra("jump_type",1);
-                        intent.putExtra("company_id", mDatas.get(position).getCompany_id());
-                        intent.putExtra("community_id", mDatas.get(position).getCommunity_id());
-                        startActivity(intent);
+                        //判断小区是否有通行证
+                        isPermitData(mDatas.get(position).getCompany_id(), mDatas.get(position).getCommunity_id());
+
                     }
                 }
             }
@@ -288,7 +286,8 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
      *
      * @param
      */
-    private String delete_id="";
+    private String delete_id = "";
+
     @Override
     public void onClickDelete(HouseBean item) {
         if (item != null) {
@@ -304,6 +303,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
             }).show();
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
@@ -328,6 +328,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
             }
         }
     }
+
     private void getDelete(final String id) {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
@@ -340,19 +341,19 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     HouseBean houseBean = null;
                     for (int i = 0; i < mDatas.size(); i++) {
                         if (mDatas.get(i).getId().equals(id)) {
-                            houseBean= mDatas.get(i);
+                            houseBean = mDatas.get(i);
                         }
                     }
-                    if (houseBean!=null){
+                    if (houseBean != null) {
                         mDatas.remove(houseBean);
                     }
                     mAdapter.notifyDataSetChanged();
-                    if (mDatas.size()==0){
+                    if (mDatas.size() == 0) {
                         //刷新个人中心
                         EventBus.getDefault().post(new PersoninfoBean());
                         img_no_data.setVisibility(View.VISIBLE);
                     }
-                }else {
+                } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
                     SmartToast.showInfo(msg);
                 }
@@ -366,6 +367,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         });
 
     }
+
     /**
      * 访客邀请权限
      */
@@ -412,6 +414,40 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
         };
+    }
+
+    /**
+     * 判断是否有通行证
+     */
+    protected void isPermitData(final String company_id, final String community_id) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("company_id", company_id);
+        params.put("community_id", community_id);
+        MyOkHttp.get().post(ApiHttpClient.GET_PERMIT_SET_LIST, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    Intent intent;
+                    intent = new Intent(mContext, PermitListActivity.class);
+                    //intent.putExtra("jump_type",1);
+                    intent.putExtra("company_id", company_id);
+                    intent.putExtra("community_id", community_id);
+                    startActivity(intent);
+                } else {
+                    //该小区不在通行证适用范围
+                   /* String msg = JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败");
+                    SmartToast.showInfo(msg);*/
+                    new PermitDialog(mContext,"该小区不在通行证适用范围").show();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
     }
 
 

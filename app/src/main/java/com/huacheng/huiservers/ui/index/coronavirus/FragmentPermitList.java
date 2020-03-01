@@ -84,10 +84,10 @@ public class FragmentPermitList extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mActivity, PermitDetailActivity.class);
-                intent.putExtra("company_id",company_id);
-                intent.putExtra("id",mData.get(position).getId());
-                startActivity(intent);
+                    Intent intent = new Intent(mActivity, PermitDetailActivity.class);
+                    intent.putExtra("company_id", company_id);
+                    intent.putExtra("id", mData.get(position).getId());
+                    startActivity(intent);
 
             }
         });

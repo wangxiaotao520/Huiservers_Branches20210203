@@ -1,5 +1,7 @@
 package com.huacheng.huiservers.ui.index.coronavirus;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -17,6 +19,8 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelPermit;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.huiservers.utils.ZXingUtils;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -69,6 +73,10 @@ public class PermitDetailActivity extends BaseActivity {
     LinearLayout mLyYezhuContent;
     @BindView(R.id.ly_all)
     LinearLayout mLyAll;
+    @BindView(R.id.txt_btn)
+    TextView mTxtBtn;
+    @BindView(R.id.tv_shixiao)
+    TextView mTvShixiao;
     private View headerView;
     protected PagingListView listView;
     protected SmartRefreshLayout mRefreshLayout;
@@ -138,6 +146,19 @@ public class PermitDetailActivity extends BaseActivity {
                 requestData();
             }
         });
+        mTxtBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //重新提交
+                Intent intent = new Intent(PermitDetailActivity.this, SubmitPermitActivity.class);
+                intent.putExtra("company_id", company_id);
+                intent.putExtra("id", id);
+                intent.putExtra("status", "3");
+                intent.putExtra("info", permitInfo);
+                startActivity(intent);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -192,6 +213,22 @@ public class PermitDetailActivity extends BaseActivity {
         //基本信息
         if (page == 1) {
 
+            if ("1".equals(modelPermit.getStatus())) {//待审核
+                mIvCode.setBackgroundResource(R.mipmap.ic_permit_shenhezhong);
+
+            } else if ("2".equals(modelPermit.getStatus())) {//已通过
+                Bitmap qrImage = ZXingUtils.createQRImage(modelPermit.getQr_code(), StringUtils.dip2px(200), StringUtils.dip2px(200));
+                mIvCode.setImageBitmap(qrImage);
+
+            } else if ("3".equals(modelPermit.getStatus())) {//已拒绝
+                mIvCode.setBackgroundResource(R.mipmap.ic_permit_yijujue);
+                mTxtBtn.setVisibility(View.VISIBLE);
+
+            } else if ("4".equals(modelPermit.getStatus())) {//已失效
+                mTvShixiao.setVisibility(View.VISIBLE);
+                Bitmap qrImage = ZXingUtils.createQRImage(modelPermit.getQr_code(), StringUtils.dip2px(200), StringUtils.dip2px(200));
+                mIvCode.setImageBitmap(qrImage);
+            }
             if ("1".equals(modelPermit.getType())) {
                 mTvStatus.setText("临时通行证");
                 //没有来访事由
@@ -287,7 +324,6 @@ public class PermitDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 }

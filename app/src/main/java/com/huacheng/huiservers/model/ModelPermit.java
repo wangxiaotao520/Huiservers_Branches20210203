@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * 时间：2020/2/22 16:17
  * created by DFF
  */
-public class ModelPermit {
+public class ModelPermit implements Serializable {
     private String id;
     private String title;
     private String type;
