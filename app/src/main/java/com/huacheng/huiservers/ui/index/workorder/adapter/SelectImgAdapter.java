@@ -111,10 +111,10 @@ public class SelectImgAdapter<T>extends BaseAdapter{
 
             // 根据不同情况显示不同图片,这里显示网络图片，有的显示本地图片
             if (!NullUtil.isStringEmpty(modelPhoto.getLocal_path())){
-                GlideUtils.getInstance().glideLoad(mContext,modelPhoto.getLocal_path(),viewHolder.iv_img,R.drawable.ic_default);
+                GlideUtils.getInstance().glideLoad(mContext,modelPhoto.getLocal_path(),viewHolder.iv_img,R.color.default_color);
             }else {
                 //显示不同比例的图片 这里显示800*1280
-                GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL + modelPhoto.getPath()+ApiHttpClient.THUMB_800_1280_+modelPhoto.getHouse_imgs_name(), viewHolder.iv_img, R.drawable.ic_add_img);
+                GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL + modelPhoto.getPath(), viewHolder.iv_img, R.color.default_color);
             }
 
             final int final_position = position;

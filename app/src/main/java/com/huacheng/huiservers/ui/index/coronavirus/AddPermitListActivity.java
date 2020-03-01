@@ -94,6 +94,7 @@ public class AddPermitListActivity extends BaseListActivity<ModelPermit> {
             intent.putExtra("community_name",community_name);
             intent.putExtra("room_id",room_id);
             intent.putExtra("room_info",room_info);
+            intent.putExtra("jump_type",1);
             startActivity(intent);
         } else {//访客 临时
             Intent intent = new Intent(this, SubmitPermitActivity.class);

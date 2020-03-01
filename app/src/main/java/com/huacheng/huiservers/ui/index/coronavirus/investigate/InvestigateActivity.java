@@ -78,6 +78,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
     private int jump_type = 1; //1是问题提交  2是详情
     private String info_id = ""; //任务id
     private String plan_id = "";//任务详情id
+    private String record_id = "";//记录id
     private String community_id="";
     private String community_name="";
     private String address="";
@@ -111,16 +112,20 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initData() {
+        HashMap<String, String> params = new HashMap<>();
         String url = "";
         if (jump_type == 1) {
             url = ApiHttpClient.GET_INVESTIGATE_INFORMATION;
+            params.put("info_id", info_id+"");
+            params.put("plan_id", plan_id);
         } else {
             url = ApiHttpClient.GET_INVESTIGATE_DETAIL;
+            params.put("plan_info_id", info_id+"");
+            params.put("plan_id", plan_id);
+            params.put("record_id", record_id);
         }
         showDialog(smallDialog);
-        HashMap<String, String> params = new HashMap<>();
-        params.put("info_id", info_id+"");
-        params.put("plan_id", plan_id);
+
         MyOkHttp.get().post(url, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -494,6 +499,12 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
         this.room_id = this.getIntent().getStringExtra("room_id");
         this.fullname = this.getIntent().getStringExtra("fullname");
 
+        if (jump_type==2){
+            this.plan_id = this.getIntent().getStringExtra("plan_id");
+            this.info_id = this.getIntent().getStringExtra("plan_info_id");
+            this.record_id = this.getIntent().getStringExtra("record_id");
+
+        }
 
     }
 

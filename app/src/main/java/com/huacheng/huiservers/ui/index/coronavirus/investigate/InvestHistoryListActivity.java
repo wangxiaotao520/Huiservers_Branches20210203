@@ -98,7 +98,9 @@ public class InvestHistoryListActivity extends BaseListActivity<ModelInvestigate
         intent = new Intent(mContext, InvestigateActivity.class);
         intent.putExtra("jump_type",2);
        // intent.putExtra("room_id", mDatas.get(position).getRoom_id());
-        //TODO
+        intent.putExtra("plan_id",mDatas.get(position).getPlan_id());
+        intent.putExtra("plan_info_id",mDatas.get(position).getPlan_info_id());
+        intent.putExtra("record_id",mDatas.get(position).getId()+"");
         startActivity(intent);
     }
 }

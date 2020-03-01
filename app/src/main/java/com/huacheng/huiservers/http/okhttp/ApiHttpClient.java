@@ -408,8 +408,8 @@ public class ApiHttpClient {
     public static String GET_INVESTIGATE_INFORMATION = API_URL + API_VERSION + "investigate/question";
     //提交调查问卷
     public static String COMMIT_INVESTIGATE = API_URL + API_VERSION + "investigate/record";
-    //调查问卷详情//todo
-    public static String GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
+    //调查问卷详情
+    public static String GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "investigate/record_details";
     //调查问卷历史记录
     public static String GET_INVESTIGATE_HISTORY_LIST = API_URL + API_VERSION + "investigate/record_list";
 
@@ -595,12 +595,10 @@ public class ApiHttpClient {
         GET_SHOP_ORDER_OPERTE = API_URL + API_VERSION + "userCenter/shopping_order_operate";
         GET_GUIDE_IMG = API_URL + API_VERSION + "index/guide_img";
         INVESTIGATE_HOME_LIST = API_URL + API_VERSION + "investigate/home_list";
-        //TODO
         GET_INVESTIGATE_INFORMATION = API_URL + API_VERSION + "investigate/question";
         COMMIT_INVESTIGATE = API_URL + API_VERSION + "investigate/record";
         GET_INVESTIGATE_HISTORY_LIST = API_URL + API_VERSION + "investigate/record_list";
-        GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
-
+        GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "investigate/record_details";
         GET_PERMIT_SET_LIST = API_URL + API_VERSION + "propertyPass/pass_check_set_list";
         GET_PERMIT_DETAIL = API_URL + API_VERSION + "propertyPass/pass_check_details";
         GET_PERMIT_LIST = API_URL + API_VERSION + "propertyPass/pass_check_list";
