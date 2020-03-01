@@ -153,7 +153,7 @@ public class PermitDetailActivity extends BaseActivity {
                 if ("2".equals(permitInfo.getType())) {//长期
                     Intent intent = new Intent(PermitDetailActivity.this, LongTermPassCheckActivity.class);
                     intent.putExtra("company_id", company_id);
-                    intent.putExtra("id", id);
+                    intent.putExtra("id", permitInfo.getPass_check_set_id());
                     intent.putExtra("community_id", permitInfo.getCommunity_id());
                     intent.putExtra("community_name", permitInfo.getCommunity_name());
                     intent.putExtra("room_id", permitInfo.getRoom_id());
@@ -167,7 +167,7 @@ public class PermitDetailActivity extends BaseActivity {
                 } else {//临时 访客
                     Intent intent = new Intent(PermitDetailActivity.this, SubmitPermitActivity.class);
                     intent.putExtra("company_id", company_id);
-                    intent.putExtra("id", id);
+                    intent.putExtra("id", permitInfo.getPass_check_set_id());
                     intent.putExtra("community_id", permitInfo.getCommunity_id());
                     intent.putExtra("community_name", permitInfo.getCommunity_name());
                     intent.putExtra("room_id", permitInfo.getRoom_id());

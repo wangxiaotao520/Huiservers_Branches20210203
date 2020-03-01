@@ -162,8 +162,18 @@ public class LongTermPassCheckActivity extends BaseActivity implements View.OnCl
                         }else {
                             //重新提交
                             //如果是重新提交的话 一定要显示详情带过来的数据
-                            //TODO
-
+                            owner_name = getIntent().getStringExtra("owner_name") + "";
+                            et_name.setText(owner_name);
+                            et_name.setSelection(et_name.getText().length());
+                            id_card = getIntent().getStringExtra("id_card") + "";
+                            et_shenfen_num.setText(id_card);
+                            phone=getIntent().getStringExtra("phone");
+                            et_phone.setText(phone);
+                            String car_number=getIntent().getStringExtra("car_number");
+                            if (!NullUtil.isStringEmpty(car_number)){
+                              LongTermPassCheckActivity.this.car_number=car_number;
+                              et_car_num.setText(car_number);
+                            }
 
                         }
                           //下方问题
