@@ -249,7 +249,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     } else if ("permit".equals(wuye_type)) {
                         //通行证
                         //判断小区是否有通行证
-                        isPermitData(mDatas.get(position).getCompany_id(), mDatas.get(position).getCommunity_id());
+                        isPermitData(position,mDatas.get(position).getCompany_id(), mDatas.get(position).getCommunity_id());
 
                     }
                 }
@@ -419,7 +419,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
     /**
      * 判断是否有通行证
      */
-    protected void isPermitData(final String company_id, final String community_id) {
+    protected void isPermitData(final int position,final String company_id, final String community_id) {
         HashMap<String, String> params = new HashMap<>();
         params.put("company_id", company_id);
         params.put("community_id", community_id);
@@ -433,6 +433,9 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     //intent.putExtra("jump_type",1);
                     intent.putExtra("company_id", company_id);
                     intent.putExtra("community_id", community_id);
+                    intent.putExtra("community_name",mDatas.get(position).getCommunity_name());
+                    intent.putExtra("room_id",mDatas.get(position).getRoom_id());
+                    intent.putExtra("room_info",mDatas.get(position).getAddress());
                     startActivity(intent);
                 } else {
                     //该小区不在通行证适用范围

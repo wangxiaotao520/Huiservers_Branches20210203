@@ -26,6 +26,9 @@ import java.util.List;
 public class AddPermitListActivity extends BaseListActivity<ModelPermit> {
     private String company_id;
     private String community_id;
+    private String community_name;
+    private String room_id;
+    private String room_info;
 
     @Override
     protected void initView() {
@@ -42,6 +45,9 @@ public class AddPermitListActivity extends BaseListActivity<ModelPermit> {
         super.initIntentData();
         company_id = this.getIntent().getStringExtra("company_id");
         community_id = this.getIntent().getStringExtra("community_id");
+        community_name = this.getIntent().getStringExtra("community_name");
+        room_id = this.getIntent().getStringExtra("room_id");
+        room_info = this.getIntent().getStringExtra("room_info");
     }
 
     @Override
@@ -84,6 +90,10 @@ public class AddPermitListActivity extends BaseListActivity<ModelPermit> {
             Intent intent = new Intent(this, LongTermPassCheckActivity.class);
             intent.putExtra("company_id", company_id);
             intent.putExtra("id", mDatas.get(position).getId());
+            intent.putExtra("community_id",community_id);
+            intent.putExtra("community_name",community_name);
+            intent.putExtra("room_id",room_id);
+            intent.putExtra("room_info",room_info);
             startActivity(intent);
         } else {//访客 临时
             Intent intent = new Intent(this, SubmitPermitActivity.class);

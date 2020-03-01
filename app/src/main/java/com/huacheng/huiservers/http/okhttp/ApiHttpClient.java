@@ -403,13 +403,20 @@ public class ApiHttpClient {
     public static String GET_USER_SOCIAL = API_URL + API_VERSION + "social/get_user_social_list/";
     //首页下方tab IMG
     public static String IMG_BOTTOM = API_URL + API_VERSION + "index/index_Bottom";
-    //todo
+
     //调查问卷页
     public static String GET_INVESTIGATE_INFORMATION = API_URL + API_VERSION + "investigate/question";
     //提交调查问卷
     public static String COMMIT_INVESTIGATE = API_URL + API_VERSION + "investigate/record";
-    //调查问卷详情
+    //调查问卷详情//todo
     public static String GET_INVESTIGATE_DETAIL = API_URL + API_VERSION + "";
+    //调查问卷历史记录
+    public static String GET_INVESTIGATE_HISTORY_LIST = API_URL + API_VERSION + "investigate/record_list";
+
+    //启动页广告图
+    public static String GET_GUIDE_IMG = API_URL + API_VERSION + "index/guide_img";
+    //调查问卷房屋列表
+    public static String INVESTIGATE_HOME_LIST = API_URL + API_VERSION + "investigate/home_list";
     /**
      * 通行证
      */
@@ -419,13 +426,11 @@ public class ApiHttpClient {
     public static String GET_PERMIT_LIST = API_URL + API_VERSION + "propertyPass/pass_check_list";
     //通行证详情
     public static String GET_PERMIT_DETAIL = API_URL + API_VERSION + "propertyPass/pass_check_details";
-    //调查问卷历史记录
-    public static String GET_INVESTIGATE_HISTORY_LIST = API_URL + API_VERSION + "investigate/record_list";
+    //申请通行证页面
+    public static String PASS_CHECK_INFORMATION = API_URL + API_VERSION + "propertyPass/pass_check";
+    //申请提交
+    public static String PASS_CHECK_SUBMIT = API_URL + API_VERSION + "propertyPass/pass_check_submit";
 
-    //启动页广告图
-    public static String GET_GUIDE_IMG = API_URL + API_VERSION + "index/guide_img";
-    //调查问卷房屋列表
-    public static String INVESTIGATE_HOME_LIST = API_URL + API_VERSION + "investigate/home_list";
 
     /**
      * 刷新接口
@@ -599,5 +604,7 @@ public class ApiHttpClient {
         GET_PERMIT_SET_LIST = API_URL + API_VERSION + "propertyPass/pass_check_set_list";
         GET_PERMIT_DETAIL = API_URL + API_VERSION + "propertyPass/pass_check_details";
         GET_PERMIT_LIST = API_URL + API_VERSION + "propertyPass/pass_check_list";
+        PASS_CHECK_INFORMATION = API_URL + API_VERSION + "propertyPass/pass_check";
+        PASS_CHECK_SUBMIT = API_URL + API_VERSION + "propertyPass/pass_check_submit";
     }
 }

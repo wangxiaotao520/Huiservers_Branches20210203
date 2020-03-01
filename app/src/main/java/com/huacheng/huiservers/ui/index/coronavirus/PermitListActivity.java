@@ -38,6 +38,10 @@ public class PermitListActivity extends BaseActivity {
     String type_back;
     String company_id;
     String community_id;
+    private String community_name;
+    private String room_id;
+    private String room_info;
+
 
     @Override
     protected void initView() {
@@ -144,6 +148,9 @@ public class PermitListActivity extends BaseActivity {
                 Intent intent=new Intent(PermitListActivity.this,AddPermitListActivity.class);
                 intent.putExtra("company_id",company_id);
                 intent.putExtra("community_id",community_id);
+                intent.putExtra("community_name",community_name);
+                intent.putExtra("room_id",room_id);
+                intent.putExtra("room_info",room_info);
                 startActivity(intent);
             }
         });
@@ -160,6 +167,10 @@ public class PermitListActivity extends BaseActivity {
         //  type_back = this.getIntent().getExtras().getString("type");
         company_id= this.getIntent().getStringExtra("company_id");
         community_id= this.getIntent().getStringExtra("community_id");
+        community_name = this.getIntent().getStringExtra("community_name");
+        room_id = this.getIntent().getStringExtra("room_id");
+        room_info = this.getIntent().getStringExtra("room_info");
+
     }
 
     @Override

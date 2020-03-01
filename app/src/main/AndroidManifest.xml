@@ -1282,6 +1282,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.coronavirus.LongTermPassCheckActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
     </application>
 </manifest>

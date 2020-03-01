@@ -24,6 +24,8 @@ public class SelectImgAdapter<T>extends BaseAdapter{
     private static final int TYPE_NORMAL = 0;
     private static final int TYPE_ADD = 1;
     OnClickItemIconListener listener;
+
+
     protected  int MAX_COUNT=4;
 
     Context mContext;
@@ -70,14 +72,14 @@ public class SelectImgAdapter<T>extends BaseAdapter{
             if (isShowAdd){
                 if (mDatas.size() == 0) {
                     return TYPE_ADD;
-                } else if (mDatas.size() < 9 && mDatas.size() > 0) {
+                } else if (mDatas.size() < MAX_COUNT && mDatas.size() > 0) {
                     if (position < mDatas.size()) {
                         return TYPE_NORMAL;
                     } else {
                         return TYPE_ADD;
                     }
 
-                } else if (mDatas.size() >= 9) {
+                } else if (mDatas.size() >= MAX_COUNT) {
                     return TYPE_NORMAL;
                 }
             }
@@ -228,5 +230,9 @@ public class SelectImgAdapter<T>extends BaseAdapter{
     public void setShowAdd(boolean showAdd) {
         isShowAdd = showAdd;
     }
+    public void setMAX_COUNT(int MAX_COUNT) {
+        this.MAX_COUNT = MAX_COUNT;
+    }
+
 }
 
