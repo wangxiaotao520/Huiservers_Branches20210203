@@ -8,13 +8,14 @@
 
     <LinearLayout
         android:id="@+id/ly_all"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_15"
         android:layout_marginTop="@dimen/margin"
         android:layout_marginRight="@dimen/margin_15"
         android:orientation="vertical"
-        android:visibility="invisible">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,13 +54,14 @@
                     android:id="@+id/tv_shixiao"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
+                    android:gravity="center"
                     android:layout_centerInParent="true"
                     android:background="#e6ffffff"
                     android:text="二维码已失效"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/t_16sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
