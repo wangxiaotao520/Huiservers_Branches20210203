@@ -86,11 +86,13 @@ public class SubmitPermitActivity extends BaseActivity {
         if ("1".equals(type)) {
             titleName.setText("临时通行证申请");
             //没有来访事由
+            mEtContent.setHint("请输入来访事由");
         } else if ("3".equals(type)) {
             titleName.setText("访客通行证申请");
             //没有身份证号 到达地址  外出事由
             mLyIdCard.setVisibility(View.GONE);
             mLyAddress.setVisibility(View.GONE);
+            mEtContent.setHint("请输入外出事由");
         }
         mTvHouse.setText(community_name + room_info);
         if (jump_type == 2) { //从详情跳来的
@@ -180,7 +182,7 @@ public class SubmitPermitActivity extends BaseActivity {
         status = this.getIntent().getStringExtra("status");
         type = this.getIntent().getStringExtra("type");
         jump_type = this.getIntent().getIntExtra("jump_type", 1);
-        if ("3".equals(status)) {//从详情跳来的
+        if (jump_type == 2)  {//从详情跳来的
             owner_name = this.getIntent().getStringExtra("owner_name");
             id_card = this.getIntent().getStringExtra("id_card");
             phone = this.getIntent().getStringExtra("phone");
@@ -252,17 +254,14 @@ public class SubmitPermitActivity extends BaseActivity {
         params.put("room_id", room_id);
         params.put("room_info", room_info);
         params.put("owner_name", owner_name);
-        if (!NullUtil.isStringEmpty(id_card)) {
-            params.put("id_card", id_card);
-        }
         params.put("phone", phone);
         if (!NullUtil.isStringEmpty(car_number)) {
             params.put("car_number", car_number);
         }
-        if (!NullUtil.isStringEmpty(address)) {
+        if (!"3".equals(type)) {//访客没有到达地址
+            params.put("id_card", id_card);
             params.put("address", address);
         }
-
         params.put("note", note);
 
         MyOkHttp.get().post(ApiHttpClient.PASS_CHECK_SUBMIT, params, new JsonResponseHandler() {

@@ -296,7 +296,7 @@ public class PermitDetailActivity extends BaseActivity {
                 //没有身份证号 到达地址  外出事由
                 mLyYezhuID.setVisibility(View.GONE);
                 mLyYezhuAddress.setVisibility(View.GONE);
-                mLyFangkeContent.setVisibility(View.GONE);
+                mLyYezhuContent.setVisibility(View.GONE);
             }
             mTvFangwu.setText(modelPermit.getCommunity_name() + modelPermit.getRoom_info());
             mTvPerson.setText(modelPermit.getOwner_name());

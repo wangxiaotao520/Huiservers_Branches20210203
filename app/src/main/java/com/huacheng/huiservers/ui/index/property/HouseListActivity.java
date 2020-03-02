@@ -420,6 +420,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
      * 判断是否有通行证
      */
     protected void isPermitData(final int position,final String company_id, final String community_id) {
+        showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("company_id", company_id);
         params.put("community_id", community_id);
