@@ -25,6 +25,7 @@ import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.EventModelPass;
 import com.huacheng.huiservers.model.ModelIvestigateCommit;
 import com.huacheng.huiservers.model.ModelPassCheckInformation;
 import com.huacheng.huiservers.model.ModelPhoto;
@@ -39,6 +40,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -84,6 +86,7 @@ public class LongTermPassCheckActivity extends BaseActivity implements View.OnCl
     private int jump_type = 1; //1是从右上角问题提交  2重新提交
 
     private int inspect_status = 1; //设备巡检情况  //1是正常2是异常
+    private String status="";//1不需要审核 2 需要审核
     private ImageView iv_right;
     private TextView tv_house;
     private EditText et_name;
@@ -529,6 +532,7 @@ public class LongTermPassCheckActivity extends BaseActivity implements View.OnCl
     @Override
     protected void initIntentData() {
         this.jump_type = this.getIntent().getIntExtra("jump_type", 1);
+        this.status = this.getIntent().getStringExtra("status");
         this.company_id = this.getIntent().getStringExtra("company_id");
         this.pass_check_set_id = this.getIntent().getStringExtra("id");
         community_id = this.getIntent().getStringExtra("community_id");
@@ -766,6 +770,9 @@ public class LongTermPassCheckActivity extends BaseActivity implements View.OnCl
                     }else {
                         SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交成功"));
                     }
+                    EventModelPass modelPass=new EventModelPass();
+                    modelPass.setStatus(status);
+                    EventBus.getDefault().post(modelPass);
                     finish();
                 } else {
                     SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交失败"));
@@ -833,6 +840,9 @@ public class LongTermPassCheckActivity extends BaseActivity implements View.OnCl
                     }else {
                         SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交成功"));
                     }
+                    EventModelPass modelPass=new EventModelPass();
+                    modelPass.setStatus(status);
+                    EventBus.getDefault().post(modelPass);
                     finish();
                 } else {
                     SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交失败"));
@@ -959,5 +969,6 @@ public class LongTermPassCheckActivity extends BaseActivity implements View.OnCl
         }
         return isReady;
     }
+
 }
 

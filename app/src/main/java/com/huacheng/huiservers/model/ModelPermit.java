@@ -31,11 +31,20 @@ public class ModelPermit implements Serializable {
     private String created;
     private String updated;
     private String titleX;
+    private String pcs_status;
     private String access_type;
     private String access_time;
     private List<ModelPermit> pca_list;
     private List<ModelPermit> pc_list;
     private int totalPages;
+
+    public String getPcs_status() {
+        return pcs_status;
+    }
+
+    public void setPcs_status(String pcs_status) {
+        this.pcs_status = pcs_status;
+    }
 
     public List<ModelPermit> getPc_list() {
         return pc_list;

@@ -14,6 +14,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.EventModelPass;
 import com.huacheng.huiservers.model.ModelPermit;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
@@ -23,6 +24,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -226,6 +230,28 @@ public class FragmentPermitList extends BaseFragment {
             }
             isInit = true;
         }
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    /**
+     * 通行证event
+     *
+     * @param info
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void back(EventModelPass info) {
 
     }
 

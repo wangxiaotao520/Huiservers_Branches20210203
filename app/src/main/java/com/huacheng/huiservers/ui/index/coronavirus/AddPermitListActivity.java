@@ -1,6 +1,8 @@
 package com.huacheng.huiservers.ui.index.coronavirus;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -9,10 +11,14 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.EventModelPass;
 import com.huacheng.huiservers.model.ModelPermit;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -90,19 +96,50 @@ public class AddPermitListActivity extends BaseListActivity<ModelPermit> {
             Intent intent = new Intent(this, LongTermPassCheckActivity.class);
             intent.putExtra("company_id", company_id);
             intent.putExtra("id", mDatas.get(position).getId());
-            intent.putExtra("community_id",community_id);
-            intent.putExtra("community_name",community_name);
-            intent.putExtra("room_id",room_id);
-            intent.putExtra("room_info",room_info);
-            intent.putExtra("jump_type",1);
+            intent.putExtra("community_id", community_id);
+            intent.putExtra("community_name", community_name);
+            intent.putExtra("room_id", room_id);
+            intent.putExtra("room_info", room_info);
+            intent.putExtra("jump_type", 1);
+            intent.putExtra("status", mDatas.get(position).getStatus());
             startActivity(intent);
         } else {//访客 临时
             Intent intent = new Intent(this, SubmitPermitActivity.class);
             intent.putExtra("company_id", company_id);
             intent.putExtra("id", mDatas.get(position).getId());
-            intent.putExtra("status",  mDatas.get(position).getStatus());
+            intent.putExtra("community_id", community_id);
+            intent.putExtra("community_name", community_name);
+            intent.putExtra("room_id", room_id);
+            intent.putExtra("room_info", room_info);
+            intent.putExtra("type", mDatas.get(position).getType());
+            intent.putExtra("jump_type", 1);
+            intent.putExtra("status", mDatas.get(position).getStatus());
             startActivity(intent);
         }
 
     }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+
+    }
+
+    /**
+     * 通行证提交返回
+     *
+     * @param info
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void back(EventModelPass info) {
+        finish();
+    }
+
 }

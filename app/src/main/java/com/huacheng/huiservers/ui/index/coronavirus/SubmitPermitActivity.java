@@ -1,6 +1,5 @@
 package com.huacheng.huiservers.ui.index.coronavirus;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -11,10 +10,14 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.EventModelPass;
+import com.huacheng.huiservers.model.ModelPassCheckInformation;
 import com.huacheng.huiservers.model.ModelPermit;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -49,124 +52,115 @@ public class SubmitPermitActivity extends BaseActivity {
     TextView mTvShenheStatus;
     @BindView(R.id.txt_btn)
     TextView mTxtBtn;
+    @BindView(R.id.ly_id_card)
+    LinearLayout mLyIdCard;
+
 
     private int page = 1;
     ModelPermit permitInfo;
     private String company_id;
     private String id;
-    private String status;//列表跳转过来的 1为不需要审核；2为需要审核 3是详情跳过来的重新审核
-    //private int type;//区分是首页提交，重新提交，审核中
+    private String status;//1为不需要审核；2为需要审核
+    private int jump_type;//1列表；2为详情
+    private String type;//长期 临时 访客
+    private String owner_name;
+    private String id_card;
+    private String community_id;
+    private String community_name;
+    private String room_id;
+    private String room_info;
+    private String phone;
+    private String car_number;
+    private String address;
+    private String note;
+
 
     @Override
     protected void initView() {
+        ButterKnife.bind(this);
         findTitleViews();
-        titleName.setText("通行证申请");
+
+        if ("1".equals(type)) {
+            titleName.setText("临时通行证申请");
+            //没有来访事由
+        } else if ("3".equals(type)) {
+            titleName.setText("访客通行证申请");
+            //没有身份证号 到达地址  外出事由
+            mLyIdCard.setVisibility(View.GONE);
+        }
+        mTvHouse.setText(community_name + room_info);
+        if (jump_type == 2) { //从详情跳来的
+
+            mEtName.setText(owner_name + "");
+            mEtName.setSelection(mEtName.getText().length());
+            mEtShenfenNum.setText(id_card + "");
+            mEtPhone.setText(phone);
+            mEtCarNum.setText(car_number + "");
+            mEtAddress.setText(address + "");
+            mEtContent.setText(note + "");
+
+        }
     }
 
     @Override
     protected void initData() {
+        if (jump_type == 2) {
 
+        } else {
+            String url = ApiHttpClient.PASS_CHECK_INFORMATION;
+//        if (jump_type == 1) {
+//            url = ApiHttpClient.PASS_CHECK_INFORMATION;
+//        } else {
+//            url = ApiHttpClient.PASS_CHECK_INFORMATION;
+//        }
+            showDialog(smallDialog);
+            HashMap<String, String> params = new HashMap<>();
+            params.put("company_id", company_id);
+            params.put("pass_check_set_id", id);
+
+            MyOkHttp.get().post(url, params, new JsonResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, JSONObject response) {
+                    hideDialog(smallDialog);
+                    if (JsonUtil.getInstance().isSuccess(response)) {
+//                    List<ModelIvestigateInformation> data = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelIvestigateInformation.class);
+
+                        ModelPassCheckInformation data = (ModelPassCheckInformation) JsonUtil.getInstance().parseJsonFromResponse(response, ModelPassCheckInformation.class);
+                        if (data != null) {
+                            //普通提交
+                            if (data.getPc_info() != null) {
+                                ModelPassCheckInformation.PicInfoBean pc_info = data.getPc_info();
+                                mEtName.setText(pc_info.getOwner_name() + "");
+                                mEtName.setSelection(mEtName.getText().length());
+                                owner_name = pc_info.getOwner_name() + "";
+                                mEtShenfenNum.setText(pc_info.getId_card() + "");
+                                id_card = pc_info.getId_card() + "";
+                                mEtPhone.setText(pc_info.getPhone());
+                                phone = pc_info.getPhone() + "";
+                                mEtCarNum.setText(pc_info.getCar_number() + "");
+                                car_number = pc_info.getCar_number() + "";
+                                mEtAddress.setText(pc_info.getAddress());
+                                address = pc_info.getAddress() + "";
+                                mEtContent.setText(pc_info.getNote());
+                                note = pc_info.getNote() + "";
+                            }
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, String error_msg) {
+                    hideDialog(smallDialog);
+                    SmartToast.showInfo("网络异常，请检查网络设置");
+                }
+            });
+        }
     }
+
 
     @Override
     protected void initListener() {
-
-    }
-
-    /**
-     * 请求数据
-     */
-    private void requestData() {
-        // 根据接口请求数据
-        HashMap<String, String> params = new HashMap<>();
-        params.put("pc_id", id + "");
-        params.put("company_id", company_id + "");
-        params.put("p", page + "");
-
-        MyOkHttp.get().get(ApiHttpClient.GET_PERMIT_DETAIL, params, new JsonResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, JSONObject response) {
-                hideDialog(smallDialog);
-                // ly_share.setClickable(true);
-                if (JsonUtil.getInstance().isSuccess(response)) {
-                    ModelPermit modelPermit = (ModelPermit) JsonUtil.getInstance().parseJsonFromResponse(response, ModelPermit.class);
-                    // List<ModelShopIndex> shopIndexList = (List<ModelShopIndex>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelShopIndex.class);
-                    if (modelPermit != null) {
-                        permitInfo = modelPermit;
-                        inflateContent(permitInfo);
-                    }
-                } else {
-                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    SmartToast.showInfo(msg);
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, String error_msg) {
-                hideDialog(smallDialog);
-                // ly_share.setClickable(false);
-                SmartToast.showInfo("网络异常，请检查网络设置");
-            }
-        });
-    }
-
-    private void inflateContent(ModelPermit modelPermit) {
-
-// TODO: 2020/2/29 根据status 判断通行证是待审核还是已拒绝
-
-        if ("1".equals(modelPermit.getStatus())) {//待审核
-            mTxtBtn.setText("审核中");
-
-        } else if ("3".equals(modelPermit.getStatus())) {//已拒绝
-            mTxtBtn.setText("重新提交");
-        } else {//首次提交
-
-        }
-/*
-        if (type == 0) {//首次提交
-
-        } else if (type == 1) {//重新提交
-
-        } else {//审核中
-            mTvHouse.setFocusable(false);
-            mEtName.setFocusable(false);
-            mEtShenfenNum.setFocusable(false);
-            mEtPhone.setFocusable(false);
-            mEtCarNum.setFocusable(false);
-            mEtAddress.setFocusable(false);
-        }*/
-
-       /* if ("1".equals(modelPermit.getType())) {
-            mTvStatus.setText("临时通行证");
-            //没有来访事由
-            mLyFangkeContent.setVisibility(View.GONE);
-
-        } else if ("2".equals(modelPermit.getType())) {
-            mTvStatus.setText("长期通行证");
-            //没有外出事由 到达地址  来访事由
-            mLyYezhuContent.setVisibility(View.GONE);
-            mLyYezhuAddress.setVisibility(View.GONE);
-            mLyFangkeContent.setVisibility(View.GONE);
-
-        } else {
-            mTvStatus.setText("访客通行证");
-            //没有身份证号 到达地址  外出事由
-            mLyYezhuID.setVisibility(View.GONE);
-            mLyYezhuAddress.setVisibility(View.GONE);
-            mLyFangkeContent.setVisibility(View.GONE);
-        }
-        mTvFangwu.setText(modelPermit.getCommunity_name());
-        mTvPerson.setText(modelPermit.getOwner_name());
-        mTvShenfenzheng.setText(modelPermit.getId_card());
-        mTvPhone.setText(modelPermit.getPhone());
-        if (!NullUtil.isStringEmpty(modelPermit.getCar_number())) {
-            mTvCarNum.setText(modelPermit.getCar_number());
-        } else {
-            mTvCarNum.setText("--");
-        }
-        mTvYezhuAddress.setText(modelPermit.getAddress());
-        mTvYezhuContent.setText(modelPermit.getNote());
-        mTvFangkeContent.setText(modelPermit.getNote());*/
 
     }
 
@@ -180,6 +174,20 @@ public class SubmitPermitActivity extends BaseActivity {
         company_id = this.getIntent().getStringExtra("company_id");
         id = this.getIntent().getStringExtra("id");
         status = this.getIntent().getStringExtra("status");
+        type = this.getIntent().getStringExtra("type");
+        jump_type = this.getIntent().getIntExtra("jump_type", 1);
+        if ("3".equals(status)) {//从详情跳来的
+            owner_name = this.getIntent().getStringExtra("owner_name");
+            id_card = this.getIntent().getStringExtra("id_card");
+            phone = this.getIntent().getStringExtra("phone");
+            car_number = this.getIntent().getStringExtra("car_number");
+            address = this.getIntent().getStringExtra("address");
+            note = this.getIntent().getStringExtra("note");
+        }
+        community_id = this.getIntent().getStringExtra("community_id");
+        community_name = this.getIntent().getStringExtra("community_name");
+        room_id = this.getIntent().getStringExtra("room_id");
+        room_info = this.getIntent().getStringExtra("room_info");
     }
 
     @Override
@@ -192,19 +200,86 @@ public class SubmitPermitActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-    }
-
-    @OnClick({R.id.ly_select_house, R.id.txt_btn})
+    @OnClick({R.id.txt_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ly_select_house:
-                break;
             case R.id.txt_btn:
+                owner_name = mEtName.getText().toString().trim() + "";
+                if (NullUtil.isStringEmpty(owner_name)) {
+                    SmartToast.showInfo("姓名不可为空");
+                    return;
+                }
+                if ("3".equals(type)) {//访客没有身份证
+                    id_card = mEtShenfenNum.getText().toString().trim() + "";
+                    if (NullUtil.isStringEmpty(id_card)) {
+                        SmartToast.showInfo("身份证号不可为空");
+                        return;
+                    }
+                }
+                phone = mEtPhone.getText().toString().trim() + "";
+                if (NullUtil.isStringEmpty(phone)) {
+                    SmartToast.showInfo("联系方式不可为空");
+                    return;
+                }
+                address = mEtAddress.getText().toString().trim() + "";
+                if (NullUtil.isStringEmpty(address)) {
+                    SmartToast.showInfo("到达地址不可为空");
+                    return;
+                }
+                note = mEtContent.getText().toString().trim() + "";
+                commitIndeed();
+
                 break;
         }
     }
+
+    /**
+     * 直接提交(没有图片)
+     */
+    private void commitIndeed() {
+
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("company_id", company_id + "");
+        params.put("pass_check_set_id", id + "");
+        params.put("type", type + "");
+        params.put("community_id", community_id);
+        params.put("community_name", community_name);
+        params.put("room_id", room_id);
+        params.put("room_info", room_info);
+        params.put("owner_name", owner_name);
+        if (!NullUtil.isStringEmpty(id_card)) {
+            params.put("id_card", id_card);
+        }
+        params.put("phone", phone);
+        if (!NullUtil.isStringEmpty(car_number)) {
+            params.put("car_number", car_number);
+        }
+        params.put("address", address);
+        params.put("note", note);
+
+        MyOkHttp.get().post(ApiHttpClient.PASS_CHECK_SUBMIT, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    setResult(RESULT_OK);
+                    finish();
+                    EventModelPass modelPass=new EventModelPass();
+                    modelPass.setStatus(status);
+                    EventBus.getDefault().post(modelPass);
+
+                } else {
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交失败"));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
 }

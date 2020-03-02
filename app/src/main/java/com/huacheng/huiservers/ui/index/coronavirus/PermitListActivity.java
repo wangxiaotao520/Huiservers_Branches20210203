@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.index.coronavirus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,8 +10,13 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.model.EventModelPass;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -145,12 +151,12 @@ public class PermitListActivity extends BaseActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(PermitListActivity.this,AddPermitListActivity.class);
-                intent.putExtra("company_id",company_id);
-                intent.putExtra("community_id",community_id);
-                intent.putExtra("community_name",community_name);
-                intent.putExtra("room_id",room_id);
-                intent.putExtra("room_info",room_info);
+                Intent intent = new Intent(PermitListActivity.this, AddPermitListActivity.class);
+                intent.putExtra("company_id", company_id);
+                intent.putExtra("community_id", community_id);
+                intent.putExtra("community_name", community_name);
+                intent.putExtra("room_id", room_id);
+                intent.putExtra("room_info", room_info);
                 startActivity(intent);
             }
         });
@@ -165,8 +171,8 @@ public class PermitListActivity extends BaseActivity {
     @Override
     protected void initIntentData() {
         //  type_back = this.getIntent().getExtras().getString("type");
-        company_id= this.getIntent().getStringExtra("company_id");
-        community_id= this.getIntent().getStringExtra("community_id");
+        company_id = this.getIntent().getStringExtra("company_id");
+        community_id = this.getIntent().getStringExtra("community_id");
         community_name = this.getIntent().getStringExtra("community_name");
         room_id = this.getIntent().getStringExtra("room_id");
         room_info = this.getIntent().getStringExtra("room_info");
@@ -180,6 +186,38 @@ public class PermitListActivity extends BaseActivity {
 
     @Override
     protected void initFragment() {
+
+    }
+
+    /**
+     * 通行证提交返回
+     *
+     * @param info
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void back(EventModelPass info) {
+        if (info != null) {
+            if ("1".equals(info.getStatus())) {//不需要审核 直接跳到已通过
+                viewpager.setCurrentItem(0);
+                currentFragment.setRefreh();
+            } else if ("2".equals(info.getStatus())) {//需要审核 跳转到审核中
+                viewpager.setCurrentItem(1);
+                currentFragment.setRefreh();
+            }
+
+        }
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
 
     }
 

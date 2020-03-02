@@ -46,7 +46,7 @@ public class PermitListAdapter extends CommonAdapter<ModelPermit> {
             addTagToTextView(viewHolder.<TextView>getView(R.id.tv_title), item.getTitle(), "访客");
         }
 
-        viewHolder.<TextView>getView(R.id.tv_address).setText(item.getRoom_info());
+        viewHolder.<TextView>getView(R.id.tv_address).setText(item.getCommunity_name()+item.getRoom_info());
         viewHolder.<TextView>getView(R.id.tv_name).setText(item.getOwner_name());
     }
 

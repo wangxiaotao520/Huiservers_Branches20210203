@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.index.coronavirus;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -18,10 +19,12 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelPermit;
+import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ZXingUtils;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
+import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -77,6 +80,7 @@ public class PermitDetailActivity extends BaseActivity {
     TextView mTxtBtn;
     @BindView(R.id.tv_shixiao)
     TextView mTvShixiao;
+    private ImageView right_share;
     private View headerView;
     protected PagingListView listView;
     protected SmartRefreshLayout mRefreshLayout;
@@ -88,12 +92,14 @@ public class PermitDetailActivity extends BaseActivity {
     ModelPermit permitInfo;
     private String company_id;
     private String id;
+    Bitmap bitmap;
 
     @Override
     protected void initView() {
         //  ButterKnife.bind(this);
         findTitleViews();
         titleName.setText("电子通行证");
+        right_share = findViewById(R.id.right_share);
         listView = findViewById(R.id.listview);
         mRefreshLayout = findViewById(R.id.refreshLayout);
         mRelNoData = findViewById(R.id.rel_no_data);
@@ -118,6 +124,20 @@ public class PermitDetailActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+        right_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //分享
+                bitmap = Bitmap.createBitmap(headerView.getMeasuredWidth(),
+                        headerView.getMeasuredHeight(),
+                        Bitmap.Config.ARGB_8888);
+                Canvas c = new Canvas(bitmap);
+                headerView.draw(c);
+
+                PopupWindowShare popup = new PopupWindowShare(PermitDetailActivity.this, "您的好友分享给你的通行码", bitmap, AppConstant.SHARE_IMAGE);
+                popup.showBottom(right_share);
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -163,7 +183,9 @@ public class PermitDetailActivity extends BaseActivity {
                     intent.putExtra("phone", permitInfo.getPhone());
                     intent.putExtra("car_number", permitInfo.getCar_number());
                     intent.putExtra("jump_type", 2);
+                    intent.putExtra("status", permitInfo.getPcs_status());
                     startActivity(intent);
+                    finish();
                 } else {//临时 访客
                     Intent intent = new Intent(PermitDetailActivity.this, SubmitPermitActivity.class);
                     intent.putExtra("company_id", company_id);
@@ -179,7 +201,10 @@ public class PermitDetailActivity extends BaseActivity {
                     intent.putExtra("address", permitInfo.getAddress());
                     intent.putExtra("note", permitInfo.getNote());
                     intent.putExtra("type", permitInfo.getType());
+                    intent.putExtra("jump_type", 2);
+                    intent.putExtra("status", permitInfo.getPcs_status());
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -203,7 +228,7 @@ public class PermitDetailActivity extends BaseActivity {
                 mRefreshLayout.finishLoadMore();
                 listView.setIsLoading(false);
                 mLyAll.setVisibility(View.VISIBLE);
-                // ly_share.setClickable(true);
+                right_share.setClickable(true);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     ModelPermit modelPermit = (ModelPermit) JsonUtil.getInstance().parseJsonFromResponse(response, ModelPermit.class);
                     // List<ModelShopIndex> shopIndexList = (List<ModelShopIndex>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelShopIndex.class);
@@ -224,7 +249,7 @@ public class PermitDetailActivity extends BaseActivity {
                 mRefreshLayout.finishLoadMore();
                 listView.setHasMoreItems(false);
                 listView.setIsLoading(false);
-                // ly_share.setClickable(false);
+                right_share.setClickable(false);
                 SmartToast.showInfo("网络异常，请检查网络设置");
                 if (page == 1) {
                     mRefreshLayout.setEnableLoadMore(false);
@@ -241,6 +266,7 @@ public class PermitDetailActivity extends BaseActivity {
                 mIvCode.setBackgroundResource(R.mipmap.ic_permit_shenhezhong);
 
             } else if ("2".equals(modelPermit.getStatus())) {//已通过
+                right_share.setVisibility(View.VISIBLE);//显示分享按钮
                 Bitmap qrImage = ZXingUtils.createQRImage(modelPermit.getQr_code(), StringUtils.dip2px(200), StringUtils.dip2px(200));
                 mIvCode.setImageBitmap(qrImage);
 
@@ -272,7 +298,7 @@ public class PermitDetailActivity extends BaseActivity {
                 mLyYezhuAddress.setVisibility(View.GONE);
                 mLyFangkeContent.setVisibility(View.GONE);
             }
-            mTvFangwu.setText(modelPermit.getCommunity_name());
+            mTvFangwu.setText(modelPermit.getCommunity_name() + modelPermit.getRoom_info());
             mTvPerson.setText(modelPermit.getOwner_name());
             mTvShenfenzheng.setText(modelPermit.getId_card());
             mTvPhone.setText(modelPermit.getPhone());
