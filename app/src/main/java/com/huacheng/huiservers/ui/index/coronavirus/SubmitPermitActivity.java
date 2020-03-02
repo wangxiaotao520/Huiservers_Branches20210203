@@ -86,13 +86,14 @@ public class SubmitPermitActivity extends BaseActivity {
         if ("1".equals(type)) {
             titleName.setText("临时通行证申请");
             //没有来访事由
-            mEtContent.setHint("请输入来访事由");
+            mEtContent.setHint("请输入外出事由");
+
         } else if ("3".equals(type)) {
             titleName.setText("访客通行证申请");
             //没有身份证号 到达地址  外出事由
             mLyIdCard.setVisibility(View.GONE);
             mLyAddress.setVisibility(View.GONE);
-            mEtContent.setHint("请输入外出事由");
+            mEtContent.setHint("请输入来访事由");
         }
         mTvHouse.setText(community_name + room_info);
         if (jump_type == 2) { //从详情跳来的
