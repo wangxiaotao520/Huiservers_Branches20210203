@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.index.coronavirus;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -54,6 +55,8 @@ public class SubmitPermitActivity extends BaseActivity {
     TextView mTxtBtn;
     @BindView(R.id.ly_id_card)
     LinearLayout mLyIdCard;
+    @BindView(R.id.ly_address)
+    LinearLayout mLyAddress;
 
 
     private int page = 1;
@@ -87,6 +90,7 @@ public class SubmitPermitActivity extends BaseActivity {
             titleName.setText("访客通行证申请");
             //没有身份证号 到达地址  外出事由
             mLyIdCard.setVisibility(View.GONE);
+            mLyAddress.setVisibility(View.GONE);
         }
         mTvHouse.setText(community_name + room_info);
         if (jump_type == 2) { //从详情跳来的
@@ -215,15 +219,15 @@ public class SubmitPermitActivity extends BaseActivity {
                         SmartToast.showInfo("身份证号不可为空");
                         return;
                     }
+                    address = mEtAddress.getText().toString().trim() + "";
+                    if (NullUtil.isStringEmpty(address)) {
+                        SmartToast.showInfo("到达地址不可为空");
+                        return;
+                    }
                 }
                 phone = mEtPhone.getText().toString().trim() + "";
                 if (NullUtil.isStringEmpty(phone)) {
                     SmartToast.showInfo("联系方式不可为空");
-                    return;
-                }
-                address = mEtAddress.getText().toString().trim() + "";
-                if (NullUtil.isStringEmpty(address)) {
-                    SmartToast.showInfo("到达地址不可为空");
                     return;
                 }
                 note = mEtContent.getText().toString().trim() + "";
@@ -255,7 +259,10 @@ public class SubmitPermitActivity extends BaseActivity {
         if (!NullUtil.isStringEmpty(car_number)) {
             params.put("car_number", car_number);
         }
-        params.put("address", address);
+        if (!NullUtil.isStringEmpty(address)) {
+            params.put("address", address);
+        }
+
         params.put("note", note);
 
         MyOkHttp.get().post(ApiHttpClient.PASS_CHECK_SUBMIT, params, new JsonResponseHandler() {
@@ -265,7 +272,7 @@ public class SubmitPermitActivity extends BaseActivity {
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     setResult(RESULT_OK);
                     finish();
-                    EventModelPass modelPass=new EventModelPass();
+                    EventModelPass modelPass = new EventModelPass();
                     modelPass.setStatus(status);
                     EventBus.getDefault().post(modelPass);
 
@@ -282,4 +289,10 @@ public class SubmitPermitActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }
