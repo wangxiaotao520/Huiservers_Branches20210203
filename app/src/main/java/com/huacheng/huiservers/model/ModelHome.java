@@ -16,14 +16,18 @@ public class ModelHome implements Serializable {
     private List<ModelIndex> article_list;//手册协议
     private List<ModelHomeCircle> social_list;//圈子
     private List<HouseRentDetail> houses_list;//租售房
+
+
     private List<ModelAds> ad_center_list;//中部广告
+    private List<ModelAds> qi_plan_list;//问卷调查
+
     private  List<ModelShopIndex>  pro_list;//商品信息
 
     private List<ModelShopIndex>seckill;//秒杀
 
     private List<ModelShopIndex> special ;//特卖专场
 
-    private List<ModelAds> ad_again_list ;//中部广告 (调查问卷)
+ //   private List<ModelAds> ad_again_list ;//中部广告 (调查问卷)
 
 
     public List<ModelAds> getAd_top_list() {
@@ -107,13 +111,20 @@ public class ModelHome implements Serializable {
         this.special = special;
     }
 
-
-    public List<ModelAds> getAd_again_list() {
-        return ad_again_list;
+//
+//    public List<ModelAds> getAd_again_list() {
+//        return ad_again_list;
+//    }
+//
+//    public void setAd_again_list(List<ModelAds> ad_again_list) {
+//        this.ad_again_list = ad_again_list;
+//    }
+    public List<ModelAds> getQi_plan_list() {
+        return qi_plan_list;
     }
 
-    public void setAd_again_list(List<ModelAds> ad_again_list) {
-        this.ad_again_list = ad_again_list;
+    public void setQi_plan_list(List<ModelAds> qi_plan_list) {
+        this.qi_plan_list = qi_plan_list;
     }
 
 }

@@ -102,7 +102,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
         titleName.setText("问卷调查");
         iv_right = findViewById(R.id.iv_right);
         iv_right.setBackgroundResource(R.mipmap.ic_share_black);
-        iv_right.setVisibility(View.VISIBLE);
+        iv_right.setVisibility(View.GONE);
         ll_container = findViewById(R.id.ll_container);
         iv_title_img=findViewById(R.id.iv_title_img);
         tv_title=findViewById(R.id.tv_title);
@@ -480,6 +480,14 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void initListener() {
        // mDatas_edittext也得判断 这里有bug
+        iv_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //分享
+
+
+            }
+        });
     }
 
     @Override

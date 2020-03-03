@@ -79,6 +79,8 @@ public class HouseBean implements Serializable {
     private String fullname;
     private String mobile;
 
+    private String status;
+
     public String getFullname() {
         return fullname;
     }
@@ -652,5 +654,14 @@ public class HouseBean implements Serializable {
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
 }

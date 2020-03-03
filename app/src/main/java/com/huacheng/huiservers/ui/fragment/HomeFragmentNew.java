@@ -55,6 +55,7 @@ import com.huacheng.huiservers.ui.fragment.indexcat.HouseHandBookActivity;
 import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
+import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
@@ -271,7 +272,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     }
 
     /**
-     * 中部banner
+     * 中部banner(目前只有问卷调查)
      */
     private void setBannerMiddle() {
         if (myImageLoader==null){
@@ -286,17 +287,20 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             @Override
             public void OnBannerClick(int position) {
                 // 点击banner
-                if (modelHome != null && modelHome.getAd_again_list() != null && modelHome.getAd_again_list().size() > 0) {
-                    ModelAds ads = modelHome.getAd_again_list().get(position);
-                    if (TextUtils.isEmpty(ads.getUrl())) {
-                        if ("0".equals(ads.getUrl_type()) || TextUtils.isEmpty(ads.getUrl_type())) {
-                            new Jump(mActivity, ads.getType_name(), ads.getAdv_inside_url());
-                        } else {
-                            new Jump(mActivity, ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
-                        }
-                    } else {//URL不为空时外链
-                        new Jump(mActivity, ads.getUrl());
+                if (modelHome != null && modelHome.getQi_plan_list() != null && modelHome.getQi_plan_list().size() > 0) {
+                    ModelAds ads = modelHome.getQi_plan_list().get(position);
+                    //调查问卷
+                    String id = ""+ads.getId();//计划id
 
+                    if (!LoginUtils.hasLoginUser()) {
+                        Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                        mContext.startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(mContext, HouseListActivity.class);
+                        intent.putExtra("type", 1);
+                        intent.putExtra("wuye_type", "investigate");
+                        intent.putExtra("id", id);
+                        mContext. startActivity(intent);
                     }
                 }
             }
@@ -615,11 +619,11 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 fl_grid_container.setVisibility(View.GONE);
             }
             //中部广告
-            if (modelHome.getAd_again_list() != null && modelHome.getAd_again_list().size() > 0) {
+            if (modelHome.getQi_plan_list() != null && modelHome.getQi_plan_list().size() > 0) {
                 banner_middle.setVisibility(View.VISIBLE);
                 ArrayList<String> mDatas_img1 = new ArrayList<>();
-                for (int i = 0; i < modelHome.getAd_again_list().size(); i++) {
-                    mDatas_img1.add(ApiHttpClient.IMG_URL + modelHome.getAd_again_list().get(i).getImg() + "");
+                for (int i = 0; i < modelHome.getQi_plan_list().size(); i++) {
+                    mDatas_img1.add(ApiHttpClient.IMG_URL + modelHome.getQi_plan_list().get(i).getImg() + "");
                 }
                 banner_middle.update(mDatas_img1);
             }else {

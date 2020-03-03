@@ -232,20 +232,25 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                         //访客邀请
                         checkHouseInvite(mDatas.get(position).getRoom_id());
                     } else if ("investigate".equals(wuye_type)) {
-                        //问卷调查
-                        Intent intent;
-                        intent = new Intent(mContext, InvestigateActivity.class);
-                        intent.putExtra("jump_type", 1);
-                        intent.putExtra("plan_id", mDatas.get(position).getPlan_id());
-                        intent.putExtra("info_id", mDatas.get(position).getInfo_id());
-                        intent.putExtra("address", mDatas.get(position).getAddress());
-                        intent.putExtra("fullname", mDatas.get(position).getFullname());
-                        intent.putExtra("mobile", mDatas.get(position).getMobile());
-                        intent.putExtra("community_id", mDatas.get(position).getCommunity_id());
-                        intent.putExtra("community_name", mDatas.get(position).getCommunity_name());
-                        intent.putExtra("room_id", mDatas.get(position).getRoom_id());
-                        startActivity(intent);
-                        finish();
+                        String status = mDatas.get(position).getStatus();
+                        if ("1".equals(status)){//状态是1可以进去
+                            //问卷调查
+                            Intent intent;
+                            intent = new Intent(mContext, InvestigateActivity.class);
+                            intent.putExtra("jump_type", 1);
+                            intent.putExtra("plan_id", mDatas.get(position).getPlan_id());
+                            intent.putExtra("info_id", mDatas.get(position).getInfo_id());
+                            intent.putExtra("address", mDatas.get(position).getAddress());
+                            intent.putExtra("fullname", mDatas.get(position).getFullname());
+                            intent.putExtra("mobile", mDatas.get(position).getMobile());
+                            intent.putExtra("community_id", mDatas.get(position).getCommunity_id());
+                            intent.putExtra("community_name", mDatas.get(position).getCommunity_name());
+                            intent.putExtra("room_id", mDatas.get(position).getRoom_id());
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            new PermitDialog(mContext,"您已提交调查问卷").show();
+                        }
                     } else if ("permit".equals(wuye_type)) {
                         //通行证
                         //判断小区是否有通行证
