@@ -216,7 +216,7 @@ public class SubmitPermitActivity extends BaseActivity {
                     SmartToast.showInfo("姓名不可为空");
                     return;
                 }
-                if ("3".equals(type)) {//访客没有身份证
+                if (!"3".equals(type)) {//访客没有身份证
                     id_card = mEtShenfenNum.getText().toString().trim() + "";
                     if (NullUtil.isStringEmpty(id_card)) {
                         SmartToast.showInfo("身份证号不可为空");
