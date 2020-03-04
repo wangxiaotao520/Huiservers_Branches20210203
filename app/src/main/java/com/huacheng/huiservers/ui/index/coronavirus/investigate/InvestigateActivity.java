@@ -87,7 +87,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
     private String room_id="";
     private String question_id="";
 
-    private int inspect_status = 1; //设备巡检情况  //1是正常2是异常//TODO 要删掉
+    private int inspect_status = 1; //设备巡检情况  //1是正常2是异常
     private String name = ""; //设备名称
     private ImageView iv_right;
     private ImageView iv_title_img;
@@ -749,7 +749,9 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
         params.put("fullname", fullname + "");
         params.put("mobile", mobile + "");
         params.put("room_id", room_id + "");
-        if (inspect_status==2){//有异常的时候传1 //正常传0
+        if (inspect_status==2){//有异常的时候传2 //正常传1
+            params.put("yichang", 2 + "");
+        }else {
             params.put("yichang", 1 + "");
         }
         MyOkHttp.get().post(ApiHttpClient.COMMIT_INVESTIGATE, params, new JsonResponseHandler() {
@@ -813,7 +815,9 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
         params.put("fullname", fullname + "");
         params.put("mobile", mobile + "");
         params.put("room_id", room_id + "");
-        if (inspect_status==2){//有异常的时候传1 //正常传0
+        if (inspect_status==2){//有异常的时候传2 //正常传1
+            params.put("yichang", 2 + "");
+        }else {
             params.put("yichang", 1 + "");
         }
         MyOkHttp.get().upload(ApiHttpClient.COMMIT_INVESTIGATE, params, params_file, new JsonResponseHandler() {
