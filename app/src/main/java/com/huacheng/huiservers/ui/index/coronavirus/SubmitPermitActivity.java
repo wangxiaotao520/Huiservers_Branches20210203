@@ -234,6 +234,7 @@ public class SubmitPermitActivity extends BaseActivity {
                     return;
                 }
                 note = mEtContent.getText().toString().trim() + "";
+                car_number = mEtCarNum.getText().toString().trim() + "";
                 commitIndeed();
 
                 break;

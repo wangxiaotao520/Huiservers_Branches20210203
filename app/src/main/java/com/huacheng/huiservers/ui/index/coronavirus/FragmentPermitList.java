@@ -20,6 +20,7 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -65,6 +66,7 @@ public class FragmentPermitList extends BaseFragment {
 
     @Override
     public void initView(View view) {
+        prefrenceUtil=new SharePrefrenceUtil(mActivity);
         view.findViewById(R.id.rl_title).setVisibility(View.GONE);
         refreshLayout = view.findViewById(R.id.refreshLayout);
         rel_no_data = view.findViewById(R.id.rel_no_data);
@@ -149,6 +151,9 @@ public class FragmentPermitList extends BaseFragment {
             params.put("type", "over");
         }
         params.put("company_id", company_id);
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.put("community_id",prefrenceUtil.getXiaoQuId());
+        }
         params.put("p", page + "");
         MyOkHttp.get().get(ApiHttpClient.GET_PERMIT_LIST, params, new JsonResponseHandler() {
             @Override
