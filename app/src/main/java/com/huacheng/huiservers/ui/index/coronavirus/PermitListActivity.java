@@ -86,6 +86,7 @@ public class PermitListActivity extends BaseActivity {
             }*/
             bundle.putInt("type", i);
             bundle.putString("company_id", company_id);
+            bundle.putString("community_id", community_id);
             ListCommon.setArguments(bundle);
             mFragments.add(ListCommon);
         }

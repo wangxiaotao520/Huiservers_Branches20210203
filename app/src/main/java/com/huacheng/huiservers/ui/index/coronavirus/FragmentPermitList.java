@@ -20,7 +20,6 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
-import com.huacheng.libraryservice.utils.NullUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -44,6 +43,7 @@ public class FragmentPermitList extends BaseFragment {
     private int total_Page = 1;
     private int type;
     private String company_id;
+    String community_id;
 
     private SmartRefreshLayout refreshLayout;
     private PagingListView listView;
@@ -62,6 +62,7 @@ public class FragmentPermitList extends BaseFragment {
         Bundle arguments = getArguments();
         type = arguments.getInt("type");
         company_id = arguments.getString("company_id");
+        community_id=arguments.getString("community_id");
     }
 
     @Override
@@ -151,9 +152,7 @@ public class FragmentPermitList extends BaseFragment {
             params.put("type", "over");
         }
         params.put("company_id", company_id);
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
-            params.put("community_id",prefrenceUtil.getXiaoQuId());
-        }
+        params.put("community_id",community_id);
         params.put("p", page + "");
         MyOkHttp.get().get(ApiHttpClient.GET_PERMIT_LIST, params, new JsonResponseHandler() {
             @Override

@@ -420,7 +420,7 @@ public class LongTermPassCheckActivity extends BaseActivity implements View.OnCl
                             Intent intent = new Intent(LongTermPassCheckActivity.this, PhotoViewPagerAcitivity.class);
                             intent.putExtra("img_list", imgs);
                             intent.putExtra("position", position);
-                            intent.putExtra("isShowDelete", true);
+                            intent.putExtra("isShowDelete", false);
                             startActivity(intent);
 
                         }
