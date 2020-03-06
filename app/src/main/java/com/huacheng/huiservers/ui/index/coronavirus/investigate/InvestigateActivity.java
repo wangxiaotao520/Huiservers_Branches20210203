@@ -25,6 +25,7 @@ import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
 import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -774,6 +775,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                 } else {
                     SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交失败"));
                 }
+                ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
             }
 
             @Override
@@ -840,6 +842,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                 } else {
                     SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交失败"));
                 }
+                ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
             }
 
             @Override

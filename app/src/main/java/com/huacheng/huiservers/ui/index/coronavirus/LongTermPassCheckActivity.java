@@ -31,6 +31,7 @@ import com.huacheng.huiservers.model.ModelPassCheckInformation;
 import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.SelectImgAdapter;
+import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -712,7 +713,7 @@ public class LongTermPassCheckActivity extends BaseActivity implements View.OnCl
     }
 
     private String getPath() {
-        String path = Environment.getExternalStorageDirectory() + "/huiservers/image/";
+        String path = Environment.getExternalStorageDirectory() + "/huiservers /image/";
         File file = new File(path);
         if (file.mkdirs()) {
             return path;
@@ -777,6 +778,7 @@ public class LongTermPassCheckActivity extends BaseActivity implements View.OnCl
                 } else {
                     SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交失败"));
                 }
+                ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
             }
 
             @Override
@@ -847,6 +849,7 @@ public class LongTermPassCheckActivity extends BaseActivity implements View.OnCl
                 } else {
                     SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "提交失败"));
                 }
+                ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
             }
 
             @Override

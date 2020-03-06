@@ -1,7 +1,7 @@
 apply plugin: 'tinkerpatch-support'
+
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-
 /**
  * TODO: 请按自己的需求修改为适应自己工程的参数
  */
@@ -33,7 +33,7 @@ tinkerpatchSupport {
     appKey = "82ddaafa1257f9fb"
 
     /** 注意: 若发布新的全量包, appVersion一定要更新 **/
-    appVersion = "4.4.1"
+    appVersion = "4.4.2"
 
     def pathPrefix = "${bakPath}/${baseInfo}/${variantName}/"
     def name = "${project.name}-${variantName}"
@@ -110,10 +110,6 @@ tinkerPatch {
         keepDexApply = false
     }
 }
-
-import java.util.regex.Matcher
-import java.util.regex.Pattern
-
 /**
  * 如果只想在Release中打开tinker，可以把tinkerEnable赋值为这个函数的return
  * @return 是否为release
