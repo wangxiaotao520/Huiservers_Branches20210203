@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.center;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import com.huacheng.huiservers.HomeActivity;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.dialog.DownLoadDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -32,6 +35,7 @@ import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -40,6 +44,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
+import io.reactivex.functions.Consumer;
 
 public class SetActivity extends BaseActivityOld implements OnClickListener, Updateprester.UpdateListener {
     ShopProtocol protocol2 = new ShopProtocol();
@@ -52,6 +57,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
             rel_gengxin, rl_changepwd, rel_address;
     private Handler myHandler = new myHandler();
     Updateprester updateprester;
+    public static final int ACT_REQUEST_DOWNLOAD = 101;
 
     class myHandler extends Handler {
 
@@ -199,16 +205,35 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
     }
 
     @Override
-    public void onUpdate(int status, PayInfoBean info, String msg) {
+    public void onUpdate(int status, final PayInfoBean info, String msg) {
         if (status == 1) {
             if (info != null) {
-                apkpath = infoBean.getPath();
+                apkpath = info.getPath();
                 new CommomDialog(SetActivity.this, R.style.my_dialog_DimEnabled, "发现有新版本，是否立即更新？", new CommomDialog.OnCloseListener() {
                     @Override
-                    public void onClick(Dialog dialog, boolean confirm) {
+                    public void onClick(final Dialog dialog, boolean confirm) {
                         if (confirm) {
-                            downLoadApk();
-                            dialog.dismiss();
+                           // downLoadApk();
+                            new RxPermissions(SetActivity.this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE
+                                    , Manifest.permission.READ_PHONE_STATE)
+                                    .subscribe(new Consumer<Boolean>() {
+                                        @Override
+                                        public void accept(Boolean isGranted) throws Exception {
+                                            if (isGranted) {
+                                                Intent intent = new Intent();
+                                                intent.putExtra("file_name", info.getVersion() + ".apk");
+                                                intent.putExtra("download_src", apkpath);
+                                                intent.setClass(SetActivity.this, DownLoadDialog.class);
+                                                startActivityForResult(intent, ACT_REQUEST_DOWNLOAD);
+                                                dialog.dismiss();
+                                            } else {
+                                                //请求权限用户点取消
+                                            }
+                                        }
+                                    });
+
+                          //  dialog.dismiss();
                         }
 
                     }
@@ -312,5 +337,15 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
     protected void onPause() {
         super.onPause();
         JPushInterface.onPause(this);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ACT_REQUEST_DOWNLOAD) {
+                getUpdate();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
