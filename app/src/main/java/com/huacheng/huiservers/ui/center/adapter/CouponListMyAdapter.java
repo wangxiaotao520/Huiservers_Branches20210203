@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.bean.CouponBean;
+import com.huacheng.huiservers.model.CouponBean;
 import com.huacheng.huiservers.utils.StringUtils;
 
 import java.util.List;

@@ -1,15 +1,15 @@
 package com.huacheng.huiservers.model.protocol;
 
-import com.huacheng.huiservers.ui.center.bean.CityBean;
-import com.huacheng.huiservers.ui.center.bean.CouponBean;
-import com.huacheng.huiservers.ui.center.bean.Imgs;
-import com.huacheng.huiservers.ui.center.bean.ListBean;
-import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
-import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
-import com.huacheng.huiservers.ui.center.bean.PropertyRepairBean;
-import com.huacheng.huiservers.ui.center.bean.PropertyRepairDetailBean;
-import com.huacheng.huiservers.ui.center.bean.ReplyBean;
-import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
+import com.huacheng.huiservers.model.CityBean;
+import com.huacheng.huiservers.model.CouponBean;
+import com.huacheng.huiservers.model.Imgs;
+import com.huacheng.huiservers.model.ListBean;
+import com.huacheng.huiservers.model.PayInfoBean;
+import com.huacheng.huiservers.model.PersoninfoBean;
+import com.huacheng.huiservers.model.PropertyRepairBean;
+import com.huacheng.huiservers.model.PropertyRepairDetailBean;
+import com.huacheng.huiservers.model.ReplyBean;
+import com.huacheng.huiservers.model.XorderDetailBean;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 

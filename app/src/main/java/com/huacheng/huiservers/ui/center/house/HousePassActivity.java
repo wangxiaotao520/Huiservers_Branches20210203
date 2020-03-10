@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 类：
+ * 类  访客邀请临时密码
  * 时间：2018/3/23 08:49
  * 功能描述:Huiservers
  */

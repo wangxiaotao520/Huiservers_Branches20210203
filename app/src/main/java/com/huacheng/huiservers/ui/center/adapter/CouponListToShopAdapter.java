@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.bean.CouponBean;
+import com.huacheng.huiservers.model.CouponBean;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.utils.StringUtils;
 

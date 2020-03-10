@@ -2,7 +2,7 @@ package com.huacheng.huiservers.view;
 
 import java.util.Comparator;
 
-import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
+import com.huacheng.huiservers.model.GroupMemberBean;
 
 /**
  * 

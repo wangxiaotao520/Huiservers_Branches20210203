@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
-import com.huacheng.huiservers.ui.center.bean.ShopOrderBeanTypeBean;
+import com.huacheng.huiservers.model.ShopOrderBeanTypeBean;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.stx.xhb.xbanner.OnDoubleClickListener;

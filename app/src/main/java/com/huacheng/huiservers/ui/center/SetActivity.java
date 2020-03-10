@@ -24,6 +24,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.DownLoadDialog;
+import com.huacheng.huiservers.dialog.PermitDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -32,7 +33,7 @@ import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.ActivityStackManager;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
+import com.huacheng.huiservers.model.PayInfoBean;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -242,6 +243,8 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
                 SmartToast.showInfo("当前已是最新版本");
             }
 
+        }else {
+            new PermitDialog(this,msg+"").show();
         }
     }
 

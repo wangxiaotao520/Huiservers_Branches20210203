@@ -29,7 +29,7 @@ import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.AddAddressActivity;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
-import com.huacheng.huiservers.ui.center.bean.ModelAddressList;
+import com.huacheng.huiservers.model.ModelAddressList;
 import com.huacheng.huiservers.ui.shop.adapter.ConfirmShopListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.AmountBean;
 import com.huacheng.huiservers.ui.shop.bean.ConfirmBean;

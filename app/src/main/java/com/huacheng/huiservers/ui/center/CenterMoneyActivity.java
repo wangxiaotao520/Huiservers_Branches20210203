@@ -16,8 +16,8 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.center.adapter.PersonMoneyAdapter;
-import com.huacheng.huiservers.ui.center.bean.ListBean;
-import com.huacheng.huiservers.ui.fragment.listener.EndlessRecyclerOnScrollListener;
+import com.huacheng.huiservers.model.ListBean;
+import com.huacheng.huiservers.ui.center.listener.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
 import java.util.List;

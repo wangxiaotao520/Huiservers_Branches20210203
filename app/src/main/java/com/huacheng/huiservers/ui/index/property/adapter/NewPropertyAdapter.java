@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.bean.HouseBean;
+import com.huacheng.huiservers.model.HouseBean;
 
 import java.util.List;
 

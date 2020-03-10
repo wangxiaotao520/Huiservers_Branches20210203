@@ -1,6 +1,6 @@
 package com.huacheng.huiservers.pay.chinaums;
 
-import com.huacheng.huiservers.ui.center.geren.bean.PayTypeBean;
+import com.huacheng.huiservers.model.PayTypeBean;
 
 import java.util.List;
 

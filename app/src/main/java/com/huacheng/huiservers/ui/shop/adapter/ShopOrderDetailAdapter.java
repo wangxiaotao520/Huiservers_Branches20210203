@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
-import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
+import com.huacheng.huiservers.model.XorderDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.view.HorizontalListView;
 import com.huacheng.huiservers.view.MyListView;

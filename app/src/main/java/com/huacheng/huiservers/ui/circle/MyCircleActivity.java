@@ -17,7 +17,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelCircle;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
+import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.huiservers.ui.fragment.adapter.CircleListAdapter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.NullUtil;

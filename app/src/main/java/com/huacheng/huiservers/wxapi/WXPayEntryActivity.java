@@ -23,12 +23,7 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
 import com.huacheng.huiservers.model.ModelEventWX;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.center.NewShopOrderDetailActivity;
-import com.huacheng.huiservers.ui.center.geren.WiredHistoryActivity;
-import com.huacheng.huiservers.ui.center.geren.WiredIndexActivity;
-import com.huacheng.huiservers.ui.center.geren.ZhifuActivity;
-import com.huacheng.huiservers.ui.index.facepay.FacepayHistoryActivity;
-import com.huacheng.huiservers.ui.index.facepay.FacepayIndexActivity;
+import com.huacheng.huiservers.pay.ZhifuActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
@@ -231,24 +226,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
                             }
                         }, 1200);
                     }
-                    if (MyCookieStore.type.equals("facepay")) {// 当面付成功
-                        Intent intent = new Intent(WXPayEntryActivity.this, FacepayHistoryActivity.class);
-                        startActivity(intent);
-                        finish();
-//                        FacepayConfirmPaymentActivity.sFacepayConfirm.finish();
-                        FacepayIndexActivity.sFacePayIndex.finish();
-                    }
-                    if (MyCookieStore.type.equals("wired")) {// 有线缴费成功
-                        Intent intent = new Intent(WXPayEntryActivity.this, WiredHistoryActivity.class);
-                        startActivity(intent);
-                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        }, 1200);
-                        WiredIndexActivity.instant.finish();
-                    }
+
                     if (MyCookieStore.type.equals("service_new_pay")) {// 新服务支付成功
                         Intent intent = new Intent(WXPayEntryActivity.this, FragmentOrderListActivity.class);
                         intent.putExtra("type", "pay_finish");
@@ -415,7 +393,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
                         intent.putExtras(bundle);
                         setResult(333, intent);
                         //startActivity(intent);
-                        NewShopOrderDetailActivity.instant.finish();
+                    //    NewShopOrderDetailActivity.instant.finish();
                         finish();
                     }
                     System.out.println("********支付完成推送接口请求成功");

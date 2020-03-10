@@ -33,6 +33,7 @@ import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.ModelShopNew;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseFragment;
+import com.huacheng.huiservers.ui.fragment.adapter.AdapterShopIndexGridCate;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeCenterGirdAdapter;
 import com.huacheng.huiservers.ui.fragment.shop.FragmentShopCommon;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;

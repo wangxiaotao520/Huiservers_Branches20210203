@@ -8,11 +8,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
+import com.huacheng.huiservers.model.PayInfoBean;
 import com.huacheng.libraryservice.utils.NullUtil;
 
 /**
- * 类：
+ * 类：  更新对话框
  * 时间：2018/6/6 20:28
  * 功能描述:Huiservers
  */

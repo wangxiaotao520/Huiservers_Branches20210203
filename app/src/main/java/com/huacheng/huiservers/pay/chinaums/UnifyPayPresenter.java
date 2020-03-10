@@ -6,7 +6,7 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
-import com.huacheng.huiservers.ui.center.geren.bean.PayTypeBean;
+import com.huacheng.huiservers.model.PayTypeBean;
 import com.huacheng.huiservers.utils.json.JsonUtil;
 
 import org.json.JSONException;

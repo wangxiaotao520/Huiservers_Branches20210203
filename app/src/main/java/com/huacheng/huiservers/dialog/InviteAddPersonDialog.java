@@ -12,7 +12,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 
 /**
- * 类：
+ * 类：  访客对话框
  * 时间：2018/3/20 17:22
  * 功能描述:Huiservers
  */

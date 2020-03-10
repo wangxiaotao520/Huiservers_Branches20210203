@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.bean.ModelAddressList;
+import com.huacheng.huiservers.model.ModelAddressList;
 import com.stx.xhb.xbanner.OnDoubleClickListener;
 
 import java.util.List;

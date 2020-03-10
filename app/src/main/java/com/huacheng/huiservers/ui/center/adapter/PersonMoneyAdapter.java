@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.bean.ListBean;
+import com.huacheng.huiservers.model.ListBean;
 import com.huacheng.huiservers.utils.StringUtils;
 
 import java.util.List;

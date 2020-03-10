@@ -10,7 +10,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
+import com.huacheng.huiservers.model.GroupMemberBean;
 
 import java.util.HashMap;
 import java.util.List;

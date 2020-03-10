@@ -259,7 +259,7 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
 
         txt_paisong = findViewById(R.id.txt_paisong);
         txt_shop_num = findViewById(R.id.txt_shop_num); // 商品图片买描述 //
-        txt_tuijian = findViewById(R.id.txt_tuijian); // 商品描述图片列表id
+      //  txt_tuijian = findViewById(R.id.txt_tuijian); // 商品描述图片列表id
         lin_img = findViewById(R.id.lin_img);
         tv_time_tag = findViewById(R.id.tv_time_tag);
 

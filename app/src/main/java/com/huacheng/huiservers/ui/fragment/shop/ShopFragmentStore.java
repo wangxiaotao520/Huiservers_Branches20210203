@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.ModelShopIndex;
-import com.huacheng.huiservers.ui.fragment.AdapterShopIndexGridCate;
+import com.huacheng.huiservers.ui.fragment.adapter.AdapterShopIndexGridCate;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopFragmentStoreAdapter;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;

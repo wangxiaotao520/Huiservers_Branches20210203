@@ -1,8 +1,8 @@
 package com.huacheng.huiservers.model.protocol;
 
-import com.huacheng.huiservers.ui.center.geren.bean.AddressBean;
-import com.huacheng.huiservers.ui.center.geren.bean.GerenBean;
-import com.huacheng.huiservers.ui.center.geren.bean.PayTypeBean;
+import com.huacheng.huiservers.model.AddressBean;
+import com.huacheng.huiservers.model.GerenBean;
+import com.huacheng.huiservers.model.PayTypeBean;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 

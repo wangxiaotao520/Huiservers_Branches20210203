@@ -1,6 +1,6 @@
 package com.huacheng.huiservers.ui.index.property.bean;
 
-import com.huacheng.huiservers.ui.center.bean.HouseBean;
+import com.huacheng.huiservers.model.HouseBean;
 
 import java.io.Serializable;
 import java.util.List;

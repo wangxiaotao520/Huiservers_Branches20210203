@@ -19,7 +19,7 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
-import com.huacheng.huiservers.ui.center.bean.CouponBean;
+import com.huacheng.huiservers.model.CouponBean;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopListActivity;

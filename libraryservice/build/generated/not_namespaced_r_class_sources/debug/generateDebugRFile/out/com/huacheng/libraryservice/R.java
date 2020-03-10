@@ -1613,10 +1613,9 @@ public final class R {
         public static int ic_launcher_round = 0x7f110005;
         public static int ic_more_wechat = 0x7f110006;
         public static int ic_more_wecircle = 0x7f110007;
-        public static int ic_share = 0x7f110008;
-        public static int ic_share_black = 0x7f110009;
-        public static int page_focuese = 0x7f11000a;
-        public static int page_unfocused = 0x7f11000b;
+        public static int ic_share_black = 0x7f110008;
+        public static int page_focuese = 0x7f110009;
+        public static int page_unfocused = 0x7f11000a;
     }
     public static final class string {
         private string() {}

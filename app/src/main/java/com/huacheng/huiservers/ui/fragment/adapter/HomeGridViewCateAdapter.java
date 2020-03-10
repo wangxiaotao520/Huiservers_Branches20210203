@@ -186,15 +186,44 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
             holder.ly_onclick.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String type = lists.get(pos).getUrl_type();
-                    String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
-                    if (Arrays.asList(typeStr).contains(type)) {
-                        Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
-                                lists.get(pos).getUrl_type_cn());
-                    } else {
-                        Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
-                                lists.get(pos).getUrl_type_cn());
+//                    String type = lists.get(pos).getUrl_type();
+//                    String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
+//                    if (Arrays.asList(typeStr).contains(type)) {
+//                        Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
+//                                lists.get(pos).getUrl_type_cn());
+//                    } else {
+//                        Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
+//                                lists.get(pos).getUrl_type_cn());
+//                    }
+                    if("1".equals(lists.get(pos).getPid())){//若等于1即物业服务方面的导航 则需要判断是否匹配到小区
+                        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){//匹配住了
+                                String type = lists.get(pos).getUrl_type();
+                                String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
+                                if (Arrays.asList(typeStr).contains(type)) {
+                                    Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
+                                            lists.get(pos).getUrl_type_cn());
+                                } else {
+                                    Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
+                                            lists.get(pos).getUrl_type_cn());
+                                }
+
+                        }else {
+                            SmartToast.showInfo("该小区暂未开通此服务");
+                        }
+                    }else {
+
+                            String type = lists.get(pos).getUrl_type();
+                            String[] typeStr = new String[]{"14", "15", "16", "17", "18", "19", "20", "21", "26","28","29"};
+                            if (Arrays.asList(typeStr).contains(type)) {
+                                Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(),
+                                        lists.get(pos).getUrl_type_cn());
+                            } else {
+                                Jump jump = new Jump(context, lists.get(pos).getUrl_type(), lists.get(pos).getUrl_id(), "",
+                                        lists.get(pos).getUrl_type_cn());
+                            }
+
                     }
+
                 }
             });
 

@@ -26,7 +26,7 @@ import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
 import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener;
 import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener1;
-import com.huacheng.huiservers.ui.index.wuye.bean.ProperyGetOrderBean;
+import com.huacheng.huiservers.model.ProperyGetOrderBean;
 import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.view.MyListView;

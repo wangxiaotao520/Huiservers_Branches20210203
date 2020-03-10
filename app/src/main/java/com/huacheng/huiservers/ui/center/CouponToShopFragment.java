@@ -21,10 +21,8 @@ import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
 import com.huacheng.huiservers.ui.center.adapter.CouponListToShopAdapter;
-import com.huacheng.huiservers.ui.center.bean.CouponBean;
-import com.huacheng.huiservers.ui.shop.ConfirmOrderActivity;
+import com.huacheng.huiservers.model.CouponBean;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivityNew;
-import com.huacheng.huiservers.utils.UIUtils;
 import com.huacheng.huiservers.view.MyListView;
 
 import java.util.List;

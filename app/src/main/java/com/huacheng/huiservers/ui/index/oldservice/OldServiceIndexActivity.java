@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.fragment.OldFragment;
+import com.huacheng.huiservers.ui.index.oldservice.oldfragment.OldFragment;
 
 /**
  * Description:居家养老首页

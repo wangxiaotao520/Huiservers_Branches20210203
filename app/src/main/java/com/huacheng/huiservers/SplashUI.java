@@ -40,7 +40,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelSplashImg;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.center.bean.PayInfoBean;
+import com.huacheng.huiservers.model.PayInfoBean;
 import com.huacheng.huiservers.utils.CacheUtils;
 import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.huiservers.utils.PermissionUtils;

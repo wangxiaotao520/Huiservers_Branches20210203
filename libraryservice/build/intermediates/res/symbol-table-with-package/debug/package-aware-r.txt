@@ -1556,7 +1556,6 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 mipmap ic_more_wechat
 mipmap ic_more_wecircle
-mipmap ic_share
 mipmap ic_share_black
 mipmap page_focuese
 mipmap page_unfocused

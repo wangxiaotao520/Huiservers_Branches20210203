@@ -16,7 +16,7 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
+import com.huacheng.huiservers.model.PersoninfoBean;
 
 import org.greenrobot.eventbus.EventBus;
 

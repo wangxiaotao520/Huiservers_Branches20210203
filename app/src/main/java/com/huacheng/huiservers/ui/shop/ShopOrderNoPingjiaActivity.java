@@ -11,7 +11,7 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
-import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
+import com.huacheng.huiservers.model.XorderDetailBean;
 import com.huacheng.huiservers.ui.shop.Shoppresenter.ShopOrderCaoZuoPrester;
 import com.huacheng.huiservers.ui.shop.adapter.ShopOrderDetailCaoZuoAdapter;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;

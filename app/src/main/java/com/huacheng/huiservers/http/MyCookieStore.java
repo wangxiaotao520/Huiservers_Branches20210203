@@ -4,7 +4,7 @@ import android.app.Dialog;
 import android.graphics.Bitmap;
 
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
-import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
+import com.huacheng.huiservers.model.WuYeBean;
 import com.huacheng.huiservers.ui.shop.bean.ConfirmMapBean;
 
 import org.apache.http.client.CookieStore;

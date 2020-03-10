@@ -27,7 +27,7 @@ import com.huacheng.huiservers.ui.center.HeZuoActivity;
 import com.huacheng.huiservers.ui.center.MyAboutActivity;
 import com.huacheng.huiservers.ui.center.MyInfoCircleActivity;
 import com.huacheng.huiservers.ui.center.SetActivity;
-import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
+import com.huacheng.huiservers.model.PersoninfoBean;
 import com.huacheng.huiservers.ui.fragment.adapter.MyCenterAdapter;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;

@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.bean.XorderDetailBean;
+import com.huacheng.huiservers.model.XorderDetailBean;
 import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
 
 import org.greenrobot.eventbus.EventBus;

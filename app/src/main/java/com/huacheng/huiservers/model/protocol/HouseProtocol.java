@@ -2,11 +2,11 @@ package com.huacheng.huiservers.model.protocol;
 
 import android.text.TextUtils;
 
-import com.huacheng.huiservers.ui.center.bean.HouseBean;
+import com.huacheng.huiservers.model.HouseBean;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
+import com.huacheng.huiservers.model.WuYeBean;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

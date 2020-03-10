@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.ModelIndex;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
+import com.huacheng.huiservers.ui.fragment.adapter.HouseHandBookAdapter;
 import com.huacheng.huiservers.ui.index.HomeArticleWebviewActivity;
 
 import java.util.ArrayList;

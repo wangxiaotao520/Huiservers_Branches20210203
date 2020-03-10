@@ -20,7 +20,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelChargeDetail;
 import com.huacheng.huiservers.model.ModelQRCode;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.servicenew.ui.scan.CustomCaptureActivity;
+import com.huacheng.huiservers.ui.scan.CustomCaptureActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.ShadowLayout;
 import com.huacheng.libraryservice.utils.NullUtil;

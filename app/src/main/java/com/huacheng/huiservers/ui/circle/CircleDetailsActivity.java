@@ -39,7 +39,7 @@ import com.huacheng.huiservers.model.protocol.CommonProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.circle.adapter.CircleDetailListAdapter;
-import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
+import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;

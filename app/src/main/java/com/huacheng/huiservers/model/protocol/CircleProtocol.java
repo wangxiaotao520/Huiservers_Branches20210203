@@ -2,7 +2,7 @@ package com.huacheng.huiservers.model.protocol;
 
 import android.text.TextUtils;
 
-import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
+import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.StringUtils;

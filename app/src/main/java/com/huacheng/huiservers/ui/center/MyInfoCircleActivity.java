@@ -21,7 +21,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.base.BaseFragment;
-import com.huacheng.huiservers.ui.center.bean.PersoninfoBean;
+import com.huacheng.huiservers.model.PersoninfoBean;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.widget.EnhanceTabLayout;
 import com.huacheng.libraryservice.utils.TDevice;

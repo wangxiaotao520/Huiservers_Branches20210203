@@ -21,7 +21,7 @@ import com.ajb.opendoor.data.bean.RecordRsp;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
-import com.huacheng.huiservers.ui.index.wuye.bean.WuYeBean;
+import com.huacheng.huiservers.model.WuYeBean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

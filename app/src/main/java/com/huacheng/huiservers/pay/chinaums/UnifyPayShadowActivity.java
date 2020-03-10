@@ -14,7 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Description: 支付shadow
+ * Description: 支付shadow(弃用了)
  * created by wangxiaotao
  * 2019/10/31 0031 下午 5:22
  */

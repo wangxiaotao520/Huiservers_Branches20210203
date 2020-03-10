@@ -23,8 +23,9 @@ import butterknife.OnClick;
 
 
 /**
- * 类：
- * 时间：2018/3/23 08:18
+ * 类：访客邀请Activity
+ *
+ *  时间：2018/3/23 08:18
  * 功能描述:Huiservers
  */
 public class HouseInviteActivity extends BaseActivityOld {

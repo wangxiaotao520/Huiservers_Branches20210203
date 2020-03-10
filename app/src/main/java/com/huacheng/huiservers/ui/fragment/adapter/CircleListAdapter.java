@@ -13,7 +13,7 @@ import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.model.ModelCircle;
-import com.huacheng.huiservers.ui.center.geren.adapter.CircleItemImageAdapter;
+import com.huacheng.huiservers.ui.center.adapter.CircleItemImageAdapter;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyGridview;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;

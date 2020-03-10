@@ -3,7 +3,7 @@ package com.huacheng.huiservers.model;
 import java.io.Serializable;
 
 /**
- * 类描述：
+ * 类描述：  选择图片model
  * 时间：2018/8/27 18:52
  * created by DFF
  */

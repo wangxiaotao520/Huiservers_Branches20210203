@@ -13,13 +13,13 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.circle.bean.CircleDetailBean;
+import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
 import java.util.List;
 
 /**
- * 类：
+ * 类：  邻里adapter
  * 时间：2018/3/16 17:31
  * 功能描述:Huiservers
  */

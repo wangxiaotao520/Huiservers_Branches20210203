@@ -27,7 +27,7 @@ import com.huacheng.huiservers.model.ModelNewWorkOrder;
 import com.huacheng.huiservers.model.ModelPhoto;
 import com.huacheng.huiservers.model.ModelWorkPersonalCatItem;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.geren.bean.GroupMemberBean;
+import com.huacheng.huiservers.model.GroupMemberBean;
 import com.huacheng.huiservers.ui.index.property.SelectCommunityActivity;
 import com.huacheng.huiservers.ui.index.workorder.JpushWorkPresenter;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
