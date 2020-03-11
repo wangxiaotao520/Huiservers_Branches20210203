@@ -69,7 +69,7 @@ import io.reactivex.functions.Consumer;
  *
  * @author
  */
-public class SplashUI extends BaseActivityOld implements Updateprester.UpdateListener {
+public class SplashActivity extends BaseActivityOld implements Updateprester.UpdateListener {
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             "android.permission.READ_EXTERNAL_STORAGE",
@@ -80,7 +80,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
     private boolean isFirstOpen;
     private String regId, login_type;
     SharedPreferences preferencesLogin;
-    public static SplashUI intents;
+    public static SplashActivity intents;
     Updateprester updateprester;
     String apkPath = "";
     int type;
@@ -133,9 +133,9 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
       }
 
         intents = this;
-        isFirstOpen = CacheUtils.getBoolean(SplashUI.this, IS_FIRST_OPEN, true);
+        isFirstOpen = CacheUtils.getBoolean(SplashActivity.this, IS_FIRST_OPEN, true);
         setContentView(R.layout.splash);
-        //  SetTransStatus.GetStatus(SplashUI.this);//系统栏默认为黑色
+        //  SetTransStatus.GetStatus(SplashActivity.this);//系统栏默认为黑色
 
         updateprester = new Updateprester(this, this);
 
@@ -152,13 +152,13 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                 hasLoginUser();
                 if (isFirstOpen){
                     //第一次打开进引导页
-                    CacheUtils.putBoolean(SplashUI.this, SplashUI.IS_FIRST_OPEN, false);
+                    CacheUtils.putBoolean(SplashActivity.this, SplashActivity.IS_FIRST_OPEN, false);
                     isFirstOpen=false;
-                    Intent intent = new Intent(SplashUI.this, GuideUI.class);
+                    Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
                     startActivity(intent);
                     finish();
                 }else {
-                    Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -183,13 +183,13 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                         hasLoginUser();
                         if (isFirstOpen){
                             //第一次打开进引导页
-                            CacheUtils.putBoolean(SplashUI.this, SplashUI.IS_FIRST_OPEN, false);
+                            CacheUtils.putBoolean(SplashActivity.this, SplashActivity.IS_FIRST_OPEN, false);
                             isFirstOpen=false;
-                            Intent intent = new Intent(SplashUI.this, GuideUI.class);
+                            Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
                             startActivity(intent);
                             finish();
                         }else {
-                            Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+                            Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
                             // 带参数的跳转
                             intent.putExtra("from","ad"); // jpush 和ad
                             intent.putExtra("guide_url_type_id",modelSplashImg.getGuide_url_type_id());
@@ -206,10 +206,10 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
             }
         });
         rl_bottom = findViewById(R.id.rl_bottom);
-        int height =  (int) ((DeviceUtils.getWindowWidth(SplashUI.this) ) * 1920 * 1f / 1080);
-        int height_bottom = DeviceUtils.dip2px(SplashUI.this,64);//底部布局的高度
+        int height =  (int) ((DeviceUtils.getWindowWidth(SplashActivity.this) ) * 1920 * 1f / 1080);
+        int height_bottom = DeviceUtils.dip2px(SplashActivity.this,64);//底部布局的高度
 
-        if ((TDevice.getScreenHeight(this) -DeviceUtils.dip2px(SplashUI.this,64))>=height){
+        if ((TDevice.getScreenHeight(this) -DeviceUtils.dip2px(SplashActivity.this,64))>=height){
             //下方显示专门空出来至少64dp显示
             //计算下方布局的高度
          //   height_bottom= (int) (TDevice.getScreenHeight(this)-height);
@@ -235,8 +235,8 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 
 
     private void goinit() {
-        sharePrefrenceUtil = new SharePrefrenceUtil(SplashUI.this);
-        preferencesLogin = SplashUI.this.getSharedPreferences("login", 0);
+        sharePrefrenceUtil = new SharePrefrenceUtil(SplashActivity.this);
+        preferencesLogin = SplashActivity.this.getSharedPreferences("login", 0);
         login_type = preferencesLogin.getString("login_type", "");
 
         token = preferencesLogin.getString("token", "");
@@ -245,10 +245,10 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
 
         // 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
         //        //获取极光注册id并保存  开启推送
-        JPushInterface.init(SplashUI.this);
-        JPushInterface.resumePush(SplashUI.this);
-        regId = JPushInterface.getRegistrationID(SplashUI.this);
-        SharedPreferences preferences1 = SplashUI.this.getSharedPreferences(
+        JPushInterface.init(SplashActivity.this);
+        JPushInterface.resumePush(SplashActivity.this);
+        regId = JPushInterface.getRegistrationID(SplashActivity.this);
+        SharedPreferences preferences1 = SplashActivity.this.getSharedPreferences(
                 "jpush_id", 0);
         Editor editor = preferences1.edit();
         editor.putString("reg_id", regId);
@@ -267,7 +267,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                     if (tag.equals("2")) {//同意
                         getUpdate();
                         dialog1.dismiss();
-                     //   CacheUtils.putBoolean(SplashUI.this, SplashUI.IS_FIRST_OPEN, false);
+                     //   CacheUtils.putBoolean(SplashActivity.this, SplashActivity.IS_FIRST_OPEN, false);
                     } else {//退出APP
                         finish();
                     }
@@ -308,8 +308,8 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                     @Override
                     public void back(String tag) {
                         if (tag.equals("1")) {
-//                            if (!isWifi(SplashUI.this)) {//判断是否在wifi状态下
-//                                SignOnDialog d = new SignOnDialog(SplashUI.this, apkPath, "v" + info.getVersion() + ".apk");
+//                            if (!isWifi(SplashActivity.this)) {//判断是否在wifi状态下
+//                                SignOnDialog d = new SignOnDialog(SplashActivity.this, apkPath, "v" + info.getVersion() + ".apk");
 //                                d.show();
 //                            } else {
                                 rxPermission.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -322,7 +322,7 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
                                                     Intent intent = new Intent();
                                                     intent.putExtra("file_name", info.getVersion() + ".apk");
                                                     intent.putExtra("download_src", apkPath);
-                                                    intent.setClass(SplashUI.this, DownLoadDialog.class);
+                                                    intent.setClass(SplashActivity.this, DownLoadDialog.class);
                                                     startActivityForResult(intent, ACT_REQUEST_DOWNLOAD);
                                                     dialog.dismiss();
                                                 } else {
@@ -380,13 +380,13 @@ public class SplashUI extends BaseActivityOld implements Updateprester.UpdateLis
             public void run() {
                 if (isFirstOpen){
                     //第一次打开进引导页
-                    CacheUtils.putBoolean(SplashUI.this, SplashUI.IS_FIRST_OPEN, false);
+                    CacheUtils.putBoolean(SplashActivity.this, SplashActivity.IS_FIRST_OPEN, false);
                     isFirstOpen=false;
-                    Intent intent = new Intent(SplashUI.this, GuideUI.class);
+                    Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
                     startActivity(intent);
                     finish();
                 }else {
-                    Intent intent = new Intent(SplashUI.this, HomeActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
                 }

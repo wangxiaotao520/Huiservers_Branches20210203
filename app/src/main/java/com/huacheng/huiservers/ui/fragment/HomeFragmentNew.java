@@ -1010,7 +1010,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             String address = pois.get(0).getSnippet();
             //    prefrenceUtil.clearPreference(mActivity);
             // 选择上了小区
-            //TODO 这里要进行匹配
+            // 这里要进行匹配
 //            prefrenceUtil.setXiaoQuName(community_name);
 //            prefrenceUtil.setAddressName(address);
 //            tv_xiaoqu.setText(prefrenceUtil.getXiaoQuName()+"");

@@ -76,7 +76,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
                     // 执行的数据类型
                     intent.setDataAndType(Uri.fromFile((File) msg.obj), "application/vnd.android.package-archive");// 编者按：此处Android应为android，否则造成安装不了
                     startActivity(intent);
-                    //TODO 有新版本就把补丁删掉
+                    //有新版本就把补丁删掉
 //                    if (BuildConfig.TINKER_ENABLE){
 //                        TinkerPatch.with().cleanAll();
 //                    }

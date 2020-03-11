@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.shop.Shoppresenter;
+package com.huacheng.huiservers.ui.shop.presenter;
 
 import android.content.Context;
 

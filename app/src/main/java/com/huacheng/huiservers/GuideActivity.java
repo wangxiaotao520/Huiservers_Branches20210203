@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author Demon
  */
-public class GuideUI extends BaseActivity implements OnPageChangeListener {
+public class GuideActivity extends BaseActivity implements OnPageChangeListener {
 
     private ViewPager viewPager;
     private List<View> imageViewList;
@@ -79,7 +79,7 @@ public class GuideUI extends BaseActivity implements OnPageChangeListener {
     @Override
     public void onPageSelected(int position) {
 //        if (position == (imageViewList.size() - 1)) {
-//            CacheUtils.putBoolean(this, SplashUI.IS_FIRST_OPEN, false);
+//            CacheUtils.putBoolean(this, SplashActivity.IS_FIRST_OPEN, false);
 //            Timer timer = new Timer();
 //            TimerTask tt = new TimerTask() {
 //
@@ -87,12 +87,12 @@ public class GuideUI extends BaseActivity implements OnPageChangeListener {
 //                public void run() {
 //
 //                    if (sharePrefrenceUtil.getIsChooseXiaoqu().equals("1")) {
-//                        Intent intent = new Intent(GuideUI.this, HomeActivity.class);
+//                        Intent intent = new Intent(GuideActivity.this, HomeActivity.class);
 //                        startActivity(intent);
 //                        finish();
 //                    } else {
 //                        Intent intent = new Intent();
-//                        intent = new Intent(GuideUI.this, XiaoquActivity.class);
+//                        intent = new Intent(GuideActivity.this, XiaoquActivity.class);
 //                        intent.putExtra("type", "splash");
 //                        startActivity(intent);
 //                        finish();
@@ -164,7 +164,7 @@ public class GuideUI extends BaseActivity implements OnPageChangeListener {
                 tv_btn_call.setOnClickListener(new OnDoubleClickListener() {
                     @Override
                     public void onNoDoubleClick(View v) {
-                        Intent intent = new Intent(GuideUI.this, HomeActivity.class);
+                        Intent intent = new Intent(GuideActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                     }

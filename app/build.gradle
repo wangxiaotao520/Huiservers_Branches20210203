@@ -138,9 +138,9 @@ android {
      //zxing核心依赖
      implementation 'com.journeyapps:zxing-android-embedded:3.3.0'
      //高德地图定位
-     implementation 'com.amap.api:location:latest.integration'
+     implementation 'com.amap.api:location:4.7.2'
      //高德地图搜索
-     implementation 'com.amap.api:search:latest.integration'
+     implementation 'com.amap.api:search:6.9.2'
      implementation 'com.contrarywind:Android-PickerView:4.1.6'
      implementation 'cn.jiguang.sdk:jpush:3.1.5'
      // 此处以JPush 3.1.5 版本为例。

@@ -164,7 +164,7 @@ public class DownLoadDialog extends Activity {
 //                    "application/vnd.android.package-archive");
 //            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            context.startActivity(i);
-//            //TODO 有新版本就把补丁删掉
+//            // 有新版本就把补丁删掉
 ////            if (BuildConfig.TINKER_ENABLE){
 ////                TinkerPatch.with().cleanAll();
 ////            }

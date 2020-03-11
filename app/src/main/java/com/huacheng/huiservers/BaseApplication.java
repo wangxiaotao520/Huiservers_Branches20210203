@@ -136,7 +136,7 @@ public class BaseApplication extends Application {
         FrescoUtils.getInstance().initializeFresco(this);
         //初始化linkedme
         initLinkedME();
-        //TODO 初始化tinker
+        // 初始化tinker
         initTinkerPatch();
         //初始化smartshow
         SmartShow.init(this);
@@ -144,7 +144,7 @@ public class BaseApplication extends Application {
 //                .backgroundColorRes(R.color.colorPrimary)
                 .dismissOnLeave(false);
 
-        //TODO 崩溃处理
+        // 崩溃处理
         if (!LogUtils.isApkDebugable(this)){
            CrashHandler.getCrashHander().init(this);
         }

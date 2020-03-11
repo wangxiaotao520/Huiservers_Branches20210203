@@ -132,7 +132,7 @@ public class ShopFragmentStore extends ShopFragmentCommonImp{
         banner.setImageLoader(myImageLoader).setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                //TODO 点击banner
+                // 点击banner
             }
         }).start();
 

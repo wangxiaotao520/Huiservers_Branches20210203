@@ -3,7 +3,7 @@ apply plugin: 'tinkerpatch-support'
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 /**
- * TODO: 请按自己的需求修改为适应自己工程的参数
+ *  请按自己的需求修改为适应自己工程的参数
  */
 def bakPath = file("${buildDir}/bakApk/")
 def baseInfo = "app-4.3.3-1213-11-27-56"

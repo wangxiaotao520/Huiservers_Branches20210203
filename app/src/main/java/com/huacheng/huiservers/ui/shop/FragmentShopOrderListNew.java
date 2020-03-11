@@ -20,7 +20,7 @@ import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.model.ShopOrderBeanTypeBean;
 import com.huacheng.huiservers.model.XorderDetailBean;
-import com.huacheng.huiservers.ui.shop.Shoppresenter.ShopOrderDetetePrester;
+import com.huacheng.huiservers.ui.shop.presenter.ShopOrderDetetePrester;
 import com.huacheng.huiservers.ui.shop.adapter.AdapterShopOrderListNew;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.json.JsonUtil;
@@ -325,7 +325,7 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
 
     /**
      * 详情界面回调退款 评价 删除
-     * //todo eventbus 还没处理
+     * //
      *
      * @param
      */

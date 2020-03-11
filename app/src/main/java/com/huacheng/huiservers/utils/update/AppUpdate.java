@@ -1,12 +1,5 @@
 package com.huacheng.huiservers.utils.update;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -14,10 +7,17 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class AppUpdate {
 	/**
 	 * 从服务器下载apk
-	 * @param path
+	 * @param
 	 * @param pd
 	 * @param tipHandler 
 	 * @throws Exception

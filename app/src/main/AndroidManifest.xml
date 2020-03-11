@@ -125,7 +125,7 @@
             android:value="817e5ae11eb4f963ff1420af31477867"/>
 
         <activity
-            android:name="com.huacheng.huiservers.SplashUI"
+            android:name="com.huacheng.huiservers.SplashActivity"
             android:alwaysRetainTaskState="true"
             android:clearTaskOnLaunch="false"
             android:label="@string/app_name"
@@ -436,7 +436,7 @@
         </activity>
 
         <!-- 欢迎页 -->
-        <activity android:name="com.huacheng.huiservers.GuideUI"/>
+        <activity android:name="com.huacheng.huiservers.GuideActivity"/>
         <!-- 第一次进去首页 -->
         <activity
             android:name="com.huacheng.huiservers.HomeActivity"
@@ -1114,7 +1114,6 @@
         <activity
             android:name=".ui.shop.ShopSecKillListActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.index.coronavirus.QrImageActivity" />
         <activity
             android:name=".ui.index.coronavirus.investigate.InvestigateActivity"
             android:screenOrientation="portrait"/>

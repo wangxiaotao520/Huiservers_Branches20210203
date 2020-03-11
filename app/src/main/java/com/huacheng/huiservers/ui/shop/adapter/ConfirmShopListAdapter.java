@@ -206,7 +206,7 @@ public class ConfirmShopListAdapter extends BaseAdapter {
             holder.tv_peisong.setText(confirmBean.getDeliversBean_selected().getName()+"( "+ "¥" +confirmBean.getDeliversBean_selected().getDis_fee()+" )");
          //   holder.tv_peisong_price.setText("¥ " +confirmBean.getDeliversBean_selected().getDis_fee());
         }else {
-            //todo 没有地址的情况 或者后台没设置配送方式的情况（bug）
+            // 没有地址的情况 或者后台没设置配送方式的情况（bug出现的情况）
             holder.tv_peisong.setText("");
          //   holder.tv_peisong_price.setText("¥ 0");
         }

@@ -137,7 +137,7 @@ public class ShopFragmentNew extends BaseFragment{
         public void onTabSelected(TabLayout.Tab tab) {
             mViewPager.setCurrentItem(tab.getPosition());
             currentFragment = mFragments.get(tab.getPosition());
-            //TODO
+            //
         //    currentFragment.init(w_id,1);
             // onTabItemSelected(tab.getPosition());
             // Tab 选中之后，改变各个Tab的状态

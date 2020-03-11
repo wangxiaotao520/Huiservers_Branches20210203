@@ -78,7 +78,7 @@ public class ChargingActivity  extends BaseActivity implements View.OnClickListe
             tv_count_up.setText(StringUtils.changeTime2((int)time/1000));
             preTime=System.currentTimeMillis();
             super.handleMessage(msg);
-            //todo 充电结束了  当前时间>结束时间
+            // 充电结束了  当前时间>结束时间
 //            if (modelChargeDetail!=null){
 //                if (System.currentTimeMillis()>modelChargeDetail.getEndtime()*1000){
 //                    if (handler!=null){

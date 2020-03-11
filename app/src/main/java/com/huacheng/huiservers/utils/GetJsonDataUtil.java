@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 /**
  * <读取Json文件的工具类>
- *
+ *  读取本地json文件
  * @author: wangxiaotao
  * @date: 2017/3/16 16:22
 

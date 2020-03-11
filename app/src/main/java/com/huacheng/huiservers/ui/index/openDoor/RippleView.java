@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.utils.DensityUtil;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +80,7 @@ public class RippleView extends View {
         // 设置画笔样式
         mPaint = new Paint();
         mPaint.setColor(mColor);
-        mPaint.setStrokeWidth(DensityUtil.dip2px(mContext, 1));
+        mPaint.setStrokeWidth(DeviceUtils.dip2px(mContext, 1));
         if (mIsFill) {
             mPaint.setStyle(Paint.Style.FILL);
         } else {
@@ -94,7 +94,7 @@ public class RippleView extends View {
         Circle c = new Circle(0, 255);
         mRipples.add(c);
 
-        mDensity = DensityUtil.dip2px(mContext, mDensity);
+        mDensity = DeviceUtils.dip2px(mContext, mDensity);
 
         // 设置View的圆为半透明
         setBackgroundColor(Color.TRANSPARENT);
@@ -143,7 +143,7 @@ public class RippleView extends View {
         // 里面添加圆
         if (mRipples.size() > 0) {
             // 控制第二个圆出来的间距
-            if (mRipples.get(mRipples.size() - 1).width > DensityUtil.dip2px(mContext, mDensity)) {
+            if (mRipples.get(mRipples.size() - 1).width > DeviceUtils.dip2px(mContext, mDensity)) {
                 mRipples.add(new Circle(0, 255));
             }
         }
@@ -210,7 +210,7 @@ public class RippleView extends View {
             mWidth = myWidthSpecSize;
         } else {
             // wrap_content
-            mWidth = DensityUtil.dip2px(mContext, 120);
+            mWidth = DeviceUtils.dip2px(mContext, 120);
         }
 
         // 获取高度
@@ -218,7 +218,7 @@ public class RippleView extends View {
             mHeight = myHeightSpecSize;
         } else {
             // wrap_content
-            mHeight = DensityUtil.dip2px(mContext, 120);
+            mHeight = DeviceUtils.dip2px(mContext, 120);
         }
 
         // 设置该view的宽高

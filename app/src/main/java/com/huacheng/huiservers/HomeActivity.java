@@ -605,13 +605,6 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
                 switchFragment(1);
                 current_fragment = 1;
                 changeBottomUI(1);
-//                //TODO 测试
-////                Intent intent = new Intent(this, HouseListActivity.class);
-////                intent.putExtra("type", 1);
-////                intent.putExtra("wuye_type", "investigate");
-////                startActivity(intent);
-//                Intent intent = new Intent(this, LongTermPassCheckActivity.class);
-//                startActivity(intent);
                 break;
             case R.id.fl_service:
                 switchFragment(2);

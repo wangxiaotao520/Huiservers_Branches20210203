@@ -103,7 +103,7 @@ public class IndexNoticeListCommon extends BaseFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 2019/12/11 公告详情
+                //  2019/12/11 公告详情
                /* Intent intent = new Intent(mActivity, WorkOrderDetailActivity.class);
                 intent.putExtra("id", mDatas.get(position).getId());
                 startActivity(intent);*/
