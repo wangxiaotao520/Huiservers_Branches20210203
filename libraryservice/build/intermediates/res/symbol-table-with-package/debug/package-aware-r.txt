@@ -779,7 +779,6 @@ color error_color_material_light
 color foreground_material_dark
 color foreground_material_light
 color grey96
-color greyd2
 color highlighted_text_material_dark
 color highlighted_text_material_light
 color hint_foreground_material_dark
@@ -840,14 +839,12 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
-color status_bar_color
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
 color switch_thumb_material_light
 color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
-color text_color
 color text_color_hint
 color title_color
 color tooltip_background_dark

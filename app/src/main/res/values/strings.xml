@@ -1,36 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+    xmlns:tools ="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="app_name">社区慧生活</string>
 
-    <string name="errcode_success">发送成功</string>
+
     <string name="errcode_cancel">发送取消</string>
     <string name="errcode_deny">发送被拒绝</string>
     <string name="errcode_unknown">发送返回</string>
     <string name="errcode_unsupported">不支持错误</string>
-    <string name="viewpager_indicator">%1$d/%2$d</string>
 
-    <!-- 图标文字 -->
-    <string name="weizhi">&#xe61a;</string>
-    <string name="jiayongdianqi">&#xe618;</string>
-    <string name="zhuangxiu">&#xe64e;</string>
-    <string name="duihao">&#xe623;</string>
-    <string name="mima">&#xe631;</string>
-    <string name="jiantou">&#xe632;</string>
-    <string name="shanghu">&#xe60c;</string>
-    <string name="jigou">&#xe64c;</string>
-    <string name="jiaofei">&#xe602;</string>
     <string name="retract">收起</string>
     <string name="spread">展开全部</string>
     <string name="zxing_msg_default_status">将服务师傅端的二维码放入框内\n即可扫描付款</string>
 
-    <string-array name="value">
-        <item>zhangvalue</item>
-        <item>value</item>
-        <item>eulav</item>
-        <item>eulav_ing</item>
-        <item>value_ing</item>
-    </string-array>
     <string name="amp_key">2eb69442ff33c5cc05f2e74de2855fcd</string>
     <string-array name="chinese_week_string_array">
         <item>周日</item>

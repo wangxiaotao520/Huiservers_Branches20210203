@@ -6,11 +6,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="grey96">#969696</color>
-    <color name="greyd2">#d2d2d2</color>
     <color name="line">#F5F5F9</color>
     <color name="orange">#ff5722</color>
-    <color name="status_bar_color">#474747</color>
-    <color name="text_color">#666666</color>
     <color name="text_color_hint">#999999</color>
     <color name="title_color">#333333</color>
     <color name="white">#FFFFFF</color>
@@ -54,11 +51,11 @@
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">false</item>
-        <!-- Actionbar color -->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--Status bar color-->
+        
+        
+        
        <item name="colorPrimaryDark">@color/white</item>
-        <!--Window color-->
+        
         <item name="android:windowBackground">@color/windowbackground</item>
     </style>
     <style name="AppCompatTheme.Base.transparent" parent="Theme.AppCompat">
@@ -67,23 +64,23 @@
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
-        <!-- Actionbar color -->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--Status bar color-->
+        
+        
+        
         <item name="colorPrimaryDark">@color/white</item>
-        <!--Window color-->
+        
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="AppTheme.Slide" parent="@style/AppCompatTheme.Base">
-        <!--Required-->
+        
         <item name="android:windowBackground">@android:color/transparent</item>
-        <!--window透明-->
+        
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/AppTheme.Slide.Animation</item>
     </style>
@@ -94,22 +91,22 @@
         <item name="android:activityCloseExitAnimation">@anim/anim_slide_out</item>
     </style>
     <style name="my_dialog" parent="android:Theme.Dialog">
-    <item name="android:windowFrame">@android:color/transparent</item> <!-- 去除边框 -->
-    <item name="android:windowIsFloating">true</item> <!-- 是否浮现在activity之上 -->
-    <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
-    <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
-    <item name="android:windowBackground">@android:color/transparent</item> <!-- 自己想要的背景 -->
-    <item name="android:backgroundDimEnabled">false</item> <!-- 背景遮罩层 -->
-    <!--<item name="android:windowAnimationStyle">@style/AnimationActivity</item>-->
+    <item name="android:windowFrame">@android:color/transparent</item> 
+    <item name="android:windowIsFloating">true</item> 
+    <item name="android:windowIsTranslucent">true</item> 
+    <item name="android:windowNoTitle">true</item> 
+    <item name="android:windowBackground">@android:color/transparent</item> 
+    <item name="android:backgroundDimEnabled">false</item> 
+    
 </style>
     <style name="my_dialog_DimEnabled" parent="android:Theme.Dialog">
-    <item name="android:windowFrame">@android:color/transparent</item> <!-- 去除边框 -->
-    <item name="android:windowIsFloating">true</item> <!-- 是否浮现在activity之上 -->
-    <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
-    <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
-    <item name="android:windowBackground">@android:color/transparent</item> <!-- 自己想要的背景 -->
-    <item name="android:backgroundDimEnabled">true</item> <!-- 背景遮罩层 -->
-    <!--<item name="android:windowAnimationStyle">@style/AnimationActivity</item>-->
+    <item name="android:windowFrame">@android:color/transparent</item> 
+    <item name="android:windowIsFloating">true</item> 
+    <item name="android:windowIsTranslucent">true</item> 
+    <item name="android:windowNoTitle">true</item> 
+    <item name="android:windowBackground">@android:color/transparent</item> 
+    <item name="android:backgroundDimEnabled">true</item> 
+    
 </style>
     <style name="popUpwindow_anim">
         <item name="android:windowEnterAnimation">@anim/push_up_in</item>

@@ -33,15 +33,7 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="tab_style">
-        <item name="android:layout_width">0dip</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:background">@null</item>
-        <item name="android:button">@null</item>
-        <item name="android:textSize">11sp</item>
-        <item name="android:drawablePadding">2dp</item>
-    </style>
+
 
     <style name="take_photo_anim" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/top_exit_anim</item>
@@ -55,12 +47,7 @@
         <item name="android:maxHeight">24dip</item>
     </style>
 
-    <style name="ProgressBarHorizontal_color" parent="android:Widget.ProgressBar.Horizontal">
-        <item name="android:indeterminateOnly">false</item>
-        <item name="android:progressDrawable">@drawable/loading_progress_bar</item>
-        <item name="android:minHeight">5dip</item>
-        <item name="android:maxHeight">5dip</item>
-    </style>
+
 
     <style name="Dialog_down">
         <item name="android:windowNoTitle">true</item>
@@ -121,9 +108,7 @@
         <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
     </style>
 
-    <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
-        <item name="android:windowBackground">@drawable/photo_choose_bg</item>
-    </style>
+
 
     <style name="common_list">
         <item name="android:layout_height">match_parent</item>
@@ -134,13 +119,7 @@
         <item name="android:listSelector">@android:color/transparent</item>
     </style>
 
-    <!-- popup window 显示消失动画-->
-    <style name="PopWindowAnimStyle">
-        <item name="android:windowShowAnimation">@anim/dialog_enter</item>
-        <!-- 指定显示的动画xml  -->
-        <item name="android:windowHideAnimation">@anim/dialog_exit</item>
-        <!-- 指定消失的动画xml  -->
-    </style>
+
 
     <style name="menu_item_text_style">
         <item name="android:layout_width">match_parent</item>
@@ -193,10 +172,7 @@
         <item name="android:colorAccent">@color/colorPrimary</item>
     </style>
 
-    <style name="MyEditText" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">#D2D2D2</item>
-        <item name="colorControlActivated">@color/black_jain_26</item>
-    </style>
+
 
     <style name="MyEditText_orange" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/orange_bg</item>

@@ -7,7 +7,6 @@
         </attr>
     </declare-styleable>
     <dimen name="folder_cover_size">72dp</dimen>
-    <dimen name="image_size">120dp</dimen>
     <dimen name="space_size">2dp</dimen>
     <string name="action_done">Done</string>
     <string name="folder_all">All Images</string>

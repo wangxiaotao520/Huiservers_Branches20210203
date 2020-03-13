@@ -18,8 +18,7 @@ public final class R {
         private dimen() {}
 
         public static int folder_cover_size = 0x7f080001;
-        public static int image_size = 0x7f080002;
-        public static int space_size = 0x7f080003;
+        public static int space_size = 0x7f080002;
     }
     public static final class drawable {
         private drawable() {}

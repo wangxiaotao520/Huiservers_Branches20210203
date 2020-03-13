@@ -1,7 +1,6 @@
 me.nereo.multi_image_selector
 attr use_type
 dimen folder_cover_size
-dimen image_size
 dimen space_size
 drawable action_btn
 drawable btn_back
