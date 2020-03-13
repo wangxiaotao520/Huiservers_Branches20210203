@@ -58,6 +58,7 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
     private MyCornerImageLoader myImageLoader;
     private List<ModelAds> listAds=new ArrayList<>();
     private View ll_second_root;
+    private boolean isClickLeft= false;
 
 
     @Override
@@ -105,7 +106,11 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
                         }
                     }
                     adapterOne.notifyDataSetChanged();
-                    list_one.setSelection(firstVisibleItem);
+                    if (!isClickLeft){
+                        list_one.setSelection(firstVisibleItem);
+                    }else {
+                        isClickLeft=false;
+                    }
                     ServiceFragmentCat.this.firstVisibleItem = firstVisibleItem;
                 }
             }
@@ -113,6 +118,7 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
         list_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                isClickLeft=true;
                 list_two.setSelection(position);
                 list_two.postDelayed(new Runnable() {
                     @Override
