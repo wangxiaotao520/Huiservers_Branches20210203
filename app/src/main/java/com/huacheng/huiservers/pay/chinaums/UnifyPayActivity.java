@@ -413,7 +413,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
 //                                startActivityForResult(intent,111);
                                 hideDialog(smallDialog);
                                 appPayRequest_ALIPAY = appPayRequest;
-                                //todo 这是新的方式
+                                // 这是新的方式
                                 Intent intent = new Intent(this, UnifyPayResultActivity.class);
                                 intent.putExtra("typetag", typetag);
                                 intent.putExtra("appPayRequest", appPayRequest);
@@ -431,7 +431,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
 //                                startActivityForResult(intent,111);
                                 hideDialog(smallDialog);
                                 appPayRequest_CLOUD_QUICK_PAY = appPayRequest;
-                                //todo 这是新的方式
+                                // 这是新的方式
                                 Intent intent = new Intent(this, UnifyPayResultActivity.class);
                                 intent.putExtra("typetag", typetag);
                                 intent.putExtra("appPayRequest", appPayRequest);

@@ -61,7 +61,7 @@ public class DaoManager {
             //            mHelper =  new DaoMaster.DevOpenHelper(context,DB_NAME,null);
 //            mDaoMaster = new DaoMaster(mHelper.getWritableDatabase());
 
-            //TODO 数据库版本更新
+            // 数据库版本更新
             myOpenHelper =  new MyOpenHelper(context,DB_NAME,null);
             mDaoMaster = new DaoMaster(myOpenHelper.getWritableDatabase());
         }  

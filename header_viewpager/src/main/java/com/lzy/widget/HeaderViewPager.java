@@ -136,7 +136,7 @@ public class HeaderViewPager extends LinearLayout {
                 mLastY = currentY;
                 if (shiftX > mTouchSlop && shiftX > shiftY) {
                     //水平滑动
-                    //TODO
+                    //
                     verticalScrollFlag = false;
                //     verticalScrollFlag = true;
                 } else if (shiftY > mTouchSlop && shiftY > shiftX) {
@@ -149,7 +149,7 @@ public class HeaderViewPager extends LinearLayout {
                  * 三个条件满足一个即表示需要滚动当前布局，否者不处理，将事件交给子View去处理
                  */
                 if (can_scroll){//设置是否可以滑动，有些下方分类没数据的情况
-                    //todo verticalScrollFlag&&给去掉了 老夫真的尽力了
+                    //verticalScrollFlag&&给去掉了 老夫真的尽力了
                     if ((!isStickied() || mScrollable.isTop() || isClickHead)) {
                         //如果是向下滑，则deltaY小于0，对于scrollBy来说
                         //正值为向上和向左滑，负值为向下和向右滑，这里要注意
@@ -231,7 +231,7 @@ public class HeaderViewPager extends LinearLayout {
                 }
             } else {
                 // 手势向下划，内部View已经滚动到顶了，需要滚动外层的View
-                if (can_scroll){//TODO
+                if (can_scroll){//
                     if (mScrollable.isTop() || isClickHead) {
                         int deltaY = (currY - mLastScrollerY);
                         int toY = getScrollY() + deltaY;

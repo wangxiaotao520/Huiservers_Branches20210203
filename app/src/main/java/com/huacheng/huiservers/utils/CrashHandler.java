@@ -44,7 +44,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 ////                Looper.loop();
 //            }
 //        }.start();
-        //TODO 这块儿有点问题 到时候有时间统一优化一下
+        //FIXME 这块儿感觉有点问题 到时候有时间统一优化一下
         BaseActivityOld.finishAll();
         BaseActivityOld.destoryActivity();
         BaseApplication.removeALLActivity_();

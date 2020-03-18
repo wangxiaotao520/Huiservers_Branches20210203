@@ -281,7 +281,7 @@ public class MyOkHttp {
                 File file = files.get(key);
                 String fileName = file.getName();
                 fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileName)), file);
-                //todo 不知道在这里能不能获取到单个的进度
+                // 不知道在这里能不能获取到单个的进度
                 multipartBuilder.addPart(Headers.of("Content-Disposition",
                         "form-data; name=\"" + key + "\"; filename=\"" + fileName + "\""),
                         fileBody);
@@ -301,7 +301,7 @@ public class MyOkHttp {
                     .tag(context)
                     .build();
         }
-
+        //responseHandler 获取到的是总进度
         client.newCall(request).enqueue(new MyCallback(new Handler(), responseHandler));
     }
 
