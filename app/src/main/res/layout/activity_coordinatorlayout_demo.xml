@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tab="http://schemas.android.com/apk/res-auto"
+        android:background="@color/windowbackground"
+        android:orientation="vertical">
+        <android.support.design.widget.CoordinatorLayout
+            android:background="@color/windowbackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbarlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/windowbackground"
+                android:orientation="vertical"
+                app:elevation="0dp">
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/collapsing_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:fitsSystemWindows="false"
+                    app:collapsedTitleGravity="left"
+                    app:collapsedTitleTextAppearance="@style/collapsedTextStyle"
+                    app:expandedTitleGravity="left|bottom"
+                    app:expandedTitleMarginEnd="15dp"
+                    app:expandedTitleMarginStart="15dp"
+                    app:expandedTitleTextAppearance="@style/expandedTextStyle"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:contentScrim="@color/white"
+                    app:statusBarScrim="?attr/colorPrimary">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:fitsSystemWindows="false"
+                        app:layout_collapseMode="parallax"
+                        app:layout_collapseParallaxMultiplier="0.5"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@mipmap/bg_center_circle"
+                            android:scaleType="centerCrop" />
+
+
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:contentInsetLeft="0dp"
+                        app:contentInsetStart="0dp"
+                        app:contentInsetStartWithNavigation="0dp"
+                        android:layout_marginTop="18dp"
+                        app:layout_collapseMode="pin"
+                        app:layout_scrollFlags="scroll|enterAlways"
+                        app:navigationIcon="@null">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/lin_left"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="fill_parent"
+                                    android:gravity="center_vertical"
+                                    android:padding="15dp">
+
+                                    <ImageView
+                                        android:id="@+id/left"
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@mipmap/ic_arrow_left_black" />
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/title_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:ellipsize="end"
+                                    android:maxEms="10"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textColor="@color/title_color"
+                                    android:textSize="@dimen/t_21sp" />
+
+
+
+                                <LinearLayout
+                                    android:id="@+id/lin_right"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:padding="10dp"
+                                    android:visibility="visible">
+
+                                    <ImageView
+                                        android:id="@+id/iv_right"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:background="@mipmap/ic_share_black"
+                                        android:layout_marginRight="10dp" />
+
+                                </LinearLayout>
+
+
+                            </RelativeLayout>
+
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.Toolbar>
+
+                    <!-- -->
+                </android.support.design.widget.CollapsingToolbarLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:background="@color/line"
+                    android:layout_height="1px"/>
+
+                <com.huacheng.huiservers.view.widget.EnhanceTabLayout
+                    android:id="@+id/enhance_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    tab:tabIndicatorHeight="2dp"
+                    tab:tabIndicatorWidth="20dp"
+                    tab:tabTextColor="#666666"
+                    tab:tab_Mode="mode_fixed"
+                    android:background="@color/white"
+                    tab:tabSelectTextColor="#333333"
+                    tab:tabIndicatorColor="#ED8D37">
+
+                </com.huacheng.huiservers.view.widget.EnhanceTabLayout>
+                <!--</LinearLayout>-->
+            </android.support.design.widget.AppBarLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/windowbackground"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                />
+        </android.support.design.widget.CoordinatorLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>

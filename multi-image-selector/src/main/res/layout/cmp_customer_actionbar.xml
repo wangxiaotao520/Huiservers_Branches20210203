@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="#fff"
+    android:background="@color/orange"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/btn_back"
-        android:src="@drawable/img_back"
+        android:src="@drawable/ic_back_white"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:layout_centerVertical="true"
@@ -16,7 +16,7 @@
 
     <TextView
         android:text="选择图片"
-        android:textColor="#17a0e9"
+        android:textColor="@color/default_color"
         android:textSize="18sp"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
 
     <Button
         android:id="@+id/commit"
-        android:background="@drawable/action_btn"
+        android:background="@drawable/action_btn_orange"
         android:minHeight="10dp"
         android:minWidth="10dp"
         android:text="完成"

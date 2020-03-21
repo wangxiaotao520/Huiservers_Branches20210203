@@ -153,7 +153,7 @@ public class MyInfoCircleActivity extends BaseActivity {
         tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyInfoCircleActivity.this, MyInfoActivity.class));
+                startActivity(new Intent(MyInfoCircleActivity.this, MyInfoEditActivity.class));
             }
         });
         //返回键

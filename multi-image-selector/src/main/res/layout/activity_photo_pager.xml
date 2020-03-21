@@ -67,7 +67,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:background="@null"
-        android:textColor="@color/blue"
+        android:textColor="@color/orange"
         android:textSize="14sp" />
   </RelativeLayout>
 

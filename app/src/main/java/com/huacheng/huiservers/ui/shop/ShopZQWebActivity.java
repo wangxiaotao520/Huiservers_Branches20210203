@@ -134,6 +134,7 @@ public class ShopZQWebActivity extends BaseActivity {
                     ModelOldZixun info = (ModelOldZixun) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldZixun.class);
                     if (info != null) {
                         infos = info;
+                        tv_title.setVisibility(View.VISIBLE);
                         tv_title.setText(info.getTitle());
                         //能够的调用JavaScript代码
                         mWebview.getSettings().setJavaScriptEnabled(true);

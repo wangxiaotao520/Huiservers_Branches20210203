@@ -126,24 +126,18 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
      */
 
     public void addFragment() {
-
-        //fragments.add(new HomeFragment());
+        fragments = new ArrayList<Fragment>();
 
         fragments.add(new HomeFragmentNew());
-        //fragments.add(new ShopFragment());
 
       //  fragments.add(new ShopFragmentNew());
         fragments.add(new ShopFragment1());
 
         fragments.add(new ServiceFragmentCat());
-        //fragments.add(new OldFragment());
 
         fragments.add(new CircleFragmentNew());
-        //fragments.add(new CircleFragment());
 
         fragments.add(new MyCenterFrament());
-        //fragments.add(new MyFragmentNew());
-
 
     }
 
@@ -268,47 +262,17 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
         //    requestWindowFeature(Window.FEATURE_NO_TITLE);// 去标�?
         isStatusBar = true;
         super.onCreate(savedInstanceState);
-        //设置状态栏字体
+
         instant = this;
         //SetTransStatus.GetStatus(this);
-        View view = View.inflate(this, R.layout.activity_home, null);
-        ViewUtils.inject(this, view);// 引入注解
-        setContentView(view);
-
-        fragments = new ArrayList<Fragment>();
-        addFragment();
-
         preferencesLogin = this.getSharedPreferences("login", 0);
         login_type = preferencesLogin.getString("login_type", "");
 
+        View view = View.inflate(this, R.layout.activity_home, null);
+        ViewUtils.inject(this, view);// 引入注解
+        setContentView(view);
+        addFragment();
         switchFragment(0);
-        // }
-//        mRadioGroup.setOnCheckedChangeListener(this);// 给定监听不解�?
-//        mRadioGroup.check(R.id.rb_content_fragment_home);// 默认选择第一�?
-
-//        //定义RadioButton数组用来装RadioButton，改变drawableTop大小
-//        rb = new RadioButton[5];
-//        //将RadioButton装进数组中
-//        rb[0] = (RadioButton) findViewById(R.id.rb_content_fragment_home);
-//        rb[1] = (RadioButton) findViewById(R.id.rb_content_fragment_shop);
-//        //rb[2] = (RadioButton) findViewById(R.id.rb_content_fragment_fabu);
-//        rb[2] = (RadioButton) findViewById(R.id.rb_content_fragment_service);
-//        rb[3] = (RadioButton) findViewById(R.id.rb_content_fragment_quanzi);
-//
-//        rb[4] = (RadioButton) findViewById(R.id.rb_content_fragment_people);
-//        //rb[4] = (RadioButton) findViewById(R.id.rb_content_fragment_home);
-//        //for循环对每一个RadioButton图片进行缩放
-//        for (int i = 0; i < rb.length; i++) {
-//            //挨着给每个RadioButton加入drawable限制边距以控制显示大小
-//            Drawable[] drawables = rb[i].getCompoundDrawables();
-//            //获取drawables，2/5表示图片要缩小的比例
-//            // Rect r = new Rect(0, 0, drawables[1].getMinimumWidth() * 1 / 2, drawables[1].getMinimumHeight() * 1 / 2);
-//            Rect r = new Rect(0, 0, DeviceUtils.dip2px(this, 21), DeviceUtils.dip2px(this, 21));
-//            //定义一个Rect边界
-//            drawables[1].setBounds(r);
-//            //给每一个RadioButton设置图片大小
-//            rb[i].setCompoundDrawables(null, drawables[1], null, null);
-//        }
 
         FrameLayout fl_home = findViewById(R.id.fl_home);
         fl_home.setOnClickListener(this);
@@ -436,54 +400,6 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
         initJpush();
     }
 
-//    @Override
-//    public void onCheckedChanged(RadioGroup group, int checkedId) {
-//        preferencesLogin = this.getSharedPreferences("login", 0);
-//        login_type = preferencesLogin.getString("login_type", "");
-//        switch (checkedId) {
-//            case R.id.rb_content_fragment_home:
-//                switchFragment(0);
-//                current_fragment = 0;
-//                break;
-//            case R.id.rb_content_fragment_shop:
-//                switchFragment(1);
-//                current_fragment = 1;
-//                break;
-//            case R.id.rb_content_fragment_service:
-//                switchFragment(2);
-//                current_fragment = 2;
-//                break;
-//            case R.id.rb_content_fragment_quanzi:
-//                if (isEvent && modelEventHome != null) {//说明是点击的物业公告或者社区公告
-//                    CircleFragmentNew fragment = (CircleFragmentNew) fragments.get(3);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("type_position", modelEventHome.getType());
-//                    fragment.setArguments(bundle);
-//                }
-//                switchFragment(3);
-//                current_fragment = 3;
-//
-//                isEvent = false;
-//                modelEventHome = null;
-//                break;
-//            case R.id.rb_content_fragment_people:
-//                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
-//                    Editor editor = preferencesLogin.edit();
-//                    editor.putString("login_shop", "shop_login");
-//                    editor.commit();
-//                    startActivity(new Intent(this, LoginVerifyCodeActivity.class));
-//                    mRadioGroup.check(R.id.rb_content_fragment_home);
-//                } else {
-//                    switchFragment(4);
-//                    current_fragment = 4;
-//                }
-//
-//                break;
-//            default:
-//                break;
-//        }
-//
-//    }
 
     @Override
     protected void onDestroy() {
@@ -535,38 +451,6 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
         LinkedME.getInstance().setImmediate(true);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == PHONE_STATE_REQUEST_CODE) {
-            //点击banner 图的东森易购回调，需获取uuid 故读取手机的权限
-            if (PermissionUtils.checkPermissionGranted(this, Manifest.permission.READ_PHONE_STATE)) {
-                //调用方法
-                String uuid = "";
-                uuid = TDevice.getIMEI(this);
-                preferencesLogin = this.getSharedPreferences("login", 0);
-                login_type = preferencesLogin.getString("login_type", "");
-                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
-                    Intent intent = new Intent(this, LoginVerifyCodeActivity.class);
-                    this.startActivity(intent);
-                } else {
-                    String login_mobile = preferencesLogin.getString("login_username", "");
-                    String sign = "hshObj";
-                    Intent intent = new Intent(this, AboutActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("tag", "dsyg");
-                    bundle.putString("strHouse",
-                            "http://www.dsyg42.com/ec/app_index?username=" + login_mobile + "&sign=" + sign + "&uuid=" + uuid);
-                    intent.putExtras(bundle);
-                    this.startActivity(intent);
-                }
-            } else {
-                // Permission Denied
-                SmartToast.showInfo("无法打开东森易购,请获取手机权限");
-            }
-        }
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventbus(ModelEventHome model) {
@@ -674,6 +558,39 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
                 }else {
                     imageViews_bottom[i].setImageResource(drawables_unselected[i]);
                 }
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PHONE_STATE_REQUEST_CODE) {
+            //点击banner 图的东森易购回调，需获取uuid 故读取手机的权限
+            if (PermissionUtils.checkPermissionGranted(this, Manifest.permission.READ_PHONE_STATE)) {
+                //调用方法
+                String uuid = "";
+                uuid = TDevice.getIMEI(this);
+                preferencesLogin = this.getSharedPreferences("login", 0);
+                login_type = preferencesLogin.getString("login_type", "");
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                    Intent intent = new Intent(this, LoginVerifyCodeActivity.class);
+                    this.startActivity(intent);
+                } else {
+                    String login_mobile = preferencesLogin.getString("login_username", "");
+                    String sign = "hshObj";
+                    Intent intent = new Intent(this, AboutActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tag", "dsyg");
+                    bundle.putString("strHouse",
+                            "http://www.dsyg42.com/ec/app_index?username=" + login_mobile + "&sign=" + sign + "&uuid=" + uuid);
+                    intent.putExtras(bundle);
+                    this.startActivity(intent);
+                }
+            } else {
+                // Permission Denied
+                SmartToast.showInfo("无法打开东森易购,请获取手机权限");
             }
         }
     }

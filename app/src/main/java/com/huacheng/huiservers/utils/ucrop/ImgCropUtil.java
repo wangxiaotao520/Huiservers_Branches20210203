@@ -139,7 +139,7 @@ public class ImgCropUtil {
         //设置toolbar颜色
         options.setToolbarColor(ActivityCompat.getColor(activity, R.color.colorPrimary));
         //设置状态栏颜色
-        options.setStatusBarColor(ActivityCompat.getColor(activity, R.color.status_bar));
+        options.setStatusBarColor(ActivityCompat.getColor(activity, R.color.colorPrimary));
         //是否隐藏底部容器，默认显示
         options.setHideBottomControls(true);
         //是否能调整裁剪框

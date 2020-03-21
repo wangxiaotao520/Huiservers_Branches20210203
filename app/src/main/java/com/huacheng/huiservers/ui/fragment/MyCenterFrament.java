@@ -361,7 +361,7 @@ public class MyCenterFrament extends BaseFragment {
                 intent = new Intent(mContext, MyInfoCircleActivity.class);
                 intent.putExtra("infoBean", bean);
                 startActivity(intent);
-                //startActivity(new Intent(mActivity, MyInfoActivity.class));
+                //startActivity(new Intent(mActivity, MyInfoEditActivity.class));
                 break;
             case R.id.ly_house:  //判断是否是业主 物业住宅绑定
 

@@ -31,10 +31,10 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
+import com.huacheng.huiservers.model.PersoninfoBean;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.model.PersoninfoBean;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.CircularImage;
@@ -64,9 +64,9 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 /**
- * 个人信息
+ * 个人信息编辑页面
  */
-public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
+public class MyInfoEditActivity extends BaseActivityOld implements OnClickListener {
 
 
     private static final int PICK_CAMERA = 4;
@@ -137,7 +137,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                 finish();
                 break;
             case R.id.img_head_1:// 修改头像
-                dialog = new ImgDialog(MyInfoActivity.this, new ImgDialog.OnCustomDialogListener() {
+                dialog = new ImgDialog(MyInfoEditActivity.this, new ImgDialog.OnCustomDialogListener() {
                     @SuppressLint("CheckResult")
                     @Override
                     public void back(String name) {
@@ -148,7 +148,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                                         @Override
                                         public void accept(Boolean isGranted) throws Exception {
                                             if (isGranted) {
-                                                ImgCropUtil.openCamera(MyInfoActivity.this);
+                                                ImgCropUtil.openCamera(MyInfoEditActivity.this);
                                             } else {
                                                 SmartToast.showInfo("未打开摄像头权限");
                                             }
@@ -292,7 +292,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
         RequestParams params = new RequestParams();
-        new HttpHelper(info.get_person_index, params, MyInfoActivity.this) {
+        new HttpHelper(info.get_person_index, params, MyInfoEditActivity.this) {
 
             @Override
             protected void setData(String json) {
@@ -302,7 +302,7 @@ public class MyInfoActivity extends BaseActivityOld implements OnClickListener {
                 //获取头像
                 if (bean.getAvatars().equals("null")) {
                 } else {
-                    bitmapUtils = new BitmapUtils(MyInfoActivity.this);
+                    bitmapUtils = new BitmapUtils(MyInfoEditActivity.this);
                     bitmapUtils.display(img_head_1, StringUtils.getImgUrl(bean.getAvatars()));
                 }
                 file = new File(Environment.getExternalStorageDirectory() + "/Gphoto.png");

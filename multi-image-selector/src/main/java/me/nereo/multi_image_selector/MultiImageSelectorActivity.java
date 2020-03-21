@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.nereo.multi_image_selector.statusbar.ScreenManager;
+import me.nereo.multi_image_selector.statusbar.StatusBarUtil;
 
 /**
  * 多图选择
@@ -71,6 +72,9 @@ public class MultiImageSelectorActivity extends AppCompatActivity implements Mul
         screenManager.setFullScreen(false, this);
         screenManager.setStatusBar(false, this);
         screenManager.setScreenRoate(false, this);
+
+        //修改状态栏的颜色为橙色
+        StatusBarUtil.setStatusBarColor(this,getResources().getColor(R.color.orange));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_default);

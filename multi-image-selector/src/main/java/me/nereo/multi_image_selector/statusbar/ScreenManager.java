@@ -51,7 +51,7 @@ public class ScreenManager {
         if (isChange){
             StatusBarUtil.setRootViewFitsSystemWindows(mActivity,false);
             StatusBarUtil.setTranslucentStatus(mActivity);
-            if (!StatusBarUtil.setStatusBarDarkTheme(mActivity, true)) {
+            if (!StatusBarUtil.setStatusBarDarkTheme(mActivity, true)) {//修改的是状态栏的字体颜色
                 //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
                 //这样半透明+白=灰, 状态栏的文字能看得清
                 StatusBarUtil.setStatusBarColor(mActivity,0x55000000);
