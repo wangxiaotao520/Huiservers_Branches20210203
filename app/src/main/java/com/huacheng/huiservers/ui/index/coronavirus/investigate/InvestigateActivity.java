@@ -135,7 +135,7 @@ public class InvestigateActivity extends BaseActivity implements View.OnClickLis
                     ModelIvestigateInformation information = (ModelIvestigateInformation) JsonUtil.getInstance().parseJsonFromResponse(response, ModelIvestigateInformation.class);
                   if (information!=null){
                         if (information.getPlan()!=null){
-                            GlideUtils.getInstance().glideLoad(InvestigateActivity.this,ApiHttpClient.IMG_URL+information.getPlan().getImg(),iv_title_img,R.color.default_color);
+                            GlideUtils.getInstance().glideLoad(InvestigateActivity.this,ApiHttpClient.IMG_URL+information.getPlan().getImg(),iv_title_img,R.color.default_img_color);
                             tv_title.setText(information.getPlan().getTitle()+"");
                             tv_sub_title.setText(information.getPlan().getIntroduce()+"");
                             tv_time.setText("日期："+StringUtils.getDateToString(information.getPlan().getAddtime(),"7"));

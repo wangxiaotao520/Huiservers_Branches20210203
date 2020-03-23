@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textColor="@color/black_jain_87"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_14sp" />
 
             <View
@@ -65,14 +65,14 @@
                 android:layout_marginLeft="@dimen/margin_5"
                 android:layout_marginRight="@dimen/margin_5"
 
-                android:background="@color/graynew4"></View>
+                android:background="@color/line_de"></View>
 
             <TextView
                 android:id="@+id/tv_totalpage_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textColor="@color/black_jain_26"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_14sp" />
 
         </LinearLayout>

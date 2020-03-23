@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/transparents">
+    android:background="@color/transparent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
@@ -19,7 +19,7 @@
             android:layout_height="130dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            fresco:placeholderImage="@color/default_color"
+            fresco:placeholderImage="@color/default_img_color"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:roundAsCircle="false"
             fresco:roundBottomEnd="false"

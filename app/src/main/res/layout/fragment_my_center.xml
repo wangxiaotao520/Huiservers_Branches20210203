@@ -137,7 +137,7 @@
                         android:layout_marginLeft="@dimen/margin_15"
                         android:layout_marginTop="@dimen/margin_15"
                         android:text="物业工单"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_18sp"
                         android:textStyle="bold"/>
 
@@ -168,7 +168,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin"
                                 android:text="待服务"
-                                android:textColor="@color/grey"
+                                android:textColor="@color/title_color"
                                 android:textSize="@dimen/t_12sp"/>
 
                         </LinearLayout>
@@ -192,7 +192,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin"
                                 android:text="服务中"
-                                android:textColor="@color/grey"
+                                android:textColor="@color/title_color"
                                 android:textSize="@dimen/t_12sp"/>
 
                         </LinearLayout>
@@ -216,7 +216,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin"
                                 android:text="待支付"
-                                android:textColor="@color/grey"
+                                android:textColor="@color/title_color"
                                 android:textSize="@dimen/t_12sp"/>
 
                         </LinearLayout>
@@ -240,7 +240,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin"
                                 android:text="已完成"
-                                android:textColor="@color/grey"
+                                android:textColor="@color/title_color"
                                 android:textSize="@dimen/t_12sp"/>
 
                         </LinearLayout>
@@ -262,7 +262,7 @@
                         android:layout_marginLeft="@dimen/margin_15"
                         android:layout_marginTop="@dimen/margin_15"
                         android:text="我的服务"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_18sp"
                         android:textStyle="bold"/>
 
@@ -289,7 +289,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="我要加盟"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_16sp"/>
 
                     <ImageView
@@ -317,7 +317,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="关于我们"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_16sp"/>
 
                     <ImageView
@@ -362,7 +362,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text=""
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_18sp"/>
 
                 <ImageView

@@ -52,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="社区公告"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_12sp"/>
 
                     <TextView
@@ -62,7 +62,7 @@
                         android:layout_marginLeft="@dimen/margin_20"
                         android:layout_weight="1"
                         android:text="1245阅读"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_12sp"/>
 
                     <TextView
@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="30分钟前"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_12sp"/>
                 </LinearLayout>
             </RelativeLayout>
@@ -130,7 +130,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/sdv_user_head"
                     android:text="社区管家-张无忌"
-                    android:textColor="@color/orange_bg"
+                    android:textColor="@color/orange"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -138,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2018.06.01  14:22"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_12sp"/>
             </LinearLayout>
 
@@ -167,7 +167,7 @@
             android:ellipsize="end"
             android:maxLines="5"
             android:text="蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:助理都很相似!蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:..蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:助理都很相似!蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:.."
-            android:textColor="@color/black_jain_87"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/t_14sp"/>
         <!--
 
@@ -220,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin"
                     android:text="0"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_13sp"/>
 
                 <ImageView
@@ -235,7 +235,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin"
                     android:text="0"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_13sp"/>
 
             </LinearLayout>
@@ -259,7 +259,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="2条新评论 >"
-            android:textColor="@color/red_bg"
+            android:textColor="@color/red_normal"
             android:textSize="@dimen/t_14sp"/>
 
     </RelativeLayout>

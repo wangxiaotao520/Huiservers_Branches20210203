@@ -38,12 +38,12 @@
             android:textStyle="normal"
             />
             <TextView
-                android:visibility="gone"
+                android:visibility="visible"
             android:id="@+id/tv_community_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="晋中市榆次区流动北街149号"
-            android:textColor="@color/gray_9c"
+            android:textColor="@color/title_third_color"
             android:textSize="12sp"
             android:textStyle="normal"
                 android:layout_marginTop="5dp"

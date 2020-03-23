@@ -60,7 +60,7 @@
                 android:layout_below="@+id/rv_circle"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/text_color"
+                android:textColor="@color/title_sub_color"
                 android:text="手机开门只对有此功能的安居宝门口机有效"/>
 
             <TextView
@@ -70,7 +70,7 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/text_color"
+                android:textColor="@color/title_sub_color"
                 android:text="请在设备2米范围内使用"/>
 
             <TextView

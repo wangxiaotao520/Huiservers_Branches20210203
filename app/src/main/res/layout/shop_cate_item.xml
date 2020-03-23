@@ -11,7 +11,7 @@
         android:background="@color/white"
         android:padding="@dimen/margin"
         android:text="二级分类"
-        android:textColor="@color/black_jain_87"
+        android:textColor="@color/title_color"
         android:textSize="@dimen/t_12sp"
         android:layout_marginBottom="5dp"
         android:textStyle="bold"/>
@@ -28,5 +28,5 @@
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="1.5px"
-        android:background="@color/all_gray"/>
+        android:background="@color/windowbackground"/>
 </LinearLayout>

@@ -36,12 +36,12 @@ public class ChargeGridViewAdapter extends CommonAdapter<ModelChargeGrid> {
                 viewHolder.<TextView>getView(R.id.tv_content).setVisibility(View.GONE);
             }else {
                 viewHolder.<FrameLayout>getView(R.id.fy_bg).setBackground(mContext.getDrawable(R.drawable.allshape_white));
-                viewHolder.<TextView>getView(R.id.tv_number).setTextColor(mContext.getResources().getColor(R.color.blackgray));
+                viewHolder.<TextView>getView(R.id.tv_number).setTextColor(mContext.getResources().getColor(R.color.title_color));
                 viewHolder.<TextView>getView(R.id.tv_content).setVisibility(View.GONE);
             }
         }else {
             viewHolder.<FrameLayout>getView(R.id.fy_bg).setBackground(mContext.getDrawable(R.drawable.allshape_charge_blue));
-            viewHolder.<TextView>getView(R.id.tv_number).setTextColor(mContext.getResources().getColor(R.color.gray_66));
+            viewHolder.<TextView>getView(R.id.tv_number).setTextColor(mContext.getResources().getColor(R.color.title_sub_color));
             viewHolder.<TextView>getView(R.id.tv_content).setVisibility(View.VISIBLE);
             viewHolder.<TextView>getView(R.id.tv_content).setText("占用");
         }

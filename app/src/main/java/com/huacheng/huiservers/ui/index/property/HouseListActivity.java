@@ -82,7 +82,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
             mTitleName.setText("我的房屋");
             mRight.setVisibility(View.VISIBLE);
             mRight.setText("缴费记录");
-            mRight.setTextColor(getResources().getColor(R.color.orange_bg));
+            mRight.setTextColor(getResources().getColor(R.color.orange));
         } else {
             mRight.setVisibility(View.GONE);
             mTitleName.setText("选择房屋");

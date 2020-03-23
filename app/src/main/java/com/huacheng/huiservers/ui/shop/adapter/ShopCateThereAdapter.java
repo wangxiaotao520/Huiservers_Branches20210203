@@ -83,7 +83,7 @@ public class ShopCateThereAdapter extends BaseAdapter{
 
 			}
 		});
-		GlideUtils.getInstance().glideLoad(context, MyCookieStore.URL +lists.get(position).getIcon(),holder.iv_nul,R.color.default_color);
+		GlideUtils.getInstance().glideLoad(context, MyCookieStore.URL +lists.get(position).getIcon(),holder.iv_nul,R.color.default_img_color);
 		return convertView;
 	}
 	static class ViewHolder{

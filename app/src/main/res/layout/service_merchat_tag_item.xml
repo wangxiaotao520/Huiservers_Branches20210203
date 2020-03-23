@@ -12,7 +12,7 @@
     android:layout_marginRight="@dimen/margin_5"
     android:layout_marginTop="@dimen/margin_5"
     android:text="好的好的"
-    android:textColor="@color/grey96"
+    android:textColor="@color/title_third_color"
     android:textSize="@dimen/t_10sp"
     />
 

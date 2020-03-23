@@ -175,7 +175,7 @@ public class MyHousePropertyActivity extends BaseActivity {
         } else {
             TextView tabUnSelect = (TextView) tab.getCustomView().findViewById(R.id.tab_item_textview);
 //            tabUnSelect.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-            tabUnSelect.setTextColor(getResources().getColor(R.color.text_color));
+            tabUnSelect.setTextColor(getResources().getColor(R.color.title_sub_color));
             tabUnSelect.setTextSize(16);
             tabUnSelect.setText(tab.getText());
         }

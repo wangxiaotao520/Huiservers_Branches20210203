@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2019.08.15 15:22:08"
-                android:textColor="@color/blackgray"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_16sp"/>
 
             <TextView
@@ -33,7 +33,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:text="进行中"
-                android:textColor="@color/orange_bg"
+                android:textColor="@color/orange"
                 android:textSize="@dimen/t_16sp"/>
 
 
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_5"
                 android:text="充电时长"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp"/>
 
             <TextView
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="05:44:22"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp"/>
         </LinearLayout>
 
@@ -88,7 +88,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/margin_5"
                 android:text="消费"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp"/>
 
             <TextView
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="5元"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp"/>
         </LinearLayout>
 

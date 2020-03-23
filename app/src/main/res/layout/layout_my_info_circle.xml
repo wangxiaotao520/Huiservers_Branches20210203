@@ -67,7 +67,7 @@
                             android:background="@drawable/checked_bg"
                             android:gravity="center"
                             android:text="编辑"
-                            android:textColor="@color/orange_bg"
+                            android:textColor="@color/orange"
                             android:textSize="@dimen/t_12sp"/>
 
                     </RelativeLayout>
@@ -80,7 +80,7 @@
                     android:layout_height="60dp"
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_marginTop="97dp"
-                    fresco:placeholderImage="@color/default_color"
+                    fresco:placeholderImage="@color/default_img_color"
                     fresco:placeholderImageScaleType="centerCrop"
                     fresco:roundAsCircle="true"
                     />

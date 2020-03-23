@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="查看更多"
-                android:textColor="@color/black"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_13sp" />
 
             <ImageView

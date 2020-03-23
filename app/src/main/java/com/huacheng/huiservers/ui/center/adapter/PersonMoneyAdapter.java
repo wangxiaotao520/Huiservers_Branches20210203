@@ -73,7 +73,7 @@ public class PersonMoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			recyclerViewHolder.txt_jiadian.setText(bean.get(position).getLog_title());
 			if (bean.get(position).getAtype().equals("1")) {
 				recyclerViewHolder.txt_ordermoney.setText("+¥"+bean.get(position).getAmount());
-				recyclerViewHolder.txt_ordermoney.setTextColor(context.getResources().getColor(R.color.green));
+				recyclerViewHolder.txt_ordermoney.setTextColor(context.getResources().getColor(R.color.coupon_green));
 			}else {
 				recyclerViewHolder.txt_ordermoney.setText("-¥"+bean.get(position).getAmount());
 				recyclerViewHolder.txt_ordermoney.setTextColor(context.getResources().getColor(R.color.colorPrimary));

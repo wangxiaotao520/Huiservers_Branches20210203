@@ -15,7 +15,7 @@
             android:fadingEdge="none"
             android:fastScrollEnabled="false"
             android:footerDividersEnabled="false"
-            android:background="@color/transparents"
+            android:background="@color/transparent"
             android:gravity="center"
             android:headerDividersEnabled="false"
             android:listSelector="@android:color/transparent"
@@ -32,7 +32,7 @@
         <!--android:id="@+id/sdv_center"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="125dp"-->
-        <!--fresco:placeholderImage="@color/default_color"-->
+        <!--fresco:placeholderImage="@color/default_img_color"-->
         <!--fresco:placeholderImageScaleType="centerCrop"-->
         <!--android:layout_marginTop="18dp"-->
         <!--android:layout_marginLeft="15dp"-->
@@ -53,7 +53,7 @@
         android:layout_marginTop="18dp"
         fresco:indicator_selected_height="10dp"
         fresco:indicator_selected_width="10dp"
-        fresco:banner_default_image="@color/default_color"
+        fresco:banner_default_image="@color/default_img_color"
         />
 
     <!--为你优选-->
@@ -94,7 +94,7 @@
                     android:text="查看更多"
                     android:layout_gravity="center_vertical"
                     android:textSize="16sp"
-                    android:textColor="@color/gray_99" />
+                    android:textColor="@color/title_third_color" />
                 <ImageView
                     android:id="@+id/tv_more_youxuan_arrow"
                     android:layout_width="wrap_content"

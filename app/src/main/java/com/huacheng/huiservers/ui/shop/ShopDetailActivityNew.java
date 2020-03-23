@@ -313,7 +313,7 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
                 detailBean = protocol.getDetail(json);
                 tag_guige.setVisibility(View.VISIBLE);
                 ly_store.setVisibility(View.VISIBLE);
-                GlideUtils.getInstance().glideLoad(ShopDetailActivityNew.this, MyCookieStore.URL + detailBean.getTitle_img(), img_title, R.color.default_color);
+                GlideUtils.getInstance().glideLoad(ShopDetailActivityNew.this, MyCookieStore.URL + detailBean.getTitle_img(), img_title, R.color.default_img_color);
                 txt_name.setText(detailBean.getTitle());
                 txt_content.setText(detailBean.getDescription());
                 txt_price.setText("¥" + detailBean.getPrice());

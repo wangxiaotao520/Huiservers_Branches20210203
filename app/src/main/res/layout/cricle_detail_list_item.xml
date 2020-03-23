@@ -46,7 +46,7 @@
                         android:layout_marginLeft="@dimen/margin_15"
                         android:layout_weight="1"
                         android:text="fbdfbdf"
-                        android:textColor="@color/orange_bg"
+                        android:textColor="@color/orange"
                         android:textSize="@dimen/t_15sp"/>
                 </LinearLayout>
 
@@ -58,7 +58,7 @@
                     android:layout_marginRight="@dimen/margin_15"
                     android:lineSpacingExtra="5dp"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_15sp"/>
 
                 <TextView
@@ -68,7 +68,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_marginTop="@dimen/margin"
                     android:text="1天前"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_12sp"/>
             </LinearLayout>
 
@@ -109,7 +109,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/circle_gray"
             android:gravity="center"
-            android:textColor="@color/gray2"/>
+            android:textColor="@color/title_sub_color"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -119,7 +119,7 @@
             android:background="@drawable/shape_xu"
             android:gravity="center"
             android:layerType="software"
-            android:textColor="@color/gray4"/>
+            android:textColor="@color/text_color_hint"/>
     </LinearLayout>
 
 

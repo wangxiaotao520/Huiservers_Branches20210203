@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin"
                     android:text="社区慧生活"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_14sp"/>
 
 
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="服务协议"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
@@ -94,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="隐私政策"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="客服热线"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <TextView
@@ -138,7 +138,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@id/iv_call"
                     android:text="400-6535-355"
-                    android:textColor="@color/c_title3"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="意见反馈"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <ImageView

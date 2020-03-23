@@ -7,7 +7,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:background="@color/all_gray"/>
+        android:background="@color/windowbackground"/>
 
     <RelativeLayout
         android:id="@+id/rel_onclick"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_15"
             android:text="张三"
-            android:textColor="@color/black"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/t_14sp"/>
 
         <LinearLayout
@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textColor="@color/black"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textColor="@color/black"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textColor="@color/black"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
             </LinearLayout>
 
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:text="后过期"
-                android:textColor="@color/black"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_14sp"/>
 
             <ImageView

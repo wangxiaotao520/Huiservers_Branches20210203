@@ -21,7 +21,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
-            fresco:placeholderImage="@color/default_color"
+            fresco:placeholderImage="@color/default_img_color"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:roundedCornerRadius="5dp"
             />

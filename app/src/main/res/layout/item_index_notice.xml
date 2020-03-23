@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="关于讨伐任我行时间调整的通知（决战紫荆之巅）"
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_13sp"/>
 
             <RelativeLayout
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="07-05  17:55"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_13sp"/>
 
                 <TextView
@@ -69,7 +69,7 @@
                     android:layout_alignParentRight="true"
                     android:singleLine="true"
                     android:text="物业公告"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_13sp"/>
 
             </RelativeLayout>

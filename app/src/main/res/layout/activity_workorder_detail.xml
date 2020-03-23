@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/margin_15"
                         android:text=""
-                        android:textColor="@color/red_ed"
+                        android:textColor="@color/red_warning"
                         android:textSize="@dimen/t_15sp"/>
 
                 </LinearLayout>
@@ -103,7 +103,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="工单编号："
-                                android:textColor="@color/text_color_hint"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"/>
 
                             <TextView
@@ -111,7 +111,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
-                                android:textColor="@color/text_color"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp"/>
                         </LinearLayout>
 
@@ -125,7 +125,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="维修时间："
-                                android:textColor="@color/text_color_hint"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"/>
 
                             <TextView
@@ -133,7 +133,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
-                                android:textColor="@color/text_color"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp"/>
                         </LinearLayout>
 
@@ -147,7 +147,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="报修类型："
-                                android:textColor="@color/text_color_hint"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"/>
 
                             <TextView
@@ -155,7 +155,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
-                                android:textColor="@color/text_color"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp"/>
                         </LinearLayout>
 
@@ -174,7 +174,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="故障照片："
-                            android:textColor="@color/text_color_hint"
+                            android:textColor="@color/title_third_color"
                             android:textSize="@dimen/t_15sp"/>
 
                         <LinearLayout
@@ -191,7 +191,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="--"
-                            android:textColor="@color/text_color"/>
+                            android:textColor="@color/title_sub_color"/>
 
 
                     </LinearLayout>
@@ -214,7 +214,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="紧急程度："
-                                android:textColor="@color/text_color_hint"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"/>
 
                             <TextView
@@ -222,7 +222,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
-                                android:textColor="@color/text_color"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp"/>
                         </LinearLayout>
 
@@ -236,7 +236,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="报修内容："
-                                android:textColor="@color/text_color_hint"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"/>
 
                             <TextView
@@ -244,7 +244,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
-                                android:textColor="@color/text_color"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp"/>
                         </LinearLayout>
 
@@ -258,7 +258,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="联  系  人："
-                                android:textColor="@color/text_color_hint"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"/>
 
                             <TextView
@@ -266,7 +266,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
-                                android:textColor="@color/text_color"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp"/>
                         </LinearLayout>
 
@@ -280,7 +280,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="地        址："
-                                android:textColor="@color/text_color_hint"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"/>
 
                             <TextView
@@ -288,7 +288,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
-                                android:textColor="@color/text_color"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp"/>
                         </LinearLayout>
 
@@ -302,7 +302,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="电        话："
-                                android:textColor="@color/text_color_hint"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"/>
 
                             <TextView
@@ -310,7 +310,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
-                                android:textColor="@color/text_color"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp"/>
                         </LinearLayout>
                     </LinearLayout>

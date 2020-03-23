@@ -115,7 +115,7 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
                         }
 //                        if (info.getIs_collection() == 1) {//未收藏
 //                            tv_fav.setBackground(getResources().getDrawable(R.drawable.shape_gray_stroke20));
-//                            tv_fav.setTextColor(getResources().getColor(R.color.gray_66));
+//                            tv_fav.setTextColor(getResources().getColor(R.color.title_sub_color));
 //                            tv_fav.setText("收藏");
 //                        } else {
 //                            tv_fav.setBackground(getResources().getDrawable(R.drawable.shape_blue_stroke20));

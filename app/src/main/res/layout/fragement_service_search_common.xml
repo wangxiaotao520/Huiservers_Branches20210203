@@ -34,7 +34,7 @@
                         android:paddingLeft="15dp"
                         android:paddingTop="10dp"
                         android:text="热门搜索"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_14sp" />
 
                 </LinearLayout>
@@ -75,7 +75,7 @@
                             android:paddingTop="10dp"
                             android:paddingLeft="@dimen/margin_15"
                             android:text="搜索历史"
-                            android:textColor="@color/text_color"
+                            android:textColor="@color/title_sub_color"
                             android:textSize="@dimen/t_14sp" />
 
 
@@ -103,7 +103,7 @@
                             android:layout_height="wrap_content"
                             android:divider="@color/line"
                             android:dividerHeight="1px"
-                            android:listSelector="@drawable/list_item_selector"
+                            android:listSelector="@android:color/transparent"
                             android:paddingLeft="15dp"
                             android:paddingRight="15dp"/>
 
@@ -115,8 +115,8 @@
                             android:paddingRight="@dimen/margin_15"
                             android:paddingBottom="20dp"
                             android:layout_marginTop="30dp"
-                            android:textColor="@color/text_color"
-                            android:background="@color/transparents"
+                            android:textColor="@color/title_sub_color"
+                            android:background="@color/transparent"
                             android:layout_gravity="center_horizontal"
                             android:text="清空搜索历史"
                             android:textSize="@dimen/t_15sp" />

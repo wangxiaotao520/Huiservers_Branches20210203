@@ -4,7 +4,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/transparents"
+                android:background="@color/transparent"
                 android:orientation="vertical">
 
     <RelativeLayout
@@ -29,7 +29,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center_vertical"
-                    fresco:placeholderImage="@color/default_color"
+                    fresco:placeholderImage="@color/default_img_color"
                     fresco:placeholderImageScaleType="centerCrop"
                     fresco:roundedCornerRadius="5dp"
                     />
@@ -49,7 +49,7 @@
                         android:layout_marginRight="@dimen/margin_40"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"
                         tools:text="已选："/>
 
@@ -81,7 +81,7 @@
                                 android:layout_marginBottom="@dimen/margin_3"
                                 android:layout_marginLeft="@dimen/margin"
                                 android:text=""
-                                android:textColor="@color/c_title3"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_12sp"/>
 
                         </LinearLayout>
@@ -90,7 +90,7 @@
                             android:id="@+id/txt_inv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/c_title3"
+                            android:textColor="@color/title_third_color"
                             android:textSize="@dimen/t_12sp"
                             tools:text="库存：0桶"/>
 
@@ -132,7 +132,7 @@
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/margin"
                         android:text="规格"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <LinearLayout
@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="购买数量"
-                        android:textColor="@color/c_title"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <LinearLayout
@@ -200,7 +200,7 @@
                             android:numeric="integer"
                             android:singleLine="true"
                             android:text="1"
-                            android:textColor="@color/c_title"
+                            android:textColor="@color/title_color"
                             android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/t_14sp"/>
 
@@ -240,7 +240,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/view_background"
+                android:background="@color/windowbackground"
                 android:visibility="gone"/>
 
             <TextView

@@ -22,7 +22,7 @@
         app:tabIndicatorColor="#FF625E"
         app:tabSelectedTextColor="#FF625E"
         app:tabTextAppearance="@style/TabLayoutStyleText15"
-        app:tabTextColor="@color/gray_66"
+        app:tabTextColor="@color/title_sub_color"
         />
     <View
         android:layout_width="match_parent"

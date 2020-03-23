@@ -30,7 +30,7 @@ public class AdapterChooseWorkTime extends CommonAdapter<ModelWorkTime>{
             viewHolder.<TextView>getView(R.id.tv_time).setTextColor(mContext.getResources().getColor(R.color.white));
         }else {
             viewHolder.<TextView>getView(R.id.tv_time).setBackgroundResource(R.drawable.bg_shape_stoke_grey);
-            viewHolder.<TextView>getView(R.id.tv_time).setTextColor(mContext.getResources().getColor(R.color.text_color));
+            viewHolder.<TextView>getView(R.id.tv_time).setTextColor(mContext.getResources().getColor(R.color.title_sub_color));
         }
     }
 }

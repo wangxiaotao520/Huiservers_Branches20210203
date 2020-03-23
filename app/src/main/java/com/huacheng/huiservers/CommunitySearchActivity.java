@@ -220,7 +220,7 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
                 }
             }
         }).setSubmitColor(this.getResources().getColor(R.color.orange))//确定按钮文字颜色
-                .setCancelColor(this.getResources().getColor(R.color.graynew))
+                .setCancelColor(this.getResources().getColor(R.color.text_color_hint))
                 .build();//取消按钮文字颜色;
         pvOptions.setPicker(options1Items, options2Items, options3Items);
         pvOptions.setSelectOptions(selected_options1, selected_options2, selected_options3);

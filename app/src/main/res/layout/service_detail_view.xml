@@ -30,7 +30,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="厨房地漏疏通机器厕所通下水道厨房地漏疏通机器厕所通下水道"
-            android:textColor="@color/text_color"
+            android:textColor="@color/title_sub_color"
             android:textSize="@dimen/t_12sp"/>
 
         <TextView

@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/all_gray"
+        android:background="@color/windowbackground"
         android:orientation="vertical">
 
         <LinearLayout
@@ -114,7 +114,7 @@
                         android:layout_marginTop="@dimen/margin_5"
                         android:gravity="center"
                         android:text="购物车"
-                        android:textColor="@color/gray2"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="13sp"
                         android:visibility="gone" />
                 </LinearLayout>
@@ -152,7 +152,7 @@
                     app:tabTextAppearance="@style/TabLayoutTextStyle"
                     app:tabPaddingStart="5dp"
                     app:tabPaddingEnd="8dp"
-                    app:tabTextColor="@color/gray_66" />
+                    app:tabTextColor="@color/title_sub_color" />
 
                 <LinearLayout
                     android:id="@+id/lin_all"
@@ -167,7 +167,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_20"
                         android:text="全部"
-                        android:textColor="@color/black_jain_87"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_16sp" />
                 </LinearLayout>
 
@@ -221,7 +221,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/all_gray"
+                    android:background="@color/windowbackground"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.RecyclerView

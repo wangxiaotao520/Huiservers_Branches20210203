@@ -103,7 +103,7 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
                 //假设mPagerSize=8，假如点击的是第二页（即mIndex=1）上的第二个位置item(position=1),那么这个item的实际位置就是pos=9
                 holder.tv_name.setText(lists.get(pos).getMenu_name() + "");
 //		holder.txt_shop_price.setText("¥"+lists.get(pos).getMin_price() + "");
-                GlideUtils.getInstance().glideLoad(context, MyCookieStore.URL + lists.get(pos).getMenu_logo(), holder.iv_nul, R.color.default_color);
+                GlideUtils.getInstance().glideLoad(context, MyCookieStore.URL + lists.get(pos).getMenu_logo(), holder.iv_nul, R.color.default_img_color);
             }
 
             holder.ly_onclick.setOnClickListener(new View.OnClickListener() {
@@ -154,10 +154,10 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
 //                holder.iv_cancel.setVisibility(View.VISIBLE);
 //                if (type == 2) {
 //                    holder.tv_name.setText("我的服务" + (pos + 1));
-//                    holder.iv_cancel.setBackgroundColor(context.getResources().getColor(R.color.red_ed));
+//                    holder.iv_cancel.setBackgroundColor(context.getResources().getColor(R.color.red_warning));
 //                } else {
 //                    holder.tv_name.setText("更多服务" + (pos + 1));
-//                    holder.iv_cancel.setBackgroundColor(context.getResources().getColor(R.color.orange_bg));
+//                    holder.iv_cancel.setBackgroundColor(context.getResources().getColor(R.color.orange));
 //                }
 //                holder.iv_cancel.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -181,7 +181,7 @@ public class HomeGridViewCateAdapter extends BaseAdapter {
             //假设mPagerSize=8，假如点击的是第二页（即mIndex=1）上的第二个位置item(position=1),那么这个item的实际位置就是pos=9
             holder.tv_name.setText(lists.get(pos).getMenu_name() + "");
 //		holder.txt_shop_price.setText("¥"+lists.get(pos).getMin_price() + "");
-            GlideUtils.getInstance().glideLoad(context, MyCookieStore.URL + lists.get(pos).getMenu_logo(), holder.iv_nul, R.color.default_color);
+            GlideUtils.getInstance().glideLoad(context, MyCookieStore.URL + lists.get(pos).getMenu_logo(), holder.iv_nul, R.color.default_img_color);
 
             holder.ly_onclick.setOnClickListener(new View.OnClickListener() {
                 @Override

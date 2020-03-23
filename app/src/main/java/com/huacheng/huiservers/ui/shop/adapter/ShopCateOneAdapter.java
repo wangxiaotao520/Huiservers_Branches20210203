@@ -62,7 +62,7 @@ public class ShopCateOneAdapter extends BaseAdapter {
         }
         if (mList.get(position).isSelect() == true) {
             holder.txt_one.setBackgroundResource(R.color.white);
-            holder.txt_one.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.txt_one.setTextColor(mContext.getResources().getColor(R.color.title_color));
             holder.txt_one.setTextSize(14);
             holder.txt_one.getPaint().setFakeBoldText(true);
             holder.tv_view.setVisibility(View.VISIBLE);
@@ -70,8 +70,8 @@ public class ShopCateOneAdapter extends BaseAdapter {
 
         } else {
             holder.txt_one.getPaint().setFakeBoldText(false);
-            holder.txt_one.setBackgroundResource(R.color.all_gray);
-            holder.txt_one.setTextColor(mContext.getResources().getColor(R.color.black_jain_54));
+            holder.txt_one.setBackgroundResource(R.color.windowbackground);
+            holder.txt_one.setTextColor(mContext.getResources().getColor(R.color.title_color));
             holder.txt_one.setTextSize(12);
             holder.tv_view.setVisibility(View.GONE);
         }

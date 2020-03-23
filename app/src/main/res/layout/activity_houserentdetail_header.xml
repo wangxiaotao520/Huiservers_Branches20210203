@@ -27,7 +27,7 @@
             app:pointNormal="@null"
             app:pointSelect="@null"
             app:pointTopBottomPadding="@dimen/margin_15"
-            app:pointsContainerBackground="@color/transparents"
+            app:pointsContainerBackground="@color/transparent"
             app:pointsPosition="RIGHT"
             app:tipTextColor="@color/white"
             app:tipTextSize="13sp"/>
@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="55.2万"
-                    android:textColor="@color/orange_bg"
+                    android:textColor="@color/orange"
                     android:textSize="23dp"
                     android:textStyle="bold" />
                 <View
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2019.12.13更新"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_13sp"
                     android:textStyle="normal" />
 
@@ -213,7 +213,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="付款方式"
                                 android:singleLine="true"
-                                android:textColor="@color/gray_9c"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_14sp"/>
 
                             <TextView
@@ -240,7 +240,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="入住时间"
-                                android:textColor="@color/gray_9c"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_14sp"/>
 
                             <TextView
@@ -275,7 +275,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="房屋租期"
                                 android:singleLine="true"
-                                android:textColor="@color/gray_9c"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_14sp"/>
 
                             <TextView
@@ -299,7 +299,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="房屋电梯"
-                                android:textColor="@color/gray_9c"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_14sp"/>
 
                             <TextView
@@ -346,7 +346,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="租房小贴士"
-                        android:textColor="@color/orange_bg"
+                        android:textColor="@color/orange"
                         android:layout_marginLeft="5dp"
                         android:textSize="@dimen/t_14sp"
                         />
@@ -394,7 +394,7 @@
                             android:id="@+id/webview"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
+                            android:textColor="@color/title_sub_color"
                             android:textSize="@dimen/t_15sp"
 
                             />
@@ -413,7 +413,7 @@
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
                         <!--android:text="周边介绍："-->
-                        <!--android:textColor="@color/text_color"-->
+                        <!--android:textColor="@color/title_sub_color"-->
                         <!--android:textSize="@dimen/t_15sp"-->
                         <!--android:textStyle="bold"-->
                         <!--/>-->
@@ -423,7 +423,7 @@
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
                         <!--android:text="阿达河山大好收到就好傻傻的可还是哈拉海大开杀戒等哈说会计活动卡技术很大数按时计活动卡技术很大数按时计活动卡技术很大数按时。"-->
-                        <!--android:textColor="@color/text_color"-->
+                        <!--android:textColor="@color/title_sub_color"-->
                         <!--android:textSize="@dimen/t_15sp"-->
 
                         <!--/>-->

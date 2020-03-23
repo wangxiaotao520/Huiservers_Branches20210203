@@ -176,7 +176,7 @@ public class ShopFragment1 extends BaseFragment {
                     view_tab_line.setVisibility(View.VISIBLE);
                     view_title_line.setBackgroundColor(getResources().getColor(R.color.white));
                 }else {
-                    mTabLayout.setBackgroundColor(getResources().getColor(R.color.transparents));
+                    mTabLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
                     view_tab_line.setVisibility(View.INVISIBLE);
                     view_title_line.setBackgroundColor(getResources().getColor(R.color.windowbackground));
                 }

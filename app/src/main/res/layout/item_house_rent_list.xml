@@ -47,7 +47,7 @@
                     android:lines="1"
                     android:text="3室1厅1卫/122平米/ 3/6层"
                     android:layout_marginTop="1dp"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="12sp" />
 
                 <LinearLayout
@@ -66,7 +66,7 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="物业认证"
-                        android:textColor="@color/orange_bg"
+                        android:textColor="@color/orange"
                         android:textSize="13sp" />
 
                     <TextView
@@ -80,7 +80,7 @@
                         android:paddingBottom="2dp"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:textColor="@color/orange_bg"
+                        android:textColor="@color/orange"
                         android:textSize="13sp" />
 
                 </LinearLayout>
@@ -112,7 +112,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="8dp"
                     android:text="|3室2厅1厨1卫|85平米"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:singleLine="true"
                     android:textSize="12sp" />
             </LinearLayout>

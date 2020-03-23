@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin"
                 android:text="基本信息"
-                android:textColor="@color/text_color"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp"/>
 
         </LinearLayout>
@@ -98,7 +98,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="身份证号"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -108,7 +108,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -127,7 +127,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="出生年月"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -137,7 +137,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -156,7 +156,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="年龄"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -166,7 +166,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -185,7 +185,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="紧急联系人"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -195,7 +195,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -214,7 +214,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="联系方式"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -224,7 +224,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blue_bg"
+                    android:textColor="@color/blue"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -243,7 +243,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="学历"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -253,7 +253,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -272,7 +272,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="政治面貌"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -282,7 +282,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -306,7 +306,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin"
                 android:text="健康档案"
-                android:textColor="@color/text_color"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp"/>
 
         </LinearLayout>
@@ -331,7 +331,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="身高"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -341,7 +341,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -360,7 +360,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="体重"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -370,7 +370,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -389,7 +389,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="血型"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -399,7 +399,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -422,7 +422,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="3"
                     android:text="过往病史"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -458,7 +458,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="3"
                     android:text="过敏信息"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -491,7 +491,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_5"
                     android:text="病例描述"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -501,7 +501,7 @@
                     android:layout_marginLeft="@dimen/margin_5"
                     android:layout_marginTop="@dimen/margin"
                     android:text="    "
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -520,7 +520,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="上次体检时间"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -530,7 +530,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -555,7 +555,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin"
                 android:text="体检记录"
-                android:textColor="@color/text_color"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp"/>
 
         </LinearLayout>

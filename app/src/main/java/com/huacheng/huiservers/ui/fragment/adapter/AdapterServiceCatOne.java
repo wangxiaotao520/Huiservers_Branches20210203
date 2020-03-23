@@ -28,7 +28,7 @@ public class AdapterServiceCatOne extends CommonAdapter<ModelServiceCat> {
             viewHolder.<TextView>getView(R.id.tv_view).setVisibility(View.VISIBLE);
             viewHolder.<TextView>getView(R.id.txt_one).setText(item.getName()+"");
             viewHolder.<TextView>getView(R.id.txt_one) .getPaint().setFakeBoldText(true);
-            viewHolder.<TextView>getView(R.id.txt_one).setBackgroundResource(R.color.all_gray);
+            viewHolder.<TextView>getView(R.id.txt_one).setBackgroundResource(R.color.windowbackground);
 
         }else {
             viewHolder.<TextView>getView(R.id.tv_view).setVisibility(View.GONE);

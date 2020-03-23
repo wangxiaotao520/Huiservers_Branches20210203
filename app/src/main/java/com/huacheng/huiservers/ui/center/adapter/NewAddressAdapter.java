@@ -71,9 +71,9 @@ public class NewAddressAdapter extends BaseAdapter {
 
         if (modelAddressList.getIs_do()==1) {
             holder.txt_name.setTextColor(mContext.getResources().getColor(R.color.title_color));
-            holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.gray_99));
+            holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.title_third_color));
             holder.txt_address.setTextColor(mContext.getResources().getColor(R.color.title_color));
-            holder.tv_bianji_address.setTextColor(mContext.getResources().getColor(R.color.gray_99));
+            holder.tv_bianji_address.setTextColor(mContext.getResources().getColor(R.color.title_third_color));
         }else {
             holder.txt_name.setTextColor(mContext.getResources().getColor(R.color.gray_D2));
             holder.txt_phone.setTextColor(mContext.getResources().getColor(R.color.gray_D2));

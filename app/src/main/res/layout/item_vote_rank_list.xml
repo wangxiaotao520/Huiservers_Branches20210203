@@ -49,7 +49,7 @@
                 android:id="@+id/tv_num"
 
                 android:gravity="center"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="14sp"
                 android:text="5号"
                 />
@@ -59,7 +59,7 @@
                 android:layout_weight="1"
                 android:id="@+id/tv_name"
                 android:gravity="center_vertical"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="14sp"
                 android:text="湘西特种部队湘西特种部队"
                 />

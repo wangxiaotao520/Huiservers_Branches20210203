@@ -71,7 +71,7 @@
                     android:gravity="center"
                     android:padding="2dp"
                     android:text="00"
-                    android:textColor="@color/default_red"
+                    android:textColor="@color/red_warning"
                     android:textSize="9dp" />
 
                 <TextView
@@ -96,7 +96,7 @@
                         android:gravity="center"
                         android:padding="2dp"
                         android:text="00"
-                        android:textColor="@color/default_red"
+                        android:textColor="@color/red_warning"
                         android:textSize="9dp" />
 
                 </LinearLayout>
@@ -124,7 +124,7 @@
                         android:gravity="center"
                         android:padding="2dp"
                         android:text="00"
-                        android:textColor="@color/default_red"
+                        android:textColor="@color/red_warning"
                         android:textSize="9dp" />
 
                 </LinearLayout>
@@ -152,7 +152,7 @@
                         android:gravity="center"
                         android:padding="2dp"
                         android:text="00"
-                        android:textColor="@color/default_red"
+                        android:textColor="@color/red_warning"
                         android:textSize="9dp" />
 
                 </LinearLayout>
@@ -168,7 +168,7 @@
                 android:layout_marginTop="2dp"
                 android:singleLine="true"
                 android:text=""
-                android:textColor="@color/gray_55"
+                android:textColor="@color/title_sub_color"
                 android:textSize="15dp" />
 
 
@@ -191,7 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="38.5"
-                        android:textColor="@color/default_red"
+                        android:textColor="@color/red_warning"
                         android:textStyle="bold"
                         android:textSize="15dp" />
 
@@ -201,7 +201,7 @@
                         android:layout_height="wrap_content"
                         android:text="/箱"
                         android:textStyle="bold"
-                        android:textColor="@color/default_red"
+                        android:textColor="@color/red_warning"
                         android:textSize="15dp" />
                 </LinearLayout>
                 <View
@@ -215,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:text="40"
-                    android:textColor="@color/gray_9c"
+                    android:textColor="@color/title_third_color"
                     android:textSize="13dp" />
 
             </LinearLayout>

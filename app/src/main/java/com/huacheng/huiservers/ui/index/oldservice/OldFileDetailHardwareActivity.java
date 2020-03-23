@@ -49,7 +49,7 @@ public class OldFileDetailHardwareActivity extends BaseActivity {
         tv_right=findViewById(R.id.txt_right);
         tv_right.setText("查看详情");
         tv_right.setVisibility(View.VISIBLE);
-        tv_right.setTextColor(getResources().getColor(R.color.orange_bg));
+        tv_right.setTextColor(getResources().getColor(R.color.orange));
 
         ll_root = findViewById(R.id.ll_root);
         ll_root.setVisibility(View.INVISIBLE);

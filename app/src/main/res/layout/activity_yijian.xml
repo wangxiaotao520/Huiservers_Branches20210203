@@ -20,8 +20,8 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="10dp"
-        android:textColor="@color/grey"
-        android:textColorHint="@color/gray4"
+        android:textColor="@color/title_color"
+        android:textColorHint="@color/text_color_hint"
         android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="@dimen/t_15sp"/>
 

@@ -21,7 +21,7 @@
             android:padding="10dp"
             android:text="分享到"
             android:textSize="@dimen/t_18sp"
-            android:textColor="@color/c_title" />
+            android:textColor="@color/title_color" />
 		<View 
 		    android:layout_width="match_parent"
 		    android:layout_height="1dp"
@@ -53,7 +53,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="QQ好友"
                     android:textSize="@dimen/t_14sp"
-                    android:textColor="@color/c_title3"/>
+                    android:textColor="@color/title_third_color"/>
             </LinearLayout>
 
             <View
@@ -82,7 +82,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="QQ空间"
                     android:textSize="@dimen/t_14sp"
-                    android:textColor="@color/c_title3" />
+                    android:textColor="@color/title_third_color" />
             </LinearLayout>
 
             <View
@@ -111,7 +111,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="微信好友"
                     android:textSize="@dimen/t_14sp"
-                    android:textColor="@color/c_title3" />
+                    android:textColor="@color/title_third_color" />
             </LinearLayout>
 
             <View
@@ -140,7 +140,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="微信朋友圈"
                     android:textSize="@dimen/t_14sp"
-                    android:textColor="@color/c_title3" />
+                    android:textColor="@color/title_third_color" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -5,7 +5,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
         <!--Appbar背景色-->
-        <item name="colorPrimary">@color/graynew4</item>
+        <item name="colorPrimary">@color/line_de</item>
         <!--控制各个控件被选中时的颜色 colorAccent-->
 
         <!--取消水波纹效果-->
@@ -29,7 +29,7 @@
 
     <style name="BaseTitle">
         <item name="android:textSize">17.299988sp</item>
-        <item name="android:textColor">@color/title_text_color</item>
+        <item name="android:textColor">@color/title_color</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -58,7 +58,7 @@
         <item name="android:windowIsTranslucent">true</item>
         <!-- 半透明 -->
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@color/down_color</item>
+        <item name="android:windowBackground">@color/transparent</item>
         <!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 模糊 -->
@@ -98,7 +98,7 @@
     </style>
 
     <style name="CTASDKWhiteWebview" parent="@android:style/Theme.Black.NoTitleBar">
-        <item name="android:windowBackground">@color/CTASDKBackgroundColor</item>
+        <item name="android:windowBackground">@color/windowbackground</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
@@ -121,20 +121,9 @@
 
 
 
-    <style name="menu_item_text_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/popupwindow_menu_item_height</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:textColor">@color/black_jain_87</item>
 
-        <item name="android:background">@drawable/menu_item_selector</item>
-    </style>
 
-    <style name="menu_item_divider_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/popupwindow_menu_item_divider_height</item>
-        <item name="android:background">@color/menu_item_divider_color</item>
-    </style>
+
 
     <declare-styleable name="ShadowLayout">
         <attr name="sl_cornerRadius" format="dimension"/>
@@ -154,12 +143,12 @@
 
     <style name="collapsedTextStyle">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">@color/title_color</item>
     </style>
 
     <style name="expandedTextStyle">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColor">@color/title_color</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -175,8 +164,8 @@
 
 
     <style name="MyEditText_orange" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/orange_bg</item>
-        <item name="colorControlActivated">@color/orange_bg</item>
+        <item name="colorControlNormal">@color/orange</item>
+        <item name="colorControlActivated">@color/orange</item>
     </style>
 
     <declare-styleable name="EnhanceTabLayout">

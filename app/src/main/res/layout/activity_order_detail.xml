@@ -28,7 +28,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
-                    fresco:placeholderImage="@color/default_color"
+                    fresco:placeholderImage="@color/default_img_color"
                     fresco:placeholderImageScaleType="centerCrop"
                     fresco:roundAsCircle="false"
                     fresco:roundedCornerRadius="5dp"
@@ -51,7 +51,7 @@
                     android:id="@+id/tv_service_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
                     android:textSize="14sp"
@@ -75,7 +75,7 @@
                android:layout_width="match_parent"
                android:layout_height="40dp"
                android:background="@color/windowbackground"
-               android:textColor="@color/gray_66"
+               android:textColor="@color/title_sub_color"
                android:text="服务信息"
                android:gravity="center_vertical"
                android:paddingLeft="15dp"
@@ -100,7 +100,7 @@
                         android:id="@+id/tv_order_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="13sp"
                         android:text="订单编号: " />
                     <TextView
@@ -108,7 +108,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="13sp"
                         android:text="下单时间: " />
                     <LinearLayout
@@ -120,14 +120,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/gray_99"
+                            android:textColor="@color/title_third_color"
                             android:textSize="13sp"
                             android:text="预约地址: " />
                         <TextView
                             android:id="@+id/tv_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/gray_99"
+                            android:textColor="@color/title_third_color"
                             android:textSize="13sp"
                             android:text="" />
                     </LinearLayout>
@@ -141,7 +141,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/gray_99"
+                            android:textColor="@color/title_third_color"
                             android:textSize="13sp"
                             android:text="备        注: " />
                         <TextView
@@ -149,7 +149,7 @@
                             android:layout_marginRight="12dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/gray_99"
+                            android:textColor="@color/title_third_color"
                             android:textSize="13sp"
                             android:text="" />
                     </LinearLayout>
@@ -169,7 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/windowbackground"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:text="订单追踪"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
@@ -209,7 +209,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/graycc" />
+                                android:background="@color/text_color_hint" />
 
                             <View
                                 android:layout_width="6dp"
@@ -221,7 +221,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/graycc" />
+                                android:background="@color/text_color_hint" />
 
                             <View
                                 android:layout_width="6dp"
@@ -233,7 +233,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/graycc" />
+                                android:background="@color/text_color_hint" />
 
                             <View
                                 android:layout_width="6dp"
@@ -245,7 +245,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/graycc" />
+                                android:background="@color/text_color_hint" />
 
                             <View
                                 android:layout_width="6dp"
@@ -287,7 +287,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/orange_order" />
+                                android:background="@color/orange" />
 
                             <ImageView
                                 android:layout_width="40dp"
@@ -298,7 +298,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/graycc" />
+                                android:background="@color/text_color_hint" />
 
                             <View
                                 android:layout_width="6dp"
@@ -310,7 +310,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/graycc" />
+                                android:background="@color/text_color_hint" />
 
                             <View
                                 android:layout_width="6dp"
@@ -322,7 +322,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/graycc" />
+                                android:background="@color/text_color_hint" />
 
                             <View
                                 android:layout_width="6dp"
@@ -364,7 +364,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/orange_order" />
+                                android:background="@color/orange" />
 
                             <View
                                 android:layout_width="6dp"
@@ -376,7 +376,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/orange_order" />
+                                android:background="@color/orange" />
 
                             <ImageView
                                 android:layout_width="40dp"
@@ -387,7 +387,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/graycc" />
+                                android:background="@color/text_color_hint" />
 
                             <View
                                 android:layout_width="6dp"
@@ -399,7 +399,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/graycc" />
+                                android:background="@color/text_color_hint" />
 
                             <View
                                 android:layout_width="6dp"
@@ -441,7 +441,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/orange_order" />
+                                android:background="@color/orange" />
 
                             <View
                                 android:layout_width="6dp"
@@ -453,7 +453,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/orange_order" />
+                                android:background="@color/orange" />
 
                             <View
                                 android:layout_width="6dp"
@@ -465,7 +465,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/orange_order" />
+                                android:background="@color/orange" />
 
                             <ImageView
                                 android:layout_width="40dp"
@@ -476,7 +476,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/graycc" />
+                                android:background="@color/text_color_hint" />
 
                             <View
                                 android:layout_width="6dp"
@@ -518,7 +518,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/orange_order" />
+                                android:background="@color/orange" />
 
                             <View
                                 android:layout_width="6dp"
@@ -530,7 +530,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/orange_order" />
+                                android:background="@color/orange" />
 
                             <View
                                 android:layout_width="6dp"
@@ -542,7 +542,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/orange_order" />
+                                android:background="@color/orange" />
 
                             <View
                                 android:layout_width="6dp"
@@ -554,7 +554,7 @@
                                 android:layout_width="10dp"
                                 android:layout_height="2dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/orange_order" />
+                                android:background="@color/orange" />
 
                             <ImageView
                                 android:layout_width="40dp"
@@ -598,7 +598,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="王师傅"
-                                android:textColor="@color/gray_99"
+                                android:textColor="@color/title_third_color"
                                 android:gravity="center"
                                 android:paddingTop="2dp"
                                 android:paddingBottom="2dp"
@@ -610,7 +610,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="15555555555"
-                                android:textColor="@color/gray_99"
+                                android:textColor="@color/title_third_color"
                                 android:gravity="center"
                                 android:paddingTop="2dp"
                                 android:paddingBottom="2dp"
@@ -632,7 +632,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="取消订单"
-                        android:textColor="@color/red_guotao"
+                        android:textColor="@color/red_normal"
                         android:gravity="center"
                         android:background="@drawable/allshape_stroke_red_guotao35"
                         android:paddingTop="5dp"
@@ -656,7 +656,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="评价"
-                        android:textColor="@color/red_guotao"
+                        android:textColor="@color/red_normal"
                         android:gravity="center"
                         android:background="@drawable/allshape_stroke_red_guotao35"
                         android:paddingTop="3dp"
@@ -673,7 +673,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="投诉"
-                        android:textColor="@color/red_guotao"
+                        android:textColor="@color/red_normal"
                         android:gravity="center"
                         android:background="@drawable/allshape_stroke_red_guotao35"
                         android:paddingTop="3dp"

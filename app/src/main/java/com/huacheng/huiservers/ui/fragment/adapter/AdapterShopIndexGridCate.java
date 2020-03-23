@@ -44,7 +44,7 @@ public class AdapterShopIndexGridCate  extends CommonAdapter<ModelShopIndex>{
     @Override
     protected void convert(ViewHolder viewHolder, final ModelShopIndex item, int position) {
         if (mDatas.size() <= 9) {
-            GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL +item.getIcon(),viewHolder.<ImageView>getView(R.id.iv_img),R.color.default_color);
+            GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL +item.getIcon(),viewHolder.<ImageView>getView(R.id.iv_img),R.color.default_img_color);
 
 
 
@@ -73,7 +73,7 @@ public class AdapterShopIndexGridCate  extends CommonAdapter<ModelShopIndex>{
                     }
                 });
             } else {
-                GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL +item.getIcon(),viewHolder.<ImageView>getView(R.id.iv_img),R.color.default_color);
+                GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL +item.getIcon(),viewHolder.<ImageView>getView(R.id.iv_img),R.color.default_img_color);
 
 
 

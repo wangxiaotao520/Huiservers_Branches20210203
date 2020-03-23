@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="您需要支付"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="13dp"
                     android:textSize="12sp"/>
@@ -85,7 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="房屋业主："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:id="@+id/tv_name"
@@ -108,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="房屋地址："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:id="@+id/tv_address"
@@ -131,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="订单编号："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:id="@+id/tv_order_number"
@@ -154,7 +154,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="支付时间："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:id="@+id/tv_pay_time"
@@ -177,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="缴费类型："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -199,7 +199,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="缴费详情："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
 
 

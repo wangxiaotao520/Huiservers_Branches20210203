@@ -32,7 +32,7 @@
                     android:id="@+id/iv_head"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/transparents"
+                    android:background="@color/transparent"
                     android:scaleType="centerCrop"
                     />
 
@@ -131,7 +131,7 @@
                         android:layout_width="25dp"
                         android:layout_height="2dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@color/orange_bg" />
+                        android:background="@color/orange" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -148,7 +148,7 @@
                         android:text="评价"
                         android:gravity="center"
                         android:textSize="15sp"
-                        android:textColor="@color/gray_66" />
+                        android:textColor="@color/title_sub_color" />
 
                     <View
                         android:visibility="gone"
@@ -156,7 +156,7 @@
                         android:layout_width="25dp"
                         android:layout_height="2dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@color/orange_bg" />
+                        android:background="@color/orange" />
                 </LinearLayout>
 
 

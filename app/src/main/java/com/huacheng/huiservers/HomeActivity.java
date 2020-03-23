@@ -546,7 +546,7 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
         }else {
             for (int i = 0; i < textViews_bottom.length; i++) {
                 if (position==i){
-                    textViews_bottom[i].setTextColor(getResources().getColor(R.color.orange_bg));
+                    textViews_bottom[i].setTextColor(getResources().getColor(R.color.orange));
                 }else {
                     textViews_bottom[i].setTextColor(getResources().getColor(R.color.title_color));
                 }

@@ -31,7 +31,7 @@
             android:id="@+id/title_rel"
             android:layout_width="fill_parent"
             android:layout_height="48dp"
-            android:background="@color/transparents"
+            android:background="@color/transparent"
 
             android:orientation="horizontal">
 

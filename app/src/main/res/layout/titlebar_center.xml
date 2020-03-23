@@ -49,7 +49,7 @@
             android:padding="@dimen/margin_5"
             android:text=""
             android:visibility="gone"
-            android:textColor="@color/text_color"
+            android:textColor="@color/title_sub_color"
             android:textSize="@dimen/t_16sp" />
 
         <TextView

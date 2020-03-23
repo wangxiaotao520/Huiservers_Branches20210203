@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/margin_5"
         android:text="商城"
         android:gravity="center"
-        android:textColor="@color/gray_66"
+        android:textColor="@color/title_sub_color"
         android:textSize="15sp"/>
 
 </LinearLayout>

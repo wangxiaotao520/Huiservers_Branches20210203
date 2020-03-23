@@ -24,7 +24,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:scaleType="centerCrop"
-                fresco:placeholderImage="@color/default_color"
+                fresco:placeholderImage="@color/default_img_color"
                 fresco:placeholderImageScaleType="centerCrop"
                 fresco:roundTopLeft="true"
                 fresco:roundTopRight="true"
@@ -70,7 +70,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@id/iv_broker"
                         android:text=""
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="12sp" />
 
                     <ImageView
@@ -108,7 +108,7 @@
                         android:singleLine="true"
                         android:layout_centerVertical="true"
                         android:text=""
-                        android:textColor="@color/text_color_hint"
+                        android:textColor="@color/title_third_color"
                         android:textSize="15sp"
                         android:visibility="gone" />
 
@@ -142,7 +142,7 @@
                             android:layout_toRightOf="@id/ll_rentss"
                             android:singleLine="true"
                             android:text="已出租"
-                            android:textColor="@color/red_ff"
+                            android:textColor="@color/red_warning"
                             android:textSize="@dimen/t_14sp" />
 
                     </RelativeLayout>

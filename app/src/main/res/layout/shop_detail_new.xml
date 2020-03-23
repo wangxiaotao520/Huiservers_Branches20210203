@@ -100,7 +100,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text=""
-                                    android:textColor="@color/grey"
+                                    android:textColor="@color/title_color"
                                     android:textSize="@dimen/t_11sp"/>
                             </LinearLayout>
 
@@ -141,7 +141,7 @@
                                     android:layout_marginLeft="@dimen/margin_3"
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text="天"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/title_color"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -162,7 +162,7 @@
                                     android:layout_marginLeft="@dimen/margin_3"
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text=":"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/title_color"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -183,7 +183,7 @@
                                     android:layout_marginLeft="@dimen/margin_3"
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text=":"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/title_color"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -233,7 +233,7 @@
                                 android:layout_marginBottom="@dimen/margin_3"
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_toRightOf="@+id/txt_price"
-                                android:textColor="@color/gray_99"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_14sp"
                                 tools:text="35.9"/>
 
@@ -244,7 +244,7 @@
                                 android:layout_alignBottom="@+id/txt_price"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginBottom="4dp"
-                                android:textColor="@color/gray_99"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_12sp"
                                 tools:text="已售1200"/>
                         </RelativeLayout>
@@ -253,7 +253,7 @@
                             android:id="@+id/txt_name"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/grey"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_16sp"
                             android:textStyle="bold"
                             tools:text="五谷道场非油炸袋装泡面14种口味自选组合方便面番茄牛腩面批发"/>
@@ -263,7 +263,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin"
-                            android:textColor="@color/gray_99"
+                            android:textColor="@color/title_third_color"
                             android:textSize="@dimen/t_13sp"
                             tools:text="这里的泡面非常实惠，居家必备"/>
 
@@ -295,7 +295,7 @@
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="10dp"
-                        android:background="@color/all_gray"/>
+                        android:background="@color/windowbackground"/>
 
                     <RelativeLayout
                         android:id="@+id/rel_cancel"
@@ -314,7 +314,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="规格"
-                                android:textColor="@color/gray_66"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_14sp"/>
 
                             <TextView
@@ -323,7 +323,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_5"
                                 android:text=""
-                                android:textColor="@color/c_title"
+                                android:textColor="@color/title_color"
                                 android:textSize="@dimen/t_14sp"/>
                         </LinearLayout>
 
@@ -332,7 +332,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="请选择数量规格"
-                            android:textColor="@color/grey"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"
                             android:visibility="gone"/>
 
@@ -348,7 +348,7 @@
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="10dp"
-                        android:background="@color/all_gray"/>
+                        android:background="@color/windowbackground"/>
 
                     <LinearLayout
                         android:id="@+id/ly_pingjia"
@@ -374,7 +374,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:textColor="@color/grey96"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_14sp"
                                 tools:text="商品评价(0+)"/>
 
@@ -389,7 +389,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="查看全部"
-                                    android:textColor="@color/orange_bg"
+                                    android:textColor="@color/orange"
                                     android:textSize="@dimen/t_13sp"/>
 
                                 <ImageView
@@ -405,7 +405,7 @@
                         <View
                             android:layout_width="fill_parent"
                             android:layout_height="10dp"
-                            android:background="@color/all_gray"/>
+                            android:background="@color/windowbackground"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -421,14 +421,14 @@
                             android:layout_marginLeft="@dimen/margin_15"
                             android:gravity="center_vertical"
                             android:text="暂无商品评价"
-                            android:textColor="@color/gray_66"
+                            android:textColor="@color/title_sub_color"
                             android:textSize="@dimen/t_14sp"
                             />
 
                         <View
                             android:layout_width="fill_parent"
                             android:layout_height="10dp"
-                            android:background="@color/all_gray"/>
+                            android:background="@color/windowbackground"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -502,7 +502,7 @@
                     <View
                         android:layout_width="30dp"
                         android:layout_height="1dp"
-                        android:background="@color/gray4"/>
+                        android:background="@color/text_color_hint"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -511,13 +511,13 @@
                         android:layout_marginRight="@dimen/margin_15"
                         android:gravity="center_vertical"
                         android:text="商品详情"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <View
                         android:layout_width="30dp"
                         android:layout_height="1dp"
-                        android:background="@color/gray4"/>
+                        android:background="@color/text_color_hint"/>
 
                 </LinearLayout>
 
@@ -533,7 +533,7 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     android:textSize="@dimen/t_12sp"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:background="@color/windowbackground"
                     android:text="没有更多内容了"/>
 
@@ -555,7 +555,7 @@
                         <View
                             android:layout_width="30dp"
                             android:layout_height="1dp"
-                            android:background="@color/gray4"/>
+                            android:background="@color/text_color_hint"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -564,13 +564,13 @@
                             android:layout_marginRight="@dimen/margin_15"
                             android:gravity="center_vertical"
                             android:text="为您推荐"
-                            android:textColor="@color/grey"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"/>
 
                         <View
                             android:layout_width="30dp"
                             android:layout_height="1dp"
-                            android:background="@color/gray4"/>
+                            android:background="@color/text_color_hint"/>
 
                     </LinearLayout>
 
@@ -630,7 +630,7 @@
                     android:maxEms="10"
                     android:singleLine="true"
                     android:text=""
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_18sp"/>
 
                 <View
@@ -687,7 +687,6 @@
                 android:id="@+id/iv_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/fab_selector"
                 android:src="@drawable/bt_top"
                 android:visibility="gone"
                 tools:ignore="ContentDescription"/>
@@ -706,7 +705,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/view_background"/>
+                android:background="@color/windowbackground"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -716,7 +715,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="fill_parent"
-                    android:background="@color/view_background"/>
+                    android:background="@color/windowbackground"/>
 
                 <LinearLayout
                     android:id="@+id/ly_gouwuche"
@@ -754,7 +753,7 @@
                             android:layout_alignParentRight="true"
                             android:background="@drawable/circle"
                             android:gravity="center"
-                            android:textColor="@color/c_title3"
+                            android:textColor="@color/title_third_color"
                             android:textSize="@dimen/t_12sp"
                             android:visibility="gone"/>
                     </RelativeLayout>
@@ -763,7 +762,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="购物车"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_12sp"/>
 
                 </LinearLayout>
@@ -821,7 +820,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/view_background"/>
+                android:background="@color/windowbackground"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"

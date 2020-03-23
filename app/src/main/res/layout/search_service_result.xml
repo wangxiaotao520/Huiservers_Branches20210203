@@ -23,7 +23,7 @@
             android:layout_height="38dp"
             android:layout_gravity="center_vertical"
             android:padding="10dp"
-            android:src="@mipmap/fanhui2x_06"/>
+            android:src="@drawable/ic_arrow_left_black"/>
 
         <LinearLayout
             android:id="@+id/ly_search"

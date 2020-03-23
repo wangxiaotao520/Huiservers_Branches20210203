@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="微信支付"
-                android:textColor="@color/c_title"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_14sp"/>
 
             <TextView
@@ -39,7 +39,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="（无需微信零钱、支持储蓄卡）"
-                android:textColor="@color/c_title3"
+                android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_12sp"/>
         </LinearLayout>
     </LinearLayout>

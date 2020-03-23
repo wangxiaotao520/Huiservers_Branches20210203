@@ -130,7 +130,7 @@
                         android:paddingTop="1dp"
                         android:paddingBottom="1dp"
                         android:background="@drawable/allshape_gray_f8"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_12sp"/>
 
                 </LinearLayout>

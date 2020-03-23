@@ -12,7 +12,7 @@
         <TextView
             android:id="@+id/tv_week"
             android:layout_gravity="center"
-            android:textColor="@color/text_color"
+            android:textColor="@color/title_sub_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="周一"
@@ -21,7 +21,7 @@
         <TextView
             android:layout_gravity="center"
             android:id="@+id/tv_date"
-            android:textColor="@color/text_color_hint"
+            android:textColor="@color/title_third_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="04月08日"

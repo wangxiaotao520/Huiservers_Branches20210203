@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/all_gray"
+    android:background="@color/windowbackground"
     android:orientation="vertical">
 
     <include layout="@layout/titlebar_center"></include>
@@ -36,7 +36,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/title_color"
-                        android:textColorHint="@color/gray_a2"
+                        android:textColorHint="@color/text_color_hint"
                         android:textSize="30sp"
                         android:textStyle="bold"
                         tools:text="李/水平" />
@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/title_color"
-                    android:textColorHint="@color/gray_a2"
+                    android:textColorHint="@color/text_color_hint"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:paddingTop="15dp"
@@ -163,7 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="总额："
-                        android:textColor="@color/red_ed"
+                        android:textColor="@color/red_warning"
                         android:textSize="@dimen/t_14sp" />
 
                     <TextView
@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:textColor="@color/red_ed"
+                        android:textColor="@color/red_warning"
                         android:textSize="@dimen/t_18sp" />
 
                 </LinearLayout>

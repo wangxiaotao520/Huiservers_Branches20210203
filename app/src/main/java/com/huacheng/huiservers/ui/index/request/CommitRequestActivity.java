@@ -97,7 +97,7 @@ public class CommitRequestActivity extends BaseActivity {
         tv_right = findViewById(R.id.right);
         tv_right.setVisibility(View.VISIBLE);
         tv_right.setText("历史记录");
-        tv_right.setTextColor(getResources().getColor(R.color.orange_bg));
+        tv_right.setTextColor(getResources().getColor(R.color.orange));
         et_content = findViewById(R.id.et_content);
         gridview_imgs = findViewById(R.id.gridview_imgs);
         gridviewImgsAdapter = new SelectImgAdapter(this, photoList);

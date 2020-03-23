@@ -16,7 +16,7 @@
         android:layout_height="0dp"
         android:layout_weight="7"
         android:visibility="invisible"
-        android:background="@color/all_gray">
+        android:background="@color/windowbackground">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -46,7 +46,7 @@
                         android:layout_marginBottom="2dp"
                         android:gravity="center_vertical"
                         android:text="头像"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_16sp"/>
 
                     <TextView
@@ -103,7 +103,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:text="姓名"
-                    android:textColor="@color/black"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <TextView
@@ -116,7 +116,7 @@
                     android:background="@null"
                     android:gravity="right|center_vertical"
                     android:hint="请填写姓名"
-                    android:textColor="@color/graynew2"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
@@ -142,7 +142,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:text="昵称"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <TextView
@@ -155,8 +155,8 @@
                     android:background="@null"
                     android:gravity="right|center_vertical"
                     android:hint="请输入昵称"
-                    android:textColor="@color/gray_66"
-                    android:textColorHint="@color/gray4"
+                    android:textColor="@color/title_sub_color"
+                    android:textColorHint="@color/text_color_hint"
                     android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
@@ -189,7 +189,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:text="性别"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <TextView
@@ -202,8 +202,8 @@
                     android:background="@null"
                     android:gravity="right|center_vertical"
                     android:hint="请选择性别"
-                    android:textColor="@color/gray_66"
-                    android:textColorHint="@color/gray4"
+                    android:textColor="@color/title_sub_color"
+                    android:textColorHint="@color/text_color_hint"
                     android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
@@ -236,7 +236,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:text="出生日期"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <TextView
@@ -249,8 +249,8 @@
                     android:background="@null"
                     android:gravity="right|center_vertical"
                     android:hint="请选择出生日期"
-                    android:textColor="@color/gray_66"
-                    android:textColorHint="@color/gray4"
+                    android:textColor="@color/title_sub_color"
+                    android:textColorHint="@color/text_color_hint"
                     android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
@@ -266,7 +266,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="10dp"
-                android:background="@color/view_background_color"/>
+                android:background="@color/windowbackground"/>
 
             <RelativeLayout
                 android:id="@+id/rl_changepwd"
@@ -282,7 +282,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:text="修改密码"
-                    android:textColor="@color/black"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <ImageView
@@ -298,7 +298,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="10dp"
-                android:background="@color/view_background_color"/>
+                android:background="@color/windowbackground"/>
 
             <RelativeLayout
                 android:id="@+id/rl_signout"

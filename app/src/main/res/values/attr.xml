@@ -54,11 +54,7 @@
     <attr name="divider_black" format="reference|color"/>
     <attr name="divider_light_grey" format="reference|color"/>
 
-    <declare-styleable name="LoadingView">
 
-        <attr name="loadingText" format="string"/>
-        <attr name="loadingTextAppearance" format="reference"/>
-    </declare-styleable>
 
     <declare-styleable name="MyRadioButton">
         <attr name="drawableSize" format="dimension"/>

@@ -1,19 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- Actionbar color -->
+    <color name="colorPrimary">#ED8D37</color>
+    <!--Status bar color-->
+    <color name="colorPrimaryDark">#ffffff</color>
+    <!--控制各个控件被选中时的颜色-->
+    <color name="colorAccent">#F8F8F8</color>
+    <!--页面背景色-->
     <color name="windowbackground">#F8F8F8</color>
-    <!--<color name="windowbackground">#f4f7f8</color>-->
+    <!--分割线颜色-->
     <color name="line">#F5F5F9</color>
+    <color name="line_de">#DEDEDE</color>
+    <!--透明-->
+    <color name="transparent">#00000000</color>
 
-
-    <color name="text_color_hint">#999999</color>
+    <!--主要文字-->
     <color name="title_color">#333333</color>
-    <color name="orange">#ED8D37</color>
-    <color name="grey96">#969696</color>
-    <color name="black">#000000</color>
-    <color name="c_title12">#2d3134</color>
-    <color name="white">#FFFFFF</color>
+    <!--次要文字-->
+    <color name="title_sub_color">#666666</color>
+    <!--辅助文字-->
+    <color name="title_third_color">#999999</color>
+    <!--输入默认文字颜色-->
+    <color name="text_color_hint">#BBBBBB</color>
 
+    <color name="orange">#ED8D37</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <!--字体颜色不可选-->
+    <color name="gray_D2">#D2D2D2</color>
+    <!--默认图片颜色-->
+    <color name="default_img_color">#F1F1F1</color>
+    <!--商品标签颜色-->
+    <color name="color_goods_tag">#FFA77D</color>
+
+    <color name="coupon_green">#47AA40</color><!--优惠券到店使用按钮颜色-->
+    <color name="coupon_green_trans">#4047AA40</color><!--优惠券到店使用按钮颜色-->
+    <color name="blue">#35A7FB</color><!--常规蓝-->
+    <color name="blue_charge">#D7ECFB</color><!--充电桩-->
+    <color name="shadow">#25808080</color><!--阴影颜色-->
+    <color name="transparent_primary">#4cff5722</color><!--登录中...-->
+    <color name="default_shadow_color">#88757575</color><!--ShadowLayout 默认阴影颜色-->
+    <color name="vote_red">#F12525</color><!--投票页使用的red-->
+    <color name="red_warning">#FF2035</color><!--标识red-->
+    <color name="red_normal">#FF625E</color><!--常规red-->
+    <color name="arc_green">#36FCC4</color><!--充电桩进度-->
 </resources>

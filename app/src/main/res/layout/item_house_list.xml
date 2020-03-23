@@ -62,7 +62,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="@dimen/margin_5"
                 android:text="安宁新村1号楼1单元201"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_13sp"
                 android:textStyle="normal"/>
         </LinearLayout>

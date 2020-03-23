@@ -50,7 +50,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/sdv_user_head"
                     android:text="社区管家-张无忌"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_13sp"/>
 
                 <com.example.xlhratingbar_lib.XLHRatingBar
@@ -72,7 +72,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="8dp"
                 android:text="52125411"
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 android:textSize="13sp"/>
 
         </LinearLayout>
@@ -85,7 +85,7 @@
             android:ellipsize="end"
             android:maxLines="5"
             android:text="蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:助理都很相似!蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:..蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:助理都很相似!蔡徐坤被嘲模仿易烊千玺,到底谁模仿谁呢,网友:.."
-            android:textColor="@color/black_jain_87"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/t_14sp"/>
 
         <com.huacheng.huiservers.view.MyGridview
@@ -120,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
             android:text="尺寸：12寸；口味：草莓芝士"
-            android:textColor="@color/gray_99"
+            android:textColor="@color/title_third_color"
             android:textSize="@dimen/t_11sp"/>
     </LinearLayout>
 
@@ -130,7 +130,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -156,7 +156,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/margin_15"
                 android:text=""
-                android:textColor="@color/c_title3"
+                android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_14sp"/>
         </RelativeLayout>
 
@@ -169,13 +169,13 @@
             android:layout_marginRight="@dimen/margin"
             android:layout_marginTop="@dimen/margin_5"
             android:text=""
-            android:textColor="@color/c_title3"
+            android:textColor="@color/title_third_color"
             android:textSize="@dimen/t_12sp"/>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/view_background"/>
+            android:background="@color/windowbackground"/>
     </LinearLayout>
 
 </LinearLayout>

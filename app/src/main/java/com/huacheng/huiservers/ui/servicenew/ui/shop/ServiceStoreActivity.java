@@ -180,10 +180,10 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
 //          FrescoUtils.getInstance().setImageUri(iv_head,ApiHttpClient.IMG_SERVICE_URL+modelStore.getIndex_img());//头图
 
            Glide.with(this).load(ApiHttpClient.IMG_SERVICE_URL+modelStore.getIndex_img())
-                   .error(R.color.default_color)
+                   .error(R.color.default_img_color)
                    // "3":模糊度；"3":图片缩放3倍后再进行模糊，缩放3-5倍个人感觉比较好。
                   .bitmapTransform(new BlurTransformation(this, 3, 2))
-                   .placeholder(R.color.default_color).crossFade().into(iv_head);
+                   .placeholder(R.color.default_img_color).crossFade().into(iv_head);
            FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_SERVICE_URL+modelStore.getLogo());//logo
            List<CategoryBean> category = modelStore.getCategory();
            //
@@ -408,7 +408,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
         for (int i = 0; i < txt_buttoms.length; i++) {// 否则遍历底部按钮，把被选中的id对应的按钮修改掉，再把其他的修改成非选择状态
             if (txt_buttoms[i].getId() != selected.getId()) {
 
-                txt_buttoms[i].setTextColor(this.getResources().getColor(R.color.gray_66));
+                txt_buttoms[i].setTextColor(this.getResources().getColor(R.color.title_sub_color));
                 txt_buttoms[i].setTypeface(Typeface.DEFAULT );
                 txt_buttoms[i].setTextSize(TypedValue.COMPLEX_UNIT_DIP,15);
             } else {

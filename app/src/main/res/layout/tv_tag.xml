@@ -13,6 +13,6 @@
     android:paddingRight="20dp"
     android:singleLine="true"
     android:text="TAG标签"
-    android:textColor="@color/text_color"
+    android:textColor="@color/title_sub_color"
     android:textSize="16sp"/>
 

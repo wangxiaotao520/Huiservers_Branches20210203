@@ -40,7 +40,7 @@
                 android:layout_marginLeft="@dimen/margin"
                 android:id="@+id/tv_title"
                 android:textSize="@dimen/t_16sp"
-                android:textColor="@color/blackgray"
+                android:textColor="@color/title_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -66,7 +66,7 @@
                 android:maxEms="7"
                 android:singleLine="true"
                 android:text="所属房屋："
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_14sp" />
 
             <TextView
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="迎宾小区57号楼"
-                android:textColor="@color/blackgray"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_14sp" />
 
         </LinearLayout>
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="持证人："
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_14sp" />
 
             <TextView
@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="迎宾小区57号楼"
-                android:textColor="@color/blackgray"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_14sp" />
 
         </LinearLayout>

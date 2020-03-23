@@ -45,7 +45,7 @@
                     android:layout_weight="1"
                     android:singleLine="true"
                     android:text="晋中市华晟物业有限公司"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_16sp"
                     android:textStyle="bold"/>
 
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="更多服务"
-                    android:textColor="@color/gray_99"/>
+                    android:textColor="@color/title_third_color"/>
 
                 <ImageView
                     android:layout_marginLeft="@dimen/margin_5"
@@ -92,10 +92,10 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:layout_marginRight="@dimen/margin_15"
             android:layout_marginTop="@dimen/margin_20"
-            android:background="@color/line_f7"
+            android:background="@color/line"
             android:visibility="gone"/>
 
     </LinearLayout>

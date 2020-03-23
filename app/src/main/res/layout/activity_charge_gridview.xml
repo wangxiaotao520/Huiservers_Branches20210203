@@ -36,7 +36,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_16sp"/>
 
                     <LinearLayout
@@ -52,14 +52,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/margin_5"
                             android:text="收费详情"
-                            android:textColor="@color/orange_bg"
+                            android:textColor="@color/orange"
                             android:textSize="@dimen/t_16sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=">"
-                            android:textColor="@color/orange_bg"/>
+                            android:textColor="@color/orange"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="请选择充电通道"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <LinearLayout
@@ -130,7 +130,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/margin_5"
                             android:text="空闲"
-                            android:textColor="@color/gray_66"
+                            android:textColor="@color/title_sub_color"
                             android:textSize="@dimen/t_12sp"/>
 
                     </LinearLayout>
@@ -153,7 +153,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/margin_5"
                             android:text="占用"
-                            android:textColor="@color/gray_66"
+                            android:textColor="@color/title_sub_color"
                             android:textSize="@dimen/t_12sp"/>
 
                     </LinearLayout>
@@ -176,7 +176,7 @@
                             <!--android:layout_centerVertical="true"-->
                             <!--android:layout_marginLeft="@dimen/margin_5"-->
                             <!--android:text="故障"-->
-                            <!--android:textColor="@color/gray_66"-->
+                            <!--android:textColor="@color/title_sub_color"-->
                             <!--android:textSize="@dimen/t_12sp"/>-->
 
                     <!--</LinearLayout>-->

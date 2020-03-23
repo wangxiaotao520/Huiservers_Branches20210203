@@ -94,8 +94,8 @@
                     android:hint="请选择"
                     android:singleLine="true"
                     android:text=""
-                    android:textColor="@color/text_color"
-                    android:textColorHint="@color/text_color_hint"/>
+                    android:textColor="@color/title_sub_color"
+                    android:textColorHint="@color/title_third_color"/>
 
             </RelativeLayout>
 
@@ -151,8 +151,8 @@
                     android:hint="请选择"
                     android:singleLine="true"
                     android:text=""
-                    android:textColor="@color/text_color"
-                    android:textColorHint="@color/text_color_hint"/>
+                    android:textColor="@color/title_sub_color"
+                    android:textColorHint="@color/title_third_color"/>
 
             </RelativeLayout>
 
@@ -206,8 +206,8 @@
                     android:gravity="left"
                     android:hint="请选择"
                     android:text=""
-                    android:textColor="@color/text_color"
-                    android:textColorHint="@color/text_color_hint"/>
+                    android:textColor="@color/title_sub_color"
+                    android:textColorHint="@color/title_third_color"/>
 
             </RelativeLayout>
 
@@ -280,7 +280,7 @@
                     android:hint="请输入维修备注"
                     android:maxLength="100"
                     android:text=""
-                    android:textColorHint="@color/gray_9c"
+                    android:textColorHint="@color/title_third_color"
                     android:textCursorDrawable="@drawable/color_cursor"/>
 
             </LinearLayout>
@@ -410,8 +410,8 @@
                         android:layout_marginLeft="10dp"
                         android:hint=""
                         android:text=""
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/text_color_hint"/>
+                        android:textColor="@color/title_sub_color"
+                        android:textColorHint="@color/title_third_color"/>
                 </LinearLayout>
 
                 <View
@@ -452,8 +452,8 @@
                         android:layout_marginLeft="10dp"
                         android:hint=""
                         android:text=""
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/text_color_hint"/>
+                        android:textColor="@color/title_sub_color"
+                        android:textColorHint="@color/title_third_color"/>
                 </LinearLayout>
             </LinearLayout>
 

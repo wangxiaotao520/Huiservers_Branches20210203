@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin"
                 android:text="迎宾合作住宅小区57号楼2单元501"
-                android:textColor="@color/text_color"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp"/>
 
         </LinearLayout>
@@ -54,7 +54,7 @@
                 android:paddingRight="@dimen/margin"
                 android:paddingTop="4dp"
                 android:text="段凡凡"
-                android:textColor="@color/text_color_hint"
+                android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_12sp"/>
 
             <TextView
@@ -68,7 +68,7 @@
                 android:paddingRight="@dimen/margin"
                 android:paddingTop="4dp"
                 android:text="13233696139"
-                android:textColor="@color/text_color_hint"
+                android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_12sp"/>
         </LinearLayout>
 
@@ -94,7 +94,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="自用报修自用报修自用报修自用报修自用报修自用报修自用报修自用报修"
-                android:textColor="@color/text_color"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_15sp"/>
 
 

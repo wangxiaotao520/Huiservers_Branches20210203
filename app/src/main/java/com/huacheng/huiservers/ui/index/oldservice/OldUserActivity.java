@@ -46,7 +46,7 @@ public class OldUserActivity extends BaseActivity implements View.OnClickListene
         txt_right = findViewById(R.id.txt_right);
         txt_right.setText("编辑");
         txt_right.setVisibility(View.GONE);
-        txt_right.setTextColor(getResources().getColor(R.color.orange_bg));
+        txt_right.setTextColor(getResources().getColor(R.color.orange));
         //listview = findViewById(R.id.listview);
         ly_user = findViewById(R.id.ly_user);
         tv_btn = findViewById(R.id.tv_btn);

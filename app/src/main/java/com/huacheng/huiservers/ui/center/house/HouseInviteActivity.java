@@ -58,7 +58,7 @@ public class HouseInviteActivity extends BaseActivityOld {
         getResult();
         mTitleName.setText("访客邀请");
         mTxtMianmi.setText("记录");
-        mTxtMianmi.setTextColor(getResources().getColor(R.color.gray_66));
+        mTxtMianmi.setTextColor(getResources().getColor(R.color.title_sub_color));
         mTxtMianmi.setVisibility(View.VISIBLE);
 
 

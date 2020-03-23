@@ -39,12 +39,12 @@
                         android:id="@+id/et_content"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:background="@color/transparents"
+                        android:background="@color/transparent"
                         android:gravity="top"
                         android:hint="请输入投诉内容"
                         android:padding="@dimen/margin_15"
-                        android:textColor="@color/gray_66"
-                        android:textColorHint="@color/gray4"
+                        android:textColor="@color/title_sub_color"
+                        android:textColorHint="@color/text_color_hint"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="15sp"/>
                 </LinearLayout>
@@ -175,8 +175,8 @@
                         android:singleLine="true"
                         android:text=""
                         android:gravity="right"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/gray4"/>
+                        android:textColor="@color/title_sub_color"
+                        android:textColorHint="@color/text_color_hint"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -227,8 +227,8 @@
                         android:gravity="right"
                         android:text=""
                         android:layout_marginRight="@dimen/margin_15"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/text_color_hint"/>
+                        android:textColor="@color/title_sub_color"
+                        android:textColorHint="@color/title_third_color"/>
                 </LinearLayout>
 
                 <View
@@ -271,8 +271,8 @@
                         android:gravity="right"
                         android:text=""
                         android:layout_marginRight="@dimen/margin_15"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/text_color_hint"/>
+                        android:textColor="@color/title_sub_color"
+                        android:textColorHint="@color/title_third_color"/>
                 </LinearLayout>
 
             </LinearLayout>

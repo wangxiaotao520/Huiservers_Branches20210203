@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="二维码"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_18sp"
                     />
 
@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="i为您的亲友创建临时开门的密码"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_14sp"
                     />
             </LinearLayout>
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="6位通行码"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_18sp"
                     />
 
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="i为您的亲友创建临时开门的6位通行码"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_14sp"
                     />
             </LinearLayout>

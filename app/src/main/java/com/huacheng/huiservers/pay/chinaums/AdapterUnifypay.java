@@ -28,7 +28,7 @@ public class AdapterUnifypay extends CommonAdapter<PayTypeBean>{
     @Override
     protected void convert(ViewHolder viewHolder, PayTypeBean item, int position) {
 
-        GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL+item.getIcon(),viewHolder.<ImageView>getView(R.id.iv_pay_type_icon),R.color.transparents);
+        GlideUtils.getInstance().glideLoad(mContext, ApiHttpClient.IMG_URL+item.getIcon(),viewHolder.<ImageView>getView(R.id.iv_pay_type_icon),R.color.transparent);
         viewHolder.<TextView>getView(R.id.tv_name).setText(item.getByname()+"");
         if (item.getRecommend()==1){
             viewHolder.<ImageView>getView(R.id.iv_recommand).setVisibility(View.VISIBLE);

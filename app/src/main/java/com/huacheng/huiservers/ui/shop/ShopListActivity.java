@@ -402,7 +402,7 @@ public class ShopListActivity extends BaseActivityOld {
         } else {
             TextView tabUnSelect = (TextView) tab.getCustomView().findViewById(R.id.tab_item_textview);
             tabUnSelect.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-            tabUnSelect.setTextColor(getResources().getColor(R.color.black_jain_87));
+            tabUnSelect.setTextColor(getResources().getColor(R.color.title_color));
             tabUnSelect.setTextSize(16);
             tabUnSelect.setText(tab.getText());
         }

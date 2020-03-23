@@ -33,7 +33,7 @@
                         android:layout_height="55dp"
                         android:gravity="center_vertical"
                         android:text="您领取的到店优惠券"
-                        android:textColor="@color/black"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_18sp" />
 
                 </LinearLayout>
@@ -42,7 +42,7 @@
                     android:id="@+id/listview_myCoupon40"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:divider="@color/transparents"
+                    android:divider="@color/transparent"
                     android:dividerHeight="8dp">
 
                 </com.huacheng.huiservers.view.MyListView>
@@ -69,7 +69,7 @@
                         android:layout_height="55dp"
                         android:gravity="center_vertical"
                         android:text="请领取以下到店优惠券"
-                        android:textColor="@color/black"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_18sp" />
 
                 </LinearLayout>
@@ -79,7 +79,7 @@
                     android:id="@+id/listview_unusedCoupon"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:divider="@color/transparents"
+                    android:divider="@color/transparent"
                     android:dividerHeight="8dp">
 
                 </com.huacheng.huiservers.view.MyListView>

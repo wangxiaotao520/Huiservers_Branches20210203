@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/all_gray"
+        android:background="@color/windowbackground"
         >
 
         <ScrollView
@@ -55,7 +55,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="小区大门和单元门的临时密码"
-                            android:textColor="@color/black"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"
                             />
 
@@ -66,7 +66,7 @@
                             android:layout_marginTop="@dimen/margin_5"
                             android:gravity="bottom"
                             android:text="666666"
-                            android:textColor="@color/black"
+                            android:textColor="@color/title_color"
                             android:textSize="26sp"
                             android:textStyle="bold"
                             />
@@ -86,7 +86,7 @@
                             android:layout_alignParentRight="true"
                             android:background="@drawable/circle_gray"
                             android:gravity="center"
-                            android:textColor="@color/gray2"
+                            android:textColor="@color/title_sub_color"
                             />
 
                         <TextView
@@ -97,7 +97,7 @@
                             android:background="@drawable/shape_xu"
                             android:gravity="center"
                             android:layerType="software"
-                            android:textColor="@color/gray4"
+                            android:textColor="@color/text_color_hint"
                             />
                     </LinearLayout>
 
@@ -116,7 +116,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1.有效期至  2018.3.19  08:00"
-                            android:textColor="@color/black"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"
                             />
 
@@ -125,7 +125,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin"
-                            android:textColor="@color/black"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"
                             />
 
@@ -134,7 +134,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin"
                             android:text="3.可打开小区大门1次，单元门1次"
-                            android:textColor="@color/black"
+                            android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"
                             />
 
@@ -152,7 +152,7 @@
                             android:layout_alignParentRight="true"
                             android:background="@drawable/circle_gray"
                             android:gravity="center"
-                            android:textColor="@color/gray2"
+                            android:textColor="@color/title_sub_color"
                             />
 
                         <TextView
@@ -163,7 +163,7 @@
                             android:background="@drawable/shape_xu"
                             android:gravity="center"
                             android:layerType="software"
-                            android:textColor="@color/gray4"
+                            android:textColor="@color/text_color_hint"
                             />
                     </LinearLayout>
 
@@ -183,7 +183,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/orange5"
+            android:background="@color/orange"
             android:gravity="center"
             android:text="分享"
             android:textColor="@color/white"

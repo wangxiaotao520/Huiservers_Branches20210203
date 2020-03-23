@@ -117,7 +117,7 @@
                                     android:fadingEdge="none"
                                     android:fastScrollEnabled="false"
                                     android:footerDividersEnabled="false"
-                                    android:background="@color/transparents"
+                                    android:background="@color/transparent"
                                     android:gravity="center"
                                     android:headerDividersEnabled="false"
                                     android:listSelector="@android:color/transparent"
@@ -134,7 +134,7 @@
                             <!--android:id="@+id/sdv_center"-->
                             <!--android:layout_width="match_parent"-->
                             <!--android:layout_height="125dp"-->
-                            <!--fresco:placeholderImage="@color/default_color"-->
+                            <!--fresco:placeholderImage="@color/default_img_color"-->
                             <!--fresco:placeholderImageScaleType="centerCrop"-->
                             <!--android:layout_marginTop="18dp"-->
                             <!--android:layout_marginLeft="15dp"-->
@@ -156,7 +156,7 @@
                                 android:layout_marginBottom="15dp"
                                 fresco:indicator_selected_height="10dp"
                                 fresco:indicator_selected_width="10dp"
-                                fresco:banner_default_image="@color/default_color"
+                                fresco:banner_default_image="@color/default_img_color"
                                 />
 
                             <!--为你优选-->
@@ -209,7 +209,7 @@
                                                 android:layout_gravity="center_vertical"
                                                 android:textSize="16sp"
                                                 android:visibility="gone"
-                                                android:textColor="@color/gray_99" />
+                                                android:textColor="@color/title_third_color" />
                                             <ImageView
                                                 android:id="@+id/tv_more_youxuan_arrow"
                                                 android:layout_width="wrap_content"
@@ -317,14 +317,14 @@
                         <!--android:layout_width="match_parent"-->
                         <!--android:layout_height="45dp"-->
                         <!--android:layout_marginBottom="10dp"-->
-                        <!--android:background="@color/transparents"-->
+                        <!--android:background="@color/transparent"-->
                         <!--android:paddingLeft="12dp"-->
                         <!--android:paddingRight="12dp"-->
-                        <!--app:tabIndicatorColor="@color/transparents"-->
+                        <!--app:tabIndicatorColor="@color/transparent"-->
                         <!--app:tabMode="scrollable"-->
                         <!--app:tabSelectedTextColor="@color/orange"-->
                         <!--app:tabTextAppearance="@style/TabLayoutStyleText15"-->
-                        <!--app:tabTextColor="@color/text_color" />-->
+                        <!--app:tabTextColor="@color/title_sub_color" />-->
 
                     <com.huacheng.huiservers.view.widget.EnhanceTabLayout
                         android:id="@+id/tl_tab"
@@ -334,7 +334,7 @@
                         app:tabIndicatorWidth="50dp"
                         app:tabTextColor="#666666"
                         app:tab_Mode="mode_scrollable"
-                        android:background="@color/transparents"
+                        android:background="@color/transparent"
                         app:tabSelectTextColor="#333333"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"

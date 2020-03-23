@@ -24,7 +24,7 @@
                 android:layout_centerVertical="true"
                 android:paddingLeft="@dimen/margin_15"
                 android:text="选择充电金额"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_16sp"/>
 
             <TextView
@@ -35,7 +35,7 @@
                 android:layout_centerVertical="true"
                 android:paddingRight="@dimen/margin_15"
                 android:text=""
-                android:textColor="@color/gray_66"/>
+                android:textColor="@color/title_sub_color"/>
 
         </RelativeLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
                 android:text="说明："
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp"/>
 
         </LinearLayout>
@@ -88,7 +88,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:text="预付金额："
-                android:textColor="@color/blackgray"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_16sp"/>
 
             <TextView
@@ -99,7 +99,7 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:text=""
-                android:textColor="@color/blackgray"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_18sp"
                 android:textStyle="bold"/>
 
@@ -109,7 +109,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@color/orange_bg"
+                android:background="@color/orange"
                 android:gravity="center"
                 android:paddingRight="@dimen/margin_15"
                 android:text="开启充电"

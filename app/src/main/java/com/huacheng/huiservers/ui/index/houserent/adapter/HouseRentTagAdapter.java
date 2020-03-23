@@ -36,7 +36,7 @@ public class HouseRentTagAdapter extends CommonAdapter <HouseRentTagListBean>{
                 viewHolder.<TextView>getView(R.id.tv_name).setText(item.getStatus()+"");
             }
         }else {
-            viewHolder.<TextView>getView(R.id.tv_name).setTextColor(mContext.getResources().getColor(R.color.text_color));
+            viewHolder.<TextView>getView(R.id.tv_name).setTextColor(mContext.getResources().getColor(R.color.title_sub_color));
             if (item.getBean_type()==0){
                 viewHolder.<TextView>getView(R.id.tv_name).setText(item.getPrice()+"");
             }else if (item.getBean_type()==1) {

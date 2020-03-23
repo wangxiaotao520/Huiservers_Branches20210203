@@ -14,7 +14,7 @@
         android:paddingBottom="13dp"
         android:paddingTop="13dp"
         android:text="dsaf"
-        android:textColor="@color/gray_66"
+        android:textColor="@color/title_sub_color"
         android:textSize="@dimen/t_14sp" />
 
     <ImageView

@@ -89,7 +89,7 @@
                 android:layout_height="1dp"
                 android:layout_marginBottom="@dimen/margin"
                 android:layout_marginTop="@dimen/margin"
-                android:background="@color/black_fan_27"
+                android:background="@color/title_color"
                 android:visibility="gone"></View>
         </LinearLayout>
 

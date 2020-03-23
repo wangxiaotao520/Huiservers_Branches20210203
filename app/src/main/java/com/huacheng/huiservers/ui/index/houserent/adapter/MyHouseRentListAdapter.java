@@ -119,11 +119,11 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
             if ("1".equals(status)) {
                 status = "未审核";
                 mResource = R.mipmap.ic_h_no_review;
-                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_ff));
+                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
             } else if ("2".equals(status)) {
                 status = "未售";
                 mResource = R.mipmap.ic_h_no_sale;
-                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_ff));
+                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
             } else if ("3".equals(status)) {
                 status = "已售";
                 mResource = R.mipmap.ic_h_sold;
@@ -147,11 +147,11 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
             if ("1".equals(status)) {
                 status = "未审核";
                 mResource = R.mipmap.ic_h_no_review;
-                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_ff));
+                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
             } else if ("2".equals(status)) {
                 status = "未出租";
                 mResource = R.mipmap.ic_h_no_sale;
-                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_ff));
+                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
             } else if ("3".equals(status)) {
                 status = "已出租";
                 mResource = R.mipmap.ic_h_sold;

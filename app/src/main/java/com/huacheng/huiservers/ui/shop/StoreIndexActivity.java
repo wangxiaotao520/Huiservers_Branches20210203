@@ -250,10 +250,10 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
                             tv_store_name.setText(shopIndex.getMerchant_name());
                            // GlideUtils.getInstance().glideLoad(StoreIndexActivity.this, ApiHttpClient.IMG_URL + shopIndex.getBackground(), iv_bg, R.mipmap.ic_store_bg);
                             Glide.with(mContext).load(ApiHttpClient.IMG_URL + shopIndex.getBackground())
-                                    .error(R.color.default_color)
+                                    .error(R.color.default_img_color)
                                     // "3":模糊度；"3":图片缩放3倍后再进行模糊，缩放3-5倍个人感觉比较好。
                                     .bitmapTransform(new BlurTransformation(mContext, 3, 2))
-                                    .placeholder(R.color.default_color).crossFade().into(iv_bg);
+                                    .placeholder(R.color.default_img_color).crossFade().into(iv_bg);
 
                             FrescoUtils.getInstance().setImageUri(iv_store_head, ApiHttpClient.IMG_URL + shopIndex.getLogo());
                         }

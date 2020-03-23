@@ -150,14 +150,14 @@ public class ShopFragmentNew extends BaseFragment{
                 View tab_item_indicator = (View) view.findViewById(R.id.tab_item_indicator);
                 if (i == tab.getPosition()) { // 选中状态
                     text.setTextColor(mContext.getResources().getColor(R.color.title_color));
-                    tab_item_indicator.setBackgroundColor(mContext.getResources().getColor(R.color.orange_bg));
+                    tab_item_indicator.setBackgroundColor(mContext.getResources().getColor(R.color.orange));
                     tab_item_indicator.setVisibility(View.VISIBLE);
                     text.getPaint().setFakeBoldText(true);
                     text.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
 
                 } else {// 未选中状态
-                    text.setTextColor(mContext.getResources().getColor(R.color.gray_66));
-                    tab_item_indicator.setBackgroundColor(mContext.getResources().getColor(R.color.orange_bg));
+                    text.setTextColor(mContext.getResources().getColor(R.color.title_sub_color));
+                    tab_item_indicator.setBackgroundColor(mContext.getResources().getColor(R.color.orange));
                     tab_item_indicator.setVisibility(View.INVISIBLE);
                     text.getPaint().setFakeBoldText(false);
                     text.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);

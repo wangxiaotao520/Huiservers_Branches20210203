@@ -797,7 +797,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                         } else {
                             tv.setSelected(false);
                             tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.allshape_gray_f8));
-                            tv.setTextColor(getResources().getColor(R.color.gray_66));
+                            tv.setTextColor(getResources().getColor(R.color.title_sub_color));
                         }
                         tv.setText(mTitle2);
                         return convertView;

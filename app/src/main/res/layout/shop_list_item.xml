@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:background="@color/all_gray"
+    android:background="@color/windowbackground"
     android:orientation="vertical">
 
     <LinearLayout
@@ -29,7 +29,7 @@
                 android:id="@+id/iv_title_img"
                 android:layout_width="107dp"
                 android:layout_height="107dp"
-                fresco:placeholderImage="@color/default_color"
+                fresco:placeholderImage="@color/default_img_color"
                 fresco:placeholderImageScaleType="centerCrop"
                 fresco:roundedCornerRadius="5dp"/>
 
@@ -84,7 +84,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="食用油中的吴彦祖，买上就是赚到"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_12sp"/>
 
 
@@ -155,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
 
                         android:textSize="@dimen/t_12sp"/>
 
@@ -169,7 +169,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="12dp"
                     android:text=""
-                    android:textColor="@color/black_jain_26"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_10sp"/>
             </RelativeLayout>
 

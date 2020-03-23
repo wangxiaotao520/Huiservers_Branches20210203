@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="需要需要"
-            android:textColor="@color/text_color"
+            android:textColor="@color/title_sub_color"
             android:textSize="15sp" />
 
     </LinearLayout>

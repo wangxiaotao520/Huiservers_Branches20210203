@@ -62,7 +62,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:text="2019-05-12 8:00"
-                android:textColor="@color/text_color_hint"
+                android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_12sp"/>
 
 
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="操  作  人："
-                    android:textColor="@color/text_color_hint"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_15sp"/>
 
                 <TextView
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="周华健"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_15sp"/>
 
                 <TextView
@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="[维修工]"
-                    android:textColor="@color/text_color_hint"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_15sp"/>
 
             </LinearLayout>
@@ -123,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="联系电话："
-                    android:textColor="@color/text_color_hint"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_15sp"/>
 
                 <TextView
@@ -145,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="操作说明："
-                    android:textColor="@color/text_color_hint"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_15sp"/>
 
                 <TextView
@@ -153,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="派单已接受,材料费62元，人工费10其他费用50块"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_15sp"/>
             </LinearLayout>
 
@@ -169,7 +169,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="照片说明："
-                    android:textColor="@color/text_color_hint"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_15sp"/>
 
                 <LinearLayout

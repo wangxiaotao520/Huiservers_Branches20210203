@@ -26,7 +26,7 @@
             android:id="@+id/iv_no_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/transparents"
+            android:background="@color/transparent"
             android:src="@mipmap/bg_huodong_empty"
              />
         <TextView
@@ -38,7 +38,7 @@
             android:paddingLeft="@dimen/margin"
             android:layout_marginTop="35dp"
             android:text="暂时没有活动数据哦"
-            android:textColor="@color/gray_99"
+            android:textColor="@color/title_third_color"
             android:textSize="@dimen/t_14sp" />
     </LinearLayout>
 

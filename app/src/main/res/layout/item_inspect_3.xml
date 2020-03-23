@@ -46,8 +46,8 @@ android:orientation="vertical">
     android:background="@color/white"
     android:gravity="top"
     android:hint="请输入..."
-    android:textColor="@color/text_color"
-    android:textColorHint="@color/text_color_hint"
+    android:textColor="@color/title_sub_color"
+    android:textColorHint="@color/title_third_color"
     android:textCursorDrawable="@drawable/color_cursor"
     android:textSize="15sp" />
 

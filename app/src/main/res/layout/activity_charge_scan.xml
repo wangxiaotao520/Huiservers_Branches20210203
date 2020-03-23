@@ -102,7 +102,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
                                     android:text="慧生活充电欢迎您"
-                                    android:textColor="@color/gray_99"
+                                    android:textColor="@color/title_third_color"
                                     android:textSize="12sp" />
 
                             </LinearLayout>
@@ -162,7 +162,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
                                     android:text="查看最近充电详情"
-                                    android:textColor="@color/gray_99"
+                                    android:textColor="@color/title_third_color"
                                     android:textSize="12sp" />
 
                             </LinearLayout>
@@ -211,8 +211,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
             android:hint="输入设备编号"
-            android:textColor="@color/text_color"
-            android:textColorHint="@color/gray_99"
+            android:textColor="@color/title_sub_color"
+            android:textColorHint="@color/title_third_color"
             android:textSize="18sp"
             android:layout_marginBottom="100dp" />
 

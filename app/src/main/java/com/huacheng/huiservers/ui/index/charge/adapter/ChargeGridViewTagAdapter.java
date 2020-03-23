@@ -31,7 +31,7 @@ public class ChargeGridViewTagAdapter extends CommonAdapter<ModelChargeDetail.Pr
 
         }else {
             viewHolder.<TextView>getView(R.id.tv_tag).setBackgroundResource(R.drawable.allshape_stoke_gray_33_5);
-            viewHolder.<TextView>getView(R.id.tv_tag).setTextColor(mContext.getResources().getColor(R.color.blackgray));
+            viewHolder.<TextView>getView(R.id.tv_tag).setTextColor(mContext.getResources().getColor(R.color.title_color));
             viewHolder.<TextView>getView(R.id.tv_tag).setText(item.getTitle());
         }
 

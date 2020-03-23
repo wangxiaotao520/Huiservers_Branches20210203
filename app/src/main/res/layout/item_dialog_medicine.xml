@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="口服"
-            android:textColor="@color/gray_99"
+            android:textColor="@color/title_third_color"
             android:background="@drawable/allshape_gray"
             android:padding="9dp"
             android:layout_centerInParent="true"

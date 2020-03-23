@@ -37,14 +37,14 @@ public class SexVerfityActivity extends BaseActivityOld implements OnClickListen
         right = (TextView) findViewById(R.id.right);
         // set
         title_name.setText("性别");
-        right.setTextColor(getResources().getColor(R.color.rednew));
+        right.setTextColor(getResources().getColor(R.color.orange));
         right.setText("提交");
         right.setVisibility(View.VISIBLE);
         radiogroup = (RadioGroup) findViewById(R.id.radiogroup);
         radio_nan = (RadioButton) findViewById(R.id.radio_nan);
         radio_nv = (RadioButton) findViewById(R.id.radio_nv);
-        final Drawable drawableCheck = getResources().getDrawable(R.drawable.radio_check1);
-        final Drawable drawableunCheck = getResources().getDrawable(R.drawable.radio_uncheck);
+        final Drawable drawableCheck = getResources().getDrawable(R.mipmap.ic_selected_pay_type);
+        final Drawable drawableunCheck = getResources().getDrawable(R.drawable.shape_oval_grey);
         drawableCheck.setBounds(0, 0, drawableCheck.getMinimumWidth(), drawableCheck.getMinimumHeight());  //
         drawableunCheck.setBounds(0, 0, drawableunCheck.getMinimumWidth(), drawableunCheck.getMinimumHeight());  //
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

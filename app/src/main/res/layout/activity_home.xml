@@ -58,7 +58,7 @@
                         android:layout_width="23dp"
                         android:layout_height="23dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@color/transparents"
+                        android:background="@color/transparent"
                         android:scaleType="fitXY"
                         android:src="@drawable/home22" />
                     <TextView
@@ -89,7 +89,7 @@
                         android:layout_width="23dp"
                         android:layout_height="23dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@color/transparents"
+                        android:background="@color/transparent"
                         android:scaleType="fitXY"
                         android:src="@drawable/shop11" />
                     <TextView
@@ -122,7 +122,7 @@
                         android:layout_gravity="center_horizontal"
                         android:src="@drawable/bt_fuwu11"
                         android:scaleType="fitXY"
-                        android:background="@color/transparents"
+                        android:background="@color/transparent"
                         />
                     <TextView
                         android:id="@+id/tv_service"
@@ -154,7 +154,7 @@
                         android:layout_gravity="center_horizontal"
                         android:src="@drawable/circle11"
                         android:scaleType="fitXY"
-                        android:background="@color/transparents"
+                        android:background="@color/transparent"
                         />
                     <TextView
                         android:id="@+id/tv_circle"
@@ -186,7 +186,7 @@
                         android:layout_gravity="center_horizontal"
                         android:src="@drawable/people11"
                         android:scaleType="fitXY"
-                        android:background="@color/transparents"
+                        android:background="@color/transparent"
                         />
                     <TextView
                         android:id="@+id/tv_my"

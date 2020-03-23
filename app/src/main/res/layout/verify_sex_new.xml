@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/view_background_color"
+              android:background="@color/windowbackground"
              android:fitsSystemWindows="false"
               android:orientation="vertical">
 
@@ -31,7 +31,7 @@
                 android:background="@null"
                 android:button="@null"
                 android:text="男"
-                android:textColor="@color/grey"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_16sp"/>
 
             <View
@@ -46,7 +46,7 @@
                 android:background="@null"
                 android:button="@null"
                 android:text="女"
-                android:textColor="@color/grey"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_16sp"/>
         </RadioGroup>
 

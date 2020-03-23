@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_15"
                     android:text="社区管家-张无忌"
-                    android:textColor="@color/orange_bg"
+                    android:textColor="@color/orange"
                     android:textSize="@dimen/t_16sp"/>
 
                 <LinearLayout
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_5"
                         android:text="0"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_14sp"/>
 
                 </LinearLayout>
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_name"
                     android:text="2018.06.01  14:22"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_12sp"/>
 
             </RelativeLayout>

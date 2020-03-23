@@ -232,7 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:layout_marginTop="15dp"

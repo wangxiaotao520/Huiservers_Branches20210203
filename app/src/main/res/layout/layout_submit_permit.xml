@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/red_ed"
+                        android:textColor="@color/red_warning"
                         android:textSize="@dimen/t_15sp" />
 
                     <TextView
@@ -63,8 +63,8 @@
                             android:layout_marginRight="@dimen/margin"
                             android:hint="请选择房屋"
                             android:text=""
-                            android:textColor="@color/text_color"
-                            android:textColorHint="@color/gray4"
+                            android:textColor="@color/title_sub_color"
+                            android:textColorHint="@color/text_color_hint"
                             android:textSize="@dimen/t_15sp" />
 
                         <ImageView
@@ -95,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/red_ed"
+                        android:textColor="@color/red_warning"
                         android:textSize="@dimen/t_15sp" />
 
                     <TextView
@@ -114,8 +114,8 @@
                         android:background="@color/white"
                         android:gravity="right|center_vertical"
                         android:hint="请输入姓名"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/gray4"
+                        android:textColor="@color/title_sub_color"
+                        android:textColorHint="@color/text_color_hint"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/t_15sp" />
                 </LinearLayout>
@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/red_ed"
+                        android:textColor="@color/red_warning"
                         android:textSize="@dimen/t_15sp" />
 
                     <TextView
@@ -152,8 +152,8 @@
                         android:gravity="right|center_vertical"
                         android:hint="请输入身份证号"
                         android:maxLength="18"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/gray4"
+                        android:textColor="@color/title_sub_color"
+                        android:textColorHint="@color/text_color_hint"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/t_15sp" />
                 </LinearLayout>
@@ -174,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="*"
-                        android:textColor="@color/red_ed"
+                        android:textColor="@color/red_warning"
                         android:textSize="@dimen/t_15sp" />
 
                     <TextView
@@ -195,8 +195,8 @@
                         android:hint="请输入电话"
                         android:maxLength="11"
                         android:numeric="integer"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/gray4"
+                        android:textColor="@color/title_sub_color"
+                        android:textColorHint="@color/text_color_hint"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/t_15sp" />
                 </LinearLayout>
@@ -228,8 +228,8 @@
                         android:background="@color/white"
                         android:gravity="right|center_vertical"
                         android:hint="请输入车牌号"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/gray4"
+                        android:textColor="@color/title_sub_color"
+                        android:textColorHint="@color/text_color_hint"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/t_15sp" />
                 </LinearLayout>
@@ -256,7 +256,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="*"
-                            android:textColor="@color/red_ed"
+                            android:textColor="@color/red_warning"
                             android:textSize="@dimen/t_15sp" />
 
                         <TextView
@@ -275,8 +275,8 @@
                             android:background="@color/white"
                             android:gravity="right|center_vertical"
                             android:hint="请输入到达地址"
-                            android:textColor="@color/text_color"
-                            android:textColorHint="@color/gray4"
+                            android:textColor="@color/title_sub_color"
+                            android:textColorHint="@color/text_color_hint"
                             android:textCursorDrawable="@drawable/color_cursor"
                             android:textSize="@dimen/t_15sp" />
                     </LinearLayout>
@@ -293,8 +293,8 @@
                 android:gravity="top"
                 android:hint="请输入来访事由"
                 android:padding="@dimen/margin"
-                android:textColor="@color/text_color"
-                android:textColorHint="@color/gray4"
+                android:textColor="@color/title_sub_color"
+                android:textColorHint="@color/text_color_hint"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="@dimen/t_15sp" />
 
@@ -317,7 +317,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_5"
                     android:text="请输入真实信息，否则无法通过审核"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_12sp" />
             </LinearLayout>
 

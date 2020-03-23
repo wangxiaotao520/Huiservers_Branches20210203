@@ -5,6 +5,6 @@
     android:layout_margin="5dp"
     android:text="Helloworld"
     android:id="@+id/tv_shoptagtxt"
-    android:textColor="@color/text_color">
+    android:textColor="@color/title_sub_color">
 
 </TextView>

@@ -20,7 +20,7 @@
 信
 息
 行间距38"
-        android:textColor="@color/text_color"
+        android:textColor="@color/title_sub_color"
         android:padding="15dp"
         android:textSize="14sp" />
 

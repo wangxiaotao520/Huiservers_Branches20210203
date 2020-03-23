@@ -41,7 +41,7 @@
                   app:tabTextAppearance="@style/TabLayoutStyleText15"
                   android:paddingLeft="12dp"
                   android:paddingRight="12dp"
-                  app:tabTextColor="@color/text_color" />-->
+                  app:tabTextColor="@color/title_sub_color" />-->
             <com.huacheng.huiservers.view.widget.EnhanceTabLayout
                 android:id="@+id/tl_tab"
                 android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
                 tab:tabIndicatorColor="#ED8D37"
                 tab:tabIndicatorHeight="2dp"
                 tab:tabIndicatorWidth="40dp"
-                tab:tabSelectTextColor="@color/orange_bg"
+                tab:tabSelectTextColor="@color/orange"
                 tab:tabTextColor="#666666"
                 tab:tab_Mode="mode_fixed">
 

@@ -50,7 +50,7 @@
             android:layout_centerHorizontal="true"
             app:tabSelectedTextColor="@color/colorPrimary"
             app:tabTextAppearance="@style/TabLayoutStyleText15"
-            app:tabTextColor="@color/text_color"/>
+            app:tabTextColor="@color/title_sub_color"/>
 
     </RelativeLayout>
 

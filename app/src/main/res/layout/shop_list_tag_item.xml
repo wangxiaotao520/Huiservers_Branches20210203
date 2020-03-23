@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="美味可口"
-            android:textColor="@color/colorOrangeTag"
+            android:textColor="@color/color_goods_tag"
             android:textSize="@dimen/t_10sp" />
     </LinearLayout>
 

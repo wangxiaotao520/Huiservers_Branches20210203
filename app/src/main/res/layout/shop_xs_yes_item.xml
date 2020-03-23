@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/all_gray"
+    android:background="@color/windowbackground"
     android:orientation="vertical">
 
     <LinearLayout
@@ -75,7 +75,7 @@
                     android:minEms="1"
                     android:padding="2dp"
                     android:text="00"
-                    android:textColor="@color/black_jain_87"
+                    android:textColor="@color/title_color"
                     android:textSize="8sp" />
 
                 <TextView
@@ -102,7 +102,7 @@
                         android:minEms="1"
                         android:padding="2dp"
                         android:text="00"
-                        android:textColor="@color/black_jain_87"
+                        android:textColor="@color/title_color"
                         android:textSize="8sp" />
 
                 </LinearLayout>
@@ -134,7 +134,7 @@
                         android:minEms="1"
                         android:padding="2dp"
                         android:text="00"
-                        android:textColor="@color/black_jain_87"
+                        android:textColor="@color/title_color"
                         android:textSize="8sp" />
 
                 </LinearLayout>
@@ -165,7 +165,7 @@
                         android:minEms="1"
                         android:padding="2dp"
                         android:text="00"
-                        android:textColor="@color/black_jain_87"
+                        android:textColor="@color/title_color"
                         android:textSize="8sp" />
 
                 </LinearLayout>
@@ -190,7 +190,7 @@
                 android:ellipsize="end"
                 android:lines="2"
                 android:text=""
-                android:textColor="@color/black_jain_87"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_14sp" />
 
             <RelativeLayout
@@ -261,7 +261,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin"
                         android:text=""
-                        android:textColor="@color/gray4"
+                        android:textColor="@color/text_color_hint"
                         android:textSize="@dimen/t_12sp" />
 
                 </LinearLayout>
@@ -283,7 +283,7 @@
                         android:layout_marginEnd="12dp"
                         android:layout_marginRight="@dimen/margin_5"
                         android:text=""
-                        android:textColor="@color/black_jain_26"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_10sp" />
 
                     <com.huacheng.huiservers.view.CustomProgressBar

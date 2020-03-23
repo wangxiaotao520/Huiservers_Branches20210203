@@ -66,7 +66,7 @@ public class ServiceCateAdapter extends BaseAdapter {
             holder.tv_name.setBackground(mContext.getResources().getDrawable(R.drawable.bg_orange));
         } else {
             holder.tv_name.setEnabled(false);
-            holder.tv_name.setTextColor(mContext.getResources().getColor(R.color.grey96));
+            holder.tv_name.setTextColor(mContext.getResources().getColor(R.color.title_third_color));
             holder.tv_name.setBackground(null);
         }
         return convertView;

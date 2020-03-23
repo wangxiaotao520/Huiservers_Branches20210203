@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:layout_gravity="center_vertical"
-    android:background="@color/transparents"
+    android:background="@color/transparent"
     android:paddingRight="12dp">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/orange_bg"
+                    android:textColor="@color/orange"
                     android:textSize="13sp" />
 
                 <TextView

@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,21 +18,17 @@ import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelEventHome;
+import com.huacheng.huiservers.model.ModelRefreshCircle;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.center.adapter.MyFragmentPagerAdapter;
 import com.huacheng.huiservers.ui.circle.CircleReleaseActivity;
-import com.huacheng.huiservers.ui.circle.MyCircleActivity;
-import com.huacheng.huiservers.model.CircleDetailBean;
-import com.huacheng.huiservers.model.ModelRefreshCircle;
 import com.huacheng.huiservers.ui.fragment.circle.CircleTabFragmentNew;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
-import com.huacheng.huiservers.utils.PopupWindowUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -118,60 +112,7 @@ public class CircleFragmentNew extends BaseFragment {
         });
     }
 
-    private void showPopupWindow(final View anchorView){
-        showDialog(smallDialog);
-        final Url_info info = new Url_info(getActivity());
-        HashMap<String, String> params = new HashMap<>();
-        MyOkHttp.get().get(info.getSocialNum, params, new JsonResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, JSONObject response) {
-                hideDialog(smallDialog);
-                if (JsonUtil.getInstance().isSuccess(response)) {
-                    CircleDetailBean info = (CircleDetailBean) JsonUtil.getInstance().parseJsonFromResponse(response, CircleDetailBean.class);
-                    if (info != null) {
-                        String num = info.getSocial_num();
-                        View contentView;
-                        if (!num.equals("0")) {
-                            contentView = getPopupWindowContentView(num);
-                        } else {
-                            contentView = getPopupWindowContentView(num);
-                        }
-                        mPopupWindow = new PopupWindow(contentView,
-                                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-                        // 如果不设置PopupWindow的背景，有些版本就会出现一个问题：无论是点击外部区域还是Back键都无法dismiss弹框
-                        //   mPopupWindow.setBackgroundDrawable(new ColorDrawable());
-                        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
-                        mPopupWindow.setFocusable(true);
-                        ColorDrawable dw = new ColorDrawable(0xb0000000);
-                        mPopupWindow.setBackgroundDrawable(dw);
-                        //设置屏幕外阴影
-                        //  popOutShadow(mPopupWindow);
-                        // 设置好参数之后再show
-                        int windowPos[] = PopupWindowUtil.calculatePopWindowPos(anchorView, contentView);
-                        int xOff = 20; // 可以自己调整偏移
-                        windowPos[0] -= xOff;
-                        mPopupWindow.showAtLocation(anchorView, Gravity.TOP | Gravity.START, windowPos[0], windowPos[1]);
-                        backgroundAlpha(0.4f);
-                        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                            @Override
-                            public void onDismiss() {
-                                backgroundAlpha(1f);
-                            }
-                        });
-                    }
-                } else {
-                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
-                    SmartToast.showInfo(msg);
-                }
-            }
 
-            @Override
-            public void onFailure(int statusCode, String error_msg) {
-                hideDialog(smallDialog);
-                SmartToast.showInfo("网络异常，请检查网络设置");
-            }
-        });
-    }
 
     /**
      * 邻里分类
@@ -302,7 +243,7 @@ public class CircleFragmentNew extends BaseFragment {
             View selectTab = tab.getCustomView().findViewById(R.id.view);
             tabSelect.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             tabSelect.setTextColor(getResources().getColor(R.color.title_color));
-            selectTab.setBackgroundColor(mContext.getResources().getColor(R.color.orange_bg));
+            selectTab.setBackgroundColor(mContext.getResources().getColor(R.color.orange));
             selectTab.setVisibility(View.VISIBLE);
             //tabSelect.setTextSize(20);
             tabSelect.setText(tab.getText());
@@ -310,7 +251,7 @@ public class CircleFragmentNew extends BaseFragment {
             TextView tabUnSelect = tab.getCustomView().findViewById(R.id.tab_item_textview);
             View selectTab = tab.getCustomView().findViewById(R.id.view);
             tabUnSelect.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-            tabUnSelect.setTextColor(getResources().getColor(R.color.text_color));
+            tabUnSelect.setTextColor(getResources().getColor(R.color.title_sub_color));
             selectTab.setVisibility(View.INVISIBLE);
             // tabUnSelect.setTextSize(16);
             tabUnSelect.setText(tab.getText());
@@ -336,37 +277,7 @@ public class CircleFragmentNew extends BaseFragment {
         });
 
     }
-    private View getPopupWindowContentView(String num) {
-        // 一个自定义的布局，作为显示的内容
-        int layoutId = R.layout.popup_content_layout;   // 布局ID
-        final View contentView = LayoutInflater.from(getActivity()).inflate(layoutId, null);
-        final TextView item1 = (TextView) contentView.findViewById(R.id.menu_item1_num);
-        if (!num.equals("0")) {
-            item1.setText(num);
-        } else {
-            item1.setText("");
-        }
-        contentView.findViewById(R.id.lin_menu_item1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MyCircleActivity.class));
-                if (mPopupWindow != null) {
-                    mPopupWindow.dismiss();
-                }
-            }
-        });
-        contentView.findViewById(R.id.menu_item2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(getActivity(), FaBuActivity.class));
-                startActivity(new Intent(getActivity(), CircleReleaseActivity.class));
-                if (mPopupWindow != null) {
-                    mPopupWindow.dismiss();
-                }
-            }
-        });
-        return contentView;
-    }
+
     /**
      * 定位到指定tab并刷新
      *

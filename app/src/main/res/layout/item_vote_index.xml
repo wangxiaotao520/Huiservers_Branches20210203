@@ -32,7 +32,7 @@
                         android:id="@+id/sdv_title_img1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        fresco:placeholderImage="@color/default_color"
+                        fresco:placeholderImage="@color/default_img_color"
                         fresco:placeholderImageScaleType="centerCrop"
                         fresco:roundAsCircle="false"
                         fresco:roundTopLeft="true"
@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="桃子家庭"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:layout_marginLeft="5dp"
                         android:singleLine="true"
                         android:textSize="15sp" />
@@ -137,7 +137,7 @@
                         android:id="@+id/sdv_title_img2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        fresco:placeholderImage="@color/default_color"
+                        fresco:placeholderImage="@color/default_img_color"
                         fresco:placeholderImageScaleType="centerCrop"
                         fresco:roundAsCircle="false"
                         fresco:roundTopLeft="true"
@@ -173,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:text="桃子家庭"
                         android:singleLine="true"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:layout_marginLeft="5dp"
                         android:textSize="15sp" />
                     <View

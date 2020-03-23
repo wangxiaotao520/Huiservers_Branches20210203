@@ -45,7 +45,7 @@ public class ChangePwdVerifyActivity extends BaseActivityOld implements OnClickL
 
         // set
         title_name.setText("修改密码");
-        right.setTextColor(getResources().getColor(R.color.rednew));
+        right.setTextColor(getResources().getColor(R.color.orange));
         right.setText("提交");
 
         // get

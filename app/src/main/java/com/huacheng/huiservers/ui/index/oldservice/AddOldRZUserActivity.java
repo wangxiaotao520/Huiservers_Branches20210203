@@ -147,9 +147,9 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
 
                     }
                 }).setTitleText("请选择")//标题文字
-                        .setTitleColor(this.getResources().getColor(R.color.blackgray))
-                        .setSubmitColor(this.getResources().getColor(R.color.orange_bg))//确定按钮文字颜色
-                        .setCancelColor(this.getResources().getColor(R.color.text_color))
+                        .setTitleColor(this.getResources().getColor(R.color.title_color))
+                        .setSubmitColor(this.getResources().getColor(R.color.orange))//确定按钮文字颜色
+                        .setCancelColor(this.getResources().getColor(R.color.title_sub_color))
                         .setContentTextSize(18).build();//取消按钮文字颜色;
                 pvOptions.setPicker(options1Items);
                 pvOptions.show();
@@ -277,9 +277,9 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
 
             }
         }).setTitleText("请选择")//标题文字
-                .setTitleColor(this.getResources().getColor(R.color.blackgray))
-                .setSubmitColor(this.getResources().getColor(R.color.orange_bg))//确定按钮文字颜色
-                .setCancelColor(this.getResources().getColor(R.color.text_color))
+                .setTitleColor(this.getResources().getColor(R.color.title_color))
+                .setSubmitColor(this.getResources().getColor(R.color.orange))//确定按钮文字颜色
+                .setCancelColor(this.getResources().getColor(R.color.title_sub_color))
                 .setContentTextSize(18).setSelectOptions(selected_options1).build();//取消按钮文字颜色;
         pvOptions.setPicker(options1Item2);
         pvOptions.show();

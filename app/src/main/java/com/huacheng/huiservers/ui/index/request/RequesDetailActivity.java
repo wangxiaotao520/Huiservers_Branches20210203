@@ -140,10 +140,10 @@ public class RequesDetailActivity extends BaseActivity {
             }
             if (modelRequest.getStatus() == 1) {
                 tv_status.setText("未处理");
-                tv_status.setTextColor(this.getResources().getColor(R.color.red_bg));
+                tv_status.setTextColor(this.getResources().getColor(R.color.red_warning));
             } else {
                 tv_status.setText("已处理");
-                tv_status.setTextColor(this.getResources().getColor(R.color.grey));
+                tv_status.setTextColor(this.getResources().getColor(R.color.title_color));
             }
             //故障照片
             if (modelRequest.getImg_list() != null && modelRequest.getImg_list().size() > 0) {

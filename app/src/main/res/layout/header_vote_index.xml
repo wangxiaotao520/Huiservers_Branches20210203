@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="参与家庭"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_12sp"/>
 
 
@@ -47,7 +47,7 @@
             android:layout_width="1dp"
             android:layout_height="25dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/gray4"/>
+            android:background="@color/text_color_hint"/>
 
         <LinearLayout
             android:id="@+id/ly_message"
@@ -78,7 +78,7 @@
             android:layout_width="1dp"
             android:layout_height="25dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/gray4"/>
+            android:background="@color/text_color_hint"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="今日投票剩余数"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_12sp"/>
 
         </LinearLayout>
@@ -158,7 +158,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin"
                     android:text=""
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_15sp"/>
 
 
@@ -180,14 +180,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_20sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="天"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_12sp"/>
 
                 </LinearLayout>
@@ -203,14 +203,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_20sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="时"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_12sp"/>
 
                 </LinearLayout>
@@ -226,14 +226,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_20sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="分"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_12sp"/>
 
                 </LinearLayout>
@@ -249,14 +249,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_20sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="秒"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_12sp"/>
 
                 </LinearLayout>

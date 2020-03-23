@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
             android:text=""
-            android:textColor="@color/graynew2"
+            android:textColor="@color/title_third_color"
             android:textSize="13sp"/>
     </LinearLayout>
 

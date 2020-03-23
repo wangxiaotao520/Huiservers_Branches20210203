@@ -29,7 +29,7 @@
                 android:paddingLeft="15dp"
                 android:paddingTop="15dp"
                 android:text="热门搜索"
-                android:textColor="@color/text_color"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp" />
 
             <com.huacheng.huiservers.view.FlowLayout
@@ -62,7 +62,7 @@
                     android:paddingTop="@dimen/margin_15"
                     android:paddingLeft="@dimen/margin_15"
                     android:text="搜索历史"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_14sp" />
 
                 <TextView
@@ -93,11 +93,11 @@
                         style="@style/common_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:divider="@color/all_gray"
+                        android:divider="@color/windowbackground"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:dividerHeight="1dp"
-                        android:listSelector="@drawable/list_item_selector"></com.huacheng.huiservers.view.MyListView>
+                        android:listSelector="@android:color/transparent"/>
 
 
                 </LinearLayout>

@@ -11,7 +11,7 @@
         android:layout_height="130dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        fresco:placeholderImage="@color/default_color"
+        fresco:placeholderImage="@color/default_img_color"
         fresco:placeholderImageScaleType="centerCrop"
         android:layout_marginBottom="10dp"
         fresco:roundedCornerRadius="3dp" />

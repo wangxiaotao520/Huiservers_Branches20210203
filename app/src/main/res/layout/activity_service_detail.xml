@@ -51,7 +51,7 @@
                 android:maxEms="10"
                 android:singleLine="true"
                 android:text="服务详情"
-                android:textColor="@color/c_title12"
+                android:textColor="@color/title_color"
                 android:textSize="18sp"/>
 
             <LinearLayout
@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_18sp"/>
 
                 <TextView
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_5"
                     android:text=""
-                    android:textColor="@color/orange_bg"
+                    android:textColor="@color/orange"
                     android:textSize="23sp"/>
             </LinearLayout>
 
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="选择规格"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -141,7 +141,7 @@
                     android:layout_marginLeft="@dimen/margin_20"
                     android:layout_weight="1"
                     android:text=""
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <ImageView
@@ -174,7 +174,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="查看商铺"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -183,7 +183,7 @@
                     android:layout_marginLeft="@dimen/margin_20"
                     android:layout_weight="1"
                     android:text=""
-                    android:textColor="@color/grey"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <ImageView
@@ -220,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=""
-                        android:textColor="@color/grey96"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_13sp"/>
 
 
@@ -235,7 +235,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="查看全部"
-                            android:textColor="@color/orange_bg"
+                            android:textColor="@color/orange"
                             android:textSize="@dimen/t_13sp"/>
 
                         <ImageView
@@ -265,7 +265,7 @@
                     <View
                         android:layout_width="40dp"
                         android:layout_height="1dp"
-                        android:background="@color/gray4"/>
+                        android:background="@color/text_color_hint"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -273,13 +273,13 @@
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginRight="@dimen/margin"
                         android:text="服务详情"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <View
                         android:layout_width="40dp"
                         android:layout_height="1dp"
-                        android:background="@color/gray4"/>
+                        android:background="@color/text_color_hint"/>
 
                 </LinearLayout>
 
@@ -329,7 +329,7 @@
                             android:id="@+id/tv_store_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
+                            android:textColor="@color/title_sub_color"
                             android:textSize="@dimen/t_14sp"
                             tools:text="三国防生的合格后 "/>
 
@@ -343,7 +343,7 @@
                                 android:id="@+id/tv_store_coupon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/grey96"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_10sp"
                                 tools:text="0个优惠券"/>
 
@@ -352,7 +352,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_30"
-                                android:textColor="@color/grey96"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_10sp"
                                 tools:text="共0个商品"/>
 
@@ -417,7 +417,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="联系商家"
-                android:textColor="@color/grey"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_12sp"/>
         </LinearLayout>
 

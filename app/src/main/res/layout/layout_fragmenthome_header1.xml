@@ -29,7 +29,7 @@
             app:sl_dx="0dp"
             app:sl_dy="2dp"
             app:sl_shadowColor="#0D000000"
-            android:background="@color/transparents"
+            android:background="@color/transparent"
             app:sl_shadowRadius="5dp">
             <com.youth.banner.Banner
                 android:id="@+id/banner"
@@ -44,7 +44,7 @@
                 app:indicator_width="7dp"
                 app:indicator_selected_height="10dp"
                 app:indicator_selected_width="10dp"
-                app:banner_default_image="@color/transparents"
+                app:banner_default_image="@color/transparent"
                 />
         </com.huacheng.huiservers.view.ShadowLayout>
     </RelativeLayout>
@@ -68,7 +68,7 @@
             android:fadingEdge="none"
             android:fastScrollEnabled="false"
             android:footerDividersEnabled="false"
-            android:background="@color/transparents"
+            android:background="@color/transparent"
             android:gravity="center"
             android:headerDividersEnabled="false"
             android:listSelector="@android:color/transparent"
@@ -95,7 +95,7 @@
         app:indicator_width="0dp"
         app:indicator_selected_height="0dp"
         app:indicator_selected_width="0dp"
-        app:banner_default_image="@color/transparents"
+        app:banner_default_image="@color/transparent"
         android:visibility="gone" />
     <View
         android:layout_width="match_parent"
@@ -179,7 +179,7 @@
                     android:text="查看更多"
                     android:layout_gravity="center_vertical"
                     android:textSize="16sp"
-                    android:textColor="@color/gray_99" />
+                    android:textColor="@color/title_third_color" />
                 <ImageView
                     android:id="@+id/tv_more_sale_arrow"
                     android:layout_width="wrap_content"
@@ -253,7 +253,7 @@
                     android:text="查看更多"
                     android:layout_gravity="center_vertical"
                     android:textSize="16sp"
-                    android:textColor="@color/gray_99" />
+                    android:textColor="@color/title_third_color" />
                 <ImageView
                     android:id="@+id/tv_more_sec_kill_arrow"
                     android:layout_width="wrap_content"
@@ -320,7 +320,7 @@
                     android:text="查看更多"
                     android:layout_gravity="center_vertical"
                     android:textSize="16sp"
-                    android:textColor="@color/gray_99" />
+                    android:textColor="@color/title_third_color" />
                 <ImageView
                     android:id="@+id/tv_more_nearby_food_arrow"
                     android:layout_width="wrap_content"

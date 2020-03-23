@@ -17,7 +17,7 @@
             android:id="@+id/iv_pay_type_icon"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:background="@color/transparents"
+            android:background="@color/transparent"
             android:scaleType="fitXY"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/ic_alipay" />
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="7dp"
             android:layout_height="wrap_content"
-            android:background="@color/transparents"
+            android:background="@color/transparent"
             android:scaleType="center"
             android:visibility="gone"
             />
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="7dp"
             android:layout_height="wrap_content"
-            android:background="@color/transparents"
+            android:background="@color/transparent"
             android:visibility="gone"
             android:scaleType="center"
             android:src="@mipmap/ic_recommand" />

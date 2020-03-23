@@ -1,99 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#ED8D37</color>
-    <color name="colorPrimaryTrans80">#CCff5722</color>
-    <color name="colorOrangeTag">#FFA77D</color>
 
 
-    <color name="white">#ffffff</color>
-    <color name="view_background">#EEEEEE</color>
-    <color name="all_gray">#f8f8f8</color>
-    <!--<color name="all_gray">#f3f9ff</color>-->
-    <color name="graycc">#cccccc</color>
-    <color name="transparents">#00000000</color>
-    <color name="down_color">#00000000</color>
-    <color name="orange">#ED8D37</color>
-    <color name="orange_bg">#ED8D37</color>
 
-    <color name="orange_order">#FF9800</color>
-    <color name="green">#34D76A</color>
-    <color name="green_use">#47AA40</color><!--到店使用按钮颜色-->
-    <color name="green_use_trans">#4047AA40</color><!--到店使用按钮颜色-->
-    <color name="gray4">#BBBBBB</color>
-    <color name="blue">#35A7FB</color>
-    <color name="triangle">#aa72d572</color>
-    <color name="circle">#aa738ffe</color>
-    <color name="view_bg">#00000000</color>
-    <color name="shadow">#25808080</color>
-    <color name="shop_main_list_bg">#E8EBF0</color>
-    <color name="view_background_color">#f4f7f8</color><!--背景色-->
-    <color name="red_tran">#FFD1C5</color>
-    <color name="transparent_primary">#4cff5722</color>
-    <color name="rect">#aae84e40</color>
-    <color name="vote_red">#F12525</color>
-    <color name="rednew">#ED6C69</color>
-    <color name="white2new">#F6F7FB</color>
 
-    <color name="graynew4">#DEDEDE</color> <!--分割线颜色-->
 
-    <color name="blue_charge">#D7ECFB</color> <!--分割线颜色-->
-
-    <color name="blue_bg">#379EED</color>
-
-    <color name="black2new">#B5B5B5</color>
-    <color name="graynew">#B0B0B0</color>
-    <color name="graynew2">#999999</color>
-    <color name="gray_99">#999999</color>
-    <color name="blacknew">#565656</color>
-    <color name="blackgray">#333333</color>
-    <color name="c_title">#2d3134</color>
-    <color name="c_title12">#2d3134</color>
-    <color name="grey">#333333</color>
-    <color name="black_jain_87">#cc000000</color>
-    <color name="gray_55">#555555</color>
-    <color name="title_text_color">#ff232528</color>
-    <color name="text_color">#666666</color>
-    <color name="gray_66">#666666</color>
-    <color name="black">#000000</color>
-    <color name="transparent">#a0000000</color>
-    <color name="gray">#787878</color>
-    <color name="gray2">#656565</color>
-    <color name="gray3">#666666</color>
-    <color name="black_jain_54">#8a000000</color>
-    <color name="c_title3">#8e979e</color>
-    <color name="gray_a2">#a2a2a2</color>
-    <color name="black_jain_26">#42000000</color>
-    <color name="black_fan_27">#E0E0E0</color>
-
-    <color name="default_shadow_color">#88757575</color>
-    <color name="text_color_hint">#BBBBBB</color>
-    <color name="line_de">#DEDEDE</color> <!--分割线颜色-->
-    <color name="graynew1">#B0B0B0</color>
-    <color name="c_title4">#d3d7db</color>
-    <color name="menu_item_normal_bg">#FFFFFFFF</color>
-    <color name="CTASDKBackgroundColor">#F9F9F9</color>
-    <color name="menu_item_press_bg">#d6d2d3</color>
-    <color name="menu_item_divider_color">#d6d2d3</color>
-
-    <color name="gray_9c">#9C9C9C</color>
-    <color name="gray_D2">#D2D2D2</color>
-    <color name="orange5">#FF6A24</color>
-    <color name="red_ed">#ED2D2D</color>
-    <color name="red_guotao">#FF625E</color>
-    <color name="orange_jain">#ff5722</color>
-    <color name="ajbred">#ff0000</color>
-    <color name="red_bg">#E0473F</color>
-
-    <color name="ajbgreen">#2dbe42</color>
-    <color name="line_ed">#ededed</color>
-    <color name="line_f7">#f7f7f7</color>
-    <color name="line_f2">#f2f2f2</color>
-
-    <color name="red_ff">#FF3939</color>
-    <color name="default_red">#FF2035</color>
-
-    <color name="default_color">#F1F1F1</color>
-    <color name="arc_green">#36FCC4</color>
 
 </resources>

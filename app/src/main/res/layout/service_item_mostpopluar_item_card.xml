@@ -42,7 +42,7 @@
                 android:layout_marginTop="@dimen/margin"
                 android:singleLine="true"
                 android:layout_marginLeft="@dimen/margin"
-                android:textColor="@color/grey"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_15sp" />
 
         </LinearLayout>

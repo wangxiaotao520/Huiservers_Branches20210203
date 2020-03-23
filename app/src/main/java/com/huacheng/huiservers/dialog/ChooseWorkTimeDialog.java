@@ -93,8 +93,8 @@ public class ChooseWorkTimeDialog extends Dialog{
                 tv_week.setTextColor(getContext().getResources().getColor(R.color.orange));
                 tv_date.setTextColor(getContext().getResources().getColor(R.color.orange));
             }else {
-                tv_week.setTextColor(getContext().getResources().getColor(R.color.text_color));
-                tv_date.setTextColor(getContext().getResources().getColor(R.color.text_color_hint));
+                tv_week.setTextColor(getContext().getResources().getColor(R.color.title_sub_color));
+                tv_date.setTextColor(getContext().getResources().getColor(R.color.title_third_color));
             }
             view.setTag(i);
             view.setOnClickListener(new View.OnClickListener() {
@@ -187,8 +187,8 @@ public class ChooseWorkTimeDialog extends Dialog{
                 tv_week.setTextColor(getContext().getResources().getColor(R.color.orange));
                 tv_date.setTextColor(getContext().getResources().getColor(R.color.orange));
             }else {
-                tv_week.setTextColor(getContext().getResources().getColor(R.color.text_color));
-                tv_date.setTextColor(getContext().getResources().getColor(R.color.text_color_hint));
+                tv_week.setTextColor(getContext().getResources().getColor(R.color.title_sub_color));
+                tv_date.setTextColor(getContext().getResources().getColor(R.color.title_third_color));
             }
         }
     }

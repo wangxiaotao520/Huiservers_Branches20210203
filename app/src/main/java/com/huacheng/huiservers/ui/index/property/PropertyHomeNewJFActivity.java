@@ -137,8 +137,8 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         mTitleName.requestFocus();
 
         mTvWuye.setTextColor(getResources().getColor(R.color.colorPrimary));
-        mTvShuifei.setTextColor(getResources().getColor(R.color.gray_55));
-        mTvDianfei.setTextColor(getResources().getColor(R.color.gray_55));
+        mTvShuifei.setTextColor(getResources().getColor(R.color.title_sub_color));
+        mTvDianfei.setTextColor(getResources().getColor(R.color.title_sub_color));
 
         llPayment.setVisibility(View.GONE);
         //ToolUtils.setPriceInput(mEtPrice);
@@ -360,9 +360,9 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 type = 0;
                 mTvWuye.setTextColor(getResources().getColor(R.color.colorPrimary));
                 mTvWuye.setBackgroundResource(R.drawable.allshape_orange_35_second);
-                mTvShuifei.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvShuifei.setTextColor(getResources().getColor(R.color.title_sub_color));
                 mTvShuifei.setBackgroundResource(R.drawable.allshape_gray35);
-                mTvDianfei.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvDianfei.setTextColor(getResources().getColor(R.color.title_sub_color));
                 mTvDianfei.setBackgroundResource(R.drawable.allshape_gray35);
                 if (propertyInfo != null) {
                     getWuyeInfo();
@@ -373,11 +373,11 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     break;
                 }
                 type = 1;
-                mTvWuye.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvWuye.setTextColor(getResources().getColor(R.color.title_sub_color));
                 mTvWuye.setBackgroundResource(R.drawable.allshape_gray35);
                 mTvShuifei.setTextColor(getResources().getColor(R.color.colorPrimary));
                 mTvShuifei.setBackgroundResource(R.drawable.allshape_orange_35_second);
-                mTvDianfei.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvDianfei.setTextColor(getResources().getColor(R.color.title_sub_color));
                 mTvDianfei.setBackgroundResource(R.drawable.allshape_gray35);
 
                 mList.setVisibility(View.GONE);
@@ -415,9 +415,9 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     break;
                 }
                 type = 2;
-                mTvWuye.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvWuye.setTextColor(getResources().getColor(R.color.title_sub_color));
                 mTvWuye.setBackgroundResource(R.drawable.allshape_gray35);
-                mTvShuifei.setTextColor(getResources().getColor(R.color.gray_55));
+                mTvShuifei.setTextColor(getResources().getColor(R.color.title_sub_color));
                 mTvShuifei.setBackgroundResource(R.drawable.allshape_gray35);
                 mTvDianfei.setTextColor(getResources().getColor(R.color.colorPrimary));
                 mTvDianfei.setBackgroundResource(R.drawable.allshape_orange_35_second);

@@ -9,7 +9,7 @@
         android:layout_height="28dp"
         android:background="@drawable/bg_stroke_grey"
         android:text="08:00"
-        android:textColor="@color/text_color"
+        android:textColor="@color/title_sub_color"
         android:gravity="center"
         android:layout_centerInParent="true" />
 

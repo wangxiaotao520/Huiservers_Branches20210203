@@ -36,7 +36,7 @@
                     android:layout_marginLeft="@dimen/margin_20"
                     android:text="13555555555"
                     android:textSize="@dimen/t_14sp"
-                    android:textColor="@color/gray_99"/>
+                    android:textColor="@color/title_third_color"/>
 
                 <TextView
                     android:id="@+id/txt_yezhu"
@@ -89,7 +89,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_height="wrap_content"
                 android:text="编辑"
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 />
         </LinearLayout>
 
@@ -99,7 +99,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1.5px"
-        android:background="@color/view_background"
+        android:background="@color/windowbackground"
         />
 
 </LinearLayout>

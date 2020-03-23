@@ -22,7 +22,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:textColor="@color/grey"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/t_14sp"
             android:text="一级分类"/>
     </LinearLayout>

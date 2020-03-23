@@ -36,7 +36,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="体检类型"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -46,7 +46,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -65,7 +65,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="体检时间"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -75,7 +75,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -93,7 +93,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="体检编号"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -103,7 +103,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -138,7 +138,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="身高"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -148,7 +148,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -166,7 +166,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="体重"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -176,7 +176,7 @@
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text=""
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -194,7 +194,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="BMI"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -208,7 +208,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -216,7 +216,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=" (正常范围：18.5~23.9)"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 
@@ -235,7 +235,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="血氧饱和度"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -249,7 +249,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -257,7 +257,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=" (正常范围>94%)"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 
@@ -276,7 +276,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="收缩压"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -290,7 +290,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -298,7 +298,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=" (正常范围90~120)"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 
@@ -317,7 +317,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="舒张压"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -331,7 +331,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -339,7 +339,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=" (正常范围60~80)"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 
@@ -358,7 +358,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="脉搏"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -372,7 +372,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -380,7 +380,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 
@@ -399,7 +399,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="脂肪率"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -413,7 +413,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -421,7 +421,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=" (正常范围11.1~24)"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 
@@ -440,7 +440,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="肌肉率"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -454,7 +454,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -462,7 +462,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=" (正常范围49.4~59.4)"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 
@@ -481,7 +481,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="体水分率"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -495,7 +495,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -503,7 +503,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=" (正常范围42~68)"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 
@@ -522,7 +522,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="基础代谢"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -536,7 +536,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -544,7 +544,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=" (正常范围1100~2400)"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 
@@ -563,7 +563,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="骨量"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -577,7 +577,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -585,7 +585,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=" (正常范围2.0~4.1)"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 
@@ -604,7 +604,7 @@
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_weight="3"
                     android:text="内脏脂肪等级"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <LinearLayout
@@ -618,7 +618,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text=""
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -626,7 +626,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text=" (正常范围1~9)"
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 

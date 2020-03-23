@@ -297,7 +297,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
                 } else if (et_getcode.getText().toString().trim().equals("")) {
                     SmartToast.showInfo("请输入验证码");
                 } else {
-                    txt_btn.setTextColor(getResources().getColor(R.color.white2new));
+                    txt_btn.setTextColor(getResources().getColor(R.color.white));
                     txt_btn.setBackground(getResources().getDrawable(R.drawable.corners_bg_transparent_primary));
                     txt_btn.setEnabled(false);
                     txt_btn.setText("登录中...");
@@ -861,7 +861,7 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
             if (millisUntilFinished / 1000 >= 1) {
                 txt_getcode.setEnabled(false);
             }
-            txt_getcode.setTextColor(getResources().getColor(R.color.black2new));
+            txt_getcode.setTextColor(getResources().getColor(R.color.title_third_color));
             txt_getcode.setBackground(getResources().getDrawable(R.drawable.cornes_bgcode_login_gray));
             txt_getcode.setText(millisUntilFinished / 1000 + "秒后重发");
         }

@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="完成"
-                android:textColor="@color/gray_55"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_14sp"
                 />
 
@@ -33,7 +33,7 @@
                 android:layout_marginTop="@dimen/margin_5"
                 android:text="完成"
                 android:visibility="gone"
-                android:textColor="@color/gray_55"
+                android:textColor="@color/title_sub_color"
                 android:textSize="@dimen/t_12sp"
                 />
 

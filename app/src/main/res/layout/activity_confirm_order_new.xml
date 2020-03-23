@@ -72,7 +72,7 @@
                                     android:layout_marginLeft="@dimen/margin_20"
                                     android:text="13065478547"
                                     android:textSize="@dimen/t_14sp"
-                                    android:textColor="@color/gray_99"/>
+                                    android:textColor="@color/title_third_color"/>
 
                             </LinearLayout>
 
@@ -178,7 +178,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="5dp"
-                android:background="@color/view_background"
+                android:background="@color/windowbackground"
                 android:visibility="gone"/>
 
             <LinearLayout
@@ -199,7 +199,7 @@
                         android:layout_centerVertical="true"
                         android:text="配送费"
                         android:textSize="@dimen/t_14sp"
-                        android:textColor="@color/c_title"/>
+                        android:textColor="@color/title_color"/>
 
                     <TextView
                         android:id="@+id/txt_peisongmoney"
@@ -208,7 +208,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:textSize="@dimen/t_14sp"
-                        android:textColor="@color/c_title"/>
+                        android:text=""
+                        android:textColor="@color/title_color"/>
                 </RelativeLayout>
 
                 <View
@@ -263,7 +264,7 @@
                         android:layout_centerVertical="true"
                         android:text="积分"
                         android:textSize="@dimen/t_14sp"
-                        android:textColor="@color/c_title"/>
+                        android:textColor="@color/title_color"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -272,7 +273,7 @@
                         android:layout_centerVertical="true"
                         android:text="不支持积分抵扣"
                         android:textSize="@dimen/t_14sp"
-                        android:textColor="@color/c_title"/>
+                        android:textColor="@color/title_color"/>
                 </RelativeLayout>
 
 
@@ -297,7 +298,7 @@
                         android:layout_height="fill_parent"
                         android:background="@null"
                         android:hint="选填，给卖家留言"
-                        android:textColorHint="@color/text_color_hint"
+                        android:textColorHint="@color/title_third_color"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="@dimen/t_14sp"
                         android:textColor="@color/title_color"/>

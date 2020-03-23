@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/transparents"
+    android:background="@color/transparent"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:text="—"
-                android:textColor="@color/text_color"
+                android:textColor="@color/title_sub_color"
                 android:textSize="15sp" />
 
             <EditText
@@ -111,7 +111,7 @@
                 android:paddingRight="10dp"
                 android:singleLine="true"
                 android:text="不限条件"
-                android:textColor="@color/gray_66"
+                android:textColor="@color/title_sub_color"
                 android:layout_marginRight="7dp"
                 android:textSize="15sp" />
             <TextView

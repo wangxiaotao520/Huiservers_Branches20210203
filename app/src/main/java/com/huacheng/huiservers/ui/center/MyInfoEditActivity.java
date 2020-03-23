@@ -200,7 +200,7 @@ public class MyInfoEditActivity extends BaseActivityOld implements OnClickListen
                         }
                     }
                 }).setSubmitColor(this.getResources().getColor(R.color.orange))//确定按钮文字颜色
-                        .setCancelColor(this.getResources().getColor(R.color.graynew)).build();
+                        .setCancelColor(this.getResources().getColor(R.color.text_color_hint)).build();
                 String birthDay = tv_birthday.getText().toString();
                 if (NullUtil.isStringEmpty(birthDay)) {
                     Calendar instance = Calendar.getInstance();

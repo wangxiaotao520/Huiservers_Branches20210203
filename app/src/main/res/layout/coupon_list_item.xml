@@ -78,11 +78,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text=""
+                    android:text="dasfasdf"
                     android:ellipsize="end"
                     android:maxEms="13"
                     android:singleLine="true"
-                    android:textColor="@color/red_tran"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/t_12sp" />
 
             </LinearLayout>
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text=""
-                    android:textColor="@color/red_tran"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/t_12sp" />
 
             </LinearLayout>

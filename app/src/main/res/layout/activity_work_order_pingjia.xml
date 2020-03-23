@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_15"
                     android:text="非常满意"
-                    android:textColor="@color/text_color_hint"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"
                     />
             </LinearLayout>
@@ -68,7 +68,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/graynew4"/>
+                android:background="@color/line_de"/>
 
 
             <LinearLayout
@@ -84,8 +84,8 @@
                     android:gravity="top"
                     android:hint="请输服务评价"
                     android:padding="@dimen/margin"
-                    android:textColor="@color/text_color"
-                    android:textColorHint="@color/graycc"
+                    android:textColor="@color/title_sub_color"
+                    android:textColorHint="@color/text_color_hint"
                     android:textCursorDrawable="@drawable/color_cursor"
                     android:textSize="@dimen/t_14sp"/>
             </LinearLayout>

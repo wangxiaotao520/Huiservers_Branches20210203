@@ -49,7 +49,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/gray4"/>
+            android:background="@color/text_color_hint"/>
 
         <LinearLayout
             android:id="@+id/lin_comment"
@@ -78,7 +78,7 @@
                 android:hint="写留言"
                 android:padding="8dp"
                 android:textColor="@color/title_color"
-                android:textColorHint="@color/graynew1"
+                android:textColorHint="@color/text_color_hint"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="@dimen/t_15sp"/>
 
@@ -92,7 +92,7 @@
                 android:paddingRight="10dp"
                 android:paddingTop="8dp"
                 android:text="发送"
-                android:textColor="@color/orange_bg"
+                android:textColor="@color/orange"
                 android:textSize="@dimen/t_15sp"/>
         </LinearLayout>
     </LinearLayout>

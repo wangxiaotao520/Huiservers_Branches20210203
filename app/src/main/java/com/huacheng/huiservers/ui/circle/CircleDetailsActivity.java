@@ -206,7 +206,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
                 if (StringUtils.isEmpty(mEtInput.getText().toString())) {
                     mTvSend.setBackground(getResources().getDrawable(R.drawable.bg_gray2_corners));
-                    mTvSend.setTextColor(getResources().getColor(R.color.gray3));
+                    mTvSend.setTextColor(getResources().getColor(R.color.title_third_color));
                     mTvSend.setEnabled(false);
                 } else {
                     mTvSend.setBackground(getResources().getDrawable(R.drawable.bg_primary2_corners));
@@ -263,7 +263,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
                     mTvTime.setText(mCirclebean.getAddtime());
                     //判断内容是官方发布还是用户发布admin_id为0标识为用户发布
                     if ("0".equals(mCirclebean.getAdmin_id())) {//用户发布
-                        //mTvName.setTextColor(context.getResources().getColor(R.color.black_jain_87));
+                        //mTvName.setTextColor(context.getResources().getColor(R.color.title_color));
                         mLinGuan.setVisibility(View.GONE);
                         mLinUser.setVisibility(View.VISIBLE);
                         byte[] bytes = Base64.decode(mCirclebean.getContent(), Base64.DEFAULT);
@@ -475,14 +475,14 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
                 //
              //   bitmapUtils.display(img, MyCookieStore.URL + mCirclebean.getImg_list().get(i).getImg());//"http://property.hui-shenghuo.cn/"
-                img.setBackgroundColor(getResources().getColor(R.color.default_color));
+                img.setBackgroundColor(getResources().getColor(R.color.default_img_color));
                 final int gridWidth = DeviceUtils.getWindowWidth(CircleDetailsActivity.this);
                 int nWidth = gridWidth;
                 int nHeight = (int) (1 * nWidth);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, nHeight);
                 img.setLayoutParams(layoutParams);
 
-              //  GlideUtils.getInstance().glideLoad(this,MyCookieStore.URL + mCirclebean.getImg_list().get(i).getImg(),img,R.color.default_color);
+              //  GlideUtils.getInstance().glideLoad(this,MyCookieStore.URL + mCirclebean.getImg_list().get(i).getImg(),img,R.color.default_img_color);
                 Glide.with(getApplicationContext()).load(MyCookieStore.URL +mCirclebean.getImg_list().get(i).getImg()).placeholder(R.drawable.ic_default_rectange).error(R.drawable.ic_default_rectange).into(new SimpleTarget<GlideDrawable>() {
                     @Override
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {

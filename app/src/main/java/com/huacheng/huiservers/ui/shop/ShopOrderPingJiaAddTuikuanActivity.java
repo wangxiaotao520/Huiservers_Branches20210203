@@ -173,7 +173,7 @@ public class ShopOrderPingJiaAddTuikuanActivity extends BaseActivity implements 
         }
         mTvRight.setVisibility(View.VISIBLE);
         mTvRight.setText("确定");
-        mTvRight.setTextColor(getResources().getColor(R.color.orange_bg));
+        mTvRight.setTextColor(getResources().getColor(R.color.orange));
         initImagePicker();
         initWidget();
     }

@@ -14,7 +14,7 @@
             android:id="@+id/iv_banner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            fresco:placeholderImage="@color/default_color"
+            fresco:placeholderImage="@color/default_img_color"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:roundedCornerRadius="5dp" />
 

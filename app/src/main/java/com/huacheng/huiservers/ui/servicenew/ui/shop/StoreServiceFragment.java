@@ -154,11 +154,11 @@ public class StoreServiceFragment extends BaseFragment implements View.OnClickLi
                 if (selectedPosition == position) {
                     tv.setSelected(true);
                     tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shoptag_checked_bg));
-                    tv.setTextColor(getResources().getColor(R.color.orange_bg));
+                    tv.setTextColor(getResources().getColor(R.color.orange));
                 } else {
                     tv.setSelected(false);
                     tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shoptag_normal_bg));
-                    tv.setTextColor(getResources().getColor(R.color.gray_66));
+                    tv.setTextColor(getResources().getColor(R.color.title_sub_color));
                 }
                 tv.setText(mTitle2);
                 return tv;

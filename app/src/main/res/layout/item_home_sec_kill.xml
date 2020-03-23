@@ -23,7 +23,7 @@
                 android:id="@+id/sdv_sec_kill"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
-                fresco:placeholderImage="@color/default_color"
+                fresco:placeholderImage="@color/default_img_color"
                 fresco:placeholderImageScaleType="centerCrop"
                 fresco:roundedCornerRadius="5dp"/>
 
@@ -76,7 +76,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="食用油中的吴彦祖，买上就是赚到"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_12sp"/>
 
 
@@ -111,7 +111,7 @@
                     android:layout_marginLeft="9dp"
                     android:text="¥108.0"
                     android:layout_marginBottom="1dp"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>

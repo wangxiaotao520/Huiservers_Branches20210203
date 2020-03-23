@@ -247,31 +247,31 @@ public class FragmentOrderListActivity extends BaseActivity {
                 switch (tab.getPosition()) {
                     case 0:
                         TextView tabSelect = tab.getCustomView().findViewById(R.id.tabtext);
-                        tabSelect.setTextColor(getResources().getColor(R.color.text_color));
+                        tabSelect.setTextColor(getResources().getColor(R.color.title_sub_color));
                         tabSelect.setTextSize(15);
 
                         break;
                     case 1:
                         TextView tabSelect1 = tab.getCustomView().findViewById(R.id.tabtext);
-                        tabSelect1.setTextColor(getResources().getColor(R.color.text_color));
+                        tabSelect1.setTextColor(getResources().getColor(R.color.title_sub_color));
                         tabSelect1.setTextSize(15);
                         // tab.getCustomView().findViewById(R.id.tabtext).setBackgroundResource(R.drawable.mallvideoblue);
                         break;
                     case 2:
                         TextView tabSelect2 = tab.getCustomView().findViewById(R.id.tabtext);
-                        tabSelect2.setTextColor(getResources().getColor(R.color.text_color));
+                        tabSelect2.setTextColor(getResources().getColor(R.color.title_sub_color));
                         tabSelect2.setTextSize(15);
                         //tab.getCustomView().findViewById(R.id.tabtext).setBackgroundResource(R.drawable.mallgoodsblue);
                         break;
                     case 3:
                         TextView tabSelect3 = tab.getCustomView().findViewById(R.id.tabtext);
-                        tabSelect3.setTextColor(getResources().getColor(R.color.text_color));
+                        tabSelect3.setTextColor(getResources().getColor(R.color.title_sub_color));
                         tabSelect3.setTextSize(15);
                         // tab.getCustomView().findViewById(R.id.tabtext).setBackgroundResource(R.drawable.mallnewblue);
                         break;
                     case 4:
                         TextView tabSelect4 = tab.getCustomView().findViewById(R.id.tabtext);
-                        tabSelect4.setTextColor(getResources().getColor(R.color.text_color));
+                        tabSelect4.setTextColor(getResources().getColor(R.color.title_sub_color));
                         tabSelect4.setTextSize(15);
                         // tab.getCustomView().findViewById(R.id.tabtext).setBackgroundResource(R.drawable.mallnewblue);
                         break;
@@ -293,7 +293,7 @@ public class FragmentOrderListActivity extends BaseActivity {
         // tv.setText(mTitle[position]);
         tv.setText(cateName);
         if (position == 0) {
-            tv.setTextColor(v.getResources().getColor(R.color.red_guotao));
+            tv.setTextColor(v.getResources().getColor(R.color.red_normal));
             tv.setTextSize(15);
         }
         return v;

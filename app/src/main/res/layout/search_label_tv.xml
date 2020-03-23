@@ -11,7 +11,7 @@
     android:paddingRight="10dp"
     android:paddingTop="7dp"
     android:text="Helloworld"
-    android:textColor="@color/blacknew"
+    android:textColor="@color/title_color"
     android:textSize="@dimen/t_12sp">
 
 </TextView>

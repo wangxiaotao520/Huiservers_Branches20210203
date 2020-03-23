@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparents">
+    android:background="@color/transparent">
 
 
     <LinearLayout
@@ -36,7 +36,7 @@
             android:inputType="number"
             android:singleLine="true"
             android:gravity="center"
-            android:textColor="@color/c_title"
+            android:textColor="@color/title_color"
             android:maxLength="11"
             android:textColorHint="#C9C9C9"
             android:textSize="@dimen/t_16sp"
@@ -56,9 +56,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="取消"
-                android:background="@color/transparents"
+                android:background="@color/transparent"
                 android:gravity="center"
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 android:textSize="18sp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp" />
@@ -72,9 +72,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="确定"
-                android:background="@color/transparents"
+                android:background="@color/transparent"
                 android:gravity="center"
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 android:textSize="18sp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp" />

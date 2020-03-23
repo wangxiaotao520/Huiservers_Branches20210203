@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/all_gray">
+        android:background="@color/windowbackground">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                             android:layout_marginTop="25dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="@color/black"
+                            android:textColor="@color/title_color"
                             android:textSize="22sp" />
 
                         <TextView
@@ -92,7 +92,7 @@
                             android:layout_marginTop="4dp"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="@color/graynew2"
+                            android:textColor="@color/title_third_color"
                             android:textSize="@dimen/t_12sp" />
 
 
@@ -155,7 +155,7 @@
             android:layout_centerHorizontal="true"
             android:padding="15dp"
             android:text=""
-            android:textColor="@color/black"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/t_16sp" />
 
         <TextView
@@ -165,7 +165,7 @@
             android:layout_marginBottom="25dp"
             android:gravity="center_horizontal"
             android:text="7*14小时管家热线：400-6535-355"
-            android:textColor="@color/graynew2"
+            android:textColor="@color/title_third_color"
             android:textSize="@dimen/t_14sp"
 
             />

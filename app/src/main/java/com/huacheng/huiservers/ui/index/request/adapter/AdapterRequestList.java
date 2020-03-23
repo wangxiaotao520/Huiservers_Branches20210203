@@ -29,11 +29,11 @@ public class AdapterRequestList extends CommonAdapter<ModelRequest> {
         if (item.getStatus()==1){
             viewHolder.<TextView>getView(R.id.tv_status).setText("未处理");
             viewHolder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(item.getAddtime(),"8")+"");
-            viewHolder.<TextView>getView(R.id.tv_status).setTextColor(mContext.getResources().getColor(R.color.red_bg));
+            viewHolder.<TextView>getView(R.id.tv_status).setTextColor(mContext.getResources().getColor(R.color.red_warning));
         }else {
             viewHolder.<TextView>getView(R.id.tv_status).setText("已处理");
             viewHolder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(item.getAddtime(),"8")+" - "+StringUtils.getDateToString(item.getComplete_time(),"8"));
-            viewHolder.<TextView>getView(R.id.tv_status).setTextColor(mContext.getResources().getColor(R.color.gray_99));
+            viewHolder.<TextView>getView(R.id.tv_status).setTextColor(mContext.getResources().getColor(R.color.title_third_color));
         }
 
     }

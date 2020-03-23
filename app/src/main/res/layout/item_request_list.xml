@@ -27,7 +27,7 @@
             android:gravity="center_vertical"
             android:maxLines="2"
             android:text="小区门口的两个狗子天天拉屎"
-            android:textColor="@color/grey"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/t_15sp"/>
 
         <TextView
@@ -38,7 +38,7 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="王月霞"
-            android:textColor="@color/text_color"
+            android:textColor="@color/title_sub_color"
             android:textSize="@dimen/t_12sp"/>
 
         <LinearLayout
@@ -55,7 +55,7 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:text="2018.06.01 -2019.03.04"
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_13sp"/>
 
             <View
@@ -70,7 +70,7 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:text="未处理"
-                android:textColor="@color/red_bg"
+                android:textColor="@color/red_warning"
                 android:textSize="@dimen/t_13sp"
                 android:textStyle="normal"/>
         </LinearLayout>

@@ -80,7 +80,7 @@ public class WorkOrderDetailAdapter extends CommonAdapter<ModelNewWorkOrder.Work
             viewHolder.<TextView>getView(R.id.tv_tag).setBackgroundResource(R.color.orange);
         } else {
             viewHolder.<ImageView>getView(R.id.iv_tag).setBackgroundResource(R.mipmap.icon_workorder_yuan);
-            viewHolder.<TextView>getView(R.id.tv_tag).setBackgroundResource(R.color.graynew4);
+            viewHolder.<TextView>getView(R.id.tv_tag).setBackgroundResource(R.color.line_de);
         }
     }
 }

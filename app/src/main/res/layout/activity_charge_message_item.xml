@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="2019.08.15  14:11"
-            android:textColor="@color/gray_99"
+            android:textColor="@color/title_third_color"
             android:textSize="@dimen/t_14sp"/>
 
         <LinearLayout
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="充电开始"
-                android:textColor="@color/blackgray"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_16sp"
                 android:textStyle="bold"/>
 
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
                 android:text="您本次充电提前结束"
-                android:textColor="@color/red_ed2d32"
+                android:textColor="@color/red_normal"
                 android:textSize="@dimen/t_14sp"/>
 
             <LinearLayout
@@ -58,7 +58,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:text="订单编号："
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10192132146"
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -87,7 +87,7 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:text="起止时间："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <TextView
@@ -95,7 +95,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="08.15 14:22 - 08.15 19:22 "
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
 
                 </LinearLayout>
@@ -110,7 +110,7 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:text="充电时长："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <TextView
@@ -118,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="05:00:00"
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
 
                 </LinearLayout>
@@ -133,7 +133,7 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:text="消费金额："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <LinearLayout
@@ -146,7 +146,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2.58元，退款金额0.42元"
-                            android:textColor="@color/orange_bg"
+                            android:textColor="@color/orange"
                             android:textSize="@dimen/t_14sp"/>
 
                         <TextView
@@ -155,7 +155,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_3"
                             android:text="退款金额:"
-                            android:textColor="@color/orange_bg"
+                            android:textColor="@color/orange"
                             android:textSize="@dimen/t_14sp"/>
 
                     </LinearLayout>
@@ -174,7 +174,7 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:text="收费标准："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <TextView
@@ -182,7 +182,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1元/4小时"
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
 
                 </LinearLayout>
@@ -198,7 +198,7 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:text="结束原因："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <TextView
@@ -206,7 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="充电已满，因检测到您的爱车已充满，充电结束"
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
 
                 </LinearLayout>
@@ -230,7 +230,7 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:text="开始时间："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <TextView
@@ -238,7 +238,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="08.15 14:22"
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
 
                 </LinearLayout>
@@ -253,7 +253,7 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:text="预付金额："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <TextView
@@ -261,7 +261,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2.58元"
-                        android:textColor="@color/orange_bg"
+                        android:textColor="@color/orange"
                         android:textSize="@dimen/t_14sp"/>
 
 
@@ -277,7 +277,7 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:text="预充时长："
-                        android:textColor="@color/gray_99"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
 
                     <TextView
@@ -285,7 +285,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="05:00:00"
-                        android:textColor="@color/blackgray"
+                        android:textColor="@color/title_color"
                         android:textSize="@dimen/t_14sp"/>
 
                 </LinearLayout>
@@ -302,7 +302,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:text="站点名称："
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -310,7 +310,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="迎宾小区车棚"
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -325,7 +325,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:text="充电桩编号："
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -333,7 +333,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4165465465"
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>
@@ -348,7 +348,7 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:text="充电座编号："
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_14sp"/>
 
                 <TextView
@@ -356,7 +356,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4165465465"
-                    android:textColor="@color/blackgray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/t_14sp"/>
 
             </LinearLayout>

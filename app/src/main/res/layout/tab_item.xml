@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparents">
+    android:background="@color/transparent">
 
     <TextView
         android:id="@+id/tab_item_text"

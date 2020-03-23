@@ -56,7 +56,7 @@
             android:paddingRight="30dp"
             android:paddingTop="10dp"
             android:text=""
-            android:textColor="@color/blackgray"
+            android:textColor="@color/title_color"
             android:textSize="14sp" />
 
 

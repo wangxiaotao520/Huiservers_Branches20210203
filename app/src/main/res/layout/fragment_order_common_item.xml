@@ -28,7 +28,7 @@
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 app:placeholderImageScaleType="centerCrop"
-                app:placeholderImage="@color/default_color"
+                app:placeholderImage="@color/default_img_color"
                 app:roundedCornerRadius="5dp"
                 />
 
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:text="地址地址地址地址地址地址地址地址地址地址地址地址"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:textSize="@dimen/t_12sp"/>
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="备注："
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_12sp"/>
 
             </LinearLayout>
@@ -113,7 +113,7 @@
             android:layout_marginRight="@dimen/margin_15"
             android:background="@drawable/allshape_stroke_red_guotao35"
             android:text="取消订单"
-            android:textColor="@color/red_guotao"
+            android:textColor="@color/red_normal"
             android:gravity="center"
             android:textSize="@dimen/t_14sp"/>
 
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="3月20日"
-                    android:textColor="@color/gray_99"/>
+                    android:textColor="@color/title_third_color"/>
 
             </RelativeLayout>
 
@@ -163,7 +163,7 @@
                 android:layout_marginTop="@dimen/margin"
                 android:lineSpacingExtra="@dimen/margin_5"
                 android:text="莲花过人头；层层的叶子中间，尔其纤腰束素，有些怕人，薄薄的青雾浮起在荷塘里。静静地泻在这一片叶子和花"
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_12sp"/>
 
             <LinearLayout
@@ -187,7 +187,7 @@
                     android:layout_alignParentRight="true"
                     android:lineSpacingExtra="@dimen/margin_5"
                     android:text="莲花过人头；层层的叶子中间，尔其纤腰束素，有些怕人，薄薄的青雾浮起在荷塘里。静静地泻在这一片叶子和花"
-                    android:textColor="@color/gray_99"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_12sp"/>
 
 

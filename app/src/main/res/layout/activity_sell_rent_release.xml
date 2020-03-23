@@ -47,7 +47,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:maxLength="15"
-                    android:textColor="@color/gray_55"
+                    android:textColor="@color/title_sub_color"
                     android:textColorHint="#bbbbbb"
                     android:textSize="@dimen/t_15sp" />
 
@@ -95,12 +95,12 @@
                         android:maxLength="3"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textColorHint="#bbbbbb"
-                        android:textColor="@color/gray_55"
+                        android:textColor="@color/title_sub_color"
                         android:theme="@style/MyEditText_orange" />
 
                     <TextView
                         style="@style/rent_release_text"
-                        android:textColor="@color/orange_bg"
+                        android:textColor="@color/orange"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="—" />
@@ -118,14 +118,14 @@
                         android:maxLength="2"
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textColorHint="#bbbbbb"
-                        android:textColor="@color/gray_55"
+                        android:textColor="@color/title_sub_color"
                         android:theme="@style/MyEditText_orange"  />
 
                     <TextView
                         style="@style/rent_release_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/orange_bg"
+                        android:textColor="@color/orange"
                         android:text="—" />
 
                     <EditText
@@ -141,7 +141,7 @@
                         android:text=""
                         android:textCursorDrawable="@drawable/color_cursor"
                         android:textColorHint="#bbbbbb"
-                        android:textColor="@color/gray_55"
+                        android:textColor="@color/title_sub_color"
                         android:theme="@style/MyEditText_orange"  />
 
                 </LinearLayout>
@@ -188,7 +188,7 @@
                         android:text=""
                         android:gravity="right"
                         android:paddingRight="40dp"
-                        android:textColor="@color/gray_55"
+                        android:textColor="@color/title_sub_color"
                         android:textColorHint="#bbbbbb"
                         android:textSize="@dimen/t_15sp"  />
 
@@ -207,7 +207,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="层"
-                        android:textColor="@color/gray_55"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_15sp" />
 
                 </LinearLayout>
@@ -254,7 +254,7 @@
                         android:text=""
                         android:gravity="right"
                         android:paddingRight="40dp"
-                        android:textColor="@color/gray_55"
+                        android:textColor="@color/title_sub_color"
                         android:textColorHint="#bbbbbb"
                         android:textSize="@dimen/t_15sp"  />
 
@@ -273,7 +273,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="层"
-                        android:textColor="@color/gray_55"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_15sp" />
 
                 </LinearLayout>
@@ -329,8 +329,8 @@
                                 android:maxLength="1"
                                 android:singleLine="true"
                                 android:text=""
-                                android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
+                                android:textColor="@color/title_sub_color"
+                                android:textColorHint="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"
                                 android:theme="@style/MyEditText_orange" />
 
@@ -338,7 +338,7 @@
                                 style="@style/rent_release_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/orange_bg"
+                                android:textColor="@color/orange"
                                 android:text="室" />
 
                             <EditText
@@ -351,8 +351,8 @@
                                 android:maxLength="1"
                                 android:singleLine="true"
                                 android:text=""
-                                android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
+                                android:textColor="@color/title_sub_color"
+                                android:textColorHint="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"
                                 android:theme="@style/MyEditText_orange" />
 
@@ -360,7 +360,7 @@
                                 style="@style/rent_release_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/orange_bg"
+                                android:textColor="@color/orange"
                                 android:text="厅" />
 
                             <EditText
@@ -373,8 +373,8 @@
                                 android:maxLength="1"
                                 android:singleLine="true"
                                 android:text=""
-                                android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
+                                android:textColor="@color/title_sub_color"
+                                android:textColorHint="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"
                                 android:theme="@style/MyEditText_orange"  />
 
@@ -382,7 +382,7 @@
                                 style="@style/rent_release_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/orange_bg"
+                                android:textColor="@color/orange"
                                 android:text="厨" />
 
                             <EditText
@@ -395,8 +395,8 @@
                                 android:maxLength="1"
                                 android:singleLine="true"
                                 android:text=""
-                                android:textColor="@color/gray_55"
-                                android:textColorHint="@color/gray_9c"
+                                android:textColor="@color/title_sub_color"
+                                android:textColorHint="@color/title_third_color"
                                 android:textSize="@dimen/t_15sp"
                                 android:theme="@style/MyEditText_orange" />
 
@@ -404,7 +404,7 @@
                                 style="@style/rent_release_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/orange_bg"
+                                android:textColor="@color/orange"
                                 android:text="卫" />
 
                         </LinearLayout>
@@ -454,7 +454,7 @@
                         android:gravity="right"
                         android:text=""
                         android:maxLength="8"
-                        android:textColor="@color/gray_55"
+                        android:textColor="@color/title_sub_color"
                         android:textColorHint="#bbbbbb"
                         android:paddingRight="70dp"
                         android:textSize="@dimen/t_16sp" />
@@ -474,7 +474,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="平方米"
-                        android:textColor="@color/gray_55"
+                        android:textColor="@color/title_sub_color"
                         android:textSize="@dimen/t_15sp" />
 
                 </LinearLayout>
@@ -533,7 +533,7 @@
                                 android:maxLength="8"
                                 android:gravity="right"
                                 android:paddingRight="80dp"
-                                android:textColor="@color/gray_55"
+                                android:textColor="@color/title_sub_color"
                                 android:textColorHint="#bbbbbb"
                                 android:textSize="@dimen/t_15sp" />
 
@@ -552,7 +552,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="元/平米"
-                                android:textColor="@color/gray_55"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp" />
 
                         </LinearLayout>
@@ -597,7 +597,7 @@
                                 android:text=""
                                 android:gravity="right"
                                 android:layout_marginRight="55dp"
-                                android:textColor="@color/gray_55"
+                                android:textColor="@color/title_sub_color"
                                 android:textColorHint="#bbbbbb"
                                 android:textSize="@dimen/t_15sp" />
 
@@ -616,7 +616,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="万元"
-                                android:textColor="@color/gray_55"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp" />
 
                         </LinearLayout>
@@ -668,7 +668,7 @@
                                 android:maxLength="8"
                                 android:gravity="right"
                                 android:paddingRight="60dp"
-                                android:textColor="@color/gray_55"
+                                android:textColor="@color/title_sub_color"
                                 android:textColorHint="#bbbbbb"
                                 android:textSize="@dimen/t_15sp" />
 
@@ -687,7 +687,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="元/月"
-                                android:textColor="@color/gray_55"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_16sp" />
 
                         </LinearLayout>
@@ -731,7 +731,7 @@
                             android:singleLine="true"
                             android:text=""
                             android:maxLength="15"
-                            android:textColor="@color/gray_55"
+                            android:textColor="@color/title_sub_color"
                             android:gravity="right"
                             android:textColorHint="#bbbbbb"
                             android:textSize="@dimen/t_15sp" />
@@ -775,7 +775,7 @@
                     android:hint="请输入联系人姓名"
                     android:maxLength="15"
                     android:singleLine="true"
-                    android:textColor="@color/gray_55"
+                    android:textColor="@color/title_sub_color"
                     android:textColorHint="#bbbbbb"
                     android:textSize="@dimen/t_15sp" />
 
@@ -816,7 +816,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:gravity="right"
-                    android:textColor="@color/gray_55"
+                    android:textColor="@color/title_sub_color"
                     android:textColorHint="#bbbbbb"
                     android:paddingRight="15dp"
                     android:textSize="@dimen/t_15sp" />

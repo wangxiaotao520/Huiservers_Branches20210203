@@ -90,14 +90,14 @@ public class AdapterShopCartNew extends CommonAdapter<DataBean> {
             viewHolder.<TextView>getView(R.id.tv_intro).setTextColor(Color.parseColor("#333333"));
             viewHolder.<TextView>getView(R.id.tv_price).setTextColor(Color.parseColor("#FF625E"));
             viewHolder.<TextView>getView(R.id.tv_num).setTextColor(Color.parseColor("#333333"));
-            viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.gray_99));
+            viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.title_third_color));
         }else {
             if (item.getM_id().equals(selected_m_id)){
                 viewHolder.<TextView>getView(R.id.tv_m_name).setTextColor(Color.parseColor("#333333"));
                 viewHolder.<TextView>getView(R.id.tv_intro).setTextColor(Color.parseColor("#333333"));
                 viewHolder.<TextView>getView(R.id.tv_price).setTextColor(Color.parseColor("#FF625E"));
                 viewHolder.<TextView>getView(R.id.tv_num).setTextColor(Color.parseColor("#333333"));
-                viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.gray_99));
+                viewHolder.<TextView>getView(R.id.txt_type).setTextColor(mContext.getResources().getColor(R.color.title_third_color));
             }else {
                 viewHolder.<TextView>getView(R.id.tv_m_name).setTextColor(mContext.getResources().getColor(R.color.gray_D2));
                 viewHolder.<TextView>getView(R.id.tv_intro).setTextColor(mContext.getResources().getColor(R.color.gray_D2));

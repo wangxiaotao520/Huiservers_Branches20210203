@@ -154,7 +154,7 @@ public class ServiceFragmentCat extends BaseFragment implements View.OnClickList
                     ll_second_root.setVisibility(View.VISIBLE);
                     List<ModelServiceCat> list = (List<ModelServiceCat>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelServiceCat.class);
                     if (list.size() > 0) {
-                        ll_list_left.setBackgroundColor(getResources().getColor(R.color.all_gray));
+                        ll_list_left.setBackgroundColor(getResources().getColor(R.color.windowbackground));
                         mDatas.clear();
                         list.get(0).setChecked(true);
                         mDatas.addAll(list);

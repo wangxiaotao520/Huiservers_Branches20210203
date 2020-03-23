@@ -26,7 +26,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="18dp"
                 android:text="到店券使用"
-                android:textColor="@color/blackgray"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_16sp" />
 
             <TextView
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="1."
-            android:textColor="@color/blackgray"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/t_12sp"
             android:visibility="gone" />
 
@@ -103,7 +103,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="18dp"
                 android:text="适用门店"
-                android:textColor="@color/blackgray"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_16sp" />
 
             <TextView
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:text="2."
-            android:textColor="@color/blackgray"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/t_12sp"
             android:visibility="gone" />
 

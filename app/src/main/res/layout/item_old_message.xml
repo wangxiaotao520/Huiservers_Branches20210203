@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="等待认证"
-                android:textColor="@color/gray_99"
+                android:textColor="@color/title_third_color"
                 android:layout_marginRight="15dp"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="慧生活账号：18257100691"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/title_sub_color"
                     android:layout_marginTop="2dp"
                     android:textSize="16sp" />
             </LinearLayout>

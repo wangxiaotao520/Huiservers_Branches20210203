@@ -273,12 +273,12 @@ public class CalledActivity extends Activity implements ICallView {
     public void onUnlockCallback(boolean isSucceed) {
         TextView res = new TextView(mContext);
         if (isSucceed) {
-            res.setTextColor(getResources().getColor(R.color.ajbgreen));
+            res.setTextColor(getResources().getColor(R.color.coupon_green));
 //			res.setText(getString(R.string.toast_open_success));
             res.setText("开锁成功");
             Log.i("-----,", "unlock true");
         } else {
-            res.setTextColor(getResources().getColor(R.color.ajbred));
+            res.setTextColor(getResources().getColor(R.color.red_warning));
 //			res.setText(getString(R.string.toast_open_failure));
             res.setText("开锁失败");
             Log.i("-----,", "unlock failure");

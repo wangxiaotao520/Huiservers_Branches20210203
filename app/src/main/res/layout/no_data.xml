@@ -27,7 +27,7 @@
             android:layout_below="@id/img_data"
             android:layout_centerHorizontal="true"
             android:text="暂无数据"
-            android:textColor="@color/gray_99"
+            android:textColor="@color/title_third_color"
             android:textSize="@dimen/t_15sp" />
     </RelativeLayout>
 

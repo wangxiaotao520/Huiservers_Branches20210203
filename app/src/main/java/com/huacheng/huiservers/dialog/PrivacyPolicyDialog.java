@@ -126,7 +126,7 @@ public class PrivacyPolicyDialog extends AlertDialog implements View.OnClickList
         spannableString.setSpan(clickableSpan1, shequ.indexOf(span) + 15, shequ.indexOf(span) + span.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tv_content.setText(spannableString);
         tv_content.setMovementMethod(LinkMovementMethod.getInstance());
-        tv_content.setHighlightColor(mContext.getResources().getColor(R.color.transparents));
+        tv_content.setHighlightColor(mContext.getResources().getColor(R.color.transparent));
     }
 
     @Override
