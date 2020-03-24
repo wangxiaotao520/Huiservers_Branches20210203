@@ -3,14 +3,14 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
+<!--        <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>-->
         <!--Appbar背景色-->
         <item name="colorPrimary">@color/line_de</item>
         <!--控制各个控件被选中时的颜色 colorAccent-->
 
         <!--取消水波纹效果-->
-        <item name="android:selectableItemBackground">@null</item>
-        <item name="android:selectableItemBackgroundBorderless">@null</item>
+<!--        <item name="android:selectableItemBackground">@null</item>-->
+<!--        <item name="android:selectableItemBackgroundBorderless">@null</item>-->
 
         <!-- 设置自定义水波纹颜色(包括了listivew的item按下颜色) -->
         <!-- The color applied to framework control highlights (ex. ripples, list selectors). -->
@@ -34,7 +34,6 @@
     </style>
 
 
-
     <style name="take_photo_anim" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/top_exit_anim</item>
         <item name="android:windowExitAnimation">@anim/bottom_exit_anim</item>
@@ -46,7 +45,6 @@
         <item name="android:minHeight">24dip</item>
         <item name="android:maxHeight">24dip</item>
     </style>
-
 
 
     <style name="Dialog_down">
@@ -109,7 +107,6 @@
     </style>
 
 
-
     <style name="common_list">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">match_parent</item>
@@ -119,19 +116,6 @@
         <item name="android:listSelector">@android:color/transparent</item>
     </style>
 
-
-
-
-
-
-
-    <declare-styleable name="ShadowLayout">
-        <attr name="sl_cornerRadius" format="dimension"/>
-        <attr name="sl_shadowRadius" format="dimension"/>
-        <attr name="sl_shadowColor" format="color"/>
-        <attr name="sl_dx" format="dimension"/>
-        <attr name="sl_dy" format="dimension"/>
-    </declare-styleable>
 
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/t_16sp</item>
@@ -152,40 +136,19 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="rent_release_text">
-        <item name="android:textColor">@color/title_color</item>
-        <item name="android:textSize">@dimen/t_15sp</item>
-    </style>
 
-    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">
-        <item name="android:colorAccent">@color/colorPrimary</item>
-    </style>
+<!--    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">-->
+<!--        <item name="android:colorAccent">@color/colorPrimary</item>-->
+<!--    </style>-->
 
 
-
+    <!--租售房edittext主题-->
     <style name="MyEditText_orange" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/orange</item>
         <item name="colorControlActivated">@color/orange</item>
     </style>
-
-    <declare-styleable name="EnhanceTabLayout">
-        <attr name="tab_Mode" format="enum">
-            <enum name="mode_fixed" value="1"/>
-            <enum name="mode_scrollable" value="2"/>
-        </attr>
-        <attr name="tabIndicatorColor" format="color"/>
-        <attr name="tabSelectTextColor" format="color"/>
-        <attr name="tabTextColor" format="color"/>
-        <attr name="tabIndicatorHeight" format="dimension"/>
-        <attr name="tabIndicatorWidth" format="dimension"/>
-        <attr name="tabTextSize" format="dimension"/>
-    </declare-styleable>
-    <declare-styleable name="RatioImageView">
-        <attr name="ratio" format="float"/>
-    </declare-styleable>
-
-    <declare-styleable name="NineGridLayout">
-        <attr name="sapcing" format="dimension"/>
-    </declare-styleable>
-
+    <style name="rent_release_text">
+        <item name="android:textColor">@color/title_color</item>
+        <item name="android:textSize">@dimen/t_15sp</item>
+    </style>
 </resources>

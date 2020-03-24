@@ -197,4 +197,31 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="EnhanceTabLayout">
+        <attr name="tab_Mode" format="enum">
+            <enum name="mode_fixed" value="1"/>
+            <enum name="mode_scrollable" value="2"/>
+        </attr>
+        <attr name="tabIndicatorColor" format="color"/>
+        <attr name="tabSelectTextColor" format="color"/>
+        <attr name="tabTextColor" format="color"/>
+        <attr name="tabIndicatorHeight" format="dimension"/>
+        <attr name="tabIndicatorWidth" format="dimension"/>
+        <attr name="tabTextSize" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="RatioImageView">
+        <attr name="ratio" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="NineGridLayout">
+        <attr name="sapcing" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShadowLayout">
+        <attr name="sl_cornerRadius" format="dimension"/>
+        <attr name="sl_shadowRadius" format="dimension"/>
+        <attr name="sl_shadowColor" format="color"/>
+        <attr name="sl_dx" format="dimension"/>
+        <attr name="sl_dy" format="dimension"/>
+    </declare-styleable>
 </resources>

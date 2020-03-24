@@ -17,7 +17,7 @@
     <dimen name="margin_45">45dp</dimen>
     <dimen name="margin_50">50dp</dimen>
     <dimen name="btn_height">30dp</dimen>
-    <dimen name="title_height">50dp</dimen>
+
 
     <dimen name="popupwindow_menu_item_divider_height">1px</dimen>
     <dimen name="toast_door_margin_top">90dp</dimen>
