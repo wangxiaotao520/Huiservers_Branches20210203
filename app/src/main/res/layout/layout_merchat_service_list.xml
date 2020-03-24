@@ -48,11 +48,11 @@
                 android:layout_height="45dp"
                 android:layout_centerInParent="true"
                 android:background="@color/white"
-                tab:tabIndicatorColor="#ED8D37"
+                tab:tabIndicatorColor="@color/orange"
                 tab:tabIndicatorHeight="2dp"
                 tab:tabIndicatorWidth="40dp"
                 tab:tabSelectTextColor="@color/orange"
-                tab:tabTextColor="#666666"
+                tab:tabTextColor="@color/title_sub_color"
                 tab:tab_Mode="mode_fixed">
 
             </com.huacheng.huiservers.view.widget.EnhanceTabLayout>

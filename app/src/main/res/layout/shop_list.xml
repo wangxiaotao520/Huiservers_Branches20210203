@@ -57,7 +57,7 @@
                     android:layout_marginLeft="@dimen/margin_5"
                     android:gravity="center"
                     android:hint="搜索你想要的商品"
-                    android:textColorHint="#bbbbbb"
+                    android:textColorHint="@color/text_color_hint"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -145,7 +145,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    app:tabIndicatorColor="#FA5F5B"
+                    app:tabIndicatorColor="@color/red_normal"
                     app:tabIndicatorHeight="2dp"
                     app:tabMode="scrollable"
                     app:tabSelectedTextColor="@color/title_color"

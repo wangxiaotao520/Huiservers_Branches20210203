@@ -54,7 +54,7 @@
                     android:paddingLeft="5dp"
                     android:text="2018.08.05"
                     android:visibility="gone"
-                    android:textColor="#555555"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="13sp" />
             </LinearLayout>
 

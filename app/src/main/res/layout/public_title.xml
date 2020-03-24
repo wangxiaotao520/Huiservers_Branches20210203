@@ -27,7 +27,7 @@
                 android:layout_centerVertical="true"
                 android:ellipsize="end"
                 android:maxEms="10"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:singleLine="true"
                 android:textSize="18sp"
                 android:text="登 录" />

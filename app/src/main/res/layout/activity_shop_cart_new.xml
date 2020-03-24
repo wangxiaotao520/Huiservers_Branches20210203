@@ -115,7 +115,7 @@
                     android:layout_marginLeft="5dp"
                     android:singleLine="true"
                     android:text="¥0.00 "
-                    android:textColor="#FA5F5B"
+                    android:textColor="@color/red_normal"
                     android:textStyle="bold"
                     android:textSize="18dp" />
 

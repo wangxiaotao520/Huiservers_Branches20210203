@@ -109,7 +109,7 @@
                 android:padding="15dp"
                 android:textSize="14sp"
                 android:textColor="@color/title_color"
-                android:textColorHint="#999999"
+                android:textColorHint="@color/title_third_color"
                 android:background="@color/white"
                 android:hint="说说你的想法吧"
                 android:textCursorDrawable="@drawable/color_cursor"
@@ -130,7 +130,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:textSize="12sp"
-                    android:textColor="#929292"
+                    android:textColor="@color/title_third_color"
                     android:text="0/150"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
@@ -170,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:textSize="12sp"
-                    android:textColor="#929292"
+                    android:textColor="@color/title_third_color"
                     android:text="您写的评价会以匿名的方式展示"
                     android:layout_marginRight="15dp" />
             </LinearLayout>

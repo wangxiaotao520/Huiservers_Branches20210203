@@ -45,8 +45,8 @@
             android:background="@null"
             android:gravity="start|center_vertical"
             android:singleLine="true"
-            android:textColor="#333333"
-            android:textColorHint="#bbbbbb"
+            android:textColor="@color/title_color"
+            android:textColorHint="@color/text_color_hint"
             android:imeOptions="actionSearch"
             android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="15sp"/>
@@ -61,7 +61,7 @@
         android:layout_weight="2"
         android:gravity="center"
         android:text="搜索"
-        android:textColor="#555555"
+        android:textColor="@color/title_sub_color"
         android:visibility="gone"
         android:textSize="18dp"/>
 

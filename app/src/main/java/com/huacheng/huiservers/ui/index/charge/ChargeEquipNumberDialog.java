@@ -3,7 +3,6 @@ package com.huacheng.huiservers.ui.index.charge;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -138,10 +137,10 @@ public class ChargeEquipNumberDialog extends Dialog {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s!=null){
                     if (s.length()>=11){
-                        btn_confirm.setTextColor(Color.parseColor("#ED8D37"));
+                        btn_confirm.setTextColor(mContext.getResources().getColor(R.color.orange));
                         btn_confirm.setClickable(true);
                     }else {
-                        btn_confirm.setTextColor(Color.parseColor("#999999"));
+                        btn_confirm.setTextColor(mContext.getResources().getColor(R.color.title_third_color));
                         btn_confirm.setClickable(false);
                     }
                 }

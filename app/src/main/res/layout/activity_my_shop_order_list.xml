@@ -16,7 +16,7 @@
         android:layout_height="45dp"
         tab:tabIndicatorHeight="2dp"
         tab:tabIndicatorWidth="30dp"
-        tab:tabTextColor="#666666"
+        tab:tabTextColor="@color/title_sub_color"
         tab:tab_Mode="mode_fixed"
         android:background="@color/white"
         tab:tabTextSize="14dp"

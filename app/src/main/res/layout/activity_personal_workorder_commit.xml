@@ -263,7 +263,7 @@
                     android:layout_marginTop="2dp"
                     android:gravity="right"
                     android:text="超出字数范围限制"
-                    android:textColor="#e10611"
+                    android:textColor="@color/red_warning"
                     android:textSize="10sp"
                     android:visibility="gone"
                     />

@@ -19,15 +19,15 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         app:tabBackground="@color/white"
-        app:tabIndicatorColor="#FF625E"
-        app:tabSelectedTextColor="#FF625E"
+        app:tabIndicatorColor="@color/red_normal"
+        app:tabSelectedTextColor="@color/red_normal"
         app:tabTextAppearance="@style/TabLayoutStyleText15"
         app:tabTextColor="@color/title_sub_color"
         />
     <View
         android:layout_width="match_parent"
         android:layout_height="1.5px"
-        android:background="#EDEDED" />
+        android:background="@color/line_de" />
     <!--  android:background="@drawable/bg_gradient_order_blue"-->
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_pager"

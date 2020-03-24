@@ -102,7 +102,7 @@
                             android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"
-                            android:background="#47AA40"
+                            android:background="@color/coupon_green"
                             android:gravity="center"
                             android:text=""
                             android:textColor="@color/white"

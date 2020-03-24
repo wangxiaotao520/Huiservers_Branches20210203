@@ -8,11 +8,11 @@
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="#FA5F5B"/>
+        android:background="@color/red_normal"/>
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="48dp"
-        android:background="#FA5F5B"
+        android:background="@color/red_normal"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -45,16 +45,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FA5F5B">
+        android:background="@color/red_normal">
         <com.huacheng.huiservers.view.widget.EnhanceTabLayout
             android:id="@+id/tl_tab"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:tabIndicatorHeight="2dp"
             app:tabIndicatorWidth="50dp"
-            app:tabTextColor="#F8F8F8"
+            app:tabTextColor="@color/windowbackground"
             app:tab_Mode="mode_scrollable"
-            android:background="#FA5F5B"
+            android:background="@color/red_normal"
             app:tabSelectTextColor="@color/white"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
@@ -63,7 +63,7 @@
     <View
         android:id="@+id/view_line"
         android:layout_width="match_parent"
-        android:background="#FA5F5B"
+        android:background="@color/red_normal"
         android:visibility="gone"
         android:layout_height="5dp"/>
     <android.support.v4.view.ViewPager

@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:text="体检时间：2018.06.04"
             android:layout_marginLeft="15dp"
-            android:textColor="#E0473F"
+            android:textColor="@color/red_normal"
             android:layout_marginBottom="18dp"
             android:textSize="@dimen/t_14sp"/>
 

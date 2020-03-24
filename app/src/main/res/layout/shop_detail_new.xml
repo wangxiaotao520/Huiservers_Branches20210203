@@ -220,7 +220,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
-                                android:textColor="#FFFA5F5B"
+                                android:textColor="@color/red_normal"
                                 android:textSize="23sp"
                                 android:textStyle="bold"
                                 tools:text="34.9"/>
@@ -273,7 +273,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin"
                             android:text="当前时间不在派送时间范围内"
-                            android:textColor="#FFFA5F5B"
+                            android:textColor="@color/red_warning"
                             android:textSize="@dimen/t_14sp"
                             android:textStyle="bold"
                             android:visibility="gone"/>
@@ -462,7 +462,7 @@
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text=""
-                                android:textColor="#555555"
+                                android:textColor="@color/title_sub_color"
                                 android:textSize="@dimen/t_15sp"/>
 
                             <TextView
@@ -473,7 +473,7 @@
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text=""
-                                android:textColor="#9C9C9C"
+                                android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_12sp"/>
 
                         </LinearLayout>
@@ -681,6 +681,8 @@
             app:sl_dx="0dp"
             app:sl_dy="0dp"
             app:sl_shadowColor="@color/shadow"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             app:sl_shadowRadius="4dp">
 
             <ImageButton
@@ -689,6 +691,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/bt_top"
                 android:visibility="gone"
+                android:background="@color/transparent"
                 tools:ignore="ContentDescription"/>
 
         </com.huacheng.huiservers.view.ShadowLayout>

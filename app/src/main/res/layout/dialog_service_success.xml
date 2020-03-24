@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
         android:text="预约成功"
-        android:textColor="#FF9700"
+        android:textColor="@color/orange"
         android:textSize="@dimen/t_15sp"/>
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
         android:text="请等待师傅上门服务"
-        android:textColor="#bbbbbb"
+        android:textColor="@color/text_color_hint"
         android:textSize="@dimen/t_12sp"/>
 
     <TextView

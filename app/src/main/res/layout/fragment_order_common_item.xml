@@ -66,7 +66,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="待服务 "
-                            android:textColor="#FF625E"
+                            android:textColor="@color/red_normal"
                             android:textSize="@dimen/t_14sp"/>
 
                         <ImageView

@@ -260,7 +260,7 @@
                             android:layout_marginTop="7dp"
                             android:gravity="center"
                             android:text="待派单"
-                            android:textColor="#FF9800"
+                            android:textColor="@color/orange"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -338,7 +338,7 @@
                             android:layout_marginTop="7dp"
                             android:gravity="center"
                             android:text="已派单"
-                            android:textColor="#FF9800"
+                            android:textColor="@color/orange"
                             android:textSize="12sp" />
                     </LinearLayout>
                     <!--服务中-->
@@ -415,7 +415,7 @@
                             android:layout_marginTop="7dp"
                             android:gravity="center"
                             android:text="服务中"
-                            android:textColor="#FF9800"
+                            android:textColor="@color/orange"
                             android:textSize="12sp" />
                     </LinearLayout>
                     <!--待评价-->
@@ -492,7 +492,7 @@
                             android:layout_marginTop="7dp"
                             android:gravity="center"
                             android:text="待评价"
-                            android:textColor="#FF9800"
+                            android:textColor="@color/orange"
                             android:textSize="12sp" />
                     </LinearLayout>
                     <!--完成-->
@@ -570,7 +570,7 @@
                             android:layout_marginTop="7dp"
                             android:gravity="center"
                             android:text="完成"
-                            android:textColor="#FF9800"
+                            android:textColor="@color/orange"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </FrameLayout>

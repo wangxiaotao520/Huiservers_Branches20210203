@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text=""
-                android:textColor="#fe2221"/>
+                android:textColor="@color/red_normal"/>
 
 
             <com.huacheng.huiservers.ui.index.openDoor.RippleView
@@ -89,7 +89,7 @@
                 android:paddingRight="15dp"
                 android:paddingTop="5dp"
                 android:text="退出"
-                android:textColor="#fe2221"
+                android:textColor="@color/red_normal"
                 android:textSize="@dimen/t_12sp"/>
 
         </LinearLayout>

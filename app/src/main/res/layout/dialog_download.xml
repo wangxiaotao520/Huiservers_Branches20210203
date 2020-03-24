@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingTop="15dp"
-    android:background="#ffffff">
+    android:background="@color/white">
 
 
     <Button
@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:textColor="#333"
+        android:textColor="@color/title_color"
         android:id="@+id/download_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         android:visibility="gone" />
 
     <TextView
-        android:textColor="#333"
+        android:textColor="@color/title_color"
         android:id="@+id/download_precent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
 
     <TextView
         android:layout_marginBottom="30dp"
-		android:textColor="#333"
+		android:textColor="@color/title_color"
         android:id="@+id/download_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

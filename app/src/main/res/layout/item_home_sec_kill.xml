@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="¥ 9.90"
-                    android:textColor="#FF625e"
+                    android:textColor="@color/red_normal"
                     android:textStyle="bold"
                     android:textSize="@dimen/t_18sp"/>
 

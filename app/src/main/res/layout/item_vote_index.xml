@@ -83,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1002票"
-                        android:textColor="#E22A2A"
+                        android:textColor="@color/vote_red"
                         android:layout_marginRight="5dp"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -185,7 +185,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1002票"
-                        android:textColor="#E22A2A"
+                        android:textColor="@color/red_warning"
                         android:layout_marginRight="5dp"
                         android:textSize="15dp" />
                 </LinearLayout>

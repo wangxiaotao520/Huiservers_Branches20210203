@@ -7,11 +7,11 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#f8f8f8"
+        android:background="@color/windowbackground"
         android:text="附近小区"
         android:paddingLeft="12dp"
         android:gravity="center_vertical"
-        android:textColor="#555555"
+        android:textColor="@color/title_sub_color"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="智慧小区"
-            android:textColor="#555555"
+            android:textColor="@color/title_sub_color"
             android:textSize="16sp"
             android:textStyle="normal"
             />
@@ -79,5 +79,5 @@
         android:layout_height="1px"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
-        android:background="#f1f1f1" />
+        android:background="@color/line" />
 </LinearLayout>

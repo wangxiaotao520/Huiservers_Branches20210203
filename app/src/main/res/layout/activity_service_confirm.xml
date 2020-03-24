@@ -64,7 +64,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="13233696139"
-                            android:textColor="#bbbbbb"
+                            android:textColor="@color/title_third_color"
                             android:textSize="@dimen/t_14sp"/>
 
                     </LinearLayout>
@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_5"
                         tools:text="暗室逢灯哈斯佛寺发哦i"
-                        android:textColor="#bbbbbb"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_14sp"/>
 
                 </LinearLayout>
@@ -90,7 +90,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="更换"
-                        android:textColor="#bbbbbb"
+                        android:textColor="@color/title_third_color"
                         android:textSize="@dimen/t_15sp"/>
 
                     <ImageView
@@ -131,7 +131,7 @@
                         android:text=""
                         android:hint="请选择服务地址"
                         android:textColor="@color/title_color"
-                        android:textColorHint="#bbbbbb"
+                        android:textColorHint="@color/title_third_color"
                         android:textSize="@dimen/t_15sp"/>
 
                     <ImageView
@@ -152,7 +152,7 @@
                 android:textColor="@color/title_sub_color"
                 android:paddingLeft="15dp"
                 android:gravity="center_vertical"
-                android:textColorHint="#bbbbbb"
+                android:textColorHint="@color/title_third_color"
                 android:textSize="@dimen/t_14sp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -177,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
                     tools:text="300.00"
-                    android:textColor="#E0473F"
+                    android:textColor="@color/red_normal"
                     android:textSize="15sp"/>
 
 
@@ -194,7 +194,7 @@
                 android:textColor="@color/title_sub_color"
                 android:paddingLeft="15dp"
                 android:gravity="center_vertical"
-                android:textColorHint="#bbbbbb"
+                android:textColorHint="@color/text_color_hint"
                 android:textSize="@dimen/t_14sp"/>
 
             <RelativeLayout
@@ -211,7 +211,7 @@
                     android:gravity="top"
                     android:hint="如有特殊要求，请给商家留言"
                     android:textColor="@color/title_color"
-                    android:textColorHint="#bbbbbb"
+                    android:textColorHint="@color/text_color_hint"
                     android:textCursorDrawable="@drawable/color_cursor"
                     android:textSize="15sp"/>
 

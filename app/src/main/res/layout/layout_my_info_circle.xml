@@ -122,12 +122,12 @@
             android:layout_height="40dp"
             android:layout_marginTop="@dimen/margin"
             android:background="@color/white"
-            tab:tabIndicatorColor="#ED8D37"
+            tab:tabIndicatorColor="@color/orange"
             android:paddingLeft="@dimen/margin"
             tab:tabIndicatorHeight="2dp"
             tab:tabIndicatorWidth="60dp"
-            tab:tabSelectTextColor="#333333"
-            tab:tabTextColor="#666666"
+            tab:tabSelectTextColor="@color/title_color"
+            tab:tabTextColor="@color/title_sub_color"
             tab:tab_Mode="mode_scrollable">
 
         </com.huacheng.huiservers.view.widget.EnhanceTabLayout>

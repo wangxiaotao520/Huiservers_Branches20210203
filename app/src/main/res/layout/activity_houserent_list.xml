@@ -53,8 +53,8 @@
                 android:background="@null"
                 android:gravity="start|center_vertical"
                 android:singleLine="true"
-                android:textColor="#555555"
-                android:textColorHint="#bbbbbb"
+                android:textColor="@color/title_third_color"
+                android:textColorHint="@color/text_color_hint"
                 android:imeOptions="actionSearch"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="14sp"/>

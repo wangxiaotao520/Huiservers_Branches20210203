@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:backgroundTint="#a3a3a3"
+
               android:clipToPadding="false"
               android:fitsSystemWindows="false"
               android:orientation="vertical">
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin"
-        android:background="#fff"
+        android:background="@color/white"
         android:gravity="top"
         android:hint="请填写6个字以上的问题描述，以便我们提供更好的帮助..."
         android:paddingLeft="15dp"

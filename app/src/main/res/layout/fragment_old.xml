@@ -301,11 +301,11 @@
                     android:layout_height="45dp"
                     tab:tabIndicatorHeight="2dp"
                     tab:tabIndicatorWidth="20dp"
-                    tab:tabTextColor="#666666"
+                    tab:tabTextColor="@color/title_sub_color"
                     tab:tab_Mode="mode_fixed"
                     android:background="@color/white"
-                    tab:tabSelectTextColor="#333333"
-                    tab:tabIndicatorColor="#ED8D37">
+                    tab:tabSelectTextColor="@color/title_color"
+                    tab:tabIndicatorColor="@color/orange">
 
                 </com.huacheng.huiservers.view.widget.EnhanceTabLayout>
                 <!--</LinearLayout>-->

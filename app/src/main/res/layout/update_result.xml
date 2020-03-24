@@ -95,7 +95,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="残忍拒绝"
-                    android:textColor="#80ffffff"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="@dimen/t_16sp"
                     />
 

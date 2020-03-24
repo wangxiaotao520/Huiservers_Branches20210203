@@ -14,7 +14,7 @@
         android:id="@+id/rl_tool"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="#f5f5f5">
+        android:background="@color/windowbackground">
 
 
         <LinearLayout
@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:text="2019年"
                 android:layout_gravity="center_vertical"
-                android:textColor="#000000"
+                android:textColor="@color/title_color"
                 android:textSize="16sp" />
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textColor="#000000"
+                android:textColor="@color/title_color"
                 android:text="8月"
                 android:layout_gravity="center_vertical"
                 android:textSize="16sp"
@@ -145,7 +145,7 @@
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
+            android:background="@color/white"
             app:calendar_padding="10dp"
             app:current_month_lunar_text_color="#CFCFCF"
             app:current_month_text_color="#333333"

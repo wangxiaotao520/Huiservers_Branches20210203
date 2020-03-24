@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3粒"
-                android:textColor="#ED8D37"
+                android:textColor="@color/orange"
                 android:layout_centerInParent="true"
                 android:textSize="14sp" />
         </LinearLayout>

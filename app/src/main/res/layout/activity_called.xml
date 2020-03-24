@@ -70,7 +70,7 @@
                         android:drawableTop="@drawable/call_speaker_button"
                         android:gravity="center"
                         android:text="免  提"
-                        android:textColor="#FFFEFF"
+                        android:textColor="@color/white"
                         android:textSize="16sp"
                         android:visibility="gone" />
 
@@ -84,7 +84,7 @@
                         android:drawableTop="@drawable/call_unlock_button"
                         android:gravity="center"
                         android:text="开  锁"
-                        android:textColor="#FFFEFF"
+                        android:textColor="@color/white"
                         android:textSize="16sp" />
 
                     <TextView
@@ -100,7 +100,7 @@
                         android:drawableTop="@drawable/call_vol_button"
                         android:gravity="center"
                         android:text="静  音"
-                        android:textColor="#FFFEFF"
+                        android:textColor="@color/white"
                         android:textSize="16sp"
                         android:visibility="gone" />
 
@@ -132,7 +132,7 @@
                         android:drawableTop="@drawable/call_in_button"
                         android:gravity="center"
                         android:text="拒  绝"
-                        android:textColor="#FFFEFF"
+                        android:textColor="@color/white"
                         android:textSize="16sp" />
 
                     <!-- android:text="转  接 " -->
@@ -146,7 +146,7 @@
                         android:drawableTop="@drawable/call_end_button"
                         android:gravity="center"
                         android:text="接  听"
-                        android:textColor="#FFFEFF"
+                        android:textColor="@color/white"
                         android:textSize="16sp" />
 
                     <TextView
