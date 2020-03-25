@@ -29,14 +29,19 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.ModelEventTheme;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.ActivityStackManager;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.model.PayInfoBean;
+import com.huacheng.huiservers.utils.NightModeUtils;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
+import com.huacheng.huiservers.view.SwitchButton;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -47,6 +52,9 @@ import java.util.Set;
 import cn.jpush.android.api.JPushInterface;
 import io.reactivex.functions.Consumer;
 
+/**
+ * 设置界面
+ */
 public class SetActivity extends BaseActivityOld implements OnClickListener, Updateprester.UpdateListener {
     ShopProtocol protocol2 = new ShopProtocol();
     PayInfoBean infoBean = new PayInfoBean();
@@ -59,6 +67,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
     private Handler myHandler = new myHandler();
     Updateprester updateprester;
     public static final int ACT_REQUEST_DOWNLOAD = 101;
+    private SwitchButton switch_theme;
 
     class myHandler extends Handler {
 
@@ -142,6 +151,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
         rel_gengxin = (RelativeLayout) findViewById(R.id.rel_gengxin);// 更新
         rel_siteout = (RelativeLayout) findViewById(R.id.rel_siteout);// 退出登陆
         rel_address = (RelativeLayout) findViewById(R.id.rel_address);// 收货地址管理
+        switch_theme = findViewById(R.id.switch_theme);
 
 
         Set<String> set = new HashSet<>();
@@ -154,6 +164,28 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
         rel_gengxin.setOnClickListener(this);
         rl_changepwd.setOnClickListener(this);
         rel_address.setOnClickListener(this);
+        if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
+            switch_theme.setChecked(true);
+        }else {
+            switch_theme.setChecked(false);
+        }
+        switch_theme.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                //选中后
+                ModelEventTheme modelEventTheme = new ModelEventTheme();
+                if (isChecked){
+                    NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
+                    modelEventTheme.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
+                }else {
+                    NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
+                    modelEventTheme.setThemeMode(NightModeUtils.ThemeMode.DAY);
+                }
+                recreate();
+
+                EventBus.getDefault().post(new ModelEventTheme());
+            }
+        });
     }
 
     @Override

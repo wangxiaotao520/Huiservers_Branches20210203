@@ -204,8 +204,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+        hideDialog(smallDialog);
         super.onStop();
     }
+
 
     @Override
     protected void onDestroy() {

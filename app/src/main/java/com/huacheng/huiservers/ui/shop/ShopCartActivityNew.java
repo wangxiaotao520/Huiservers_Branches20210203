@@ -1,7 +1,6 @@
 package com.huacheng.huiservers.ui.shop;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -82,7 +81,7 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
         tv_right = findViewById(R.id.right);
         tv_right.setText("编辑");
         tv_right.setVisibility(View.VISIBLE);
-        tv_right.setTextColor(Color.parseColor("#FA5F5B"));
+        tv_right.setTextColor(getResources().getColor(R.color.red_normal));
         titleName.setText("购物车");
         mListView=findViewById(R.id.listview);
         rel_no_data = findViewById(R.id.rel_no_data);

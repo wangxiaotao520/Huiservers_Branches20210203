@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:clipToPadding="false"
-              android:fitsSystemWindows="false"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
 
     <include layout="@layout/titlebar_center"/>
 
@@ -47,8 +48,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:layout_marginRight="@dimen/margin_15"
             android:background="@color/windowbackground"/>
 
         <RelativeLayout
@@ -119,6 +118,38 @@
                 android:text=""
                 android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_12sp"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/windowbackground"/>
+        <RelativeLayout
+            
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/margin_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="深色模式"
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/t_16sp"/>
+
+            <com.huacheng.huiservers.view.SwitchButton
+                android:id="@+id/switch_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:sb_background="@color/windowbackground"
+                app:sb_button_color="@color/white"
+                app:sb_checked="false"
+                app:sb_checked_color="@color/orange"
+                android:layout_alignParentRight="true"
+                app:sb_show_indicator="false"
+                app:sb_uncheckcircle_color="@color/orange"/>
+
         </RelativeLayout>
 
         <View

@@ -436,7 +436,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                         iv_message.setBackgroundResource(R.mipmap.ic_index_message_black);
                         iv_scancode.setBackgroundResource(R.mipmap.ic_index_scan_black);
                         iv_title_arrow.setBackgroundResource(R.mipmap.ic_arrow_black_sloid);
-                        view_title_line.setBackgroundColor(Color.parseColor("#f5f5f9"));
+                        view_title_line.setBackgroundColor(getResources().getColor(R.color.line));
 
                     } else {
                         /// 滑下来

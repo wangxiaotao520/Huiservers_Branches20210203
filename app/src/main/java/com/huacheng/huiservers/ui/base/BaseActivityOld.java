@@ -81,9 +81,10 @@ public class BaseActivityOld extends AppCompatActivity {
                 StatusBarUtil.setStatusBarColor(this,0x55000000);
             }
         }
-
-        smallDialog=new SmallDialog(this);
-        smallDialog.setCanceledOnTouchOutside(false);
+        if (smallDialog==null){
+            smallDialog=new SmallDialog(this);
+            smallDialog.setCanceledOnTouchOutside(false);
+        }
         // dialog = new SpotsDialog(this);
         // SetTransStatus.GetStatus(this);//系统栏默认为黑色
         WindowManager windowManager = getWindowManager();
@@ -296,8 +297,13 @@ public class BaseActivityOld extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onStop() {
         hideDialog(smallDialog);
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
     }
 }

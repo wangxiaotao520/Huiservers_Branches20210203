@@ -34,12 +34,12 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.huiservers.model.protocol.CircleProtocol;
 import com.huacheng.huiservers.model.protocol.CommonProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.ui.circle.adapter.CircleDetailListAdapter;
-import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
@@ -72,9 +72,12 @@ import static com.huacheng.huiservers.R.id.tv_send;
 
 
 /**
- * 类：
+ * 类：邻里详情
  * 时间：2018/3/16 15:43
  * 功能描述:Huiservers
+ *
+ *  // 不知道为什么，切换到夜间模式后，第一次打开这个页面，有webview的页面，页面会重新创建,重新走onCreate,类似于
+ *  //横竖屏切换，第一个页面的smallDialog 消失不掉，如果设置android:configChanges="uiMode" 对话框是消失了，页面渲染又会有问题，所以想了这个办法
  */
 public class CircleDetailsActivity extends BaseActivityOld {
 
@@ -378,6 +381,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
             }
         });
     }
+
 
     /**
      * 删除邻里回复

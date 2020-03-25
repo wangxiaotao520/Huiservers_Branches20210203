@@ -25,6 +25,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelEventHome;
+import com.huacheng.huiservers.model.ModelEventTheme;
 import com.huacheng.huiservers.model.ModelIndexBottomUI;
 import com.huacheng.huiservers.model.ModelLoginOverTime;
 import com.huacheng.huiservers.model.ModelQRCode;
@@ -444,6 +445,24 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
         //    ActivityStackManager.getActivityStackManager().finishAllActivity();
         BaseApplication.setUser(null);
     }
+
+    /**
+     * 切换主题
+     * @param model
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventTheme(ModelEventTheme model) {
+        if (model!=null){
+//            if (model.getThemeMode()== NightModeUtils.ThemeMode.DAY) {
+//                NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
+//            }else {
+//                NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
+//            }
+
+            recreate();
+        }
+    }
+
 
     @Override
     protected void onResume() {

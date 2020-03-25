@@ -21,6 +21,8 @@ import com.huacheng.huiservers.linkedme.MiddleActivity;
 import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.huiservers.utils.CrashHandler;
 import com.huacheng.huiservers.utils.LogUtils;
+import com.huacheng.huiservers.utils.NightModeUtils;
+import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.microquation.linkedme.android.LinkedME;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -98,6 +100,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
 //        replaceSystemDefaultFont(this,fontPath);
         mMainThreadId = android.os.Process.myTid();
         mMainThread = Thread.currentThread();
@@ -110,6 +113,14 @@ public class BaseApplication extends Application {
      /*   UMShareAPI.get(this);//初始化sdk
         //开启debug模式，方便定位错误，具体错误检查方式可以查看http://dev.umeng.com/social/android/quick-integration的报错必看，正式发布，请关闭该模式
         Config.DEBUG = true;*/
+
+        //设置夜间模式
+        if (new SharePrefrenceUtil(mContext).getNightMode()) {
+            NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
+        }else {
+            NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
+        }
+
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         initImageLoaderConfig();

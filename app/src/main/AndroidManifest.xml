@@ -103,7 +103,6 @@
         android:resizeableActivity="true"
         android:theme="@style/AppCompatTheme.Base"
         tools:replace="android:name,android:theme"
-
         >
         <!-- 高德地图app_key -->
         <meta-data

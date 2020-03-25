@@ -135,7 +135,7 @@
                             android:layout_marginRight="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            ></WebView>
+                            />
                         <!--  <TextView
                               android:id="@+id/tv_guantitle"
                               android:layout_width="match_parent"

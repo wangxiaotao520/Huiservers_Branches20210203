@@ -192,4 +192,14 @@ public class SharePrefrenceUtil {
         editor.clear();
         editor.commit();
     }
+
+    //获取夜间模式
+    public boolean getNightMode() {
+        return sharedPreferences.getBoolean("night_mode", false);
+    }
+    //设置夜间模式
+    public void setNightMode(boolean nightMode) {
+        editor.putBoolean("night_mode", nightMode);
+        editor.commit();
+    }
 }
