@@ -13,10 +13,10 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.model.protocol.CenterProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.center.adapter.PersonMoneyAdapter;
 import com.huacheng.huiservers.model.ListBean;
+import com.huacheng.huiservers.model.protocol.CenterProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.adapter.PersonMoneyAdapter;
 import com.huacheng.huiservers.ui.center.listener.EndlessRecyclerOnScrollListener;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 /**
  * 消费记录
  */
-public class CenterMoneyActivity extends BaseActivityOld implements OnClickListener {
+public class CenterMoneyActivity extends BaseActivity implements OnClickListener {
 
     private int page = 1;//当前页
     int totalPage = 0;//总页数
@@ -47,46 +47,6 @@ public class CenterMoneyActivity extends BaseActivityOld implements OnClickListe
     @BindView(R.id.rel_no_data)
     RelativeLayout relNoData;
     private boolean is_Requesting=false;
-    @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.person_my_money);
-        ButterKnife.bind(this);
-    //    SetTransStatus.GetStatus(this);//系统栏默认为黑色
-        title_name = (TextView) findViewById(R.id.title_name);
-        title_name.setText("消费记录");
-        lin_left = (LinearLayout) findViewById(R.id.lin_left);
-        lin_left.setOnClickListener(this);
-
-        recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PersonMoneyAdapter(CenterMoneyActivity.this, beans);
-        recyclerview.setAdapter(adapter);
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        showDialog(smallDialog);
-        getdata();
-        // 设置下拉刷新
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // 刷新数据
-                page = 1;
-                getdata();
-
-
-            }
-        });
-
-        // 设置加载更多监听
-        recyclerview.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
-            @Override
-            public void onLoadMore() {
-                if (page <= totalPage&&!is_Requesting) {
-                    adapter.setLoadState(adapter.LOADING);
-                    getdata();
-                }
-            }
-        });
-    }
 
     private void getdata() {
         is_Requesting=true;
@@ -156,4 +116,72 @@ public class CenterMoneyActivity extends BaseActivityOld implements OnClickListe
 
     }
 
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
+        //    SetTransStatus.GetStatus(this);//系统栏默认为黑色
+        title_name = (TextView) findViewById(R.id.title_name);
+        title_name.setText("消费记录");
+        lin_left = (LinearLayout) findViewById(R.id.lin_left);
+        lin_left.setOnClickListener(this);
+
+        recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new PersonMoneyAdapter(CenterMoneyActivity.this, beans);
+        recyclerview.setAdapter(adapter);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        showDialog(smallDialog);
+        getdata();
+        // 设置下拉刷新
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // 刷新数据
+                page = 1;
+                getdata();
+
+
+            }
+        });
+
+        // 设置加载更多监听
+        recyclerview.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                if (page <= totalPage&&!is_Requesting) {
+                    adapter.setLoadState(adapter.LOADING);
+                    getdata();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.person_my_money;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
 }

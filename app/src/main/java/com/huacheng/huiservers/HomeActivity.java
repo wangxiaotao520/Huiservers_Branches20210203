@@ -30,7 +30,7 @@ import com.huacheng.huiservers.model.ModelIndexBottomUI;
 import com.huacheng.huiservers.model.ModelLoginOverTime;
 import com.huacheng.huiservers.model.ModelQRCode;
 import com.huacheng.huiservers.ui.base.ActivityStackManager;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.AboutActivity;
 import com.huacheng.huiservers.ui.fragment.CircleFragmentNew;
 import com.huacheng.huiservers.ui.fragment.HomeFragmentNew;
@@ -46,8 +46,6 @@ import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 import com.microquation.linkedme.android.LinkedME;
 
 import org.greenrobot.eventbus.EventBus;
@@ -65,11 +63,11 @@ import static com.huacheng.huiservers.Jump.PHONE_STATE_REQUEST_CODE;
 /**
  * 主页Activity
  */
-public class HomeActivity extends BaseActivityOld implements  View.OnClickListener {
+public class HomeActivity extends BaseActivity implements  View.OnClickListener {
     private String login_type;
     private SharedPreferences preferencesLogin;
-    public static HomeActivity instant;
-    @ViewInject(R.id.rg_content_fragment)
+
+
     public static RadioGroup mRadioGroup;// 下面的radioGroup
     private ArrayList<Fragment> fragments;
 
@@ -79,7 +77,7 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
     private int [] drawables_selected= {R.drawable.home22,R.drawable.shop22,R.drawable.bt_fuwu22,R.drawable.circle22,R.drawable.people22};
     private ImageView [] imageViews_bottom= new ImageView[5];
     private TextView [] textViews_bottom= new TextView[5];
-    View mStatusBar;
+
     private ModelEventHome modelEventHome;
     private boolean isEvent = false;
     private ModelIndexBottomUI  modelIndexBottomUI;
@@ -87,6 +85,62 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
     private String [] img_unselected= new String[5]; //网络选择的图片
     private String [] img_selected= new String[5];  //网络未选择的图片
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        isStatusBar = true;
+        super.onCreate(savedInstanceState);
+
+    }
+    @Override
+    protected void initView() {
+
+        preferencesLogin = this.getSharedPreferences("login", 0);
+        login_type = preferencesLogin.getString("login_type", "");
+
+        mRadioGroup=findViewById(R.id.rg_content_fragment);
+        addFragment();
+        switchFragment(0);
+
+        FrameLayout fl_home = findViewById(R.id.fl_home);
+        fl_home.setOnClickListener(this);
+        FrameLayout fl_shop = findViewById(R.id.fl_shop);
+        fl_shop.setOnClickListener(this);
+        FrameLayout fl_service = findViewById(R.id.fl_service);
+        fl_service.setOnClickListener(this);
+        FrameLayout fl_circle = findViewById(R.id.fl_circle);
+        fl_circle.setOnClickListener(this);
+        FrameLayout fl_my = findViewById(R.id.fl_my);
+        fl_my.setOnClickListener(this);
+
+        ImageView iv_home = findViewById(R.id.iv_home);
+        ImageView iv_shop = findViewById(R.id.iv_shop);
+        ImageView iv_service = findViewById(R.id.iv_service);
+        ImageView iv_circle = findViewById(R.id.iv_circle);
+        ImageView iv_my = findViewById(R.id.iv_my);
+        imageViews_bottom[0]=iv_home;
+        imageViews_bottom[1]=iv_shop;
+        imageViews_bottom[2]=iv_service;
+        imageViews_bottom[3]=iv_circle;
+        imageViews_bottom[4]=iv_my;
+
+        TextView tv_home = findViewById(R.id.tv_home);
+        TextView tv_shop = findViewById(R.id.tv_shop);
+        TextView tv_service = findViewById(R.id.tv_service);
+        TextView tv_circle = findViewById(R.id.tv_circle);
+        TextView tv_my = findViewById(R.id.tv_my);
+        textViews_bottom[0]=tv_home;
+        textViews_bottom[1]=tv_shop;
+        textViews_bottom[2]=tv_service;
+        textViews_bottom[3]=tv_circle;
+        textViews_bottom[4]=tv_my;
+
+        changeBottomUI(0);
+        current_fragment=0;
+        requestBottomUI();
+        EventBus.getDefault().register(this);
+        initJpush();
+        initJump();
+    }
     /**
      * 点击切换fragment
      *
@@ -258,62 +312,37 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
         });
     }
 
+
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        //    requestWindowFeature(Window.FEATURE_NO_TITLE);// 去标�?
-        isStatusBar = true;
-        super.onCreate(savedInstanceState);
+    protected void initData() {
 
-        instant = this;
-        //SetTransStatus.GetStatus(this);
-        preferencesLogin = this.getSharedPreferences("login", 0);
-        login_type = preferencesLogin.getString("login_type", "");
+    }
 
-        View view = View.inflate(this, R.layout.activity_home, null);
-        ViewUtils.inject(this, view);// 引入注解
-        setContentView(view);
-        addFragment();
-        switchFragment(0);
+    @Override
+    protected void initListener() {
 
-        FrameLayout fl_home = findViewById(R.id.fl_home);
-        fl_home.setOnClickListener(this);
-        FrameLayout fl_shop = findViewById(R.id.fl_shop);
-        fl_shop.setOnClickListener(this);
-        FrameLayout fl_service = findViewById(R.id.fl_service);
-        fl_service.setOnClickListener(this);
-        FrameLayout fl_circle = findViewById(R.id.fl_circle);
-        fl_circle.setOnClickListener(this);
-        FrameLayout fl_my = findViewById(R.id.fl_my);
-        fl_my.setOnClickListener(this);
+    }
 
-        ImageView iv_home = findViewById(R.id.iv_home);
-        ImageView iv_shop = findViewById(R.id.iv_shop);
-        ImageView iv_service = findViewById(R.id.iv_service);
-        ImageView iv_circle = findViewById(R.id.iv_circle);
-        ImageView iv_my = findViewById(R.id.iv_my);
-        imageViews_bottom[0]=iv_home;
-        imageViews_bottom[1]=iv_shop;
-        imageViews_bottom[2]=iv_service;
-        imageViews_bottom[3]=iv_circle;
-        imageViews_bottom[4]=iv_my;
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_home;
+    }
 
-        TextView tv_home = findViewById(R.id.tv_home);
-        TextView tv_shop = findViewById(R.id.tv_shop);
-        TextView tv_service = findViewById(R.id.tv_service);
-        TextView tv_circle = findViewById(R.id.tv_circle);
-        TextView tv_my = findViewById(R.id.tv_my);
-        textViews_bottom[0]=tv_home;
-        textViews_bottom[1]=tv_shop;
-        textViews_bottom[2]=tv_service;
-        textViews_bottom[3]=tv_circle;
-        textViews_bottom[4]=tv_my;
 
-        changeBottomUI(0);
-        current_fragment=0;
-        requestBottomUI();
-        EventBus.getDefault().register(this);
-        initJpush();
-        initJump();
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
 
     }
 
@@ -417,8 +446,9 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
                 SmartToast.showInfo("再按一次退出程序");
                 exitTime = System.currentTimeMillis();
             } else {
-                removeALLActivity();//执行移除所以Activity方法
-
+                //  2020/3/26 0026 移除所有activity
+                ActivityStackManager.getActivityStackManager().finishAllActivity();
+                finish();
             }
             return true;
         }
@@ -426,24 +456,30 @@ public class HomeActivity extends BaseActivityOld implements  View.OnClickListen
 
     }
 
+    /**
+     * 登录失效
+     * @param model
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void loginOverTime(ModelLoginOverTime model) {
         //登录失效
         SharedPreferences preferences1 = this.getSharedPreferences("login", 0);
         preferences1.edit().clear().commit();
         ApiHttpClient.setTokenInfo(null, null);
-        SmartToast.showInfo("登录失效");
-        BaseActivityOld.finishAll();
-        removeALLActivity();
-        BaseActivityOld.destoryActivity();
+
+        // : 2020/3/26 0026 移除所有activity
         ActivityStackManager.getActivityStackManager().finishAllActivity();
         finish();
-        startActivity(new Intent(this, HomeActivity.class));
-        startActivity(new Intent(this, LoginVerifyCodeActivity.class));
         //清除数据库
         UserSql.getInstance().clear();
         //    ActivityStackManager.getActivityStackManager().finishAllActivity();
         BaseApplication.setUser(null);
+        startActivity(new Intent(this, HomeActivity.class));
+
+        if (model!=null&&model.getType()==0){
+            SmartToast.showInfo("登录失效");
+            startActivity(new Intent(this, LoginVerifyCodeActivity.class));
+        }
     }
 
     /**

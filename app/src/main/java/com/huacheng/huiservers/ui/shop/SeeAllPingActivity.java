@@ -13,7 +13,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.shop.adapter.ShopDetailListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.ShopMainBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -24,7 +24,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SeeAllPingActivity extends BaseActivityOld implements OnClickListener{
+public class SeeAllPingActivity extends BaseActivity implements OnClickListener{
 	private LinearLayout lin_left,lin_jiesuan;
 	private RelativeLayout title_rel,rel_no_data;
 	private TextView title_name;
@@ -39,11 +39,10 @@ public class SeeAllPingActivity extends BaseActivityOld implements OnClickListen
 	ShopProtocol protocol=new ShopProtocol();
 	List<ShopMainBean> bean=new ArrayList<ShopMainBean>();
 	List<ShopMainBean> beans=new ArrayList<ShopMainBean>();
+
+
 	@Override
-	protected void init() {
-		super.init();
-		setContentView(R.layout.order_history);
-//		SetTransStatus.GetStatus(this);//系统栏默认为黑色
+	protected void initView() {
 		shop_id=this.getIntent().getExtras().getString("shop_id");
 		lin_left=(LinearLayout) findViewById(R.id.lin_left);
 		lin_left.setOnClickListener(this);
@@ -72,15 +71,39 @@ public class SeeAllPingActivity extends BaseActivityOld implements OnClickListen
 		});
 //		list_center.setReflshInterface(this);
 //		list_center.setLoadInterface(this);
-
-
 	}
+
 	@Override
 	protected void initData() {
-		super.initData();
 		showDialog(smallDialog);
 		getpingjia();
 	}
+
+	@Override
+	protected void initListener() {
+
+	}
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.order_history;
+	}
+
+	@Override
+	protected void initIntentData() {
+
+	}
+
+	@Override
+	protected int getFragmentCotainerId() {
+		return 0;
+	}
+
+	@Override
+	protected void initFragment() {
+
+	}
+
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {

@@ -1,7 +1,6 @@
 package com.huacheng.huiservers.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -9,9 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.BaseApplication;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,15 +69,7 @@ public class UIUtils {
         return getHandler().post(runnable);
     }
 
-    public static void startActivity(Intent intent) {
-        BaseActivityOld activity = BaseActivityOld.getForegroundActivity();
-        if (activity != null) {
-            activity.startActivity(intent);
-        } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getContext().startActivity(intent);
-        }
-    }
+
 
     public static View inflate(int resId) {
         return LayoutInflater.from(getContext()).inflate(resId, null);
@@ -114,35 +103,9 @@ public class UIUtils {
         return getResources().getColor(resId);
     }
     /***********************************************************************************/
-    /**
-     * 对toast的简易封装。线程安全，可以在非UI线程调用。
-     */
-    public static void showToastSafe(final int resId) {
-        showToastSafe(getString(resId));
-    }
 
-    /**
-     * 对toast的简易封装。线程安全，可以在非UI线程调用。
-     */
-    public static void showToastSafe(final String str) {
-        if (isRunInMainThread()) {
-            showToast(str);
-        } else {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    showToast(str);
-                }
-            });
-        }
-    }
 
-    private static void showToast(String str) {
-        BaseActivityOld frontActivity = BaseActivityOld.getForegroundActivity();
-        if (frontActivity != null) {
-            SmartToast.showInfo(str);
-        }
-    }
+
 
     /**********************************************************************************/
     public static String getCurrentTime(String format) {

@@ -97,7 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }else {
             setTheme(R.style.AppCompatTheme_Base);
         }
-
+        initConfigBeforeSetContentView();
         setContentView(getLayoutId());
         mContext = this;
         smallDialog = new SmallDialog(mContext);
@@ -108,6 +108,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
         //各种初始化：方法初始化、通用配置、
         ActivityStackManager.getActivityStackManager().pushActivity(this);
+    }
+
+    /**
+     * 在setContentView之前调用的方法，在super.onCreate(savedInstanceState)之后调用
+     */
+    protected void initConfigBeforeSetContentView() {
+
     }
 
     /**

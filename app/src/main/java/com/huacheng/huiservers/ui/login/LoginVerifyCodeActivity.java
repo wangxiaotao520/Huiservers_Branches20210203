@@ -37,7 +37,7 @@ import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.huiservers.model.protocol.LoginProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
@@ -74,7 +74,7 @@ import cn.com.chinatelecom.account.lib.model.AuthResultModel;
 /**
  * 登录页
  */
-public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickListener {
+public class LoginVerifyCodeActivity extends BaseActivity implements OnClickListener {
     private TextView txt_btn, txt_getcode, txt_shengming, tv_txt2, tv_txt1, tv_txt3;
    // HttpUtils utils = new HttpUtils();
     private EditText et_mobile, et_getcode, et_yq;
@@ -145,10 +145,8 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
     }
 
     @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.login_verify_code);
- //       SetTransStatus.GetStatus(this);// 系统栏默认为黑色
+    protected void initView() {
+
         getSharedPre();
         login_type = "yz";//默认验证码登录
 
@@ -186,10 +184,40 @@ public class LoginVerifyCodeActivity extends BaseActivityOld implements OnClickL
     }
 
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.login_verify_code;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         MobSDK.init(this, getString(R.string.MobAppkey), getString(R.string.MobAppkey));
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 
     @Override

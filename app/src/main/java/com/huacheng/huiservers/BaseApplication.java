@@ -1,7 +1,6 @@
 package com.huacheng.huiservers;
 
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -50,8 +49,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 import cn.com.chinatelecom.account.lib.auth.CtAuth;
 import cn.jpush.android.api.JPushInterface;
@@ -86,8 +83,6 @@ public class BaseApplication extends Application {
     //字体地址，一般放置在assets/fonts目录
     String fontPath = "fonts/scyahei.ttf";
 
-    private static List<Activity> oList;//用于存放所有启动的Activity的集合
-
     public static ModelUser user;
     public static Context mContext;
 
@@ -96,6 +91,26 @@ public class BaseApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    static {
+        //设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
+            @Override
+            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
+                //    layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);//全局设置主题颜色
+                //   return new ClassicsHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+                return new MaterialHeader(context).setColorSchemeColors(getApplication().getResources().getColor(R.color.orange));
+            }
+        });
+        //设置全局的Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
+            @Override
+            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
+                //指定为经典Footer，默认是 BallPulseFooter
+                return new ClassicsFooter(context).setDrawableSize(20);
+            }
+        });
     }
     @Override
     public void onCreate() {
@@ -108,7 +123,6 @@ public class BaseApplication extends Application {
         mMainLooper = getMainLooper();
         mInstance = this;
         mContext = this.getApplicationContext();
-        oList = new ArrayList<Activity>();
 
      /*   UMShareAPI.get(this);//初始化sdk
         //开启debug模式，方便定位错误，具体错误检查方式可以查看http://dev.umeng.com/social/android/quick-integration的报错必看，正式发布，请关闭该模式
@@ -341,58 +355,6 @@ public class BaseApplication extends Application {
         return null;
     }
 
-    /**
-     * 添加Activity
-     */
-    public void addActivity_(Activity activity) {
-// 判断当前集合中不存在该Activity
-        if (!oList.contains(activity)) {
-            oList.add(activity);//把当前Activity添加到集合中
-        }
-    }
-
-    /**
-     * 销毁单个Activity
-     */
-    public void removeActivity_(Activity activity) {
-//判断当前集合中存在该Activity
-        if (oList.contains(activity)) {
-            oList.remove(activity);//从集合中移除
-            activity.finish();//销毁当前Activity
-        }
-    }
-
-    /**
-     * 销毁所有的Activity
-     */
-    public static void removeALLActivity_() {
-        //通过循环，把集合中的所有Activity销毁
-        if (oList != null) {
-            for (Activity activity : oList) {
-                activity.finish();
-            }
-        }
-    }
-
-    static {
-        //设置全局的Header构建器
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
-            @Override
-            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
-                //    layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);//全局设置主题颜色
-                //   return new ClassicsHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
-                return new MaterialHeader(context).setColorSchemeColors(getApplication().getResources().getColor(R.color.orange));
-            }
-        });
-        //设置全局的Footer构建器
-        SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
-            @Override
-            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
-                //指定为经典Footer，默认是 BallPulseFooter
-                return new ClassicsFooter(context).setDrawableSize(20);
-            }
-        });
-    }
 
     public static Context getContext() {
         return mContext;

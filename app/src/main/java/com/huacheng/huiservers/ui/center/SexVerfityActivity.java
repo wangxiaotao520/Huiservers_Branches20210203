@@ -14,13 +14,13 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.model.PersoninfoBean;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
-public class SexVerfityActivity extends BaseActivityOld implements OnClickListener {
+public class SexVerfityActivity extends BaseActivity implements OnClickListener {
 
     LinearLayout lin_left;
     TextView title_name, right;
@@ -28,62 +28,6 @@ public class SexVerfityActivity extends BaseActivityOld implements OnClickListen
     RadioButton radio_nan, radio_nv;
     String currentSelectedVal;
 
-    @Override
-    protected void init() {
-        super.init();
-        //       SetTransStatus.GetStatus(this);
-        setContentView(R.layout.verify_sex_new);
-        title_name = (TextView) findViewById(R.id.title_name);
-        right = (TextView) findViewById(R.id.right);
-        // set
-        title_name.setText("性别");
-        right.setTextColor(getResources().getColor(R.color.orange));
-        right.setText("提交");
-        right.setVisibility(View.VISIBLE);
-        radiogroup = (RadioGroup) findViewById(R.id.radiogroup);
-        radio_nan = (RadioButton) findViewById(R.id.radio_nan);
-        radio_nv = (RadioButton) findViewById(R.id.radio_nv);
-        final Drawable drawableCheck = getResources().getDrawable(R.mipmap.ic_selected_pay_type);
-        final Drawable drawableunCheck = getResources().getDrawable(R.drawable.shape_oval_grey);
-        drawableCheck.setBounds(0, 0, drawableCheck.getMinimumWidth(), drawableCheck.getMinimumHeight());  //
-        drawableunCheck.setBounds(0, 0, drawableunCheck.getMinimumWidth(), drawableunCheck.getMinimumHeight());  //
-        radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup arg0, int arg1) {
-                RadioButton rb = (RadioButton) findViewById(arg0.getCheckedRadioButtonId());
-                if (rb.getText().toString().equals("男")) {
-                    currentSelectedVal = "1";
-                    radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
-                    radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
-                } else {
-                    currentSelectedVal = "2";
-                    radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
-                    radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
-                }
-            }
-        });
-        //getExtra
-
-        String sex = getIntent().getExtras().getString("sex");
-        if (!sex.equals("")) {
-            if (sex.equals("男")) {
-                radio_nan.setChecked(true);
-                radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
-                radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
-            } else if (sex.equals("女")) {
-                radio_nv.setChecked(true);
-                radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
-                radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
-            }
-        } else {
-            radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
-            radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
-        }
-        // listener
-        findViewById(R.id.lin_left).setOnClickListener(this);
-        right.setOnClickListener(this);
-    }
 
     @Override
     public void onClick(View v) {
@@ -141,5 +85,89 @@ public class SexVerfityActivity extends BaseActivityOld implements OnClickListen
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
+    }
+
+    @Override
+    protected void initView() {
+        title_name = (TextView) findViewById(R.id.title_name);
+        right = (TextView) findViewById(R.id.right);
+        // set
+        title_name.setText("性别");
+        right.setTextColor(getResources().getColor(R.color.orange));
+        right.setText("提交");
+        right.setVisibility(View.VISIBLE);
+        radiogroup = (RadioGroup) findViewById(R.id.radiogroup);
+        radio_nan = (RadioButton) findViewById(R.id.radio_nan);
+        radio_nv = (RadioButton) findViewById(R.id.radio_nv);
+        final Drawable drawableCheck = getResources().getDrawable(R.mipmap.ic_selected_pay_type);
+        final Drawable drawableunCheck = getResources().getDrawable(R.drawable.shape_oval_grey);
+        drawableCheck.setBounds(0, 0, drawableCheck.getMinimumWidth(), drawableCheck.getMinimumHeight());  //
+        drawableunCheck.setBounds(0, 0, drawableunCheck.getMinimumWidth(), drawableunCheck.getMinimumHeight());  //
+        radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                RadioButton rb = (RadioButton) findViewById(arg0.getCheckedRadioButtonId());
+                if (rb.getText().toString().equals("男")) {
+                    currentSelectedVal = "1";
+                    radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
+                    radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
+                } else {
+                    currentSelectedVal = "2";
+                    radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
+                    radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
+                }
+            }
+        });
+        //getExtra
+
+        String sex = getIntent().getExtras().getString("sex");
+        if (!sex.equals("")) {
+            if (sex.equals("男")) {
+                radio_nan.setChecked(true);
+                radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
+                radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
+            } else if (sex.equals("女")) {
+                radio_nv.setChecked(true);
+                radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
+                radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
+            }
+        } else {
+            radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
+            radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
+        }
+        // listener
+        findViewById(R.id.lin_left).setOnClickListener(this);
+        right.setOnClickListener(this);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.verify_sex_new;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 }

@@ -14,7 +14,7 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.shop.adapter.ShopCateOneAdapter;
 import com.huacheng.huiservers.ui.shop.adapter.ShopCateTwoAdapter;
 import com.huacheng.huiservers.ui.shop.bean.CateBean;
@@ -24,7 +24,7 @@ import com.huacheng.libraryservice.utils.NullUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopCateActivity extends BaseActivityOld implements OnClickListener {
+public class ShopCateActivity extends BaseActivity implements OnClickListener {
     private ListView list_one, list_two;
     private LinearLayout lin_left, lin_search;
     ShopProtocol protocol = new ShopProtocol();
@@ -34,12 +34,9 @@ public class ShopCateActivity extends BaseActivityOld implements OnClickListener
     private List<CateBean> beans2 = new ArrayList<CateBean>();
     SharePrefrenceUtil prefrenceUtil;
 
-    @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.shop_cate);
-//        SetTransStatus.GetStatus(this);
 
+    @Override
+    protected void initView() {
         prefrenceUtil = new SharePrefrenceUtil(this);
         lin_left = (LinearLayout) findViewById(R.id.lin_left);
         lin_left.setOnClickListener(this);
@@ -73,8 +70,32 @@ public class ShopCateActivity extends BaseActivityOld implements OnClickListener
 
     @Override
     protected void initData() {
-        super.initData();
         getShopOne();
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.shop_cate;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 
     private void getShopOne() {//一级

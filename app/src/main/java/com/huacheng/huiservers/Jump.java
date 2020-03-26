@@ -66,8 +66,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.huacheng.huiservers.utils.UIUtils.startActivity;
-
 public class Jump {
 
     @ViewInject(R.id.rg_content_fragment)
@@ -187,7 +185,7 @@ public class Jump {
                             intent.setData(Uri.parse("tel:"
                                     + phone));
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                            mContext.startActivity(intent);
                             dialog.dismiss();
                         }
                     }
@@ -656,7 +654,7 @@ public class Jump {
         } else if (type.equals("16")) {//物业缴费
             if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
-                startActivity(intent);
+                mContext.startActivity(intent);
             } else {
                 //Intent intent = new Intent(mContext, PropertyNewActivity.class);
                 Intent intent = new Intent(mContext, HouseListActivity.class);

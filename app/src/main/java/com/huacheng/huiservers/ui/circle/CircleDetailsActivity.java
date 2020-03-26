@@ -3,7 +3,6 @@ package com.huacheng.huiservers.ui.circle;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -35,10 +34,9 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.CircleDetailBean;
-import com.huacheng.huiservers.model.protocol.CircleProtocol;
 import com.huacheng.huiservers.model.protocol.CommonProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.circle.adapter.CircleDetailListAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.LogUtils;
@@ -70,7 +68,6 @@ import butterknife.OnClick;
 import static com.huacheng.huiservers.R.id.et_input;
 import static com.huacheng.huiservers.R.id.tv_send;
 
-
 /**
  * 类：邻里详情
  * 时间：2018/3/16 15:43
@@ -79,9 +76,8 @@ import static com.huacheng.huiservers.R.id.tv_send;
  *  // 不知道为什么，切换到夜间模式后，第一次打开这个页面，有webview的页面，页面会重新创建,重新走onCreate,类似于
  *  //横竖屏切换，第一个页面的smallDialog 消失不掉，如果设置android:configChanges="uiMode" 对话框是消失了，页面渲染又会有问题，所以想了这个办法
  */
-public class CircleDetailsActivity extends BaseActivityOld {
+public class CircleDetailsActivity extends BaseActivity {
 
-    CircleProtocol mCircleProtocol = new CircleProtocol();
     CircleDetailBean mCirclebean = new CircleDetailBean();
     CircleDetailListAdapter cricle2detailListAdapter;
     BitmapUtils bitmapUtils;
@@ -152,10 +148,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
 
 
     private String SCROLLtag = "0";
-    private String commentSuccess = "0";
-
     private String isPro = "0";//是否是物业公告
-    private Handler handler = new Handler();
     private String share_url;
     private String share_title;
     private String share_desc;
@@ -164,33 +157,14 @@ public class CircleDetailsActivity extends BaseActivityOld {
     SharePrefrenceUtil prefrenceUtil;
 
 
-    /**
-     * 滑动到指定位置
-     */
-    private void scrollToPosition() {
-
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                //显示dialog
-                mScrollView.scrollTo(0, mLinPinglun.getTop() - mLinTopAll.getTop());
-            }
-        }, 500);   //0.5秒
-    }
-
-    boolean isRefresh;
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.cricle_detail);
+    protected void initView() {
         ButterKnife.bind(this);
-        //       SetTransStatus.GetStatus(this);
+
         MyCookieStore.My_notify = 1;
         circle_id = this.getIntent().getExtras().getString("id");
         isPro = this.getIntent().getExtras().getString("mPro");
 
-        // circle_comment = this.getIntent().getExtras().getString("circle_comment");
-//        isRefresh = this.getIntent().getExtras().getBoolean("refresh");
         if (!NullUtil.isStringEmpty(this.getIntent().getExtras().getString("SCROLLtag"))) {
             SCROLLtag = "1";
         } else {
@@ -231,6 +205,49 @@ public class CircleDetailsActivity extends BaseActivityOld {
         });
 
         mRightShare.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.cricle_detail;
+    }
+
+    /**
+     * 滑动到指定位置
+     */
+    private void scrollToPosition() {
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                //显示dialog
+                mScrollView.scrollTo(0, mLinPinglun.getTop() - mLinTopAll.getTop());
+            }
+        }, 500);   //0.5秒
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 
     String content1;
@@ -524,17 +541,7 @@ public class CircleDetailsActivity extends BaseActivityOld {
             case R.id.lin_left:
                 UIUtils.closeInputMethod(this, mEtInput);
 
-             /*   if (!StringUtils.isEmpty(circle_comment)) {
-                    if (circle_comment.equals("1")) {
-                        setResult(11);
-                    }
-                }
-*/
-               /* if (isRefresh) {
-                    if (commentSuccess.equals("1")) {
 
-                    }
-                }*/
                 finish();
                 break;
             case et_input:

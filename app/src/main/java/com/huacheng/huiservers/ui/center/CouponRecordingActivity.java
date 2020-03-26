@@ -1,6 +1,5 @@
 package com.huacheng.huiservers.ui.center;
 
-import android.app.Dialog;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,10 +12,10 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
-import com.huacheng.huiservers.model.protocol.CenterProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.center.adapter.CouponRecordingAdapter;
 import com.huacheng.huiservers.model.CouponBean;
+import com.huacheng.huiservers.model.protocol.CenterProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.adapter.CouponRecordingAdapter;
 import com.huacheng.huiservers.view.MyListView;
 
 import java.util.List;
@@ -28,8 +27,7 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2018/3/16.
  */
-
-public class CouponRecordingActivity extends BaseActivityOld {
+public class CouponRecordingActivity extends BaseActivity {
 
     @BindView(R.id.lin_left)
     LinearLayout linLeft;
@@ -46,22 +44,10 @@ public class CouponRecordingActivity extends BaseActivityOld {
     ImageView img_data;
     TextView tv_text;
 
-    Dialog waitDialog;
     CouponRecordingAdapter useAdapter;
     CenterProtocol protocol = new CenterProtocol();
     List<CouponBean> coupons;
 
-    @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.coupon_recording);
-        ButterKnife.bind(this);
-    //    SetTransStatus.GetStatus(this);//系统栏默认为黑色
-        titleName.setText("记录");
-        img_data = findViewById(R.id.img_data);
-        tv_text = findViewById(R.id.tv_text);
-        couponRecording();
-    }
 
     /**
      * 优惠券记录
@@ -113,4 +99,42 @@ public class CouponRecordingActivity extends BaseActivityOld {
         }
     }
 
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
+        titleName.setText("记录");
+        img_data = findViewById(R.id.img_data);
+        tv_text = findViewById(R.id.tv_text);
+        couponRecording();
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.coupon_recording;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
 }

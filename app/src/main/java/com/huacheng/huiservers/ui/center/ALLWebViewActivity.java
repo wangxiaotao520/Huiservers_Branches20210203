@@ -10,20 +10,21 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 
-public class ALLWebViewActivity extends BaseActivityOld implements OnClickListener {
+/**
+ *
+ */
+public class ALLWebViewActivity extends BaseActivity implements OnClickListener {
     private TextView title_name;
     private LinearLayout lin_left;
     private WebView webView;
     String url, name;
 
+
     @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.about);
-        //   SetTransStatus.GetStatus(this);//系统栏默认为黑色
+    protected void initView() {
         title_name = (TextView) findViewById(R.id.title_name);
         name = this.getIntent().getExtras().getString("name");
         url = this.getIntent().getExtras().getString("url");
@@ -64,12 +65,36 @@ public class ALLWebViewActivity extends BaseActivityOld implements OnClickListen
         });
         webView.loadUrl(url);
         webView.requestFocusFromTouch();
-
     }
 
     @Override
     protected void initData() {
-        super.initData();
+
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.about;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
 
     }
 

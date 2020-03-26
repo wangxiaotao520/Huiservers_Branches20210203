@@ -2,9 +2,7 @@ package com.huacheng.huiservers.ui.shop;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.IBinder;
-import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +24,7 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListSearchAdapter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -35,8 +33,10 @@ import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class SearchResultActivity extends BaseActivityOld implements OnClickListener {
+/**
+ * 搜索结果
+ */
+public class SearchResultActivity extends BaseActivity implements OnClickListener {
     private ImageView search_back;
     private EditText et_search;
     TextView txt_search;
@@ -62,72 +62,7 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
     private String act_id = "";
     private int type = 0;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    protected void init() {
-        super.init();
-//        SetTransStatus.GetStatus(this);
-        setContentView(R.layout.search_result);
-        prefrenceUtil = new SharePrefrenceUtil(this);
-        keywords = getIntent().getStringExtra("keystr");
 
-        type = this.getIntent().getIntExtra("type", 0);
-        if (type == 1) {
-            store_id = this.getIntent().getStringExtra("store_id");
-        } else if (type == 2) {
-            act_id = this.getIntent().getStringExtra("act_id");
-        }
-        // 3. 绑定组件
-        LinearLayout lin_search_block = (LinearLayout) findViewById(R.id.lin_search_block);
-        search_back = (ImageView) findViewById(R.id.search_back);
-        et_search = (EditText) findViewById(R.id.et_search);
-        txt_search = (TextView) findViewById(R.id.txt_search);
-        et_search.setText(keywords);
-
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
-        rel_no_data = (RelativeLayout) findViewById(R.id.rel_no_data);
-        manager = new RecyclerViewLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerview.setLayoutManager(manager);
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        searchAdapter = new ShopListSearchAdapter(beans, SearchResultActivity.this, "inv");
-        recyclerview.setAdapter(searchAdapter);
-        //默认失去焦点
-//        et_search.clearFocus();//
-        lin_search_block.setFocusable(true);
-        lin_search_block.setFocusableInTouchMode(true);
-        /*et_search.setSelection(keywords.length());*/
-        showDialog(smallDialog);
-        getdata();
-
-        // 设置下拉刷新
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // 刷新数据
-//                beans.clear();
-                page = 1;
-                getdata();
-
-            }
-        });
-
-        recyclerview.addOnScrollListener(mOnScrollListener);
-        // 设置加载更多监听
-        search_back.setOnClickListener(this);
-        txt_search.setOnClickListener(this);
-        et_search.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent1 = new Intent(SearchResultActivity.this, SearchShopActivity.class);
-                intent1.putExtra("keywords", keywords);
-                setResult(11, intent1);
-                finish();
-                return false;
-            }
-        });
-
-    }
 
     public RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
         private int lastVisibleItem;
@@ -340,5 +275,99 @@ public class SearchResultActivity extends BaseActivityOld implements OnClickList
             InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+
+    @Override
+    protected void initView() {
+        prefrenceUtil = new SharePrefrenceUtil(this);
+        keywords = getIntent().getStringExtra("keystr");
+
+        type = this.getIntent().getIntExtra("type", 0);
+        if (type == 1) {
+            store_id = this.getIntent().getStringExtra("store_id");
+        } else if (type == 2) {
+            act_id = this.getIntent().getStringExtra("act_id");
+        }
+        // 3. 绑定组件
+        LinearLayout lin_search_block = (LinearLayout) findViewById(R.id.lin_search_block);
+        search_back = (ImageView) findViewById(R.id.search_back);
+        et_search = (EditText) findViewById(R.id.et_search);
+        txt_search = (TextView) findViewById(R.id.txt_search);
+        et_search.setText(keywords);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
+        rel_no_data = (RelativeLayout) findViewById(R.id.rel_no_data);
+        manager = new RecyclerViewLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerview.setLayoutManager(manager);
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        searchAdapter = new ShopListSearchAdapter(beans, SearchResultActivity.this, "inv");
+        recyclerview.setAdapter(searchAdapter);
+        //默认失去焦点
+//        et_search.clearFocus();//
+        lin_search_block.setFocusable(true);
+        lin_search_block.setFocusableInTouchMode(true);
+        /*et_search.setSelection(keywords.length());*/
+        showDialog(smallDialog);
+        getdata();
+
+        // 设置下拉刷新
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // 刷新数据
+//                beans.clear();
+                page = 1;
+                getdata();
+
+            }
+        });
+
+        recyclerview.addOnScrollListener(mOnScrollListener);
+        // 设置加载更多监听
+        search_back.setOnClickListener(this);
+        txt_search.setOnClickListener(this);
+        et_search.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent1 = new Intent(SearchResultActivity.this, SearchShopActivity.class);
+                intent1.putExtra("keywords", keywords);
+                setResult(11, intent1);
+                finish();
+                return false;
+            }
+        });
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.search_result;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 }

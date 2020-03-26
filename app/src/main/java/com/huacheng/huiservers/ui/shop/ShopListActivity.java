@@ -25,7 +25,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.fragment.shop.ShopListFragment;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListFragmentAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
@@ -54,7 +54,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2018/5/24.
  */
 
-public class ShopListActivity extends BaseActivityOld {
+public class ShopListActivity extends BaseActivity {
 
     @BindView(R.id.lin_left)
     LinearLayout linLeft;
@@ -107,17 +107,15 @@ public class ShopListActivity extends BaseActivityOld {
     RecyclerViewLayoutManager noBugManager;
     private boolean is_Requesting = false;
 
+
     @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.shop_list);
-        //       SetTransStatus.GetStatus(this);// 系统栏默认为黑色
+    protected void initView() {
         ButterKnife.bind(this);
     }
 
     @Override
     protected void initData() {
-        super.initData();
+
         sharedPreferenceUtil = new SharePrefrenceUtil(this);
         cateID = getIntent().getStringExtra("cateID");
 
@@ -126,6 +124,31 @@ public class ShopListActivity extends BaseActivityOld {
             new CommonMethod(txtShopNum, this).getCartNum();
         }
         getProductCate();
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.shop_list;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 
     @Override

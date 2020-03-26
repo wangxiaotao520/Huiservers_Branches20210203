@@ -2,8 +2,9 @@ package com.huacheng.huiservers.ui.center;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -15,10 +16,10 @@ import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
-import com.huacheng.huiservers.model.protocol.CenterProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.center.adapter.CouponToShopUseAdapter;
 import com.huacheng.huiservers.model.CouponBean;
+import com.huacheng.huiservers.model.protocol.CenterProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.adapter.CouponToShopUseAdapter;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.view.MyListView;
@@ -32,7 +33,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2018/4/4.
  */
 
-public class CouponToShopUseActivity extends BaseActivityOld {
+public class CouponToShopUseActivity extends BaseActivity {
 
     @BindView(R.id.lin_left)
     LinearLayout linLeft;
@@ -55,32 +56,13 @@ public class CouponToShopUseActivity extends BaseActivityOld {
     @BindView(R.id.scrollViewDialog)
     ScrollView scrollViewDialog;
 
-    String tag, coupon_id, all_shop_id, all_shop_money, jump_url, url, mID;
 
     @Override
-    protected void init() {
-        super.init();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//remove notification bar  即全屏
-        setContentView(R.layout.coupon_toshopuse);
-        ButterKnife.bind(this);
-        //   SetTransStatus.GetStatus(this);//系统栏默认为黑色
-
-        bitmapUtils = new BitmapUtils(this);
-        couponID = getIntent().getStringExtra("coupon_id");
-
-       /* if (tag.equals("order")) {
-            all_shop_id = getIntent().getExtras().getString("all_id");
-            all_shop_money = getIntent().getExtras().getString("all_shop_money");
-        } else if (tag.equals("jump")) {
-            jump_url = getIntent().getExtras().getString("url");
-        }*/
-        if (!StringUtils.isEmpty(couponID)) {
-            getDetail(couponID);
-        } else {
-            SmartToast.showInfo("couponID不允许为空");
-        }
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar=true;
+        isFullScreen=true;
+        super.onCreate(savedInstanceState);
     }
-
 
     @OnClick({R.id.lin_left, R.id.tv_coupon_toshopUse_status})
     public void onViewClicked(View v) {
@@ -249,4 +231,47 @@ public class CouponToShopUseActivity extends BaseActivityOld {
     }
 
 
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
+
+        bitmapUtils = new BitmapUtils(this);
+        couponID = getIntent().getStringExtra("coupon_id");
+
+        if (!StringUtils.isEmpty(couponID)) {
+            getDetail(couponID);
+        } else {
+            SmartToast.showInfo("couponID不允许为空");
+        }
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.coupon_toshopuse;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
 }

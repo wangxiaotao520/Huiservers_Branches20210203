@@ -14,7 +14,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,31 +23,13 @@ import org.json.JSONObject;
  * 意见反馈
  */
 
-public class YiJianActivity extends BaseActivityOld implements View.OnClickListener {
+public class YiJianActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout lin_left;
     private TextView title_name;
     private EditText editText;
     private TextView txt_right1;
 
-    @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.activity_yijian);
-        //      SetTransStatus.GetStatus(this);
-
-        lin_left = findViewById(R.id.lin_left);
-        editText = findViewById(R.id.et_content);
-        title_name = findViewById(R.id.title_name);
-        txt_right1 = findViewById(R.id.txt_right1);
-        txt_right1.setText("提交");
-        txt_right1.setVisibility(View.VISIBLE);
-        title_name.setText("意见反馈");
-
-        lin_left.setOnClickListener(this);
-        txt_right1.setOnClickListener(this);
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -140,5 +122,50 @@ public class YiJianActivity extends BaseActivityOld implements View.OnClickListe
             }
         }
         return false;
+    }
+
+    @Override
+    protected void initView() {
+
+        lin_left = findViewById(R.id.lin_left);
+        editText = findViewById(R.id.et_content);
+        title_name = findViewById(R.id.title_name);
+        txt_right1 = findViewById(R.id.txt_right1);
+        txt_right1.setText("提交");
+        txt_right1.setVisibility(View.VISIBLE);
+        title_name.setText("意见反馈");
+
+        lin_left.setOnClickListener(this);
+        txt_right1.setOnClickListener(this);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_yijian;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 }

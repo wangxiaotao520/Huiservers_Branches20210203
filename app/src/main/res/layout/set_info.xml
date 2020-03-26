@@ -3,10 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:clipToPadding="false"
-    android:fitsSystemWindows="false"
+    android:background="@color/windowbackground"
     android:orientation="vertical">
-
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/white"/>
     <include layout="@layout/titlebar_center"/>
 
     <View
@@ -124,7 +127,7 @@
             android:layout_height="1dp"
             android:background="@color/windowbackground"/>
         <RelativeLayout
-            
+
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"

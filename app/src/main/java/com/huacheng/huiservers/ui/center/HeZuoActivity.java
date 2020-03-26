@@ -15,56 +15,23 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.TextCheckUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by hwh on 2018/3/21.
+ * 商务合作activity
  */
 
-public class HeZuoActivity extends BaseActivityOld implements View.OnClickListener {
+public class HeZuoActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout lin_left;
     private RelativeLayout rel_ti;
     private TextView title_name;
     private EditText et_name, et_phone, et_content;
 
-    @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.activity_hezuo);
-
-        lin_left = (LinearLayout) findViewById(R.id.lin_left);
-        rel_ti = (RelativeLayout) findViewById(R.id.rel_ti);
-        et_name = (EditText) findViewById(R.id.et_name);
-        et_phone = (EditText) findViewById(R.id.et_phone);
-        et_content = (EditText) findViewById(R.id.et_content);
-        title_name = (TextView) findViewById(R.id.title_name);
-
-        title_name.setText("商务合作");
-
-        lin_left.setOnClickListener(this);
-        rel_ti.setOnClickListener(this);
-        //1、传入需要监听的EditText与TextView
-        TextCheckUtils textCheckUtils = new TextCheckUtils(et_name, et_phone, et_content);
-        //2、设置是否全部填写完成监听
-        textCheckUtils.setOnCompleteListener(new TextCheckUtils.OnCompleteListener() {
-            @Override
-            public void isComplete(boolean isComplete) {
-                if (isComplete) {
-                    rel_ti.setEnabled(true);
-                    rel_ti.setBackgroundResource(R.drawable.allshape_orange);
-
-                } else {
-                    rel_ti.setEnabled(false);
-                    rel_ti.setBackgroundResource(R.drawable.allshape_gray_solid_bb5);
-                }
-            }
-        });
-    }
 
     @Override
     public void onClick(View v) {
@@ -167,5 +134,66 @@ public class HeZuoActivity extends BaseActivityOld implements View.OnClickListen
             }
         }
         return false;
+    }
+
+    @Override
+    protected void initView() {
+        lin_left = (LinearLayout) findViewById(R.id.lin_left);
+        rel_ti = (RelativeLayout) findViewById(R.id.rel_ti);
+        et_name = (EditText) findViewById(R.id.et_name);
+        et_phone = (EditText) findViewById(R.id.et_phone);
+        et_content = (EditText) findViewById(R.id.et_content);
+        title_name = (TextView) findViewById(R.id.title_name);
+
+        title_name.setText("商务合作");
+
+        lin_left.setOnClickListener(this);
+        rel_ti.setOnClickListener(this);
+        //1、传入需要监听的EditText与TextView
+        TextCheckUtils textCheckUtils = new TextCheckUtils(et_name, et_phone, et_content);
+        //2、设置是否全部填写完成监听
+        textCheckUtils.setOnCompleteListener(new TextCheckUtils.OnCompleteListener() {
+            @Override
+            public void isComplete(boolean isComplete) {
+                if (isComplete) {
+                    rel_ti.setEnabled(true);
+                    rel_ti.setBackgroundResource(R.drawable.allshape_orange);
+
+                } else {
+                    rel_ti.setEnabled(false);
+                    rel_ti.setBackgroundResource(R.drawable.allshape_gray_solid_bb5);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_hezuo;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 }

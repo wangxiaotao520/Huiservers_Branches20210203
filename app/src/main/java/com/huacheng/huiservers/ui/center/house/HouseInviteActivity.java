@@ -1,8 +1,6 @@
 package com.huacheng.huiservers.ui.center.house;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,7 +11,7 @@ import com.huacheng.huiservers.dialog.InviteAddPersonDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 
 import org.json.JSONObject;
 
@@ -28,7 +26,7 @@ import butterknife.OnClick;
  *  时间：2018/3/23 08:18
  * 功能描述:Huiservers
  */
-public class HouseInviteActivity extends BaseActivityOld {
+public class HouseInviteActivity extends BaseActivity {
 
     @BindView(R.id.lin_code)
     LinearLayout mLinCode;
@@ -46,21 +44,46 @@ public class HouseInviteActivity extends BaseActivityOld {
     private String room_id, mobile, community, building, room_code;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.invite_type);
+    protected void initView() {
         ButterKnife.bind(this);
-//        SetTransStatus.GetStatus(this);
 
         Intent intent = getIntent();
         room_id = intent.getStringExtra("room_id");
-        Log.e("roomid", room_id);
         getResult();
         mTitleName.setText("访客邀请");
         mTxtMianmi.setText("记录");
         mTxtMianmi.setTextColor(getResources().getColor(R.color.title_sub_color));
         mTxtMianmi.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.invite_type;
+    }
+
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
 
     }
 

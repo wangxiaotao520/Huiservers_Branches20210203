@@ -17,70 +17,22 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.ModelUser;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.model.PersoninfoBean;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class NamenickVerfityActivity extends BaseActivityOld implements OnClickListener {
+/**
+ * 修改个人信息页面
+ */
+public class NamenickVerfityActivity extends BaseActivity implements OnClickListener {
 
     TextView title_name, tv_description, tv_flag, right;
     EditText et_content;
-
-    @Override
-    protected void init() {
-        super.init();
-        //     SetTransStatus.GetStatus(this);
-        setContentView(R.layout.verify_editxt_new);
-        title_name = (TextView) findViewById(R.id.title_name);
-        right = (TextView) findViewById(R.id.right);
-        right.setVisibility(View.VISIBLE);
-        tv_description = (TextView) findViewById(R.id.tv_description);
-        tv_flag = (TextView) findViewById(R.id.tv_flag);
-        et_content = (EditText) findViewById(R.id.et_content);
-        // set
-        title_name.setText("昵称");
-        right.setTextColor(getResources().getColor(R.color.orange));
-        right.setText("确定");
-        // get
-        String nickname = getIntent().getExtras().getString("nickname");
-        if (!nickname.equals("")) {
-            et_content.setText(nickname);
-        } else {
-            et_content.setHint("请输入");
-        }
-        String sex = getIntent().getExtras().getString("tv_sex");
-        if (sex.equals("男")) {
-            tv_description.setText("先生");
-        } else if (sex.equals("女")) {
-            tv_description.setText("女士");
-        } else {
-            tv_description.setText("先生/女士");
-        }
-
-        tv_flag.setText("将用于社区慧生活社区交流，昵称不能超过8位，包含汉字、字母或数字，且不能与别人重复");
-        // 限定edittext能输入内容
-        et_content.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
-        // 强制隐藏Android输入法窗口
-        et_content.setFocusableInTouchMode(true);
-        et_content.setFocusable(true);
-        et_content.requestFocus();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            public void run() {
-                InputMethodManager inputManager = (InputMethodManager) et_content.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputManager.showSoftInput(et_content, 0);
-            }
-        }, 100);
-        // listener
-        findViewById(R.id.lin_left).setOnClickListener(this);
-        right.setOnClickListener(this);
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -162,5 +114,82 @@ public class NamenickVerfityActivity extends BaseActivityOld implements OnClickL
 
             imm.hideSoftInputFromWindow(et_content.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    @Override
+    protected void initView() {
+        title_name = (TextView) findViewById(R.id.title_name);
+        right = (TextView) findViewById(R.id.right);
+        right.setVisibility(View.VISIBLE);
+        tv_description = (TextView) findViewById(R.id.tv_description);
+        tv_flag = (TextView) findViewById(R.id.tv_flag);
+        et_content = (EditText) findViewById(R.id.et_content);
+        // set
+        title_name.setText("昵称");
+        right.setTextColor(getResources().getColor(R.color.orange));
+        right.setText("确定");
+        // get
+        String nickname = getIntent().getExtras().getString("nickname");
+        if (!nickname.equals("")) {
+            et_content.setText(nickname);
+        } else {
+            et_content.setHint("请输入");
+        }
+        String sex = getIntent().getExtras().getString("tv_sex");
+        if (sex.equals("男")) {
+            tv_description.setText("先生");
+        } else if (sex.equals("女")) {
+            tv_description.setText("女士");
+        } else {
+            tv_description.setText("先生/女士");
+        }
+
+        tv_flag.setText("将用于社区慧生活社区交流，昵称不能超过8位，包含汉字、字母或数字，且不能与别人重复");
+        // 限定edittext能输入内容
+        et_content.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
+        // 强制隐藏Android输入法窗口
+        et_content.setFocusableInTouchMode(true);
+        et_content.setFocusable(true);
+        et_content.requestFocus();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                InputMethodManager inputManager = (InputMethodManager) et_content.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.showSoftInput(et_content, 0);
+            }
+        }, 100);
+        // listener
+        findViewById(R.id.lin_left).setOnClickListener(this);
+        right.setOnClickListener(this);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.verify_editxt_new;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 }

@@ -32,37 +32,28 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 
-import org.apache.http.cookie.Cookie;
-
-public class AboutActivity extends BaseActivityOld implements OnClickListener, AMapLocationListener {
+public class AboutActivity extends BaseActivity implements OnClickListener, AMapLocationListener {
     private TextView title_name;
     private LinearLayout lin_left;
     private WebView webView;
     private RelativeLayout title_rel;
     private LinearLayout about_left;
-    private String tag, zhengwu_id;
-    Cookie PHPSESSID;
-    String url, strHouse;
-    private Dialog WaitDialog;
+    private String tag;
+
+    String  strHouse;
 
 
     @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.about);
-        //   SetTransStatus.GetStatus(this);//系统栏默认为黑色
-
+    protected void initView() {
         title_rel = (RelativeLayout) findViewById(R.id.title_rel);
         about_left = (LinearLayout) findViewById(R.id.about_left);
         title_name = (TextView) findViewById(R.id.title_name);
-
     }
 
     @Override
     protected void initData() {
-        super.initData();
         tag = this.getIntent().getExtras().getString("tag");
         if (tag.equals("about")) {
             title_name.setText("关于我们");
@@ -186,6 +177,31 @@ public class AboutActivity extends BaseActivityOld implements OnClickListener, A
             }
         });
 
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.about;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
 
     }
 

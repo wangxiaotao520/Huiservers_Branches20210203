@@ -2,9 +2,7 @@ package com.huacheng.huiservers.utils;
 
 import android.content.Context;
 
-import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.ui.base.ActivityStackManager;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
@@ -45,9 +43,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 //            }
 //        }.start();
         //FIXME 这块儿感觉有点问题 到时候有时间统一优化一下
-        BaseActivityOld.finishAll();
-        BaseActivityOld.destoryActivity();
-        BaseApplication.removeALLActivity_();
+
         ActivityStackManager.getActivityStackManager().finishAllActivity();
         android.os.Process.killProcess(android.os.Process.myPid());
 

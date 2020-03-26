@@ -29,7 +29,7 @@
     <!--字体颜色不可选-->
     <color name="gray_D2">#D2D2D2</color>
     <!--默认图片颜色-->
-    <color name="default_img_color">#1c1c1e</color>
+    <color name="default_img_color">#000000</color>
     <!--商品标签颜色-->
     <color name="color_goods_tag">#FFA77D</color>
 

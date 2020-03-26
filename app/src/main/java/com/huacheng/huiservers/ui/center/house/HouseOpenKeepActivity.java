@@ -2,7 +2,6 @@ package com.huacheng.huiservers.ui.center.house;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -18,10 +17,10 @@ import android.widget.TextView;
 import com.ajb.opendoor.data.api.AjbInterface;
 import com.ajb.opendoor.data.api.RecordListCallBack;
 import com.ajb.opendoor.data.bean.RecordRsp;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.model.WuYeBean;
+import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,7 +37,7 @@ import butterknife.ButterKnife;
  * 时间：2018/3/23 15:12
  * 功能描述:Huiservers
  */
-public class HouseOpenKeepActivity extends BaseActivityOld {
+public class HouseOpenKeepActivity extends BaseActivity {
 
     @BindView(R.id.lin_left)
     LinearLayout mLinLeft;
@@ -76,11 +75,9 @@ public class HouseOpenKeepActivity extends BaseActivityOld {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.house_keep_jilu);
+    protected void initView() {
         ButterKnife.bind(this);
- //       SetTransStatus.GetStatus(this);
+        //       SetTransStatus.GetStatus(this);
         Intent intent = getIntent();
         mTitleName.setText("通行证记录");
         showDialog(smallDialog);
@@ -145,6 +142,36 @@ public class HouseOpenKeepActivity extends BaseActivityOld {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.house_keep_jilu;
+    }
+
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
 
     }
 

@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,32 +12,30 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
-import com.huacheng.huiservers.BaseApplication;
-import com.huacheng.huiservers.HomeActivity;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.DownLoadDialog;
 import com.huacheng.huiservers.dialog.PermitDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.ModelEventTheme;
+import com.huacheng.huiservers.model.ModelLoginOverTime;
+import com.huacheng.huiservers.model.PayInfoBean;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.ActivityStackManager;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.model.PayInfoBean;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.NightModeUtils;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
 import com.huacheng.huiservers.view.SwitchButton;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,7 +52,7 @@ import io.reactivex.functions.Consumer;
 /**
  * 设置界面
  */
-public class SetActivity extends BaseActivityOld implements OnClickListener, Updateprester.UpdateListener {
+public class SetActivity extends BaseActivity implements OnClickListener, Updateprester.UpdateListener {
     ShopProtocol protocol2 = new ShopProtocol();
     PayInfoBean infoBean = new PayInfoBean();
     CenterProtocol protocol = new CenterProtocol();
@@ -68,6 +65,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
     Updateprester updateprester;
     public static final int ACT_REQUEST_DOWNLOAD = 101;
     private SwitchButton switch_theme;
+    View mStatusBar;
 
     class myHandler extends Handler {
 
@@ -108,9 +106,7 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
             public void handleMessage(Message msg) {
 
                 double mLengTh = msg.arg1 / 1024f / 1024f;
-                System.out.println("-----00000000000");
                 DecimalFormat df = new DecimalFormat("#0.00");
-                System.out.println("aok_size------" + mLengTh);
                 pds.setMessage("正在下载更新-文件大小" + df.format(mLengTh) + "M");
                 pds.show();
             }
@@ -134,59 +130,6 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
         }.start();
     }
 
-    @Override
-    protected void init() {
-        super.init();
-
-        setContentView(R.layout.set_info);
-        updateprester = new Updateprester(this, this);
-        //     SetTransStatus.GetStatus(this);
-        lin_left = (LinearLayout) findViewById(R.id.lin_left);
-        lin_left.setOnClickListener(this);
-        title_name = (TextView) findViewById(R.id.title_name);
-        txt_verson = (TextView) findViewById(R.id.txt_verson);
-        rl_changepwd = (RelativeLayout) findViewById(R.id.rl_changepwd);// 修改密码
-        title_name.setText("设置");
-        txt_verson.setText("当前版本号：v" + AppUpdate.getVersionName(SetActivity.this));
-        rel_gengxin = (RelativeLayout) findViewById(R.id.rel_gengxin);// 更新
-        rel_siteout = (RelativeLayout) findViewById(R.id.rel_siteout);// 退出登陆
-        rel_address = (RelativeLayout) findViewById(R.id.rel_address);// 收货地址管理
-        switch_theme = findViewById(R.id.switch_theme);
-
-
-        Set<String> set = new HashSet<>();
-        set.add("15535406024");
-        set.add("99906501020101");
-        JPushInterface.resumePush(this);
-        JPushInterface.setTags(getApplicationContext(), set, null);
-
-        rel_siteout.setOnClickListener(this);
-        rel_gengxin.setOnClickListener(this);
-        rl_changepwd.setOnClickListener(this);
-        rel_address.setOnClickListener(this);
-        if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
-            switch_theme.setChecked(true);
-        }else {
-            switch_theme.setChecked(false);
-        }
-        switch_theme.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                //选中后
-                ModelEventTheme modelEventTheme = new ModelEventTheme();
-                if (isChecked){
-                    NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
-                    modelEventTheme.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
-                }else {
-                    NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
-                    modelEventTheme.setThemeMode(NightModeUtils.ThemeMode.DAY);
-                }
-                recreate();
-
-                EventBus.getDefault().post(new ModelEventTheme());
-            }
-        });
-    }
 
     @Override
     public void onClick(View v) {
@@ -334,19 +277,22 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
                 str = protocol2.setShop(json);
                 if (str.equals("1")) {
                     // 清除登陆保存的值
-                    SharedPreferences preferences1 = SetActivity.this.getSharedPreferences("login", 0);
-                    preferences1.edit().clear().commit();
-                    ActivityStackManager.getActivityStackManager().finishAllActivity();
-                    HomeActivity.instant.finish();
-                    BaseApplication.removeALLActivity_();
-                    ApiHttpClient.setTokenInfo(null, null);
-                    Intent intent = new Intent(SetActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    //    SmartToast.showInfo("退出登录");
-                    //清除数据库
-                    UserSql.getInstance().clear();
-                    //    ActivityStackManager.getActivityStackManager().finishAllActivity();
-                    BaseApplication.setUser(null);
+//                    SharedPreferences preferences1 = SetActivity.this.getSharedPreferences("login", 0);
+//                    preferences1.edit().clear().commit();
+//                    ActivityStackManager.getActivityStackManager().finishAllActivity();
+//
+//                    ApiHttpClient.setTokenInfo(null, null);
+//                    Intent intent = new Intent(SetActivity.this, HomeActivity.class);
+//                    startActivity(intent);
+//                    //    SmartToast.showInfo("退出登录");
+//                    //清除数据库
+//                    UserSql.getInstance().clear();
+//                    //    ActivityStackManager.getActivityStackManager().finishAllActivity();
+//                    BaseApplication.setUser(null);
+
+                    ModelLoginOverTime modelLoginOverTime = new ModelLoginOverTime();
+                    modelLoginOverTime.setType(1);
+                    EventBus.getDefault().post(modelLoginOverTime);
 
                 } else {
                     SmartToast.showInfo(str);
@@ -361,6 +307,93 @@ public class SetActivity extends BaseActivityOld implements OnClickListener, Upd
         };
     }
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar=true;
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initView() {
+        updateprester = new Updateprester(this, this);
+        mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
+        lin_left = (LinearLayout) findViewById(R.id.lin_left);
+        lin_left.setOnClickListener(this);
+        title_name = (TextView) findViewById(R.id.title_name);
+        txt_verson = (TextView) findViewById(R.id.txt_verson);
+        rl_changepwd = (RelativeLayout) findViewById(R.id.rl_changepwd);// 修改密码
+        title_name.setText("设置");
+        txt_verson.setText("当前版本号：v" + AppUpdate.getVersionName(SetActivity.this));
+        rel_gengxin = (RelativeLayout) findViewById(R.id.rel_gengxin);// 更新
+        rel_siteout = (RelativeLayout) findViewById(R.id.rel_siteout);// 退出登陆
+        rel_address = (RelativeLayout) findViewById(R.id.rel_address);// 收货地址管理
+        switch_theme = findViewById(R.id.switch_theme);
+
+
+        Set<String> set = new HashSet<>();
+        set.add("15535406024");
+        set.add("99906501020101");
+        JPushInterface.resumePush(this);
+        JPushInterface.setTags(getApplicationContext(), set, null);
+
+        rel_siteout.setOnClickListener(this);
+        rel_gengxin.setOnClickListener(this);
+        rl_changepwd.setOnClickListener(this);
+        rel_address.setOnClickListener(this);
+        if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
+            switch_theme.setChecked(true);
+        }else {
+            switch_theme.setChecked(false);
+        }
+        switch_theme.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                //选中后
+                ModelEventTheme modelEventTheme = new ModelEventTheme();
+                if (isChecked){
+                    NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
+                    modelEventTheme.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
+                }else {
+                    NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
+                    modelEventTheme.setThemeMode(NightModeUtils.ThemeMode.DAY);
+                }
+                recreate();
+
+                EventBus.getDefault().post(new ModelEventTheme());
+            }
+        });
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.set_info;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
 
     @Override
     protected void onResume() {

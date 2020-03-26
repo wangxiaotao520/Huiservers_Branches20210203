@@ -1,7 +1,6 @@
 package com.huacheng.huiservers.ui.center;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,10 +17,10 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.ui.center.adapter.NewAddressAdapter;
 import com.huacheng.huiservers.model.ModelAddressList;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.adapter.NewAddressAdapter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -43,7 +42,7 @@ import static com.huacheng.huiservers.R.id.list_address;
  * 时间：2017/10/14 15:11
  * 功能描述:Huiservers
  */
-public class AddressListActivity extends BaseActivityOld implements NewAddressAdapter.OnClickBianjiListener {
+public class AddressListActivity extends BaseActivity implements NewAddressAdapter.OnClickBianjiListener {
     @BindView(R.id.lin_btn)
     LinearLayout mLinBtn;
     @BindView(R.id.left)
@@ -67,9 +66,7 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
     private String service_id = "";//商户id
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_address);
+    protected void initView() {
         ButterKnife.bind(this);
         prefrenceUtil = new SharePrefrenceUtil(this);
 
@@ -86,8 +83,8 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
         mListAddress.setAdapter(new_addressAdapter);
         listonclick();
 //        mListAddress.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
- //               @Override
- //               public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int i, long l) {
+        //               @Override
+        //               public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int i, long l) {
 //                    DeleteAddressDialog deleteAddressDialog = new DeleteAddressDialog(AddressListActivity.this, new DeleteAddressDialog.OnCustomDialogListener() {
 //                        @Override
 //                        public void back(String name) {
@@ -117,6 +114,37 @@ public class AddressListActivity extends BaseActivityOld implements NewAddressAd
             }
         });
         requestData();
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.new_address;
+    }
+
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 
     @Override

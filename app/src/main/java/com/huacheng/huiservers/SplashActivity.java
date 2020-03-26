@@ -39,8 +39,8 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelSplashImg;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.model.PayInfoBean;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.CacheUtils;
 import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.huiservers.utils.PermissionUtils;
@@ -69,7 +69,7 @@ import io.reactivex.functions.Consumer;
  *
  * @author
  */
-public class SplashActivity extends BaseActivityOld implements Updateprester.UpdateListener {
+public class SplashActivity extends BaseActivity implements Updateprester.UpdateListener {
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             "android.permission.READ_EXTERNAL_STORAGE",
@@ -80,7 +80,6 @@ public class SplashActivity extends BaseActivityOld implements Updateprester.Upd
     private boolean isFirstOpen;
     private String regId, login_type;
     SharedPreferences preferencesLogin;
-    public static SplashActivity intents;
     Updateprester updateprester;
     String apkPath = "";
     int type;
@@ -101,22 +100,16 @@ public class SplashActivity extends BaseActivityOld implements Updateprester.Upd
     private ImageView iv_image_top;
     private RelativeLayout rl_bottom;
     private ModelSplashImg modelSplashImg;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
-//        getWindow().setFlags(
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         isStatusBar = true;
         super.onCreate(savedInstanceState);
-        setTheme(R.style.AppCompatTheme_Base);
-
 
     }
 
     @Override
-    protected void init() {
+    protected void initConfigBeforeSetContentView() {
+        super.initConfigBeforeSetContentView();
         //   super.init();
         //前提这两种需要在你的rootactivity，也就是启动界面去加，
         //
@@ -128,15 +121,16 @@ public class SplashActivity extends BaseActivityOld implements Updateprester.Upd
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
 ////            // Activity was brought to front and not created,
 ////            // Thus finishing this will get us to the last viewed activity
-          finish();
-           return;
-      }
+            finish();
+            return;
+        }
 
-        intents = this;
+    }
+
+    @Override
+    protected void initView() {
+
         isFirstOpen = CacheUtils.getBoolean(SplashActivity.this, IS_FIRST_OPEN, true);
-        setContentView(R.layout.splash);
-        //  SetTransStatus.GetStatus(SplashActivity.this);//系统栏默认为黑色
-
         updateprester = new Updateprester(this, this);
 
         tv_tiaoguo = findViewById(R.id.tv_tiaoguo);
@@ -212,7 +206,7 @@ public class SplashActivity extends BaseActivityOld implements Updateprester.Upd
         if ((TDevice.getScreenHeight(this) -DeviceUtils.dip2px(SplashActivity.this,64))>=height){
             //下方显示专门空出来至少64dp显示
             //计算下方布局的高度
-         //   height_bottom= (int) (TDevice.getScreenHeight(this)-height);
+            //   height_bottom= (int) (TDevice.getScreenHeight(this)-height);
             iv_image_top.setImageResource(R.color.white);
         }else {
             height= ViewGroup.LayoutParams.MATCH_PARENT;
@@ -233,6 +227,36 @@ public class SplashActivity extends BaseActivityOld implements Updateprester.Upd
         goinit();
     }
 
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.splash;
+    }
+
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
 
     private void goinit() {
         sharePrefrenceUtil = new SharePrefrenceUtil(SplashActivity.this);

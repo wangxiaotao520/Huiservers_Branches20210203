@@ -24,7 +24,7 @@ import com.huacheng.huiservers.dialog.UMShareDialog;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.jpush.MyReceiver;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.Sessionidtest;
 import com.huacheng.huiservers.utils.ShareUtils;
@@ -38,7 +38,7 @@ import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 
-public class ShopWBActivity extends BaseActivityOld implements OnClickListener {
+public class ShopWBActivity extends BaseActivity implements OnClickListener {
     private TextView title_name, txt_right1;
     private LinearLayout lin_left;
     private WebView webView;
@@ -49,22 +49,9 @@ public class ShopWBActivity extends BaseActivityOld implements OnClickListener {
     private String login_type;
     private SharedPreferences preferencesLogin;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //清除角标（华为）
-        if (OSUtils.getSystemBrand() == OSUtils.SYSTEM_HUAWEI) {
-            JPushInterface.clearAllNotifications(this);
-            MyReceiver.setBadgeOfHuaWei(this, 0);
-        }
-    }
-
     @SuppressLint("SetJavaScriptEnabled")
     @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.shop_webview);
-//        SetTransStatus.GetStatus(this);//系统栏默认为黑色
+    protected void initView() {
         preferencesLogin = this.getSharedPreferences("login", 0);
         login_type = preferencesLogin.getString("login_type", "");
         url_str = this.getIntent().getExtras().getString("url");
@@ -206,6 +193,48 @@ public class ShopWBActivity extends BaseActivityOld implements OnClickListener {
             }
         });
     }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.shop_webview;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //清除角标（华为）
+        if (OSUtils.getSystemBrand() == OSUtils.SYSTEM_HUAWEI) {
+            JPushInterface.clearAllNotifications(this);
+            MyReceiver.setBadgeOfHuaWei(this, 0);
+        }
+    }
+
+
 
     @Override
     public void onClick(View arg0) {

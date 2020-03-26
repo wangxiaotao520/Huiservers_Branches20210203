@@ -21,7 +21,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.shop.adapter.SearchHistoryAdapter;
 import com.huacheng.huiservers.view.FlowLayout;
 import com.huacheng.huiservers.view.MyListView;
@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SearchShopActivity extends BaseActivityOld implements View.OnClickListener {
+public class SearchShopActivity extends BaseActivity implements View.OnClickListener {
 
     Intent intent = new Intent();
     //搜索
@@ -63,11 +63,17 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
     private int type = 0;//0为首页 分类 列表搜索  1为店铺搜索  2为专区搜索
     private LinearLayout layout_notice;
 
+
+    private void initFlowView() {
+        mInflater = LayoutInflater.from(this);
+        mFlowLayout = (FlowLayout) findViewById(R.id.flowlayout);
+        initData1();
+    }
+
+    List<String> tags = new ArrayList<>();
+
     @Override
-    protected void init() {
-        super.init();
-        //       SetTransStatus.GetStatus(this);
-        setContentView(R.layout.shop_search);
+    protected void initView() {
         layout_notice = findViewById(R.id.layout_notice);
         type = this.getIntent().getIntExtra("type", 0);
         if (type == 1) {
@@ -128,14 +134,35 @@ public class SearchShopActivity extends BaseActivityOld implements View.OnClickL
 
     }
 
+    @Override
+    protected void initData() {
 
-    private void initFlowView() {
-        mInflater = LayoutInflater.from(this);
-        mFlowLayout = (FlowLayout) findViewById(R.id.flowlayout);
-        initData1();
     }
 
-    List<String> tags = new ArrayList<>();
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.shop_search;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
 
     @Override
     protected void onResume() {

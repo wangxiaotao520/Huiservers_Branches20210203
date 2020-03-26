@@ -2,7 +2,6 @@ package com.huacheng.huiservers.ui.center.house;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,9 +16,9 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.ShareUtils;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.umeng.socialize.UMShareAPI;
@@ -39,7 +38,7 @@ import butterknife.OnClick;
  * 时间：2018/3/23 08:49
  * 功能描述:Huiservers
  */
-public class HouseCodeActivity extends BaseActivityOld {
+public class HouseCodeActivity extends BaseActivity {
 
     @BindView(R.id.txt_time)
     TextView mTxtTime;
@@ -62,11 +61,8 @@ public class HouseCodeActivity extends BaseActivityOld {
     Intent intent;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.house_code);
+    protected void initView() {
         ButterKnife.bind(this);
- //       SetTransStatus.GetStatus(this);
         mTitleName.setText("二维码");
         // 获取当前时间戳再加12小时
         long curren = System.currentTimeMillis();
@@ -90,10 +86,39 @@ public class HouseCodeActivity extends BaseActivityOld {
             bitmap = Bitmap.createBitmap(linear.getDrawingCache());
             linear.setDrawingCacheEnabled(false);
         }
+    }
 
-
+    @Override
+    protected void initData() {
 
     }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.house_code;
+    }
+
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
+
     private void getdata() {
         name = intent.getStringExtra("name");
         HashMap<String, String> params = new HashMap<>();

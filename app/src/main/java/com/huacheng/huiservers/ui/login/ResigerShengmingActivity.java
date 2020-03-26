@@ -10,18 +10,30 @@ import android.widget.TextView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 
-public class ResigerShengmingActivity extends BaseActivityOld implements OnClickListener {
+public class ResigerShengmingActivity extends BaseActivity implements OnClickListener {
     private TextView title_name;
     private LinearLayout lin_left;
     WebView webView;
     int type;//0 是隐私政策 1是用户协议
 
+
     @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.shengming);
+    public void onClick(View arg0) {
+        switch (arg0.getId()) {
+            case R.id.lin_left:
+                finish();
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+    @Override
+    protected void initView() {
         type = getIntent().getIntExtra("type", 0);
         //       SetTransStatus.GetStatus(this);//系统栏默认为黑色
 //		Typeface iconfont = Typeface.createFromAsset(this.getAssets(), "icons/iconfont.ttf");
@@ -93,20 +105,35 @@ public class ResigerShengmingActivity extends BaseActivityOld implements OnClick
                 view.loadUrl(url);
             }*//*
         });*/
+    }
+
+    @Override
+    protected void initData() {
 
     }
 
     @Override
-    public void onClick(View arg0) {
-        switch (arg0.getId()) {
-            case R.id.lin_left:
-                finish();
-                break;
-
-            default:
-                break;
-        }
+    protected void initListener() {
 
     }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.shengming;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
 }

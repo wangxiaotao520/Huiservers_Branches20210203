@@ -32,18 +32,18 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
 import com.huacheng.huiservers.model.ModelEventWX;
+import com.huacheng.huiservers.model.PayInfoBean;
+import com.huacheng.huiservers.model.PayTypeBean;
+import com.huacheng.huiservers.model.PayinfoWXBean;
+import com.huacheng.huiservers.model.WuYeBean;
 import com.huacheng.huiservers.model.protocol.GerenProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
-import com.huacheng.huiservers.model.PayInfoBean;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.adapter.PayAdapter;
-import com.huacheng.huiservers.model.PayTypeBean;
-import com.huacheng.huiservers.model.PayinfoWXBean;
 import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
-import com.huacheng.huiservers.model.WuYeBean;
 import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
 import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
@@ -73,7 +73,7 @@ import java.util.Map;
 import java.util.Random;
 
 
-public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
+public class ZhifuActivity extends BaseActivity implements OnClickListener {
     /**
      * 微信支付业务：入参app_id
      */
@@ -164,12 +164,11 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
         }
     };
 
-    @Override
-    protected void init() {
-        super.init();
-        sZhifu = this;
-        setContentView(R.layout.zhifu);
 
+
+    @Override
+    protected void initView() {
+        sZhifu = this;
         MyCookieStore.is_notify = 1;
         MyCookieStore.WyJf_notify = 0;
         MyCookieStore.WX_notify = 0;
@@ -197,14 +196,18 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
         lin_left = findViewById(R.id.lin_left);
         pay_list = findViewById(R.id.pay_list);
 
-        initListener();//点击支付类型监听事件
         mPaymentTask = new PaymentTask(this);
         lin_left.setOnClickListener(this);
         txt_price.setText("¥" + payprice);
         getPayList();//获取支付类型
     }
 
-    private void initListener() {
+
+    protected void initData() {
+
+    }
+    @Override
+    protected void initListener() {
         pay_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -232,6 +235,11 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
 
             }
         });
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.zhifu;
     }
 
     /**
@@ -402,6 +410,21 @@ public class ZhifuActivity extends BaseActivityOld implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 
     @Override

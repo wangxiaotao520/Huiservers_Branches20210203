@@ -17,24 +17,105 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.ToolUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ChangePwdVerifyActivity extends BaseActivityOld implements OnClickListener {
+/**
+ * 修改密码
+ */
+public class ChangePwdVerifyActivity extends BaseActivity implements OnClickListener {
 
     TextView title_name, tv_flag, right;
     EditText et_new_pwd, et_enter_pwd;//et_old_pwd,
     private boolean isHideNewPwd = true;// 输入框密码是否是隐藏的，默认为true
     private boolean isHideEnterPwd = true;// 输入框密码是否是隐藏的，默认为true
 
+
     @Override
-    protected void init() {
-        super.init();
-    //    SetTransStatus.GetStatus(this);
-        setContentView(R.layout.verify_editxt_pwd_new);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.right:
+                //密码至少要8位，且包含数字和字母
+//                String old_pwd = et_old_pwd.getText().toString();
+                String new_pwd = et_new_pwd.getText().toString();
+                String enter_pwd = et_enter_pwd.getText().toString();
+                if (new_pwd.equals("")) {
+                    SmartToast.showInfo("请输入新密码");
+                } else if (!ToolUtils.isReguPwd(new_pwd)) {
+                    SmartToast.showInfo("新密码的格式至少要6位，且包含数字和字母");
+                } else if (enter_pwd.equals("")) {
+                    SmartToast.showInfo("请输入确认密码");
+                } else if (!new_pwd.equals(enter_pwd)) {
+                    SmartToast.showInfo("新密码与确认密码不一致，请重新填写");
+                } else {
+                    getpass();
+                }
+
+                break;
+            case R.id.lin_left:
+                closeInputMethod();
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
+
+    ShopProtocol protocol = new ShopProtocol();
+
+    /**
+     * 账号安全
+     */
+    private void getpass() {
+        Url_info info = new Url_info(this);
+        RequestParams params = new RequestParams();
+//        params.addBodyParameter("old_password", et_old_pwd.getText().toString());
+        params.addBodyParameter("password_one", et_new_pwd.getText().toString());
+        params.addBodyParameter("password_two", et_enter_pwd.getText().toString());
+        showDialog(smallDialog);
+        HttpHelper hh = new HttpHelper(info.edit_pass, params, ChangePwdVerifyActivity.this) {
+
+            @Override
+            protected void setData(String json) {
+                hideDialog(smallDialog);
+                str = protocol.setShop(json);
+                if (str.equals("1")) {
+                    closeInputMethod();
+                    SmartToast.showInfo("修改成功");
+                    finish();
+                } else {
+                    SmartToast.showInfo(str);
+                }
+            }
+
+            @Override
+            protected void requestFailure(Exception error, String msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        };
+    }
+
+    /**
+     * 关闭软键盘
+     */
+    private void closeInputMethod() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        boolean isOpen = imm.isActive();
+        if (isOpen) {
+            // imm.toggleSoftInput(0,
+            // InputMethodManager.HIDE_NOT_ALWAYS);//没有显示则显示
+
+            imm.hideSoftInputFromWindow(et_new_pwd.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    @Override
+    protected void initView() {
+
         // title
         title_name = (TextView) findViewById(R.id.title_name);
         right = (TextView) findViewById(R.id.right);
@@ -144,81 +225,32 @@ public class ChangePwdVerifyActivity extends BaseActivityOld implements OnClickL
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.right:
-                //密码至少要8位，且包含数字和字母
-//                String old_pwd = et_old_pwd.getText().toString();
-                String new_pwd = et_new_pwd.getText().toString();
-                String enter_pwd = et_enter_pwd.getText().toString();
-                if (new_pwd.equals("")) {
-                    SmartToast.showInfo("请输入新密码");
-                } else if (!ToolUtils.isReguPwd(new_pwd)) {
-                    SmartToast.showInfo("新密码的格式至少要6位，且包含数字和字母");
-                } else if (enter_pwd.equals("")) {
-                    SmartToast.showInfo("请输入确认密码");
-                } else if (!new_pwd.equals(enter_pwd)) {
-                    SmartToast.showInfo("新密码与确认密码不一致，请重新填写");
-                } else {
-                    getpass();
-                }
+    protected void initData() {
 
-                break;
-            case R.id.lin_left:
-                closeInputMethod();
-                finish();
-                break;
-            default:
-                break;
-        }
     }
 
-    ShopProtocol protocol = new ShopProtocol();
+    @Override
+    protected void initListener() {
 
-    /**
-     * 账号安全
-     */
-    private void getpass() {
-        Url_info info = new Url_info(this);
-        RequestParams params = new RequestParams();
-//        params.addBodyParameter("old_password", et_old_pwd.getText().toString());
-        params.addBodyParameter("password_one", et_new_pwd.getText().toString());
-        params.addBodyParameter("password_two", et_enter_pwd.getText().toString());
-        showDialog(smallDialog);
-        HttpHelper hh = new HttpHelper(info.edit_pass, params, ChangePwdVerifyActivity.this) {
-
-            @Override
-            protected void setData(String json) {
-                hideDialog(smallDialog);
-                str = protocol.setShop(json);
-                if (str.equals("1")) {
-                    closeInputMethod();
-                    SmartToast.showInfo("修改成功");
-                    finish();
-                } else {
-                    SmartToast.showInfo(str);
-                }
-            }
-
-            @Override
-            protected void requestFailure(Exception error, String msg) {
-                hideDialog(smallDialog);
-                SmartToast.showInfo("网络异常，请检查网络设置");
-            }
-        };
     }
 
-    /**
-     * 关闭软键盘
-     */
-    private void closeInputMethod() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        boolean isOpen = imm.isActive();
-        if (isOpen) {
-            // imm.toggleSoftInput(0,
-            // InputMethodManager.HIDE_NOT_ALWAYS);//没有显示则显示
+    @Override
+    protected int getLayoutId() {
+        return R.layout.verify_editxt_pwd_new;
+    }
 
-            imm.hideSoftInputFromWindow(et_new_pwd.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 }

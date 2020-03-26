@@ -3,7 +3,6 @@ package com.huacheng.huiservers.ui.index.openDoor;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -22,7 +21,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.AesUtils;
 import com.huacheng.huiservers.utils.PermissionUtils;
 
@@ -40,7 +39,7 @@ import butterknife.OnClick;
  * Created by hwh on 2018/3/31.
  */
 
-public class OpenLanActivity extends BaseActivityOld implements UnLockCallBack {
+public class OpenLanActivity extends BaseActivity implements UnLockCallBack {
 
     UnlockHelper unlockHelper;
     private List<byte[]> bleCodes;
@@ -60,11 +59,9 @@ public class OpenLanActivity extends BaseActivityOld implements UnLockCallBack {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_open_lan);
+    protected void initView() {
         ButterKnife.bind(this);
-     //   StatusBarUtil.setTranslucentStatus(this);
+        //   StatusBarUtil.setTranslucentStatus(this);
         mTitleName.setText("蓝牙开门");
         Intent intent = getIntent();
         room_id = intent.getStringExtra("room_id");
@@ -79,6 +76,37 @@ public class OpenLanActivity extends BaseActivityOld implements UnLockCallBack {
         } else {
             unlockHelper.startBleScan();
         }
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_open_lan;
+    }
+
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 
 

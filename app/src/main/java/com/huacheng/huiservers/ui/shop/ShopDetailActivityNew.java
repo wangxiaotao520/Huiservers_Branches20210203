@@ -40,7 +40,7 @@ import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.jpush.MyReceiver;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopMainBean;
@@ -72,7 +72,7 @@ import cn.jpush.android.api.JPushInterface;
  * 商品详情界面
  */
 //second为mLink的key
-public class ShopDetailActivityNew extends BaseActivityOld implements OnClickListener {
+public class ShopDetailActivityNew extends BaseActivity implements OnClickListener {
 
     private ScrollChangedScrollView sv_bodyContainer;
     LinearLayout ll_shop_tuijian;
@@ -157,6 +157,21 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
     }
 
     @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
@@ -176,10 +191,9 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
         // mAdView.startImageCycle();
     }
 
+
     @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.shop_detail_new);
+    protected void initView() {
         //状态栏
         mStatusBar = findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
@@ -259,7 +273,7 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
 
         txt_paisong = findViewById(R.id.txt_paisong);
         txt_shop_num = findViewById(R.id.txt_shop_num); // 商品图片买描述 //
-      //  txt_tuijian = findViewById(R.id.txt_tuijian); // 商品描述图片列表id
+        //  txt_tuijian = findViewById(R.id.txt_tuijian); // 商品描述图片列表id
         lin_img = findViewById(R.id.lin_img);
         tv_time_tag = findViewById(R.id.tv_time_tag);
 
@@ -286,17 +300,24 @@ public class ShopDetailActivityNew extends BaseActivityOld implements OnClickLis
         iv_share = findViewById(R.id.iv_share);
         ly_share.setOnClickListener(this);
         ly_onclck_pingjia.setOnClickListener(this);
-
-
     }
 
     @Override
     protected void initData() {
-        super.initData();
         getDetail();
         if (!login_type.equals("")) {// 登陆之后获取数量
             getCartNum();
         }
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.shop_detail_new;
     }
 
     private void getDetail() {// 获取商品详情

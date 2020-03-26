@@ -23,13 +23,13 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ConfirmOrderBeanCommit;
+import com.huacheng.huiservers.model.ModelAddressList;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.AddAddressActivity;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
-import com.huacheng.huiservers.model.ModelAddressList;
 import com.huacheng.huiservers.ui.shop.adapter.ConfirmShopListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.AmountBean;
 import com.huacheng.huiservers.ui.shop.bean.ConfirmBean;
@@ -55,7 +55,7 @@ import java.util.List;
  * created by wangxiaotao
  * 2020/1/6 0006 下午 4:53
  */
-public class ConfirmOrderActivityNew extends BaseActivityOld implements View.OnClickListener, ConfirmShopListAdapter.OnClickPeisongListener {
+public class ConfirmOrderActivityNew extends BaseActivity implements View.OnClickListener, ConfirmShopListAdapter.OnClickPeisongListener {
     private LinearLayout lin_left, lin_jiesuan, lin_noadress, lin_yesaddress;
     private RelativeLayout title_rel;
     private TextView title_name, txt_address, txt_name, txt_mobile, txt_all_money, txt_fenpei,
@@ -83,10 +83,7 @@ public class ConfirmOrderActivityNew extends BaseActivityOld implements View.OnC
     private LinearLayout ll_root;
 
     @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.activity_confirm_order_new);
-        //       SetTransStatus.GetStatus(this);//系统栏默认为黑色
+    protected void initView() {
         prefrenceUtil = new SharePrefrenceUtil(this);
         pro = (List<SubmitOrderBean>) getIntent().getExtras().getSerializable("pro");
         para_amount = getIntent().getExtras().getString("all");
@@ -127,8 +124,32 @@ public class ConfirmOrderActivityNew extends BaseActivityOld implements View.OnC
 
     @Override
     protected void initData() {
-        super.initData();
         getShopOrder();
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_confirm_order_new;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 
     @Override

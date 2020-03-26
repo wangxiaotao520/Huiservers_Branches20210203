@@ -10,8 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.adapter.CouponMyFragmentAdapter;
 
 import butterknife.BindView;
@@ -21,7 +21,7 @@ import butterknife.OnClick;
 /**
  * 4.0优惠券
  */
-public class CouponListActivity extends BaseActivityOld {
+public class CouponListActivity extends BaseActivity {
 
     @BindView(R.id.lin_left)
     LinearLayout linLeft;
@@ -36,14 +36,10 @@ public class CouponListActivity extends BaseActivityOld {
 
     private String[] titles = {"优惠券", "到店券"};
 
-    @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.coupon_list);
-        ButterKnife.bind(this);
-   //     SetTransStatus.GetStatus(this);//系统栏默认为黑色
-   //     tablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
         setTabLayout(titles);
     }
 
@@ -138,4 +134,33 @@ public class CouponListActivity extends BaseActivityOld {
     }
 
 
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.coupon_list;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
+    }
 }

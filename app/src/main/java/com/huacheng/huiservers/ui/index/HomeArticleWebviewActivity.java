@@ -6,8 +6,8 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 
 import org.jsoup.Jsoup;
@@ -23,7 +23,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2018/3/31.
  */
 
-public class HomeArticleWebviewActivity extends BaseActivityOld {
+public class HomeArticleWebviewActivity extends BaseActivity {
 
     @BindView(R.id.lin_left)
     LinearLayout linLeft;
@@ -31,22 +31,6 @@ public class HomeArticleWebviewActivity extends BaseActivityOld {
     TextView titleName;
     @BindView(R.id.wv_about)
     WebView mWebview;
-
-    @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.shop_webview);
-        ButterKnife.bind(this);
- //       SetTransStatus.GetStatus(this);
-
-        String articleTitle = getIntent().getStringExtra("articleTitle");
-        titleName.setText(articleTitle);
-
-        String articleCnt = getIntent().getStringExtra("articleCnt");
-        if (!StringUtils.isEmpty(articleCnt)) {
-            proccessData(articleCnt);
-        }
-    }
 
     private void proccessData(String articleCnt) {
         mWebview.getSettings().setJavaScriptEnabled(true);
@@ -97,5 +81,49 @@ public class HomeArticleWebviewActivity extends BaseActivityOld {
                 finish();
                 break;
         }
+    }
+
+    @Override
+    protected void initView() {
+        ButterKnife.bind(this);
+        //       SetTransStatus.GetStatus(this);
+
+        String articleTitle = getIntent().getStringExtra("articleTitle");
+        titleName.setText(articleTitle);
+
+        String articleCnt = getIntent().getStringExtra("articleCnt");
+        if (!StringUtils.isEmpty(articleCnt)) {
+            proccessData(articleCnt);
+        }
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.shop_webview;
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 }

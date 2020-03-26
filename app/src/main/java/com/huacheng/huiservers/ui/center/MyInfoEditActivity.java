@@ -34,7 +34,7 @@ import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.model.PersoninfoBean;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.BaseActivityOld;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.CircularImage;
@@ -66,7 +66,7 @@ import top.zibin.luban.OnCompressListener;
 /**
  * 个人信息编辑页面
  */
-public class MyInfoEditActivity extends BaseActivityOld implements OnClickListener {
+public class MyInfoEditActivity extends BaseActivity implements OnClickListener {
 
 
     private static final int PICK_CAMERA = 4;
@@ -89,15 +89,7 @@ public class MyInfoEditActivity extends BaseActivityOld implements OnClickListen
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-        setContentView(R.layout.my_info);
+    protected void initView() {
         MyCookieStore.My_info = 0;
         //    SetTransStatus.GetStatus(this);// 系统栏默认为黑色
         scrollView =  findViewById(R.id.scrollView);
@@ -126,6 +118,42 @@ public class MyInfoEditActivity extends BaseActivityOld implements OnClickListen
         //请求数据
         getinfo();
         rxPermission = new RxPermissions(this);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.my_info;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initIntentData() {
+
+    }
+
+    @Override
+    protected int getFragmentCotainerId() {
+        return 0;
+    }
+
+    @Override
+    protected void initFragment() {
+
     }
 
     public static final int ACT_SELECT_PHOTO = 111;//选择图片
