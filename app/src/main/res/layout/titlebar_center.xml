@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/title_rel"
         android:layout_width="fill_parent"
-        android:layout_height="48dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -101,6 +101,7 @@
                 android:id="@+id/iv_right"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:background="@mipmap/ic_share_black"
                 android:layout_marginRight="10dp" />
 
         </LinearLayout>

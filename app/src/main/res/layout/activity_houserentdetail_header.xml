@@ -395,9 +395,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/title_sub_color"
-                            android:textSize="@dimen/t_15sp"
-
-                            />
+                            android:background="@color/windowbackground"
+                            android:textSize="@dimen/t_15sp" />
                     </LinearLayout>
 
                 </LinearLayout>

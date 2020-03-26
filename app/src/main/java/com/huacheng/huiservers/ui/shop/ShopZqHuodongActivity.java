@@ -13,6 +13,8 @@ import com.huacheng.huiservers.model.ModelZQInfo;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
 import com.huacheng.huiservers.ui.shop.adapter.ShopZQAdapter;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
+import com.huacheng.huiservers.ui.webview.ConstantWebView;
+import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -105,8 +107,15 @@ public class ShopZqHuodongActivity extends BaseListActivity<BannerBean> {
 
     @Override
     protected void onListViewItemClick(AdapterView adapterView, View view, int position, long id) {
+//        Intent intent=new Intent();
+//        intent.setClass(this, ShopZQWebActivity.class);
+//        intent.putExtra("id", mDatas.get(position).getId());
+//        intent.putExtra("sub_type", "2");
+//        startActivity(intent);
         Intent intent=new Intent();
-        intent.setClass(this, ShopZQWebActivity.class);
+        intent.setClass(this, WebViewDefaultActivity.class);
+        intent.putExtra("web_type",1);
+        intent.putExtra("jump_type", ConstantWebView.CONSTANT_ZHUANQU_HUODONG);
         intent.putExtra("id", mDatas.get(position).getId());
         intent.putExtra("sub_type", "2");
         startActivity(intent);

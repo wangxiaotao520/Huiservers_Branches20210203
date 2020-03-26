@@ -792,10 +792,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".ui.index.houserent.HouseRentTipsActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity
             android:name=".view.PhotoViewPagerAcitivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -1088,9 +1084,6 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.shop.ShopZqHuodongActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.shop.ShopZQWebActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.index.oldservice.OldServiceIndexActivity"

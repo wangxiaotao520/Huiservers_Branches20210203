@@ -33,6 +33,8 @@ import com.huacheng.huiservers.model.HouseRentDetail;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.houserent.adapter.HouseRentListAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.webview.ConstantWebView;
+import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.libraryservice.utils.DeviceUtils;
@@ -393,16 +395,36 @@ public class HouserentDetailActivity extends BaseActivity {
         headerViewHolder.mLyTips.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HouserentDetailActivity.this, HouseRentTipsActivity.class);
-                intent.putExtra("jump_type", HouseRentType);
+//                Intent intent = new Intent(HouserentDetailActivity.this, HouseRentTipsActivity.class);
+//                intent.putExtra("jump_type", HouseRentType);
+//                startActivity(intent);
+
+                Intent intent=new Intent();
+                intent.setClass(HouserentDetailActivity.this, WebViewDefaultActivity.class);
+                intent.putExtra("web_type",1);
+                if (HouseRentType==1){
+                    intent.putExtra("jump_type", ConstantWebView.CONSTANT_ZUFANG);
+                }else {
+                    intent.putExtra("jump_type", ConstantWebView.CONSTANT_SHOUFANG);
+                }
                 startActivity(intent);
             }
         });
         headerViewHolder.rl_tips.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HouserentDetailActivity.this, HouseRentTipsActivity.class);
-                intent.putExtra("jump_type", HouseRentType);
+//                Intent intent = new Intent(HouserentDetailActivity.this, HouseRentTipsActivity.class);
+//                intent.putExtra("jump_type", HouseRentType);
+//                startActivity(intent);
+
+                Intent intent=new Intent();
+                intent.setClass(HouserentDetailActivity.this, WebViewDefaultActivity.class);
+                intent.putExtra("web_type",1);
+                if (HouseRentType==1){
+                    intent.putExtra("jump_type", ConstantWebView.CONSTANT_ZUFANG);
+                }else {
+                    intent.putExtra("jump_type", ConstantWebView.CONSTANT_SHOUFANG);
+                }
                 startActivity(intent);
             }
         });

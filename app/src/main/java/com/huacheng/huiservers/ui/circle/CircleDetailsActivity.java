@@ -3,7 +3,9 @@ package com.huacheng.huiservers.ui.circle;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -49,6 +51,7 @@ import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.lidroid.xutils.BitmapUtils;
@@ -155,11 +158,19 @@ public class CircleDetailsActivity extends BaseActivity {
     private String share_icon;
 
     SharePrefrenceUtil prefrenceUtil;
+    View mStatusBar;
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar=true;
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
 
         MyCookieStore.My_notify = 1;
         circle_id = this.getIntent().getExtras().getString("id");

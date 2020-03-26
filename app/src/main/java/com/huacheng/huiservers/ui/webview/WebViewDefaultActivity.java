@@ -1,13 +1,38 @@
 package com.huacheng.huiservers.ui.webview;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Base64;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelOldZixun;
+import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.webview.defaul.WebDelegateDefault;
+import com.huacheng.huiservers.ui.webview.loadhtml.WebDelegateHtml;
+import com.huacheng.libraryservice.utils.AppConstant;
+import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.TDevice;
+import com.huacheng.libraryservice.utils.ToastUtils;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
+import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
+import com.microquation.linkedme.android.log.LMErrorCode;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,113 +44,153 @@ import java.util.List;
 public class WebViewDefaultActivity extends BaseActivity {
 
     private WebDelegateDefault webDelegateDefault;
-    private int type = 1;//0是加载网页 1是加载标签
+    private int web_type = 1;//0是加载网页链接 1是加载标签
+    private int jump_type = 0;// 跳转的类型 如：CONSTANT_ZHUANQU
+    private TextView tv_title;
+    private ImageView iv_right;
+    private LinearLayout lin_right;
+
+    String id ="";
+    String sub_type="";
+    ModelOldZixun model;
+    View mStatusBar;
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar=true;
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initIntentData() {
+        this.jump_type=getIntent().getIntExtra("jump_type",0);
+        this.web_type=getIntent().getIntExtra("web_type",0);
+        if (jump_type==ConstantWebView.CONSTANT_ZHUANQU){
+            //专区详情
+            id = this.getIntent().getStringExtra("id");
+            sub_type = this.getIntent().getStringExtra("sub_type");
+        }else if (jump_type==ConstantWebView.CONSTANT_ZHUANQU_HUODONG){
+            //专区活动详情
+            id = this.getIntent().getStringExtra("id");
+            sub_type = this.getIntent().getStringExtra("sub_type");
+        }else if (jump_type==ConstantWebView.CONSTANT_ZUFANG){
+            //租房小贴士
+        }else if (jump_type==ConstantWebView.CONSTANT_SHOUFANG){
+            //售房小贴士
+        }
+
+    }
+    @Override
     protected void initView() {
+        mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         findTitleViews();
-        if (type==0){
+        tv_title=findViewById(R.id.tv_title);
+        lin_right=findViewById(R.id.lin_right);
+        iv_right = findViewById(R.id.iv_right);
+
+        lin_right.setVisibility(View.GONE);
+        iv_right.setBackgroundResource(R.mipmap.ic_share_black);
+        if (jump_type==ConstantWebView.CONSTANT_ZHUANQU){
+            //专区详情
+            lin_right.setVisibility(View.VISIBLE);
+            titleName.setText("专区详情");
+        }else if (jump_type==ConstantWebView.CONSTANT_ZHUANQU_HUODONG){
+            //专区活动详情
+            lin_right.setVisibility(View.VISIBLE);
+            titleName.setText("活动详情");
+        }else if (jump_type==ConstantWebView.CONSTANT_ZUFANG){
+            //租房小贴士
+            titleName.setText("租房小贴士");
+        }else if (jump_type==ConstantWebView.CONSTANT_SHOUFANG){
+            //售房小贴士
+            titleName.setText("售房小贴士");
+        }
+
+        if (web_type==0){
             webDelegateDefault = WebDelegateDefault.create("https://www.jianshu.com/p/3c94ae673e2a");
             switchFragmentNoBack(webDelegateDefault);
         }else {
-            //todo 请求网络数据回来后
-//            String content = "<html>\n" +
-//                    "   <head>\n" +
-//                    "      <meta charset=\"utf-8\">\n" +
-//                    "      <title>Carson</title>  \n" +
-//                    "      <script>\n" +
-//                    "         \n" +
-//                    "        \n" +
-//                    "         function callAndroid(){\n" +
-//                    "        // 由于对象映射，所以调用test对象等于调用Android映射的对象\n" +
-//                    "            jsWebInterface.jumpToGoodsDetail(\"6310\");\n" +
-//                    "         }\n" +
-//                    "      </script>\n" +
-//                    "   </head>\n" +
-//                    "   <body>\n" +
-//                    "      //点击按钮则调用callAndroid函数<br>" +
-//                    "      <button type=\"button\" id=\"button1\" onclick=\"callAndroid()\" style=\"width:500px;height:500px;\"></button>\n" +
-//                    "   </body>\n" +
-//                    "</html>";
-            //测试
-//            String content ="<head><style type=\"text/css\"> img {max-width: 100% !important;height:auto !important;}</style></head><body><p class=\"MsoNormal\">\n" +
-//                    "\t<br />\n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\">\n" +
-//                    "\t<img src=\"http://img.hui-shenghuo.cn/huacheng/editor/image/20200305/20200305172402_76629.jpg\" alt=\"\" style=\"width:340px;height:auto;\"> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">精致，是一个女人爱自己的最好方式。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">愿你做一个精致入骨的女人，把优雅和从容，融入生活的方方面面。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">一辈子都要象十七岁的女孩子那样干净爽洁，体面的着装，微醺的香水，这是一切修炼的最最基础。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">多给自己一些时间打扮，少给自己一些时间慵懒；</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">多给自己一些坚强，少给自己一些怯懦；</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">多给自已一些实事求是，少给自己一些无事生非！</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\">\n" +
-//                    "\t<img src=\"http://img.hui-shenghuo.cn/huacheng/editor/image/20200305/20200305172419_92828.jpg\" alt=\"\" style=\"width:340px;height:auto;\"> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">学习搭配衣服，把自己打扮得优雅大方，干净利落。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">买点精致的首饰，可以搭配衣服，起点缀效果。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">控制好自己的体重，不要太胖。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">平时化点淡妆，看起来会更有精神。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">偶尔换换发型，变换不一样的心情。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">包里记得放一个粉饼和口红，方便补妆。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">头发毛躁，擦点护发精油，会更柔顺有光泽。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">定期修理指甲，保持干净美观。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">保持衣服洁净如新，没有异味，衬衫没有褶皱。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">养成运动的习惯，锻炼身体，也能释放压力，放松心情。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">保持断舍离的心态，定期整理衣柜，打扫卫生，把不需要的东西清理掉。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">......</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\" style=\"text-indent:28pt;\">\n" +
-//                    "\t<span style=\"font-size:18px;\">小慧特别为广大女性朋友精选超值洗护、日化、护肤品</span><span style=\"font-size:18px;\">......贴心呵护你的每一个阶段，助力你的精致女人修炼之旅。</span> \n" +
-//                    "</p>\n" +
-//                    "<p class=\"MsoNormal\">\n" +
-//                    "\t<img src=\"http://img.hui-shenghuo.cn/huacheng/editor/image/20200305/20200305172434_25265.jpg\" alt=\"\" style=\"width:340px;height:auto;\"> \n" +
-//                    "</p>\n" +
-//                    "<span style=\"font-size:18px;\"></span> \n" +
-//                    "<p>\n" +
-//                    "\t<br />\n" +
-//                    "</p></body></html>";
-//            webDelegateDefault= WebDelegateHtml.create(content);
-//            switchFragmentNoBack(webDelegateDefault);
+            //
+            requestData();
         }
 
 
+    }
+
+    private void requestData() {
+
+        HashMap<String, String> params = new HashMap<>();
+        String url = "";
+        if (jump_type==ConstantWebView.CONSTANT_ZHUANQU){
+            //专区详情
+            url = ApiHttpClient.SHOP_MARKIING_DETAILS;
+            params.put("id", id);
+        }else if (jump_type==ConstantWebView.CONSTANT_ZHUANQU_HUODONG){
+            //专区活动详情
+            url = ApiHttpClient.SHOP_MARKIING_ARTICE_DETAILS;
+            params.put("id", id);
+        }else if (jump_type==ConstantWebView.CONSTANT_ZUFANG){
+            //租房小贴士
+            url =   ApiHttpClient.GET_CAREFUL;
+            params.put("house_type", "1");
+        }else if (jump_type==ConstantWebView.CONSTANT_SHOUFANG){
+            //售房小贴士
+            url =   ApiHttpClient.GET_CAREFUL;
+            params.put("house_type", "2");
+
+        }
+        showDialog(smallDialog);
+        MyOkHttp.get().post(url, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                   model = (ModelOldZixun) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldZixun.class);
+                    if (model!=null){
+                        String content="";
+                        if (jump_type==ConstantWebView.CONSTANT_ZHUANQU){
+                            //专区详情
+                            tv_title.setVisibility(View.VISIBLE);
+                            tv_title.setText(model.getTitle());
+                            content = model.getContent();
+                        }else if (jump_type==ConstantWebView.CONSTANT_ZHUANQU_HUODONG){
+                            //专区活动详情
+                            tv_title.setVisibility(View.VISIBLE);
+                            tv_title.setText(model.getTitle());
+                            content = model.getContent();
+                        }else if (jump_type==ConstantWebView.CONSTANT_ZUFANG){
+                            //租房小贴士
+                            byte[] bytes = Base64.decode(model.getContent(), Base64.DEFAULT);
+                            content = new String( bytes);
+                        }else if (jump_type==ConstantWebView.CONSTANT_SHOUFANG){
+                            //售房小贴士
+                            byte[] bytes = Base64.decode(model.getContent(), Base64.DEFAULT);
+                            content = new String( bytes);
+                        }
+
+                        String css = "<style type=\"text/css\"> " +
+                                "img {" +
+                                "max-width: 100% !important;" +//限定图片宽度填充屏幕
+                                "height:auto !important;" +//限定图片高度自动
+                                "}" +
+                                "</style>";
+                         content = "<head>" + css + "</head><body>" + content + "</body></html>";
+                        webDelegateDefault= WebDelegateHtml.create(content);
+                        switchFragmentNoBack(webDelegateDefault);
+                    }
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    ToastUtils.showShort(mContext.getApplicationContext(), msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                ToastUtils.showShort(mContext.getApplicationContext(), "网络异常，请检查网络设置");
+            }
+        });
     }
 
 
@@ -136,7 +201,50 @@ public class WebViewDefaultActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+        lin_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (model==null){
+                    return;
+                }
+                if (jump_type==ConstantWebView.CONSTANT_ZHUANQU||jump_type==ConstantWebView.CONSTANT_ZHUANQU_HUODONG){
+                    //专区分享 专区活动分享
+                    if (NullUtil.isStringEmpty(model.getId())) {
+                        return;
+                    }
+                    final    String share_title = model.getTitle() + "";
+                    final    String share_desc = model.getTitle() + "";
+                      String   icon="";
+                    if (sub_type.equals("1")) {
+                        icon = MyCookieStore.URL + model.getBanner();
+                    } else {
+                        icon = MyCookieStore.URL + model.getImg();
+                    }
+                    final String share_icon=icon;
+                    final String  share_url = ApiHttpClient.API_URL_SHARE + ApiHttpClient.API_VERSION + "shop/share_article_info/id/" + model.getId() + "/article_type/" + sub_type;
+                    HashMap<String, String> params = new HashMap<>();
+                    params.put("type", "prefecture_details");
+                    params.put("id", model.getId());
+                    params.put("sub_type", sub_type);
+                    showDialog(smallDialog);
+                    LinkedMeUtils.getInstance().getLinkedUrl(WebViewDefaultActivity.this, share_url, share_title, params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
+                        @Override
+                        public void onGetUrl(String url, LMErrorCode error) {
+                            hideDialog(smallDialog);
+                            if (error == null) {
+                                String share_url_new = share_url + "?linkedme=" + url;
+                                showSharePop(share_title, share_desc, share_icon, share_url_new);
+                            } else {
+                                //可以看报错
+                                String share_url_new = share_url + "?linkedme=" + "";
+                                showSharePop(share_title, share_desc, share_icon, share_url_new);
+                            }
+                        }
+                    });
+                }
 
+            }
+        });
     }
 
     @Override
@@ -144,10 +252,7 @@ public class WebViewDefaultActivity extends BaseActivity {
         return R.layout.activity_webview_default;
     }
 
-    @Override
-    protected void initIntentData() {
 
-    }
 
     @Override
     protected int getFragmentCotainerId() {
@@ -191,5 +296,18 @@ public class WebViewDefaultActivity extends BaseActivity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 显示分享弹窗
+     *
+     * @param share_title
+     * @param share_desc
+     * @param share_icon
+     * @param share_url_new
+     */
+    private void showSharePop(String share_title, String share_desc, String share_icon, String share_url_new) {
+        PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, share_icon, share_url_new, AppConstant.SHARE_COMMON);
+        popup.showBottom(lin_right);
     }
 }

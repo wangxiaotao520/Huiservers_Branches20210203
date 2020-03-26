@@ -467,19 +467,18 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
         preferences1.edit().clear().commit();
         ApiHttpClient.setTokenInfo(null, null);
 
-        // : 2020/3/26 0026 移除所有activity
-        ActivityStackManager.getActivityStackManager().finishAllActivity();
-        finish();
         //清除数据库
         UserSql.getInstance().clear();
         //    ActivityStackManager.getActivityStackManager().finishAllActivity();
         BaseApplication.setUser(null);
         startActivity(new Intent(this, HomeActivity.class));
-
         if (model!=null&&model.getType()==0){
             SmartToast.showInfo("登录失效");
             startActivity(new Intent(this, LoginVerifyCodeActivity.class));
         }
+        // : 2020/3/26 0026 移除所有activity
+        ActivityStackManager.getActivityStackManager().finishAllActivity();
+        finish();
     }
 
     /**

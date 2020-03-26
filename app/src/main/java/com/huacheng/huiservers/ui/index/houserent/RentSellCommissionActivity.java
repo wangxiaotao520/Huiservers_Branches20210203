@@ -3,15 +3,11 @@ package com.huacheng.huiservers.ui.index.houserent;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 
@@ -34,8 +30,7 @@ public class RentSellCommissionActivity extends BaseActivity {
     FrameLayout fl_house_rent;
     @BindView(R.id.fl_house_sell)
     FrameLayout fl_house_sell;
-    @BindView(R.id.wv_commission)
-    WebView wvCommission;
+
 
     @Override
     protected void initView() {
@@ -55,21 +50,7 @@ public class RentSellCommissionActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        //支持javascript
-        wvCommission.getSettings().setJavaScriptEnabled(true);
-        // 设置允许JS弹窗
-//        wvCommission.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        // 设置可以支持缩放
-        wvCommission.getSettings().setSupportZoom(true);
-        // 设置出现缩放工具
-        wvCommission.getSettings().setBuiltInZoomControls(true);
-        //扩大比例的缩放
-        wvCommission.getSettings().setUseWideViewPort(true);
-        //自适应屏幕
-        wvCommission.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        wvCommission.getSettings().setLoadWithOverviewMode(true);
 
-        wvCommission.loadUrl(ApiHttpClient.GET_ENTRUST_BACKGROUND);
     }
 
     @Override
@@ -125,14 +106,7 @@ public class RentSellCommissionActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (wvCommission != null) {
-            wvCommission.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
-            wvCommission.clearHistory();
 
-            ((ViewGroup) wvCommission.getParent()).removeView(wvCommission);
-            wvCommission.destroy();
-            wvCommission = null;
-        }
         super.onDestroy();
     }
 

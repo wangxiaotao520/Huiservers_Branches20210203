@@ -12,8 +12,9 @@ import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
-import com.huacheng.huiservers.ui.shop.ShopZQWebActivity;
 import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
+import com.huacheng.huiservers.ui.webview.ConstantWebView;
+import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.microquation.linkedme.android.LinkedME;
 import com.microquation.linkedme.android.indexing.LMUniversalObject;
@@ -94,10 +95,25 @@ public class MiddleActivity extends AppCompatActivity {
                 } else if (type.equals("prefecture_details")) {
                     String id = hashMap.get("id");
                     String sub_type = hashMap.get("sub_type");
-                    Intent intent = new Intent(this, ShopZQWebActivity.class);
+//                    Intent intent = new Intent(this, ShopZQWebActivity.class);
+//                    intent.putExtra("id", id + "");
+//                    intent.putExtra("sub_type", sub_type + "");
+//                    startActivity(intent);
+
+                    Intent intent=new Intent();
+                    intent.setClass(this, WebViewDefaultActivity.class);
+                    intent.putExtra("web_type",1);
+                    int jump_type = ConstantWebView.CONSTANT_ZHUANQU;
+                    if ("1".equals(sub_type)){
+                        jump_type = ConstantWebView.CONSTANT_ZHUANQU;
+                    }else {
+                        jump_type = ConstantWebView.CONSTANT_ZHUANQU_HUODONG;
+                    }
+                    intent.putExtra("jump_type", jump_type);
                     intent.putExtra("id", id + "");
                     intent.putExtra("sub_type", sub_type + "");
                     startActivity(intent);
+
                 } else if (type.equals("circle_details")) {
                     String id = hashMap.get("id");
                     String sub_type = hashMap.get("sub_type");

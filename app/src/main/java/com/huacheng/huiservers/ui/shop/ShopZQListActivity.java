@@ -27,6 +27,8 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeListViewAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.adapter.VBannerZQAdapter;
+import com.huacheng.huiservers.ui.webview.ConstantWebView;
+import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
 import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
@@ -440,7 +442,14 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
 
                 break;
             case R.id.sdv_bg://背景点击
-                intent.setClass(this, ShopZQWebActivity.class);
+//                intent.setClass(this, ShopZQWebActivity.class);
+//                intent.putExtra("id", id);
+//                intent.putExtra("sub_type", "1");
+//                startActivity(intent);
+
+                intent.setClass(this, WebViewDefaultActivity.class);
+                intent.putExtra("web_type",1);
+                intent.putExtra("jump_type", ConstantWebView.CONSTANT_ZHUANQU);
                 intent.putExtra("id", id);
                 intent.putExtra("sub_type", "1");
                 startActivity(intent);
