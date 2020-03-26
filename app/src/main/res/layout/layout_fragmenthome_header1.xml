@@ -192,10 +192,10 @@
         </LinearLayout>
 
         <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
-            >
+            android:scrollbars="none">
                 <LinearLayout
                     android:id="@+id/ll_on_sale_img_root"
                     android:layout_width="match_parent"
@@ -205,8 +205,6 @@
                     android:paddingLeft="15dp"
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp">
-
-
 
                 </LinearLayout>
         </HorizontalScrollView>

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/windowbackground">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,31 +17,31 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:hvp_topOffset="50dp">
-<!--   app:hvp_topOffset="50dp">必须设置上-->
+            <!--   app:hvp_topOffset="50dp">必须设置上-->
             <RelativeLayout
                 android:id="@+id/rl_head"
                 android:layout_width="match_parent"
                 android:layout_height="165dp">
                 <!--头部信息-->
                 <!--<com.facebook.drawee.view.SimpleDraweeView-->
-                    <!--android:id="@+id/iv_head"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--app:placeholderImage="@drawable/bg_store_defaule_title"-->
-                    <!--app:placeholderImageScaleType="centerCrop"/>-->
+                <!--android:id="@+id/iv_head"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--app:placeholderImage="@drawable/bg_store_defaule_title"-->
+                <!--app:placeholderImageScaleType="centerCrop"/>-->
                 <ImageView
                     android:id="@+id/iv_head"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/transparent"
-                    android:scaleType="centerCrop"
-                    />
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="80dp"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
+                    android:orientation="horizontal">
+
                     <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/sdv_head"
                         android:layout_width="50dp"
@@ -53,79 +54,87 @@
                         app:roundTopLeft="true"
                         app:roundTopRight="true"
                         app:roundedCornerRadius="5dp" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
                         android:layout_toRightOf="@id/sdv_head"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/tv_store_name1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:textColor="@color/white"
                             android:lines="1"
                             android:maxLength="12"
+                            android:text=""
+                            android:textColor="@color/white"
                             android:textSize="15sp" />
+
                         <TextView
                             android:id="@+id/tv_store_phone_number1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginTop="5dp"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="13sp" />
 
                     </LinearLayout>
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
+
                     <TextView
                         android:id="@+id/tv_call_number1"
                         android:layout_width="72dp"
                         android:layout_height="29dp"
-                        android:textSize="12sp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="15dp"
-                        android:textColor="@color/white"
                         android:background="@drawable/allshape_stroke_white35"
+                        android:gravity="center"
                         android:text="一键拨号"
-                        android:gravity="center" />
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="@drawable/allshape_half_rectange_5"
                     android:layout_alignParentBottom="true"
-                    />
+                    android:background="@drawable/allshape_half_rectange_5" />
             </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@android:color/white">
+                android:background="@color/white"
+                android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_height="40dp"
                     android:layout_marginRight="5dp"
-                    android:layout_height="40dp">
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/tv_service_tab"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:text="服务"
-                        android:gravity="center"
-                        android:textStyle="bold"
+                        android:textColor="@color/title_color"
                         android:textSize="18sp"
-                        android:textColor="@color/title_color" />
-                    
+                        android:textStyle="bold" />
+
                     <View
                         android:id="@+id/view_service_tab"
                         android:layout_width="25dp"
@@ -136,50 +145,54 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_height="40dp">
+                    android:layout_height="40dp"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/tv_comment_tab"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:text="评价"
-                        android:gravity="center"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_sub_color" />
+                        android:textColor="@color/title_sub_color"
+                        android:textSize="15sp" />
 
                     <View
-                        android:visibility="gone"
                         android:id="@+id/view_comment_tab"
                         android:layout_width="25dp"
                         android:layout_height="2dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@color/orange" />
+                        android:background="@color/orange"
+                        android:visibility="gone" />
                 </LinearLayout>
 
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/line"
-                />
+                android:background="@color/line" />
+
             <FrameLayout
                 android:id="@+id/fl_bottom_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </com.lzy.widget.HeaderViewPager>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-           <View
+
+            <View
                 android:id="@+id/status_bar"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:background="@color/white"/>
+                android:background="@color/white" />
 
             <RelativeLayout
                 android:id="@+id/rl_title"
@@ -187,11 +200,13 @@
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
                 android:orientation="horizontal">
+
                 <View
                     android:id="@+id/v_bg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/white" />
+                    android:background="@color/white" />
+
                 <LinearLayout
                     android:id="@+id/lin_left"
                     android:layout_width="wrap_content"
@@ -238,8 +253,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:background="@mipmap/ic_share_white"
-                     />
+                    android:background="@mipmap/ic_share_white" />
             </RelativeLayout>
         </LinearLayout>
     </FrameLayout>
