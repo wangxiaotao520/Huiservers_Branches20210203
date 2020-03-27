@@ -3,7 +3,7 @@
     <!-- 圆角 -->
     <corners android:radius="10dp" />
     <!-- 填充 -->
-    <solid android:color="@android:color/white" /><!-- 填充的颜色 -->
+    <solid android:color="@color/white" /><!-- 填充的颜色 -->
 
     <padding
         android:bottom="3dp"

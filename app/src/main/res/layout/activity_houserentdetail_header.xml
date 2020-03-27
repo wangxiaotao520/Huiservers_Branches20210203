@@ -460,6 +460,7 @@
                 android:layout_width="match_parent"
                 android:paddingTop="15dp"
                 android:paddingLeft="15dp"
+                android:scrollbars="none"
                 android:layout_height="206dp">
                 <LinearLayout
                     android:id="@+id/ll_recommond_container"

@@ -97,6 +97,7 @@
                         android:id="@+id/hsv_container_two"
                         android:layout_width="match_parent"
                         android:visibility="visible"
+                        android:scrollbars="none"
                         android:layout_height="match_parent">
                         <LinearLayout
                             android:layout_gravity="center_vertical"
