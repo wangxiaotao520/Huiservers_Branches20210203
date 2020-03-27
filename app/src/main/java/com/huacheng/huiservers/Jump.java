@@ -34,6 +34,8 @@ import com.huacheng.huiservers.ui.center.CouponToShopUseActivity;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
 import com.huacheng.huiservers.ui.fragment.presenter.PropertyPrester;
 import com.huacheng.huiservers.ui.index.charge.ChargeScanActivity;
+import com.huacheng.huiservers.ui.index.huodong.EducationActivity;
+import com.huacheng.huiservers.ui.index.huodong.EducationListActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldServiceIndexActivity;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
@@ -127,8 +129,25 @@ public class Jump {
                 mContext.startActivity(intent);
 
             } else if (type.equals("3")) {//跳转到活动列表
+                String urlnew = url;
+                if (!NullUtil.isStringEmpty(sharePrefrenceUtil.getXiaoQuId())){
+                    url = url + "/m_id/" + sharePrefrenceUtil.getXiaoQuId();
+                }
+                Intent intent = new Intent();
+                intent.setClass(mContext, EducationListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("url", url);
+                intent.putExtra("urlnew", urlnew);
+                intent.putExtra("name", name);
+                mContext.startActivity(intent);
 //
             } else if (type.equals("4")) {//跳转到活动详情
+                Intent intent = new Intent();
+                intent.setClass(mContext, EducationActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("url", url);
+                intent.putExtra("name", name);
+                mContext.startActivity(intent);
 
             } else if (type.equals("5")) { //跳转到维修
                 preferencesLogin = mContext.getSharedPreferences("login", 0);
@@ -851,7 +870,7 @@ public class Jump {
 
     }
 
-    //软新房链接详情
+    //软新房链接详情/活动
     public Jump(Context context, String h5, int i) {
         this.mContext = context;
         preferencesLogin = context.getSharedPreferences("login", 0);

@@ -462,7 +462,7 @@
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text=""
-                                android:textColor="@color/title_sub_color"
+                                android:textColor="@color/title_color"
                                 android:textSize="@dimen/t_15sp"/>
 
                             <TextView

@@ -42,7 +42,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener, AMap
     private LinearLayout about_left;
     private String tag;
 
-    String  strHouse;
+    String strHouse;
 
 
     @Override
@@ -63,9 +63,10 @@ public class AboutActivity extends BaseActivity implements OnClickListener, AMap
             title_name.setText("手册详情");
             about_left.setVisibility(View.GONE);
         } else if (tag.equals("activity")) {
+            title_name.setText("活动详情");
             strHouse = this.getIntent().getExtras().getString("strHouse");
-            title_rel.setVisibility(View.GONE);
-            about_left.setVisibility(View.VISIBLE);
+            title_rel.setVisibility(View.VISIBLE);
+            about_left.setVisibility(View.GONE);
             about_left.setOnClickListener(this);
         } else if (tag.equals("dsyg")) {
             getLocation();
@@ -93,6 +94,8 @@ public class AboutActivity extends BaseActivity implements OnClickListener, AMap
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setLoadWithOverviewMode(true);
 
+        //最重要的方法，一定要设置，这就是出不来的主要原因
+        webView.getSettings().setDomStorageEnabled(true);
         if (tag.equals("dsyg")) {
             WebSettings webSettings = webView.getSettings();
             //启用数据库
@@ -100,8 +103,6 @@ public class AboutActivity extends BaseActivity implements OnClickListener, AMap
             String dir = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
             //设置定位的数据库路径
             webSettings.setGeolocationDatabasePath(dir);
-            //最重要的方法，一定要设置，这就是出不来的主要原因
-            webSettings.setDomStorageEnabled(true);
 
             //启用地理定位
             webSettings.setGeolocationEnabled(true);
