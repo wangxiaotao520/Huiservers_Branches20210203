@@ -72,9 +72,10 @@ public class AboutActivity extends BaseActivityOld implements OnClickListener, A
             title_name.setText("手册详情");
             about_left.setVisibility(View.GONE);
         } else if (tag.equals("activity")) {
+            title_name.setText("活动详情");
             strHouse = this.getIntent().getExtras().getString("strHouse");
-            title_rel.setVisibility(View.GONE);
-            about_left.setVisibility(View.VISIBLE);
+            title_rel.setVisibility(View.VISIBLE);
+            about_left.setVisibility(View.GONE);
             about_left.setOnClickListener(this);
         } else if (tag.equals("dsyg")) {
             getLocation();
@@ -102,7 +103,7 @@ public class AboutActivity extends BaseActivityOld implements OnClickListener, A
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setLoadWithOverviewMode(true);
 
-        if (tag.equals("dsyg")) {
+        if (tag.equals("dsyg")||tag.equals("activity")) {
             WebSettings webSettings = webView.getSettings();
             //启用数据库
             webSettings.setDatabaseEnabled(true);
