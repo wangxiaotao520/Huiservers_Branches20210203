@@ -9,6 +9,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -33,6 +35,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.libraryservice.utils.TDevice;
 
 public class AboutActivity extends BaseActivity implements OnClickListener, AMapLocationListener {
     private TextView title_name;
@@ -43,10 +46,19 @@ public class AboutActivity extends BaseActivity implements OnClickListener, AMap
     private String tag;
 
     String strHouse;
+    View mStatusBar;
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar=true;
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initView() {
+        mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
+
         title_rel = (RelativeLayout) findViewById(R.id.title_rel);
         about_left = (LinearLayout) findViewById(R.id.about_left);
         title_name = (TextView) findViewById(R.id.title_name);
@@ -63,6 +75,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener, AMap
             title_name.setText("手册详情");
             about_left.setVisibility(View.GONE);
         } else if (tag.equals("activity")) {
+            getLocation();
             title_name.setText("活动详情");
             strHouse = this.getIntent().getExtras().getString("strHouse");
             title_rel.setVisibility(View.VISIBLE);
@@ -96,7 +109,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener, AMap
 
         //最重要的方法，一定要设置，这就是出不来的主要原因
         webView.getSettings().setDomStorageEnabled(true);
-        if (tag.equals("dsyg")) {
+        if (tag.equals("dsyg")||tag.equals("activity")) {
             WebSettings webSettings = webView.getSettings();
             //启用数据库
             webSettings.setDatabaseEnabled(true);
@@ -211,13 +224,13 @@ public class AboutActivity extends BaseActivity implements OnClickListener, AMap
     private void getLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, COARSE_LOCATION_REQUEST_CODE);
-            } else {
-                startLocation();
-            }
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, COARSE_LOCATION_REQUEST_CODE);
+        } else {
+            startLocation();
+        }
         } else {
             startLocation();
         }
