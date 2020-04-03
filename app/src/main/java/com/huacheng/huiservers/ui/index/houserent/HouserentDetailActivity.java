@@ -309,6 +309,7 @@ public class HouserentDetailActivity extends BaseActivity {
             }
             //基本信息
             byte[] bytes = Base64.decode(houseRentInfo.getContent(), Base64.DEFAULT);
+            headerViewHolder.mWebview.setBackgroundColor(0);
             headerViewHolder.mWebview.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
             if (!"".equals(new String(bytes))) {
                 String css = "<style type=\"text/css\"> " +

@@ -22,6 +22,12 @@
     <color name="title_third_color">#64646e</color>
     <!--输入默认文字颜色-->
     <color name="text_color_hint">#46464e</color>
+    <!--特殊字体颜色 白色变浅白-->
+    <color name="text_special_ff_color">#efefef</color>
+    <!--特殊字体颜色 黑变浅白-->
+    <color name="text_special_33_color">#efefef</color>
+    <!--特殊shape背景颜色 -->
+    <color name="text_special_shape_color">#2c2c2e</color>
 
     <color name="orange">#ED8D37</color>
     <color name="black">#000000</color>

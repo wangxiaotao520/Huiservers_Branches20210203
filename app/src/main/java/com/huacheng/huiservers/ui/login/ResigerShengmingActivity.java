@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.login;
 
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
@@ -11,13 +12,14 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.libraryservice.utils.TDevice;
 
 public class ResigerShengmingActivity extends BaseActivity implements OnClickListener {
     private TextView title_name;
     private LinearLayout lin_left;
     WebView webView;
     int type;//0 是隐私政策 1是用户协议
-
+    View mStatusBar;
 
     @Override
     public void onClick(View arg0) {
@@ -34,6 +36,9 @@ public class ResigerShengmingActivity extends BaseActivity implements OnClickLis
 
     @Override
     protected void initView() {
+        mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
+
         type = getIntent().getIntExtra("type", 0);
         //       SetTransStatus.GetStatus(this);//系统栏默认为黑色
 //		Typeface iconfont = Typeface.createFromAsset(this.getAssets(), "icons/iconfont.ttf");

@@ -388,14 +388,15 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@color/white">
 
                         <WebView
                             android:id="@+id/webview"
+                            android:layerType="software"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/title_sub_color"
-                            android:background="@color/windowbackground"
                             android:textSize="@dimen/t_15sp" />
                     </LinearLayout>
 

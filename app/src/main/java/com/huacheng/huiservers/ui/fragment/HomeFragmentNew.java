@@ -36,6 +36,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.huiservers.model.ModelAds;
 import com.huacheng.huiservers.model.ModelCoummnityList;
 import com.huacheng.huiservers.model.ModelEventHome;
@@ -47,7 +48,6 @@ import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.ModelVBaner;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
-import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeGridViewCateAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.VBannerAdapter;
@@ -71,7 +71,6 @@ import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
-import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.widget.GridViewNoScroll;
 import com.huacheng.libraryservice.widget.verticalbannerview.VerticalBannerView;
@@ -432,7 +431,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     if (alpha == 1) {
                         // 滑上去了
                         iv_bg_title.setBackgroundColor(getResources().getColor(R.color.white));
-                        tv_xiaoqu.setTextColor(getResources().getColor(R.color.title_color));
+                        tv_xiaoqu.setTextColor(getResources().getColor(R.color.text_special_33_color));
                         iv_message.setBackgroundResource(R.mipmap.ic_index_message_black);
                         iv_scancode.setBackgroundResource(R.mipmap.ic_index_scan_black);
                         iv_title_arrow.setBackgroundResource(R.mipmap.ic_arrow_black_sloid);
@@ -444,7 +443,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                             iv_bg_title.setBackgroundColor(current_Color);
                             view_title_line.setBackgroundColor(current_Color);
                         }
-                        tv_xiaoqu.setTextColor(getResources().getColor(R.color.white));
+                        tv_xiaoqu.setTextColor(getResources().getColor(R.color.text_special_ff_color));
                         iv_message.setBackgroundResource(R.mipmap.ic_index_message_white);
                         iv_scancode.setBackgroundResource(R.mipmap.ic_index_scan_white);
                         iv_title_arrow.setBackgroundResource(R.mipmap.ic_arrow_white_sloid);
@@ -636,7 +635,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 iv_center.setVisibility(View.VISIBLE);
                 // 手册协议
               //  iv_center.setImageResource(R.mipmap.bg_jiaofang_shouce);
-                GlideUtils.getInstance().glideLoad(mActivity,ApiHttpClient.IMG_URL+"huacheng/activity/19/04/22/xinfangshouce.gif",iv_center,R.mipmap.bg_jiaofang_shouce);
+               // GlideUtils.getInstance().glideLoad(mActivity,ApiHttpClient.IMG_URL+"huacheng/activity/19/04/22/xinfangshouce.gif",iv_center,R.mipmap.bg_jiaofang_shouce);
                 mDatas_Article.clear();
                 mDatas_Article.addAll(modelHome.getArticle_list());
             } else {
