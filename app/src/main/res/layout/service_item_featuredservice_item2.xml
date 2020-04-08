@@ -83,7 +83,7 @@
                 android:background="@drawable/allshape_orange35"
                 android:gravity="center"
                 android:text="详情"
-                android:textColor="@color/white"
+                android:textColor="@color/text_special_ff_color"
                 android:textSize="15sp"
                 />
         </RelativeLayout>

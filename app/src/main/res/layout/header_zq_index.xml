@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="全部商品"
-                android:textColor="#2C2C2C"
+                android:textColor="@color/title_color"
                 android:textSize="@dimen/t_15sp"/>
 
             <TextView

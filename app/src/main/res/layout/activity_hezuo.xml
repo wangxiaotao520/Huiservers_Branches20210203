@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="提交"
-                    android:textColor="#fff"
+                    android:textColor="@color/text_special_ff_color"
                     android:textSize="@dimen/t_16sp"/>
             </RelativeLayout>
 

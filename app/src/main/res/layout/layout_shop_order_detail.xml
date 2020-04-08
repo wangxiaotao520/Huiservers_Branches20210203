@@ -102,7 +102,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin"
-                            android:textColor="@color/white"
+                            android:textColor="@color/text_special_ff_color"
                             android:textSize="@dimen/t_18sp"
                             tools:text="等待付款"/>
                     </LinearLayout>
@@ -112,7 +112,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_special_ff_color"
                         android:textSize="@dimen/t_14sp"
                         tools:text="需支付:￥263.00   剩余:59分钟"/>
                 </LinearLayout>
@@ -499,7 +499,7 @@
                         android:background="@drawable/allshape_red_35"
                         android:gravity="center"
                         android:text="去支付"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_special_ff_color"
                         android:textSize="@dimen/t_14sp"/>
                 </LinearLayout>
 

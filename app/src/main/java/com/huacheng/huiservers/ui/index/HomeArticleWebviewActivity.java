@@ -1,6 +1,9 @@
 package com.huacheng.huiservers.ui.index;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
@@ -9,6 +12,7 @@ import android.widget.TextView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.libraryservice.utils.TDevice;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,8 +35,16 @@ public class HomeArticleWebviewActivity extends BaseActivity {
     TextView titleName;
     @BindView(R.id.wv_about)
     WebView mWebview;
+    View mStatusBar;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar=true;
+        super.onCreate(savedInstanceState);
+    }
 
     private void proccessData(String articleCnt) {
+
         mWebview.getSettings().setJavaScriptEnabled(true);
         // 设置可以支持缩放
         mWebview.getSettings().setSupportZoom(true);
@@ -87,7 +99,8 @@ public class HomeArticleWebviewActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         //       SetTransStatus.GetStatus(this);
-
+        mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         String articleTitle = getIntent().getStringExtra("articleTitle");
         titleName.setText(articleTitle);
 

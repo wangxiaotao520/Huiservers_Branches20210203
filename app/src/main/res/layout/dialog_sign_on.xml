@@ -127,7 +127,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/allshape_orange"
         android:text="去支付 "
-        android:textColor="@color/white"
+        android:textColor="@color/text_special_ff_color"
         android:textSize="15sp" />
 
 </LinearLayout>

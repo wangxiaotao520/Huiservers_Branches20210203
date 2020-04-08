@@ -72,7 +72,7 @@
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginTop="3dp"
                                 android:text="总计0份"
-                                android:textColor="@color/white"
+                                android:textColor="@color/text_special_ff_color"
                                 android:textSize="@dimen/t_11sp"
                                 android:textStyle="italic"/>
 
@@ -90,8 +90,8 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_5"
                                 android:layout_marginTop="@dimen/margin_3"
+                                android:layout_marginRight="@dimen/margin_5"
                                 android:gravity="center"
                                 android:orientation="horizontal">
 
@@ -100,8 +100,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text=""
-                                    android:textColor="@color/title_color"
-                                    android:textSize="@dimen/t_11sp"/>
+                                    android:textColor="#333333"
+                                    android:textSize="@dimen/t_11sp" />
                             </LinearLayout>
 
 
@@ -132,7 +132,7 @@
                                     android:paddingLeft="@dimen/margin_2"
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/text_special_ff_color"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -141,7 +141,7 @@
                                     android:layout_marginLeft="@dimen/margin_3"
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text="天"
-                                    android:textColor="@color/title_color"
+                                    android:textColor="#333333"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -153,7 +153,7 @@
                                     android:paddingLeft="@dimen/margin_2"
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/text_special_ff_color"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -162,7 +162,7 @@
                                     android:layout_marginLeft="@dimen/margin_3"
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text=":"
-                                    android:textColor="@color/title_color"
+                                    android:textColor="#333333"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -174,7 +174,7 @@
                                     android:paddingLeft="@dimen/margin_2"
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/text_special_ff_color"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -183,7 +183,7 @@
                                     android:layout_marginLeft="@dimen/margin_3"
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text=":"
-                                    android:textColor="@color/title_color"
+                                    android:textColor="#333333"
                                     android:textSize="@dimen/t_10sp"/>
 
                                 <TextView
@@ -195,7 +195,7 @@
                                     android:paddingLeft="@dimen/margin_2"
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/text_special_ff_color"
                                     android:textSize="@dimen/t_10sp"/>
 
                             </LinearLayout>
@@ -784,7 +784,7 @@
                         android:gravity="center"
                         android:padding="@dimen/margin"
                         android:text="加入购物车"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_special_ff_color"
                         android:textSize="@dimen/t_16sp"/>
                 </LinearLayout>
 
@@ -804,7 +804,7 @@
                         android:gravity="center"
                         android:padding="@dimen/margin"
                         android:text="立即购买"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_special_ff_color"
                         android:textSize="@dimen/t_16sp"/>
                 </LinearLayout>
             </LinearLayout>

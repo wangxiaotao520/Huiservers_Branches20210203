@@ -252,7 +252,7 @@
                 android:gravity="center"
                 android:padding="@dimen/margin"
                 android:text="确 定"
-                android:textColor="@color/white"
+                android:textColor="@color/text_special_ff_color"
                 android:textSize="@dimen/t_16sp"/>
 
             <LinearLayout
@@ -271,7 +271,7 @@
                     android:background="@drawable/allshape_orange35"
                     android:gravity="center"
                     android:text="加入购物车"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_special_ff_color"
                     android:textSize="@dimen/t_16sp"/>
 
                 <TextView
@@ -283,7 +283,7 @@
                     android:background="@drawable/allshape_red_shopdetail35"
                     android:gravity="center"
                     android:text="立即购买"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_special_ff_color"
                     android:textSize="@dimen/t_16sp"/>
 
             </LinearLayout>

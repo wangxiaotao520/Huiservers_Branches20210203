@@ -1,5 +1,7 @@
 package com.huacheng.huiservers.ui.login;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -32,6 +34,12 @@ public class ResigerShengmingActivity extends BaseActivity implements OnClickLis
                 break;
         }
 
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar=true;
+        super.onCreate(savedInstanceState);
     }
 
     @Override

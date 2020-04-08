@@ -82,7 +82,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_5"
                             android:text="添加房屋"
-                            android:textColor="@color/white"
+                            android:textColor="@color/text_special_ff_color"
                             android:textSize="@dimen/t_18sp"
                             android:textStyle="normal"/>
 

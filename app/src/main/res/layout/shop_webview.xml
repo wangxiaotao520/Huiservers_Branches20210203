@@ -3,10 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-   android:fitsSystemWindows="false"
-    android:orientation="vertical" >
-    
- <include layout="@layout/titlebar_center" />
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:background="@color/white" />
+
+    <include layout="@layout/titlebar_center" />
 
     <WebView
         android:id="@+id/wv_about"

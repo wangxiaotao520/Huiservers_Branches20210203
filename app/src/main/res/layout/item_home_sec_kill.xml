@@ -35,7 +35,7 @@
                 android:background="@drawable/shape_red_2"
                 android:gravity="center"
                 android:text="秒杀"
-                android:textColor="@color/white"
+                android:textColor="@color/text_special_ff_color"
                 android:textSize="@dimen/t_11sp"
                 android:visibility="gone"/>
 

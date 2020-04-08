@@ -563,7 +563,7 @@
                     android:background="@drawable/allshape_orange"
                     android:gravity="center"
                     android:text="提交工单"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_special_ff_color"
                     android:textSize="18sp"/>
 
             </LinearLayout>

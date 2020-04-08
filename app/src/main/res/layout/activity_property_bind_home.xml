@@ -339,9 +339,9 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="确定"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_special_ff_color"
                     android:textStyle="normal"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/text_special_ff_color"
                     android:textSize="20sp" />
             </LinearLayout>
 

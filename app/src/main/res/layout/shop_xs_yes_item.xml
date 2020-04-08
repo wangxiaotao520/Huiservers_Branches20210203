@@ -222,7 +222,7 @@
                     android:paddingRight="@dimen/margin_8"
                     android:paddingTop="@dimen/margin_3"
                     android:text="立即抢购"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_special_ff_color"
                     android:textSize="@dimen/t_14sp" />
 
             </RelativeLayout>

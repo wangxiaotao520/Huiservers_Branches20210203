@@ -677,7 +677,7 @@
                 android:background="@drawable/allshape_orange"
                 android:gravity="center"
                 android:text="立即报名 "
-                android:textColor="@color/white"
+                android:textColor="@color/text_special_ff_color"
                 android:textSize="17sp" />
         </RelativeLayout>
 

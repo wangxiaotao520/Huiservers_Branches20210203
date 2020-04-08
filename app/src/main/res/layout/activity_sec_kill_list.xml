@@ -38,7 +38,7 @@
             android:maxEms="10"
             android:singleLine="true"
             android:text="慧秒杀"
-            android:textColor="@color/white"
+            android:textColor="@color/text_special_ff_color"
             android:textSize="@dimen/t_21sp" />
 
     </RelativeLayout>
@@ -55,10 +55,10 @@
             app:tabTextColor="@color/windowbackground"
             app:tab_Mode="mode_scrollable"
             android:background="@color/red_normal"
-            app:tabSelectTextColor="@color/white"
+            app:tabSelectTextColor="@color/text_special_ff_color"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            app:tabIndicatorColor="@color/white"/>
+            app:tabIndicatorColor="@color/text_special_ff_color"/>
     </LinearLayout>
     <View
         android:id="@+id/view_line"
