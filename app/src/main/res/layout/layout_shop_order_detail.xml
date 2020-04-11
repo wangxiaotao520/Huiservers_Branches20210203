@@ -32,14 +32,14 @@
                 android:layout_height="45dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/margin_15"
+                android:paddingLeft="@dimen/margin"
                 android:paddingRight="@dimen/margin_15">
 
                 <ImageView
                     android:id="@+id/left1"
                     android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:background="@mipmap/ic_arrow_left_black"
                     />
 
