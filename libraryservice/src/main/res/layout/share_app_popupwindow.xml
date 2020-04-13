@@ -122,7 +122,7 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="取消"
-                android:textColor="#999999"
+                android:textColor="@color/title_third_color"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>

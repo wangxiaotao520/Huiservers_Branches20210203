@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.fragment.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
@@ -28,13 +29,13 @@ public class AdapterServiceCatOne extends CommonAdapter<ModelServiceCat> {
             viewHolder.<TextView>getView(R.id.tv_view).setVisibility(View.VISIBLE);
             viewHolder.<TextView>getView(R.id.txt_one).setText(item.getName()+"");
             viewHolder.<TextView>getView(R.id.txt_one) .getPaint().setFakeBoldText(true);
-            viewHolder.<TextView>getView(R.id.txt_one).setBackgroundResource(R.color.windowbackground);
+            viewHolder.<LinearLayout>getView(R.id.ly_bg).setBackgroundResource(R.color.windowbackground);
 
         }else {
             viewHolder.<TextView>getView(R.id.tv_view).setVisibility(View.GONE);
             viewHolder.<TextView>getView(R.id.txt_one).setText(item.getName()+"");
             viewHolder.<TextView>getView(R.id.txt_one) .getPaint().setFakeBoldText(false);
-            viewHolder.<TextView>getView(R.id.txt_one).setBackgroundResource(R.color.white);
+            viewHolder.<LinearLayout>getView(R.id.ly_bg).setBackgroundResource(R.color.white);
         }
 
     }

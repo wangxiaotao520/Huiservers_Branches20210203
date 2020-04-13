@@ -194,7 +194,7 @@
             android:background="@drawable/allshape_orange35"
             android:gravity="center"
             android:text="发布评价"
-            android:textColor="@color/white"
+            android:textColor="@color/text_special_ff_color"
             android:textSize="@dimen/t_15sp"/>
     </LinearLayout>
 </LinearLayout>

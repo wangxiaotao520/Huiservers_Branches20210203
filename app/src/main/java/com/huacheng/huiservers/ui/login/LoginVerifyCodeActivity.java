@@ -173,7 +173,7 @@ public class LoginVerifyCodeActivity extends BaseActivity implements OnClickList
         txt_getcode.setTextColor(getResources().getColor(R.color.colorPrimary));
         txt_getcode.setBackground(getResources().getDrawable(R.drawable.cornes_bgwhite_login_orange));
         txt_getcode.setEnabled(true);
-        txt_btn.setTextColor(getResources().getColor(R.color.white));
+
         txt_btn.setBackground(getResources().getDrawable(R.drawable.allshape_orange_10));
         txt_btn.setEnabled(true);
 
@@ -327,7 +327,7 @@ public class LoginVerifyCodeActivity extends BaseActivity implements OnClickList
                 } else if (et_getcode.getText().toString().trim().equals("")) {
                     SmartToast.showInfo("请输入验证码");
                 } else {
-                    txt_btn.setTextColor(getResources().getColor(R.color.white));
+
                     txt_btn.setBackground(getResources().getDrawable(R.drawable.corners_bg_transparent_primary));
                     txt_btn.setEnabled(false);
                     txt_btn.setText("登录中...");
@@ -622,7 +622,6 @@ public class LoginVerifyCodeActivity extends BaseActivity implements OnClickList
                     } else {
                         txt_btn.setText("登录");
                         txt_btn.setEnabled(true);
-                        txt_btn.setTextColor(getResources().getColor(R.color.white));
                         txt_btn.setBackground(getResources().getDrawable(R.drawable.allshape_orange_10));
                         SmartToast.showInfo(msg);
                     }
@@ -636,7 +635,6 @@ public class LoginVerifyCodeActivity extends BaseActivity implements OnClickList
                 hideDialog(smallDialog);
                 txt_btn.setText("登录");
                 txt_btn.setEnabled(true);
-                txt_btn.setTextColor(getResources().getColor(R.color.white));
                 txt_btn.setBackground(getResources().getDrawable(R.drawable.allshape_orange_10));
                 SmartToast.showInfo("网络异常，请检查网络错误");
             }
