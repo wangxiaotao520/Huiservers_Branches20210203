@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
@@ -22,6 +23,7 @@ import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.webview.defaul.WebDelegateDefault;
 import com.huacheng.huiservers.ui.webview.loadhtml.WebDelegateHtml;
+import com.huacheng.huiservers.utils.NightModeUtils;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
@@ -39,12 +41,12 @@ import java.util.List;
  * Description: 默认WebView显示的Activity
  * created by wangxiaotao
  * 2020/3/17 0017 下午 3:29
- * type  0是加载网页 1是加载标签
+ * type  //0是加载网页链接 1是请求网络后加载标签 2是直接加载网络标签
  */
 public class WebViewDefaultActivity extends BaseActivity {
 
     private WebDelegateDefault webDelegateDefault;
-    private int web_type = 1;//0是加载网页链接 1是加载标签
+    private int web_type = 1;//0是加载网页链接 1是请求网络后加载标签 2是直接加载网络标签
     private int jump_type = 0;// 跳转的类型 如：CONSTANT_ZHUANQU
     private TextView tv_title;
     private ImageView iv_right;
@@ -54,6 +56,10 @@ public class WebViewDefaultActivity extends BaseActivity {
     String sub_type="";
     ModelOldZixun model;
     View mStatusBar;
+    private String title;//
+    private String content;//
+    private String web_url = "";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,6 +83,17 @@ public class WebViewDefaultActivity extends BaseActivity {
             //租房小贴士
         }else if (jump_type==ConstantWebView.CONSTANT_SHOUFANG){
             //售房小贴士
+        }else if (jump_type==ConstantWebView.CONSTANT_JIAOFANG){
+            //交房手册
+            title = getIntent().getStringExtra("articleTitle");
+            content = getIntent().getStringExtra("articleCnt");
+        }else if (jump_type==ConstantWebView.CONSTANT_YINGSI){
+            //隐私政策
+           web_url=ApiHttpClient.GET_PRIVARY;
+        }else if (jump_type==ConstantWebView.CONSTANT_FUWU_XIEYI){
+            //服务协议
+            Url_info info = new Url_info(this);
+            web_url=info.user_agreement;
         }
 
     }
@@ -105,17 +122,42 @@ public class WebViewDefaultActivity extends BaseActivity {
         }else if (jump_type==ConstantWebView.CONSTANT_SHOUFANG){
             //售房小贴士
             titleName.setText("售房小贴士");
+        }else if (jump_type==ConstantWebView.CONSTANT_JIAOFANG){
+            //交房手册
+            titleName.setText(title+"");
+        }else if (jump_type==ConstantWebView.CONSTANT_YINGSI){
+            //隐私政策
+            titleName.setText("隐私政策");
+        }else if (jump_type==ConstantWebView.CONSTANT_FUWU_XIEYI){
+            //服务协议
+            titleName.setText("用户协议");
         }
 
         if (web_type==0){
-            webDelegateDefault = WebDelegateDefault.create("https://www.jianshu.com/p/3c94ae673e2a");
+            webDelegateDefault = WebDelegateDefault.create(""+web_url);
             switchFragmentNoBack(webDelegateDefault);
-        }else {
+        }else if (web_type==1){
             //
             requestData();
+        }else if (web_type==2){
+            loadHtml(content+"");
         }
 
+    }
 
+    /**
+     * 加载标签
+     */
+    private void loadHtml(String content) {
+        String css = "<style type=\"text/css\"> " +
+                "img {" +
+                "max-width: 100% !important;" +//限定图片宽度填充屏幕
+                "height:auto !important;" +//限定图片高度自动
+                "}" +
+                "</style>";
+        content = "<head>" + css + "</head><body>" + content + "</body></html>";
+        webDelegateDefault= WebDelegateHtml.create(content);
+        switchFragmentNoBack(webDelegateDefault);
     }
 
     private void requestData() {
@@ -168,16 +210,7 @@ public class WebViewDefaultActivity extends BaseActivity {
                             byte[] bytes = Base64.decode(model.getContent(), Base64.DEFAULT);
                             content = new String( bytes);
                         }
-
-                        String css = "<style type=\"text/css\"> " +
-                                "img {" +
-                                "max-width: 100% !important;" +//限定图片宽度填充屏幕
-                                "height:auto !important;" +//限定图片高度自动
-                                "}" +
-                                "</style>";
-                         content = "<head>" + css + "</head><body>" + content + "</body></html>";
-                        webDelegateDefault= WebDelegateHtml.create(content);
-                        switchFragmentNoBack(webDelegateDefault);
+                        loadHtml(content);
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
@@ -289,12 +322,15 @@ public class WebViewDefaultActivity extends BaseActivity {
     //点击返回上一页面而不是退出浏览器
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK &&webDelegateDefault!=null) {
-            if (webDelegateDefault.onBackPressedSupport()) {
-                return true;
+        if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
+            //todo 黑夜模式下 第一次acitivty会调用两次，webview会为空，我也不知道为什么
+        }else {
+            if (keyCode == KeyEvent.KEYCODE_BACK &&webDelegateDefault!=null) {
+                if (webDelegateDefault.onBackPressedSupport()) {
+                    return true;
+                }
             }
         }
-
         return super.onKeyDown(keyCode, event);
     }
 

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.webkit.WebView;
 
+import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.utils.NightModeUtils;
+
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 
@@ -46,6 +49,10 @@ public abstract class WebDelegate extends BaseDelegate {
                 final WeakReference<WebView> webViewWeakReference =
                         new WeakReference<WebView>(new WebView(getContext()),WEB_VIEW_QUEUE);
                 mWebView = webViewWeakReference.get();
+                //TODO 深色模式的话
+                if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
+                    mWebView.setBackgroundColor(mActivity.getResources().getColor(R.color.white));
+                }
                 mWebView = initializer.initWebViewSettings(mWebView);
                 mWebView.setWebViewClient(initializer.initWebViewClient());
                 mWebView.setWebChromeClient(initializer.initWebChromeClient());

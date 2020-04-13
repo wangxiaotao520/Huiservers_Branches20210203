@@ -16,6 +16,7 @@
             <com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView
                 android:id="@+id/listView"
                 android:layout_width="match_parent"
+                android:background="@android:color/transparent"
                 android:layout_height="wrap_content"
                 android:divider="@color/transparent" />
 

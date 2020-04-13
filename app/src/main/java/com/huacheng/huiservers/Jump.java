@@ -27,7 +27,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelLogin;
-import com.huacheng.huiservers.ui.center.ALLWebViewActivity;
+import com.huacheng.huiservers.ui.center.MedicalWebViewActivity;
 import com.huacheng.huiservers.ui.center.AboutActivity;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.CouponToShopUseActivity;
@@ -51,7 +51,6 @@ import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopListActivity;
 import com.huacheng.huiservers.ui.shop.ShopSecKillListActivity;
-import com.huacheng.huiservers.ui.shop.ShopWBActivity;
 import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
 import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
@@ -373,9 +372,9 @@ public class Jump {
                 intent.putExtra("store_id", cateid);
                 mContext.startActivity(intent);
             } else if (type.equals("26")) {//所有直接展示webview的
-
+                //医疗
                 Intent intent = new Intent();
-                intent.setClass(mContext, ALLWebViewActivity.class);
+                intent.setClass(mContext, MedicalWebViewActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("url", url);
                 intent.putExtra("name", name);
@@ -729,8 +728,9 @@ public class Jump {
 //            mContext.startActivity(intent);
 
         } else if (type.equals("26")) {//所有直接展示webview的
+            //医疗
             Intent intent = new Intent();
-            intent.setClass(mContext, ALLWebViewActivity.class);
+            intent.setClass(mContext, MedicalWebViewActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("url", url);
             intent.putExtra("name", name);
@@ -890,6 +890,7 @@ public class Jump {
     }
 
     //分享
+    //TODO 这个接口后台已经删了
     private void getShare(Context activity, String id, final String type) {
         Url_info info = new Url_info(activity);
         RequestParams params = new RequestParams();
@@ -910,16 +911,16 @@ public class Jump {
                         content = jsonData.getString("content");
                         img = jsonData.getString("img");
                         call_link = jsonData.getString("call_link");
-                        Intent intent = new Intent();
-                        intent.setClass(mContext, ShopWBActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("url", urlh5);
-                        intent.putExtra("title", title);
-                        intent.putExtra("content", content);
-                        intent.putExtra("img", img);
-                        intent.putExtra("call_link", call_link);
-                        intent.putExtra("type", type);
-                        mContext.startActivity(intent);
+//                        Intent intent = new Intent();
+//                        intent.setClass(mContext, ShopWBActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intent.putExtra("url", urlh5);
+//                        intent.putExtra("title", title);
+//                        intent.putExtra("content", content);
+//                        intent.putExtra("img", img);
+//                        intent.putExtra("call_link", call_link);
+//                        intent.putExtra("type", type);
+//                        mContext.startActivity(intent);
                     } else if (StringUtils.isEquals(status, "0")) {
 
                     }

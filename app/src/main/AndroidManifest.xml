@@ -466,10 +466,6 @@
         <!-- 个人商户注册界面 -->
         <!-- 注册类型 -->
         <!-- 注册声明 -->
-        <activity
-            android:name="com.huacheng.huiservers.ui.login.ResigerShengmingActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <!-- 个人商户注册界面 -->
         <!-- 支付界面 -->
 
@@ -537,10 +533,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <!-- 优惠券webView -->
-        <activity
-            android:name="com.huacheng.huiservers.ui.shop.ShopWBActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <!-- 商城商品详情界面 -->
         <!-- 商城商品详情软文H5界面 -->
         <!-- 购物车确认订单新界面 -->
@@ -710,10 +702,6 @@
 
         <!--用户协议-->
         <activity
-            android:name=".ui.index.HomeArticleWebviewActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity
             android:name="com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -753,7 +741,7 @@
             android:name=".ui.shop.ShopOrderListActivityNew"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.center.ALLWebViewActivity"
+            android:name=".ui.center.MedicalWebViewActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.scan.CustomCaptureActivity"

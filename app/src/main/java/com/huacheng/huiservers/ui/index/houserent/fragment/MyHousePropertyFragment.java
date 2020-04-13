@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 
@@ -17,7 +15,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.HouseListBean;
-import com.huacheng.huiservers.ui.base.BaseFragmentOld;
+import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.index.houserent.HouserentDetailActivity;
 import com.huacheng.huiservers.ui.index.houserent.adapter.MyHouseRentListAdapter;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -39,7 +37,7 @@ import butterknife.Unbinder;
  * Author: badge
  * Create: 2018/11/7 11:52
  */
-public class MyHousePropertyFragment extends BaseFragmentOld {
+public class MyHousePropertyFragment extends BaseFragment {
 
 
     @BindView(R.id.swipe_myhouse_property)
@@ -69,111 +67,6 @@ public class MyHousePropertyFragment extends BaseFragmentOld {
         jump_type = args.getInt("jump_type");//0是第一条 来的0为第二条跳转来的
     }
 
-    @Override
-    protected void initView() {
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-
-        /*if (swipeMyhouseProperty != null) {
-            swipeMyhouseProperty.setEnabled(true);
-        }*/
-        // 设置刷新控件颜色
-        swipeMyhouseProperty.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-
-        houseRentListAdapter = new MyHouseRentListAdapter(mActivity, context, R.layout.item_myhouse_rent_list, type, mDatas);
-        listView.setAdapter(houseRentListAdapter);
-        if (houseRentListAdapter != null) {
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(context, HouserentDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    if (type == 0) {
-                        house_type = 2;//售房
-                    } else {
-                        house_type = 1;//租房
-                    }
-                    bundle.putInt("jump_type", house_type);
-                    bundle.putString("id", mDatas.get(i).getHouseid());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
-            });
-        }
-
-        swipeMyhouseProperty.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // 刷新数据
-                listenerOnRefresh();
-                // 延时1s关闭下拉刷新
-                swipeMyhouseProperty.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (swipeMyhouseProperty != null && swipeMyhouseProperty.isRefreshing()) {
-                            swipeMyhouseProperty.setRefreshing(false);
-                        }
-                    }
-                }, 500);
-
-            }
-        });
-
-        if (jump_type==1){//首先展示给用户租房
-            if (type == 1) {
-                swipeMyhouseProperty.setRefreshing(true);
-                isInit = true;
-                listenerOnRefresh();
-            }
-        }else {
-            //首先展示给用户售房列表
-            if (type == 0) {
-                swipeMyhouseProperty.setRefreshing(true);
-                isInit = true;
-                listenerOnRefresh();
-            }
-        }
-
-        listView.setHasMoreItems(false);
-        listView.setPagingableListener(new PagingListView.Pagingable() {
-            @Override
-            public void onLoadMoreItems() {
-
-                if (page <= totalPage) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mActivity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    listView.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            getHouseList();
-
-                                        }
-                                    }, 500);
-                                }
-                            });
-                        }
-                    }).start();
-
-                }
-
-            }
-        });
-        return rootView;
-    }
-
-    @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.fragment_myhouse_property;
-    }
 
     /**
      * 选中后自动刷新
@@ -279,5 +172,119 @@ public class MyHousePropertyFragment extends BaseFragmentOld {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void initView(View view) {
+        unbinder = ButterKnife.bind(this, view);
+
+        /*if (swipeMyhouseProperty != null) {
+            swipeMyhouseProperty.setEnabled(true);
+        }*/
+        // 设置刷新控件颜色
+        swipeMyhouseProperty.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+
+        houseRentListAdapter = new MyHouseRentListAdapter(mActivity, mContext, R.layout.item_myhouse_rent_list, type, mDatas);
+        listView.setAdapter(houseRentListAdapter);
+        if (houseRentListAdapter != null) {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(mContext, HouserentDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    if (type == 0) {
+                        house_type = 2;//售房
+                    } else {
+                        house_type = 1;//租房
+                    }
+                    bundle.putInt("jump_type", house_type);
+                    bundle.putString("id", mDatas.get(i).getHouseid());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
+        }
+
+        swipeMyhouseProperty.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // 刷新数据
+                listenerOnRefresh();
+                // 延时1s关闭下拉刷新
+                swipeMyhouseProperty.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (swipeMyhouseProperty != null && swipeMyhouseProperty.isRefreshing()) {
+                            swipeMyhouseProperty.setRefreshing(false);
+                        }
+                    }
+                }, 500);
+
+            }
+        });
+
+        if (jump_type==1){//首先展示给用户租房
+            if (type == 1) {
+                swipeMyhouseProperty.setRefreshing(true);
+                isInit = true;
+                listenerOnRefresh();
+            }
+        }else {
+            //首先展示给用户售房列表
+            if (type == 0) {
+                swipeMyhouseProperty.setRefreshing(true);
+                isInit = true;
+                listenerOnRefresh();
+            }
+        }
+
+        listView.setHasMoreItems(false);
+        listView.setPagingableListener(new PagingListView.Pagingable() {
+            @Override
+            public void onLoadMoreItems() {
+
+                if (page <= totalPage) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    listView.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            getHouseList();
+
+                                        }
+                                    }, 500);
+                                }
+                            });
+                        }
+                    }).start();
+
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void initIntentData() {
+
+    }
+
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_myhouse_property;
     }
 }

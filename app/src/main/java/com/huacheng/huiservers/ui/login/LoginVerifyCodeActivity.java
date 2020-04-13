@@ -38,6 +38,8 @@ import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.huiservers.model.protocol.LoginProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.webview.ConstantWebView;
+import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
@@ -337,9 +339,13 @@ public class LoginVerifyCodeActivity extends BaseActivity implements OnClickList
                 }
                 break;
             case R.id.txt_shengming:// 声明
-                intent = new Intent(this, ResigerShengmingActivity.class);
-                intent.putExtra("type",1);
-                startActivity(intent);
+//                intent = new Intent(this, ResigerShengmingActivity.class);
+//                intent.putExtra("type",1);
+//                startActivity(intent);
+                Intent intent1 = new Intent(this, WebViewDefaultActivity.class);
+                intent1.putExtra("web_type",0);
+                intent1.putExtra("jump_type", ConstantWebView.CONSTANT_FUWU_XIEYI);
+                startActivity(intent1);
                 break;
             default:
                 break;

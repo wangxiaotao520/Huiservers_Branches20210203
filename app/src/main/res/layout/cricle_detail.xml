@@ -4,7 +4,6 @@
               android:layout_height="match_parent"
               xmlns:fresco="http://schemas.android.com/apk/res-auto"
               android:background="@color/white"
-
               android:orientation="vertical">
 
     <View
@@ -331,7 +330,7 @@
                 android:visibility="gone"
                 />
 
-            <EditText
+            <TextView
                 android:id="@+id/et_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -340,6 +339,7 @@
                 android:background="@drawable/bg_gray_corners"
                 android:hint="说点什么......"
                 android:padding="8dp"
+                android:enabled="true"
                 android:textColor="@color/title_color"
                 android:textColorHint="@color/title_third_color"
                 android:textCursorDrawable="@drawable/color_cursor"
@@ -357,6 +357,7 @@
                 android:paddingTop="8dp"
                 android:text="发送"
                 android:textColor="@color/title_third_color"
+                android:visibility="gone"
                 android:textSize="14sp"/>
         </LinearLayout>
 

@@ -10,7 +10,8 @@ import android.widget.TextView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.login.ResigerShengmingActivity;
+import com.huacheng.huiservers.ui.webview.ConstantWebView;
+import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
 
 /**
  * 类描述：关于我们
@@ -90,13 +91,22 @@ public class MyAboutActivity extends BaseActivity implements View.OnClickListene
                 }).show();//.setTitle("提示")
                 break;
             case R.id.rel_privacy://隐私政策
-                Intent intent = new Intent(this, ResigerShengmingActivity.class);
-                intent.putExtra("type", 0);
+//                Intent intent = new Intent(this, ResigerShengmingActivity.class);
+//                intent.putExtra("type", 0);
+//                startActivity(intent);
+                Intent intent = new Intent(this, WebViewDefaultActivity.class);
+                intent.putExtra("web_type",0);
+                intent.putExtra("jump_type", ConstantWebView.CONSTANT_YINGSI);
                 startActivity(intent);
+
                 break;
             case R.id.rel_fuwu://服务协议
-                Intent intent1 = new Intent(this, ResigerShengmingActivity.class);
-                intent1.putExtra("type", 1);
+//                Intent intent1 = new Intent(this, ResigerShengmingActivity.class);
+//                intent1.putExtra("type", 1);
+//                startActivity(intent1);
+                Intent intent1 = new Intent(this, WebViewDefaultActivity.class);
+                intent1.putExtra("web_type",0);
+                intent1.putExtra("jump_type", ConstantWebView.CONSTANT_FUWU_XIEYI);
                 startActivity(intent1);
                 break;
             default:

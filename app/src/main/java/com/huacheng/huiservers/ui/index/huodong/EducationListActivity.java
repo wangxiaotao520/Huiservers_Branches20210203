@@ -42,7 +42,7 @@ import java.util.TimerTask;
 import cn.jpush.android.api.JPushInterface;
 
 /**
- * Created by hwh on 2017/10/10.
+ * 活动列表，保险理财
  */
 
 public class EducationListActivity extends BaseActivity implements View.OnClickListener {

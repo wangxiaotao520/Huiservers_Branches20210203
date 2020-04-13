@@ -11,6 +11,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelOldZixun;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.utils.NightModeUtils;
 import com.huacheng.libraryservice.utils.ToastUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -103,15 +104,28 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
                      //   byte[] bytes = Base64.decode(info.getContent(), Base64.DEFAULT);
                      //   String content = new String(bytes);
                         if (!"".equals(info.getContent())) {
-                            String css = "<style type=\"text/css\"> " +
-                                    "img {" +
-                                    "max-width: 100% !important;" +//限定图片宽度填充屏幕
-                                    "height:auto !important;" +//限定图片高度自动
-                                    "}" +
-                                    "</style>";
+                            String css="";
+                            if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
+                                //深色模式
+                                css = "<style type=\"text/css\"> " +
+                                        "img {" +
+                                        "max-width: 100% !important;" +//限定图片宽度填充屏幕
+                                        "height:auto !important;" +//限定图片高度自动
+                                        "}" +"body" +
+                                        "  {" +
+                                        "  color:#efefef;background:#1c1c1e;" +
+                                        "  }"+
+                                        "</style>";
+                            }else {
+                              css = "<style type=\"text/css\"> " +
+                                        "img {" +
+                                        "max-width: 100% !important;" +//限定图片宽度填充屏幕
+                                        "height:auto !important;" +//限定图片高度自动
+                                        "}" +
+                                        "</style>";
+                            }
                             String content1 = "<head>" + css + "</head><body>" + info.getContent() + "</body></html>";
                             mWebview.loadDataWithBaseURL(null, content1, "text/html", "utf-8", null);
-
                         }
 //                        if (info.getIs_collection() == 1) {//未收藏
 //                            tv_fav.setBackground(getResources().getDrawable(R.drawable.shape_gray_stroke20));

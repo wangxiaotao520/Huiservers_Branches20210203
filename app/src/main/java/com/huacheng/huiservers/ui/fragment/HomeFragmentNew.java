@@ -131,6 +131,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private List<ModelVBaner> mDatas_v_banner = new ArrayList<>();//首页垂直banner数据公告
     private ImageView iv_bg_grid;//grid 背景图
     private ImageView iv_center;
+    private LinearLayout ll_center;
     private LinearLayout ly_notice;
     private VerticalBannerView v_banner;
     private VBannerAdapter vBannerAdapter;
@@ -230,6 +231,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         iv_bg_grid = headerView.findViewById(R.id.iv_bg_grid);
         //中部图片
         iv_center = headerView.findViewById(R.id.iv_center);
+        ll_center = headerView.findViewById(R.id.ll_center);
         //通知公告
         ly_notice = headerView.findViewById(R.id.ly_notice);
         v_banner = headerView.findViewById(R.id.v_banner);
@@ -633,6 +635,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             //手册协议
             if (modelHome.getArticle_list() != null && modelHome.getArticle_list().size() > 0) {
                 iv_center.setVisibility(View.VISIBLE);
+                ll_center.setVisibility(View.VISIBLE);
                 // 手册协议
               //  iv_center.setImageResource(R.mipmap.bg_jiaofang_shouce);
                // GlideUtils.getInstance().glideLoad(mActivity,ApiHttpClient.IMG_URL+"huacheng/activity/19/04/22/xinfangshouce.gif",iv_center,R.mipmap.bg_jiaofang_shouce);
@@ -640,6 +643,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 mDatas_Article.addAll(modelHome.getArticle_list());
             } else {
                 iv_center.setVisibility(View.GONE);
+                ll_center.setVisibility(View.GONE);
             }
 
             //通知公告

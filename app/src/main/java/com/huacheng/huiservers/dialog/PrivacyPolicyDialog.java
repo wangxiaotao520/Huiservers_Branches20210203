@@ -17,7 +17,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.login.ResigerShengmingActivity;
+import com.huacheng.huiservers.ui.webview.ConstantWebView;
+import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
 
 /**
  * 类：隐私政策
@@ -84,8 +85,12 @@ public class PrivacyPolicyDialog extends AlertDialog implements View.OnClickList
 //                mContext.startActivity(intent);
                 //  ((TextView)widget).setHighlightColor(getResources().getColor(R.color.transparents));
 
-                Intent intent = new Intent(mContext, ResigerShengmingActivity.class);
-                intent.putExtra("type",1);
+//                Intent intent = new Intent(mContext, ResigerShengmingActivity.class);
+//                intent.putExtra("type",1);
+//                mContext.startActivity(intent);
+                Intent intent = new Intent(mContext, WebViewDefaultActivity.class);
+                intent.putExtra("web_type",0);
+                intent.putExtra("jump_type", ConstantWebView.CONSTANT_FUWU_XIEYI);
                 mContext.startActivity(intent);
             }
 
@@ -108,8 +113,12 @@ public class PrivacyPolicyDialog extends AlertDialog implements View.OnClickList
 //                mContext.startActivity(intent);
 //                //  ((TextView)widget).setHighlightColor(getResources().getColor(R.color.transparents));
 
-                Intent intent = new Intent(mContext, ResigerShengmingActivity.class);
-                intent.putExtra("type",0);
+//                Intent intent = new Intent(mContext, ResigerShengmingActivity.class);
+//                intent.putExtra("type",0);
+//                mContext.startActivity(intent);
+                Intent intent = new Intent(mContext, WebViewDefaultActivity.class);
+                intent.putExtra("web_type",0);
+                intent.putExtra("jump_type", ConstantWebView.CONSTANT_YINGSI);
                 mContext.startActivity(intent);
             }
 

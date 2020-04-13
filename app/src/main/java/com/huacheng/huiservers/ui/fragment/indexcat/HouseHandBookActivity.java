@@ -8,7 +8,8 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.ModelIndex;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
 import com.huacheng.huiservers.ui.fragment.adapter.HouseHandBookAdapter;
-import com.huacheng.huiservers.ui.index.HomeArticleWebviewActivity;
+import com.huacheng.huiservers.ui.webview.ConstantWebView;
+import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +49,16 @@ public class HouseHandBookActivity extends BaseListActivity {
 
     @Override
     protected void onListViewItemClick(AdapterView adapterView, View view, int position, long id) {
-        Intent intent = new Intent(mContext, HomeArticleWebviewActivity.class);
+//        Intent intent = new Intent(mContext, HomeArticleWebviewActivity.class);
+//        intent.putExtra("articleTitle", mDatas.get(position).getTitle());
+//        intent.putExtra("articleCnt",  mDatas.get(position).getContent());
+//        startActivity(intent);
+        Intent intent = new Intent();
+        intent.setClass(this, WebViewDefaultActivity.class);
+        intent.putExtra("web_type",2);
+        intent.putExtra("jump_type", ConstantWebView.CONSTANT_JIAOFANG);
         intent.putExtra("articleTitle", mDatas.get(position).getTitle());
-        intent.putExtra("articleCnt",  mDatas.get(position).getContent());
+        intent.putExtra("articleCnt", mDatas.get(position).getContent());
         startActivity(intent);
     }
 }

@@ -198,7 +198,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:text="扫一扫"
-                android:textColor="@color/white"
+                android:textColor="@color/text_special_ff_color"
                 android:textSize="20sp"
                 />
 

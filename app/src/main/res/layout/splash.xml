@@ -74,7 +74,7 @@
         android:layout_width="55dp"
         android:layout_height="30dp"
         android:text="跳过"
-        android:textColor="@color/white"
+        android:textColor="@color/text_special_ff_color"
         android:background="@drawable/allshape_black_45p"
         android:textSize="13dp"
         android:gravity="center"

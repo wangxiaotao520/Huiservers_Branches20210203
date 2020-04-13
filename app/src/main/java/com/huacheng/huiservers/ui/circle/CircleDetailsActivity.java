@@ -10,11 +10,12 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -28,6 +29,7 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.dialog.InputTextMsgDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
@@ -42,6 +44,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.circle.adapter.CircleDetailListAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.LogUtils;
+import com.huacheng.huiservers.utils.NightModeUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.UIUtils;
@@ -131,7 +134,7 @@ public class CircleDetailsActivity extends BaseActivity {
     @BindView(R.id.list_reply)
     MyListView mListReply;
     @BindView(et_input)
-    EditText mEtInput;
+    TextView mEtInput;
     @BindView(tv_send)
     TextView mTvSend;
     @BindView(R.id.iv_top)
@@ -159,9 +162,11 @@ public class CircleDetailsActivity extends BaseActivity {
 
     SharePrefrenceUtil prefrenceUtil;
     View mStatusBar;
+    private InputTextMsgDialog mInputTextMsgDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //设置全屏后会有问题 软件盘弹出时下方输入框有问题，弹不起来，设置沉浸式adjustResize会失效
         isStatusBar=true;
         super.onCreate(savedInstanceState);
     }
@@ -192,15 +197,15 @@ public class CircleDetailsActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (StringUtils.isEmpty(mEtInput.getText().toString())) {
-                    mTvSend.setBackground(getResources().getDrawable(R.drawable.bg_gray2_corners));
-                    mTvSend.setTextColor(getResources().getColor(R.color.title_third_color));
-                    mTvSend.setEnabled(false);
-                } else {
-                    mTvSend.setBackground(getResources().getDrawable(R.drawable.bg_primary2_corners));
-                    mTvSend.setTextColor(getResources().getColor(R.color.white));
-                    mTvSend.setEnabled(true);
-                }
+//                if (StringUtils.isEmpty(mEtInput.getText().toString())) {
+//                    mTvSend.setBackground(getResources().getDrawable(R.drawable.bg_gray2_corners));
+//                    mTvSend.setTextColor(getResources().getColor(R.color.title_third_color));
+//                    mTvSend.setEnabled(false);
+//                } else {
+//                    mTvSend.setBackground(getResources().getDrawable(R.drawable.bg_primary2_corners));
+//                    mTvSend.setTextColor(getResources().getColor(R.color.white));
+//                    mTvSend.setEnabled(true);
+//                }
             }
 
             @Override
@@ -216,6 +221,19 @@ public class CircleDetailsActivity extends BaseActivity {
         });
 
         mRightShare.setVisibility(View.VISIBLE);
+
+        mInputTextMsgDialog = new InputTextMsgDialog(this, R.style.InputDialog);
+        mInputTextMsgDialog.setmOnTextSendListener(new InputTextMsgDialog.OnTextSendListener() {
+            @Override
+            public void onTextSend(String msg, boolean auctionMode) {
+                    if (TextUtils.isEmpty(msg)) {
+                        SmartToast.showInfo("请输入您要说的话");
+                    } else {
+                        String str_count = Base64.encodeToString(getStringNoBlank(msg).getBytes(), Base64.DEFAULT);
+                        pinglun(circle_id, str_count);
+                    }
+            }
+        });
     }
 
     @Override
@@ -242,6 +260,18 @@ public class CircleDetailsActivity extends BaseActivity {
             public void run() {
                 //显示dialog
                 mScrollView.scrollTo(0, mLinPinglun.getTop() - mLinTopAll.getTop());
+            }
+        }, 500);   //0.5秒
+    }
+    /**
+     * 滑动到顶部
+     */
+    private void scrollToTop() {
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                //显示dialog
+                mScrollView.scrollTo(0, 0);
             }
         }, 500);   //0.5秒
     }
@@ -345,12 +375,26 @@ public class CircleDetailsActivity extends BaseActivity {
                         // mWebview.loadDataWithBaseURL(null, getNewContent(new String(bytes)), "text/html", "utf-8", null);
                         String content = new String(bytes);
                         if (!"".equals(content)) {
-                            String css = "<style type=\"text/css\"> " +
-                                    "img {" +
-                                    "max-width: 100% !important;" +//限定图片宽度填充屏幕
-                                    "height:auto !important;" +//限定图片高度自动
-                                    "}" +
-                                    "</style>";
+                            String css = "";
+                            if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
+                                //深色模式
+                                css = "<style type=\"text/css\"> " +
+                                        "img {" +
+                                        "max-width: 100% !important;" +//限定图片宽度填充屏幕
+                                        "height:auto !important;" +//限定图片高度自动
+                                        "}" +"body" +
+                                        "  {" +
+                                        "  color:#efefef;background:#1c1c1e;" +
+                                        "  }"+
+                                        "</style>";
+                            }else {
+                                css = "<style type=\"text/css\"> " +
+                                        "img {" +
+                                        "max-width: 100% !important;" +//限定图片宽度填充屏幕
+                                        "height:auto !important;" +//限定图片高度自动
+                                        "}" +
+                                        "</style>";
+                            }
                             content1 = "<head>" + css + "</head><body>" + content + "</body></html>";
                             mWebview.loadDataWithBaseURL(null, content1, "text/html", "utf-8", null);
                             LogUtils.d("[content1]" + content1);
@@ -540,6 +584,8 @@ public class CircleDetailsActivity extends BaseActivity {
             if (SCROLLtag.equals("1")) {//值为1 的时候  代表评论成功执行这段话
                 scrollToPosition();
 
+            }else {
+                scrollToTop();
             }
 //            mCirclebean.getImg_list().clear();
         }
@@ -555,24 +601,31 @@ public class CircleDetailsActivity extends BaseActivity {
 
                 finish();
                 break;
-            case et_input:
-                break;
-            case tv_send:
-                preferencesLogin = getSharedPreferences("login", 0);
+            case R.id.et_input:
+              preferencesLogin = getSharedPreferences("login", 0);
                 login_type = preferencesLogin.getString("login_type", "");
                 if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     startActivity(new Intent(CircleDetailsActivity.this, LoginVerifyCodeActivity.class));
                 } else {
-
-                    if (TextUtils.isEmpty(mEtInput.getText().toString().trim())) {
-                        SmartToast.showInfo("请输入您要说的话");
-                    } else {
-
-                        String str_count = Base64.encodeToString(getStringNoBlank(mEtInput.getText().toString().trim()).getBytes(), Base64.DEFAULT);
-                        pinglun(circle_id, str_count);
-                        mEtInput.setText("");
-                    }
+                    showInputDialog();
                 }
+                break;
+            case tv_send:
+//                preferencesLogin = getSharedPreferences("login", 0);
+//                login_type = preferencesLogin.getString("login_type", "");
+//                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+//                    startActivity(new Intent(CircleDetailsActivity.this, LoginVerifyCodeActivity.class));
+//                } else {
+//                    if (TextUtils.isEmpty(mEtInput.getText().toString().trim())) {
+//                        SmartToast.showInfo("请输入您要说的话");
+//                    } else {
+//
+//                        String str_count = Base64.encodeToString(getStringNoBlank(mEtInput.getText().toString().trim()).getBytes(), Base64.DEFAULT);
+//                        pinglun(circle_id, str_count);
+//                        mEtInput.setText("");
+//                    }
+//                }
+//                showInputDialog();
                 break;
             case R.id.right_share://分享
                 if (NullUtil.isStringEmpty(circle_id)) {
@@ -616,6 +669,22 @@ public class CircleDetailsActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 显示评论对话框
+     */
+    private void showInputDialog() {
+        WindowManager windowManager = getWindowManager();
+        Display display = windowManager.getDefaultDisplay();
+        WindowManager.LayoutParams lp = mInputTextMsgDialog.getWindow().getAttributes();
+
+        lp.width = display.getWidth(); //设置宽度
+        mInputTextMsgDialog.getWindow().setAttributes(lp);
+        mInputTextMsgDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        mInputTextMsgDialog.setCancelable(true);
+        // mInputTextMsgDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        mInputTextMsgDialog.show();
+    }
+
     public static String getStringNoBlank(String str) {//去除首尾空格 换行符
         if (str != null && !"".equals(str)) {
             str.replaceAll("\n", "");
@@ -625,6 +694,14 @@ public class CircleDetailsActivity extends BaseActivity {
             return strNoBlank;
         } else {
             return "";
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mInputTextMsgDialog!=null){
+            mInputTextMsgDialog.dismiss();
         }
     }
 
