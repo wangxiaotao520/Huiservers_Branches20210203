@@ -250,6 +250,7 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 try {
+                    //没想到这行代码写在finish（）之后会引起暗黑模式的异常
                      hideDialog(smallDialog);
                     String status = response.getString("status");
                     String msg = response.getString("msg");
