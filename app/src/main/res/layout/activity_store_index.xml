@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/windowbackground">
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,7 +24,7 @@
                 android:divider="@null"
                 android:fastScrollEnabled="false"
                 android:listSelector="@android:color/transparent"
-                android:smoothScrollbar="true"/>
+                android:smoothScrollbar="true" />
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         <include layout="@layout/no_data"></include>
@@ -39,8 +38,7 @@
         <View
             android:id="@+id/status_bar"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            />
+            android:layout_height="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,30 +51,43 @@
                 android:id="@+id/lin_left"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-               android:layout_gravity="center_vertical"
+                android:layout_gravity="center_vertical"
                 android:gravity="center"
+                android:layout_marginRight="@dimen/margin_20"
                 android:padding="@dimen/margin">
 
                 <ImageView
                     android:id="@+id/iv_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_arrow_left_black"
-                    />
+                    android:background="@mipmap/ic_arrow_left_black" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/titleName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:singleLine="true"
                 android:text=""
                 android:textColor="@color/title_color"
-                android:textSize="@dimen/t_18sp"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:singleLine="true" />
+                android:textSize="@dimen/t_18sp" />
+
+            <LinearLayout
+                android:id="@+id/ly_serch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_serch"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ly_share"
@@ -85,32 +96,16 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/margin_5"
-                android:layout_marginRight="@dimen/margin"
-                android:gravity="center"
-                >
+                android:layout_marginRight="@dimen/margin_15"
+                android:layout_toLeftOf="@+id/ly_serch"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/iv_share"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    />
+                    android:layout_height="30dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ly_serch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/ly_share"
-                android:gravity="center"
-                >
-
-                <ImageView
-                    android:id="@+id/iv_serch"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    />
-            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 
