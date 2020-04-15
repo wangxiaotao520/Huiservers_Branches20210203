@@ -440,6 +440,7 @@
         <activity
             android:name="com.huacheng.huiservers.HomeActivity"
             android:screenOrientation="portrait"
+            android:configChanges="uiMode|navigation"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
             android:name="com.huacheng.huiservers.dialog.UMShareDialog"

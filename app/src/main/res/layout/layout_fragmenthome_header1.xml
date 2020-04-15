@@ -109,6 +109,8 @@
         app:indicator_margin="@dimen/margin_5"
         app:indicator_selected_height="0dp"
         app:indicator_selected_width="0dp"
+        android:background="@color/white"
+        app:image_scale_type="fit_xy"
         app:indicator_width="0dp" />
 
     <View

@@ -359,8 +359,8 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
                     modelEventTheme.setThemeMode(NightModeUtils.ThemeMode.DAY);
                 }
                 recreate();
-
-                EventBus.getDefault().post(new ModelEventTheme());
+                //点击一次切换一次
+                NightModeUtils.setIsClickChangeMode(!NightModeUtils.isIsClickChangeMode());
             }
         });
     }
@@ -415,5 +415,22 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        //如果切换了和刚进页面时不同的主题 则调用
+        if (NightModeUtils.isIsClickChangeMode()) {
+            NightModeUtils.setIsClickChangeMode(false);
+            EventBus.getDefault().post(new ModelEventTheme());
+
+        }
     }
 }

@@ -98,17 +98,16 @@
                 android:id="@+id/ll_no_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="#f8f8f8"
+                    android:background="@color/windowbackground"
                     android:text="当前小区"
                     android:paddingLeft="12dp"
                     android:gravity="center_vertical"
-                    android:textColor="#555555"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="14sp" />
 
                 <LinearLayout
@@ -184,11 +183,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="#f8f8f8"
+                    android:background="@color/windowbackground"
                     android:text="附近小区"
                     android:paddingLeft="12dp"
                     android:gravity="center_vertical"
-                    android:textColor="#555555"
+                    android:textColor="@color/title_sub_color"
                     android:textSize="14sp" />
                 <LinearLayout
                     android:id="@+id/rel_no_data"

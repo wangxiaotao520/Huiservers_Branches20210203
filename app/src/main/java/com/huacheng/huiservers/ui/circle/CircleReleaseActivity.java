@@ -20,8 +20,8 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
-import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.model.ModelRefreshCircle;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -250,10 +250,10 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 try {
-//
+                     hideDialog(smallDialog);
                     String status = response.getString("status");
                     String msg = response.getString("msg");
-//                            String data = jsonObject.getString("data");
+ //                           String data = jsonObject.getString("data");
                     if (StringUtils.isEquals(status, "1")) {
                         MyCookieStore.Circle_notify = 1;
                         ModelRefreshCircle modelRefreshCircle = new ModelRefreshCircle();
@@ -261,7 +261,6 @@ public class CircleReleaseActivity extends BaseActivity implements ImagePickerAd
                         EventBus.getDefault().post(modelRefreshCircle);
                         // startActivity(new Intent(NewReleaseActivity.this, ServiceParticipateActivity.class));
                         finish();
-                        hideDialog(smallDialog);
                         txt_right1.setEnabled(true);
                         // 删除文件夹下的文件
                         new Thread(new Runnable() {

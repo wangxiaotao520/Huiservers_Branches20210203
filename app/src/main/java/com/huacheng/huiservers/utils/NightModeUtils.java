@@ -13,6 +13,7 @@ public class NightModeUtils {
     // 默认是日间模式
     private static ThemeMode mThemeMode = ThemeMode.DAY;
 
+
     /**
      * 主题模式，分为日间模式和夜间模式
      */
@@ -33,7 +34,8 @@ public class NightModeUtils {
             AppCompatDelegate.setDefaultNightMode(mThemeMode==ThemeMode.NIGHT?AppCompatDelegate.MODE_NIGHT_YES:AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
-
+    //标示 是否点击了切换模式
+    private static boolean isClickChangeMode = false;
     /**
      * 得到主题模式
      *
@@ -43,5 +45,14 @@ public class NightModeUtils {
     public static ThemeMode getThemeMode() {
         return mThemeMode;
     }
+
+    public static boolean isIsClickChangeMode() {
+        return isClickChangeMode;
+    }
+
+    public static void setIsClickChangeMode(boolean isClickChangeMode) {
+        NightModeUtils.isClickChangeMode = isClickChangeMode;
+    }
+
 
 }

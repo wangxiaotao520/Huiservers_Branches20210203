@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -493,11 +494,29 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
 //            }else {
 //                NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
 //            }
-
-            recreate();
+          recreate();
         }
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        int currentNightMode = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (currentNightMode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                //关闭夜间模式
+
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                //打开夜间模式
+
+                break;
+            default:
+                break;
+
+
+    }
+    }
 
     @Override
     protected void onResume() {
