@@ -27,9 +27,9 @@ public class CouponMyFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (mTitles[position].equals("优惠券")) {
-            return new CouponFragment(mTitles[position]);
+            return new CouponFragment();
         } else if (mTitles[position].equals("到店券")) {
-            return new CouponToShopFragment(mTitles[position]);
+            return new CouponToShopFragment();
         }
         return null;
     }

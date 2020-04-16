@@ -16,10 +16,10 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
-import com.huacheng.huiservers.model.protocol.CenterProtocol;
-import com.huacheng.huiservers.ui.base.BaseFragmentOld;
-import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
 import com.huacheng.huiservers.model.CouponBean;
+import com.huacheng.huiservers.model.protocol.CenterProtocol;
+import com.huacheng.huiservers.ui.base.BaseFragment;
+import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopListActivity;
@@ -31,7 +31,7 @@ import java.util.List;
  * Created by Administrator on 2018/3/16.
  */
 
-public class CouponFragment extends BaseFragmentOld {
+public class CouponFragment extends BaseFragment {
 
     ScrollView scrollView;
     LinearLayout lin_coupon40, lin_unusedCoupon;
@@ -43,7 +43,7 @@ public class CouponFragment extends BaseFragmentOld {
     CouponBean couponBean;
     List<CouponBean> myCoupon40list, unusedCouponlist;
     private String tag, coupon_id, all_shop_id, all_shop_money, jump_url, url;
-    String mID;
+
     CenterProtocol protocol = new CenterProtocol();
     Intent intent = new Intent();
     Bundle bundle = new Bundle();
@@ -52,60 +52,6 @@ public class CouponFragment extends BaseFragmentOld {
         super();
     }
 
-    public CouponFragment(String id) {
-        super();
-        mID = id;
-    }
-
-    @Override
-    protected void initView() {
-   //     SetTransStatus.GetStatus(getActivity());//系统栏默认为黑色
-        lin_coupon40 = findViewById(R.id.lin_coupon40);
-
-        scrollView = findViewById(R.id.scrollView);
-        lin_unusedCoupon = findViewById(R.id.lin_unusedCoupon);
-        listview_myCoupon40 = findViewById(R.id.listview_myCoupon40);
-        listview_unusedCoupon = findViewById(R.id.listview_unusedCoupon);
-        rel_no_data = findViewById(R.id.rel_no_data);
-        img_data = findViewById(R.id.img_data);
-        tv_text = findViewById(R.id.tv_text);
-
-        tag = getActivity().getIntent().getExtras().getString("tag");
-        if (tag.equals("order")) {
-            all_shop_id = getActivity().getIntent().getExtras().getString("all_id");
-            all_shop_money = getActivity().getIntent().getExtras().getString("all_shop_money");
-        } else if (tag.equals("jump")) {
-            jump_url = getActivity().getIntent().getExtras().getString("url");
-        }
-        getdata();
-
-        /*listview_myCoupon40.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (tag.equals("center")) {
-                    Intent intent = new Intent(getActivity(), CouponDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("id", myCoupon40list.get(position - 1).getId());
-                    bundle.putString("c_id", myCoupon40list.get(position - 1).getC_id());
-                    bundle.putString("categroy_id", myCoupon40list.get(position - 1).getCategory_id());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                } else if (tag.equals("jump")) {
-                    Intent intent = new Intent(getActivity(), CouponDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("id", myCoupon40list.get(position - 1).getId());
-                    bundle.putString("c_id", myCoupon40list.get(position - 1).getC_id());
-                    bundle.putString("categroy_id", myCoupon40list.get(position - 1).getCategory_id());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                } else {
-                    coupon_id = myCoupon40list.get(position - 1).getId();
-                    getCoupon();
-                }
-            }
-        });*/
-
-    }
 
     private void getdata() {
         showDialog(smallDialog);
@@ -211,7 +157,7 @@ public class CouponFragment extends BaseFragmentOld {
                 intent.putExtras(bundle);
                 getActivity().startActivity(intent);
             } else if (!couponBean.getShop_cate().equals("0")) {//跳转到商城列表相应的分类列表页
-                intent.setClass(context, ShopListActivity.class);
+                intent.setClass(mContext, ShopListActivity.class);
                 bundle.putString("cateID", couponBean.getShop_cate());
                 /*bundle.putString("shop_name", couponBean.getCategory_name());
                 bundle.putString("isbool", "cate");*/
@@ -289,8 +235,72 @@ public class CouponFragment extends BaseFragmentOld {
     }
 
 
+
     @Override
-    protected int getContentViewLayoutID() {
+    public void initView(View view) {
+        lin_coupon40 = view.findViewById(R.id.lin_coupon40);
+
+        scrollView = view.findViewById(R.id.scrollView);
+        lin_unusedCoupon = view.findViewById(R.id.lin_unusedCoupon);
+        listview_myCoupon40 =view. findViewById(R.id.listview_myCoupon40);
+        listview_unusedCoupon = view.findViewById(R.id.listview_unusedCoupon);
+        rel_no_data = view.findViewById(R.id.rel_no_data);
+        img_data = view.findViewById(R.id.img_data);
+        tv_text = view.findViewById(R.id.tv_text);
+
+        tag = getActivity().getIntent().getExtras().getString("tag");
+        if (tag.equals("order")) {
+            all_shop_id = getActivity().getIntent().getExtras().getString("all_id");
+            all_shop_money = getActivity().getIntent().getExtras().getString("all_shop_money");
+        } else if (tag.equals("jump")) {
+            jump_url = getActivity().getIntent().getExtras().getString("url");
+        }
+        getdata();
+
+        /*listview_myCoupon40.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (tag.equals("center")) {
+                    Intent intent = new Intent(getActivity(), CouponDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", myCoupon40list.get(position - 1).getId());
+                    bundle.putString("c_id", myCoupon40list.get(position - 1).getC_id());
+                    bundle.putString("categroy_id", myCoupon40list.get(position - 1).getCategory_id());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if (tag.equals("jump")) {
+                    Intent intent = new Intent(getActivity(), CouponDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", myCoupon40list.get(position - 1).getId());
+                    bundle.putString("c_id", myCoupon40list.get(position - 1).getC_id());
+                    bundle.putString("categroy_id", myCoupon40list.get(position - 1).getCategory_id());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else {
+                    coupon_id = myCoupon40list.get(position - 1).getId();
+                    getCoupon();
+                }
+            }
+        });*/
+    }
+
+    @Override
+    public void initIntentData() {
+
+    }
+
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public int getLayoutId() {
         return R.layout.fragment_coupon;
     }
 }

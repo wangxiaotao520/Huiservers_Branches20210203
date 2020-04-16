@@ -17,11 +17,11 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.model.CouponBean;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
-import com.huacheng.huiservers.ui.base.BaseFragmentOld;
+import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.center.adapter.CouponListMyAdapter;
 import com.huacheng.huiservers.ui.center.adapter.CouponListToShopAdapter;
-import com.huacheng.huiservers.model.CouponBean;
 import com.huacheng.huiservers.ui.shop.ConfirmOrderActivityNew;
 import com.huacheng.huiservers.view.MyListView;
 
@@ -31,7 +31,7 @@ import java.util.List;
  * Created by Administrator on 2018/3/16.
  */
 
-public class CouponToShopFragment extends BaseFragmentOld {
+public class CouponToShopFragment extends BaseFragment {
 
     ScrollView scrollView1;
     LinearLayout lin_coupon40, lin_unusedCoupon;
@@ -44,7 +44,7 @@ public class CouponToShopFragment extends BaseFragmentOld {
 
     CouponBean couponBean;
     List<CouponBean> myCoupon40list, unusedCouponlist;
-    String tag, coupon_id, all_shop_id, all_shop_money, jump_url, url, mID;
+    String tag, coupon_id, all_shop_id, all_shop_money, jump_url, url;
     CenterProtocol protocol = new CenterProtocol();
 
     Intent intent = new Intent();
@@ -55,35 +55,6 @@ public class CouponToShopFragment extends BaseFragmentOld {
         super();
     }
 
-    public CouponToShopFragment(String id) {
-        super();
-        mID = id;
-    }
-
-
-    @Override
-    protected void initView() {
-    //    SetTransStatus.GetStatus(getActivity());//系统栏默认为黑色
-        scrollView1 = findViewById(R.id.scrollView1);
-        lin_coupon40 = findViewById(R.id.lin_coupon40);
-        lin_unusedCoupon = findViewById(R.id.lin_unusedCoupon);
-        listview_myCoupon40 = findViewById(R.id.listview_myCoupon40);
-        listview_unusedCoupon = findViewById(R.id.listview_unusedCoupon);
-
-        rel_no_data1 = findViewById(R.id.rel_no_data);
-        img_data = findViewById(R.id.img_data);
-        tv_text = findViewById(R.id.tv_text);
-
-        tag = getActivity().getIntent().getExtras().getString("tag");
-        if (tag.equals("order")) {
-            all_shop_id = getActivity().getIntent().getExtras().getString("all_id");
-            all_shop_money = getActivity().getIntent().getExtras().getString("all_shop_money");
-        } else if (tag.equals("jump")) {
-            jump_url = getActivity().getIntent().getExtras().getString("url");
-        }
-        getdata();
-
-    }
 
     private void getdata() {
         Url_info info = new Url_info(getActivity());
@@ -266,7 +237,44 @@ public class CouponToShopFragment extends BaseFragmentOld {
 
 
     @Override
-    protected int getContentViewLayoutID() {
+    public void initView(View view) {
+        scrollView1 = view.findViewById(R.id.scrollView1);
+        lin_coupon40 = view.findViewById(R.id.lin_coupon40);
+        lin_unusedCoupon = view.findViewById(R.id.lin_unusedCoupon);
+        listview_myCoupon40 = view.findViewById(R.id.listview_myCoupon40);
+        listview_unusedCoupon = view.findViewById(R.id.listview_unusedCoupon);
+
+        rel_no_data1 = view.findViewById(R.id.rel_no_data);
+        img_data = view.findViewById(R.id.img_data);
+        tv_text =view.findViewById(R.id.tv_text);
+
+        tag = getActivity().getIntent().getExtras().getString("tag");
+        if (tag.equals("order")) {
+            all_shop_id = getActivity().getIntent().getExtras().getString("all_id");
+            all_shop_money = getActivity().getIntent().getExtras().getString("all_shop_money");
+        } else if (tag.equals("jump")) {
+            jump_url = getActivity().getIntent().getExtras().getString("url");
+        }
+        getdata();
+    }
+
+    @Override
+    public void initIntentData() {
+
+    }
+
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public int getLayoutId() {
         return R.layout.fragment_coupon_toshop;
     }
 }
