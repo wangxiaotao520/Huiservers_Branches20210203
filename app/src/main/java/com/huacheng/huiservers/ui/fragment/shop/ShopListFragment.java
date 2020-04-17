@@ -1,6 +1,5 @@
 package com.huacheng.huiservers.ui.fragment.shop;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,9 +15,9 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
-import com.huacheng.huiservers.ui.base.BaseFragmentOld;
 import com.huacheng.huiservers.model.ModelShopIndex;
+import com.huacheng.huiservers.model.protocol.ShopProtocol;
+import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListFragmentAdapter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -36,7 +35,7 @@ import butterknife.Unbinder;
 /**
  * Created by LW on 2017/4/21.
  */
-public class ShopListFragment extends BaseFragmentOld {
+public class ShopListFragment extends BaseFragment {
 
     @BindView(R.id.shadow_backtop)
     ShadowLayout shadowBacktop;
@@ -64,20 +63,12 @@ public class ShopListFragment extends BaseFragmentOld {
     List<ModelShopIndex> proLists = new ArrayList<>();
     List<ModelShopIndex> proListAll = new ArrayList<>();
     RecyclerViewLayoutManager recyclerLayoutManager;
-    TextView mtvShopCar;
     private String type = "0";
     private boolean is_Requesting = false;
 
     public ShopListFragment() {
         super();
     }
-
-    @SuppressLint("ValidFragment")
-    public ShopListFragment(TextView tvShopCar) {
-        super();
-        this.mtvShopCar = tvShopCar;
-    }
-
 
     @Override
     public void onAttach(Context context) {
@@ -157,33 +148,6 @@ public class ShopListFragment extends BaseFragmentOld {
 
     public boolean isInit = false;
 
-    @Override
-    protected void initView() {
-        sharePrefrenceUtil = new SharePrefrenceUtil(getActivity());
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        rel_no_data = (RelativeLayout) findViewById(R.id.rel_no_data);
-
-        // 设置刷新控件颜色
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        recyclerLayoutManager = new RecyclerViewLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(recyclerLayoutManager);
-        page = 1;
-
-        fragmentShopListAdapter = new ShopListFragmentAdapter(proListAll, mtvShopCar, page, getActivity());
-        mRecyclerView.setAdapter(fragmentShopListAdapter);
-        if (type.equals("0")) {//第一页刷新
-//            getData(mPid, page);
-//            isInit = true;
-            selected_init();
-        }
-
-        // 设置下拉刷新
-        swipeRefreshLayout.setOnRefreshListener(refreshlistener);
-        // 设置加载更多监听
-        mRecyclerView.setOnScrollListener(mOnScrollListener);
-
-    }
 
     /**
      * 选中后自动刷新
@@ -206,10 +170,7 @@ public class ShopListFragment extends BaseFragmentOld {
         }
     };
 
-    @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.shop_list_fragment;
-    }
+
 
     public RecyclerView.OnScrollListener mOnScrollListener = new RecyclerView.OnScrollListener() {
         private int lastVisibleItem;
@@ -287,6 +248,53 @@ public class ShopListFragment extends BaseFragmentOld {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void initView(View view) {
+        sharePrefrenceUtil = new SharePrefrenceUtil(getActivity());
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        rel_no_data = (RelativeLayout) view.findViewById(R.id.rel_no_data);
+
+        // 设置刷新控件颜色
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        recyclerLayoutManager = new RecyclerViewLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(recyclerLayoutManager);
+        page = 1;
+
+        fragmentShopListAdapter = new ShopListFragmentAdapter(proListAll, page, getActivity());
+        mRecyclerView.setAdapter(fragmentShopListAdapter);
+        if (type.equals("0")) {//第一页刷新
+//            getData(mPid, page);
+//            isInit = true;
+            selected_init();
+        }
+
+        // 设置下拉刷新
+        swipeRefreshLayout.setOnRefreshListener(refreshlistener);
+        // 设置加载更多监听
+        mRecyclerView.setOnScrollListener(mOnScrollListener);
+    }
+
+    @Override
+    public void initIntentData() {
+
+    }
+
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.shop_list_fragment;
     }
 
     @OnClick({R.id.shadow_backtop, R.id.shadow_showpager})

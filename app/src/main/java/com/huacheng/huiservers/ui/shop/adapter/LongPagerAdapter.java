@@ -4,7 +4,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.widget.TextView;
 
-import com.huacheng.huiservers.ui.base.BaseFragmentOld;
+import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.fragment.shop.ShopListFragment;
 import com.huacheng.huiservers.ui.shop.bean.CateBean;
 
@@ -38,7 +38,7 @@ public class LongPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public BaseFragmentOld getItem(int position) {
+    public BaseFragment getItem(int position) {
         return mFragment5List.get(position); //new ShopListFragment(mTxtShopNum);//mCates.get(position).getId(),
     }
 

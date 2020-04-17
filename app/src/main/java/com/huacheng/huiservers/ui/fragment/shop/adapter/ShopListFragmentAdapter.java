@@ -22,8 +22,9 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.shop.ShopCartManager;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
-import com.huacheng.huiservers.utils.CommonMethod;
+import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
@@ -53,7 +54,7 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
     String login_type;
     SharedPreferences preferencesLogin;
     private boolean mShowFooter = true;
-    private TextView mtvShopCar;
+
     int mPage = 0;
 
     public ShopListFragmentAdapter(List<ModelShopIndex> proLists, Context context) {//, List<String> dataSource
@@ -62,10 +63,9 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     }
 
-    public ShopListFragmentAdapter(List<ModelShopIndex> proLists, TextView tvShopCar, int page, Context context) {//, List<String> dataSource
+    public ShopListFragmentAdapter(List<ModelShopIndex> proLists, int page, Context context) {//, List<String> dataSource
         this.mDatas = proLists;
         this.mContext = context;
-        this.mtvShopCar = tvShopCar;
         this.mPage = page;
 
     }
@@ -183,9 +183,9 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
             recyclerViewHolder.tv_shop_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             recyclerViewHolder.tv_orders_sold_num.setText("已售" + onum);
 
-            recyclerViewHolder.iv_shopcar.setOnClickListener(new View.OnClickListener() {
+            recyclerViewHolder.iv_shopcar.setOnClickListener(new NoDoubleClickListener() {
                 @Override
-                public void onClick(View v) {
+                protected void onNoDoubleClick(View v) {
 
                     preferencesLogin = mContext.getSharedPreferences("login", 0);
                     login_type = preferencesLogin.getString("login_type", "");
@@ -205,11 +205,17 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
                                 SmartToast.showInfo("当前时间不在派送时间范围内");
                             } else {
                                 if (mDatas.get(position) != null) {
-                                    if (mtvShopCar != null) {
-                                        new CommonMethod(mDatas.get(position), mtvShopCar, mContext).getShopLimitTag();
-                                    } else {
-                                        new CommonMethod(mDatas.get(position), mContext).getShopLimitTag();
-                                    }
+//                                    if (mtvShopCar != null) {
+//                                        new CommonMethod(mDatas.get(position), mtvShopCar, mContext).getShopLimitTag();
+//                                    } else {
+//                                        new CommonMethod(mDatas.get(position), mContext).getShopLimitTag();
+//                                    }
+                                    ShopCartManager.getInstance().getShopLimitTag(mContext, mDatas.get(position), new ShopCartManager.OnAddShopCartResultListener() {
+                                        @Override
+                                        public void onAddShopCart(int status, String msg) {
+                                            SmartToast.showInfo(msg);
+                                        }
+                                    });
                                 }
                             }
                         }
@@ -217,7 +223,6 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
                         SmartToast.showInfo("当前账号不是个人账号");
                     }
                 }
-
 
             });
 

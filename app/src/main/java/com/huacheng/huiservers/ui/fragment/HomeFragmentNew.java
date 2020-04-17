@@ -58,11 +58,11 @@ import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.scan.CustomCaptureActivity;
+import com.huacheng.huiservers.ui.shop.ShopCartManager;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopSecKillListActivity;
 import com.huacheng.huiservers.ui.shop.ShopZCListActivity;
 import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
-import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
@@ -1205,7 +1205,16 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 SmartToast.showInfo("当前时间不在派送时间范围内");
             } else {
                 if (mDatas.get(position) != null) {
-                    new CommonMethod(mDatas.get(position), null, mContext).getShopLimitTag();
+                //    new CommonMethod(mDatas.get(position), null, mContext).getShopLimitTag();
+                    showDialog(smallDialog);
+                    ShopCartManager.getInstance().getShopLimitTag(mContext, mDatas.get(position), new ShopCartManager.OnAddShopCartResultListener() {
+                        @Override
+                        public void onAddShopCart(int status, String msg) {
+                            hideDialog(smallDialog);
+                            SmartToast.showInfo(msg);
+
+                        }
+                    });
                 }
             }
 

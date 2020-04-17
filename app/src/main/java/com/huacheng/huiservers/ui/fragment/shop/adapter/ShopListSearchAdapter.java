@@ -21,8 +21,9 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.shop.ShopCartManager;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
-import com.huacheng.huiservers.utils.CommonMethod;
+import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
@@ -158,10 +159,10 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             recyclerViewHolder.tv_shop_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             recyclerViewHolder.tv_orders_sold_num.setText("已售" + mDatas.get(position).getOrder_num() + "单");
 
-            recyclerViewHolder.iv_shopcar.setOnClickListener(new View.OnClickListener() {
+            recyclerViewHolder.iv_shopcar.setOnClickListener(new NoDoubleClickListener() {
                 @Override
-                public void onClick(View v) {
-//                    mOnItemCarListener.onCarClick(position);
+                protected void onNoDoubleClick(View v) {
+                    //                    mOnItemCarListener.onCarClick(position);
                     preferencesLogin = mContext.getSharedPreferences("login", 0);
                     login_type = preferencesLogin.getString("login_type", "");
                     if (login_type.equals("")|| ApiHttpClient.TOKEN==null||ApiHttpClient.TOKEN_SECRET==null) {
@@ -174,16 +175,19 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     } else if (login_type.equals("1")) {
 
                         if (mDatas.get(position) != null) {
-                            new CommonMethod(mDatas.get(position), mContext).getShopLimitTag();
-
+                          //  new CommonMethod(mDatas.get(position), mContext).getShopLimitTag();
+                            ShopCartManager.getInstance().getShopLimitTag(mContext, mDatas.get(position), new ShopCartManager.OnAddShopCartResultListener() {
+                                @Override
+                                public void onAddShopCart(int status, String msg) {
+                                    SmartToast.showInfo(msg);
+                                }
+                            });
                         }
                     } else {
                         SmartToast.showInfo("当前账号不是个人账号");
                     }
-
                 }
             });
-
             recyclerViewHolder.ly_onclick.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

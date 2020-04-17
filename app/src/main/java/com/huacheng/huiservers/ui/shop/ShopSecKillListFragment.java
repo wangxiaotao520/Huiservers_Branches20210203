@@ -18,7 +18,6 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeListViewAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.ModelSeckill;
-import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
@@ -216,7 +215,16 @@ public class ShopSecKillListFragment extends BaseFragment implements HomeListVie
                 SmartToast.showInfo("当前时间不在派送时间范围内");
             } else {
                 if (mBeanALList.get(position) != null) {
-                    new CommonMethod(mBeanALList.get(position), null, mContext).getShopLimitTag();
+                  //  new CommonMethod(mBeanALList.get(position), null, mContext).getShopLimitTag();
+                    showDialog(smallDialog);
+                    ShopCartManager.getInstance().getShopLimitTag(mContext, mBeanALList.get(position), new ShopCartManager.OnAddShopCartResultListener() {
+                        @Override
+                        public void onAddShopCart(int status, String msg) {
+                            hideDialog(smallDialog);
+                            SmartToast.showInfo(msg);
+
+                        }
+                    });
                 }
             }
 

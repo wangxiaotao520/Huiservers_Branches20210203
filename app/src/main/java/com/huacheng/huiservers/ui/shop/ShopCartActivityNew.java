@@ -17,6 +17,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
+import com.huacheng.huiservers.model.ModelEventShopCart;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.shop.adapter.AdapterShopCartNew;
 import com.huacheng.huiservers.ui.shop.adapter.OnClickShopCartListener;
@@ -302,7 +303,8 @@ public class ShopCartActivityNew extends BaseActivity implements OnClickShopCart
                 if (JsonUtil.getInstance().isSuccess(response)){
                     //删除成功
                     requestData();
-
+                    //加入购物车后，发送eventbus
+                    EventBus.getDefault().post(new ModelEventShopCart());
                 }else {
                     hideDialog(smallDialog);
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "删除失败");

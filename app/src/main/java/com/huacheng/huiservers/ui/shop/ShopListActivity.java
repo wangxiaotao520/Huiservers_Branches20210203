@@ -31,7 +31,6 @@ import com.huacheng.huiservers.ui.fragment.shop.adapter.ShopListFragmentAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.adapter.LongPagerAdapter;
 import com.huacheng.huiservers.ui.shop.bean.CateBean;
-import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.RecyclerViewLayoutManager;
@@ -121,7 +120,8 @@ public class ShopListActivity extends BaseActivity {
 
         getLinshi();
         if (!login_type.equals("")) {// 登陆之后获取数量
-            new CommonMethod(txtShopNum, this).getCartNum();
+         //   new CommonMethod(txtShopNum, this).getCartNum();
+           // 没用了
         }
         getProductCate();
     }
@@ -225,7 +225,7 @@ public class ShopListActivity extends BaseActivity {
             swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
             noBugManager = new RecyclerViewLayoutManager(ShopListActivity.this, LinearLayoutManager.VERTICAL, false);
             mRecyclerView.setLayoutManager(noBugManager);
-            fragmentShopListAdapter = new ShopListFragmentAdapter(proListAll, txtShopNum, page, ShopListActivity.this);//, dataSource
+            fragmentShopListAdapter = new ShopListFragmentAdapter(proListAll, page, ShopListActivity.this);//, dataSource
             mRecyclerView.setAdapter(fragmentShopListAdapter);
             page = 1;
             showDialog(smallDialog);
@@ -448,7 +448,7 @@ public class ShopListActivity extends BaseActivity {
 
         //这里注意的是，因为我是在fragment中创建MyFragmentStatePagerAdapter，所以要传getChildFragmentManager()
         for (int i = 0; i < cates.size(); i++) {
-            ShopListFragment tabFragment = new ShopListFragment(txtShopNum);
+            ShopListFragment tabFragment = new ShopListFragment();
             Bundle bundle = new Bundle();
             bundle.putString("id", cates.get(i).getId());
             bundle.putString("type", i + "");

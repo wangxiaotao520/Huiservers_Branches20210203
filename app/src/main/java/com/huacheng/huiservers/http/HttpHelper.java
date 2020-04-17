@@ -68,6 +68,8 @@ public abstract class HttpHelper {
                             setData(response);
                         } else if (finalUrl.contains(Url_info.goods_review)) {//商品评价列表
                             setData(response);
+                        }  else if (finalUrl.contains(Url_info.goods_details)) {//商品详情
+                            setData(response);
                         } else {
                             SmartToast.showInfo(msg);
                         }

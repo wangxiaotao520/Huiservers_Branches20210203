@@ -38,6 +38,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.jpush.MyReceiver;
+import com.huacheng.huiservers.model.ModelEventShopCart;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
@@ -60,6 +61,12 @@ import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
 import com.microquation.linkedme.android.log.LMErrorCode;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -153,9 +160,9 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         isStatusBar = true;
+        EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
     }
-
     @Override
     protected void initIntentData() {
 
@@ -330,51 +337,65 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
             @Override
             protected void setData(String json) {
                 hideDialog(smallDialog);
+                if (!NullUtil.isStringEmpty(json)){
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        String status = jsonObject.getString("status");
+                        String data = jsonObject.getString("data");
+                        String msg = jsonObject.getString("msg");
+                        if ("1".equals(status)){
+                            detailBean = protocol.getDetail(json);
+                            tag_guige.setVisibility(View.VISIBLE);
+                            ly_store.setVisibility(View.VISIBLE);
+                            GlideUtils.getInstance().glideLoad(ShopDetailActivityNew.this, MyCookieStore.URL + detailBean.getTitle_img(), img_title, R.color.default_img_color);
+                            txt_name.setText(detailBean.getTitle());
+                            txt_content.setText(detailBean.getDescription());
+                            txt_price.setText("¥" + detailBean.getPrice());
+                            txt_yuan_price.setText("¥" + detailBean.getOriginal());
+                            tv_seckill_num.setText("总计：" + detailBean.getInventory() + " " + detailBean.getUnit());
+                            //txt_num.setText("已剩：" + detailBean.getInventory() + " " + detailBean.getUnit());
+                            txt_num.setText("已售：" + detailBean.getOrder_num() + " " + detailBean.getUnit());
+                            //tag_name.setText(detailBean.getTagname());//默认选择已选择的商品规格
+                            if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
+                                txt_paisong.setVisibility(View.VISIBLE);
+                            } else {
+                                txt_paisong.setVisibility(View.GONE);
+                            }
+                            //txt_market.setText(detailBean.getSend_shop());
+                            if (detailBean.getCart_num().equals("") || detailBean.getCart_num().equals("0")) {
+                                txt_shop_num.setVisibility(View.GONE);
+                            } else {
+                                txt_shop_num.setVisibility(View.VISIBLE);
+                                // txt_shop_num.setText(detailBean.getCart_num());
+                            }
 
-                detailBean = protocol.getDetail(json);
-                tag_guige.setVisibility(View.VISIBLE);
-                ly_store.setVisibility(View.VISIBLE);
-                GlideUtils.getInstance().glideLoad(ShopDetailActivityNew.this, MyCookieStore.URL + detailBean.getTitle_img(), img_title, R.color.default_img_color);
-                txt_name.setText(detailBean.getTitle());
-                txt_content.setText(detailBean.getDescription());
-                txt_price.setText("¥" + detailBean.getPrice());
-                txt_yuan_price.setText("¥" + detailBean.getOriginal());
-                tv_seckill_num.setText("总计：" + detailBean.getInventory() + " " + detailBean.getUnit());
-                //txt_num.setText("已剩：" + detailBean.getInventory() + " " + detailBean.getUnit());
-                txt_num.setText("已售：" + detailBean.getOrder_num() + " " + detailBean.getUnit());
-                //tag_name.setText(detailBean.getTagname());//默认选择已选择的商品规格
-                if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
-                    txt_paisong.setVisibility(View.VISIBLE);
-                } else {
-                    txt_paisong.setVisibility(View.GONE);
-                }
-                //txt_market.setText(detailBean.getSend_shop());
-                if (detailBean.getCart_num().equals("") || detailBean.getCart_num().equals("0")) {
-                    txt_shop_num.setVisibility(View.GONE);
-                } else {
-                    txt_shop_num.setVisibility(View.VISIBLE);
-                    // txt_shop_num.setText(detailBean.getCart_num());
-                }
+                            getAddGoodsTagView();//商品标签
+                            getAddview();// 动态添加商品图片描述
+                            getpingjia();// 获取商品详情中的评价数据
+                            //店铺信息
+                            if (detailBean.getMerchant() != null) {
+                                tv_store_address.setText(detailBean.getMerchant().getAddress());
+                                tv_store_name.setText(detailBean.getMerchant().getMerchant_name());
+                                FrescoUtils.getInstance().setImageUri(iv_store_head, ApiHttpClient.IMG_URL + detailBean.getMerchant().getLogo());
+                            }
+                            if (detailBean.getDiscount().equals("1")) {//限购为1  否则为0
+                                rel_shop_limit_bg.setVisibility(View.VISIBLE);
+                                lin_bottom.setVisibility(View.VISIBLE);//购物车
+                                gettime(detailBean);
+                            } else {
+                                rel_shop_limit_bg.setVisibility(View.GONE);
+                                lin_XS_bottom.setVisibility(View.GONE);//底部限时抢购
+                                lin_bottom.setVisibility(View.VISIBLE);//购物车
+                            }
+                        }else {
+                            SmartToast.showInfo(msg+"");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                getAddGoodsTagView();//商品标签
-                getAddview();// 动态添加商品图片描述
-                getpingjia();// 获取商品详情中的评价数据
-                //店铺信息
-                if (detailBean.getMerchant() != null) {
-                    tv_store_address.setText(detailBean.getMerchant().getAddress());
-                    tv_store_name.setText(detailBean.getMerchant().getMerchant_name());
-                    FrescoUtils.getInstance().setImageUri(iv_store_head, ApiHttpClient.IMG_URL + detailBean.getMerchant().getLogo());
-                }
-                if (detailBean.getDiscount().equals("1")) {//限购为1  否则为0
-                    rel_shop_limit_bg.setVisibility(View.VISIBLE);
-                    lin_bottom.setVisibility(View.VISIBLE);//购物车
-                    gettime(detailBean);
-                } else {
-                    rel_shop_limit_bg.setVisibility(View.GONE);
-                    lin_XS_bottom.setVisibility(View.GONE);//底部限时抢购
-                    lin_bottom.setVisibility(View.VISIBLE);//购物车
-                }
 
+                }
             }
 
             @Override
@@ -1037,9 +1058,19 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
             }
         }
     }
-
+    /**
+     * 购物车数量变化
+     * @param model
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onShopCartChange(ModelEventShopCart model){
+        if (model!=null){
+            getCartNum();
+        }
+    }
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
         this.cannelAllTimers();
     }

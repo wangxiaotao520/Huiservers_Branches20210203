@@ -472,14 +472,14 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
         UserSql.getInstance().clear();
         //    ActivityStackManager.getActivityStackManager().finishAllActivity();
         BaseApplication.setUser(null);
+        // : 2020/3/26 0026 移除所有activity
+        ActivityStackManager.getActivityStackManager().finishAllActivity();
+        finish();
         startActivity(new Intent(this, HomeActivity.class));
         if (model!=null&&model.getType()==0){
             SmartToast.showInfo("登录失效");
             startActivity(new Intent(this, LoginVerifyCodeActivity.class));
         }
-        // : 2020/3/26 0026 移除所有activity
-        ActivityStackManager.getActivityStackManager().finishAllActivity();
-        finish();
     }
 
     /**
@@ -494,7 +494,10 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
 //            }else {
 //                NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
 //            }
-          recreate();
+ //         recreate();
+            ActivityStackManager.getActivityStackManager().finishAllActivity();
+            finish();
+            startActivity(new Intent(this, HomeActivity.class));
         }
     }
 

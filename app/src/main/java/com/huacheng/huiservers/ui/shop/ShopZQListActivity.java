@@ -29,7 +29,6 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.adapter.VBannerZQAdapter;
 import com.huacheng.huiservers.ui.webview.ConstantWebView;
 import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
-import com.huacheng.huiservers.utils.CommonMethod;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.AppConstant;
@@ -382,7 +381,15 @@ public class ShopZQListActivity extends BaseActivity implements View.OnClickList
                 if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {
                     SmartToast.showInfo("商品已售罄");
                 } else {
-                    new CommonMethod(item, mContext).getShopLimitTag();
+                   // new CommonMethod(item, mContext).getShopLimitTag();
+                    showDialog(smallDialog);
+                    ShopCartManager.getInstance().getShopLimitTag(mContext, mDatas.get(position), new ShopCartManager.OnAddShopCartResultListener() {
+                        @Override
+                        public void onAddShopCart(int status, String msg) {
+                            hideDialog(smallDialog);
+                            SmartToast.showInfo(msg);
+                        }
+                    });
                 }
             } else {
                 Intent intent = new Intent(this, LoginVerifyCodeActivity.class);

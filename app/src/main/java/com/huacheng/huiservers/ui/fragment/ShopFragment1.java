@@ -29,6 +29,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelAds;
+import com.huacheng.huiservers.model.ModelEventShopCart;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.model.ModelShopNew;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
@@ -62,6 +63,9 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -105,6 +109,29 @@ public class ShopFragment1 extends BaseFragment {
     private List<ModelAds> adHead;
     private View view_tab_line;
     private View view_title_line;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    /**
+     * 购物车数量变化
+     * @param model
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onShopCartChange(ModelEventShopCart model){
+       if (model!=null){
+          getCartNum();
+       }
+    }
 
     @Override
     public void initView(View view) {
