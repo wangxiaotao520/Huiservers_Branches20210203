@@ -149,12 +149,26 @@ public class WebViewDefaultActivity extends BaseActivity {
      * 加载标签
      */
     private void loadHtml(String content) {
-        String css = "<style type=\"text/css\"> " +
-                "img {" +
-                "max-width: 100% !important;" +//限定图片宽度填充屏幕
-                "height:auto !important;" +//限定图片高度自动
-                "}" +
-                "</style>";
+        String css="";
+        if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
+            //深色模式
+            css = "<style type=\"text/css\"> " +
+                    "img {" +
+                    "max-width: 100% !important;" +//限定图片宽度填充屏幕
+                    "height:auto !important;" +//限定图片高度自动
+                    "}" +"body" +
+                    "  {" +
+                    "  color:#efefef;background:#1c1c1e;" +
+                    "  }"+
+                    "</style>";
+        }else {
+            css = "<style type=\"text/css\"> " +
+                    "img {" +
+                    "max-width: 100% !important;" +//限定图片宽度填充屏幕
+                    "height:auto !important;" +//限定图片高度自动
+                    "}" +
+                    "</style>";
+        }
         content = "<head>" + css + "</head><body>" + content + "</body></html>";
         webDelegateDefault= WebDelegateHtml.create(content);
         switchFragmentNoBack(webDelegateDefault);

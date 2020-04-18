@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.huacheng.huiservers.db.UserSql;
+import com.huacheng.huiservers.demo.DecorViewActivity;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
@@ -565,6 +566,8 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
                 switchFragment(1);
                 current_fragment = 1;
                 changeBottomUI(1);
+
+                startActivity(new Intent(this, DecorViewActivity.class));
                 break;
             case R.id.fl_service:
                 switchFragment(2);

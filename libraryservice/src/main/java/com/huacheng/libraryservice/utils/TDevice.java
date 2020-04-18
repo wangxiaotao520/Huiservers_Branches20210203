@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.PowerManager;
+import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -25,6 +26,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
@@ -32,6 +34,8 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.text.NumberFormat;
 import java.util.List;
+
+import static android.view.View.NO_ID;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class TDevice {
@@ -82,55 +86,7 @@ public class TDevice {
         return displayDensity;
     }
 
-    public static DisplayMetrics getDisplayMetrics(Context context) {
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        ((WindowManager) context.getSystemService(
-                Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(
-                displaymetrics);
-        return displaymetrics;
-    }
 
-    public static float getScreenHeight(Context context) {
-        return getDisplayMetrics(context).heightPixels;
-    }
-
-    public static float getScreenWidth(Context context) {
-        return getDisplayMetrics(context).widthPixels;
-    }
-
-    public static int[] getRealScreenSize(Activity activity) {
-        int[] size = new int[2];
-        int screenWidth = 0, screenHeight = 0;
-        WindowManager w = activity.getWindowManager();
-        Display d = w.getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        d.getMetrics(metrics);
-        // since SDK_INT = 1;
-        screenWidth = metrics.widthPixels;
-        screenHeight = metrics.heightPixels;
-        // includes window decorations (statusbar bar/menu bar)
-        if (Build.VERSION.SDK_INT >= 14 && Build.VERSION.SDK_INT < 17)
-            try {
-                screenWidth = (Integer) Display.class.getMethod("getRawWidth")
-                        .invoke(d);
-                screenHeight = (Integer) Display.class
-                        .getMethod("getRawHeight").invoke(d);
-            } catch (Exception ignored) {
-            }
-        // includes window decorations (statusbar bar/menu bar)
-        if (Build.VERSION.SDK_INT >= 17)
-            try {
-                Point realSize = new Point();
-                Display.class.getMethod("getRealSize", Point.class).invoke(d,
-                        realSize);
-                screenWidth = realSize.x;
-                screenHeight = realSize.y;
-            } catch (Exception ignored) {
-            }
-        size[0] = screenWidth;
-        size[1] = screenHeight;
-        return size;
-    }
 
     public static boolean hasBigScreen(Context context) {
         boolean flag = true;
@@ -532,27 +488,6 @@ public class TDevice {
             e.printStackTrace();
         }
     }
-
-    public static int getStatuBarHeight(Context context) {
-        Class<?> c = null;
-        Object obj = null;
-        Field field = null;
-        int x = 0, sbar = 38;// 默认为38，貌似大部分是这样的
-        try {
-            c = Class.forName("com.android.internal.R$dimen");
-            obj = c.newInstance();
-            field = c.getField("status_bar_height");
-            x = Integer.parseInt(field.get(obj).toString());
-            sbar = context.getResources()
-                    .getDimensionPixelSize(x);
-
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        return sbar;
-    }
-
-
     public static boolean hasStatusBar(Activity activity) {
         WindowManager.LayoutParams attrs = activity.getWindow().getAttributes();
         if ((attrs.flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
@@ -561,7 +496,6 @@ public class TDevice {
             return true;
         }
     }
-
     /**
      * 调用系统安装了的应用分享
      *
@@ -617,4 +551,149 @@ public class TDevice {
         else
             return false;
     }
+    /**
+     * 获取状态栏高度
+     * @param context
+     * @return
+     */
+    public static int getStatuBarHeight(Context context) {
+        Class<?> c = null;
+        Object obj = null;
+        Field field = null;
+        int x = 0, sbar = 38;// 默认为38，貌似大部分是这样的
+        try {
+            c = Class.forName("com.android.internal.R$dimen");
+            obj = c.newInstance();
+            field = c.getField("status_bar_height");
+            x = Integer.parseInt(field.get(obj).toString());
+            sbar = context.getResources()
+                    .getDimensionPixelSize(x);
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return sbar;
+    }
+
+    /**
+     * 获取底部导航栏高度
+     * @param context
+     * @return
+     */
+    public static int getNavigationBarHeight(Context context) {
+        Class<?> c = null;
+        Object obj = null;
+        Field field = null;
+        int x = 0, sbar = 0;// 默认为38，貌似大部分是这样的
+        try {
+            c = Class.forName("com.android.internal.R$dimen");
+            obj = c.newInstance();
+            field = c.getField("navigation_bar_height");
+            x = Integer.parseInt(field.get(obj).toString());
+            sbar = context.getResources()
+                    .getDimensionPixelSize(x);
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return sbar;
+    }
+
+    /**
+     * 判断底部导航栏是否存在（非全面屏返回false ,全面屏的手机如果显示三键导航则返回true ,隐藏则返回false）
+     * @param
+     * @return
+     */
+    // 该方法需要在View完全被绘制出来之后调用，否则判断不了
+    //在比如 onWindowFocusChanged（）方法中可以得到正确的结果
+    public static  boolean isNavigationBarExist(@NonNull Activity activity){
+        ViewGroup vp = (ViewGroup) activity.getWindow().getDecorView();
+        if (vp != null) {
+            for (int i = 0; i < vp.getChildCount(); i++) {
+                vp.getChildAt(i).getContext().getPackageName();
+                if (vp.getChildAt(i).getId()!= NO_ID && "navigationBarBackground".equals(activity.getResources().getResourceEntryName(vp.getChildAt(i).getId()))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+    }
+
+    public static DisplayMetrics getDisplayMetrics(Context context) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((WindowManager) context.getSystemService(
+                Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(
+                displaymetrics);
+        return displaymetrics;
+    }
+    /**
+     * 获得屏幕高度
+     * 这个方法对于全面屏的手机是不行的，获取的是：真正的屏幕高度-状态栏高度-导航栏的高度
+     *  非全面屏的手机获取的是真正的屏幕的高度
+     * @param context
+     * @return
+     */
+    public static float getScreenHeight(Context context) {
+        return getDisplayMetrics(context).heightPixels;
+    }
+
+    /**
+     * 获取屏幕宽度
+     * @param context
+     * @return
+     */
+    public static float getScreenWidth(Context context) {
+        return getDisplayMetrics(context).widthPixels;
+    }
+
+    /**
+     * 获取屏幕真正的宽高
+     * @param activity
+     * @return
+     */
+    public static int[] getRealScreenSize(Activity activity) {
+        int[] size = new int[2];
+        int screenWidth = 0, screenHeight = 0;
+        WindowManager w = activity.getWindowManager();
+        Display d = w.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        d.getMetrics(metrics);
+        // since SDK_INT = 1;
+        screenWidth = metrics.widthPixels;
+        screenHeight = metrics.heightPixels;
+        // includes window decorations (statusbar bar/menu bar)
+        if (Build.VERSION.SDK_INT >= 14 && Build.VERSION.SDK_INT < 17)
+            try {
+                screenWidth = (Integer) Display.class.getMethod("getRawWidth")
+                        .invoke(d);
+                screenHeight = (Integer) Display.class
+                        .getMethod("getRawHeight").invoke(d);
+            } catch (Exception ignored) {
+            }
+        // includes window decorations (statusbar bar/menu bar)
+        if (Build.VERSION.SDK_INT >= 17)
+            try {
+                Point realSize = new Point();
+                Display.class.getMethod("getRealSize", Point.class).invoke(d,
+                        realSize);
+                screenWidth = realSize.x;
+                screenHeight = realSize.y;
+            } catch (Exception ignored) {
+            }
+        size[0] = screenWidth;
+        size[1] = screenHeight;
+        return size;
+    }
+
+    /**
+     * 获取屏幕contentView 或者rootView的高度=真正的屏幕高度-状态栏高度-导航栏的高度
+     * @param context
+     * @return
+     */
+    public static int getContentViewOrRootViewHeight(Activity context) {
+
+        return (context.getWindow().getDecorView().findViewById(android.R.id.content)).getHeight();
+    }
+
 }

@@ -1117,5 +1117,8 @@
         <activity
             android:name=".ui.index.huodong.EducationActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".demo.DecorViewActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>
