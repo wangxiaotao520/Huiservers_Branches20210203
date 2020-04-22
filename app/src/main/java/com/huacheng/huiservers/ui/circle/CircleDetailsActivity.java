@@ -559,7 +559,7 @@ public class CircleDetailsActivity extends BaseActivity {
                 img.setLayoutParams(layoutParams);
 
               //  GlideUtils.getInstance().glideLoad(this,MyCookieStore.URL + mCirclebean.getImg_list().get(i).getImg(),img,R.color.default_img_color);
-                Glide.with(getApplicationContext()).load(MyCookieStore.URL +mCirclebean.getImg_list().get(i).getImg()).placeholder(R.drawable.ic_default_rectange).error(R.drawable.ic_default_rectange).into(new SimpleTarget<GlideDrawable>() {
+                Glide.with(getApplicationContext()).load(MyCookieStore.URL +mCirclebean.getImg_list().get(i).getImg()).placeholder(R.color.default_img_color).error(R.color.default_img_color).into(new SimpleTarget<GlideDrawable>() {
                     @Override
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                         int width = resource.getIntrinsicWidth();

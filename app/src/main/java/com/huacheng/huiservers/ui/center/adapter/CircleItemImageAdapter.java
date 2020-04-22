@@ -70,7 +70,7 @@ public class CircleItemImageAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) view.getTag();
         }
-        GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + mBeans.get(position).getImg(),holder.imageView,R.drawable.ic_default_rectange);
+        GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + mBeans.get(position).getImg(),holder.imageView,R.color.default_img_color);
 
         if (mBeans.size() >= 3) {
             if (position == 2) {

@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -108,6 +109,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
         //各种初始化：方法初始化、通用配置、
         ActivityStackManager.getActivityStackManager().pushActivity(this);
+//        //判断是否暗黑模式
+//        if (NightModeUtils.getThemeMode()==NightModeUtils.ThemeMode.NIGHT){
+//            alphaWindow(0.5f);
+//        }else {
+//            alphaWindow(1f);
+//        }
+    }
+
+    /**
+     * 屏幕阴影
+     * @param alpha
+     */
+    private void alphaWindow(float alpha) {
+        // 产生背景变暗效果
+        WindowManager.LayoutParams lp = ((Activity)mContext).getWindow().getAttributes();
+
+        lp.alpha =alpha;
+
+        ((Activity)mContext).getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+        ((Activity)mContext).getWindow().setAttributes(lp);
     }
 
     /**

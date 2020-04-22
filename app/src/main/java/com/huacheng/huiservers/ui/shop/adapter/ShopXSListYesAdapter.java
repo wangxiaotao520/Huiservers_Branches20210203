@@ -128,7 +128,7 @@ public class ShopXSListYesAdapter extends RecyclerView.Adapter<RecyclerView.View
                     .load(MyCookieStore.URL + mBeanList.get(position).getTitle_img())
                     .skipMemoryCache(false)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .placeholder(R.drawable.ic_default_rectange)
+                    .placeholder(R.color.default_color)
                     .into(recyclerViewHolder.iv_img);
             recyclerViewHolder.tv_title.setText(mBeanList.get(position).getTitle());
             recyclerViewHolder.tv_price.setText("¥" + mBeanList.get(position).getPrice());
