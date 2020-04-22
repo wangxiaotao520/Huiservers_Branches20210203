@@ -351,9 +351,7 @@ public class MyInfoCircleFragment extends BaseFragment {
                     }
                     if (modelCircle_del != null) {
                         mDatas.remove(modelCircle_del);
-                        if (adapter != null) {
-                            adapter.notifyDataSetChanged();
-                        }
+                        mLoadMoreWrapper.notifyDataSetChanged();
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
