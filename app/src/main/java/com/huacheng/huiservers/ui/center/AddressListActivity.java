@@ -1,8 +1,10 @@
 package com.huacheng.huiservers.ui.center;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +25,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.adapter.NewAddressAdapter;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -43,8 +46,7 @@ import static com.huacheng.huiservers.R.id.list_address;
  * 功能描述:Huiservers
  */
 public class AddressListActivity extends BaseActivity implements NewAddressAdapter.OnClickBianjiListener {
-    @BindView(R.id.lin_btn)
-    LinearLayout mLinBtn;
+
     @BindView(R.id.left)
     ImageView mLeft;
     @BindView(R.id.lin_left)
@@ -55,6 +57,7 @@ public class AddressListActivity extends BaseActivity implements NewAddressAdapt
     ListView mListAddress;
     @BindView(R.id.rel_no_data)
     RelativeLayout mRelNoData;
+    View mStatusBar;
 
     ShopProtocol shopprotocol = new ShopProtocol();
     NewAddressAdapter new_addressAdapter;
@@ -66,6 +69,12 @@ public class AddressListActivity extends BaseActivity implements NewAddressAdapt
     private String service_id = "";//商户id
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isStatusBar=true;
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     protected void initView() {
         ButterKnife.bind(this);
         prefrenceUtil = new SharePrefrenceUtil(this);
@@ -74,6 +83,9 @@ public class AddressListActivity extends BaseActivity implements NewAddressAdapt
         if (jump_type==2){
             service_id=this.getIntent().getStringExtra("service_id")+"";
         }
+        mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
+
         TextView mRight = (TextView) findViewById(R.id.right);
         mRight.setTextColor(this.getResources().getColor(R.color.colorPrimary));
         mRight.setText("新增地址");
