@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="发现新版本"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/t_18sp"/>
 
                 <TextView
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="3.0版本"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/t_14sp"/>
             </LinearLayout>
 
@@ -46,7 +46,7 @@
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@color/white"
+            android:background="@android:color/white"
             android:fillViewport="true"
             android:paddingBottom="@dimen/margin"
             android:paddingLeft="@dimen/margin_20"
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="8dp"
                     android:text=""
-                    android:textColor="@color/title_color"
+                    android:textColor="#333333"
                     android:textSize="@dimen/t_12sp"/>
             </LinearLayout>
         </ScrollView>
@@ -95,7 +95,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="残忍拒绝"
-                    android:textColor="@color/title_sub_color"
+                    android:textColor="@color/title_third_color"
                     android:textSize="@dimen/t_16sp"
                     />
 
@@ -106,7 +106,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="立即更新"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/t_16sp"/>
             </LinearLayout>
 
