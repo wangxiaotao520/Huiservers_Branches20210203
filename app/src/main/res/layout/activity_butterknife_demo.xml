@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="第一个textview"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="第二个textview"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="第三个textview"
+        android:gravity="center" />
+
+   <ImageView
+       android:id="@+id/iv_img1"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:layout_gravity="center_horizontal"
+       android:background="@color/default_img_color"
+
+       />
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:id="@+id/ll_linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -139,7 +139,7 @@ public class NotifyManager {
      * 发送通知
      *
      * @param notification 通知具体内容
-     * @return 通知Id
+     * @return 通知Id 是用来标示通知的唯一性,如果两次通知的id相同就不会显示新的通知
      */
     public int notifyNotify(@NonNull Notification notification) {
         int notifyId = getRandomId();

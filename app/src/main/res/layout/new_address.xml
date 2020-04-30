@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:clipToPadding="false"
-   android:fitsSystemWindows="false"
-    android:orientation="vertical">
+    android:fitsSystemWindows="false"
+    android:orientation="vertical"
+    tools:context=".ui.center.AddressListActivity">
     <View
         android:id="@+id/status_bar"
         android:layout_width="match_parent"

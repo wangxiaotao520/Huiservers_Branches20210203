@@ -1120,5 +1120,8 @@
         <activity
             android:name=".demo.DecorViewActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".demo.ButterKnifeActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>
