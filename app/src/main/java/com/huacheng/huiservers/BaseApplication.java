@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.multidex.MultiDex;
@@ -129,12 +130,29 @@ public class BaseApplication extends Application {
         Config.DEBUG = true;*/
 
         //设置夜间模式
-        if (new SharePrefrenceUtil(mContext).getNightMode()) {
-            NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
+//        if (new SharePrefrenceUtil(mContext).getNightMode()) {
+//            NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
+//        }else {
+//            NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
+//        }
+        //TODO Android Q下的适配，根据系统的情况进行操作
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
+            //>28说明是AndroidQ
+            int mode = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            if (mode == Configuration.UI_MODE_NIGHT_YES ) {
+                NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
+            } else if (mode == Configuration.UI_MODE_NIGHT_NO ) {
+                NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
+            }
         }else {
-            NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
-        }
+            //设置夜间模式
+            if (new SharePrefrenceUtil(mContext).getNightMode()) {
+                NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
+            }else {
+                NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
+            }
 
+        }
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         initImageLoaderConfig();

@@ -127,7 +127,7 @@
             android:layout_height="1dp"
             android:background="@color/windowbackground"/>
         <RelativeLayout
-
+            android:id="@+id/rl_dark_mode"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"

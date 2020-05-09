@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -66,6 +67,7 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
     public static final int ACT_REQUEST_DOWNLOAD = 101;
     private SwitchButton switch_theme;
     View mStatusBar;
+    RelativeLayout rl_dark_mode;
 
     class myHandler extends Handler {
 
@@ -329,7 +331,7 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
         rel_siteout = (RelativeLayout) findViewById(R.id.rel_siteout);// 退出登陆
         rel_address = (RelativeLayout) findViewById(R.id.rel_address);// 收货地址管理
         switch_theme = findViewById(R.id.switch_theme);
-
+        rl_dark_mode =findViewById(R.id.rl_dark_mode); //深色模式容器
 
         Set<String> set = new HashSet<>();
         set.add("15535406024");
@@ -363,6 +365,13 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
                 NightModeUtils.setIsClickChangeMode(!NightModeUtils.isIsClickChangeMode());
             }
         });
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
+            //>28说明是AndroidQ
+            rl_dark_mode.setVisibility(View.GONE);
+        }else {
+            rl_dark_mode.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
