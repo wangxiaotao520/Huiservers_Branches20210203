@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
-import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.DownLoadDialog;
@@ -60,7 +59,7 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
     PayInfoBean infoBean = new PayInfoBean();
     CenterProtocol protocol = new CenterProtocol();
     private String apkpath;
-    private TextView title_name, txt_verson,tv_number;
+    private TextView title_name, txt_verson, tv_number;
     private LinearLayout lin_left;
     private RelativeLayout rel_zhanghao, rel_siteout,
             rel_gengxin, rl_changepwd, rel_address, ry_number, ry_logoff;
@@ -70,6 +69,7 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
     private SwitchButton switch_theme;
     View mStatusBar;
     RelativeLayout rl_dark_mode;
+    private String username="";
 
     class myHandler extends Handler {
 
@@ -341,10 +341,10 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
         rel_address = (RelativeLayout) findViewById(R.id.rel_address);// 收货地址管理
         ry_number = findViewById(R.id.ry_number);// 手机号更换
         tv_number = findViewById(R.id.tv_number);// 手机号
-        tv_number.setText(BaseApplication.getUser().getUsername());
+        tv_number.setText(username);
         ry_logoff = findViewById(R.id.ry_logoff);// 注销登录
         switch_theme = findViewById(R.id.switch_theme);
-        rl_dark_mode =findViewById(R.id.rl_dark_mode); //深色模式容器
+        rl_dark_mode = findViewById(R.id.rl_dark_mode); //深色模式容器
 
         Set<String> set = new HashSet<>();
         set.add("15535406024");
@@ -380,10 +380,10 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
                 NightModeUtils.setIsClickChangeMode(!NightModeUtils.isIsClickChangeMode());
             }
         });
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
             //>28说明是AndroidQ
             rl_dark_mode.setVisibility(View.GONE);
-        }else {
+        } else {
             rl_dark_mode.setVisibility(View.VISIBLE);
         }
 
@@ -406,6 +406,7 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
 
     @Override
     protected void initIntentData() {
+        username = this.getIntent().getStringExtra("username");
 
     }
 

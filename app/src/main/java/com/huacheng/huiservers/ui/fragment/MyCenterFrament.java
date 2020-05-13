@@ -351,7 +351,10 @@ public class MyCenterFrament extends BaseFragment {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.iv_set:
-                startActivity(new Intent(getActivity(), SetActivity.class));
+                intent = new Intent(mContext, SetActivity.class);
+                intent.putExtra("username",  bean.getUsername());
+                startActivity(intent);
+
                 break;
             case R.id.iv_message:
                 //startActivity(new Intent(mActivity, MessageIndexActivity.class));//消息大厅
