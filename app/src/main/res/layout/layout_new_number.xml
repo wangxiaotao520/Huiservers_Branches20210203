@@ -95,6 +95,6 @@
         android:background="@drawable/allshape_gray_solid_bb5"
         android:gravity="center"
         android:text="下一步"
-        android:textColor="@color/white"
+        android:textColor="@color/text_special_ff_color"
         android:textSize="@dimen/t_16sp" />
 </LinearLayout>
