@@ -154,7 +154,87 @@
                 app:sb_uncheckcircle_color="@color/orange"/>
 
         </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/windowbackground"/>
 
+        <RelativeLayout
+            android:id="@+id/ry_number"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/margin_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="手机号"
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/t_16sp"/>
+
+            <ImageView
+                android:id="@+id/right1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="right"
+                android:background="@drawable/jiantou_you"/>
+
+            <TextView
+                android:id="@+id/tv_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin"
+                android:layout_toLeftOf="@id/right1"
+                android:text=""
+                android:textColor="@color/title_sub_color"
+                android:textSize="@dimen/t_16sp"/>
+        </RelativeLayout>
+        <View
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/windowbackground"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/ry_logoff"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="@dimen/margin_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="注销账号"
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/t_16sp"/>
+
+            <ImageView
+                android:id="@+id/img_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="right"
+                android:background="@drawable/jiantou_you"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin"
+                android:layout_toLeftOf="@id/img_right"
+                android:text="注销后无法恢复"
+                android:textColor="@color/title_sub_color"
+                android:textSize="@dimen/t_16sp"/>
+        </RelativeLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"

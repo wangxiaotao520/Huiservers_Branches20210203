@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.DownLoadDialog;
@@ -32,6 +33,7 @@ import com.huacheng.huiservers.model.PayInfoBean;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.logout.OldNumberActivity;
 import com.huacheng.huiservers.utils.NightModeUtils;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
@@ -58,10 +60,10 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
     PayInfoBean infoBean = new PayInfoBean();
     CenterProtocol protocol = new CenterProtocol();
     private String apkpath;
-    private TextView title_name, txt_verson;
+    private TextView title_name, txt_verson,tv_number;
     private LinearLayout lin_left;
     private RelativeLayout rel_zhanghao, rel_siteout,
-            rel_gengxin, rl_changepwd, rel_address;
+            rel_gengxin, rl_changepwd, rel_address, ry_number, ry_logoff;
     private Handler myHandler = new myHandler();
     Updateprester updateprester;
     public static final int ACT_REQUEST_DOWNLOAD = 101;
@@ -166,6 +168,13 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
                 intent.putExtra("jump_type", 3);
                 startActivity(intent);
                 break;
+            case R.id.ry_number:
+                intent = new Intent(this, OldNumberActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ry_logoff:
+                //注销登录
+                break;
             default:
                 break;
         }
@@ -191,7 +200,7 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
                     @Override
                     public void onClick(final Dialog dialog, boolean confirm) {
                         if (confirm) {
-                           // downLoadApk();
+                            // downLoadApk();
                             new RxPermissions(SetActivity.this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                     Manifest.permission.READ_EXTERNAL_STORAGE
                                     , Manifest.permission.READ_PHONE_STATE)
@@ -211,7 +220,7 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
                                         }
                                     });
 
-                          //  dialog.dismiss();
+                            //  dialog.dismiss();
                         }
 
                     }
@@ -220,8 +229,8 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
                 SmartToast.showInfo("当前已是最新版本");
             }
 
-        }else {
-            new PermitDialog(this,msg+"").show();
+        } else {
+            new PermitDialog(this, msg + "").show();
         }
     }
 
@@ -311,7 +320,7 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        isStatusBar=true;
+        isStatusBar = true;
         super.onCreate(savedInstanceState);
     }
 
@@ -330,6 +339,10 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
         rel_gengxin = (RelativeLayout) findViewById(R.id.rel_gengxin);// 更新
         rel_siteout = (RelativeLayout) findViewById(R.id.rel_siteout);// 退出登陆
         rel_address = (RelativeLayout) findViewById(R.id.rel_address);// 收货地址管理
+        ry_number = findViewById(R.id.ry_number);// 手机号更换
+        tv_number = findViewById(R.id.tv_number);// 手机号
+        tv_number.setText(BaseApplication.getUser().getUsername());
+        ry_logoff = findViewById(R.id.ry_logoff);// 注销登录
         switch_theme = findViewById(R.id.switch_theme);
         rl_dark_mode =findViewById(R.id.rl_dark_mode); //深色模式容器
 
@@ -343,9 +356,11 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
         rel_gengxin.setOnClickListener(this);
         rl_changepwd.setOnClickListener(this);
         rel_address.setOnClickListener(this);
-        if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
+        ry_number.setOnClickListener(this);
+        ry_logoff.setOnClickListener(this);
+        if (NightModeUtils.getThemeMode() == NightModeUtils.ThemeMode.NIGHT) {
             switch_theme.setChecked(true);
-        }else {
+        } else {
             switch_theme.setChecked(false);
         }
         switch_theme.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
@@ -353,10 +368,10 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 //选中后
                 ModelEventTheme modelEventTheme = new ModelEventTheme();
-                if (isChecked){
+                if (isChecked) {
                     NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
                     modelEventTheme.setThemeMode(NightModeUtils.ThemeMode.NIGHT);
-                }else {
+                } else {
                     NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
                     modelEventTheme.setThemeMode(NightModeUtils.ThemeMode.DAY);
                 }
@@ -415,6 +430,7 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
         super.onPause();
         JPushInterface.onPause(this);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == RESULT_OK) {

@@ -1123,5 +1123,17 @@
         <activity
             android:name=".demo.ButterKnifeActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.center.logout.OldNumberActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.center.logout.NewNumberActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.center.logout.NewNumberCodeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.center.logout.NumberSuccessActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

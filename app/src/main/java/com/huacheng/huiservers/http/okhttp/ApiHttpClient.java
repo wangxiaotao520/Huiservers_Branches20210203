@@ -9,17 +9,17 @@ public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
     public static String API_VERSION = "apk46/";
     //测试
-//    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
-//    public static String API_URL = "http://test.hui-shenghuo.cn/";
-//    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
-//    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
+    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
+    public static String API_URL = "http://test.hui-shenghuo.cn/";
+    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
+    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
 
 //    正式
-    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
-    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
-    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
-    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service/";
+//    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
+//    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
+//    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
+//    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service/";
 
 
     public static String IMG_URL = "http://img.hui-shenghuo.cn/";
@@ -56,6 +56,12 @@ public class ApiHttpClient {
     public static String WX_LOGIN = API_URL + API_VERSION + "site/wx_login";
     //登录用户绑定
     public static String WX_BIND = API_URL + API_VERSION + "site/wx_bind";
+    //用户验证原手机号
+    public static String VERITY_OLD_PHONE = API_URL + API_VERSION + "site/verify_old_phone";
+    //用户验证新手机号
+    public static String VERITY_NEW_PHONE = API_URL + API_VERSION + "site/verify_new_phone";
+    //用户新手机号绑定
+    public static String VERITY_OPERATION = API_URL + API_VERSION + "site/verify_operation";
     //提交小区id
     public static String SELECT_COMMUNITY = API_URL + API_VERSION + "site/select_community";
     //定位获取小区
@@ -604,5 +610,8 @@ public class ApiHttpClient {
         GET_PERMIT_LIST = API_URL + API_VERSION + "propertyPass/pass_check_list";
         PASS_CHECK_INFORMATION = API_URL + API_VERSION + "propertyPass/pass_check";
         PASS_CHECK_SUBMIT = API_URL + API_VERSION + "propertyPass/pass_check_submit";
+        VERITY_OLD_PHONE = API_URL + API_VERSION + "site/verify_old_phone";
+        VERITY_NEW_PHONE = API_URL + API_VERSION + "site/verify_new_phone";
+        VERITY_OPERATION = API_URL + API_VERSION + "site/verify_operation";
     }
 }

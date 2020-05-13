@@ -287,8 +287,8 @@ public class MyCenterFrament extends BaseFragment {
 
     private void inflateContent(PersoninfoBean bean) {
         if (bean != null) {
-
             mTvUserPhone.setText(bean.getUsername());
+
             mTvLoginStatus.setText(bean.getNickname());
             //头像显示
             if (!StringUtils.isEmpty(bean.getAvatars())) {
