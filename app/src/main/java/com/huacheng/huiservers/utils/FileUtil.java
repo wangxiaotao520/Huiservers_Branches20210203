@@ -791,9 +791,9 @@ public class FileUtil {
      * 特点是: File形式的图片确实被压缩了, 但是当你重新读取压缩后的file为 Bitmap是,它占用的内存并没有改变
      * 
      * @param bmp
-     * @param file
+     *
      */
-    public static void compressBmpToFile(Bitmap bmp, File file) {
+    public static void compressBmpToFile(Bitmap bmp, String filedir, String filename) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int options = 80;// 个人喜欢从80开始,
         bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
@@ -803,6 +803,11 @@ public class FileUtil {
             bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
         }
         try {
+            File dir = new File(filedir);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            File file = new File(dir, filename);
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(baos.toByteArray());
             fos.flush();
