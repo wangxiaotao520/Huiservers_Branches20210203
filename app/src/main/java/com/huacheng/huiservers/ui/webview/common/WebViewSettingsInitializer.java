@@ -38,7 +38,9 @@ public class WebViewSettingsInitializer {
 
         //设置自适应屏幕，两者合用
         settings.setUseWideViewPort(false); //将图片调整到适合webview的大小
+      //  settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+       // settings.setTextZoom(100);
 
         //隐藏缩放控件
         settings.setBuiltInZoomControls(false);

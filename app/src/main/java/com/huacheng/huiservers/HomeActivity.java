@@ -565,6 +565,15 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
                 switchFragment(1);
                 current_fragment = 1;
                 changeBottomUI(1);
+
+//                if ( ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+//                    Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+//                    mContext.startActivity(intent);
+//                } else {
+//                    Intent intent = new Intent(this, WebViewVoteActivity.class);
+//                    intent.putExtra("url","http://test.hui-shenghuo.cn/apk46/vote/vote_index/id/1"+"/token/"+ApiHttpClient.TOKEN+"/tokenSecret/"+ApiHttpClient.TOKEN_SECRET);
+//                    startActivity(intent);
+//                }
                 break;
             case R.id.fl_service:
                 switchFragment(2);

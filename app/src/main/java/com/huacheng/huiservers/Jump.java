@@ -27,10 +27,10 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelLogin;
-import com.huacheng.huiservers.ui.center.MedicalWebViewActivity;
 import com.huacheng.huiservers.ui.center.AboutActivity;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.CouponToShopUseActivity;
+import com.huacheng.huiservers.ui.center.MedicalWebViewActivity;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
 import com.huacheng.huiservers.ui.fragment.presenter.PropertyPrester;
 import com.huacheng.huiservers.ui.index.charge.ChargeScanActivity;
@@ -53,6 +53,7 @@ import com.huacheng.huiservers.ui.shop.ShopListActivity;
 import com.huacheng.huiservers.ui.shop.ShopSecKillListActivity;
 import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
 import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
+import com.huacheng.huiservers.ui.webview.vote.WebViewVoteActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -79,7 +80,7 @@ public class Jump {
 
     public static final int PHONE_STATE_REQUEST_CODE = 101;//获取读取手机权限，回调在 A中
     private String phone, urlh5, url_type, login_uid, type;
-    private String login_type, id, title, content, img, call_link, login_mobile, is_wuye;
+    private String login_type, id, title, content, img, call_link, login_mobile, is_wuye,url_origin;
 
     public Jump(final Context context, String type, String url, String img, String name) {//url 不能为空
 
@@ -91,6 +92,7 @@ public class Jump {
         login_uid = preferencesLogin.getString("login_uid", "");
         is_wuye = preferencesLogin.getString("is_wuye", "");
         login_mobile = preferencesLogin.getString("login_username", "");
+        url_origin=url;
         //没有绑定跳转绑定界面
         if (!"".equals(url)) {
             phone = url;
@@ -488,11 +490,23 @@ public class Jump {
                 }
             }else if (type.equals("36")){
                 //VLOG 投票
-                if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+//                if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+//                    Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+//                    mContext.startActivity(intent);
+//                } else {
+//                    Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
+//                    mContext.startActivity(intent);
+//                }
+                String url_param = url_origin;
+             //   String url_new = ApiHttpClient.API_URL+ApiHttpClient.API_VERSION+url_origin;
+
+                if ( ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                     mContext.startActivity(intent);
                 } else {
-                    Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
+                    Intent intent = new Intent(mContext, WebViewVoteActivity.class);
+                  //  intent.putExtra("url",url_new+"/token/"+ApiHttpClient.TOKEN+"/tokenSecret/"+ApiHttpClient.TOKEN_SECRET);
+                    intent.putExtra("url_param",url_param);
                     mContext.startActivity(intent);
                 }
             }else if (type.equals("37")){

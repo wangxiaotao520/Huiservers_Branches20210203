@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteDetailActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteVlogIndexActivity;
+import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
@@ -15,6 +17,7 @@ import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
 import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
 import com.huacheng.huiservers.ui.webview.ConstantWebView;
 import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
+import com.huacheng.huiservers.ui.webview.vote.WebViewVoteActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.microquation.linkedme.android.LinkedME;
 import com.microquation.linkedme.android.indexing.LMUniversalObject;
@@ -33,7 +36,7 @@ public class MiddleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(LinkedME.TAG, "onCreate: MiddleActivity is called.");
+   //     Log.i(LinkedME.TAG, "onCreate: MiddleActivity is called.");
         //  Toast.makeText(this, "MiddleActivity 被调用了", Toast.LENGTH_SHORT).show();
         //获取与深度链接相关的值
         LinkProperties linkProperties = getIntent().getParcelableExtra(LinkedME.LM_LINKPROPERTIES);
@@ -124,6 +127,17 @@ public class MiddleActivity extends AppCompatActivity {
                 }else if (type.equals("vlog_vote_details")){
                     Intent intent = new Intent(this, VoteVlogIndexActivity.class);
                     startActivity(intent);
+                }else if ("webview_share".equals(type)){
+                    String url_param= hashMap.get("url_param");
+                    if ( ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                        Intent intent = new Intent(this, LoginVerifyCodeActivity.class);
+                        this.startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(this, WebViewVoteActivity.class);
+                        //  intent.putExtra("url",url_new+"/token/"+ApiHttpClient.TOKEN+"/tokenSecret/"+ApiHttpClient.TOKEN_SECRET);
+                        intent.putExtra("url_param",url_param);
+                        this.startActivity(intent);
+                    }
                 }
             }
             //清除跳转数据，该方法理论上不需要调用，因Android集成方式各种这样，若出现重复跳转的情况，可在跳转成功后调用该方法清除参数

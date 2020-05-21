@@ -436,6 +436,8 @@ public class ApiHttpClient {
     public static String PASS_CHECK_INFORMATION = API_URL + API_VERSION + "propertyPass/pass_check";
     //申请提交
     public static String PASS_CHECK_SUBMIT = API_URL + API_VERSION + "propertyPass/pass_check_submit";
+    //请求分享参数
+    public static String GET_SHARE_PARAM= API_URL + API_VERSION + "shares/share";
 
 
     /**
@@ -613,5 +615,6 @@ public class ApiHttpClient {
         VERITY_OLD_PHONE = API_URL + API_VERSION + "site/verify_old_phone";
         VERITY_NEW_PHONE = API_URL + API_VERSION + "site/verify_new_phone";
         VERITY_OPERATION = API_URL + API_VERSION + "site/verify_operation";
+        GET_SHARE_PARAM= API_URL + API_VERSION + "shares/share";
     }
 }
