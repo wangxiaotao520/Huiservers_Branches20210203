@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,6 +30,7 @@ import com.huacheng.huiservers.ui.index.vote.adapter.IndexVoteAdapter;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
@@ -76,10 +78,21 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
     //  private SparseArray<CountDownTimer> countDownCounters;
     private CountDownTimer timer;
     private TextView tv_vote_person_num;
+    private View mStatusBar;
+    private TextView tv_title_center;
+    private LinearLayout ly_search;
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        isStatusBar=true;
+        super.onCreate(savedInstanceState);
+    }
     @Override
     protected void initView() {
         presenter = new VotePresenter(this, this);
+        mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         LinearLayout lin_left = findViewById(com.huacheng.libraryservice.R.id.lin_left);
         lin_left.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +137,8 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
         tv_second = headerView.findViewById(R.id.tv_second);
         tv_minute = headerView.findViewById(R.id.tv_minute);
         tv_time_type = headerView.findViewById(R.id.tv_time_type);
+        tv_title_center = headerView.findViewById(R.id.tv_title_center);
+        ly_search = headerView.findViewById(R.id.ly_search);
 
     }
 
@@ -189,6 +204,14 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
                 Uri content_url = Uri.parse(ApiHttpClient.VLOG_INDEX_SHARE);
                 intent.setData(content_url);
                 mContext.startActivity(intent);
+            }
+        });
+        ly_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 跳转搜索页面 需要什么参数你自己传
+                Intent intent = new Intent(mContext, VoteVlogSearchActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -384,11 +407,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
         }
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
-        super.onCreate(savedInstanceState);
-    }
+
 
     @Override
     protected void onDestroy() {

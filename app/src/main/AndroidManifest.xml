@@ -1145,5 +1145,9 @@
             android:configChanges="uiMode"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.vote.VoteVlogSearchActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

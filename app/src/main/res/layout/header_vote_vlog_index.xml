@@ -269,17 +269,70 @@
 
     </LinearLayout>
 
-    <LinearLayout
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="121dp"-->
+<!--        android:layout_marginTop="@dimen/margin"-->
+<!--        android:background="@color/white"-->
+<!--        android:gravity="center">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@mipmap/bg_vote_index_center"/>-->
+
+<!--    </LinearLayout>-->
+    <TextView
+        android:id="@+id/tv_title_center"
         android:layout_width="match_parent"
-        android:layout_height="121dp"
-        android:layout_marginTop="@dimen/margin"
+        android:layout_height="76dp"
         android:background="@color/white"
-        android:gravity="center">
+        android:layout_marginTop="@dimen/margin"
+        android:text="晋中孩子王萌娃心动投票"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:textColor="@color/vote_red" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="26dp">
+        <LinearLayout
+            android:id="@+id/ly_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/corner_20_gray"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/bg_vote_index_center"/>
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="2dp"
+                android:background="@mipmap/ic_search_grey"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/edt_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:layout_marginRight="@dimen/margin"
+                android:hint="请输入编号或姓名"
+                android:background="@null"
+                android:gravity="start|center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/title_third_color"
+                android:textColorHint="@color/text_color_hint"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
 </LinearLayout>
