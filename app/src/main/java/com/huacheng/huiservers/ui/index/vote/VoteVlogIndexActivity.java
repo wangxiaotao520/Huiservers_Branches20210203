@@ -26,6 +26,7 @@ import com.huacheng.huiservers.model.ModelVoteEvent;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.vote.adapter.IndexVoteAdapter;
+import com.huacheng.huiservers.utils.NightModeUtils;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -112,6 +113,9 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
         titleName = findViewById(com.huacheng.libraryservice.R.id.title_name);
         tv_right = findViewById(com.huacheng.libraryservice.R.id.tv_right);
         iv_right = findViewById(R.id.iv_right);
+        if (NightModeUtils.getThemeMode()==NightModeUtils.ThemeMode.NIGHT){
+            iv_right.setBackgroundResource(R.mipmap.ic_share_white);
+        }
         titleName.setText("活动详情");
 
         mListview = findViewById(R.id.listview);
@@ -288,11 +292,11 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
 
                 if (error == null) {
                     String share_url_new = share_url + "?linkedme=" + url;
-                    showSharePop(item.getNumber()+" "+item.getTitle(), mInfo.getShare_desc(), ApiHttpClient.IMG_URL+item.getImg(), share_url_new);
+                    showSharePop(item.getNumber()+"号"+" "+item.getTitle(), mInfo.getShare_desc(), ApiHttpClient.IMG_URL+item.getImg(), share_url_new);
                 } else {
                     //可以看报错
                     String share_url_new = share_url + "?linkedme=" + "";
-                    showSharePop(item.getNumber()+" "+item.getTitle(), mInfo.getShare_desc(), ApiHttpClient.IMG_URL+item.getImg(), share_url_new);
+                    showSharePop(item.getNumber()+"号"+" "+item.getTitle(), mInfo.getShare_desc(), ApiHttpClient.IMG_URL+item.getImg(), share_url_new);
                 }
             }
         });
@@ -554,12 +558,12 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
         if (!NullUtil.isStringEmpty(distanceStart) && !NullUtil.isStringEmpty(distanceEnd)) {
             long distance_long = Long.parseLong(distanceStart)*1000;
             if (distance_long > System.currentTimeMillis()) {
-                tv_time_type.setText("距开始投票还剩");
+                tv_time_type.setText("距离活动开始还有");
                 distance_tag = 1;
                 distance_int = Long.parseLong(distanceStart)*1000-System.currentTimeMillis();
 
             } else {
-                tv_time_type.setText("距结束投票还剩");
+                tv_time_type.setText("距离活动结束还有");
                 distance_tag = 0;
                 distance_int = Long.parseLong(distanceEnd)*1000-System.currentTimeMillis();
 

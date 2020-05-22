@@ -290,11 +290,11 @@ public class VoteVlogSearchActivity extends BaseActivity implements IndexVoteAda
 
                 if (error == null) {
                     String share_url_new = share_url + "?linkedme=" + url;
-                    showSharePop(item.getNumber() + " " + item.getTitle(), share_desc, ApiHttpClient.IMG_URL + item.getImg(), share_url_new);
+                    showSharePop(item.getNumber()+"号"+ " " + item.getTitle(), share_desc, ApiHttpClient.IMG_URL + item.getImg(), share_url_new);
                 } else {
                     //可以看报错
                     String share_url_new = share_url + "?linkedme=" + "";
-                    showSharePop(item.getNumber() + " " + item.getTitle(), share_desc, ApiHttpClient.IMG_URL + item.getImg(), share_url_new);
+                    showSharePop(item.getNumber()+"号"+ " " + item.getTitle(), share_desc, ApiHttpClient.IMG_URL + item.getImg(), share_url_new);
                 }
             }
         });

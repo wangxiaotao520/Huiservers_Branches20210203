@@ -38,6 +38,8 @@
                         fresco:roundTopLeft="true"
                         fresco:roundTopRight="true"
                         fresco:roundedCornerRadius="5dp"
+                        fresco:roundBottomLeft="false"
+                        fresco:roundBottomRight="false"
                         />
                     <TextView
                         android:id="@+id/tv_tag1"
@@ -142,7 +144,9 @@
                         fresco:roundAsCircle="false"
                         fresco:roundTopLeft="true"
                         fresco:roundTopRight="true"
-                        fresco:roundedCornerRadius="5dp" />
+                        fresco:roundedCornerRadius="5dp"
+                        fresco:roundBottomLeft="false"
+                        fresco:roundBottomRight="false" />
                     <TextView
                         android:id="@+id/tv_tag2"
                         android:layout_width="wrap_content"
