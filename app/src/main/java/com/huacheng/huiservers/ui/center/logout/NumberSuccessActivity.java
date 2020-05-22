@@ -22,7 +22,7 @@ public class NumberSuccessActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        // findTitleViews();
+         findTitleViews();
 
         titleName.setText("绑定成功");
         tv_content = findViewById(R.id.tv_content);
