@@ -19,7 +19,7 @@ import com.huacheng.libraryservice.utils.NullUtil;
 
 public class JSWebInterface {
 
-    private final WebDelegate DELEGATE;
+    private  WebDelegate DELEGATE;
     private Context mContext;
     private Activity mActivity;
 
@@ -27,6 +27,11 @@ public class JSWebInterface {
         mContext= DELEGATE.getContext();
         mActivity= DELEGATE.getActivity();
         this.DELEGATE = DELEGATE;
+    }
+    public JSWebInterface(Activity mContext) {
+        this.mContext= mContext;
+        this.mActivity = mContext;
+
     }
     //简单工厂模式
     public static JSWebInterface create(WebDelegate delegate){

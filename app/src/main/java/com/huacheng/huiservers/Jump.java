@@ -53,7 +53,6 @@ import com.huacheng.huiservers.ui.shop.ShopListActivity;
 import com.huacheng.huiservers.ui.shop.ShopSecKillListActivity;
 import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
 import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
-import com.huacheng.huiservers.ui.webview.vote.WebViewVoteActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -490,25 +489,25 @@ public class Jump {
                 }
             }else if (type.equals("36")){
                 //VLOG 投票
-//                if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
-//                    Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
-//                    mContext.startActivity(intent);
-//                } else {
-//                    Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
-//                    mContext.startActivity(intent);
-//                }
-                String url_param = url_origin;
-             //   String url_new = ApiHttpClient.API_URL+ApiHttpClient.API_VERSION+url_origin;
-
-                if ( ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                     mContext.startActivity(intent);
                 } else {
-                    Intent intent = new Intent(mContext, WebViewVoteActivity.class);
-                  //  intent.putExtra("url",url_new+"/token/"+ApiHttpClient.TOKEN+"/tokenSecret/"+ApiHttpClient.TOKEN_SECRET);
-                    intent.putExtra("url_param",url_param);
+                    Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
                     mContext.startActivity(intent);
                 }
+//                String url_param = url_origin;
+//             //   String url_new = ApiHttpClient.API_URL+ApiHttpClient.API_VERSION+url_origin;
+//
+//                if ( ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+//                    Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+//                    mContext.startActivity(intent);
+//                } else {
+//                    Intent intent = new Intent(mContext, WebViewVoteActivity.class);
+//                  //  intent.putExtra("url",url_new+"/token/"+ApiHttpClient.TOKEN+"/tokenSecret/"+ApiHttpClient.TOKEN_SECRET);
+//                    intent.putExtra("url_param",url_param);
+//                    mContext.startActivity(intent);
+//                }
             }else if (type.equals("37")){
                 //调查问卷
                 String id = "0";//计划id

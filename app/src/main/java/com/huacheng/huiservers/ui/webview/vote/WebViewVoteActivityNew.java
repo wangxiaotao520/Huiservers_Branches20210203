@@ -1,13 +1,16 @@
 package com.huacheng.huiservers.ui.webview.vote;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatDelegate;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -19,7 +22,9 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelShareParam;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.webview.common.JSWebInterface;
 import com.huacheng.libraryservice.utils.AppConstant;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
@@ -28,16 +33,16 @@ import com.microquation.linkedme.android.log.LMErrorCode;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
- * Description:  webview的投票页(通用webview)
+ * Description:  投票页webview新的
  * created by wangxiaotao
- * 2020/5/16 0016 10:41
+ * 2020/5/21 0021 19:44
  */
-public class WebViewVoteActivity extends BaseActivity {
+public class WebViewVoteActivityNew extends BaseActivity {
 
-    private WebDelegateVote webDelegateDefault;
+    private WebView mWebView;
+
     View mStatusBar;
     private ImageView iv_right;
     private LinearLayout lin_right;
@@ -51,32 +56,11 @@ public class WebViewVoteActivity extends BaseActivity {
         this.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         isStatusBar=true;
         super.onCreate(savedInstanceState);
-
     }
-
 
     @Override
     protected void initView() {
-        //测试
-//                    String content = "<html>\n" +
-//                    "   <head>\n" +
-//                    "      <meta charset=\"utf-8\">\n" +
-//                    "      <title>Carson</title>  \n" +
-//                    "      <script>\n" +
-//                    "         \n" +
-//                    "        \n" +
-//                    "         function callAndroid(){\n" +
-//                    "        // 由于对象映射，所以调用jsWebInterface对象等于调用Android映射的对象\n" +
-//                    "            jsWebInterface.share(\"01晟曦苑06号\",\"社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单\",\"http://img.hui-shenghuo.cn/huacheng/social/20/01/17/5e211e5d30485.PNG\",\"http://test.hui-shenghuo.cn/home/index/vlog_list?linkedme=https://lkme.cc/LQD/WmyqmueIO\");\n" +
-//                    "         }\n" +
-//                    "      </script>\n" +
-//                    "   </head>\n" +
-//                    "   <body>\n" +
-//                    "      //点击按钮则调用callAndroid函数<br>" +
-//                    "      <button type=\"button\" id=\"button1\" onclick=\"callAndroid()\" style=\"width:500px;height:200px;\"></button>\n" +
-//                    "   </body>\n" +
-//                    "</html>";
-
+        mWebView = findViewById(R.id.webView);
         mStatusBar = findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         findTitleViews();
@@ -86,38 +70,118 @@ public class WebViewVoteActivity extends BaseActivity {
         findViewById(R.id.title_rel).setBackgroundColor(getResources().getColor(R.color.white));
         lin_right = findViewById(R.id.lin_right);
         lin_right.setVisibility(View.GONE);
-        iv_right = findViewById(R.id.iv_right );
+        iv_right = findViewById(R.id.iv_right);
         iv_right.setBackgroundResource(R.mipmap.ic_share_black);
+
+        initWebViewSetting();
+        initWebViewClient();
+        initWebViewChromeClient();
+        initJs();
+//        String url = "http://test2.yulinapp.com/index.php?app=wap&mod=MallVipGoods&act=index&from=singlemessage";
+//        mWebView.loadUrl(url);
+    }
+
+
+    //设置websetting
+    private void initWebViewSetting() {
+        mWebView.setHorizontalScrollBarEnabled(false);
+        //不能纵向滚动
+        mWebView.setVerticalScrollBarEnabled(false);
+        //允许截图
+        mWebView.setDrawingCacheEnabled(true);
+        //屏蔽长按事件
+        mWebView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+        //初始化WebSettings
+        final WebSettings settings = mWebView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        final String ua = settings.getUserAgentString();
+        //FIXME 后面的名字不知道是啥
+        settings.setUserAgentString(ua + "Latte");
+
+        //设置自适应屏幕，两者合用
+        settings.setUseWideViewPort(false); //将图片调整到适合webview的大小
+        //  settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+        // settings.setTextZoom(100);
+
+        //隐藏缩放控件
+        settings.setBuiltInZoomControls(false);
+        settings.setDisplayZoomControls(false);
+        //禁止缩放
+        settings.setSupportZoom(false);
+        //文件权限
+        settings.setAllowFileAccess(true);
+        settings.setAllowFileAccessFromFileURLs(true);
+        settings.setAllowUniversalAccessFromFileURLs(true);
+        settings.setAllowContentAccess(true);
+        //缓存相关
+        settings.setAppCacheEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+    }
+
+    //初始化client
+    private void initWebViewClient() {
+        mWebView.setWebViewClient(new WebViewClient(){
+            //表示重定向和url跳转，由这个webView自己来处理，不会打开外部浏览器
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                //     view.loadUrl(url);
+                // 这块如果有特殊业务需求就自己做处理,因为这里存在重定向的问题
+                //     view.loadUrl(url);
+                // 这块如果有特殊业务需求就自己做处理,因为这里存在重定向的问题
+                if (!NullUtil.isStringEmpty(url)&&(url.contains("http")||url.contains("https"))){
+                    Intent intent = new Intent(mContext,WebViewVoteActivityNew.class);
+                    intent.putExtra("url_param",url);
+                    startActivity(intent);
+                    return true;
+                }else {
+                    return super.shouldOverrideUrlLoading(view,url);
+                }
+            }
+
+            //页面开始加载时回调（页面后退也会回调）
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                // 有其他业务需要可以在这里处理
+                showDialog(smallDialog);
+
+            }
+
+            //页面完成加载时回调（返回页面也会回调）
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                //有其他业务需要可以在这里处理
+                hideDialog(smallDialog);
+
+            }
+        });
 
 
     }
-    protected void switchFragmentNoBack(Fragment fragmentInstance) {
-        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        if (fragments != null) {
-            for (int i = 0; i < fragments.size(); i++) {
-                Fragment tempFragment = (Fragment) getSupportFragmentManager().findFragmentByTag(fragments.get(i).getClass().getName());
-                if (tempFragment != null) {
-                    if (tempFragment.getClass().getName().equals(fragmentInstance.getClass().getName())) {
-                        t.show(tempFragment);
-                    } else {
-                        t.hide(tempFragment);
-                    }
-                }
-            }
-        }
-        Fragment fragmentTarget = getSupportFragmentManager().findFragmentByTag(fragmentInstance.getClass().getName());
-        if (fragmentTarget == null && !fragmentInstance.isAdded()) {
-            t.add(getFragmentCotainerId(), fragmentInstance, fragmentInstance.getClass().getName());
-        }
-        t.commitAllowingStateLoss();
-        getSupportFragmentManager().executePendingTransactions();
+
+    //
+    private void initWebViewChromeClient() {
+        mWebView.setWebChromeClient(new WebChromeClient(){
+
+        });
+    }
+
+    private void initJs() {
+        mWebView.addJavascriptInterface(new JSWebInterface(this),"jsWebInterface");
     }
     @Override
     protected void initData() {
         requestShareAndTitle();
     }
-
     /**
      * 请求title
      */
@@ -138,8 +202,7 @@ public class WebViewVoteActivity extends BaseActivity {
                         }else {
                             lin_right.setVisibility(View.GONE);
                         }
-                        webDelegateDefault = (WebDelegateVote) WebDelegateVote.create(url);
-                        switchFragmentNoBack(webDelegateDefault);
+                        mWebView.loadUrl(url);
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
@@ -155,7 +218,6 @@ public class WebViewVoteActivity extends BaseActivity {
             }
         });
     }
-
     @Override
     protected void initListener() {
         lin_right.setOnClickListener(new View.OnClickListener() {
@@ -163,13 +225,13 @@ public class WebViewVoteActivity extends BaseActivity {
             public void onClick(View v) {
                 //分享
                 if (modelShareParam!=null){
-                   final String share_url=ApiHttpClient.API_URL+ApiHttpClient.API_VERSION+modelShareParam.getShare_link();
+                    final String share_url=ApiHttpClient.API_URL+ApiHttpClient.API_VERSION+modelShareParam.getShare_link();
                     HashMap<String, String> params = new HashMap<>();
-                  //  params.put("url", url);
+                    //  params.put("url", url);
                     params.put("url_param", url_param);
                     params.put("type", "webview_share");
                     showDialog(smallDialog);
-                    LinkedMeUtils.getInstance().getLinkedUrl(WebViewVoteActivity.this, share_url, modelShareParam.getShare_title(), params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
+                    LinkedMeUtils.getInstance().getLinkedUrl(WebViewVoteActivityNew.this, share_url, modelShareParam.getShare_title(), params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
                         @Override
                         public void onGetUrl(String url, LMErrorCode error) {
                             hideDialog(smallDialog);
@@ -199,12 +261,10 @@ public class WebViewVoteActivity extends BaseActivity {
         PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, share_icon, share_url_new, AppConstant.SHARE_COMMON);
         popup.showBottom(iv_right);
     }
-
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_webview_vote;
+        return R.layout.activity_webview_vote_new;
     }
-
 
     @Override
     protected void initIntentData() {
@@ -213,36 +273,45 @@ public class WebViewVoteActivity extends BaseActivity {
             //包含http链接的话
             url=url_param;
         }else {
-          url=ApiHttpClient.API_URL+ApiHttpClient.API_VERSION+url_param+"/token/"+ApiHttpClient.TOKEN+"/tokenSecret/"+ApiHttpClient.TOKEN_SECRET;
+            url= ApiHttpClient.API_URL+ApiHttpClient.API_VERSION+url_param+"/token/"+ApiHttpClient.TOKEN+"/tokenSecret/"+ApiHttpClient.TOKEN_SECRET;
 
-//          url= "http://test2.yulinapp.com/index.php?app=wap&mod=MallVipGoods&act=index&from=singlemessage";
-//            webDelegateDefault = (WebDelegateVote) WebDelegateVote.create(url);
-//            switchFragmentNoBack(webDelegateDefault);
         }
     }
 
     @Override
     protected int getFragmentCotainerId() {
-        return R.id.ll_delegate_container;
+        return 0;
     }
 
     @Override
     protected void initFragment() {
 
     }
-    //点击返回上一页面而不是退出浏览器
+
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
-//
-//        }else {
-            if (keyCode == KeyEvent.KEYCODE_BACK &&webDelegateDefault!=null) {
-                if (webDelegateDefault.onBackPressedSupport()) {
-                    return true;
-                }
-            }
-//        }
-       return super.onKeyDown(keyCode, event);
+    public void onPause() {
+        super.onPause();
+        if(mWebView !=null){
+            mWebView.onPause();
+        }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mWebView != null) {
+            mWebView.onResume();
+        }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mWebView != null) {
+            mWebView.removeAllViews();
+            mWebView.destroy();
+            mWebView = null;
+        }
+    }
 }
