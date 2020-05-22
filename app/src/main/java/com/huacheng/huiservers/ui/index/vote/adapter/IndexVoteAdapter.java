@@ -1,6 +1,8 @@
 package com.huacheng.huiservers.ui.index.vote.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelIndexVoteItem;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.stx.xhb.xbanner.OnDoubleClickListener;
 
@@ -28,6 +31,11 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
     private List<T> mDatas=new ArrayList<>();
     private OnClickItemListener listener;
     private int type = 1;//1
+
+    private String color = "";//主体色
+    private String canvassing_color = "";//为他拉票
+    private String vote_color = "";//投他一票
+    private String poll_color = "";//55票
 
     public IndexVoteAdapter(Context mContext, List<T> mDatas,OnClickItemListener listener,int type) {
         this.mContext = mContext;
@@ -104,6 +112,22 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
             }else {
                 viewHolder.tv1_onClick1.setVisibility(View.GONE);
             }
+            if (!NullUtil.isStringEmpty(color)){//角标
+                GradientDrawable mm= (GradientDrawable)viewHolder.tv_tag1.getBackground();
+                mm.setColor(Color.parseColor(color));
+
+            }
+            if (!NullUtil.isStringEmpty(vote_color)){//投他一票
+                GradientDrawable mm1= (GradientDrawable)viewHolder.tv_onClick1.getBackground();
+                mm1.setColor(Color.parseColor(vote_color));
+            }
+            if (!NullUtil.isStringEmpty(canvassing_color)){//为他拉票
+                GradientDrawable mm2= (GradientDrawable)viewHolder.tv1_onClick1.getBackground();
+                mm2.setColor(Color.parseColor(canvassing_color));
+            }
+            if (!NullUtil.isStringEmpty(poll_color)){//票数
+                viewHolder.tv_vote_count1.setTextColor(Color.parseColor(poll_color));
+            }
 
         }
         // 从数据里取值 第二个View
@@ -143,7 +167,22 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
             }else {
                 viewHolder.tv2_onClick2.setVisibility(View.GONE);
             }
+            if (!NullUtil.isStringEmpty(color)){//角标
+                GradientDrawable mm= (GradientDrawable)viewHolder.tv_tag2.getBackground();
+                mm.setColor(Color.parseColor(color));
 
+            }
+            if (!NullUtil.isStringEmpty(vote_color)){//投他一票
+                GradientDrawable mm1= (GradientDrawable)viewHolder.tv_onClick2.getBackground();
+                mm1.setColor(Color.parseColor(vote_color));
+            }
+            if (!NullUtil.isStringEmpty(canvassing_color)){//为他拉票
+                GradientDrawable mm2= (GradientDrawable)viewHolder.tv2_onClick2.getBackground();
+                mm2.setColor(Color.parseColor(canvassing_color));
+            }
+            if (!NullUtil.isStringEmpty(poll_color)){//票数
+                viewHolder.tv_vote_count2.setTextColor(Color.parseColor(poll_color));
+            }
         }else {
             //说明mdatas的总个数是奇数个
             viewHolder. ll_item_view2.setVisibility(View.GONE);
@@ -205,4 +244,12 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
          */
         void onClickLapiao(View v,int position);
     }
+
+    public void setColor(String color,String canvassing_color ,String vote_color,String poll_color) {
+        this.color = color;
+        this.canvassing_color = canvassing_color;
+        this.vote_color = vote_color;
+        this.poll_color = poll_color;
+    }
+
 }

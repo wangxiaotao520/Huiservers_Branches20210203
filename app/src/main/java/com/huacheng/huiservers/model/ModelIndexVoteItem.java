@@ -12,18 +12,18 @@ public class ModelIndexVoteItem  {
 
     private String vlog_count;
     private String message_count;
-    private String djstime;
-    private String startime;
+    private String end_time;
+    private String start_time;
     private int totalPages;
     private long  current_times;//倒计时时用来的时间
     private List<ModelIndexVoteItem> list;
 
     public String getStartime() {
-        return startime;
+        return start_time;
     }
 
     public void setStartime(String startime) {
-        this.startime = startime;
+        this.start_time = startime;
     }
 
     public long getCurrent_times() {
@@ -52,11 +52,11 @@ public class ModelIndexVoteItem  {
 
 
     public String getDjstime() {
-        return djstime;
+        return end_time;
     }
 
     public void setDjstime(String djstime) {
-        this.djstime = djstime;
+        this.end_time = djstime;
     }
 
     public int getTotalPages() {
@@ -96,6 +96,38 @@ public class ModelIndexVoteItem  {
     private String com_name;
     private String addtime;
     private String link;
+    private String top_img;
+    private String vote_count;
+    private String color; //主色color
+
+    private String canvassing_color;//为他拉票
+    private String vote_color;//投他一票
+    private String poll_color;//55票
+    private String details_img;
+    private String message_img;
+    private String rank_img;
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+    public String getTop_img() {
+        return top_img;
+    }
+
+    public void setTop_img(String top_img) {
+        this.top_img = top_img;
+    }
+
+    public String getVote_count() {
+        return vote_count;
+    }
+
+    public void setVote_count(String vote_count) {
+        this.vote_count = vote_count;
+    }
 
     public String getId() {
         return id;
@@ -183,5 +215,53 @@ public class ModelIndexVoteItem  {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getDetails_img() {
+        return details_img;
+    }
+
+    public void setDetails_img(String details_img) {
+        this.details_img = details_img;
+    }
+
+    public String getMessage_img() {
+        return message_img;
+    }
+
+    public void setMessage_img(String message_img) {
+        this.message_img = message_img;
+    }
+
+    public String getRank_img() {
+        return rank_img;
+    }
+
+    public void setRank_img(String rank_img) {
+        this.rank_img = rank_img;
+    }
+
+    public String getCanvassing_color() {
+        return canvassing_color;
+    }
+
+    public void setCanvassing_color(String canvassing_color) {
+        this.canvassing_color = canvassing_color;
+    }
+
+    public String getVote_color() {
+        return vote_color;
+    }
+
+    public void setVote_color(String vote_color) {
+        this.vote_color = vote_color;
+    }
+
+    public String getPoll_color() {
+        return poll_color;
+    }
+
+    public void setPoll_color(String poll_color) {
+        this.poll_color = poll_color;
     }
 }

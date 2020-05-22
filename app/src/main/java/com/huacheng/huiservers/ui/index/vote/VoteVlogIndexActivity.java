@@ -31,6 +31,7 @@ import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
@@ -63,6 +64,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
     protected IndexVoteAdapter mAdapter;
     private View headerView;
     private List<ModelIndexVoteItem> mDatas = new ArrayList<>();//数据
+    private ImageView iv_vote_vlog_top_bg;
     private LinearLayout ly_comment;
     private LinearLayout ly_vote_rank;
     private LinearLayout ly_vote_detail;
@@ -81,6 +83,14 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
     private View mStatusBar;
     private TextView tv_title_center;
     private LinearLayout ly_search;
+    String id = "";
+    String color = "#F8F8F8";
+    private String canvassing_color = "#F8F8F8";//为他拉票
+    private String vote_color = "#F8F8F8";//投他一票
+    private String poll_color = "#F8F8F8";//55票
+    private ImageView iv_message;
+    private ImageView iv_rank;
+    private ImageView iv_details;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,9 +137,13 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
      * 初始化headerview
      */
     private void initHeaderView() {
+        iv_vote_vlog_top_bg = headerView.findViewById(R.id.iv_vote_vlog_top_bg);
         ly_comment = headerView.findViewById(R.id.ly_comment);
+        iv_message = headerView.findViewById(R.id.iv_message);
         ly_vote_rank = headerView.findViewById(R.id.ly_vote_rank);
+        iv_rank = headerView.findViewById(R.id.iv_rank);
         ly_vote_detail = headerView.findViewById(R.id.ly_vote_detail);
+        iv_details = headerView.findViewById(R.id.iv_details);
         tv_vote_person_num = headerView.findViewById(R.id.tv_vote_person_num);
 
         tv_day = headerView.findViewById(R.id.tv_day);
@@ -209,8 +223,12 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
         ly_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 跳转搜索页面 需要什么参数你自己传
                 Intent intent = new Intent(mContext, VoteVlogSearchActivity.class);
+                intent.putExtra("color",color);
+                intent.putExtra("vote_color",vote_color);
+                intent.putExtra("canvassing_color",canvassing_color);
+                intent.putExtra("poll_color",poll_color);
+                intent.putExtra("id",id+"");
                 startActivity(intent);
             }
         });
@@ -266,6 +284,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
         params.put("p", page + "");
+        params.put("id",id+"");
         MyOkHttp.get().get(ApiHttpClient.VLOG_INDEX, params, new JsonResponseHandler() {
 
             @Override
@@ -279,13 +298,22 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
                     if (info != null) {
                         headerView.setVisibility(View.VISIBLE);
                         mInfo = info;
+                        GlideUtils.getInstance().glideLoad(mContext,ApiHttpClient.IMG_URL+info.getTop_img(),iv_vote_vlog_top_bg,R.color.default_img_color);
+                        GlideUtils.getInstance().glideLoad(mContext,ApiHttpClient.IMG_URL+info.getRank_img(),iv_rank,R.color.default_img_color);
+                        GlideUtils.getInstance().glideLoad(mContext,ApiHttpClient.IMG_URL+info.getMessage_img(),iv_message,R.color.default_img_color);
+                        GlideUtils.getInstance().glideLoad(mContext,ApiHttpClient.IMG_URL+info.getDetails_img(),iv_rank,R.color.default_img_color);
+                        tv_vote_person_num.setText(info.getVote_count()+"");
+                        tv_title_center.setText(info.getTitle()+"");
+
+                        VoteVlogIndexActivity.this.color=info.getColor()+"";
+                        VoteVlogIndexActivity.this.canvassing_color=info.getCanvassing_color()+"";
+                        VoteVlogIndexActivity.this.vote_color=info.getVote_color()+"";
+                        VoteVlogIndexActivity.this.poll_color=info.getPoll_color()+"";
+                        mAdapter.setColor(color,canvassing_color,vote_color,poll_color);
                         if (page==1){
                             //刷新的时候处理时间
-
                             getTime();
                         }
-                        // 参与人数
-                        tv_vote_person_num.setText(info.getVlog_count()+"");
                         if (info.getList() != null && info.getList().size() > 0) {
                             mRelNoData.setVisibility(View.GONE);
                             if (page == 1) {
@@ -345,7 +373,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
 
     @Override
     protected void initIntentData() {
-
+         id = getIntent().getStringExtra("id");
     }
 
     @Override

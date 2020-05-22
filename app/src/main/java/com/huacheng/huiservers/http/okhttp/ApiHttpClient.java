@@ -375,7 +375,7 @@ public class ApiHttpClient {
      * Vlog活动投票
      */
     //首页
-    public static String VLOG_INDEX = API_URL + API_VERSION + "vlog/vlog_index";
+    public static String VLOG_INDEX = API_URL + API_VERSION + "/vote/vote_index";
     //VLOG 投票
     public static String VLOG_POLL = API_URL + API_VERSION + "vlog/vlog_poll";
     //留言列表
@@ -587,7 +587,7 @@ public class ApiHttpClient {
         GET_SOCIAL_LIST = API_URL + API_VERSION + "social/get_social_list/";
         SOCIAL_DELETE = API_URL + API_VERSION + "social/SocialDel/";
         GET_USER_SOCIAL = API_URL + API_VERSION + "social/get_user_social_list/";
-        VLOG_INDEX = API_URL + API_VERSION + "vlog/vlog_index";
+        VLOG_INDEX = API_URL + API_VERSION + "vote/vote_index";
         VLOG_POLL = API_URL + API_VERSION + "vlog/vlog_poll";
         VLOG_PRAISE = API_URL + API_VERSION + "vlog/vlog_praise";
         VLOG_INDEX_SHARE = API_URL_SHARE + "home/index/beautiful_vlog";

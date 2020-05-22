@@ -488,15 +488,25 @@ public class Jump {
                     mContext.startActivity(intent);
                 }
             }else if (type.equals("36")){
+                String url_param = url_origin;
+                String id = "0";//计划id
+                String[] split = url_param.split("/");
+                for (int i = 0; i < split.length; i++) {
+                    if ("id".equals(split[i])){
+                        id=split[i+1];
+                    }
+                }
+
                 //VLOG 投票
                 if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
                     Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
                     mContext.startActivity(intent);
                 } else {
                     Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
+                    intent.putExtra("id",id);
                     mContext.startActivity(intent);
                 }
-//                String url_param = url_origin;
+//
 //             //   String url_new = ApiHttpClient.API_URL+ApiHttpClient.API_VERSION+url_origin;
 //
 //                if ( ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
