@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.index.vote;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelVlogRankList;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
 import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.zhy.adapter.abslistview.CommonAdapter;
@@ -30,6 +32,15 @@ import java.util.List;
  * 2019/12/31 0031 下午 6:10
  */
 public class VoteRankListActivity extends BaseListActivity<ModelVlogRankList>{
+    String color = "#F8F8F8";
+    String id = "";
+    @Override
+    protected void initIntentData() {
+        super.initIntentData();
+        this.color=getIntent().getStringExtra("color");
+        this.id=getIntent().getStringExtra("id");
+    }
+
     @Override
     protected void initView() {
         super.initView();
@@ -61,13 +72,16 @@ public class VoteRankListActivity extends BaseListActivity<ModelVlogRankList>{
                 if ("0".equals(item.getPoll())) {
                     viewHolder.<TextView>getView(R.id.tv_rank).setText("——");
                 }else {
-                    viewHolder.<TextView>getView(R.id.tv_rank).setText(item.getRanking()+"");
+                    viewHolder.<TextView>getView(R.id.tv_rank).setText((position+1)+"");
                 }
                 viewHolder.<TextView>getView(R.id.tv_num).setText(item.getNumber()+"号");
                 viewHolder.<TextView>getView(R.id.tv_name).setText(item.getTitle()+"");
                 viewHolder.<TextView>getView(R.id.tv_piao_num).setText(item.getPoll()+"票");
                 FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head),StringUtils.getImgUrl(item.getImg()));
-
+                if (!NullUtil.isStringEmpty(color)){
+                    viewHolder.<TextView>getView(R.id.tv_piao_num).setTextColor(Color.parseColor(color));
+                    viewHolder.<TextView>getView(R.id.tv_rank).setTextColor(Color.parseColor(color));
+                }
             }
         };
         mListview.setAdapter(mAdapter);
@@ -76,6 +90,8 @@ public class VoteRankListActivity extends BaseListActivity<ModelVlogRankList>{
     @Override
     protected void requestData() {
         HashMap<java.lang.String, java.lang.String> params = new HashMap<>();
+       params.put("p",page+"");
+       params.put("id",id+"");
         MyOkHttp.get().post(ApiHttpClient.VLOG_RANK_LIST, params, new JsonResponseHandler() {
 
             @Override
@@ -84,7 +100,9 @@ public class VoteRankListActivity extends BaseListActivity<ModelVlogRankList>{
                 mRefreshLayout.finishRefresh();
                 mRefreshLayout.finishLoadMore();
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                   List<ModelVlogRankList>  list = (List<ModelVlogRankList>) JsonUtil.getInstance().getDataArrayByName(response, "data",ModelVlogRankList.class);
+                  // List<ModelVlogRankList>  list = (List<ModelVlogRankList>) JsonUtil.getInstance().getDataArrayByName(response, "data",ModelVlogRankList.class);
+                    ModelVlogRankList modelVlogRankList = (ModelVlogRankList) JsonUtil.getInstance().parseJsonFromResponse(response, ModelVlogRankList.class);
+                    List<ModelVlogRankList> list = modelVlogRankList.getList();
                     if (list != null) {
                         if (list != null && list.size() > 0) {
                             mRelNoData.setVisibility(View.GONE);
@@ -92,12 +110,12 @@ public class VoteRankListActivity extends BaseListActivity<ModelVlogRankList>{
                                 mDatas.clear();
                             }
                             mDatas.addAll(list);
-//                            page++;
-//                            if (page > info.getTotalPages()) {
-//                                mRefreshLayout.setEnableLoadMore(false);
-//                            } else {
-//                                mRefreshLayout.setEnableLoadMore(true);
-//                            }
+                            page++;
+                            if (page > modelVlogRankList.getTotalPages()) {
+                                mRefreshLayout.setEnableLoadMore(false);
+                            } else {
+                                mRefreshLayout.setEnableLoadMore(true);
+                            }
                             mAdapter.notifyDataSetChanged();
                         } else {
                             if (page == 1) {

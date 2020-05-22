@@ -28,6 +28,9 @@ public class ModelVote implements Serializable {
     private String com_id;
     private String com_name;
 
+
+    private String vote_id;
+
     public String getNumber() {
         return number;
     }
@@ -162,5 +165,13 @@ public class ModelVote implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getVote_id() {
+        return vote_id;
+    }
+
+    public void setVote_id(String vote_id) {
+        this.vote_id = vote_id;
     }
 }

@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Description: vlog排行榜
@@ -25,6 +26,25 @@ public class ModelVlogRankList implements Serializable{
     private String title;
     private String number;
     private int ranking;
+    private int totalPages;
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
+
+    public List<ModelVlogRankList> getList() {
+        return list;
+    }
+
+    public void setList(List<ModelVlogRankList> list) {
+        this.list = list;
+    }
+
+    private List<ModelVlogRankList> list;
 
     public String getId() {
         return id;

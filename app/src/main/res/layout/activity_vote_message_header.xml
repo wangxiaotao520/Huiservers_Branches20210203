@@ -5,9 +5,9 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/iv_top"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:src="@mipmap/bg_vote_vlog_title"
         android:scaleType="centerCrop"
         />
 

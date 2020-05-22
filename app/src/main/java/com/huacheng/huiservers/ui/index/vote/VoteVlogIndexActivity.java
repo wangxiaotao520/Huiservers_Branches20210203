@@ -196,8 +196,14 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
             @Override
             public void onClick(View v) {
                 // 活动评论
-                Intent intent = new Intent(mContext, VoteVlogMessageActivity.class);
-                startActivity(intent);
+                if (mInfo!=null){
+                    Intent intent = new Intent(mContext, VoteVlogMessageActivity.class);
+                    intent.putExtra("color",color);
+                    intent.putExtra("id",id);
+                    intent.putExtra("top_img",ApiHttpClient.IMG_URL+mInfo.getTop_img());
+                    startActivity(intent);
+                }
+
             }
         });
         ly_vote_rank.setOnClickListener(new OnDoubleClickListener() {
@@ -205,6 +211,8 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
             public void onNoDoubleClick(View v) {
                 // 活动排名
                 Intent intent = new Intent(mContext, VoteRankListActivity.class);
+                intent.putExtra("color",color);
+                intent.putExtra("id",id);
                 startActivity(intent);
             }
         });

@@ -10,7 +10,6 @@
         android:id="@+id/iv_vote_vlog_top_bg"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:src="@mipmap/bg_vote_vlog_title"
         android:scaleType="centerCrop"
         />
 

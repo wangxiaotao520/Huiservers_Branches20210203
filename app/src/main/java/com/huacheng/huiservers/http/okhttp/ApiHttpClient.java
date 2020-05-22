@@ -379,15 +379,15 @@ public class ApiHttpClient {
     //VLOG 投票
     public static String VLOG_POLL = API_URL + API_VERSION + "vote/vote_poll";
     //留言列表
-    public static String VLOG_MESSAGE_LIST = API_URL + API_VERSION + "vlog/vlog_message";
+    public static String VLOG_MESSAGE_LIST = API_URL + API_VERSION + "vote/message";
     //提交留言
-    public static String VLOG_MESSAGE_ADD = API_URL + API_VERSION + "vlog/vlog_message_add";
+    public static String VLOG_MESSAGE_ADD = API_URL + API_VERSION + "vote/vote_message_add";
     //点赞
-    public static String VLOG_PRAISE = API_URL + API_VERSION + "vlog/vlog_praise";
+    public static String VLOG_PRAISE = API_URL + API_VERSION + "vote/vote_praise";
     //活动详情
     public static String VLOG_INDEX_SHARE = API_URL_SHARE + "home/index/beautiful_vlog";
     //排行榜
-    public static String VLOG_RANK_LIST = API_URL + API_VERSION + "vlog/vlogRanking";
+    public static String VLOG_RANK_LIST = API_URL + API_VERSION + "vote/rank";
 
     //投票搜索接口
     public static String VOTE_LIST = API_URL + API_VERSION + "vote/vote_list";
@@ -592,11 +592,11 @@ public class ApiHttpClient {
         GET_USER_SOCIAL = API_URL + API_VERSION + "social/get_user_social_list/";
         VLOG_INDEX = API_URL + API_VERSION + "vote/vote_index";
         VLOG_POLL = API_URL + API_VERSION + "vote/vote_poll";
-        VLOG_PRAISE = API_URL + API_VERSION + "vlog/vlog_praise";
+        VLOG_PRAISE = API_URL + API_VERSION + "vote/vote_praise";
         VLOG_INDEX_SHARE = API_URL_SHARE + "home/index/beautiful_vlog";
-        VLOG_MESSAGE_ADD = API_URL + API_VERSION + "vlog/vlog_message_add";
-        VLOG_MESSAGE_LIST = API_URL + API_VERSION + "vlog/vlog_message";
-        VLOG_RANK_LIST = API_URL_SHARE + "vlog/vlogRanking";
+        VLOG_MESSAGE_ADD = API_URL + API_VERSION + "vote/vote_message_add";
+        VLOG_MESSAGE_LIST = API_URL + API_VERSION + "vote/message";
+        VLOG_RANK_LIST = API_URL_SHARE + "vote/rank";
         INDEX_SERVICE_AD_TOP = API_SERVICE_URL + "index/serviceClassifTop";
         IMG_BOTTOM = API_URL + API_VERSION + "index/index_Bottom";
         SHOP_MARKIING_ARTICE_LIST = API_URL + API_VERSION + "/shop/area_marketing_activities_List";

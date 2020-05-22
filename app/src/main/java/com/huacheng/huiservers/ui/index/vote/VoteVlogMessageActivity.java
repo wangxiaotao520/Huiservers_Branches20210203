@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -24,6 +25,7 @@ import com.huacheng.huiservers.ui.index.vote.adapter.VoteMessageAdapter;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -65,6 +67,10 @@ public class VoteVlogMessageActivity extends BaseActivity implements VoteMessage
     VoteMessageAdapter messageAdapter;
     View headerView;
     private int page = 1;
+    String color = "#F8F8F8";
+    String id = "";
+    String top_img = "";
+    private ImageView iv_top;
 
     @Override
     protected void initView() {
@@ -78,6 +84,9 @@ public class VoteVlogMessageActivity extends BaseActivity implements VoteMessage
         mEtInput.addTextChangedListener(mTextWatcher);
         initHeaderView();
 
+        if (!NullUtil.isStringEmpty(top_img)) {
+            GlideUtils.getInstance().glideLoad(mContext,top_img,iv_top,R.color.default_img_color);
+        }
         messageAdapter = new VoteMessageAdapter(this, R.layout.activity_vote_message_item, mDatas, this);
         mListview.setAdapter(messageAdapter);
 
@@ -85,6 +94,7 @@ public class VoteVlogMessageActivity extends BaseActivity implements VoteMessage
 
     private void initHeaderView() {
         headerView = LayoutInflater.from(this).inflate(R.layout.activity_vote_message_header, null);
+        iv_top = headerView.findViewById(R.id.iv_top);
         mListview.addHeaderView(headerView);
     }
 
@@ -97,6 +107,7 @@ public class VoteVlogMessageActivity extends BaseActivity implements VoteMessage
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
         params.put("p", page + "");
+        params.put("id", id + "");
         MyOkHttp.get().post(ApiHttpClient.VLOG_MESSAGE_LIST, params, new JsonResponseHandler() {
 
             @Override
@@ -192,6 +203,7 @@ public class VoteVlogMessageActivity extends BaseActivity implements VoteMessage
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("message", mEtInput.getText().toString().trim());
+        params.put("id", id+"");
         MyOkHttp.get().post(ApiHttpClient.VLOG_MESSAGE_ADD, params, new JsonResponseHandler() {
 
             @Override
@@ -238,6 +250,9 @@ public class VoteVlogMessageActivity extends BaseActivity implements VoteMessage
 
     @Override
     protected void initIntentData() {
+        this.color=getIntent().getStringExtra("color");
+        this.id=getIntent().getStringExtra("id");
+        this.top_img=getIntent().getStringExtra("top_img");
 
     }
 
