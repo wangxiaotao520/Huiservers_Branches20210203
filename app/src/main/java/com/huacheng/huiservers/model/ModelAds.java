@@ -17,9 +17,25 @@ public class ModelAds {
     private String adv_inside_url;
     private String img_size;
     private String url_type_cn;
-
-
+    private String text;
+    private int Total_Pages;
     private String index_color;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public int getTotal_Pages() {
+        return Total_Pages;
+    }
+
+    public void setTotal_Pages(int total_Pages) {
+        Total_Pages = total_Pages;
+    }
 
     public String getUrl_type_cn() {
         return url_type_cn;

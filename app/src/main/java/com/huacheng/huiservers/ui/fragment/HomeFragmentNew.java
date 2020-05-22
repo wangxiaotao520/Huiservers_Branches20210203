@@ -52,6 +52,7 @@ import com.huacheng.huiservers.ui.fragment.adapter.HomeGridViewCateAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.VBannerAdapter;
 import com.huacheng.huiservers.ui.fragment.indexcat.HouseHandBookActivity;
+import com.huacheng.huiservers.ui.fragment.indexcat.IndexShareSQActivity;
 import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
@@ -141,6 +142,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private LinearLayout ll_on_sale_container;
     private LinearLayout ll_on_sale_img_root;
     private LinearLayout ll_nearby_food_container;
+    private LinearLayout ll_share_shangquan;
     private LinearLayout ll_nearby_food_img_root;
     private LinearLayout ll_sec_kill_container;
     private LinearLayout ll_sec_kill_container_root;
@@ -164,7 +166,10 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
     private ImageView tv_more_sec_kill_arrow;
     private TextView tv_more_sale;
     private ImageView tv_more_sale_arrow;
-    List<ModelIndex> mDatas_Article=new ArrayList<>();
+    private TextView tv_shangquan;
+    private ImageView iv_more_shangquan;
+    private LinearLayout ll_img_shangquan;
+    List<ModelIndex> mDatas_Article = new ArrayList<>();
     private Banner banner_middle;
 
     @Override
@@ -235,6 +240,11 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         //通知公告
         ly_notice = headerView.findViewById(R.id.ly_notice);
         v_banner = headerView.findViewById(R.id.v_banner);
+        //共享商圈
+        ll_share_shangquan = headerView.findViewById(R.id.ll_share_shangquan);
+        tv_shangquan = headerView.findViewById(R.id.tv_shangquan);
+        iv_more_shangquan = headerView.findViewById(R.id.iv_more_shangquan);
+        ll_img_shangquan = headerView.findViewById(R.id.ll_img_shangquan);
         //特卖
         ll_on_sale_container = headerView.findViewById(R.id.ll_on_sale_container);
         tv_more_sale = headerView.findViewById(R.id.tv_more_sale);
@@ -276,8 +286,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
      * 中部banner(目前只有问卷调查)
      */
     private void setBannerMiddle() {
-        if (myImageLoader==null){
-            myImageLoader=new MyCornerImageLoader();
+        if (myImageLoader == null) {
+            myImageLoader = new MyCornerImageLoader();
         }
         banner_middle.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner_middle.setImageLoader(myImageLoader);
@@ -291,7 +301,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 if (modelHome != null && modelHome.getQi_plan_list() != null && modelHome.getQi_plan_list().size() > 0) {
                     ModelAds ads = modelHome.getQi_plan_list().get(position);
                     //调查问卷
-                    String id = ""+ads.getId();//计划id
+                    String id = "" + ads.getId();//计划id
 
                     if (!LoginUtils.hasLoginUser()) {
                         Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
@@ -301,7 +311,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                         intent.putExtra("type", 1);
                         intent.putExtra("wuye_type", "investigate");
                         intent.putExtra("id", id);
-                        mContext. startActivity(intent);
+                        mContext.startActivity(intent);
                     }
                 }
             }
@@ -479,6 +489,9 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
         tv_more_sale_arrow.setOnClickListener(this);
         iv_center.setOnClickListener(this);
         iv_message.setOnClickListener(this);
+        tv_shangquan.setOnClickListener(this);
+        iv_more_shangquan.setOnClickListener(this);
+        ll_img_shangquan.setOnClickListener(this);
     }
 
     @Override
@@ -627,7 +640,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     mDatas_img1.add(ApiHttpClient.IMG_URL + modelHome.getQi_plan_list().get(i).getImg() + "");
                 }
                 banner_middle.update(mDatas_img1);
-            }else {
+            } else {
                 banner_middle.setVisibility(View.GONE);
             }
             //grid背景图
@@ -637,8 +650,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 iv_center.setVisibility(View.VISIBLE);
                 ll_center.setVisibility(View.VISIBLE);
                 // 手册协议
-              //  iv_center.setImageResource(R.mipmap.bg_jiaofang_shouce);
-               // GlideUtils.getInstance().glideLoad(mActivity,ApiHttpClient.IMG_URL+"huacheng/activity/19/04/22/xinfangshouce.gif",iv_center,R.mipmap.bg_jiaofang_shouce);
+                //  iv_center.setImageResource(R.mipmap.bg_jiaofang_shouce);
+                // GlideUtils.getInstance().glideLoad(mActivity,ApiHttpClient.IMG_URL+"huacheng/activity/19/04/22/xinfangshouce.gif",iv_center,R.mipmap.bg_jiaofang_shouce);
                 mDatas_Article.clear();
                 mDatas_Article.addAll(modelHome.getArticle_list());
             } else {
@@ -664,6 +677,37 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 }
             } else {
                 ly_notice.setVisibility(View.GONE);
+            }
+            //共享商圈
+            if (modelHome.getAd_business_list() != null && modelHome.getAd_business_list().size() > 0) {
+                ll_share_shangquan.setVisibility(View.VISIBLE);
+                ll_img_shangquan.removeAllViews();
+                for (int i = 0; i < modelHome.getAd_business_list().size(); i++) {
+                    View item_home_shangquan = LayoutInflater.from(mActivity).inflate(R.layout.item_home_shangquan, null);
+                    SimpleDraweeView sdv_shangquan = item_home_shangquan.findViewById(R.id.sdv_shangquan);
+                    FrescoUtils.getInstance().setImageUri(sdv_shangquan, ApiHttpClient.IMG_URL + modelHome.getAd_business_list().get(i).getImg());
+                    final int finalI = i;
+                    sdv_shangquan.setOnClickListener(new OnDoubleClickListener() {
+                        @Override
+                        public void onNoDoubleClick(View v) {
+                            //跳外链
+                            ModelAds ads = modelHome.getAd_business_list().get(finalI);
+                            if (TextUtils.isEmpty(ads.getUrl())) {
+                                if ("0".equals(ads.getUrl_type()) || TextUtils.isEmpty(ads.getUrl_type())) {
+                                    new Jump(getActivity(), ads.getType_name(), ads.getAdv_inside_url());
+                                } else {
+                                    new Jump(getActivity(), ads.getUrl_type(), ads.getType_name(), "", ads.getUrl_type_cn());
+                                }
+                            } else {//URL不为空时外链
+                                new Jump(getActivity(), ads.getUrl());
+
+                            }
+                        }
+                    });
+                    ll_img_shangquan.addView(item_home_shangquan);
+                }
+            } else {
+                ll_share_shangquan.setVisibility(View.GONE);
             }
             // 特卖专场
             if (modelHome.getSpecial() != null && modelHome.getSpecial().size() > 0) {
@@ -804,7 +848,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                             Intent intent = new Intent(mActivity, CircleDetailsActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("id", modelHomeCircle.getList().getId());
-                            bundle.putString("mPro", modelHomeCircle.getList().getIs_pro()+"");
+                            bundle.putString("mPro", modelHomeCircle.getList().getIs_pro() + "");
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }
@@ -1205,7 +1249,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 SmartToast.showInfo("当前时间不在派送时间范围内");
             } else {
                 if (mDatas.get(position) != null) {
-                //    new CommonMethod(mDatas.get(position), null, mContext).getShopLimitTag();
+                    //    new CommonMethod(mDatas.get(position), null, mContext).getShopLimitTag();
                     showDialog(smallDialog);
                     ShopCartManager.getInstance().getShopLimitTag(mContext, mDatas.get(position), new ShopCartManager.OnAddShopCartResultListener() {
                         @Override
@@ -1277,6 +1321,14 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                 intent = new Intent(mContext, ShopZCListActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.tv_shangquan:
+            case R.id.iv_more_shangquan:
+                //共享商圈查看更多
+                intent = new Intent(mContext, IndexShareSQActivity.class);
+                startActivity(intent);
+               /* intent = new Intent(mContext, WebTestActivity.class);
+                startActivity(intent);*/
+                break;
             case R.id.iv_center:
                 intent = new Intent(mActivity, HouseHandBookActivity.class);
                 intent.putExtra("mDatas", (Serializable) mDatas_Article);
@@ -1289,7 +1341,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     mContext.startActivity(intent);
 
                 } else {
-                startActivity(new Intent(mActivity, OldMessageActivity.class));
+                    startActivity(new Intent(mActivity, OldMessageActivity.class));
                 }
                 break;
             default:
