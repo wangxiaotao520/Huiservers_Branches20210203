@@ -263,10 +263,14 @@ public final class SmartToast {
      * @param msg
      */
     public static void showInfo(CharSequence msg) {
-        if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+        if ("blackshark".equals(android.os.Build.MANUFACTURER.toLowerCase())){//黑鲨手机弹窗有bug
             Toast.makeText(SmartShow.getContext(),msg+"",Toast.LENGTH_SHORT).show();
         }else {
-            ToastDelegate.get().getMyTypeShowManager().showInfo(msg);
+            if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+                Toast.makeText(SmartShow.getContext(),msg+"",Toast.LENGTH_SHORT).show();
+            }else {
+                ToastDelegate.get().getMyTypeShowManager().showInfo(msg);
+            }
         }
 
     }

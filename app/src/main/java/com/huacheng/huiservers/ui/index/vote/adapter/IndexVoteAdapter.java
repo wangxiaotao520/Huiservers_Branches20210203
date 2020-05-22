@@ -129,6 +129,8 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
                 viewHolder.tv_vote_count1.setTextColor(Color.parseColor(poll_color));
             }
 
+            viewHolder.tv_desc1.setText(item.getSubtitle()+"");
+
         }
         // 从数据里取值 第二个View
         if (position*2+1<mDatas.size()){
@@ -183,6 +185,7 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
             if (!NullUtil.isStringEmpty(poll_color)){//票数
                 viewHolder.tv_vote_count2.setTextColor(Color.parseColor(poll_color));
             }
+            viewHolder.tv_desc2.setText(item.getSubtitle()+"");
         }else {
             //说明mdatas的总个数是奇数个
             viewHolder. ll_item_view2.setVisibility(View.GONE);
@@ -196,11 +199,13 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
         viewHolder. tv_famliy_name1=  convertView.findViewById(R.id.tv_famliy_name1);
         viewHolder. tv_vote_count1=  convertView.findViewById(R.id.tv_vote_count1);
         viewHolder. tv_tag1=  convertView.findViewById(R.id.tv_tag1);
+        viewHolder. tv_desc1=  convertView.findViewById(R.id.tv_desc1);
         viewHolder. ll_item_view2=convertView.findViewById(R.id.ll_item_view2);
         viewHolder. sdv_title_img2=convertView.findViewById(R.id.sdv_title_img2);
         viewHolder. tv_famliy_name2=convertView.findViewById(R.id.tv_famliy_name2);
         viewHolder. tv_vote_count2=convertView.findViewById(R.id.tv_vote_count2);
         viewHolder. tv_tag2=convertView.findViewById(R.id.tv_tag2);
+        viewHolder. tv_desc2=  convertView.findViewById(R.id.tv_desc2);
         viewHolder. tv_onClick1=convertView.findViewById(R.id.tv_onClick1);
         viewHolder. tv1_onClick1=convertView.findViewById(R.id.tv1_onClick1);
         viewHolder. tv_onClick2=convertView.findViewById(R.id.tv_onClick2);
@@ -212,11 +217,13 @@ public class IndexVoteAdapter <T> extends BaseAdapter {
         SimpleDraweeView sdv_title_img1;
         TextView tv_tag1;
         TextView tv_famliy_name1;
+        TextView tv_desc1;
         TextView tv_vote_count1;
         LinearLayout  ll_item_view2;
         SimpleDraweeView sdv_title_img2;
         TextView  tv_tag2;
         TextView  tv_famliy_name2;
+        TextView tv_desc2;
         TextView  tv_vote_count2;
         TextView  tv_onClick1;
         TextView  tv1_onClick1;

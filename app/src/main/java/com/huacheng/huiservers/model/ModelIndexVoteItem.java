@@ -118,6 +118,8 @@ public class ModelIndexVoteItem  {
 
     private String details_link;
 
+    private String subtitle;
+
     public String getVote_id() {
         return vote_id;
     }
@@ -321,6 +323,13 @@ public class ModelIndexVoteItem  {
 
     public void setDetails_link(String details_link) {
         this.details_link = details_link;
+    }
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
 }
