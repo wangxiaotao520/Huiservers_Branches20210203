@@ -389,6 +389,9 @@ public class ApiHttpClient {
     //排行榜
     public static String VLOG_RANK_LIST = API_URL + API_VERSION + "vlog/vlogRanking";
 
+    //投票搜索接口
+    public static String VOTE_LIST = API_URL + API_VERSION + "vote/vote_list";
+
 
     //我的小区
     public static String GET_MY_DISTRICT = API_URL + API_VERSION + "site/myDistrict";
@@ -616,5 +619,6 @@ public class ApiHttpClient {
         VERITY_NEW_PHONE = API_URL + API_VERSION + "site/verify_new_phone";
         VERITY_OPERATION = API_URL + API_VERSION + "site/verify_operation";
         GET_SHARE_PARAM= API_URL + API_VERSION + "shares/share";
+        VOTE_LIST = API_URL + API_VERSION + "vote/vote_list";
     }
 }
