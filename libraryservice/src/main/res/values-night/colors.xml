@@ -28,6 +28,8 @@
     <color name="text_special_33_color">#efefef</color>
     <!--特殊shape背景颜色 -->
     <color name="text_special_shape_color">#2c2c2e</color>
+    <!--活动投票用到的一个背景颜色 -->
+    <color name="bg_toupiao_color">#464641</color>
 
     <color name="orange">#ED8D37</color>
     <color name="black">#000000</color>

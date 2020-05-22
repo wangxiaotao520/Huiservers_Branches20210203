@@ -45,7 +45,7 @@
                 android:layout_marginRight="@dimen/margin"
                 android:background="@null"
                 android:gravity="start|center_vertical"
-                android:hint="请输入关键字"
+                android:hint="请输入编号或姓名"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
                 android:textColor="@color/title_color"
