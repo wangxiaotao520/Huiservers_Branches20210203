@@ -63,20 +63,24 @@ public class VotePresenter {
         });
 
     }
+
     /**
-     * 投票Vlog
+     * 通用活动投票
+     * @param id  活动id
+     * @param vote_member_id 人员id
      */
-    public void getTouPiaoVlog(final String vlog_id) {
+    public void getTouPiaoVlog(final String id,final String vote_member_id) {
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("vlog_id", vlog_id);
+        params.put("id", id);
+        params.put("vote_member_id", vote_member_id);
         MyOkHttp.get().post(ApiHttpClient.VLOG_POLL, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "成功");
                     if (listener != null) {
-                        listener.onGetData(1,vlog_id, msg);
+                        listener.onGetData(1,vote_member_id, msg);
                     }
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "数据获取失败");

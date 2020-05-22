@@ -51,7 +51,7 @@ public class VoteDialog extends AlertDialog implements View.OnClickListener {
         tv_confirm.setOnClickListener(this);
         tv_lapiao.setOnClickListener(this);
         if (type==2){
-            tv_lapiao.setVisibility(View.VISIBLE);
+            tv_lapiao.setVisibility(View.GONE);
         }else {
             tv_lapiao.setVisibility(View.GONE);
         }

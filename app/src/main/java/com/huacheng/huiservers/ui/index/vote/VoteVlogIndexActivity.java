@@ -301,7 +301,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
                         GlideUtils.getInstance().glideLoad(mContext,ApiHttpClient.IMG_URL+info.getTop_img(),iv_vote_vlog_top_bg,R.color.default_img_color);
                         GlideUtils.getInstance().glideLoad(mContext,ApiHttpClient.IMG_URL+info.getRank_img(),iv_rank,R.color.default_img_color);
                         GlideUtils.getInstance().glideLoad(mContext,ApiHttpClient.IMG_URL+info.getMessage_img(),iv_message,R.color.default_img_color);
-                        GlideUtils.getInstance().glideLoad(mContext,ApiHttpClient.IMG_URL+info.getDetails_img(),iv_rank,R.color.default_img_color);
+                        GlideUtils.getInstance().glideLoad(mContext,ApiHttpClient.IMG_URL+info.getDetails_img(),iv_details,R.color.default_img_color);
                         tv_vote_person_num.setText(info.getVote_count()+"");
                         tv_title_center.setText(info.getTitle()+"");
 
@@ -401,7 +401,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
     public void onClickVote(View v, int position) {
         // SmartToast.showInfo("点击vote" + position);
         showDialog(smallDialog);
-        presenter.getTouPiaoVlog(mDatas.get(position).getId());
+        presenter.getTouPiaoVlog(mDatas.get(position).getVote_id(),mDatas.get(position).getId());
 
     }
 
@@ -448,7 +448,7 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
      * 首页点击投票
      *
      * @param status
-     * @param id
+     * @param id  人员id
      * @param msg
      */
     @Override

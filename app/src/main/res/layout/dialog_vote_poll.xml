@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin"
                 android:text="投票成功"
-                android:textColor="@color/vote_red"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/t_20sp"/>
 
         </LinearLayout>
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3"
-                android:textColor="@color/vote_red"
+                android:textColor="@color/orange"
                 android:textSize="@dimen/t_15sp"/>
 
             <TextView
@@ -83,7 +83,7 @@
             android:layout_height="@dimen/margin_40"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_20"
-            android:background="@drawable/allshape_vote_red"
+            android:background="@drawable/allshape_orange_10"
             android:gravity="center"
             android:text="确定"
             android:textSize="15sp"

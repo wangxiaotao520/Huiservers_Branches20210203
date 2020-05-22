@@ -87,6 +87,8 @@ public class ModelIndexVoteItem  {
      */
 
     private String id;
+
+    private String vote_id;//活动id
     private String number;
     private String title;
     private String img;
@@ -106,6 +108,13 @@ public class ModelIndexVoteItem  {
     private String details_img;
     private String message_img;
     private String rank_img;
+    public String getVote_id() {
+        return vote_id;
+    }
+
+    public void setVote_id(String vote_id) {
+        this.vote_id = vote_id;
+    }
     public String getColor() {
         return color;
     }
