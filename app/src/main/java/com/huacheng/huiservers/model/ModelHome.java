@@ -26,9 +26,18 @@ public class ModelHome implements Serializable {
     private List<ModelShopIndex>seckill;//秒杀
 
     private List<ModelShopIndex> special ;//特卖专场
+    private List<ModelAds> ad_business_list ;//共享商圈
 
  //   private List<ModelAds> ad_again_list ;//中部广告 (调查问卷)
 
+
+    public List<ModelAds> getAd_business_list() {
+        return ad_business_list;
+    }
+
+    public void setAd_business_list(List<ModelAds> ad_business_list) {
+        this.ad_business_list = ad_business_list;
+    }
 
     public List<ModelAds> getAd_top_list() {
         return ad_top_list;

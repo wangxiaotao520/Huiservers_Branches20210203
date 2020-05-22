@@ -1136,6 +1136,9 @@
             android:name=".ui.center.logout.NumberSuccessActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.fragment.indexcat.IndexShareSQActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.webview.vote.WebViewVoteActivity"
             android:configChanges="uiMode"
             android:windowSoftInputMode="adjustPan"
