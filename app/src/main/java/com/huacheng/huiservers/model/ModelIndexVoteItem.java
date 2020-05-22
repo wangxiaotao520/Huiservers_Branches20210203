@@ -108,6 +108,16 @@ public class ModelIndexVoteItem  {
     private String details_img;
     private String message_img;
     private String rank_img;
+
+
+    private String share_title;
+    private String share_desc;
+    private String share_img;
+    private String share_link;
+
+
+    private String details_link;
+
     public String getVote_id() {
         return vote_id;
     }
@@ -273,4 +283,44 @@ public class ModelIndexVoteItem  {
     public void setPoll_color(String poll_color) {
         this.poll_color = poll_color;
     }
+
+    public String getShare_title() {
+        return share_title;
+    }
+
+    public void setShare_title(String share_title) {
+        this.share_title = share_title;
+    }
+
+    public String getShare_desc() {
+        return share_desc;
+    }
+
+    public void setShare_desc(String share_desc) {
+        this.share_desc = share_desc;
+    }
+
+    public String getShare_img() {
+        return share_img;
+    }
+
+    public void setShare_img(String share_img) {
+        this.share_img = share_img;
+    }
+
+    public String getShare_link() {
+        return share_link;
+    }
+
+    public void setShare_link(String share_link) {
+        this.share_link = share_link;
+    }
+    public String getDetails_link() {
+        return details_link;
+    }
+
+    public void setDetails_link(String details_link) {
+        this.details_link = details_link;
+    }
+
 }

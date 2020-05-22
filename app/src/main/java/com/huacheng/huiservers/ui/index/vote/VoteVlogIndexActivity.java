@@ -3,7 +3,6 @@ package com.huacheng.huiservers.ui.index.vote;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -188,7 +187,10 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
             @Override
             public void onClick(View v) {
                 //分享
-                share();
+                if (mInfo!=null){
+                    share();
+                }
+
             }
         });
         //点击活动评论
@@ -221,55 +223,63 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
             public void onNoDoubleClick(View v) {
                 // 活动详情
               //  ShopZQWebActivity
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse(ApiHttpClient.VLOG_INDEX_SHARE);
-                intent.setData(content_url);
-                mContext.startActivity(intent);
+                if (mInfo!=null&&mInfo.getDetails_link().contains("http")){
+                    Intent intent = new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse(mInfo.getDetails_link());
+                    intent.setData(content_url);
+                    mContext.startActivity(intent);
+                }
             }
         });
         ly_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, VoteVlogSearchActivity.class);
-                intent.putExtra("color",color);
-                intent.putExtra("vote_color",vote_color);
-                intent.putExtra("canvassing_color",canvassing_color);
-                intent.putExtra("poll_color",poll_color);
-                intent.putExtra("id",id+"");
-                startActivity(intent);
+                if (mInfo!=null){
+                    Intent intent = new Intent(mContext, VoteVlogSearchActivity.class);
+                    intent.putExtra("color",color);
+                    intent.putExtra("vote_color",vote_color);
+                    intent.putExtra("canvassing_color",canvassing_color);
+                    intent.putExtra("poll_color",poll_color);
+                    intent.putExtra("id",id+"");
+                    intent.putExtra("share_link",mInfo.getShare_link()+"");
+                    intent.putExtra("share_desc",mInfo.getShare_desc()+"");
+                    startActivity(intent);
+                }
             }
         });
     }
 
     //活动链接分享
     private void share() {
-        share_url = ApiHttpClient.VLOG_HOME_INDEX_SHARE;
+        share_url = ApiHttpClient.API_URL+mInfo.getShare_link();
         HashMap<String, String> params = new HashMap<>();
-        params.put("type", "vlog_vote_details");
+        params.put("type", "vote_common_details");
+        params.put("id", id+"");
         showDialog(smallDialog);
         LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, "", params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
             @Override
             public void onGetUrl(String url, LMErrorCode error) {
                 hideDialog(smallDialog);
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_vote_vlog_share, null);
+                String bitmap = ApiHttpClient.IMG_URL+mInfo.getShare_img();
                 if (error == null) {
 
                     String share_url_new = share_url + "?linkedme=" + url;
-                    showSharePop("鼠你有财免单红包决赛榜", "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", bitmap, share_url_new);
+                    showSharePop(mInfo.getShare_title(), mInfo.getShare_desc(), bitmap, share_url_new);
                 } else {
                     //可以看报错
                     String share_url_new = share_url + "?linkedme=" + "";
-                    showSharePop("鼠你有财免单红包决赛榜", "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", bitmap, share_url_new);
+                    showSharePop(mInfo.getShare_title(), mInfo.getShare_desc(), bitmap, share_url_new);
                 }
             }
         });
     }
     //活动拉票
     private void shareLaPiao(final ModelIndexVoteItem item) {
-        share_url = ApiHttpClient.VLOG_HOME_INDEX_SHARE;
+        share_url = ApiHttpClient.API_URL+mInfo.getShare_link();
         HashMap<String, String> params = new HashMap<>();
-        params.put("type", "vlog_vote_details");
+        params.put("type", "vote_common_details");
+        params.put("id", id+"");
         showDialog(smallDialog);
         LinkedMeUtils.getInstance().getLinkedUrl(this, share_url, "", params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
             @Override
@@ -278,11 +288,11 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
 
                 if (error == null) {
                     String share_url_new = share_url + "?linkedme=" + url;
-                    showSharePop(item.getNumber()+" "+item.getTitle(), "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", ApiHttpClient.IMG_URL+item.getImg(), share_url_new);
+                    showSharePop(item.getNumber()+" "+item.getTitle(), mInfo.getShare_desc(), ApiHttpClient.IMG_URL+item.getImg(), share_url_new);
                 } else {
                     //可以看报错
                     String share_url_new = share_url + "?linkedme=" + "";
-                    showSharePop(item.getNumber()+" "+item.getTitle(), "社区慧生活2020年货节“过年把爱带回家  Vlog直播抢免单", ApiHttpClient.IMG_URL+item.getImg(), share_url_new);
+                    showSharePop(item.getNumber()+" "+item.getTitle(), mInfo.getShare_desc(), ApiHttpClient.IMG_URL+item.getImg(), share_url_new);
                 }
             }
         });
@@ -416,7 +426,10 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
     @Override
     public void onClickLapiao(View v, int position) {
         // 拉票
-        shareLaPiao(mDatas.get(position));
+        if (mInfo!=null){
+            shareLaPiao(mDatas.get(position));
+        }
+
     }
 
     /**
@@ -482,17 +495,18 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
 
                 @Override
                 public void lapaiao(Dialog dialog) {
-                    ModelIndexVoteItem item=null;
-                    for (int i = 0; i < mDatas.size(); i++) {
-                        if (id.equals(mDatas.get(i).getId())) {
-                            item=mDatas.get(i);
-                        }
-                    }
-                    // 为他拉票
-                    if (item!=null){
-                        shareLaPiao(item);
-                    }
-                    dialog.dismiss();
+                    //useless
+//                    ModelIndexVoteItem item=null;
+//                    for (int i = 0; i < mDatas.size(); i++) {
+//                        if (id.equals(mDatas.get(i).getId())) {
+//                            item=mDatas.get(i);
+//                        }
+//                    }
+//                    // 为他拉票
+//                    if (item!=null){
+//                        shareLaPiao(item);
+//                    }
+//                    dialog.dismiss();
                 }
             },2);
             voteDialog.show();

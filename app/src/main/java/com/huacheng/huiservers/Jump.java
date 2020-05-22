@@ -643,13 +643,13 @@ public class Jump {
              }
          }else if (type.equals("36")){
              //VLOG 投票
-             if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
-                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
-                 mContext.startActivity(intent);
-             } else {
-                 Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
-                 mContext.startActivity(intent);
-             }
+//             if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+//                 Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+//                 mContext.startActivity(intent);
+//             } else {
+//                 Intent intent = new Intent(mContext, VoteVlogIndexActivity.class);
+//                 mContext.startActivity(intent);
+//             }
          }else if (type.equals("37")){
              //调查问卷
          }else if (type.equals("38")){

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteDetailActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteVlogIndexActivity;
@@ -17,7 +16,6 @@ import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
 import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
 import com.huacheng.huiservers.ui.webview.ConstantWebView;
 import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
-import com.huacheng.huiservers.ui.webview.vote.WebViewVoteActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.microquation.linkedme.android.LinkedME;
 import com.microquation.linkedme.android.indexing.LMUniversalObject;
@@ -125,17 +123,16 @@ public class MiddleActivity extends AppCompatActivity {
                     intent.putExtra("mPro", sub_type + "");
                     startActivity(intent);
                 }else if (type.equals("vlog_vote_details")){
-                    Intent intent = new Intent(this, VoteVlogIndexActivity.class);
-                    startActivity(intent);
-                }else if ("webview_share".equals(type)){
-                    String url_param= hashMap.get("url_param");
-                    if ( ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
-                        Intent intent = new Intent(this, LoginVerifyCodeActivity.class);
+//                    Intent intent = new Intent(this, VoteVlogIndexActivity.class);
+//                    startActivity(intent);
+                }else if ("vote_common_details".equals(type)){
+                    if (LoginUtils.hasLoginUser()){
+                        String id = hashMap.get("id");
+                        Intent intent = new Intent(this, VoteVlogIndexActivity.class);
+                        intent.putExtra("id",id);
                         this.startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(this, WebViewVoteActivity.class);
-                        //  intent.putExtra("url",url_new+"/token/"+ApiHttpClient.TOKEN+"/tokenSecret/"+ApiHttpClient.TOKEN_SECRET);
-                        intent.putExtra("url_param",url_param);
+                    }else {
+                        Intent intent = new Intent(this, LoginVerifyCodeActivity.class);
                         this.startActivity(intent);
                     }
                 }
