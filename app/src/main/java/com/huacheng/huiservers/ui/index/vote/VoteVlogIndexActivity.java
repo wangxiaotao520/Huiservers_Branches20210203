@@ -614,10 +614,11 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
                 //结束了该轮倒计时
                 //1表示活动已开始，0表示活动已结束
                 if (dicountTag == 1) {
-                    tv_time_type.setText("距结束投票还剩");
+                    tv_time_type.setText("距离活动结束还有");
                     handlerTime(longDistanceEnd,0,0);
 
                 } else {
+                    tv_time_type.setText("活动已结束");
                     tv_day.setText("00");
                     tv_hour.setText("00");
                     tv_minute.setText("00");

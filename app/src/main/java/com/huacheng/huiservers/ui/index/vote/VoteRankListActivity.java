@@ -79,9 +79,10 @@ public class VoteRankListActivity extends BaseListActivity<ModelVlogRankList>{
                 viewHolder.<TextView>getView(R.id.tv_piao_num).setText(item.getPoll()+"票");
                 FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head),StringUtils.getImgUrl(item.getImg()));
                 if (!NullUtil.isStringEmpty(color)){
-                    viewHolder.<TextView>getView(R.id.tv_piao_num).setTextColor(Color.parseColor(color));
+
                     viewHolder.<TextView>getView(R.id.tv_rank).setTextColor(Color.parseColor(color));
                 }
+                viewHolder.<TextView>getView(R.id.tv_piao_num).setTextColor(getResources().getColor(R.color.vote_red));
             }
         };
         mListview.setAdapter(mAdapter);
