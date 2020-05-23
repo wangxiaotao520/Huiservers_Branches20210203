@@ -17,6 +17,7 @@ import com.huacheng.huiservers.model.ModelAds;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.json.JsonUtil;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -67,7 +68,9 @@ public class IndexShareSQActivity extends BaseListActivity {
     protected void requestData() {
         HashMap<String, String> params = new HashMap<>();
         params.put("c_name", "hc_business_more");
-        params.put("community_id", prefrenceUtil.getXiaoQuId());
+        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
+            params.put("community_id", prefrenceUtil.getXiaoQuId());
+        }
         params.put("p", page + "");
         MyOkHttp.get().get(ApiHttpClient.GET_ADVERTISING, params, new JsonResponseHandler() {
             @Override

@@ -46,7 +46,7 @@
                     android:singleLine="true"
                     android:text="晋中市华晟物业有限公司"
                     android:textColor="@color/title_color"
-                    android:textSize="@dimen/t_16sp"
+                    android:textSize="15dp"
                     android:textStyle="bold"/>
 
 
