@@ -32,6 +32,7 @@ import java.util.List;
 
 /**
  * Description:  webview的投票页(通用webview)
+ * 使用的是webDeletegate的方式 fragment
  * created by wangxiaotao
  * 2020/5/16 0016 10:41
  */

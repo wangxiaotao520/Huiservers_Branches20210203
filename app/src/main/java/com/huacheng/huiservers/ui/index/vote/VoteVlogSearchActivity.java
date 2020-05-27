@@ -78,6 +78,7 @@ public class VoteVlogSearchActivity extends BaseActivity implements IndexVoteAda
         mRefreshLayout.setEnableLoadMore(false);
 
         mAdapter = new IndexVoteAdapter<>(this, mDatas, this, 2);
+        mAdapter.setColor(color, canvassing_color, vote_color, poll_color);
         listView.setAdapter(mAdapter);
         listView.setHasMoreItems(false);
         listView.setIsLoading(false);
@@ -114,9 +115,10 @@ public class VoteVlogSearchActivity extends BaseActivity implements IndexVoteAda
                         mRelNoData.setVisibility(View.GONE);
                         mDatas.clear();
                         mDatas.addAll(info);
-                        mAdapter.setColor(color, canvassing_color, vote_color, poll_color);
                         mAdapter.notifyDataSetChanged();
                     } else {
+                        mDatas.clear();
+                        mAdapter.notifyDataSetChanged();
                         mRelNoData.setVisibility(View.VISIBLE);
                     }
 

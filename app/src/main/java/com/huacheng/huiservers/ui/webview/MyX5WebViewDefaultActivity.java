@@ -1,18 +1,17 @@
-package com.huacheng.huiservers.ui.webview.vote;
+package com.huacheng.huiservers.ui.webview;
 
-import android.content.Intent;
+
 import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
@@ -23,25 +22,31 @@ import com.huacheng.huiservers.model.ModelShareParam;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.webview.common.JSWebInterface;
+import com.huacheng.huiservers.view.X5WebView.MyX5WebView;
 import com.huacheng.libraryservice.utils.AppConstant;
-import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.microquation.linkedme.android.log.LMErrorCode;
+import com.tencent.smtt.sdk.CookieSyncManager;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
 /**
- * Description:  投票页webview新的（为了解决有些网址不显示的问题）
+ * Description: 封装的X5WebView
  * created by wangxiaotao
- * 2020/5/21 0021 19:44
+ * 2020/5/26 0026 15:13
+ * //todo 传入一个url 具体的业务逻辑到时候根据业务需求再弄
  */
-public class WebViewVoteActivityNew extends BaseActivity {
+public class MyX5WebViewDefaultActivity extends BaseActivity {
 
-    private WebView mWebView;
+    private MyX5WebView mWebView;
 
     View mStatusBar;
     private ImageView iv_right;
@@ -49,6 +54,7 @@ public class WebViewVoteActivityNew extends BaseActivity {
     String  url = "";
     String  url_param = "";
     private ModelShareParam modelShareParam;
+    private ProgressBar my_progress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,18 +66,31 @@ public class WebViewVoteActivityNew extends BaseActivity {
 
     @Override
     protected void initView() {
-        mWebView = findViewById(R.id.webView);
+       // 兼容视频播放：
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
+        try {
+            if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 11) {
+                getWindow()
+                        .setFlags(
+                                android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                                android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+            }
+        } catch (Exception e) {
+        }
+        //以下数据根据接口判断
         mStatusBar = findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         findTitleViews();
-
-        //以下数据根据接口判断
         mStatusBar.setBackgroundColor(getResources().getColor(R.color.white));
         findViewById(R.id.title_rel).setBackgroundColor(getResources().getColor(R.color.white));
         lin_right = findViewById(R.id.lin_right);
         lin_right.setVisibility(View.GONE);
         iv_right = findViewById(R.id.iv_right);
         iv_right.setBackgroundResource(R.mipmap.ic_share_black);
+        my_progress = findViewById(R.id.my_progress);
+        my_progress.setVisibility(View.GONE);
+        mWebView = findViewById(R.id.webView);
+
 
         initWebViewSetting();
         initWebViewClient();
@@ -97,33 +116,58 @@ public class WebViewVoteActivityNew extends BaseActivity {
             }
         });
         //初始化WebSettings
-        final WebSettings settings = mWebView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        final String ua = settings.getUserAgentString();
-        //FIXME 后面的名字不知道是啥
-        settings.setUserAgentString(ua + "Latte");
+//        final WebSettings settings = mWebView.getSettings();
+//        settings.setJavaScriptEnabled(true);
+//        final String ua = settings.getUserAgentString();
+//        // 后面的名字不知道是啥
+//        settings.setUserAgentString(ua + "Latte");
+//
+//        //设置自适应屏幕，两者合用
+//        settings.setUseWideViewPort(false); //将图片调整到适合webview的大小
+//        //  settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//        settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+//        // settings.setTextZoom(100);
+//
+//        //隐藏缩放控件
+//        settings.setBuiltInZoomControls(false);
+//        settings.setDisplayZoomControls(false);
+//        //禁止缩放
+//        settings.setSupportZoom(false);
+//        //文件权限
+//        settings.setAllowFileAccess(true);
+//        settings.setAllowFileAccessFromFileURLs(true);
+//        settings.setAllowUniversalAccessFromFileURLs(true);
+//        settings.setAllowContentAccess(true);
+//        //缓存相关
+//        settings.setAppCacheEnabled(true);
+//        settings.setDomStorageEnabled(true);
+//        settings.setDatabaseEnabled(true);
+//        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        WebSettings webSetting = mWebView.getSettings();
+        webSetting.setAllowFileAccess(true);
+        webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        webSetting.setSupportZoom(true);
+        webSetting.setBuiltInZoomControls(true);
+        webSetting.setUseWideViewPort(true);
+        webSetting.setSupportMultipleWindows(false);
+        // webSetting.setLoadWithOverviewMode(true);
+        webSetting.setAppCacheEnabled(true);
+        // webSetting.setDatabaseEnabled(true);
+        webSetting.setDomStorageEnabled(true);
+        webSetting.setJavaScriptEnabled(true);
+        webSetting.setGeolocationEnabled(true);
+        webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
+        webSetting.setAppCachePath(this.getDir("appcache", 0).getPath());
+        webSetting.setDatabasePath(this.getDir("databases", 0).getPath());
+        webSetting.setGeolocationDatabasePath(this.getDir("geolocation", 0)
+                .getPath());
+        // webSetting.setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);
+        webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
+        // webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        // webSetting.setPreFectch(true);
 
-        //设置自适应屏幕，两者合用
-        settings.setUseWideViewPort(false); //将图片调整到适合webview的大小
-        //  settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-        // settings.setTextZoom(100);
-
-        //隐藏缩放控件
-        settings.setBuiltInZoomControls(false);
-        settings.setDisplayZoomControls(false);
-        //禁止缩放
-        settings.setSupportZoom(false);
-        //文件权限
-        settings.setAllowFileAccess(true);
-        settings.setAllowFileAccessFromFileURLs(true);
-        settings.setAllowUniversalAccessFromFileURLs(true);
-        settings.setAllowContentAccess(true);
-        //缓存相关
-        settings.setAppCacheEnabled(true);
-        settings.setDomStorageEnabled(true);
-        settings.setDatabaseEnabled(true);
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        CookieSyncManager.createInstance(this);
+        CookieSyncManager.getInstance().sync();
     }
 
     //初始化client
@@ -132,26 +176,27 @@ public class WebViewVoteActivityNew extends BaseActivity {
             //表示重定向和url跳转，由这个webView自己来处理，不会打开外部浏览器
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
                 //     view.loadUrl(url);
                 // 这块如果有特殊业务需求就自己做处理,因为这里存在重定向的问题
-                //     view.loadUrl(url);
-                // 这块如果有特殊业务需求就自己做处理,因为这里存在重定向的问题
-                if (!NullUtil.isStringEmpty(url)&&(url.contains("http")||url.contains("https"))){
-                    Intent intent = new Intent(mContext,WebViewVoteActivityNew.class);
-                    intent.putExtra("url_param",url);
-                    startActivity(intent);
-                    return true;
-                }else {
+//                if (!NullUtil.isStringEmpty(url)&&(url.contains("http")||url.contains("https"))){
+//                   Intent intent = new Intent(mContext, WebViewVoteActivityNew.class);
+//                    intent.putExtra("url_param",url);
+//                    startActivity(intent);
+//                    return true;
+//                }else {
                     return super.shouldOverrideUrlLoading(view,url);
-                }
+      //         }
             }
+
 
             //页面开始加载时回调（页面后退也会回调）
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
                 // 有其他业务需要可以在这里处理
-                showDialog(smallDialog);
+             //   showDialog(smallDialog);
+                my_progress.setVisibility(View.VISIBLE);
 
             }
 
@@ -160,7 +205,8 @@ public class WebViewVoteActivityNew extends BaseActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 //有其他业务需要可以在这里处理
-                hideDialog(smallDialog);
+              //  hideDialog(smallDialog);
+                my_progress.setVisibility(View.GONE);
 
             }
         });
@@ -171,7 +217,11 @@ public class WebViewVoteActivityNew extends BaseActivity {
     //
     private void initWebViewChromeClient() {
         mWebView.setWebChromeClient(new WebChromeClient(){
-
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                my_progress.setProgress(newProgress);
+            }
         });
     }
 
@@ -180,7 +230,8 @@ public class WebViewVoteActivityNew extends BaseActivity {
     }
     @Override
     protected void initData() {
-        requestShareAndTitle();
+     //   requestShareAndTitle();
+        mWebView.loadUrl(url);
     }
     /**
      * 请求title
@@ -231,7 +282,7 @@ public class WebViewVoteActivityNew extends BaseActivity {
                     params.put("url_param", url_param);
                     params.put("type", "webview_share");
                     showDialog(smallDialog);
-                    LinkedMeUtils.getInstance().getLinkedUrl(WebViewVoteActivityNew.this, share_url, modelShareParam.getShare_title(), params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
+                    LinkedMeUtils.getInstance().getLinkedUrl(MyX5WebViewDefaultActivity.this, share_url, modelShareParam.getShare_title(), params, new LinkedMeUtils.OnGetLinkedmeUrlListener() {
                         @Override
                         public void onGetUrl(String url, LMErrorCode error) {
                             hideDialog(smallDialog);
@@ -263,7 +314,7 @@ public class WebViewVoteActivityNew extends BaseActivity {
     }
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_webview_vote_new;
+        return R.layout.activity_x5webview_default;
     }
 
     @Override
@@ -273,8 +324,9 @@ public class WebViewVoteActivityNew extends BaseActivity {
             //包含http链接的话
             url=url_param;
         }else {
-            url= ApiHttpClient.API_URL+ApiHttpClient.API_VERSION+url_param+"/token/"+ApiHttpClient.TOKEN+"/tokenSecret/"+ApiHttpClient.TOKEN_SECRET;
-
+         //   url= ApiHttpClient.API_URL+ApiHttpClient.API_VERSION+url_param+"/token/"+ApiHttpClient.TOKEN+"/tokenSecret/"+ApiHttpClient.TOKEN_SECRET;
+            //todo 测试
+             url = "https://v.douyin.com/J17NqxK/";
         }
     }
 
@@ -314,4 +366,20 @@ public class WebViewVoteActivityNew extends BaseActivity {
             mWebView = null;
         }
     }
+    //点击返回上一页面而不是退出浏览器
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
+//
+//        }else {
+        if (keyCode == KeyEvent.KEYCODE_BACK &&mWebView!=null) {
+                if (mWebView.canGoBack()){
+                    mWebView.goBack();
+                    return true;
+                }
+        }
+//        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
+
