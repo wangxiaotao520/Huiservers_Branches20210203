@@ -24,6 +24,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.webview.common.JSWebInterface;
 import com.huacheng.huiservers.view.X5WebView.MyX5WebView;
 import com.huacheng.libraryservice.utils.AppConstant;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
@@ -53,6 +54,7 @@ public class MyX5WebViewDefaultActivity extends BaseActivity {
     private LinearLayout lin_right;
     String  url = "";
     String  url_param = "";
+    String  title = "";
     private ModelShareParam modelShareParam;
     private ProgressBar my_progress;
 
@@ -87,6 +89,9 @@ public class MyX5WebViewDefaultActivity extends BaseActivity {
         lin_right.setVisibility(View.GONE);
         iv_right = findViewById(R.id.iv_right);
         iv_right.setBackgroundResource(R.mipmap.ic_share_black);
+        if (!NullUtil.isStringEmpty(title)){
+            titleName.setText(title+"");
+        }
         my_progress = findViewById(R.id.my_progress);
         my_progress.setVisibility(View.GONE);
         mWebView = findViewById(R.id.webView);
@@ -299,6 +304,16 @@ public class MyX5WebViewDefaultActivity extends BaseActivity {
                 }
             }
         });
+        findViewById(R.id.lin_left).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mWebView.canGoBack()){
+                    mWebView.goBack();
+                }else {
+                    finish();
+                }
+            }
+        });
     }
     /**
      * 显示分享弹窗
@@ -320,6 +335,7 @@ public class MyX5WebViewDefaultActivity extends BaseActivity {
     @Override
     protected void initIntentData() {
         url_param = getIntent().getStringExtra("url_param");
+        title=getIntent().getStringExtra("title");
         if (url_param!=null&&(url_param.contains("http")||url_param.contains("https"))){
             //包含http链接的话
             url=url_param;

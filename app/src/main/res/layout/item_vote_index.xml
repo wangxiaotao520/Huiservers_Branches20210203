@@ -75,7 +75,7 @@
                         android:textColor="@color/title_sub_color"
                         android:layout_marginLeft="5dp"
                         android:singleLine="true"
-                        android:textSize="15sp" />
+                        android:textSize="15dp"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -87,7 +87,7 @@
                         android:text="1002票"
                         android:textColor="@color/vote_red"
                         android:layout_marginRight="5dp"
-                        android:textSize="15sp" />
+                        android:textSize="15dp" />
                 </LinearLayout>
                 <TextView
                     android:id="@+id/tv_desc1"
@@ -189,7 +189,7 @@
                         android:singleLine="true"
                         android:textColor="@color/title_sub_color"
                         android:layout_marginLeft="5dp"
-                        android:textSize="15sp" />
+                        android:textSize="15dp" />
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"

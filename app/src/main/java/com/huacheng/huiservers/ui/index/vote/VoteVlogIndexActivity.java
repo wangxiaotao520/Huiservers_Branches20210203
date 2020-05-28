@@ -3,7 +3,6 @@ package com.huacheng.huiservers.ui.index.vote;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +25,7 @@ import com.huacheng.huiservers.model.ModelVoteEvent;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.vote.adapter.IndexVoteAdapter;
+import com.huacheng.huiservers.ui.webview.MyX5WebViewDefaultActivity;
 import com.huacheng.huiservers.utils.NightModeUtils;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.AppConstant;
@@ -228,11 +228,15 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
                 // 活动详情
               //  ShopZQWebActivity
                 if (mInfo!=null&&mInfo.getDetails_link().contains("http")){
-                    Intent intent = new Intent();
-                    intent.setAction("android.intent.action.VIEW");
-                    Uri content_url = Uri.parse(mInfo.getDetails_link());
-                    intent.setData(content_url);
-                    mContext.startActivity(intent);
+//                    Intent intent = new Intent();
+//                    intent.setAction("android.intent.action.VIEW");
+//                    Uri content_url = Uri.parse(mInfo.getDetails_link());
+//                    intent.setData(content_url);
+//                    mContext.startActivity(intent);
+                    Intent intent = new Intent(VoteVlogIndexActivity.this, MyX5WebViewDefaultActivity.class);
+                    intent.putExtra("url_param",mInfo.getDetails_link()+"");
+                    intent.putExtra("title","详情");
+                    startActivity(intent);
                 }
             }
         });
@@ -411,11 +415,15 @@ public class VoteVlogIndexActivity extends BaseActivity implements IndexVoteAdap
     @Override
     public void onClickItem(View v, int position) {
         if (!NullUtil.isStringEmpty(mDatas.get(position).getLink())&&mDatas.get(position).getLink().contains("http")){
-            Intent intent = new Intent();
-            intent.setAction("android.intent.action.VIEW");
-            Uri content_url = Uri.parse(mDatas.get(position).getLink());
-            intent.setData(content_url);
-            mContext.startActivity(intent);
+//            Intent intent = new Intent();
+//            intent.setAction("android.intent.action.VIEW");
+//            Uri content_url = Uri.parse(mDatas.get(position).getLink());
+//            intent.setData(content_url);
+//            mContext.startActivity(intent);
+            Intent intent = new Intent(this, MyX5WebViewDefaultActivity.class);
+            intent.putExtra("url_param",mDatas.get(position).getLink()+"");
+            intent.putExtra("title","详情");
+            startActivity(intent);
         }
     }
 
