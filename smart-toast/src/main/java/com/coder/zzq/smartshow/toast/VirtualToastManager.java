@@ -35,9 +35,13 @@ public final class VirtualToastManager {
         virtualToastDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         virtualToastDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
         WindowManager.LayoutParams lp = virtualToastDialog.getWindow().getAttributes();
-        lp.width = windowParams.width;
-        lp.height = windowParams.height;
-        lp.windowAnimations = windowParams.windowAnimations;
+//        lp.width = windowParams.width;
+//        lp.height = windowParams.height;
+//        lp.windowAnimations = windowParams.windowAnimations;
+
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.windowAnimations = R.style.type_info_toast_anim;
         lp.gravity = toast.getGravity();
         lp.x = toast.getXOffset();
         lp.y = toast.getYOffset();
