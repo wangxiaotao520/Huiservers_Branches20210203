@@ -9,17 +9,17 @@ public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
     public static String API_VERSION = "apk46/";
     //测试
-//    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
-//    public static String API_URL = "http://test.hui-shenghuo.cn/";
-//    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
-//    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
+    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
+    public static String API_URL = "http://test.hui-shenghuo.cn/";
+    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
+    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
 
 //    正式
-    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
-    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
-    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
-    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service/";
+//    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
+//    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
+//    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
+//    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service/";
 
 
     public static String IMG_URL = "http://img.hui-shenghuo.cn/";
@@ -441,6 +441,16 @@ public class ApiHttpClient {
     public static String PASS_CHECK_SUBMIT = API_URL + API_VERSION + "propertyPass/pass_check_submit";
     //请求分享参数
     public static String GET_SHARE_PARAM= API_URL + API_VERSION + "shares/share";
+    //个人中心我的优惠券
+    public static String MY_COUPON_LIST= API_URL + API_VERSION + "/userCenter/my_coupon_46";
+    //历史记录
+    public static String COUPON_HISTORY= API_URL + API_VERSION + "userCenter/coupon_over_46";
+    //领取优惠券
+    public static String COUPON_ADD= API_URL + API_VERSION + "userCenter/coupon_add/";
+    //商品详情的优惠券列表
+    public static String GOODS_COUPON_LIST= API_URL + API_VERSION + "shop/goods_coupon";
+    //确认订单优惠券列表
+    public static String COMFIRM_ORDER_COUPON_LIST= API_URL + API_VERSION + "userCenter/order_coupon_46";
 
 
     /**
@@ -620,5 +630,10 @@ public class ApiHttpClient {
         VERITY_OPERATION = API_URL + API_VERSION + "site/verify_operation";
         GET_SHARE_PARAM= API_URL + API_VERSION + "shares/share";
         VOTE_LIST = API_URL + API_VERSION + "vote/vote_list";
+        MY_COUPON_LIST= API_URL + API_VERSION + "/userCenter/my_coupon_46";
+        COUPON_HISTORY= API_URL + API_VERSION + "userCenter/coupon_over_46";
+        COUPON_ADD= API_URL + API_VERSION + "userCenter/coupon_add/";
+        GOODS_COUPON_LIST= API_URL + API_VERSION + "shop/goods_coupon";
+        COMFIRM_ORDER_COUPON_LIST= API_URL + API_VERSION + "userCenter/order_coupon_46";
     }
 }

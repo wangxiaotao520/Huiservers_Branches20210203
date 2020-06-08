@@ -30,18 +30,22 @@ import com.example.xlhratingbar_lib.XLHRatingBar;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.AddShopDialog;
+import com.huacheng.huiservers.dialog.ChooseCouponDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
 import com.huacheng.huiservers.jpush.MyReceiver;
+import com.huacheng.huiservers.model.ModelCouponNew;
 import com.huacheng.huiservers.model.ModelEventShopCart;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.coupon.CouponListAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
 import com.huacheng.huiservers.ui.shop.bean.ShopMainBean;
@@ -58,6 +62,7 @@ import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.glide.GlideUtils;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.linkme.LinkedMeUtils;
 import com.huacheng.libraryservice.utils.timer.CountDownTimer;
 import com.microquation.linkedme.android.log.LMErrorCode;
@@ -155,6 +160,10 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
     private TextView tv_seckill_num;
     private HorizontalScrollView hsv_view;
     private LinearLayout scroll_view;
+    private RelativeLayout rel_coupon; //优惠券
+    private TextView tv_coupon_tag1;    //优惠券tag1
+    private TextView tv_coupon_tag2;//优惠券tag2
+    private ChooseCouponDialog chooseCouponDialog; //选择优惠券对话框
 
 
     @Override
@@ -294,6 +303,11 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         tv_downcount_minute = findViewById(R.id.tv_downcount_minute);
         tv_downcount_second = findViewById(R.id.tv_downcount_second);
 
+        rel_coupon = findViewById(R.id.rel_coupon);
+        tv_coupon_tag1 = findViewById(R.id.tv_coupon_tag1);
+        tv_coupon_tag2 = findViewById(R.id.tv_coupon_tag2);
+
+
         countDownCounters = new SparseArray<>();
 
         rel_cancel.setOnClickListener(this);
@@ -307,6 +321,7 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         iv_share = findViewById(R.id.iv_share);
         ly_share.setOnClickListener(this);
         ly_onclck_pingjia.setOnClickListener(this);
+        rel_coupon.setOnClickListener(this);
     }
 
     @Override
@@ -387,6 +402,8 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
                                 lin_XS_bottom.setVisibility(View.GONE);//底部限时抢购
                                 lin_bottom.setVisibility(View.VISIBLE);//购物车
                             }
+                            getCouponTag();
+
                         }else {
                             SmartToast.showInfo(msg+"");
                         }
@@ -406,6 +423,25 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         };
     }
 
+    /**
+     * 商品详情的优惠券标签
+     */
+    private void getCouponTag() {
+        if (detailBean.getCoupon()!=null&&detailBean.getCoupon().size()>0){
+            for (int i = 0; i < detailBean.getCoupon().size(); i++) {
+                if (i==0){
+                    tv_coupon_tag1.setVisibility(View.VISIBLE);
+                    tv_coupon_tag1.setText(detailBean.getCoupon().get(i).getName()+"");
+                }else if (i==1){
+                    tv_coupon_tag2.setVisibility(View.VISIBLE);
+                    tv_coupon_tag2.setText(detailBean.getCoupon().get(i).getName()+"");
+                }
+            }
+        }else {
+            tv_coupon_tag1.setVisibility(View.GONE);
+            tv_coupon_tag2.setVisibility(View.GONE);
+        }
+    }
 
     private void initListeners() {
         ViewTreeObserver vto = img_title.getViewTreeObserver();
@@ -930,12 +966,96 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
                 intent.putExtra("store_id", detailBean.getMerchant().getId());
                 startActivity(intent);
                 break;
+            case R.id.rel_coupon://优惠券
+
+                requestCouponList();
+               // showCouponDialog();
+                break;
             default:
                 break;
         }
 
     }
 
+    /**
+     * 请求优惠券dialog数据
+     */
+    private void requestCouponList() {
+        // 根据接口请求数据
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id",shop_id+"");
+        MyOkHttp.get().get(ApiHttpClient.GOODS_COUPON_LIST, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    List <ModelCouponNew>list = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelCouponNew.class);
+                    showCouponDialog(list);
+                } else {
+                    String msg = com.huacheng.libraryservice.utils.json.JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
+    }
+
+
+    /**
+     * 显示优惠券对话框
+     */
+    private void showCouponDialog(List <ModelCouponNew> mDatas) {
+        //每次都要new
+        chooseCouponDialog = new ChooseCouponDialog(this, mDatas, 4,new CouponListAdapter.OnClickRightBtnListener() {
+               @Override
+               public void onClickRightBtn(ModelCouponNew item, int position, int type) {
+                   if ("1".equals(item.getStatus())){
+                       couponAdd(item,position,type);
+                   }else {
+                       SmartToast.showInfo("优惠券已领取");
+                   }
+
+               }
+           });
+        chooseCouponDialog.show();
+    }
+    /**
+     * 领取优惠券
+     * @param item
+     * @param position
+     * @param type
+     */
+    private void couponAdd(ModelCouponNew item, final int position, int type) {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("coupon_id",item.getId()+"");
+        MyOkHttp.get().post( ApiHttpClient.COUPON_ADD, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"领取成功"));
+                    chooseCouponDialog.notifyOneItem(position);
+
+                } else {
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"领取失败"));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
     /**
      * 显示分享弹窗
      *
@@ -1073,5 +1193,9 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         EventBus.getDefault().unregister(this);
         super.onDestroy();
         this.cannelAllTimers();
+        if (chooseCouponDialog!=null){
+            chooseCouponDialog.dismiss();
+        }
+
     }
 }

@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.http.MyCookieStore;
+import com.huacheng.huiservers.model.ModelCouponNew;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.ui.shop.bean.BestpayMerchant;
@@ -417,6 +418,23 @@ public class ShopProtocol {
                 store_bean.setBackground(objstore.getString("background"));
                 store_bean.setAddress(objstore.getString("address"));
                 info.setMerchant(store_bean);
+                //优惠券
+                String coupon_string = obj.getString("coupon");
+                if (!NullUtil.isStringEmpty(coupon_string)){
+                    List<ModelCouponNew> coupon_beans = new ArrayList<ModelCouponNew>();
+                    JSONArray coupon_jsonarray = new JSONArray(coupon_string);
+                    for (int i = 0; i < coupon_jsonarray.length(); i++) {
+                        JSONObject coupon_jsonobj = coupon_jsonarray.getJSONObject(i);
+                        ModelCouponNew modelCouponNew = new ModelCouponNew();
+                        modelCouponNew.setName(coupon_jsonobj.getString("name"));
+                        modelCouponNew.setAmount(coupon_jsonobj.getString("amount"));
+                        modelCouponNew.setFulfil_amount(coupon_jsonobj.getString("fulfil_amount"));
+                        modelCouponNew.setId(coupon_jsonobj.getString("id"));
+                        coupon_beans.add(modelCouponNew);
+                    }
+                    info.setCoupon(coupon_beans);
+                }
+
             }
         } catch (Exception e) {
             LogUtils.e(e);

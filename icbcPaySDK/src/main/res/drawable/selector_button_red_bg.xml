@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--默认背景-->
+    <item>
+        <shape>
+            <solid android:color="#ff7b7b" />
+            <corners
+                android:radius="3dp">
+            </corners>
+        </shape>
+    </item>
+</selector>

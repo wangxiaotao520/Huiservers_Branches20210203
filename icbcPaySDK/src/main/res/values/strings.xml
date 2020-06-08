@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="net_errormsg">请检查网络</string>
+
+    <string name="btn_back">返回</string>
+    <string name="title_paymode">支付方式</string>
+    <string name="wxpay">微信支付</string>
+    <string name="btn_dopay">去支付</string>
+    <string name="alipay">支付宝</string>
+    <string name="payway">支付方式</string>
+</resources>

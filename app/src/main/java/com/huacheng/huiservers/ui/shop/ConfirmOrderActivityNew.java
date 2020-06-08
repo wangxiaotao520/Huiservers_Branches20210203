@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.ChooseCouponDialog;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.ConfirmOrderDialog;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -24,12 +25,14 @@ import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ConfirmOrderBeanCommit;
 import com.huacheng.huiservers.model.ModelAddressList;
+import com.huacheng.huiservers.model.ModelCouponNew;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.AddAddressActivity;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
+import com.huacheng.huiservers.ui.center.coupon.CouponListAdapter;
 import com.huacheng.huiservers.ui.shop.adapter.ConfirmShopListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.AmountBean;
 import com.huacheng.huiservers.ui.shop.bean.ConfirmBean;
@@ -72,8 +75,9 @@ public class ConfirmOrderActivityNew extends BaseActivity implements View.OnClic
     ConfirmShopListAdapter adapter;
     private String coupon_price, coupon_id, coupon_name;
     private EditText edt_liuyan;
-    double all_money;
-    String shop_id_str, shop_cou_Amount;
+    double all_money;//最后显示的总价
+    double all_money_without_coupon; //没选优惠券时的商品+运费价格（运费和商品价格是服务器计算的）
+    String shop_id_str, shop_cou_Amount;//商品总价（不连运费,服务器返回的）
     private List<ConfirmBean> mDatas = new ArrayList();//集合
     private String address_id = "";
     private String para_amount = "0";
@@ -81,6 +85,7 @@ public class ConfirmOrderActivityNew extends BaseActivity implements View.OnClic
     private TextView tv_all_yunfei;
     private TextView tv_all_coupon;
     private LinearLayout ll_root;
+    private ChooseCouponDialog chooseCouponDialog;
 
     @Override
     protected void initView() {
@@ -219,16 +224,72 @@ public class ConfirmOrderActivityNew extends BaseActivity implements View.OnClic
                 break;
 
             case R.id.txt_youhuiquan://选择使用优惠券
-                intent = new Intent(this, CouponListActivity.class);//CouponListActivity
-                bundle.putString("tag", "order");
-                bundle.putString("all_id", shop_id_str);
-                bundle.putString("all_shop_money", shop_cou_Amount);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 100);
+//                intent = new Intent(this, CouponListActivity.class);//CouponListActivity
+//                bundle.putString("tag", "order");
+//                bundle.putString("all_id", shop_id_str);
+//                bundle.putString("all_shop_money", shop_cou_Amount);
+//                intent.putExtras(bundle);
+//                startActivityForResult(intent, 100);
+                requestCouponList();
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 请求可使用优化券列表
+     */
+    private void requestCouponList() {
+        // 根据接口请求数据
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("category_id",54+"");
+        params.put("shop_id_str",shop_id_str+"");
+        params.put("amount",shop_cou_Amount+"");
+        MyOkHttp.get().get(ApiHttpClient.COMFIRM_ORDER_COUPON_LIST, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    List <ModelCouponNew>list = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelCouponNew.class);
+                    showCouponDialog(list);
+                } else {
+                    String msg = com.huacheng.libraryservice.utils.json.JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
+    /**
+     * 显示优惠券对话框
+     */
+    private void showCouponDialog(List <ModelCouponNew> mDatas) {
+        //每次都要new
+        chooseCouponDialog = new ChooseCouponDialog(this, mDatas, 5,new CouponListAdapter.OnClickRightBtnListener() {
+            @Override
+            public void onClickRightBtn(ModelCouponNew item, int position, int type) {
+                coupon_price = item.getAmount();
+                coupon_id = item.getId();
+                coupon_name = item.getName();
+                txt_youhuiquan.setText(coupon_name);
+                tv_all_coupon.setText("－ ¥ "+coupon_price);
+                //此时的价格变成了原先没选优化券前价格-优惠券的价格
+                all_money = all_money_without_coupon - Double.parseDouble(coupon_price);
+                setFloat();
+                //txt_youhuiquan.setText("使用le优惠券");
+                txt_all_money.setText("" + all_money);
+                chooseCouponDialog.dismiss();
+            }
+        });
+        chooseCouponDialog.show();
     }
 
 
@@ -280,9 +341,11 @@ public class ConfirmOrderActivityNew extends BaseActivity implements View.OnClic
                             if (bean.getAmount() != null && !TextUtils.isEmpty(bean.getAmount())) {
                                 all_money = Double.parseDouble(bean.getAmount());
                                 txt_all_money.setText(""+ bean.getAmount());
+                                all_money_without_coupon=Double.parseDouble(bean.getAmount());
                             } else {
                                 txt_all_money.setText("0");
                                 all_money = 0.00;
+                                all_money_without_coupon=0.00;
                             }
                             shop_id_str = bean.getShop_id_str();
                             shop_cou_Amount = bean.getAmount();
@@ -319,6 +382,10 @@ public class ConfirmOrderActivityNew extends BaseActivity implements View.OnClic
                             mDatas.clear();
                             mDatas.addAll(bean.getPro_data());
                             adapter.notifyDataSetChanged();
+                            //优惠券一定要清空
+                            coupon_id="";
+                            coupon_name="";
+                            coupon_price="";
                         }
                     } else {
                         SmartToast.showInfo(msg);
@@ -454,16 +521,16 @@ public class ConfirmOrderActivityNew extends BaseActivity implements View.OnClic
                 }
                 break;
             case 100://优惠券返回
-                coupon_price = data.getExtras().getString("coupon_price");
-                coupon_id = data.getExtras().getString("coupon_id");
-                coupon_name = data.getExtras().getString("coupon_name");
-                txt_youhuiquan.setText(coupon_name);
-                Double double1 = Double.parseDouble(bean.getAmount());
-                Double double2 = Double.parseDouble(coupon_price);
-                all_money = double1 - double2;
-                setFloat();
-                //txt_youhuiquan.setText("使用le优惠券");
-                txt_all_money.setText("" + all_money);
+//                coupon_price = data.getExtras().getString("coupon_price");
+//                coupon_id = data.getExtras().getString("coupon_id");
+//                coupon_name = data.getExtras().getString("coupon_name");
+//                txt_youhuiquan.setText(coupon_name);
+//                Double double1 = Double.parseDouble(bean.getAmount());
+//                Double double2 = Double.parseDouble(coupon_price);
+//                all_money = double1 - double2;
+//                setFloat();
+//                //txt_youhuiquan.setText("使用le优惠券");
+//                txt_all_money.setText("" + all_money);
                 break;
             case 10:
                 break;
@@ -551,10 +618,23 @@ public class ConfirmOrderActivityNew extends BaseActivity implements View.OnClic
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     AmountBean bean = (AmountBean) JsonUtil.getInstance().parseJsonFromResponse(response, AmountBean.class);
-                    txt_all_money.setText("" + bean.getAmount());
-                    all_money = Double.parseDouble(bean.getAmount());
-                    tv_all_yunfei.setText("＋ ¥ "+bean.getSend_amount());
-                    setFloat();
+                    if (NullUtil.isStringEmpty(coupon_price)){
+                        //没有优惠券的情况
+                        txt_all_money.setText("" + bean.getAmount());
+                        all_money = Double.parseDouble(bean.getAmount());
+                        all_money_without_coupon=Double.parseDouble(bean.getAmount());
+                        tv_all_yunfei.setText("＋ ¥ "+bean.getSend_amount());
+                    }else {
+                        //优惠券总价减去优惠券
+                        tv_all_coupon.setText("－ ¥ "+coupon_price);
+                        tv_all_yunfei.setText("＋ ¥ "+bean.getSend_amount());
+                        //此时的价格变成了原先的价格-优惠券的价格
+                        all_money_without_coupon=Double.parseDouble(bean.getAmount());
+                        all_money = Double.parseDouble(bean.getAmount()) - Double.parseDouble(coupon_price);
+                        setFloat();
+                        //txt_youhuiquan.setText("使用le优惠券");
+                        txt_all_money.setText("" + all_money);
+                    }
                 } else {
                     try {
                         SmartToast.showInfo(response.getString("msg"));

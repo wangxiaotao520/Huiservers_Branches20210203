@@ -102,7 +102,7 @@
         android:largeHeap="true"
         android:resizeableActivity="true"
         android:theme="@style/AppCompatTheme.Base"
-        tools:replace="android:name,android:theme"
+        tools:replace="android:name,android:theme,android:icon,android:allowBackup,android:label"
         >
         <!-- 高德地图app_key -->
         <meta-data
@@ -1156,6 +1156,12 @@
             android:name=".ui.webview.MyX5WebViewDefaultActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.center.coupon.MyCouponListActivityNew"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.center.coupon.CouponHistoryActivity"
             android:screenOrientation="portrait"/>
     </application>
 </manifest>

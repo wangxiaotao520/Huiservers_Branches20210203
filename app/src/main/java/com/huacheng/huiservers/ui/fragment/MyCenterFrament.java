@@ -21,13 +21,13 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.PersoninfoBean;
 import com.huacheng.huiservers.ui.base.BaseFragment;
-import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.HeZuoActivity;
 import com.huacheng.huiservers.ui.center.MyAboutActivity;
 import com.huacheng.huiservers.ui.center.MyInfoCircleActivity;
 import com.huacheng.huiservers.ui.center.SetActivity;
-import com.huacheng.huiservers.model.PersoninfoBean;
+import com.huacheng.huiservers.ui.center.coupon.MyCouponListActivityNew;
 import com.huacheng.huiservers.ui.fragment.adapter.MyCenterAdapter;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
@@ -196,11 +196,16 @@ public class MyCenterFrament extends BaseFragment {
                     startActivity(intent);
 
                 } else if (position == 5) {//"优惠券"
-                    Intent intent = new Intent(getActivity(), CouponListActivity.class);//CouponListActivity
-                    Bundle bundle = new Bundle();
-                    bundle.putString("tag", "center");
-                    intent.putExtras(bundle);
+//                    Intent intent = new Intent(getActivity(), CouponListActivity.class);//CouponListActivity
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("tag", "center");
+//                    intent.putExtras(bundle);
+//                    startActivity(intent);
+                   //
+                    Intent intent = new Intent(getActivity(), MyCouponListActivityNew.class);
+                    intent.putExtra("jump_type",1);
                     startActivity(intent);
+
                 } else if (position == 6) { //"访客邀请"
                     if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
                         //Intent intent1 = new Intent(mContext, PropertyNewActivity.class);

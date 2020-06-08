@@ -28,6 +28,9 @@ android {
                 JPUSH_APPKEY : "b4fee000a6ee3079afc88ea2", //JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
+//        packagingOptions {
+//            exclude 'lib/armeabi-v7a/libffmpegtest.so'
+//        }
     }
     signingConfigs {
         config {
@@ -59,7 +62,7 @@ android {
     }
     repositories {
         flatDir {
-            dirs 'libs', '../app/libs' //第一个libs是主项目的libs,其他module的libs路径需要用逗号隔开../module名/libs
+            dirs 'libs', '../app/libs' ,'../icbcPaySDK/libs'//第一个libs是主项目的libs,其他module的libs路径需要用逗号隔开../module名/libs
         }
     }
     sourceSets {
@@ -110,7 +113,7 @@ android {
      targetGenDir 'src/main/java'
  }
  dependencies {
-     implementation fileTree(include: ['*.jar'], dir: 'libs')
+     implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
      androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
          exclude group: 'com.android.support', module: 'support-annotations'
      })
@@ -123,20 +126,20 @@ android {
      annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
      implementation 'com.lzy.widget:imagepicker:0.5.4'
      implementation 'com.xingliuhua:xlhratingbar_lib:1.0.1'
-     implementation(name: 'EAccount_SDK_Android_201708232115', ext: 'aar')
+    // implementation(name: 'EAccount_SDK_Android_201708232115', ext: 'aar')
      implementation 'com.yan:pullrefreshlayout:2.1.08'
      implementation 'com.xhb:xbanner:1.3.1'
 
      //卡片效果，支持无限循环
      implementation 'com.crazysunj:cardslideview:1.2.1'
-     implementation(name: 'ajbDoorBellLib-2.2.0-release', ext: 'aar')
+ //    implementation(name: 'ajbDoorBellLib-2.2.0-release', ext: 'aar')
      implementation files('libs/ajbOpendoor-data-release-2.2.0.jar')
      implementation 'org.jsoup:jsoup:1.9.2'
      implementation 'com.belerweb:pinyin4j:2.5.0'
 
      //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
      implementation 'com.tencent.bugly:crashreport:latest.release'
-     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+  //   implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
      implementation 'com.android.support:multidex:1.0.0'
      implementation 'com.google.zxing:core:3.2.1'
 
@@ -187,7 +190,7 @@ android {
 
      //无需引入tinker的任何库,使用tinkerpatch sdk即可
      implementation 'com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.2.11'
-     implementation(name: 'qmf-ppplugin-android-3.0.4', ext: 'aar')
+   //  implementation(name: 'qmf-ppplugin-android-3.0.4', ext: 'aar')
      implementation project(':banner')
      implementation 'com.haibin:calendarview:3.6.4'
      implementation project(':circleprogress')
@@ -196,4 +199,6 @@ android {
 
      //  implementation 'jp.wasabeef:glide-transformations:2.0.1'
      implementation files('libs/tbs_sdk_thirdapp_v4.3.0.3_43903_sharewithdownloadwithfile_withoutGame_obfs_20200402_121309.jar')
+
+     implementation project(':icbcPaySDK')
  }

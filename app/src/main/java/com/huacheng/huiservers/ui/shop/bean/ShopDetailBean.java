@@ -1,5 +1,7 @@
 package com.huacheng.huiservers.ui.shop.bean;
 
+import com.huacheng.huiservers.model.ModelCouponNew;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -52,6 +54,8 @@ public class ShopDetailBean implements Serializable{
     private String discount, distance_start, distance_end;
     private long current_times;//倒计时用来的时间
     private long current_times1;//倒计时用的时间，开启第二个倒计时的time
+
+    private List<ModelCouponNew> coupon;
 
     public String getScore_count() {
         return score_count;
@@ -486,4 +490,11 @@ public class ShopDetailBean implements Serializable{
         this.coupon_amount = coupon_amount;
     }
 
+    public List<ModelCouponNew> getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(List<ModelCouponNew> coupon) {
+        this.coupon = coupon;
+    }
 }

@@ -291,7 +291,67 @@
                         >
 
                     </LinearLayout>
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/windowbackground"/>
 
+                    <RelativeLayout
+                        android:id="@+id/rel_coupon"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_15">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="领券"
+                                android:textColor="@color/title_sub_color"
+                                android:textSize="@dimen/t_14sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_coupon_tag1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:text="店铺券满150减5"
+                                android:singleLine="true"
+                                android:background="#FDF6F6"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:textColor="@color/red_normal"
+                                android:visibility="gone"
+                                android:textSize="@dimen/t_14sp"/>
+                            <TextView
+                                android:id="@+id/tv_coupon_tag2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="店铺券满150减5"
+                                android:singleLine="true"
+                                android:background="#FDF6F6"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:visibility="gone"
+                                android:textColor="@color/red_normal"
+                                android:textSize="@dimen/t_14sp"/>
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="right"
+                            android:background="@drawable/jiantou_you"/>
+                    </RelativeLayout>
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="10dp"
