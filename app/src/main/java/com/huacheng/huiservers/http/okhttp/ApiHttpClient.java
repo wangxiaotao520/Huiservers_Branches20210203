@@ -8,12 +8,17 @@ package com.huacheng.huiservers.http.okhttp;
 public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
     public static String API_VERSION = "apk46/";
-    //测试
-    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
-    public static String API_URL = "http://test.hui-shenghuo.cn/";
-    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
-    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
+//    //测试
+//    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
+//    public static String API_URL = "http://test.hui-shenghuo.cn/";
+//    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
+//    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
+    //测试new
+    public static final String API_URL_FINAL = "http://1.71.130.58:81/";//固定域名
+    public static String API_URL = "http://1.71.130.58:82/";
+    public static String API_URL_SHARE = "http://1.71.130.58:82/";//分享
+    public static String API_SERVICE_URL = "http://1.71.130.58:82/service/";//服务
 
 //    正式
 //    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";

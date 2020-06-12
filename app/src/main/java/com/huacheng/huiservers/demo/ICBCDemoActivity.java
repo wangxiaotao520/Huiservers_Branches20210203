@@ -11,8 +11,28 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 public class ICBCDemoActivity extends BaseActivity {
     @Override
     protected void initView() {
-
-
+//        UnionPayReq unionPayReq = new UnionPayReq();
+//        WXPayAPI.init(getApplicationContext(), WXConstants.APP_ID); //注册appid
+//        WXPayAPI.getInstance().doSdk(ICBCDemoActivity.this, unionPayReq);
+//        ICBCAPI.getInstance().sendReq(ICBCDemoActivity.this, unionPayReq);
+//        AliPayAPI.getInstance().doSdk(ICBCDemoActivity.this, unionPayReq, new AliPayAPI.AliPayResultCallBack() {
+//            @Override
+//            public void onResp(String resultcode) {
+//                if ("9000".equals(resultcode)) {
+//                    Toast.makeText(ICBCDemoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+//                    //支付成功
+//
+//                } else if ("6001".equals(resultcode)) {
+//                    Toast.makeText(ICBCDemoActivity.this, "支付取消", Toast.LENGTH_SHORT).show();
+//                    //支付取消
+//
+//                } else {
+//                    Toast.makeText(ICBCDemoActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+//                    //支付失败
+//                }
+//
+//            }
+//        });
     }
 
     @Override

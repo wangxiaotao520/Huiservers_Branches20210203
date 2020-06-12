@@ -247,7 +247,9 @@ public class ConfirmOrderActivityNew extends BaseActivity implements View.OnClic
         params.put("category_id",54+"");
         params.put("shop_id_str",shop_id_str+"");
         params.put("amount",shop_cou_Amount+"");
-        MyOkHttp.get().get(ApiHttpClient.COMFIRM_ORDER_COUPON_LIST, params, new JsonResponseHandler() {
+        params.put("shop_str",new Gson().toJson(pro));
+
+        MyOkHttp.get().post(ApiHttpClient.COMFIRM_ORDER_COUPON_LIST, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);

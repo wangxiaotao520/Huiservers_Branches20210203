@@ -52,5 +52,5 @@
     <color name="red_warning">#FF2035</color><!--标识red-->
     <color name="red_normal">#FF625E</color><!--常规red-->
     <color name="arc_green">#36FCC4</color><!--充电桩进度-->
-
+    <color name="coupon_tag_color">#464641</color><!--商品详情优惠券标签颜色-->
 </resources>
