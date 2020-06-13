@@ -11,25 +11,7 @@ import java.util.List;
  * created by DFF
  */
 public class ModelCircle implements Serializable{
-    /**
-     * id : 160
-     * uid : 14
-     * admin_id : 1
-     * c_id : 82
-     * c_name : 本地头条
-     * community_id : 72
-     * title : 5pS25Yiw5Zue5aSN5ZWK
-     * content : 5pS25Yiw5Zue5aSN5ZWK6Z2e5Yeh5ZOlMTEx
-     * click : 17
-     * reply_num : 1
-     * is_hot : 1
-     * addtime : 08-14
-     * community_name :
-     * nickname : 吴燕妮
-     * avatars :
-     * img_list : [{"id":"171","img":"huacheng_property/property/artice/19/08/14/5d53ee360755d.jpg","img_size":"1.6201298701299"}]
-     * total_Pages : 6
-     */
+
 
     private String id;
     private String uid;
@@ -51,6 +33,9 @@ public class ModelCircle implements Serializable{
     private String img;
     private String is_pro;
     private String img_size;
+
+    private String type;//1是系统发布格式 2是用户发布格式 3是链接视频格式
+    private String link;//视频链接 (type 为3时)
 
     public String getIs_pro() {
         return is_pro;
@@ -210,6 +195,22 @@ public class ModelCircle implements Serializable{
 
     public void setTotal_Pages(int total_Pages) {
         this.total_Pages = total_Pages;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
 }

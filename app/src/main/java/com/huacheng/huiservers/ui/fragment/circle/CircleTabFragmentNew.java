@@ -16,11 +16,12 @@ import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.huiservers.model.ModelCircle;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.circle.CircleDetailsActivity;
-import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.huiservers.ui.fragment.adapter.CircleListAdapter;
+import com.huacheng.huiservers.ui.webview.MyX5WebViewDefaultActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
@@ -115,11 +116,18 @@ public class CircleTabFragmentNew extends BaseFragment implements CircleListAdap
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent();
-                intent.setClass(mActivity, CircleDetailsActivity.class);
-                intent.putExtra("id", mDatas.get(position).getId());
-                intent.putExtra("mPro", mPro+"");
-                startActivity(intent);
+                if("3".equals(mDatas.get(position).getType())){
+                    Intent intent = new Intent(mActivity, MyX5WebViewDefaultActivity.class);
+                    intent.putExtra("url_param",mDatas.get(position).getLink()+"");
+                    intent.putExtra("title","详情");
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent();
+                    intent.setClass(mActivity, CircleDetailsActivity.class);
+                    intent.putExtra("id", mDatas.get(position).getId());
+                    intent.putExtra("mPro", mPro+"");
+                    startActivity(intent);
+                }
             }
         });
     }

@@ -968,7 +968,12 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
                 break;
             case R.id.rel_coupon://优惠券
 
-                requestCouponList();
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                     intent = new Intent(this, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                }else {
+                    requestCouponList();
+                }
                // showCouponDialog();
                 break;
             default:

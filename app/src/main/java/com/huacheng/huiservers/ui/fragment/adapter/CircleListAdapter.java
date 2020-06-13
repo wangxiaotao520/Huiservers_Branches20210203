@@ -45,10 +45,36 @@ public class CircleListAdapter extends CommonAdapter<ModelCircle> {
 
     @Override
     protected void convert(ViewHolder viewHolder, final ModelCircle item, final int position) {
-        if ("0".equals(item.getAdmin_id())) { //0为用户发布的
+        if ("1".equals(item.getType())){
+            //系统发布
+            viewHolder.<LinearLayout>getView(R.id.ly_admin).setVisibility(View.VISIBLE);
+            viewHolder.<LinearLayout>getView(R.id.ly_user).setVisibility(View.GONE);
+            viewHolder.<TextView>getView(R.id.tv_line).setVisibility(View.GONE);
+            viewHolder.<LinearLayout>getView(R.id.ll_layout_video).setVisibility(View.GONE);
+
+            byte[] bytes1 = Base64.decode(item.getTitle(), Base64.DEFAULT);
+            viewHolder.<TextView>getView(R.id.tv_title).setText(new String(bytes1));
+            viewHolder.<TextView>getView(R.id.tv_catname).setText(item.getC_name());
+            viewHolder.<TextView>getView(R.id.tv_readnum).setText(item.getClick() + "阅读");
+            viewHolder.<TextView>getView(R.id.tv_addtime).setText(item.getAddtime());
+
+            if (item.getImg_list() != null && item.getImg_list().size() > 0) {
+                if (!TextUtils.isEmpty(item.getImg_list().get(0).getImg())) {
+                    viewHolder.<SimpleDraweeView>getView(R.id.sdv_head).setVisibility(View.VISIBLE);
+                    FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head), MyCookieStore.URL + item.getImg_list().get(0).getImg());
+                } else {
+                    viewHolder.<SimpleDraweeView>getView(R.id.sdv_head).setVisibility(View.GONE);
+                }
+
+            } else {
+                viewHolder.<SimpleDraweeView>getView(R.id.sdv_head).setVisibility(View.GONE);
+            }
+        }else  if ("2".equals(item.getType())){
+            //用户发布
             viewHolder.<LinearLayout>getView(R.id.ly_admin).setVisibility(View.GONE);
             viewHolder.<LinearLayout>getView(R.id.ly_user).setVisibility(View.VISIBLE);
             viewHolder.<TextView>getView(R.id.tv_line).setVisibility(View.VISIBLE);
+            viewHolder.<LinearLayout>getView(R.id.ll_layout_video).setVisibility(View.GONE);
 
             FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_user_head), StringUtils.getImgUrl(item.getAvatars()));
             viewHolder.<TextView>getView(R.id.tv_username).setText(item.getNickname());
@@ -108,31 +134,34 @@ public class CircleListAdapter extends CommonAdapter<ModelCircle> {
             viewHolder.<TextView>getView(R.id.tv_tagname).setText("#" + item.getC_name() + "#");
             viewHolder.<TextView>getView(R.id.tv_read).setText(item.getClick());
             viewHolder.<TextView>getView(R.id.tv_reply).setText(item.getReply_num());
-
-        } else {
-            viewHolder.<LinearLayout>getView(R.id.ly_admin).setVisibility(View.VISIBLE);
+        }else {
+            //视频链接
+            viewHolder.<LinearLayout>getView(R.id.ly_admin).setVisibility(View.GONE);
             viewHolder.<LinearLayout>getView(R.id.ly_user).setVisibility(View.GONE);
-            viewHolder.<TextView>getView(R.id.tv_line).setVisibility(View.GONE);
+            viewHolder.<TextView>getView(R.id.tv_line).setVisibility(View.VISIBLE);
+            viewHolder.<LinearLayout>getView(R.id.ll_layout_video).setVisibility(View.VISIBLE);
 
             byte[] bytes1 = Base64.decode(item.getTitle(), Base64.DEFAULT);
-            viewHolder.<TextView>getView(R.id.tv_title).setText(new String(bytes1));
-            viewHolder.<TextView>getView(R.id.tv_catname).setText(item.getC_name());
-            viewHolder.<TextView>getView(R.id.tv_readnum).setText(item.getClick() + "阅读");
-            viewHolder.<TextView>getView(R.id.tv_addtime).setText(item.getAddtime());
-
+            viewHolder.<TextView>getView(R.id.tv_content_video).setText(new String(bytes1));
             if (item.getImg_list() != null && item.getImg_list().size() > 0) {
                 if (!TextUtils.isEmpty(item.getImg_list().get(0).getImg())) {
-                    viewHolder.<SimpleDraweeView>getView(R.id.sdv_head).setVisibility(View.VISIBLE);
-                    FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_head), MyCookieStore.URL + item.getImg_list().get(0).getImg());
-                } else {
-                    viewHolder.<SimpleDraweeView>getView(R.id.sdv_head).setVisibility(View.GONE);
+                    viewHolder.<SimpleDraweeView>getView(R.id.sdv_circle).setVisibility(View.VISIBLE);
+                    FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_circle), MyCookieStore.URL + item.getImg_list().get(0).getImg());
                 }
-
-            } else {
-                viewHolder.<SimpleDraweeView>getView(R.id.sdv_head).setVisibility(View.GONE);
             }
+            viewHolder.<TextView>getView(R.id.tv_circle_name).setText(item.getC_name());
+            viewHolder.<TextView>getView(R.id.tv_read_count).setText(item.getClick() + "阅读");
+            viewHolder.<TextView>getView(R.id.tv_time).setText(item.getAddtime());
 
         }
+
+//        if ("0".equals(item.getAdmin_id())) { //0为用户发布的
+//
+//
+//        } else {
+//
+//
+//        }
 
     }
 }

@@ -37,6 +37,7 @@ import com.huacheng.huiservers.ui.index.charge.ChargeScanActivity;
 import com.huacheng.huiservers.ui.index.huodong.EducationActivity;
 import com.huacheng.huiservers.ui.index.huodong.EducationListActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldServiceIndexActivity;
+import com.huacheng.huiservers.ui.index.party.CommunistPartyIndexActivity;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.request.CommitRequestActivity;
@@ -547,6 +548,11 @@ public class Jump {
                     intent.putExtra("wuye_type", "permit");
                     mContext. startActivity(intent);
                 }
+            }else if (type.equals("39")){
+                //社区党建
+                Intent intent = new Intent(mContext, CommunistPartyIndexActivity.class);
+                mContext. startActivity(intent);
+
             }
         }else {
          if (type.equals("30")){//活动投票
@@ -662,9 +668,13 @@ public class Jump {
                  intent.putExtra("wuye_type", "permit");
                  mContext. startActivity(intent);
              }
+         }else if (type.equals("39")){
+             //社区党建
+             Intent intent = new Intent(mContext, CommunistPartyIndexActivity.class);
+             mContext. startActivity(intent);
+
          }
         }
-
     }
 
     public Jump(final Context context, String type, String url, String name) {//不需要接口值，根据type值判断
