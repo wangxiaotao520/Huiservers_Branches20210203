@@ -15,10 +15,10 @@ public class ApiHttpClient {
 //    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
     //测试new
-    public static final String API_URL_FINAL = "http://1.71.130.58:81/";//固定域名
-    public static String API_URL = "http://1.71.130.58:82/";
-    public static String API_URL_SHARE = "http://1.71.130.58:82/";//分享
-    public static String API_SERVICE_URL = "http://1.71.130.58:82/service/";//服务
+    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
+    public static String API_URL = "http://1.71.130.58:8082/";
+    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
+    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service/";//服务
 
 //    正式
 //    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
