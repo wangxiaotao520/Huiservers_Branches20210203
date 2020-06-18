@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:xlhRatingBar="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!--左边布局-->
+        <LinearLayout
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/rl_first"
+                android:layout_width="45dp"
+                android:visibility="gone"
+                android:layout_height="45dp">
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/line_de"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="22.5dp"/>
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/orange" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_other"
+                android:visibility="gone"
+                android:layout_width="45dp"
+                android:layout_height="45dp">
+                <View
+                    android:layout_width="1dp"
+                    android:background="@color/line_de"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="match_parent"/>
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/allshape_gray_solid_bb35" />
+            </RelativeLayout>
+            <View
+                android:layout_width="1dp"
+                android:background="@color/line_de"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+        <!--右边布局-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="已完成"
+                android:textSize="16dp"
+                android:textColor="@color/title_third_color"
+                android:gravity="center_vertical" />
+            <TextView
+                android:id="@+id/tv_sub_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="师傅已确定完成服务，来评价下您的服务体验吧~ 如有疑问，请联系：贺伟伟15745214578"
+                android:textSize="14dp"
+                android:textColor="@color/title_third_color"
+                android:gravity="center_vertical" />
+            <LinearLayout
+                android:id="@+id/ll_evaluate_cotainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+                <com.example.xlhratingbar_lib.XLHRatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    xlhRatingBar:canEdit="false"
+                    xlhRatingBar:differentSize="false"
+                    xlhRatingBar:dividerWidth="2dp"
+                    xlhRatingBar:starCount="5"
+                    android:layout_marginTop="10dp"
+                    xlhRatingBar:stateResId="@drawable/layer_rating_bar"
+                    xlhRatingBar:widthAndHeight="12dp"/>
+                <!--还没写完了-->
+                <TextView
+                    android:id="@+id/tv_evaluate_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="这个蛋糕真的超级好吃，香甜细腻，这个味的真的不 要太好吃！！一定要试试！！"
+                    android:textSize="14dp"
+                    android:textColor="@color/title_sub_color"
+                    android:gravity="center_vertical" />
+                <LinearLayout
+                    android:id="@+id/ll_evaluate_img_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    >
+
+
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="2020.05.21 14:30"
+                android:textSize="14dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/title_third_color"
+                android:gravity="center_vertical" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
