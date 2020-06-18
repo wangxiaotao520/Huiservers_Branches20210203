@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.servicenew1;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -80,7 +81,13 @@ public class ServiceOrderDetailNew extends BaseActivity {
 
     @Override
     protected void initListener() {
-
+        holderHeader.tvBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                startActivity(new Intent(mContext,ServiceRefundApplyActivity.class));
+            }
+        });
     }
 
     @Override
