@@ -21,11 +21,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Description: 2.0服务订单详情
+ * Description: 2.0服务退款详情页
  * created by wangxiaotao
- * 2020/6/17 0017 17:21
+ * 2020/6/18 0018 11:25
  */
-public class ServiceOrderDetailNew extends BaseActivity {
+public class ServiceRefundDetailActivity extends BaseActivity {
     private ListView listView;
     private SmartRefreshLayout refreshLayout;
     private View headerView;
@@ -36,15 +36,16 @@ public class ServiceOrderDetailNew extends BaseActivity {
     private TextView tv_btn;
     private ViewHolder_Header holderHeader;
     private ImageView iv_footer_img;
+
     @Override
     protected void initView() {
         findTitleViews();
-        titleName.setText("订单详情");
+        titleName.setText("退款详情");
         listView = findViewById(R.id.listview);
         refreshLayout = findViewById(R.id.refreshLayout);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(false);
-        headerView = LayoutInflater.from(this).inflate(R.layout.layout_service_order_detail_header, null);
+        headerView = LayoutInflater.from(this).inflate(R.layout.layout_service_refund_detail_header, null);
         initHeader(headerView);
         footerView = LayoutInflater.from(this).inflate(R.layout.layout_service_order_detail_footer, null);
         initFooter(footerView);
@@ -55,13 +56,13 @@ public class ServiceOrderDetailNew extends BaseActivity {
 
         fl_bottom = findViewById(R.id.fl_bottom);
         tv_btn = findViewById(R.id.tv_btn);
-
+        fl_bottom.setVisibility(View.GONE);
     }
 
     private void initHeader(View headerView) {
         //头部相关布局
         holderHeader = new ViewHolder_Header(headerView);
-        holderHeader.tvBtn2.setVisibility(View.VISIBLE);
+        holderHeader.llServiceContentContainer.setVisibility(View.GONE);
     }
 
     private void initFooter(View footerView) {
@@ -105,53 +106,61 @@ public class ServiceOrderDetailNew extends BaseActivity {
 
     static
     class ViewHolder_Header {
+        //头部相关布局
         @BindView(R.id.iv_status_img)
         ImageView ivStatusImg;
-        @BindView(R.id.iv_status_txt)
-        TextView ivStatusTxt;
-        @BindView(R.id.iv_status_sub_txt)
-        TextView ivStatusSubTxt;
-        @BindView(R.id.tv_user_name)
-        TextView tvUserName;
-        @BindView(R.id.tv_user_phone)
-        TextView tvUserPhone;
-        @BindView(R.id.tv_user_address)
-        TextView tvUserAddress;
-        @BindView(R.id.ly_user_address)
-        LinearLayout lyUserAddress;
-        @BindView(R.id.sdv_head)
-        SimpleDraweeView sdvHead;
-        @BindView(R.id.tv_service_name)
-        TextView tvServiceName;
-        @BindView(R.id.tv_service_detail_jump)
-        TextView tvServiceDetailJump;
-        @BindView(R.id.ll_order_detail_name_container)
-        LinearLayout llOrderDetailNameContainer;
-        @BindView(R.id.tv_order_num)
-        TextView tvOrderNum;
-        @BindView(R.id.tv_order_time)
-        TextView tvOrderTime;
-        @BindView(R.id.tv_buy_num)
-        TextView tvBuyNum;
+        @BindView(R.id.tv_status_txt)
+        TextView tvStatusTxt;
+        @BindView(R.id.tv_status_sub_txt)
+        TextView tvStatusSubTxt;
+        @BindView(R.id.tv_service_content)
+        TextView tvServiceContent;  //服务内容
+        @BindView(R.id.ly_service_content)
+        LinearLayout lyServiceContent;
+        @BindView(R.id.tv_service_merchant)
+        TextView tvServiceMerchant;  //服务商家
+        @BindView(R.id.ly_service_merchant)
+        LinearLayout lyServiceMerchant;
+        @BindView(R.id.tv_service_refund_number)
+        TextView tvServiceRefundNumber;  //服务数量
+        @BindView(R.id.ly_service_refund_number)
+        LinearLayout lyServiceRefundNumber;
+        @BindView(R.id.ll_service_content_container)
+        LinearLayout llServiceContentContainer; //服务内容的那三个布局
         @BindView(R.id.tv_price_tag)
         TextView tvPriceTag;
         @BindView(R.id.tv_price)
-        TextView tvPrice;
+        TextView tvPrice; //退款价格
         @BindView(R.id.ly_price)
         LinearLayout lyPrice;
-        @BindView(R.id.tv_pay_type)
-        TextView tvPayType;
-        @BindView(R.id.tv_beizhu)
-        TextView tvBeizhu;
-        @BindView(R.id.ly_beizhu)
-        LinearLayout lyBeizhu;
+        @BindView(R.id.tv_refund_account_type)
+        TextView tvRefundAccountType;
+        @BindView(R.id.ly_refund_account)
+        LinearLayout lyRefundAccount;
+        @BindView(R.id.tv_refund_reason_content)
+        TextView tvRefundReasonContent;
+        @BindView(R.id.ly_refund_reason)
+        LinearLayout lyRefundReason;
+        @BindView(R.id.tv_service_name)
+        TextView tvServiceName;
+        @BindView(R.id.tv_service_detail)
+        TextView tvServiceDetail;
+        @BindView(R.id.sdv_head)
+        SimpleDraweeView sdvHead;
+        @BindView(R.id.tv_order_number)
+        TextView tvOrderNumber;
+        @BindView(R.id.tv_order_time)
+        TextView tvOrderTime;
+        @BindView(R.id.tv_order_price)
+        TextView tvOrderPrice;  //订单价格
+        @BindView(R.id.ll_order_detail_name_container)
+        LinearLayout llOrderDetailNameContainer; //订单详情布局
         @BindView(R.id.tv_btn_1)
         TextView tvBtn1;
-        @BindView(R.id.tv_btn_2)
-        TextView tvBtn2;
 
         ViewHolder_Header(View view) {
             ButterKnife.bind(this, view);
         }
     }
 }
+

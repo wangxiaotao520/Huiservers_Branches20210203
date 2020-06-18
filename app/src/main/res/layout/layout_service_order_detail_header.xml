@@ -21,11 +21,13 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_status_img"
                 android:layout_width="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_height="20dp"
                 android:background="@mipmap/ic_number_bind" />
             <TextView
+                android:id="@+id/iv_status_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="下单成功"
@@ -36,7 +38,7 @@
 
 
         <TextView
-            android:id="@+id/tv_top_content"
+            android:id="@+id/iv_status_sub_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -71,7 +73,7 @@
             android:layout_gravity="center_vertical">
 
             <TextView
-                android:id="@+id/tv_order_name"
+                android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin"
@@ -80,20 +82,20 @@
                 android:text="赵芸芸"/>
 
             <TextView
-                android:id="@+id/tv_order_phone"
+                android:id="@+id/tv_user_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin"
-                android:layout_toRightOf="@+id/tv_order_name"
+                android:layout_toRightOf="@id/tv_user_name"
                 android:textColor="@color/title_third_color"
                 android:textSize="@dimen/t_13sp"
                 android:text="13065478547"/>
 
             <TextView
-                android:id="@+id/tv_order_address"
+                android:id="@+id/tv_user_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_order_name"
+                android:layout_below="@id/tv_user_name"
                 android:layout_marginLeft="@dimen/margin"
                 android:layout_marginTop="@dimen/margin"
                 android:textColor="@color/title_color"
@@ -137,7 +139,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
         <TextView
-            android:id="@+id/tv_service_detail"
+            android:id="@+id/tv_service_detail_jump"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/title_third_color"
@@ -172,7 +174,7 @@
             android:text="订单编号：109006737510"/>
 
         <TextView
-            android:id="@+id/tv_xiadan_time"
+            android:id="@+id/tv_order_time"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
@@ -181,7 +183,7 @@
             android:text="下单时间：2020-01-04 16:41:56"/>
 
         <TextView
-            android:id="@+id/tv_but_num"
+            android:id="@+id/tv_buy_num"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"

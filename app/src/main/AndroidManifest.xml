@@ -1176,5 +1176,8 @@
         <activity
             android:name=".ui.servicenew1.ServiceOrderDetailNew"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.servicenew1.ServiceRefundDetailActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>
