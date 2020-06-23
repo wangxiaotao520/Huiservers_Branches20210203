@@ -33,7 +33,7 @@ public class WebViewSettingsInitializer {
         final WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         final String ua = settings.getUserAgentString();
-        //FIXME 后面的名字不知道是啥
+        // 后面的名字不知道是啥
         settings.setUserAgentString(ua + "Latte");
 
         //设置自适应屏幕，两者合用

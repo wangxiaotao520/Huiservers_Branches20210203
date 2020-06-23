@@ -98,7 +98,7 @@ public class MyCouponListActivityNew extends BaseActivity implements CouponListA
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (jump_type==1){
-                    //TODO 点击去使用
+                    // 点击去使用
                 }else {
                     // 立即领取
                 }

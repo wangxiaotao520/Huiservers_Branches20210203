@@ -565,7 +565,6 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
                 switchFragment(1);
                 current_fragment = 1;
                 changeBottomUI(1);
-
                 break;
             case R.id.fl_service:
                 switchFragment(2);

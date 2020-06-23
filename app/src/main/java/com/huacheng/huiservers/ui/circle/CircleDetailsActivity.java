@@ -190,7 +190,7 @@ public class CircleDetailsActivity extends BaseActivity {
         prefrenceUtil = new SharePrefrenceUtil(this);
         login_type = preferencesLogin.getString("login_type", "");
         bitmapUtils = new BitmapUtils(this);
-        mTitleName.setText("邻里详情");
+        mTitleName.setText("详情");
         showDialog(smallDialog);
         getdata();
         mEtInput.addTextChangedListener(new TextWatcher() {

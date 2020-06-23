@@ -136,7 +136,7 @@ public class BaseApplication extends Application {
 //        }else {
 //            NightModeUtils.setThemeMode(NightModeUtils.ThemeMode.DAY);
 //        }
-        //TODO Android Q下的适配，根据系统的情况进行操作
+        // Android Q下的适配，根据系统的情况进行操作
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
             //>28说明是AndroidQ
             int mode = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
