@@ -1,6 +1,5 @@
 package com.huacheng.huiservers.ui.shop;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +14,6 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.ChooseCouponDialog;
-import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.ConfirmOrderDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
@@ -31,7 +29,6 @@ import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.AddAddressActivity;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
-import com.huacheng.huiservers.ui.center.CouponListActivity;
 import com.huacheng.huiservers.ui.center.coupon.CouponListAdapter;
 import com.huacheng.huiservers.ui.shop.adapter.ConfirmShopListAdapter;
 import com.huacheng.huiservers.ui.shop.bean.AmountBean;
@@ -195,31 +192,31 @@ public class ConfirmOrderActivityNew extends BaseActivity implements View.OnClic
 
                 } else {
 
-                    if (txt_youhuiquan.getText().toString().equals("选择使用优惠券")) {
-
-                        new CommomDialog(this, R.style.my_dialog_DimEnabled, "您有可使用的优惠券，是否使用？", new CommomDialog.OnCloseListener() {
-                            @Override
-                            public void onClick(Dialog dialog, boolean confirm) {
-                                if (confirm) {
-                                    Intent intent = new Intent(ConfirmOrderActivityNew.this, CouponListActivity.class);//CouponListActivity
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("tag", "order");
-                                    bundle.putString("all_id", shop_id_str);
-                                    bundle.putString("all_shop_money", shop_cou_Amount);
-                                    intent.putExtras(bundle);
-                                    startActivityForResult(intent, 100);
-                                    dialog.dismiss();
-                                } else {
-                                    dialog.dismiss();
-                                    getShopconfirm();//立即生成支付订单
-                                }
-                            }
-                        }).show();//.setTitle("提示")
-                    } else {
+//                    if (txt_youhuiquan.getText().toString().equals("选择使用优惠券")) {
+//
+//                        new CommomDialog(this, R.style.my_dialog_DimEnabled, "您有可使用的优惠券，是否使用？", new CommomDialog.OnCloseListener() {
+//                            @Override
+//                            public void onClick(Dialog dialog, boolean confirm) {
+//                                if (confirm) {
+//                                    Intent intent = new Intent(ConfirmOrderActivityNew.this, CouponListActivity.class);//CouponListActivity
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putString("tag", "order");
+//                                    bundle.putString("all_id", shop_id_str);
+//                                    bundle.putString("all_shop_money", shop_cou_Amount);
+//                                    intent.putExtras(bundle);
+//                                    startActivityForResult(intent, 100);
+//                                    dialog.dismiss();
+//                                } else {
+//                                    dialog.dismiss();
+//                                    getShopconfirm();//立即生成支付订单
+//                                }
+//                            }
+//                        }).show();//.setTitle("提示")
+//                    } else {
 
                         getShopconfirm();//立即生成支付订单
 
-                    }
+ //                   }
                 }
                 break;
 
