@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.dialog;
+package com.huacheng.huiservers.ui.download;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

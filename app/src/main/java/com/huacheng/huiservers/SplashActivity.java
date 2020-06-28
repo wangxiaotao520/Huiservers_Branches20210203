@@ -32,7 +32,6 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.db.UserSql;
-import com.huacheng.huiservers.dialog.DownLoadDialog;
 import com.huacheng.huiservers.dialog.PrivacyPolicyDialog;
 import com.huacheng.huiservers.dialog.UpdateDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -41,6 +40,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelSplashImg;
 import com.huacheng.huiservers.model.PayInfoBean;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.download.DownLoadDialogActivityNew;
 import com.huacheng.huiservers.utils.CacheUtils;
 import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.huiservers.utils.PermissionUtils;
@@ -346,7 +346,7 @@ public class SplashActivity extends BaseActivity implements Updateprester.Update
                                                     Intent intent = new Intent();
                                                     intent.putExtra("file_name", info.getVersion() + ".apk");
                                                     intent.putExtra("download_src", apkPath);
-                                                    intent.setClass(SplashActivity.this, DownLoadDialog.class);
+                                                    intent.setClass(SplashActivity.this, DownLoadDialogActivityNew.class);
                                                     startActivityForResult(intent, ACT_REQUEST_DOWNLOAD);
                                                     dialog.dismiss();
                                                 } else {

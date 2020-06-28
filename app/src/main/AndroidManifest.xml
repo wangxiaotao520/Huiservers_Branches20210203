@@ -560,7 +560,11 @@
 
 
         <activity
-            android:name="com.huacheng.huiservers.dialog.DownLoadDialog"
+            android:name="com.huacheng.huiservers.ui.download.DownLoadDialog"
+            android:screenOrientation="portrait"
+            android:theme="@style/notitle"/>
+        <activity
+            android:name="com.huacheng.huiservers.ui.download.DownLoadDialogActivityNew"
             android:screenOrientation="portrait"
             android:theme="@style/notitle"/>
         <!-- 我的装修 -->

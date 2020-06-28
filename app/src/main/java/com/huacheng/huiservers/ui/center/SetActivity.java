@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
-import com.huacheng.huiservers.dialog.DownLoadDialog;
 import com.huacheng.huiservers.dialog.PermitDialog;
 import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
@@ -33,6 +32,7 @@ import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.logout.OldNumberActivity;
+import com.huacheng.huiservers.ui.download.DownLoadDialogActivityNew;
 import com.huacheng.huiservers.utils.NightModeUtils;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
@@ -211,7 +211,7 @@ public class SetActivity extends BaseActivity implements OnClickListener, Update
                                                 Intent intent = new Intent();
                                                 intent.putExtra("file_name", info.getVersion() + ".apk");
                                                 intent.putExtra("download_src", apkpath);
-                                                intent.setClass(SetActivity.this, DownLoadDialog.class);
+                                                intent.setClass(SetActivity.this, DownLoadDialogActivityNew.class);
                                                 startActivityForResult(intent, ACT_REQUEST_DOWNLOAD);
                                                 dialog.dismiss();
                                             } else {

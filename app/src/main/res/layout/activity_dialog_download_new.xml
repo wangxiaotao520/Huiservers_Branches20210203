@@ -3,15 +3,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingTop="15dp"
-    android:background="@color/white">
+    android:background="@drawable/allshape_white">
 
 
-    <Button
-        android:visibility="gone"
-        android:id="@+id/download_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" />
 
     <TextView
         android:textColor="@color/title_color"
@@ -21,8 +15,19 @@
         android:layout_marginLeft="20dp"
         android:ellipsize="end"
         android:singleLine="true"
+        android:text=""
         android:visibility="visible" />
-
+    <TextView
+        android:textColor="@color/title_color"
+        android:id="@+id/download_size_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/download_size"
+        android:layout_toRightOf="@id/download_size"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text=""
+        android:visibility="visible" />
     <TextView
         android:textColor="@color/title_color"
         android:id="@+id/download_precent"
@@ -44,7 +49,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:visibility="visible"
-       />
+        />
 
     <Button
         android:id="@+id/download_cancel"
@@ -60,7 +65,7 @@
 
     <TextView
         android:layout_marginBottom="30dp"
-		android:textColor="@color/title_color"
+        android:textColor="@color/title_color"
         android:id="@+id/download_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
