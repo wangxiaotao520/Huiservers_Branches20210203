@@ -15,15 +15,28 @@ public class ModelOrderList {
     private String address;
     private String s_id;
     private String s_name;
+    private String i_name;
     private String status;
     private String score;
     private String evaluate;
     private String evaluatime;
     private String description;
     private String title_img;
+
+
+    private String amount;
     private int total_Pages;
 
     private int event_type;//0是取消订单//1.是评价完成
+    /**
+     * number : 2
+     * worker_confirm : 0
+     * user_confirm : 0
+     */
+
+    private String number;
+    private String worker_confirm;
+    private String user_confirm;
 
 
     public String getDfw() {
@@ -154,4 +167,43 @@ public class ModelOrderList {
         this.event_type = event_type;
     }
 
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getWorker_confirm() {
+        return worker_confirm;
+    }
+
+    public void setWorker_confirm(String worker_confirm) {
+        this.worker_confirm = worker_confirm;
+    }
+
+    public String getUser_confirm() {
+        return user_confirm;
+    }
+
+    public void setUser_confirm(String user_confirm) {
+        this.user_confirm = user_confirm;
+    }
+
+    public String getI_name() {
+        return i_name;
+    }
+
+    public void setI_name(String i_name) {
+        this.i_name = i_name;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 }

@@ -18,7 +18,6 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
-import com.huacheng.huiservers.ui.servicenew.ui.order.ServiceOrderDetailActivity;
 import com.huacheng.huiservers.ui.servicenew1.adapter.FragmentOrderAdapterNew;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -108,16 +107,23 @@ public class FragmentServiceOrderCommon extends BaseFragment implements View.OnC
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (datas.get(position).getStatus().equals("6")) {
-                    SmartToast.showInfo("订单已取消");
-                } else {
-                    //   详情跳转
+//                if (datas.get(position).getStatus().equals("6")) {
+//                    SmartToast.showInfo("订单已取消");
+//                } else {
+//
+                String status = datas.get(position).getStatus();
+                int status_int = Integer.parseInt(status);
+                if (status_int>=7){
+                    //跳转退款详情
+                    //TODO
+                }else {
+                    //订单详情跳转
                     ModelOrderList modelOrderList = datas.get(position);
-                    Intent intent = new Intent(mActivity, ServiceOrderDetailActivity.class);
+                    Intent intent = new Intent(mActivity, ServiceOrderDetailNew.class);
                     intent.putExtra("order_id", modelOrderList.getId());
                     startActivity(intent);
                 }
-
+//                }
             }
         });
     }
@@ -127,7 +133,8 @@ public class FragmentServiceOrderCommon extends BaseFragment implements View.OnC
      */
     private void requestData() {
         // 根据接口请求数据
-        //dsm->待上门  wfk->未付款 dpj->待评价 ypj->已评价 qxdd->取消订单
+
+        //类型 qb->全部  dfw->待服务 dpj->待评价 tc->退款
         HashMap<String, String> params = new HashMap<>();
         if (type == 0) {
             params.put("type", "qb");
@@ -136,7 +143,7 @@ public class FragmentServiceOrderCommon extends BaseFragment implements View.OnC
         } else if (type == 2) {
             params.put("type", "dpj");
         } else if (type == 3) {
-            params.put("type", "wc");
+            params.put("type", "tc");
         }
         params.put("p", page + "");
 
@@ -263,37 +270,7 @@ public class FragmentServiceOrderCommon extends BaseFragment implements View.OnC
 
     }
 
-    /**
-     * 回调
-     *
-     * @param
-     * @param
-     */
 
-   /* @Override
-    public void click(final ModelOrderList.ListBean listBean, final int type) {
-
-        if (type == 0) {//上门
-            new CommomDialog(mContext, R.style.dialog, "确定上门", new CommomDialog.OnCloseListener() {
-                @Override
-                public void onClick(Dialog dialog, boolean confirm) {
-                    if (confirm) {
-                        getSend(listBean, type);
-                        dialog.dismiss();
-                    }
-                }
-            }).show();
-        } else if (type == 1) {//收款
-            Intent intent = new Intent(mActivity, ReceiptActivity.class);
-            String oid = listBean.getId();
-            String onum = listBean.getOrder_number();
-            intent.putExtra("oid", oid);
-            intent.putExtra("onum", onum);
-            startActivity(intent);
-
-        }
-    }
-*/
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);

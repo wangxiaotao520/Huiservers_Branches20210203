@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.servicenew.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Description:服务订单详情
@@ -21,6 +22,24 @@ public class ModelServiceOrderDetail implements Serializable{
     private String s_name;
     private String title_img;
     private String mobile;
+    /**
+     * contacts : 王晓涛
+     * addtime : 0
+     * number : 1
+     * amount : 125.00
+     * pay_type : alipay
+     * i_id : 6
+     * telphone : 15392547490
+     * record : [{"id":"11","status":"1","order_id":"204","describe":"商家已收到您的订单，正在指派上门服务人员","addtime":"1594608345","worker_id":"0","worker_name":"","worker_number":"","score":"","evaluate":""}]
+     */
+
+    private String contacts;
+    private String number;
+    private String amount;
+    private String pay_type;
+    private String i_id;
+    private String telphone;
+    private List<RecordBean> record;
 
     public String getId() {
         return id;
@@ -116,5 +135,169 @@ public class ModelServiceOrderDetail implements Serializable{
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
+
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getPay_type() {
+        return pay_type;
+    }
+
+    public void setPay_type(String pay_type) {
+        this.pay_type = pay_type;
+    }
+
+    public String getI_id() {
+        return i_id;
+    }
+
+    public void setI_id(String i_id) {
+        this.i_id = i_id;
+    }
+
+    public String getTelphone() {
+        return telphone;
+    }
+
+    public void setTelphone(String telphone) {
+        this.telphone = telphone;
+    }
+
+    public List<RecordBean> getRecord() {
+        return record;
+    }
+
+    public void setRecord(List<RecordBean> record) {
+        this.record = record;
+    }
+
+    public static class RecordBean {
+        /**
+         * id : 11
+         * status : 1
+         * order_id : 204
+         * describe : 商家已收到您的订单，正在指派上门服务人员
+         * addtime : 1594608345
+         * worker_id : 0
+         * worker_name :
+         * worker_number :
+         * score :
+         * evaluate :
+         */
+
+
+        private String id;
+        private String status;
+        private String order_id;
+        private String describe;
+        private String addtime;
+        private String worker_id;
+        private String worker_name;
+        private String worker_number;
+        private int score;
+        private String evaluate;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String idX) {
+            this.id = idX;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatusX(String status) {
+            this.status = status;
+        }
+
+        public String getOrder_id() {
+            return order_id;
+        }
+
+        public void setOrder_id(String order_id) {
+            this.order_id = order_id;
+        }
+
+        public String getDescribe() {
+            return describe;
+        }
+
+        public void setDescribe(String describe) {
+            this.describe = describe;
+        }
+
+        public String getAddtime() {
+            return addtime;
+        }
+
+        public void setAddtime(String addtime) {
+            this.addtime = addtime;
+        }
+
+        public String getWorker_id() {
+            return worker_id;
+        }
+
+        public void setWorker_id(String worker_id) {
+            this.worker_id = worker_id;
+        }
+
+        public String getWorker_name() {
+            return worker_name;
+        }
+
+        public void setWorker_name(String worker_name) {
+            this.worker_name = worker_name;
+        }
+
+        public String getWorker_number() {
+            return worker_number;
+        }
+
+        public void setWorker_number(String worker_number) {
+            this.worker_number = worker_number;
+        }
+
+        public int getScore() {
+            return score;
+        }
+
+        public void setScore(int score) {
+            this.score = score;
+        }
+
+        public String getEvaluate() {
+            return evaluate;
+        }
+
+        public void setEvaluate(String evaluate) {
+            this.evaluate = evaluate;
+        }
     }
 }

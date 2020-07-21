@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.servicenew.model.ModelServiceOrderDetail;
 import com.huacheng.huiservers.ui.servicenew1.adapter.ServiceOrderDetailAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -30,7 +31,7 @@ public class ServiceRefundDetailActivity extends BaseActivity {
     private SmartRefreshLayout refreshLayout;
     private View headerView;
     private View footerView;
-    private List<String> mDatas = new ArrayList<>();
+    private List<ModelServiceOrderDetail.RecordBean> mDatas = new ArrayList<>();
     private ServiceOrderDetailAdapter mAdapter;
     private FrameLayout fl_bottom;
     private TextView tv_btn;
@@ -73,10 +74,10 @@ public class ServiceRefundDetailActivity extends BaseActivity {
     @Override
     protected void initData() {
         //TODO 测试
-        for (int i = 0; i < 6; i++) {
-            mDatas.add("1");
-        }
-        mAdapter.notifyDataSetChanged();
+//        for (int i = 0; i < 6; i++) {
+//            mDatas.add("1");
+//        }
+//        mAdapter.notifyDataSetChanged();
     }
 
     @Override

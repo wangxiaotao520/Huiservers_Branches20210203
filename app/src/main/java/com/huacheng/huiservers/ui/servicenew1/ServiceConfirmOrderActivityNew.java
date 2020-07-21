@@ -1,6 +1,7 @@
 package com.huacheng.huiservers.ui.servicenew1;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -9,14 +10,27 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelAddressList;
+import com.huacheng.huiservers.model.ModelServicePurchaseNote;
+import com.huacheng.huiservers.pay.chinaums.CanstantPay;
+import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
+import com.huacheng.huiservers.ui.servicenew.model.ModelServiceDetail;
 import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
+
+import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +74,11 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
     private int num_commit= 1;  //提交数
     private String address_id= "";
     private String i_id= "";//商户id
+    String tag_id, tag_name, tag_price, service_id, service_name;
+    private String person_name;
+    private String person_mobile;
+    private String person_address;
+    private float f_total_price_new;//总价
 
     @Override
     protected void initView() {
@@ -75,28 +94,49 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
         showDialog(smallDialog);
         llRoot.setVisibility(View.INVISIBLE);
         tvConfirmPay.setClickable(false);
-        llRoot.postDelayed(new Runnable() {
+
+        requestNote();
+    }
+
+    /**
+     * 请求购买须知
+     */
+    private void requestNote() {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+
+        MyOkHttp.get().post(ApiHttpClient.COMFIRM_ORDER_PURCHASE_NOTE, params, new JsonResponseHandler() {
             @Override
-            public void run() {
+            public void onSuccess(final int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
-                llRoot.setVisibility(View.VISIBLE);
-                num_commit=1;
-                changePriceAndButtonStatus(num_commit);
-                tvConfirmPay.setClickable(true);
-                for (int i = 0; i < 3; i++) {
-                    TextView textView = new TextView(mContext);
-                    textView.setTextColor(getResources().getColor(R.color.title_sub_color));
-                    textView. setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
-                    if (i==0){
-                        textView.setText("• 预约须知：下单后请联系商家提前预约服务 ");
-                    }else {
-                        textView.setText("• 服务须知：商家可能会主动联系您资讯服务地址及时间， 请注意接听电话，并核对商家信息 ");
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    List <ModelServicePurchaseNote>data = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelServicePurchaseNote.class);
+                    llRoot.setVisibility(View.VISIBLE);
+                    tvUnitPrice.setText(tag_price+"");
+                    num_commit=1;
+                    changePriceAndButtonStatus(num_commit);
+                    tvConfirmPay.setClickable(true);
+                    for (int i = 0; i < data.size(); i++) {
+                        TextView textView = new TextView(mContext);
+                        textView.setTextColor(getResources().getColor(R.color.title_sub_color));
+                        textView. setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+                        textView.setText("• "+data.get(i).getC_name()+"："+data.get(i).getC_text()+" ");
+                        llNoteRoot.addView(textView);
                     }
-                    llNoteRoot.addView(textView);
+                    edtNum.setSelection(edtNum.length());
+
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
                 }
-                edtNum.setSelection(edtNum.length());
             }
-        },1500);
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
 
     }
 
@@ -190,7 +230,7 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
         tvAdd.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
-                //加好
+                //加号
                 if (num_commit==9999){
                     num_commit=9999;
                 }else {
@@ -209,13 +249,13 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
      * @param num
      */
     private void changePriceAndButtonStatus(int num) {
-        //todo 测试 到时候从服务器获取单价
-        String s_unit_price = "299.00";
+        //获取单价
+        String s_unit_price = tag_price;
         float f_total_price = Float.parseFloat(s_unit_price);
-        float f_total_price_new=f_total_price*num;
+        f_total_price_new = f_total_price*num;
         BigDecimal b = new BigDecimal(f_total_price_new);
         f_total_price_new = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
-        tvTotalPrice.setText(f_total_price_new+"");
+        tvTotalPrice.setText(f_total_price_new +"");
         if (num<=1){
             tvReduce.setTextColor(getResources().getColor(R.color.text_color_hint));
         }else {
@@ -236,7 +276,12 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
 
     @Override
     protected void initIntentData() {
-
+        service_id = getIntent().getStringExtra("service_id");
+        service_name = getIntent().getStringExtra("service_name");
+        tag_id = getIntent().getStringExtra("tag_id");
+        tag_name = getIntent().getStringExtra("tag_name");
+        tag_price = getIntent().getStringExtra("tag_price");
+        i_id = getIntent().getStringExtra("i_id");
     }
 
     @Override
@@ -255,6 +300,10 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
         switch (v.getId()){
             case R.id.lin_yesaddress:
                 //跳转到地址列表
+                intent = new Intent(this, AddressListActivity.class);
+                intent.putExtra("jump_type", 2);
+                intent.putExtra("service_id", i_id + "");//这里传的是商户id
+                startActivityForResult(intent, 200);
             case R.id.lin_noadress:
 
                 intent = new Intent(this, AddressListActivity.class);
@@ -263,12 +312,84 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
                 startActivityForResult(intent, 200);
                 break;
             case R.id.tv_confirm_pay:
-                //todo 跳转支付
                 //判断地址
                 //判断数量
+                if (linNoadress.getVisibility()== View.VISIBLE) {
+                    SmartToast.showInfo("请选择地址");
+                    return;
+                }
+                if (num_commit<=0){
+                    SmartToast.showInfo("购买数量不可为0");
+                    return;
+                }
+                getSubmmit();
                 break;
         }
     }
+
+    /**
+     * 提交
+     */
+    private void getSubmmit() {
+
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("s_id", service_id);
+        params.put("s_tag_id", tag_id);
+        params.put("s_tag_cn", tag_name);
+        params.put("address_id", address_id);
+        params.put("address", person_address);
+        params.put("contacts", person_name);
+        params.put("mobile", person_mobile);
+        params.put("number",num_commit+"");
+        params.put("price", tag_price);
+        params.put("amount",f_total_price_new+"");
+        params.put("description", edtBeizhu.getText().toString().trim()+"");
+
+        MyOkHttp.get().post(ApiHttpClient.GET_SSERVICE_RESERVE, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(final int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    ModelServiceDetail mModelOrdetDetail = (ModelServiceDetail) JsonUtil.getInstance().parseJsonFromResponse(response, ModelServiceDetail.class);
+//                    order_id = mModelOrdetDetail.getId();
+//                    //下单成功后请求接口给机构端推送订单信息`
+//                    setpush(order_id);
+//                    new ServiceSuccessDialog(mContext, R.style.my_dialog_DimEnabled, new ServiceSuccessDialog.OnCloseListener() {
+//                        @Override
+//                        public void onClick(Dialog dialog, String str) {
+//
+//                            Intent intent = new Intent(mContext, FragmentOrderListActivity.class);
+//                            startActivity(intent);
+//                            dialog.dismiss();
+//                            finish();
+//                        }
+//                    }).show();
+                    //todo 跳转支付
+
+                    Intent intent = new Intent(ServiceConfirmOrderActivityNew.this, UnifyPayActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("o_id", mModelOrdetDetail.getId()+"");
+                    bundle.putString("price",  f_total_price_new+ "");
+                    bundle.putString("type", CanstantPay.PAY_SERVICE);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -278,9 +399,9 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
                     //选择地址返回
                     if (data != null) {
                         ModelAddressList model = (ModelAddressList) data.getSerializableExtra("model");
-                      String   person_name = model.getConsignee_name();
-                        String  person_mobile = model.getConsignee_mobile();
-                        String   person_address = model.getRegion_cn() + " " + model.getCommunity_cn() + " " + model.getDoorplate();
+                        person_name = model.getConsignee_name();
+                        person_mobile = model.getConsignee_mobile();
+                        person_address = model.getRegion_cn() + " " + model.getCommunity_cn() + " " + model.getDoorplate();
                         linYesaddress.setVisibility(View.VISIBLE);
                         linNoadress.setVisibility(View.GONE);
                         txtName.setText(person_name);

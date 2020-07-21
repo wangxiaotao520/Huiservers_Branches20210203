@@ -406,6 +406,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <ImageView
@@ -425,6 +426,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="30dp"
+            android:visibility="gone"
             android:layout_gravity="center_vertical"
             android:background="@color/windowbackground"/>
 
@@ -435,11 +437,12 @@
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="@dimen/margin_5"
             android:layout_marginRight="@dimen/margin_20"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="@dimen/margin_5"
             android:layout_weight="3"
             android:background="@drawable/allshape_orange35"
             android:gravity="center"
-            android:text="立即预约"
+            android:text="立即购买"
             android:textColor="@color/text_special_ff_color"
             android:textSize="@dimen/t_16sp"/>
 

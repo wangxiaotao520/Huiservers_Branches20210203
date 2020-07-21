@@ -26,15 +26,15 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
+import com.huacheng.huiservers.model.PayTypeBean;
+import com.huacheng.huiservers.model.XorderDetailBean;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.model.XorderDetailBean;
-import com.huacheng.huiservers.model.PayTypeBean;
 import com.huacheng.huiservers.ui.index.charge.ChargingActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
-import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
+import com.huacheng.huiservers.ui.servicenew1.ServiceOrderListActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
 import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -507,7 +507,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 EventBus.getDefault().post(XorderDetail);
                 finish();
             } else if (type.equals(CanstantPay.PAY_SERVICE)) {
-                Intent intent = new Intent(this, FragmentOrderListActivity.class);
+                Intent intent = new Intent(this, ServiceOrderListActivityNew.class);
                 intent.putExtra("type", "pay_finish");
                 startActivity(intent);
                 // 支付成功后调用极光

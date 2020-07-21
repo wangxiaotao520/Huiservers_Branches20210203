@@ -33,6 +33,7 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceDetail;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.ServiceCateAdapter;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
+import com.huacheng.huiservers.ui.servicenew1.ServiceConfirmOrderActivityNew;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.view.ScrollChangedScrollView;
@@ -312,7 +313,7 @@ public class ServiceDetailActivity extends BaseActivity {
                 String login_type = preferencesLogin.getString("login_type", "");
                 if (login_type.equals("1") && ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
                     if (tagListBeans != null && tagListBeans.size() > 0) {
-                        intent = new Intent(this, ServiceConfirmOrderActivity.class);
+                        intent = new Intent(this, ServiceConfirmOrderActivityNew.class);
                         intent.putExtra("service_id", mModelOrdetDetail.getId());
                         intent.putExtra("service_name", mModelOrdetDetail.getTitle());
                         intent.putExtra("i_id", mModelOrdetDetail.getI_id());

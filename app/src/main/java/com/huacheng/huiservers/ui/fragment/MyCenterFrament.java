@@ -33,7 +33,7 @@ import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
-import com.huacheng.huiservers.ui.servicenew.ui.order.FragmentOrderListActivity;
+import com.huacheng.huiservers.ui.servicenew1.ServiceOrderListActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
@@ -173,7 +173,7 @@ public class MyCenterFrament extends BaseFragment {
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else if (position == 2) {//"服务订单"
-                   Intent intent = new Intent(mContext, FragmentOrderListActivity.class);
+                   Intent intent = new Intent(mContext, ServiceOrderListActivityNew.class);
                    startActivity(intent);
                 } else if (position == 3) {//"生活账单"
                     if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
