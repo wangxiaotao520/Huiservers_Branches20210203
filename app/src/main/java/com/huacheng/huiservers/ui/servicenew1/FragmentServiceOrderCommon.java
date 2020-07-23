@@ -115,7 +115,10 @@ public class FragmentServiceOrderCommon extends BaseFragment implements View.OnC
                 int status_int = Integer.parseInt(status);
                 if (status_int>=7){
                     //跳转退款详情
-                    //TODO
+                    ModelOrderList modelOrderList = datas.get(position);
+                    Intent intent = new Intent(mActivity, ServiceRefundDetailActivity.class);
+                    intent.putExtra("order_id", modelOrderList.getId());
+                    startActivity(intent);
                 }else {
                     //订单详情跳转
                     ModelOrderList modelOrderList = datas.get(position);
@@ -284,51 +287,61 @@ public class FragmentServiceOrderCommon extends BaseFragment implements View.OnC
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateOrderList(ModelOrderList modelOrderList) {
-        ModelOrderList modelOrderList_remove = null;
-        if (modelOrderList != null) {
-            for (int i = 0; i < datas.size(); i++) {
-                if (datas.get(i).getId().equals(modelOrderList.getId())) {
-                    modelOrderList_remove = datas.get(i);
-                }
-            }
-            //全部
-            if (modelOrderList_remove != null) {
-                if (type == 0) {
-                    if (modelOrderList.getEvent_type() == 0) {
-                        //取消订单
-                        modelOrderList_remove.setStatus("6");
-                        fragmentOrderAdapter.notifyDataSetChanged();
-                    } else if (modelOrderList.getEvent_type() == 1) {
-                        //评价完成
-                        modelOrderList_remove.setStatus("5");
-                        modelOrderList_remove.setEvaluate(modelOrderList.getEvaluate() + "");
-                        modelOrderList_remove.setScore(modelOrderList.getScore() + "");
-                        modelOrderList_remove.setEvaluatime(modelOrderList.getEvaluatime());
-                        fragmentOrderAdapter.notifyDataSetChanged();
-                    }
-                } else if (type == 1) {//待服务
-                    if (modelOrderList.getEvent_type() == 0) {
-                        if (modelOrderList_remove!=null){
-                            datas.remove(modelOrderList_remove);
-                            fragmentOrderAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }else if (type==2){//待评价
-                    if (modelOrderList.getEvent_type() == 1) {
-                        if (modelOrderList_remove!=null){
-                            datas.remove(modelOrderList_remove);
-                            fragmentOrderAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }else {
-                    //完成
-                    //取消订单和评价完成都要刷新
-                    if(refreshLayout!=null){
-                        refreshLayout.autoRefresh();
-                    }
-                }
+//        ModelOrderList modelOrderList_remove = null;
+//        if (modelOrderList != null) {
+//            for (int i = 0; i < datas.size(); i++) {
+//                if (datas.get(i).getId().equals(modelOrderList.getId())) {
+//                    modelOrderList_remove = datas.get(i);
+//                }
+//            }
+//            //全部
+//            if (modelOrderList_remove != null) {
+//                if (type == 0) {
+//                    if (modelOrderList.getEvent_type() == 0) {
+//                        //取消订单
+//                        modelOrderList_remove.setStatus("6");
+//                        fragmentOrderAdapter.notifyDataSetChanged();
+//                    } else if (modelOrderList.getEvent_type() == 1) {
+//                        //评价完成
+//                        modelOrderList_remove.setStatus("5");
+//                        modelOrderList_remove.setEvaluate(modelOrderList.getEvaluate() + "");
+//                        modelOrderList_remove.setScore(modelOrderList.getScore() + "");
+//                        modelOrderList_remove.setEvaluatime(modelOrderList.getEvaluatime());
+//                        fragmentOrderAdapter.notifyDataSetChanged();
+//                    }
+//                } else if (type == 1) {//待服务
+//                    if (modelOrderList.getEvent_type() == 0) {
+//                        if (modelOrderList_remove!=null){
+//                            datas.remove(modelOrderList_remove);
+//                            fragmentOrderAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                }else if (type==2){//待评价
+//                    if (modelOrderList.getEvent_type() == 1) {
+//                        if (modelOrderList_remove!=null){
+//                            datas.remove(modelOrderList_remove);
+//                            fragmentOrderAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                }else {
+//                    //完成
+//                    //取消订单和评价完成都要刷新
+//                    if(refreshLayout!=null){
+//                        refreshLayout.autoRefresh();
+//                    }
+//                }
+//            }
+//
+//        }
+        if (modelOrderList.getEvent_type()==0){//申请退款
+            if (refreshLayout != null) {
+                refreshLayout.autoRefresh();
             }
 
+        }else if (modelOrderList.getEvent_type()==1){//取消退款
+            if (refreshLayout != null) {
+                refreshLayout.autoRefresh();
+            }
         }
     }
 }

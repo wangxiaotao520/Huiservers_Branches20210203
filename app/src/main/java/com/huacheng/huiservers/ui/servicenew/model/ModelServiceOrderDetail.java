@@ -40,6 +40,20 @@ public class ModelServiceOrderDetail implements Serializable{
     private String i_id;
     private String telphone;
     private List<RecordBean> record;
+    private List<RecordBean> refund_record;
+    /**
+     * addtime : 1591775573
+     * refunds_number : 1
+     * refunds_price : 95.00
+     * status_name : 退款审核中
+     * record_reason : 商户原因 - 买多/买错/计划有变
+     * refund_record : [{"id":"10","status":"1","order_id":"204","describe":"您的退款申请已提交，商家将在1-2个工作日内进行审核","addtime":"1595384215","telphone":"15392547490"}]
+     */
+
+    private String refunds_number;
+    private String refunds_price;
+    private String status_name;
+    private String record_reason;
 
     public String getId() {
         return id;
@@ -194,7 +208,47 @@ public class ModelServiceOrderDetail implements Serializable{
         this.record = record;
     }
 
-    public static class RecordBean {
+    public String getRefunds_number() {
+        return refunds_number;
+    }
+
+    public void setRefunds_number(String refunds_number) {
+        this.refunds_number = refunds_number;
+    }
+
+    public String getRefunds_price() {
+        return refunds_price;
+    }
+
+    public void setRefunds_price(String refunds_price) {
+        this.refunds_price = refunds_price;
+    }
+
+    public String getStatus_name() {
+        return status_name;
+    }
+
+    public void setStatus_name(String status_name) {
+        this.status_name = status_name;
+    }
+
+    public String getRecord_reason() {
+        return record_reason;
+    }
+
+    public void setRecord_reason(String record_reason) {
+        this.record_reason = record_reason;
+    }
+
+    public List<RecordBean> getRefund_record() {
+        return refund_record;
+    }
+
+    public void setRefund_record(List<RecordBean> refund_record) {
+        this.refund_record = refund_record;
+    }
+
+    public static class RecordBean implements Serializable{
         /**
          * id : 11
          * status : 1
@@ -219,6 +273,16 @@ public class ModelServiceOrderDetail implements Serializable{
         private String worker_number;
         private int score;
         private String evaluate;
+
+        private String telphone;
+
+        public String getTelphone() {
+            return telphone;
+        }
+
+        public void setTelphone(String telphone) {
+            this.telphone = telphone;
+        }
 
         public String getId() {
             return id;
@@ -300,4 +364,6 @@ public class ModelServiceOrderDetail implements Serializable{
             this.evaluate = evaluate;
         }
     }
+
+
 }

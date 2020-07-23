@@ -32,7 +32,7 @@
                     android:textColor="@color/title_color"
                     android:textSize="15dp"
                     android:layout_marginLeft="15dp"
-                    android:text="集成灶清洗："/>
+                    android:text="集成灶清洗"/>
 
 
             </LinearLayout>

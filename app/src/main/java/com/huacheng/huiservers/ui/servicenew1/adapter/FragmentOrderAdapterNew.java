@@ -50,6 +50,7 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //申请退款
+
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_btn_2).setVisibility(View.GONE);
@@ -66,7 +67,7 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                     //申请退款
                 }
             });
-            viewHolder.<TextView>getView(R.id.tv_btn_2).setVisibility(View.VISIBLE);
+            viewHolder.<TextView>getView(R.id.tv_btn_2).setVisibility(View.GONE);
             viewHolder.<TextView>getView(R.id.tv_btn_2).setText("完成服务");
             viewHolder.<TextView>getView(R.id.tv_btn_2).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -78,7 +79,7 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
             //已上门
             viewHolder.<TextView>getView(R.id.tv_status).setText("已上门");
             viewHolder.<ImageView>getView(R.id.iv_delete).setVisibility(View.GONE);
-            viewHolder.<TextView>getView(R.id.tv_bottom_text).setVisibility(View.VISIBLE);
+            viewHolder.<TextView>getView(R.id.tv_bottom_text).setVisibility(View.GONE);
             viewHolder.<TextView>getView(R.id.tv_bottom_text).setText("师傅已确认完成服务");
             viewHolder.<TextView>getView(R.id.tv_btn_1).setText("申请退款");
             viewHolder.<TextView>getView(R.id.tv_btn_1).setVisibility(View.VISIBLE);

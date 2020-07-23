@@ -16,6 +16,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceOrderDetail;
 import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew1.adapter.ServiceOrderDetailAdapter;
@@ -24,6 +25,9 @@ import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -52,15 +56,17 @@ public class ServiceOrderDetailNew extends BaseActivity {
     private String id ="";
     private ModelServiceOrderDetail model;
     private TextView tvRight;
+    private int jump_type = 1;//1是正常进入,2是从退款详情点入
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         findTitleViews();
         titleName.setText("订单详情");
         tvRight=findViewById(R.id.txt_right1);
         tvRight.setVisibility(View.GONE);
         listView = findViewById(R.id.listview);
         refreshLayout = findViewById(R.id.refreshLayout);
-        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setEnableRefresh(false);
         refreshLayout.setEnableLoadMore(false);
         headerView = LayoutInflater.from(this).inflate(R.layout.layout_service_order_detail_header, null);
         initHeader(headerView);
@@ -68,7 +74,7 @@ public class ServiceOrderDetailNew extends BaseActivity {
         initFooter(footerView);
         listView.addHeaderView(headerView);
         listView.addFooterView(footerView);
-        mAdapter = new ServiceOrderDetailAdapter(this, R.layout.item_service_order, mDatas);
+        mAdapter = new ServiceOrderDetailAdapter(this, R.layout.item_service_order, mDatas,1);
         listView.setAdapter(mAdapter);
 
         fl_bottom = findViewById(R.id.fl_bottom);
@@ -148,7 +154,13 @@ public class ServiceOrderDetailNew extends BaseActivity {
             holderHeader. tvOrderTime.setText("下单时间："+ StringUtils.getDateToString(model.getAddtime()+"","1"));
             holderHeader. tvBuyNum.setText("购买数量："+model.getNumber());
             holderHeader. tvPrice.setText("¥ "+model.getAmount());
-            holderHeader. tvPayType.setText("支付方式："+model.getPay_type());
+            if ("alipay".equals(model.getPay_type())){
+                holderHeader. tvPayType.setText("支付方式："+"支付宝");
+            }else if ("weixinpay".equals(model.getPay_type())){
+                holderHeader. tvPayType.setText("支付方式："+"微信支付");
+            }else {
+                holderHeader. tvPayType.setText("支付方式："+"云闪付");
+            }
             holderHeader. tvBeizhu.setText(model.getDescription()+"");
             String status = model.getStatus();
             int status_int = Integer.parseInt(status);
@@ -163,8 +175,9 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //申请退款
-                        //todo
-                        startActivity(new Intent(mContext,ServiceRefundApplyActivity.class));
+                        Intent intent = new Intent(mContext, ServiceRefundApplyActivity.class);
+                        intent.putExtra("id",id+"");
+                        startActivity(intent);
                     }
                 });
                 holderHeader.tvBtn2.setVisibility(View.GONE);
@@ -184,8 +197,9 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //申请退款
-                        //todo
-                        startActivity(new Intent(mContext,ServiceRefundApplyActivity.class));
+                        Intent intent = new Intent(mContext, ServiceRefundApplyActivity.class);
+                        intent.putExtra("id",id+"");
+                        startActivity(intent);
                     }
                 });
                 holderHeader.tvBtn2.setVisibility(View.GONE);
@@ -205,8 +219,9 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //申请退款
-                        //todo
-                        startActivity(new Intent(mContext,ServiceRefundApplyActivity.class));
+                        Intent intent = new Intent(mContext, ServiceRefundApplyActivity.class);
+                        intent.putExtra("id",id+"");
+                        startActivity(intent);
                     }
                 });
                 holderHeader.tvBtn2.setVisibility(View.VISIBLE);
@@ -294,7 +309,7 @@ public class ServiceOrderDetailNew extends BaseActivity {
                 });
 
             }
-            //TODO 以下在退款详情页
+            //
             else if (status_int==7){
                 //退款审核中
 
@@ -319,6 +334,10 @@ public class ServiceOrderDetailNew extends BaseActivity {
             }
             mAdapter.notifyDataSetChanged();
 
+            if (jump_type==2){
+                holderHeader.tvBtn1.setVisibility(View.GONE);
+                holderHeader.tvBtn2.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -335,6 +354,7 @@ public class ServiceOrderDetailNew extends BaseActivity {
     @Override
     protected void initIntentData() {
         id =this.getIntent().getStringExtra("order_id");
+        jump_type =this.getIntent().getIntExtra("jump_type",1);
     }
 
     @Override
@@ -398,6 +418,25 @@ public class ServiceOrderDetailNew extends BaseActivity {
 
         ViewHolder_Header(View view) {
             ButterKnife.bind(this, view);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+    /**
+     * 更新数据（取消订单，评价完成）
+     *
+     * @param modelOrderList
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateOrderList(ModelOrderList modelOrderList) {
+        if (modelOrderList!=null){
+            if (modelOrderList.getEvent_type()==0){//申请退款
+                finish();
+            }
         }
     }
 }

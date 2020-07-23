@@ -127,6 +127,16 @@ public class ApiHttpClient {
     public static String INDEX_SERVICE_AD_TOP = API_SERVICE_URL + "index/serviceClassifTop";
     //确认订单购买须知
     public static String COMFIRM_ORDER_PURCHASE_NOTE= API_SERVICE_URL + "service/purchase";
+    //退款页接口
+    public static String REFUND_LIST= API_SERVICE_URL + "order/refundList";
+    //退款提交
+    public static String REFUND_COMMIT= API_SERVICE_URL + "order/refundQuerty";
+    //无上门费请求这个接口
+    public static String ORDER_CANCEL_NO_DOOR_COMMIT= API_SERVICE_URL + "order/order_cancel_service";
+    //退款详情接口
+    public static String ORDER_REFUND_DETAIL= API_SERVICE_URL + "order/OrderRefundDetail";
+    //取消退款
+    public static String CANCEL_REFUND= API_SERVICE_URL + "order/cancelRefund";
 
     /**
      * 物业
@@ -647,5 +657,10 @@ public class ApiHttpClient {
         GOODS_COUPON_LIST= API_URL + API_VERSION + "shop/goods_coupon";
         COMFIRM_ORDER_COUPON_LIST= API_URL + API_VERSION + "userCenter/order_coupon_46";
         COMFIRM_ORDER_PURCHASE_NOTE= API_SERVICE_URL + "service/purchase";
+        REFUND_LIST= API_SERVICE_URL + "order/refundList";
+        REFUND_COMMIT= API_SERVICE_URL + "order/refundQuerty";
+        ORDER_CANCEL_NO_DOOR_COMMIT= API_SERVICE_URL + "order/order_cancel_service";
+        ORDER_REFUND_DETAIL= API_SERVICE_URL + "order/OrderRefundDetail";
+        CANCEL_REFUND= API_SERVICE_URL + "order/cancelRefund";
     }
 }
