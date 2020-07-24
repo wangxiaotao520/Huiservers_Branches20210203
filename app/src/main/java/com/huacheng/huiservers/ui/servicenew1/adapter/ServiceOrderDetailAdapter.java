@@ -1,7 +1,10 @@
 package com.huacheng.huiservers.ui.servicenew1.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.xlhratingbar_lib.XLHRatingBar;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceOrderDetail;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
@@ -35,7 +39,7 @@ public class ServiceOrderDetailAdapter extends CommonAdapter <ModelServiceOrderD
     }
 
     @Override
-    protected void convert(ViewHolder viewHolder, ModelServiceOrderDetail.RecordBean item, int position) {
+    protected void convert(ViewHolder viewHolder, final ModelServiceOrderDetail.RecordBean item, int position) {
         if (position==0){
             viewHolder.getView(R.id.rl_first) .setVisibility(View.VISIBLE);
             viewHolder.getView(R.id.rl_other) .setVisibility(View.GONE);
@@ -72,6 +76,7 @@ public class ServiceOrderDetailAdapter extends CommonAdapter <ModelServiceOrderD
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                mContext.startActivity(intent);
                         //弹窗拨打电话
+                        callPhone(item.getWorker_number()+"");
 
                     }
 
@@ -106,7 +111,7 @@ public class ServiceOrderDetailAdapter extends CommonAdapter <ModelServiceOrderD
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                mContext.startActivity(intent);
                         //弹窗拨打电话
-
+                        callPhone(item.getWorker_number()+""+"");
                     }
 
                     @Override
@@ -141,7 +146,7 @@ public class ServiceOrderDetailAdapter extends CommonAdapter <ModelServiceOrderD
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                mContext.startActivity(intent);
                         //弹窗拨打电话
-
+                        callPhone(item.getWorker_number()+""+"");
                     }
 
                     @Override
@@ -211,6 +216,7 @@ public class ServiceOrderDetailAdapter extends CommonAdapter <ModelServiceOrderD
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                mContext.startActivity(intent);
                     //弹窗拨打电话
+                    callPhone(item.getTelphone()+"");
 
                 }
 
@@ -230,4 +236,27 @@ public class ServiceOrderDetailAdapter extends CommonAdapter <ModelServiceOrderD
             viewHolder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(item.getAddtime(),"7"));
         }
     }
+
+    /**
+     *
+     * @param phone
+     */
+    private void callPhone(final String phone) {
+        new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认拨打电话？", new CommomDialog.OnCloseListener() {
+            @Override
+            public void onClick(Dialog dialog, boolean confirm) {
+                if (confirm) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:"
+                            +phone ));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                    dialog.dismiss();
+                }
+            }
+        }).show();
+    }
+
+
 }

@@ -48,7 +48,7 @@
                     android:id="@+id/iv_delete"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:background="@color/orange"
+                    android:background="@mipmap/ic_service_delete"
                     android:layout_marginRight="12dp" />
         </LinearLayout>
         <LinearLayout

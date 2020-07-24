@@ -27,7 +27,7 @@ public class ModelOrderList {
     private String amount;
     private int total_Pages;
 
-    private int event_type;//0 申请退款 1取消退款 2评价
+    private int event_type;//0 申请退款 1取消退款 2评价 3完成服务 4删除订单
     /**
      * number : 2
      * worker_confirm : 0

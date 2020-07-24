@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.servicenew1;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +14,15 @@ import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
+import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew1.adapter.FragmentOrderAdapterNew;
+import com.huacheng.huiservers.ui.servicenew1.inter.OnClickServiceListItemListener;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -39,7 +43,7 @@ import java.util.List;
  * created by wangxiaotao
  * 2020/6/17 0017 15:59
  */
-public class FragmentServiceOrderCommon extends BaseFragment implements View.OnClickListener {
+public class FragmentServiceOrderCommon extends BaseFragment implements View.OnClickListener, OnClickServiceListItemListener {
     private ListView listview;
     private SmartRefreshLayout refreshLayout;
     private int page = 1;
@@ -75,7 +79,7 @@ public class FragmentServiceOrderCommon extends BaseFragment implements View.OnC
         tv_text = view.findViewById(R.id.tv_text);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(true);
-        fragmentOrderAdapter = new FragmentOrderAdapterNew(mActivity, R.layout.item_service_order_adapter,datas, type);
+        fragmentOrderAdapter = new FragmentOrderAdapterNew(mActivity, R.layout.item_service_order_adapter,datas, type,this);
         listview.setAdapter(fragmentOrderAdapter);
 
     }
@@ -346,7 +350,137 @@ public class FragmentServiceOrderCommon extends BaseFragment implements View.OnC
             if (refreshLayout != null) {
                 refreshLayout.autoRefresh();
             }
+        }else if (modelOrderList.getEvent_type()==3){//完成服务
+            if (refreshLayout != null) {
+                refreshLayout.autoRefresh();
+            }
+        }else if (modelOrderList.getEvent_type()==4){//删除订单
+            if (refreshLayout != null) {
+                refreshLayout.autoRefresh();
+            }
         }
+    }
+
+    @Override
+    public void onClickRefundApply(ModelOrderList item, int position) {
+        //申请退款
+        Intent intent = new Intent(mContext, ServiceRefundApplyActivity.class);
+        intent.putExtra("id",item.getId()+"");
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClickFinishService(final ModelOrderList item, int position) {
+        //完成服务
+        new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认完成服务", new CommomDialog.OnCloseListener() {
+            @Override
+            public void onClick(Dialog dialog, boolean confirm) {
+                if (confirm) {
+                    requestfinishService(item.getId());
+                    dialog.dismiss();
+                }
+            }
+        }).show();
+    }
+
+    @Override
+    public void onClickRebuyService(ModelOrderList item, int position) {
+        //再次购买
+        String s_id = item.getS_id();
+        Intent intent = new Intent();
+        intent.setClass(mContext, ServiceDetailActivity.class);
+        intent.putExtra("service_id", s_id);
+        mContext.startActivity(intent);
+    }
+
+    @Override
+    public void onClickCommet(ModelOrderList item, int position) {
+        //立即评价
+        Intent intent2 = new Intent(mContext, ServicePingjiaActivityNew.class);
+        intent2.putExtra("order_id",item.getId()+"");
+        intent2.putExtra("title_img",ApiHttpClient.IMG_URL+item.getTitle_img()+"");
+        startActivity(intent2);
+    }
+
+    @Override
+    public void onClickdelete(final ModelOrderList item, int position) {
+        //删除
+        new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认删除订单", new CommomDialog.OnCloseListener() {
+            @Override
+            public void onClick(Dialog dialog, boolean confirm) {
+                if (confirm) {
+                    // 删除
+                    requestDelete(item.getId());
+                    dialog.dismiss();
+                }
+            }
+        }).show();
+    }
+
+    /**
+     * 删除订单
+     * @param id
+     */
+    private void requestDelete(String id) {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", id);
+        MyOkHttp.get().post(ApiHttpClient.DELETE_SERVICE, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "成功");
+                    SmartToast.showInfo(msg);
+                    ModelOrderList modelOrderList = new ModelOrderList();
+                    modelOrderList.setEvent_type(4);
+                    EventBus.getDefault().post(modelOrderList);
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
+    /**
+     * 完成服务
+     * @param id
+     */
+    private void requestfinishService(String id) {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", id);
+        MyOkHttp.get().post(ApiHttpClient.FINISH_SERVICE, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "成功");
+                //    SmartToast.showInfo(msg);
+                    ModelOrderList modelOrderList = new ModelOrderList();
+                    modelOrderList.setEvent_type(3);
+                    EventBus.getDefault().post(modelOrderList);
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
     }
 }
 

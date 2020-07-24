@@ -325,6 +325,16 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //删除订单
+                        new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认删除订单", new CommomDialog.OnCloseListener() {
+                            @Override
+                            public void onClick(Dialog dialog, boolean confirm) {
+                                if (confirm) {
+                                    // 删除
+                                    requestDelete(id);
+                                    dialog.dismiss();
+                                }
+                            }
+                        }).show();
                     }
                 });
             }else if (status_int==6){
@@ -369,6 +379,16 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //删除订单
+                        new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认删除订单", new CommomDialog.OnCloseListener() {
+                            @Override
+                            public void onClick(Dialog dialog, boolean confirm) {
+                                if (confirm) {
+                                    // 删除
+                                    requestDelete(id);
+                                    dialog.dismiss();
+                                }
+                            }
+                        }).show();
                     }
                 });
 
@@ -404,7 +424,39 @@ public class ServiceOrderDetailNew extends BaseActivity {
             }
         }
     }
+    /**
+     * 删除订单
+     * @param id
+     */
+    private void requestDelete(String id) {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", id);
+        MyOkHttp.get().post(ApiHttpClient.DELETE_SERVICE, params, new JsonResponseHandler() {
 
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "成功");
+                    SmartToast.showInfo(msg);
+                    ModelOrderList modelOrderList = new ModelOrderList();
+                    modelOrderList.setEvent_type(4);
+                    EventBus.getDefault().post(modelOrderList);
+                    finish();
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
     /**
      * 完成服务
      */
@@ -433,6 +485,9 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "成功");
                     SmartToast.showInfo(msg);
                     requestData();
+                    ModelOrderList modelOrderList = new ModelOrderList();
+                    modelOrderList.setEvent_type(3);
+                    EventBus.getDefault().post(modelOrderList);
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败");
                     SmartToast.showInfo(msg);

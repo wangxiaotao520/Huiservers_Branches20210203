@@ -9,6 +9,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
+import com.huacheng.huiservers.ui.servicenew1.inter.OnClickServiceListItemListener;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -22,13 +23,15 @@ import java.util.List;
  */
 public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
     private int  type;
-    public FragmentOrderAdapterNew(Context context, int layoutId, List<ModelOrderList> datas,int type) {
+    OnClickServiceListItemListener mListener;
+    public FragmentOrderAdapterNew(Context context, int layoutId, List<ModelOrderList> datas, int type, OnClickServiceListItemListener listener) {
         super(context, layoutId, datas);
         this.type = type;
+        mListener=listener;
     }
 
     @Override
-    protected void convert(ViewHolder viewHolder, ModelOrderList item, int position) {
+    protected void convert(ViewHolder viewHolder, final ModelOrderList item, final int position) {
 
       viewHolder.<TextView>getView(R.id.tv_store_name).setText(item.getI_name());
         FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_one), ApiHttpClient.IMG_URL+item.getTitle_img());
@@ -50,7 +53,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //申请退款
-
+                    if (mListener!=null){
+                        mListener.onClickRefundApply(item,position);
+                    }
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_btn_2).setVisibility(View.GONE);
@@ -65,6 +70,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //申请退款
+                    if (mListener!=null){
+                        mListener.onClickRefundApply(item,position);
+                    }
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_btn_2).setVisibility(View.GONE);
@@ -73,6 +81,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //完成服务
+                    if (mListener!=null){
+                        mListener.onClickFinishService(item,position);
+                    }
                 }
             });
         }else if (status_int==4){
@@ -87,6 +98,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //申请退款
+                    if (mListener!=null){
+                        mListener.onClickRefundApply(item,position);
+                    }
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_btn_2).setVisibility(View.VISIBLE);
@@ -95,6 +109,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //完成服务
+                    if (mListener!=null){
+                        mListener.onClickFinishService(item,position);
+                    }
                 }
             });
         }else if (status_int==5){
@@ -105,6 +122,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //删除
+                    if (mListener!=null){
+                        mListener.onClickdelete(item,position);
+                    }
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_bottom_text).setVisibility(View.GONE);
@@ -114,6 +134,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //再次购买
+                    if (mListener!=null){
+                        mListener.onClickRebuyService(item,position);
+                    }
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_btn_2).setVisibility(View.VISIBLE);
@@ -122,6 +145,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //立即评价
+                    if (mListener!=null){
+                        mListener.onClickCommet(item,position);
+                    }
                 }
             });
         }else if (status_int==6){
@@ -132,6 +158,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //删除
+                    if (mListener!=null){
+                        mListener.onClickdelete(item,position);
+                    }
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_bottom_text).setVisibility(View.GONE);
@@ -141,6 +170,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //再次购买
+                    if (mListener!=null){
+                        mListener.onClickRebuyService(item,position);
+                    }
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_btn_2).setVisibility(View.GONE);
@@ -167,6 +199,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //删除
+                    if (mListener!=null){
+                        mListener.onClickdelete(item,position);
+                    }
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_bottom_text).setVisibility(View.GONE);
@@ -180,6 +215,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //删除
+                    if (mListener!=null){
+                        mListener.onClickdelete(item,position);
+                    }
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_bottom_text).setVisibility(View.GONE);
@@ -193,6 +231,9 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
                 @Override
                 public void onClick(View v) {
                     //删除
+                    if (mListener!=null){
+                        mListener.onClickdelete(item,position);
+                    }
                 }
             });
             viewHolder.<TextView>getView(R.id.tv_bottom_text).setVisibility(View.GONE);
@@ -200,4 +241,6 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
             viewHolder.<TextView>getView(R.id.tv_btn_2).setVisibility(View.GONE);
         }
     }
+
+
 }
