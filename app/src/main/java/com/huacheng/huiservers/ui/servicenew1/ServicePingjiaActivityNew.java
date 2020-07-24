@@ -19,18 +19,17 @@ import com.coder.zzq.smartshow.toast.SmartToast;
 import com.example.xlhratingbar_lib.XLHRatingBar;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
-import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
-import com.huacheng.huiservers.model.XorderDetailBean;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.shop.bean.BannerBean;
+import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
-import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.utils.uploadimage.GlideImageLoader;
 import com.huacheng.huiservers.utils.uploadimage.ImagePickerAdapter;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
@@ -38,11 +37,9 @@ import com.lzy.imagepicker.view.CropImageView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -50,9 +47,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
-import top.zibin.luban.CompressionPredicate;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
 
 /**
  * Description: 服务2.0评价页面
@@ -99,6 +93,8 @@ public class ServicePingjiaActivityNew extends BaseActivity implements ImagePick
     EditText mEtContent;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
+    private String order_id="";
+    private String title_img="";
 
     private RxPermissions rxPermission;
     public static final int ACT_SELECT_PHOTO = 111;//选择图片
@@ -109,21 +105,20 @@ public class ServicePingjiaActivityNew extends BaseActivity implements ImagePick
     private ImagePickerAdapter adapter;
     private ArrayList<File> images_submit = new ArrayList<>();
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
-    private BannerBean data_info;
     private int maxImgCount = 3;//允许选择图片最大数
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                        XorderDetailBean XorderDetail = new XorderDetailBean();
-                        XorderDetail.setId(data_info.getId());
-                        XorderDetail.setBack_type(2);
-                        // XorderDetail.setPingjia_type(1);//这个没有用到
-                        EventBus.getDefault().post(XorderDetail);
-                        finish();
-                    //删除缓存文件夹中的图片
-                    ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
+//                        XorderDetailBean XorderDetail = new XorderDetailBean();
+//                        XorderDetail.setId(data_info.getId());
+//                        XorderDetail.setBack_type(2);
+//                        // XorderDetail.setPingjia_type(1);//这个没有用到
+//                        EventBus.getDefault().post(XorderDetail);
+//                        finish();
+//                    //删除缓存文件夹中的图片
+//                    ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
                     break;
                 case 2:
                     mTvRight.setText("确认");
@@ -144,6 +139,7 @@ public class ServicePingjiaActivityNew extends BaseActivity implements ImagePick
         mTvRight.setVisibility(View.VISIBLE);
         mTvRight.setText("发布");
         mTvRight.setTextColor(getResources().getColor(R.color.orange));
+        mRecyclerView.setVisibility(View.GONE);
         initImagePicker();
         initWidget();
     }
@@ -153,8 +149,7 @@ public class ServicePingjiaActivityNew extends BaseActivity implements ImagePick
 
             mLyPingjia.setVisibility(View.VISIBLE);
             mLyTuikuan.setVisibility(View.GONE);
-            //TODO 暂时先隐藏
-       //     FrescoUtils.getInstance().setImageUri(mSdvPingjia, ApiHttpClient.IMG_URL + data_info.getP_title_img());
+            FrescoUtils.getInstance().setImageUri(mSdvPingjia,title_img );
 
 
     }
@@ -191,16 +186,18 @@ public class ServicePingjiaActivityNew extends BaseActivity implements ImagePick
                     SmartToast.showInfo("请填写内容");
                 } else {
                     // 换了一种压缩图片的方式
-                    try {
-                        if (selImageList.size() > 0) {
-                            showDialog(smallDialog);
-                            compressImg();
-                        } else {
-                            getSubmit();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        if (selImageList.size() > 0) {
+//                            showDialog(smallDialog);
+//                            compressImg();
+//                        } else {
+//                            getSubmit();
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+                    showDialog(smallDialog);
+                    getSubmit();
                 }
             }
         });
@@ -213,9 +210,8 @@ public class ServicePingjiaActivityNew extends BaseActivity implements ImagePick
 
     @Override
     protected void initIntentData() {
-        //TODO 到时候把这个改了
-        data_info = (BannerBean) this.getIntent().getSerializableExtra("data_info");
-
+      order_id=this.getIntent().getStringExtra("order_id");
+      title_img=this.getIntent().getStringExtra("title_img");
     }
 
     @Override
@@ -236,59 +232,92 @@ public class ServicePingjiaActivityNew extends BaseActivity implements ImagePick
 
     String url;
 
-    private void getSubmit( ) throws IOException {// 发布圈子
+    private void getSubmit( )  {// 发布圈子
+//        showDialog(smallDialog);
+//        RequestParams params = new RequestParams();
+//        HashMap<String, File> params_file = new HashMap<>();
+//
+//            params.addBodyParameter("oid", data_info.getOid());//订单id
+//            params.addBodyParameter("p_id", data_info.getP_id());//商品id
+//            params.addBodyParameter("order_info_id", data_info.getId());//商品信息id
+//            params.addBodyParameter("score", mRatingBar.getCountSelected() + "");
+//            params.addBodyParameter("pic_num", selImageList.size() + "");
+//            params.addBodyParameter("description", mEtContent.getText().toString());
+//            // 换了一种压缩图片的方式
+//            //添加新压缩
+//            if (images_submit.size() > 0) {
+//                for (int i1 = 0; i1 < images_submit.size(); i1++) {
+//                    params_file.put("scoreimg" + i1, images_submit.get(i1));
+//                }
+//            }
+//            url = Url_info.shopping_order_score;
+//
+//
+//        MyOkHttp.get().upload(url, params.getParams(), params_file, new RawResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, String response) {
+//                hideDialog(smallDialog);
+//                JSONObject jsonObject;
+//                try {
+//                    jsonObject = new JSONObject(response);
+//                    String status = jsonObject.getString("status");
+//                    String data = jsonObject.getString("data");
+//                    String strmsg = jsonObject.getString("msg");
+//                    if (status.equals("1")) {
+//                        Message msg = new Message();
+//                        msg.what = 1;
+//                        mHandler.sendMessage(msg);
+//                    } else {
+//                        Message msg = new Message();
+//                        msg.what = 2;
+//                        msg.obj = strmsg;
+//                        mHandler.sendMessage(msg);
+//                    }
+//                } catch ( JSONException e) {
+//                    hideDialog(smallDialog);
+//                    mTvRight.setEnabled(false);
+//                    e.printStackTrace();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, String error_msg) {
+//                hideDialog(smallDialog);
+//                mTvRight.setEnabled(true);
+//                SmartToast.showInfo("网络异常，请检查网络设置");
+//            }
+//        });
+        String content = mEtContent.getText().toString().trim();
         showDialog(smallDialog);
-        RequestParams params = new RequestParams();
-        HashMap<String, File> params_file = new HashMap<>();
-
-            params.addBodyParameter("oid", data_info.getOid());//订单id
-            params.addBodyParameter("p_id", data_info.getP_id());//商品id
-            params.addBodyParameter("order_info_id", data_info.getId());//商品信息id
-            params.addBodyParameter("score", mRatingBar.getCountSelected() + "");
-            params.addBodyParameter("pic_num", selImageList.size() + "");
-            params.addBodyParameter("description", mEtContent.getText().toString());
-            // 换了一种压缩图片的方式
-            //添加新压缩
-            if (images_submit.size() > 0) {
-                for (int i1 = 0; i1 < images_submit.size(); i1++) {
-                    params_file.put("scoreimg" + i1, images_submit.get(i1));
-                }
-            }
-            url = Url_info.shopping_order_score;
-
-
-        MyOkHttp.get().upload(url, params.getParams(), params_file, new RawResponseHandler() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", order_id);
+        params.put("score",mRatingBar.getCountSelected()+"");
+        params.put("evaluate",content);
+        params.put("anonymous","2");
+        MyOkHttp.get().post(ApiHttpClient.COMMIT_PINGJIA, params, new JsonResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, String response) {
+            public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
-                JSONObject jsonObject;
-                try {
-                    jsonObject = new JSONObject(response);
-                    String status = jsonObject.getString("status");
-                    String data = jsonObject.getString("data");
-                    String strmsg = jsonObject.getString("msg");
-                    if (status.equals("1")) {
-                        Message msg = new Message();
-                        msg.what = 1;
-                        mHandler.sendMessage(msg);
-                    } else {
-                        Message msg = new Message();
-                        msg.what = 2;
-                        msg.obj = strmsg;
-                        mHandler.sendMessage(msg);
-                    }
-                } catch ( JSONException e) {
-                    hideDialog(smallDialog);
-                    mTvRight.setEnabled(false);
-                    e.printStackTrace();
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "评价成功");
+                    SmartToast.showInfo(msg);
 
+                    // 评价成功后也得发eventbus,把服务列表页和详情页的状态改一下
+                    ModelOrderList modelOrderList = new ModelOrderList();
+                    modelOrderList.setEvent_type(2);
+                    EventBus.getDefault().post(modelOrderList);
+                    finish();
+
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "评价失败");
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                mTvRight.setEnabled(true);
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
@@ -297,63 +326,63 @@ public class ServicePingjiaActivityNew extends BaseActivity implements ImagePick
     /**
      * 压缩图片（git）
      */
-    private void compressImg() {
-        images_submit.clear();
-        ArrayList<File> files = new ArrayList<>();
-        for (int i1 = 0; i1 < selImageList.size(); i1++) {
-            File file = new File(selImageList.get(i1).path);
-            files.add(file);
-        }
-        Luban.with(this)
-                .load(files)
-                .ignoreBy(100)
-                .setTargetDir(getPath())
-                .setFocusAlpha(false)
-                .filter(new CompressionPredicate() {
-                    @Override
-                    public boolean apply(String path) {
-                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-                    }
-                })
-                .setCompressListener(new OnCompressListener() {
-                    @Override
-                    public void onStart() {
-                    }
-
-                    @Override
-                    public void onSuccess(File file) {
-                        //这个方法重复调用
-                        images_submit.add(file);
-                        if (images_submit.size() == selImageList.size()) {
-                            //完成了
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        getSubmit();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });
-
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                SmartToast.showInfo("图片压缩失败");
-                                hideDialog(smallDialog);
-                            }
-                        });
-
-                    }
-                }).launch();
-
-    }
+//    private void compressImg() {
+//        images_submit.clear();
+//        ArrayList<File> files = new ArrayList<>();
+//        for (int i1 = 0; i1 < selImageList.size(); i1++) {
+//            File file = new File(selImageList.get(i1).path);
+//            files.add(file);
+//        }
+//        Luban.with(this)
+//                .load(files)
+//                .ignoreBy(100)
+//                .setTargetDir(getPath())
+//                .setFocusAlpha(false)
+//                .filter(new CompressionPredicate() {
+//                    @Override
+//                    public boolean apply(String path) {
+//                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+//                    }
+//                })
+//                .setCompressListener(new OnCompressListener() {
+//                    @Override
+//                    public void onStart() {
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(File file) {
+//                        //这个方法重复调用
+//                        images_submit.add(file);
+//                        if (images_submit.size() == selImageList.size()) {
+//                            //完成了
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    try {
+//                                        getSubmit();
+//                                    } catch (IOException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//                            });
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                SmartToast.showInfo("图片压缩失败");
+//                                hideDialog(smallDialog);
+//                            }
+//                        });
+//
+//                    }
+//                }).launch();
+//
+//    }
 
     private String getPath() {
         String path = Environment.getExternalStorageDirectory() + "/huiservers/image/";

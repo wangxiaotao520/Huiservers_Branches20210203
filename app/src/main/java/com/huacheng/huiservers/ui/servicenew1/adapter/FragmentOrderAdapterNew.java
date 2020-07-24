@@ -99,7 +99,7 @@ public class FragmentOrderAdapterNew extends CommonAdapter<ModelOrderList> {
             });
         }else if (status_int==5){
             //待评价
-            viewHolder.<TextView>getView(R.id.tv_status).setText("已派单");
+            viewHolder.<TextView>getView(R.id.tv_status).setText("待评价");
             viewHolder.<ImageView>getView(R.id.iv_delete).setVisibility(View.VISIBLE);
             viewHolder.<ImageView>getView(R.id.iv_delete).setOnClickListener(new View.OnClickListener() {
                 @Override

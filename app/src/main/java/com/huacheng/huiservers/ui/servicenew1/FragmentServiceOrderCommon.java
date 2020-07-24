@@ -342,6 +342,10 @@ public class FragmentServiceOrderCommon extends BaseFragment implements View.OnC
             if (refreshLayout != null) {
                 refreshLayout.autoRefresh();
             }
+        }else if (modelOrderList.getEvent_type()==2){//评价成功
+            if (refreshLayout != null) {
+                refreshLayout.autoRefresh();
+            }
         }
     }
 }

@@ -92,7 +92,7 @@
                     xlhRatingBar:dividerWidth="2dp"
                     xlhRatingBar:starCount="5"
                     android:layout_marginTop="10dp"
-                    xlhRatingBar:stateResId="@drawable/layer_rating_bar"
+                    xlhRatingBar:stateResId="@drawable/select_rating_bar_big"
                     xlhRatingBar:widthAndHeight="12dp"/>
                 <!--还没写完了-->
                 <TextView

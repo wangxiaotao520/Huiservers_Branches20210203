@@ -165,6 +165,7 @@ public class ServiceOrderDetailAdapter extends CommonAdapter <ModelServiceOrderD
                 viewHolder.<LinearLayout>getView(R.id.ll_evaluate_cotainer).setVisibility(View.VISIBLE);
                 viewHolder.<XLHRatingBar>getView(R.id.ratingBar).setCountSelected(item.getScore());
                 viewHolder.<TextView>getView(R.id.tv_evaluate_content).setText(item.getEvaluate()+"");
+                viewHolder.<TextView>getView(R.id.tv_time).setText(StringUtils.getDateToString(item.getAddtime(),"7"));
                 viewHolder.<LinearLayout>getView(R.id.ll_evaluate_img_container).setVisibility(View.GONE);
 //            viewHolder.<LinearLayout>getView(R.id.ll_evaluate_img_container).removeAllViews();
 //            for (int i = 0; i < 4; i++) {

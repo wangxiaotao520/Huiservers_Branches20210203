@@ -137,6 +137,8 @@ public class ApiHttpClient {
     public static String ORDER_REFUND_DETAIL= API_SERVICE_URL + "order/OrderRefundDetail";
     //取消退款
     public static String CANCEL_REFUND= API_SERVICE_URL + "order/cancelRefund";
+    //完成服务
+    public static String FINISH_SERVICE= API_SERVICE_URL + "order/completeService";
 
     /**
      * 物业
@@ -662,5 +664,6 @@ public class ApiHttpClient {
         ORDER_CANCEL_NO_DOOR_COMMIT= API_SERVICE_URL + "order/order_cancel_service";
         ORDER_REFUND_DETAIL= API_SERVICE_URL + "order/OrderRefundDetail";
         CANCEL_REFUND= API_SERVICE_URL + "order/cancelRefund";
+        FINISH_SERVICE= API_SERVICE_URL + "order/completeService";
     }
 }

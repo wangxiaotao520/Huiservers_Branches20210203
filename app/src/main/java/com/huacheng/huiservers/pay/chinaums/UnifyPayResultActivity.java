@@ -23,7 +23,7 @@ import com.huacheng.huiservers.ui.index.charge.ChargingActivity;
 import com.huacheng.huiservers.ui.index.property.PropertyPaymentActivity;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
-import com.huacheng.huiservers.ui.servicenew1.ServiceOrderListActivityNew;
+import com.huacheng.huiservers.ui.servicenew1.ServiceOrderDetailNew;
 import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
 import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -218,13 +218,13 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
                         EventBus.getDefault().post(XorderDetail);
                         finish();
                     }else if(type.equals(CanstantPay.PAY_SERVICE)){
-                Intent intent = new Intent(mContext, ServiceOrderListActivityNew.class);
-                intent.putExtra("type", "pay_finish");
-                startActivity(intent);
+                        Intent intent = new Intent(mContext, ServiceOrderDetailNew.class);
+                        intent.putExtra("order_id", order_id);
+                        intent.putExtra("jump_type", 1);
+                        startActivity(intent);
                 // 支付成功后调用极光
                 new JpushPresenter().paySuccessJpush(order_id);
                 finish();
-                //TODO 新服务
 
                     }else if(type.equals(CanstantPay.PAY_PROPERTY)) {
                 EventBus.getDefault().post(new EventProperty());

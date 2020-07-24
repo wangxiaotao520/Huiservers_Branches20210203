@@ -1,6 +1,8 @@
 package com.huacheng.huiservers.ui.servicenew1;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
@@ -186,6 +189,21 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //联系商家
+                        new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认拨打电话？", new CommomDialog.OnCloseListener() {
+                            @Override
+                            public void onClick(Dialog dialog, boolean confirm) {
+                                if (confirm) {
+                                    Intent intent = new Intent();
+                                    intent.setAction(Intent.ACTION_DIAL);
+                                    intent.setData(Uri.parse("tel:"
+                                            +model.getMobile() ));
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    dialog.dismiss();
+                                }
+                            }
+                        }).show();
+
                     }
                 });
             }else if (status_int==3){
@@ -230,7 +248,7 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //完成服务
-                        //todo
+                        finishService();
                     }
                 });
                 fl_bottom.setVisibility(View.VISIBLE);
@@ -238,6 +256,20 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //联系商家
+                        new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认拨打电话？", new CommomDialog.OnCloseListener() {
+                            @Override
+                            public void onClick(Dialog dialog, boolean confirm) {
+                                if (confirm) {
+                                    Intent intent = new Intent();
+                                    intent.setAction(Intent.ACTION_DIAL);
+                                    intent.setData(Uri.parse("tel:"
+                                            +model.getMobile() ));
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    dialog.dismiss();
+                                }
+                            }
+                        }).show();
                     }
                 });
             }else if (status_int==5){
@@ -249,7 +281,7 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //再次购买
-                        //todo
+                        buyAgain();
 
                     }
                 });
@@ -259,7 +291,11 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //立即评价
-                        //todo
+                        //评价
+                        Intent intent2 = new Intent(mContext, ServicePingjiaActivityNew.class);
+                        intent2.putExtra("order_id",id);
+                        intent2.putExtra("title_img",ApiHttpClient.IMG_URL+model.getTitle_img()+"");
+                        startActivity(intent2);
                     }
                 });
                 fl_bottom.setVisibility(View.VISIBLE);
@@ -267,6 +303,20 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //联系商家
+                        new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认拨打电话？", new CommomDialog.OnCloseListener() {
+                            @Override
+                            public void onClick(Dialog dialog, boolean confirm) {
+                                if (confirm) {
+                                    Intent intent = new Intent();
+                                    intent.setAction(Intent.ACTION_DIAL);
+                                    intent.setData(Uri.parse("tel:"
+                                            +model.getMobile() ));
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    dialog.dismiss();
+                                }
+                            }
+                        }).show();
                     }
                 });
                 tvRight.setText("删除订单");
@@ -286,7 +336,7 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //再次购买
-                        //todo
+                        buyAgain();
 
                     }
                 });
@@ -297,6 +347,20 @@ public class ServiceOrderDetailNew extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         //联系商家
+                        new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认拨打电话？", new CommomDialog.OnCloseListener() {
+                            @Override
+                            public void onClick(Dialog dialog, boolean confirm) {
+                                if (confirm) {
+                                    Intent intent = new Intent();
+                                    intent.setAction(Intent.ACTION_DIAL);
+                                    intent.setData(Uri.parse("tel:"
+                                            +model.getMobile() ));
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    dialog.dismiss();
+                                }
+                            }
+                        }).show();
                     }
                 });
                 tvRight.setText("删除订单");
@@ -339,6 +403,59 @@ public class ServiceOrderDetailNew extends BaseActivity {
                 holderHeader.tvBtn2.setVisibility(View.GONE);
             }
         }
+    }
+
+    /**
+     * 完成服务
+     */
+    private void finishService() {
+        new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确认完成服务", new CommomDialog.OnCloseListener() {
+            @Override
+            public void onClick(Dialog dialog, boolean confirm) {
+                if (confirm) {
+                    requestfinishService();
+                    dialog.dismiss();
+                }
+            }
+        }).show();
+    }
+
+    private void requestfinishService() {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", id);
+        MyOkHttp.get().post(ApiHttpClient.FINISH_SERVICE, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "成功");
+                    SmartToast.showInfo(msg);
+                    requestData();
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
+    /**
+     * 再次购买
+     */
+    private void buyAgain() {
+        String s_id = model.getS_id();
+        Intent intent = new Intent();
+        intent.setClass(mContext, ServiceDetailActivity.class);
+        intent.putExtra("service_id", s_id);
+        mContext.startActivity(intent);
     }
 
     @Override
@@ -436,6 +553,9 @@ public class ServiceOrderDetailNew extends BaseActivity {
         if (modelOrderList!=null){
             if (modelOrderList.getEvent_type()==0){//申请退款
                 finish();
+            }else if (modelOrderList.getEvent_type()==2){
+                //评价成功
+                requestData();
             }
         }
     }
