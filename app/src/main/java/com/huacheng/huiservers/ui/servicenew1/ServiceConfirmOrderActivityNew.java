@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceDetail;
 import com.huacheng.huiservers.utils.NoDoubleClickListener;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -118,10 +120,13 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
                     tvConfirmPay.setClickable(true);
                     for (int i = 0; i < data.size(); i++) {
                         TextView textView = new TextView(mContext);
+                        textView.setLineSpacing(0,1.2f);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        layoutParams.bottomMargin= DeviceUtils.dip2px(mContext,10);
                         textView.setTextColor(getResources().getColor(R.color.title_sub_color));
                         textView. setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
                         textView.setText("• "+data.get(i).getC_name()+"："+data.get(i).getC_text()+" ");
-                        llNoteRoot.addView(textView);
+                        llNoteRoot.addView(textView,layoutParams);
                     }
                     edtNum.setSelection(edtNum.length());
 
@@ -304,6 +309,7 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
                 intent.putExtra("jump_type", 2);
                 intent.putExtra("service_id", i_id + "");//这里传的是商户id
                 startActivityForResult(intent, 200);
+                break;
             case R.id.lin_noadress:
 
                 intent = new Intent(this, AddressListActivity.class);

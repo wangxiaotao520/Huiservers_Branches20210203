@@ -1192,5 +1192,6 @@
         <activity
             android:name=".ui.servicenew1.ServiceRefundApplyResultActivity"
             android:screenOrientation="portrait"/>
+
     </application>
 </manifest>

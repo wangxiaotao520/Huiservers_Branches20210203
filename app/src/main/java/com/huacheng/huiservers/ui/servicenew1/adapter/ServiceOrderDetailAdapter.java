@@ -45,11 +45,25 @@ public class ServiceOrderDetailAdapter extends CommonAdapter <ModelServiceOrderD
             viewHolder.getView(R.id.rl_other) .setVisibility(View.GONE);
             viewHolder.<TextView>getView(R.id.tv_title).setTextColor(mContext.getResources().getColor(R.color.title_color));
             viewHolder.<TextView>getView(R.id.tv_sub_title).setTextColor(mContext.getResources().getColor(R.color.title_color));
+            if (position==getCount()-1){
+                viewHolder.<View>getView(R.id.view_line).setVisibility(View.GONE);
+                viewHolder.<View>getView(R.id.view_line_first).setVisibility(View.INVISIBLE);
+            }else {
+                viewHolder.<View>getView(R.id.view_line).setVisibility(View.VISIBLE);
+                viewHolder.<View>getView(R.id.view_line_first).setVisibility(View.VISIBLE);
+            }
         }else {
             viewHolder.getView(R.id.rl_first) .setVisibility(View.GONE);
             viewHolder.getView(R.id.rl_other) .setVisibility(View.VISIBLE);
             viewHolder.<TextView>getView(R.id.tv_title).setTextColor(mContext.getResources().getColor(R.color.title_third_color));
             viewHolder.<TextView>getView(R.id.tv_sub_title).setTextColor(mContext.getResources().getColor(R.color.title_third_color));
+            if (position==getCount()-1){
+                viewHolder.<View>getView(R.id.view_line).setVisibility(View.GONE);
+                viewHolder.<View>getView(R.id.view_line_other).setVisibility(View.INVISIBLE);
+            }else {
+                viewHolder.<View>getView(R.id.view_line).setVisibility(View.VISIBLE);
+                viewHolder.<View>getView(R.id.view_line_other).setVisibility(View.VISIBLE);
+            }
         }
         String status = item.getStatus();
         int status_int = Integer.parseInt(status);

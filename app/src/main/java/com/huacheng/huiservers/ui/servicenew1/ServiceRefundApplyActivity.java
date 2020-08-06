@@ -100,11 +100,11 @@ public class ServiceRefundApplyActivity extends BaseActivity {
                         tvServiceNum.setText(modelRefundApplyList.getNumber()+"");
                         tvRefundPrice.setText("¥ "+ modelRefundApplyList.getAmount()+"");
                         if ("alipay".equals(modelRefundApplyList.getPay_type())){
-                            tvServiceAccount.setText("支付方式："+"支付宝");
+                            tvServiceAccount.setText("支付宝");
                         }else if ("weixinpay".equals(modelRefundApplyList.getPay_type())){
-                            tvServiceAccount.setText("支付方式："+"微信支付");
+                            tvServiceAccount.setText("微信支付");
                         }else {
-                            tvServiceAccount.setText("支付方式："+"云闪付");
+                            tvServiceAccount.setText("云闪付");
                         }
                         list_refund_data = modelRefundApplyList.getRefund_my();
                         if (list_refund_data !=null&& list_refund_data.size()>0){
@@ -196,6 +196,7 @@ public class ServiceRefundApplyActivity extends BaseActivity {
      */
     private void gotoRefund(final boolean isDoorPrice) {
         //请求退款提交接口
+        showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
         params.put("type",list_refund_data.get(seleted_position).getC_alias());
