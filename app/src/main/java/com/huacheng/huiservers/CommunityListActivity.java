@@ -61,7 +61,9 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
     private TextView tv_empty_relocation;
     private ImageView iv_empty_relocation;
     private TextView tv_empty_community_name;
+    private TextView tv_empty_community_name_title;
     private TextView tv_empty_community_address;
+    private LinearLayout ll_empty_community_name;
     private RxPermissions rxPermissions;
     private AMapLocationClient mlocationClient;
     private AMapLocationClientOption mLocationOption;
@@ -96,8 +98,12 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
         ll_no_data = findViewById(R.id.ll_no_data);
         sl_no_data.setVisibility(View.GONE);
         ll_no_data.setVisibility(View.GONE);
+
         tv_empty_community_name = findViewById(R.id.tv_empty_community_name);
+        tv_empty_community_name_title = findViewById(R.id.tv_empty_community_name_title);
+        ll_empty_community_name = findViewById(R.id.ll_empty_community_name);
         tv_empty_community_address = findViewById(R.id.tv_empty_community_address);
+
         iv_empty_relocation = findViewById(R.id.iv_empty_relocation);
         tv_empty_relocation = findViewById(R.id.tv_empty_relocation);
         tv_setting_location = findViewById(R.id.tv_setting_location);
@@ -149,19 +155,34 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                                 showDialog(smallDialog);
                                 requestMyCommunity(null,2);
                             }else {
-                                //权限拒绝 ,默认智慧小区
-                                mListview.setVisibility(View.GONE);
-                                ll_no_data.setVisibility(View.VISIBLE);
-                                sl_no_data.setVisibility(View.VISIBLE);
-                                tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
-                                // 还得加地址
-                                if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
-                                    tv_empty_community_address.setVisibility(View.VISIBLE);
-                                    tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                                if (jump_type==1){
+                                    //权限拒绝 ,默认智慧小区
+                                    mListview.setVisibility(View.GONE);
+                                    ll_no_data.setVisibility(View.VISIBLE);
+                                    sl_no_data.setVisibility(View.VISIBLE);
+                                    tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
+                                    // 还得加地址
+                                    if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
+                                        tv_empty_community_address.setVisibility(View.VISIBLE);
+                                        tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                                    }else {
+                                        tv_empty_community_address.setVisibility(View.GONE);
+                                    }
+                                    ll_empty_my_community.setVisibility(View.GONE);
                                 }else {
+                                    //选择收货地址进入
+                                    mListview.setVisibility(View.GONE);
+                                    ll_no_data.setVisibility(View.VISIBLE);
+                                    sl_no_data.setVisibility(View.VISIBLE);
+                                    //当前小区隐藏
                                     tv_empty_community_address.setVisibility(View.GONE);
+                                    tv_empty_community_name.setVisibility(View.GONE);
+                                    tv_empty_community_name_title.setVisibility(View.GONE);
+                                    ll_empty_community_name.setVisibility(View.GONE);
+                                    //我的小区隐藏
+                                    ll_empty_my_community.setVisibility(View.GONE);
+
                                 }
-                                ll_empty_my_community.setVisibility(View.GONE);
                             }
 
                         }
@@ -308,6 +329,46 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                     requestMyCommunity(null,2);
                 }else {
                     hideDialog(smallDialog);
+                    if(jump_type==1){
+                        //权限拒绝 ,默认智慧小区
+                        mListview.setVisibility(View.GONE);
+                        ll_no_data.setVisibility(View.VISIBLE);
+                        sl_no_data.setVisibility(View.VISIBLE);
+                        tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
+                        // 还得加地址
+                        if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
+                            tv_empty_community_address.setVisibility(View.VISIBLE);
+                            tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                        }else {
+                            tv_empty_community_address.setVisibility(View.GONE);
+                        }
+                        ll_empty_my_community.setVisibility(View.GONE);
+                    }else {
+                        //选择收货地址跳入
+                        mListview.setVisibility(View.GONE);
+                        ll_no_data.setVisibility(View.VISIBLE);
+                        sl_no_data.setVisibility(View.VISIBLE);
+                        //当前小区隐藏
+                        tv_empty_community_address.setVisibility(View.GONE);
+                        tv_empty_community_name.setVisibility(View.GONE);
+                        tv_empty_community_name_title.setVisibility(View.GONE);
+                        ll_empty_community_name.setVisibility(View.GONE);
+                        //我的小区隐藏
+                        ll_empty_my_community.setVisibility(View.GONE);
+                    }
+                }
+
+            }
+
+        } else {
+
+            // tvResult.setText("定位失败，loc is null");
+            //定位失败 显示智慧小区
+            if (LoginUtils.hasLoginUser()){
+                requestMyCommunity(null,2);
+            }else {
+                hideDialog(smallDialog);
+                if(jump_type==1){
                     //权限拒绝 ,默认智慧小区
                     mListview.setVisibility(View.GONE);
                     ll_no_data.setVisibility(View.VISIBLE);
@@ -321,31 +382,19 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                         tv_empty_community_address.setVisibility(View.GONE);
                     }
                     ll_empty_my_community.setVisibility(View.GONE);
-                }
-
-            }
-
-        } else {
-
-            // tvResult.setText("定位失败，loc is null");
-            //定位失败 显示智慧小区
-            if (LoginUtils.hasLoginUser()){
-                requestMyCommunity(null,2);
-            }else {
-                hideDialog(smallDialog);
-                //权限拒绝 ,默认智慧小区
-                mListview.setVisibility(View.GONE);
-                ll_no_data.setVisibility(View.VISIBLE);
-                sl_no_data.setVisibility(View.VISIBLE);
-                tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
-                // 还得加地址
-                if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
-                    tv_empty_community_address.setVisibility(View.VISIBLE);
-                    tv_empty_community_address.setText(prefrenceUtil.getAddressName());
                 }else {
+                    //选择收货地址跳入
+                    mListview.setVisibility(View.GONE);
+                    ll_no_data.setVisibility(View.VISIBLE);
+                    sl_no_data.setVisibility(View.VISIBLE);
+                    //当前小区隐藏
                     tv_empty_community_address.setVisibility(View.GONE);
+                    tv_empty_community_name.setVisibility(View.GONE);
+                    tv_empty_community_name_title.setVisibility(View.GONE);
+                    ll_empty_community_name.setVisibility(View.GONE);
+                    //我的小区隐藏
+                    ll_empty_my_community.setVisibility(View.GONE);
                 }
-                ll_empty_my_community.setVisibility(View.GONE);
             }
 
         }
@@ -380,50 +429,93 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                 requestMyCommunity(pois,1);
             }else {
                 hideDialog(smallDialog);
-                mListview.setVisibility(View.VISIBLE);
-                ll_no_data.setVisibility(View.GONE);
-                sl_no_data.setVisibility(View.GONE);
-                mDatas.clear();
-                //当前小区
-                ModelCoummnityList modelCoummnityList = new ModelCoummnityList();
-                modelCoummnityList.setType(1);
-                modelCoummnityList.setName(prefrenceUtil.getXiaoQuName()+"");
-                modelCoummnityList.setAddress(prefrenceUtil.getAddressName()+"");
-                modelCoummnityList.setId(prefrenceUtil.getXiaoQuId()+"");
-                modelCoummnityList.setPosition(0);
-                mDatas.add(modelCoummnityList);
-                //附近小区
-                ArrayList<ModelCoummnityList> nearby_list = new ArrayList<>();
-                for (int i1 = 0; i1 < pois.size(); i1++) {
-                    ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
-                    modelCoummnityList_bean.setType(3);
-                    modelCoummnityList_bean.setName(pois.get(i1).toString()+"");
-                    modelCoummnityList_bean.setAddress(pois.get(i1).getSnippet()+"");
-                    modelCoummnityList_bean.setId("");
-                    modelCoummnityList_bean.setPosition(i1);
-                    nearby_list.add(modelCoummnityList_bean);
+                if (jump_type==1){
+                    mListview.setVisibility(View.VISIBLE);
+                    ll_no_data.setVisibility(View.GONE);
+                    sl_no_data.setVisibility(View.GONE);
+                    mDatas.clear();
+                    //当前小区
+                    ModelCoummnityList modelCoummnityList = new ModelCoummnityList();
+                    modelCoummnityList.setType(1);
+                    modelCoummnityList.setName(prefrenceUtil.getXiaoQuName()+"");
+                    modelCoummnityList.setAddress(prefrenceUtil.getAddressName()+"");
+                    modelCoummnityList.setId(prefrenceUtil.getXiaoQuId()+"");
+                    modelCoummnityList.setPosition(0);
+                    mDatas.add(modelCoummnityList);
+                    //附近小区
+                    ArrayList<ModelCoummnityList> nearby_list = new ArrayList<>();
+                    for (int i1 = 0; i1 < pois.size(); i1++) {
+                        ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
+                        modelCoummnityList_bean.setType(3);
+                        modelCoummnityList_bean.setName(pois.get(i1).toString()+"");
+                        modelCoummnityList_bean.setAddress(pois.get(i1).getSnippet()+"");
+                        modelCoummnityList_bean.setId("");
+                        modelCoummnityList_bean.setPosition(i1);
+                        nearby_list.add(modelCoummnityList_bean);
+                    }
+                    mDatas.addAll(nearby_list);
+                    adapter.notifyDataSetChanged();
+                }else {
+                    mListview.setVisibility(View.VISIBLE);
+                    ll_no_data.setVisibility(View.GONE);
+                    sl_no_data.setVisibility(View.GONE);
+                    mDatas.clear();
+//                    //当前小区
+//                    ModelCoummnityList modelCoummnityList = new ModelCoummnityList();
+//                    modelCoummnityList.setType(1);
+//                    modelCoummnityList.setName(prefrenceUtil.getXiaoQuName()+"");
+//                    modelCoummnityList.setAddress(prefrenceUtil.getAddressName()+"");
+//                    modelCoummnityList.setId(prefrenceUtil.getXiaoQuId()+"");
+//                    modelCoummnityList.setPosition(0);
+//                    mDatas.add(modelCoummnityList);
+                    //附近小区
+                    ArrayList<ModelCoummnityList> nearby_list = new ArrayList<>();
+                    for (int i1 = 0; i1 < pois.size(); i1++) {
+                        ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
+                        modelCoummnityList_bean.setType(3);
+                        modelCoummnityList_bean.setName(pois.get(i1).toString()+"");
+                        modelCoummnityList_bean.setAddress(pois.get(i1).getSnippet()+"");
+                        modelCoummnityList_bean.setId("");
+                        modelCoummnityList_bean.setPosition(i1);
+                        nearby_list.add(modelCoummnityList_bean);
+                    }
+                    mDatas.addAll(nearby_list);
+                    adapter.notifyDataSetChanged();
                 }
-                mDatas.addAll(nearby_list);
-                adapter.notifyDataSetChanged();
             }
         }else {
+            //没有搜索出来
             if (LoginUtils.hasLoginUser()){
                 requestMyCommunity(null,2);
             }else {
                 hideDialog(smallDialog);
-                //权限拒绝 ,默认智慧小区
-                mListview.setVisibility(View.GONE);
-                ll_no_data.setVisibility(View.VISIBLE);
-                sl_no_data.setVisibility(View.VISIBLE);
-                tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
-                // 还得加地址
-                if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
-                    tv_empty_community_address.setVisibility(View.VISIBLE);
-                    tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                if (jump_type==1){
+                    mListview.setVisibility(View.GONE);
+                    ll_no_data.setVisibility(View.VISIBLE);
+                    sl_no_data.setVisibility(View.VISIBLE);
+                    tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
+                    // 还得加地址
+                    if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
+                        tv_empty_community_address.setVisibility(View.VISIBLE);
+                        tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                    }else {
+                        tv_empty_community_address.setVisibility(View.GONE);
+                    }
+                    ll_empty_my_community.setVisibility(View.GONE);
                 }else {
+                    //选择收货地址跳入
+                    mListview.setVisibility(View.GONE);
+                    ll_no_data.setVisibility(View.VISIBLE);
+                    sl_no_data.setVisibility(View.VISIBLE);
+                    //当前小区隐藏
                     tv_empty_community_address.setVisibility(View.GONE);
+                    tv_empty_community_name.setVisibility(View.GONE);
+                    tv_empty_community_name_title.setVisibility(View.GONE);
+                    ll_empty_community_name.setVisibility(View.GONE);
+                    //我的小区隐藏
+                    ll_empty_my_community.setVisibility(View.GONE);
+
                 }
-                ll_empty_my_community.setVisibility(View.GONE);
             }
 
         }
@@ -444,83 +536,141 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     List<ModelCoummnityList>data_my = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelCoummnityList.class);
-                    if (isLocation==1){//定位成功获取小区
-                        mDatas.clear();
-                        //当前小区
-                        ModelCoummnityList modelCoummnityList = new ModelCoummnityList();
-                        modelCoummnityList.setType(1);
-                        modelCoummnityList.setName(prefrenceUtil.getXiaoQuName()+"");
-                        modelCoummnityList.setAddress(prefrenceUtil.getAddressName()+"");
-                        modelCoummnityList.setId(prefrenceUtil.getXiaoQuId()+"");
-                        modelCoummnityList.setPosition(0);
-                        mDatas.add(modelCoummnityList);
-                        //我的小区
-                        List<ModelCoummnityList>data_my_list = new ArrayList<>();
-                        if (data_my!=null&&data_my.size()>0){
-                            for (int i = 0; i < data_my.size(); i++) {
-                                ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
-                                modelCoummnityList_bean.setType(2);
-                                modelCoummnityList_bean.setName(data_my.get(i).getCommunity_name());
-                                modelCoummnityList_bean.setAddress(data_my.get(i).getFull_address()+"");
-                                modelCoummnityList_bean.setId("");
-                                modelCoummnityList_bean.setPosition(i);
-                                modelCoummnityList_bean.setProvince_name(data_my.get(i).getProvince_name());
-                                modelCoummnityList_bean.setCity_name(data_my.get(i).getCity_name());
-                                modelCoummnityList_bean.setArea_name(data_my.get(i).getArea_name());
-                                data_my_list.add(modelCoummnityList_bean);
-                            }
-                        }
-                        mDatas.addAll(data_my_list);
-                        //附近小区
-                        ArrayList<ModelCoummnityList> nearby_list = new ArrayList<>();
-                        for (int i1 = 0; i1 < pois.size(); i1++) {
-                            ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
-                            modelCoummnityList_bean.setType(3);
-                            modelCoummnityList_bean.setName(pois.get(i1).toString()+"");
-                            modelCoummnityList_bean.setAddress(pois.get(i1).getSnippet()+"");
-                            modelCoummnityList_bean.setId("");
-                            modelCoummnityList_bean.setPosition(i1);
-                            nearby_list.add(modelCoummnityList_bean);
-                        }
-                        mDatas.addAll(nearby_list);
-                        adapter.notifyDataSetChanged();
-                    }else {
-                        //没开启定位 获取我的小区
-                        mListview.setVisibility(View.GONE);
-                        ll_no_data.setVisibility(View.VISIBLE);
-                        sl_no_data.setVisibility(View.VISIBLE);
-                        tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
-                        // 还得加地址
-                        if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
-                            tv_empty_community_address.setVisibility(View.VISIBLE);
-                            tv_empty_community_address.setText(prefrenceUtil.getAddressName());
-                        }else {
-                            tv_empty_community_address.setVisibility(View.GONE);
-                        }
-                        if (data_my!=null&&data_my.size()>0){
-                            //有数据
-                            ll_empty_my_community.setVisibility(View.VISIBLE);
-                            List<ModelCoummnityList>data_my_list = new ArrayList<>();
-                            for (int i = 0; i < data_my.size(); i++) {
-                                ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
-                                modelCoummnityList_bean.setType(2);
-                                modelCoummnityList_bean.setName(data_my.get(i).getCommunity_name());
-                                modelCoummnityList_bean.setAddress(data_my.get(i).getFull_address()+"");
-                                modelCoummnityList_bean.setId("");
-                                modelCoummnityList_bean.setPosition(i);
-                                modelCoummnityList_bean.setProvince_name(data_my.get(i).getProvince_name());
-                                modelCoummnityList_bean.setCity_name(data_my.get(i).getCity_name());
-                                modelCoummnityList_bean.setArea_name(data_my.get(i).getArea_name());
-                                data_my_list.add(modelCoummnityList_bean);
-                            }
-                            AdapterCoummunityList  adapter = new AdapterCoummunityList(mContext, R.layout.item_community_list, data_my_list,CommunityListActivity.this , 1, jump_type);
-                            mListViewEmpty.setAdapter(adapter);
-                        }else {
-                            ll_empty_my_community.setVisibility(View.GONE);
-                        }
+                   if (jump_type==1){//首页进入
+                       if (isLocation==1){//定位成功获取小区
+                           mDatas.clear();
+                           //当前小区
+                           ModelCoummnityList modelCoummnityList = new ModelCoummnityList();
+                           modelCoummnityList.setType(1);
+                           modelCoummnityList.setName(prefrenceUtil.getXiaoQuName()+"");
+                           modelCoummnityList.setAddress(prefrenceUtil.getAddressName()+"");
+                           modelCoummnityList.setId(prefrenceUtil.getXiaoQuId()+"");
+                           modelCoummnityList.setPosition(0);
+                           mDatas.add(modelCoummnityList);
+                           //我的小区
+                           List<ModelCoummnityList>data_my_list = new ArrayList<>();
+                           if (data_my!=null&&data_my.size()>0){
+                               for (int i = 0; i < data_my.size(); i++) {
+                                   ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
+                                   modelCoummnityList_bean.setType(2);
+                                   modelCoummnityList_bean.setName(data_my.get(i).getCommunity_name());
+                                   modelCoummnityList_bean.setAddress(data_my.get(i).getFull_address()+"");
+                                   modelCoummnityList_bean.setId("");
+                                   modelCoummnityList_bean.setPosition(i);
+                                   modelCoummnityList_bean.setProvince_name(data_my.get(i).getProvince_name());
+                                   modelCoummnityList_bean.setCity_name(data_my.get(i).getCity_name());
+                                   modelCoummnityList_bean.setArea_name(data_my.get(i).getArea_name());
+                                   data_my_list.add(modelCoummnityList_bean);
+                               }
+                           }
+                           mDatas.addAll(data_my_list);
+                           //附近小区
+                           ArrayList<ModelCoummnityList> nearby_list = new ArrayList<>();
+                           for (int i1 = 0; i1 < pois.size(); i1++) {
+                               ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
+                               modelCoummnityList_bean.setType(3);
+                               modelCoummnityList_bean.setName(pois.get(i1).toString()+"");
+                               modelCoummnityList_bean.setAddress(pois.get(i1).getSnippet()+"");
+                               modelCoummnityList_bean.setId("");
+                               modelCoummnityList_bean.setPosition(i1);
+                               nearby_list.add(modelCoummnityList_bean);
+                           }
+                           mDatas.addAll(nearby_list);
+                           adapter.notifyDataSetChanged();
+                       }else {
+                           //没开启定位 获取我的小区
+                           mListview.setVisibility(View.GONE);
+                           ll_no_data.setVisibility(View.VISIBLE);
+                           sl_no_data.setVisibility(View.VISIBLE);
+                           tv_empty_community_name.setText(prefrenceUtil.getXiaoQuName()+"");
+                           // 还得加地址
+                           if (!NullUtil.isStringEmpty(prefrenceUtil.getAddressName())){
+                               tv_empty_community_address.setVisibility(View.VISIBLE);
+                               tv_empty_community_address.setText(prefrenceUtil.getAddressName());
+                           }else {
+                               tv_empty_community_address.setVisibility(View.GONE);
+                           }
+                           if (data_my!=null&&data_my.size()>0){
+                               //有数据
+                               ll_empty_my_community.setVisibility(View.VISIBLE);
+                               List<ModelCoummnityList>data_my_list = new ArrayList<>();
+                               for (int i = 0; i < data_my.size(); i++) {
+                                   ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
+                                   modelCoummnityList_bean.setType(2);
+                                   modelCoummnityList_bean.setName(data_my.get(i).getCommunity_name());
+                                   modelCoummnityList_bean.setAddress(data_my.get(i).getFull_address()+"");
+                                   modelCoummnityList_bean.setId("");
+                                   modelCoummnityList_bean.setPosition(i);
+                                   modelCoummnityList_bean.setProvince_name(data_my.get(i).getProvince_name());
+                                   modelCoummnityList_bean.setCity_name(data_my.get(i).getCity_name());
+                                   modelCoummnityList_bean.setArea_name(data_my.get(i).getArea_name());
+                                   data_my_list.add(modelCoummnityList_bean);
+                               }
+                               AdapterCoummunityList  adapter = new AdapterCoummunityList(mContext, R.layout.item_community_list, data_my_list,CommunityListActivity.this , 1, jump_type);
+                               mListViewEmpty.setAdapter(adapter);
+                           }else {
+                               ll_empty_my_community.setVisibility(View.GONE);
+                           }
 
-                    }
+                       }
 
+                   }else {
+                       //选择收货地址跳入
+                       if (isLocation==1){//定位成功获取小区
+//                           mDatas.clear();
+//                           //当前小区
+//                           ModelCoummnityList modelCoummnityList = new ModelCoummnityList();
+//                           modelCoummnityList.setType(1);
+//                           modelCoummnityList.setName(prefrenceUtil.getXiaoQuName()+"");
+//                           modelCoummnityList.setAddress(prefrenceUtil.getAddressName()+"");
+//                           modelCoummnityList.setId(prefrenceUtil.getXiaoQuId()+"");
+//                           modelCoummnityList.setPosition(0);
+//                           mDatas.add(modelCoummnityList);
+//                           //我的小区
+//                           List<ModelCoummnityList>data_my_list = new ArrayList<>();
+//                           if (data_my!=null&&data_my.size()>0){
+//                               for (int i = 0; i < data_my.size(); i++) {
+//                                   ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
+//                                   modelCoummnityList_bean.setType(2);
+//                                   modelCoummnityList_bean.setName(data_my.get(i).getCommunity_name());
+//                                   modelCoummnityList_bean.setAddress(data_my.get(i).getFull_address()+"");
+//                                   modelCoummnityList_bean.setId("");
+//                                   modelCoummnityList_bean.setPosition(i);
+//                                   modelCoummnityList_bean.setProvince_name(data_my.get(i).getProvince_name());
+//                                   modelCoummnityList_bean.setCity_name(data_my.get(i).getCity_name());
+//                                   modelCoummnityList_bean.setArea_name(data_my.get(i).getArea_name());
+//                                   data_my_list.add(modelCoummnityList_bean);
+//                               }
+//                           }
+//                           mDatas.addAll(data_my_list);
+                           //附近小区
+                           ArrayList<ModelCoummnityList> nearby_list = new ArrayList<>();
+                           for (int i1 = 0; i1 < pois.size(); i1++) {
+                               ModelCoummnityList modelCoummnityList_bean = new ModelCoummnityList();
+                               modelCoummnityList_bean.setType(3);
+                               modelCoummnityList_bean.setName(pois.get(i1).toString()+"");
+                               modelCoummnityList_bean.setAddress(pois.get(i1).getSnippet()+"");
+                               modelCoummnityList_bean.setId("");
+                               modelCoummnityList_bean.setPosition(i1);
+                               nearby_list.add(modelCoummnityList_bean);
+                           }
+                           mDatas.addAll(nearby_list);
+                           adapter.notifyDataSetChanged();
+                       }else {
+                           //没开启定位 全部隐藏
+                           mListview.setVisibility(View.GONE);
+                           ll_no_data.setVisibility(View.VISIBLE);
+                           sl_no_data.setVisibility(View.VISIBLE);
+                           //当前小区隐藏
+                           tv_empty_community_address.setVisibility(View.GONE);
+                           tv_empty_community_name.setVisibility(View.GONE);
+                           tv_empty_community_name_title.setVisibility(View.GONE);
+                           ll_empty_community_name.setVisibility(View.GONE);
+                           //我的小区隐藏
+                           ll_empty_my_community.setVisibility(View.GONE);
+
+                       }
+                   }
 
                 } else {
                     try {
