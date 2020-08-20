@@ -28,8 +28,8 @@ android {
 
 dependencies {
     //  compile files('libs/libammsdk.jar')
-    compile files('libs/wechat-sdk-android-with-mta-1.4.0.jar')
-    compile(name: 'alipaySdk-15.6.8-20191021122514', ext: 'aar')
+    api files('libs/wechat-sdk-android-with-mta-1.4.0.jar')
+    api(name: 'alipaySdk-15.6.8-20191021122514', ext: 'aar')
     //compile files('libs/alipaySdk-20170922.jar')
     task clearJar(type: Delete) {
         delete 'build/libs/icbcsdk.jar'
@@ -53,5 +53,5 @@ dependencies {
 
     }
     makeJar.dependsOn(clearJar, build)
-    compile files('libs/icbcPaySDK.jar')
+    api files('libs/icbcPaySDK.jar')
 }
