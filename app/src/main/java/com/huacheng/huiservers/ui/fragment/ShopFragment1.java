@@ -109,6 +109,9 @@ public class ShopFragment1 extends BaseFragment {
     private List<ModelAds> adHead;
     private View view_tab_line;
     private View view_title_line;
+    private RelativeLayout rl_header;
+    private RelativeLayout rel_no_data;
+    private TextView tv_text_no_data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -169,6 +172,12 @@ public class ShopFragment1 extends BaseFragment {
         mViewPager = view.findViewById(R.id.vp_pager);
         view_tab_line = view.findViewById(R.id.view_tab_line);
         view_title_line = view.findViewById(R.id.view_title_line);
+
+        rl_header=view.findViewById(R.id.rl_header);
+        rel_no_data=view.findViewById(R.id.rel_no_data);
+        tv_text_no_data=view.findViewById(R.id.tv_text_no_data);
+        tv_text_no_data.setText("该地区暂未开放");
+        rel_no_data.setVisibility(View.GONE);
     }
 
 
@@ -490,12 +499,14 @@ public class ShopFragment1 extends BaseFragment {
         //banner
         adHead = info.getAd_hc_shopindex();
         if (adHead != null && adHead.size() > 0) {//头部广告
-
+            banner.setVisibility(View.VISIBLE);
             ArrayList<String> mDatas_img1 = new ArrayList<>();
             for (int i = 0; i < info.getAd_hc_shopindex().size(); i++) {
                 mDatas_img1.add(ApiHttpClient.IMG_URL+info.getAd_hc_shopindex().get(i).getImg() + "");
             }
             banner.update(mDatas_img1);
+        }else {
+            banner.setVisibility(View.INVISIBLE);
         }
 
         // 优选(之前的限时抢购)
@@ -555,7 +566,15 @@ public class ShopFragment1 extends BaseFragment {
         } else {
             ll_biguang_layout.setVisibility(View.GONE);
         }
-
+        if (ll_biguang_layout.getVisibility()==View.GONE&&ll_youxuan_layout.getVisibility()==View.GONE
+                &&banner.getVisibility()==View.INVISIBLE&&gridview_shop.getVisibility()==View.INVISIBLE){
+            //全部隐藏，说明什么也没有
+            rel_no_data.setVisibility(View.VISIBLE);
+            rl_header.setVisibility(View.GONE);
+        }else {
+            rel_no_data.setVisibility(View.GONE);
+            rl_header.setVisibility(View.VISIBLE);
+        }
 
     }
 
