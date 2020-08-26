@@ -332,6 +332,7 @@ public class FragmentShopOrderListNew extends BaseFragment implements AdapterSho
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void back(XorderDetailBean info) {
         if (info != null) {
+            rel_no_data.setVisibility(View.GONE);
             //1删除 2.评价 3.退款 收货  4 支付成功 5收货
             if (info.getBack_type() == 1) {//删除
                 for (int i = 0; i < mBeanALList.size(); i++) {
