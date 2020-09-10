@@ -96,6 +96,11 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
             }else {
                 viewHolder.tv_tag1.setVisibility(View.GONE);
             }
+            if ("2".equals(item.getPension_display())){
+                viewHolder.tv_tag_kangyang1.setVisibility(View.VISIBLE);
+            }else {
+                viewHolder.tv_tag_kangyang1.setVisibility(View.GONE);
+            }
 
             viewHolder.view_goods1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -142,6 +147,12 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
             }else {
                 viewHolder.tv_tag2.setVisibility(View.GONE);
             }
+            if ("2".equals(item.getPension_display())){
+                viewHolder.tv_tag_kangyang2.setVisibility(View.VISIBLE);
+            }else {
+                viewHolder.tv_tag_kangyang2.setVisibility(View.GONE);
+            }
+
             viewHolder.view_goods2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -178,6 +189,7 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
         viewHolder. iv_add_shop_cart1 = (ImageView) view_goods1.findViewById(R.id.iv_add_shop_cart);
         viewHolder. iv_shouqing1 = (ImageView) view_goods1.findViewById(R.id.iv_shouqing);
         viewHolder. tv_tag1 = (TextView) view_goods1.findViewById(R.id.tv_tag);
+        viewHolder. tv_tag_kangyang1 = (TextView) view_goods1.findViewById(R.id.tv_tag_kangyang);
 
 
         //第二个商品的布局
@@ -191,7 +203,7 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
         viewHolder. iv_add_shop_cart2 = (ImageView) view_goods2.findViewById(R.id.iv_add_shop_cart);
         viewHolder. iv_shouqing2 = (ImageView) view_goods2.findViewById(R.id.iv_shouqing);
         viewHolder. tv_tag2= (TextView) view_goods2.findViewById(R.id.tv_tag);
-
+        viewHolder. tv_tag_kangyang2 = (TextView) view_goods2.findViewById(R.id.tv_tag_kangyang);
 
     }
 
@@ -210,6 +222,9 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
         ImageView iv_shouqing2;
         TextView tv_tag1;
         TextView tv_tag2;
+
+        TextView tv_tag_kangyang1;
+        TextView tv_tag_kangyang2;
 
         View view_goods1;
         View view_goods2;

@@ -110,7 +110,7 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
         //    recyclerViewHolder.iv_shop_list_flag.setVisibility(View.VISIBLE);
             ModelShopIndex index = mDatas.get(position);
             String discount = index.getDiscount();
-            if (discount.equals("1")) {
+            if ("1".equals(discount)) {
                // recyclerViewHolder.iv_shop_list_flag.setBackgroundResource(R.drawable.ic_shoplist_spike);
                 recyclerViewHolder.tv_tag.setText("秒杀");
                 recyclerViewHolder.tv_tag.setVisibility(View.VISIBLE);
@@ -127,6 +127,11 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
                   //  recyclerViewHolder.iv_shop_list_flag.setBackground(null);
                     recyclerViewHolder.tv_tag.setVisibility(View.GONE);
                 }
+            }
+            if ("2".equals(index.getPension_display())){
+                recyclerViewHolder.tv_tag_kangyang.setVisibility(View.VISIBLE);
+            }else {
+                recyclerViewHolder.tv_tag_kangyang.setVisibility(View.GONE);
             }
          //   GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + mDatas.get(position).getTitle_img(),recyclerViewHolder.iv_title_img,R.drawable.ic_default_rectange);
 
@@ -327,7 +332,7 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         ImageView iv_shop_list_flag, iv_shopcar;
         SimpleDraweeView iv_title_img;
-        TextView tv_title, tv_shop_price, tv_shop_weight, tv_orders_sold_num, tv_shop_price_original, tv_shouqing,tv_sub_title,tv_tag;
+        TextView tv_title, tv_shop_price, tv_shop_weight, tv_orders_sold_num, tv_shop_price_original, tv_shouqing,tv_sub_title,tv_tag,tv_tag_kangyang;
 
         LinearLayout lin_goodslist_Tag, ly_onclick, lin_shop_list_car;
 
@@ -346,6 +351,7 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
             tv_orders_sold_num = (TextView) itemView.findViewById(R.id.tv_orders_sold_num);
             tv_sub_title = (TextView) itemView.findViewById(R.id.tv_sub_title);
             tv_tag = (TextView) itemView.findViewById(R.id.tv_tag);
+            tv_tag_kangyang = (TextView) itemView.findViewById(R.id.tv_tag_kangyang);
 
 
         }

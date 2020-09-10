@@ -80,6 +80,8 @@ public class ServiceDetailActivity extends BaseActivity {
     LinearLayout mLinLeft;
     @BindView(R.id.title_name)
     TextView mTitleName;
+    @BindView(R.id.tv_tag_kangyang)
+    TextView mTvTagKangyang;
     @BindView(R.id.iv_share)
     ImageView mIvShare;
     @BindView(R.id.ly_share)
@@ -231,7 +233,13 @@ public class ServiceDetailActivity extends BaseActivity {
 
     private void inflateContent(ModelServiceDetail mModelOrdetDetail) {
         if (mModelOrdetDetail != null) {
-            mTitleName.setText(mModelOrdetDetail.getTitle());
+            if ("2".equals(mModelOrdetDetail.getPension_display())){
+                mTvTagKangyang.setVisibility(View.VISIBLE);
+                mTitleName.setText("\u3000\u3000"+mModelOrdetDetail.getTitle());
+            }else {
+                mTvTagKangyang.setVisibility(View.GONE);
+                mTitleName.setText(mModelOrdetDetail.getTitle());
+            }
             //mTvServiceName.setText(mModelOrdetDetail.getTitle());
             //GlideUtils.getInstance().glideLoad(this, ApiHttpClient.IMG_SERVICE_URL + , mIcBanner, R.drawable.bg_default_rectange);
             String imgSize = mModelOrdetDetail.getTitle_img_size();

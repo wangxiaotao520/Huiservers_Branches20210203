@@ -13,20 +13,36 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_height="wrap_content">
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sdv_pic"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            fresco:placeholderImage="@color/default_img_color"
-            fresco:placeholderImageScaleType="centerCrop"
-            fresco:roundAsCircle="false"
-            fresco:roundBottomEnd="false"
-            fresco:roundBottomStart="false"
-            fresco:roundTopEnd="true"
-            fresco:roundTopStart="true"
-            fresco:roundedCornerRadius="5dp" />
+            android:layout_height="wrap_content">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_pic"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                fresco:placeholderImage="@color/default_img_color"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundAsCircle="false"
+                fresco:roundBottomEnd="false"
+                fresco:roundBottomStart="false"
+                fresco:roundTopEnd="true"
+                fresco:roundTopStart="true"
+                fresco:roundedCornerRadius="5dp" />
+            <TextView
+                android:id="@+id/tv_tag_kangyang"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:background="@drawable/allshape_orange_2"
+                android:gravity="center"
+                android:text="康养"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/text_special_ff_color"
+                android:textSize="11dp"
+                android:visibility="gone"/>
+        </FrameLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -13,7 +13,10 @@ public class ModelServiceDetail {
     private String title;
     private String i_id;
     private String title_img;
-    private String title_thumb_img,title_img_size;
+    private String title_thumb_img;
+    private String title_img_size;
+
+    private String pension_display;
 
     private ScoreInfoBean score_info;
     private InsInfoBean ins_info;
@@ -453,4 +456,13 @@ public class ModelServiceDetail {
             this.img = img;
         }
     }
+
+    public String getPension_display() {
+        return pension_display;
+    }
+
+    public void setPension_display(String pension_display) {
+        this.pension_display = pension_display;
+    }
+
 }

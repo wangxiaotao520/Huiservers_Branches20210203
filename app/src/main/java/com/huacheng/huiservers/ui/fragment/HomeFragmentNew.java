@@ -361,7 +361,8 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     }
                 }
             }
-        }).start();
+        });
+              //  .start();//为了解决滚动的问题
 
         banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

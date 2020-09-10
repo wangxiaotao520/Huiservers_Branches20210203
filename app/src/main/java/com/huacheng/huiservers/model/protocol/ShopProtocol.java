@@ -343,6 +343,7 @@ public class ShopProtocol {
                 }
                 info.setId(obj.getString("id"));
                 info.setTitle(obj.getString("title"));
+                info.setPension_display(obj.getString("pension_display"));
                 info.setOriginal(obj.getString("original"));
                 info.setDescription(obj.getString("description"));
                 info.setInventory(obj.getString("inventory"));
@@ -1078,6 +1079,7 @@ public class ShopProtocol {
                     info.setIs_new(obj.getString("is_new"));
                     info.setOrder_num(obj.getString("order_num"));
                     info.setTotal_Pages(obj.getString("total_Pages"));
+                    info.setPension_display(obj.getString("pension_display"));
                     productList.add(info);
                 }
 

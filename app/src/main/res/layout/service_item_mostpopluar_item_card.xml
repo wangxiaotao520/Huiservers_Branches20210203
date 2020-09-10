@@ -23,17 +23,34 @@
             <!--fresco:roundingBorderColor="@color/line_f2"
             fresco:roundingBorderWidth="1dp"
             -->
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/sdv_premium_merchat_bg"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
-                fresco:placeholderImage="@drawable/ic_default_25"
-                fresco:placeholderImageScaleType="centerCrop"
-                app:roundTopRight="true"
-                app:roundTopLeft="true"
-                app:roundBottomRight="false"
-                app:roundBottomLeft="false"
-                fresco:roundedCornerRadius="5dp" />
+                android:layout_height="wrap_content">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sdv_premium_merchat_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    fresco:placeholderImage="@drawable/ic_default_25"
+                    fresco:placeholderImageScaleType="centerCrop"
+                    app:roundTopRight="true"
+                    app:roundTopLeft="true"
+                    app:roundBottomRight="false"
+                    app:roundBottomLeft="false"
+                    fresco:roundedCornerRadius="5dp" />
+
+                <TextView
+                    android:id="@+id/tv_tag_kangyang"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/allshape_orange_2"
+                    android:gravity="center"
+                    android:text="康养"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/text_special_ff_color"
+                    android:textSize="11dp"
+                    android:layout_marginLeft="5dp"
+                    android:visibility="gone"/>
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/tv_titleName"

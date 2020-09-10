@@ -57,6 +57,8 @@ public class ShopDetailBean implements Serializable{
 
     private List<ModelCouponNew> coupon;
 
+    private String pension_display;
+
     public String getScore_count() {
         return score_count;
     }
@@ -497,4 +499,12 @@ public class ShopDetailBean implements Serializable{
     public void setCoupon(List<ModelCouponNew> coupon) {
         this.coupon = coupon;
     }
+    public String getPension_display() {
+        return pension_display;
+    }
+
+    public void setPension_display(String pension_display) {
+        this.pension_display = pension_display;
+    }
+
 }

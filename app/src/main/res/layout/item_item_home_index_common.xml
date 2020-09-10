@@ -48,18 +48,35 @@
                     android:layout_height="62dp"
                     android:visibility="gone"
                     android:background="@mipmap/ic_shop_shouqing"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="@dimen/margin_5">
+                    <TextView
+                        android:id="@+id/tv_tag"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/shape_red_2"
+                        android:gravity="center"
+                        android:text="秒杀"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/text_special_ff_color"
+                        android:textSize="11dp"
+                        android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/tv_tag_kangyang"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/allshape_orange_2"
+                        android:gravity="center"
+                        android:text="康养"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/text_special_ff_color"
+                        android:textSize="11dp"
+                        android:visibility="gone"/>
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_tag"
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="@dimen/margin_5"
-                    android:background="@drawable/shape_red_2"
-                    android:gravity="center"
-                    android:text="秒杀"
-                    android:textColor="@color/text_special_ff_color"
-                    android:textSize="@dimen/t_11sp"
-                    android:visibility="gone"/>
 
 
             </RelativeLayout>

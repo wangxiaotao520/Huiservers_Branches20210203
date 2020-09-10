@@ -248,15 +248,28 @@
                                 android:textSize="@dimen/t_12sp"
                                 tools:text="已售1200"/>
                         </RelativeLayout>
-
-                        <TextView
-                            android:id="@+id/txt_name"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/title_color"
-                            android:textSize="@dimen/t_16sp"
-                            android:textStyle="bold"
-                            tools:text="五谷道场非油炸袋装泡面14种口味自选组合方便面番茄牛腩面批发"/>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/txt_name"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/title_color"
+                                android:textSize="@dimen/t_16sp"
+                                android:textStyle="bold"
+                                tools:text="\u3000\u3000 五谷道场非油炸袋装泡面14种口味自选组合方便面番茄牛腩面批发"/>
+                            <TextView
+                                android:id="@+id/tv_tag_kangyang"
+                                android:layout_width="30dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/allshape_orange_2"
+                                android:gravity="center"
+                                android:text="康养"
+                                android:textColor="@color/text_special_ff_color"
+                                android:textSize="11dp"
+                                android:visibility="visible"/>
+                        </RelativeLayout>
 
                         <TextView
                             android:id="@+id/txt_content"

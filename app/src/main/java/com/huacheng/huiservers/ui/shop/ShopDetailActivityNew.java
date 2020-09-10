@@ -106,7 +106,7 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
     // /
     private LinearLayout lin_left, lin_add_ss, lin_img, lin_bottom, lin_title, lin_goumai, lin_yixuanze, lin_XS_bottom, lin_goodsTag;
     private RelativeLayout rel_cancel;
-    private TextView title_name, txt_name, txt_content, txt_price, txt_num, tag_name, txt_tag1, txt_tag2, right, txt_tag3, txt_tag4, txt_shop_num,
+    private TextView title_name, txt_name,tv_tag_kangyang, txt_content, txt_price, txt_num, tag_name, txt_tag1, txt_tag2, right, txt_tag3, txt_tag4, txt_shop_num,
             txt_paisong, txt_yuan_price, txt_tuijian, tag_guige, tv_XS_type;
     private GridView grid_view;
     private LinearLayout ly_gouwuche;
@@ -276,6 +276,8 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         ly_pingjia_null = findViewById(R.id.ly_pingjia_null);
 
         txt_name = findViewById(R.id.txt_name);
+        tv_tag_kangyang = findViewById(R.id.tv_tag_kangyang);
+        tv_tag_kangyang.setVisibility(View.GONE);
         txt_content = findViewById(R.id.txt_content);
         txt_price = findViewById(R.id.txt_price);
         txt_yuan_price = findViewById(R.id.txt_yuan_price);
@@ -363,7 +365,14 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
                             tag_guige.setVisibility(View.VISIBLE);
                             ly_store.setVisibility(View.VISIBLE);
                             GlideUtils.getInstance().glideLoad(ShopDetailActivityNew.this, MyCookieStore.URL + detailBean.getTitle_img(), img_title, R.color.default_img_color);
-                            txt_name.setText(detailBean.getTitle());
+
+                            if ("2".equals(detailBean.getPension_display())){
+                                tv_tag_kangyang.setVisibility(View.VISIBLE);
+                                txt_name.setText("\u3000\u3000"+" "+detailBean.getTitle());
+                            }else {
+                                tv_tag_kangyang.setVisibility(View.GONE);
+                                txt_name.setText(detailBean.getTitle());
+                            }
                             txt_content.setText(detailBean.getDescription());
                             txt_price.setText("¥" + detailBean.getPrice());
                             txt_yuan_price.setText("¥" + detailBean.getOriginal());

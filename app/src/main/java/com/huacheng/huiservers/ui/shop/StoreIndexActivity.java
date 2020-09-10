@@ -60,6 +60,7 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
     protected RelativeLayout mRelNoData;
     private SimpleDraweeView iv_store_head;
     private TextView tv_store_name;
+    private TextView tv_tag_kangyang;
     private TextView tv_store_address;
     private ImageView iv_bg;
     private List<ModelShopIndex> mDatas = new ArrayList<>();//数据
@@ -126,6 +127,7 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
     private void initHeaderView() {
         iv_store_head = headerView.findViewById(R.id.iv_store_head);
         tv_store_name = headerView.findViewById(R.id.tv_store_name);
+        tv_tag_kangyang = headerView.findViewById(R.id.tv_tag_kangyang);
         tv_store_address = headerView.findViewById(R.id.tv_store_address);
         ly_all = headerView.findViewById(R.id.ly_all);
         iv_bg = headerView.findViewById(R.id.iv_bg);
@@ -247,6 +249,11 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
                             ly_all.setVisibility(View.VISIBLE);
                             tv_store_address.setText(shopIndex.getAddress());
                             tv_store_name.setText(shopIndex.getMerchant_name());
+                            if ("2".equals(modelShopIndex.getPension_display())){
+                                tv_tag_kangyang.setVisibility(View.VISIBLE);
+                            }else {
+                                tv_tag_kangyang.setVisibility(View.GONE);
+                            }
                            // GlideUtils.getInstance().glideLoad(StoreIndexActivity.this, ApiHttpClient.IMG_URL + shopIndex.getBackground(), iv_bg, R.mipmap.ic_store_bg);
                             Glide.with(mContext).load(ApiHttpClient.IMG_URL + shopIndex.getBackground())
                                     .error(R.color.default_img_color)

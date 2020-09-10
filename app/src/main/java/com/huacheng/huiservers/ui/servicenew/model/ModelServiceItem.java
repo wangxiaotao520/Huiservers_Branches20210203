@@ -14,6 +14,7 @@ public class ModelServiceItem implements Serializable {
     private String title_thumb_img;
     private String title_img_size;
     private String price;
+    private String pension_display;
     private int total_Pages;
 
     public String getTitle_img_size() {
@@ -70,6 +71,14 @@ public class ModelServiceItem implements Serializable {
 
     public void setTotal_Pages(int total_Pages) {
         this.total_Pages = total_Pages;
+    }
+
+    public String getPension_display() {
+        return pension_display;
+    }
+
+    public void setPension_display(String pension_display) {
+        this.pension_display = pension_display;
     }
 
 }

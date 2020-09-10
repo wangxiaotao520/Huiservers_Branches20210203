@@ -54,6 +54,7 @@ public class ServiceFragmentAdapter <T>extends BaseAdapter {
             viewHolder.sdv_pic=convertView.findViewById(R.id.sdv_pic);
             viewHolder.tv_service_name=convertView.findViewById(R.id.tv_service_name);
             viewHolder.tv_price=convertView.findViewById(R.id.tv_price);
+            viewHolder.tv_tag_kangyang=convertView.findViewById(R.id.tv_tag_kangyang);
             convertView.setTag(viewHolder);
         }else {
             viewHolder= (ViewHolder) convertView.getTag();
@@ -62,12 +63,18 @@ public class ServiceFragmentAdapter <T>extends BaseAdapter {
         FrescoUtils.getInstance().setImageUri(viewHolder.sdv_pic, ApiHttpClient.IMG_SERVICE_URL+item.getTitle_img());
         viewHolder.tv_service_name.setText(item.getTitle()+"");
         viewHolder.tv_price.setText("¥ "+item.getPrice());
+        if ("2".equals(item.getPension_display())){
+            viewHolder.tv_tag_kangyang.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.tv_tag_kangyang.setVisibility(View.GONE);
+        }
         return convertView;
     }
     static class ViewHolder{
         SimpleDraweeView sdv_pic;
         TextView tv_service_name;
         TextView tv_price;
+        TextView tv_tag_kangyang;
     }
 
 }

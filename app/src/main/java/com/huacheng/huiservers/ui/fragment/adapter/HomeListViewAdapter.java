@@ -49,6 +49,12 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
 
             }*/
         }
+        if ("2".equals(item.getPension_display())){
+            viewHolder.<TextView>getView(R.id.tv_tag_kangyang).setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.<TextView>getView(R.id.tv_tag_kangyang).setVisibility(View.GONE);
+        }
+
         //标记售罄
         if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {
             viewHolder.<ImageView>getView(R.id.iv_shouqing).setVisibility(View.VISIBLE);

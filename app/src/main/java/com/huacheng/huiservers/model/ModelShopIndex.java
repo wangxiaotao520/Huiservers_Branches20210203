@@ -64,6 +64,9 @@ public class ModelShopIndex {
     private String icon_img;//特卖专场的图片
     private int  totalPages;
 
+
+    private String pension_display;//是否是养老  1不是 2是
+
     public List<ModelVBaner> getArticle_one() {
         return article_one;
     }
@@ -468,5 +471,14 @@ public class ModelShopIndex {
 
     public void setIcon_img(String icon_img) {
         this.icon_img = icon_img;
+    }
+
+
+    public String getPension_display() {
+        return pension_display;
+    }
+
+    public void setPension_display(String pension_display) {
+        this.pension_display = pension_display;
     }
 }

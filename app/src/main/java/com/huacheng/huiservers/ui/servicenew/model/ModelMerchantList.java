@@ -17,6 +17,8 @@ public class ModelMerchantList {
     private String id;
     private String name;
     private String logo;
+
+    private String pension_display;
     private List<ModelInfoCategory> category;
     private List<ModelServiceItem> service;
 
@@ -70,4 +72,13 @@ public class ModelMerchantList {
     public void setLogo(String logo) {
         this.logo = logo;
     }
+
+    public String getPension_display() {
+        return pension_display;
+    }
+
+    public void setPension_display(String pension_display) {
+        this.pension_display = pension_display;
+    }
+
 }

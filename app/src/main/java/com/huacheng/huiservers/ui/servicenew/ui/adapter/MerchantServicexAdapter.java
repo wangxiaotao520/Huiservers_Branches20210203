@@ -86,8 +86,13 @@ public class MerchantServicexAdapter extends BaseAdapter {
                 }
                 final ModelMerchantList merchant = mDatas.get(position);
                 FrescoUtils.getInstance().setImageUri(holder.sdv_merchantlogo, ApiHttpClient.IMG_SERVICE_URL + merchant.getLogo());
-
+                if ("2".equals(merchant.getPension_display())){
+                    holder.tv_tag_kangyang.setVisibility(View.VISIBLE);
+                    }else {
+                    holder.tv_tag_kangyang.setVisibility(View.GONE);
+                    }
                 holder.tv_organizationName.setText(merchant.getName());
+
                 getMerchatServiceTag(holder, merchant.getCategory());
                 holder.lin_merchant_card.removeAllViews();
 
@@ -95,8 +100,10 @@ public class MerchantServicexAdapter extends BaseAdapter {
                 for (int i = 0; i < services.size(); i++) {
                     View v = LayoutInflater.from(context).inflate(R.layout.service_item_mostpopluar_item_card, null);
                     TextView tv_titleName = v.findViewById(R.id.tv_titleName);
+                    TextView tv_tag_kangyang = v.findViewById(R.id.tv_tag_kangyang);
                     SimpleDraweeView sdv_premium_merchat_bg = v.findViewById(R.id.sdv_premium_merchat_bg);
                     LinearLayout lin_most = v.findViewById(R.id.lin_most);
+
 
                     final ModelServiceItem item = services.get(i);
                     FrescoUtils.getInstance().setImageUri(sdv_premium_merchat_bg, ApiHttpClient.IMG_SERVICE_URL + item.getTitle_img());
@@ -111,7 +118,11 @@ public class MerchantServicexAdapter extends BaseAdapter {
                             context.startActivity(intent);
                         }
                     });
-
+//                    if ("2".equals(item.getPension_display())){
+//                        tv_tag_kangyang.setVisibility(View.VISIBLE);
+//                    }else {
+//                        tv_tag_kangyang.setVisibility(View.GONE);
+//                    }
                 }
                 holder.lin_container.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -152,7 +163,11 @@ public class MerchantServicexAdapter extends BaseAdapter {
                 }
 
                 FrescoUtils.getInstance().setImageUri(holderService.sdv_service_bg, ApiHttpClient.IMG_SERVICE_URL + service.getTitle_img());
-
+                if ("2".equals(service.getPension_display())){
+                    holderService.tv_tag_kangyang.setVisibility(View.VISIBLE);
+                }else {
+                    holderService.tv_tag_kangyang.setVisibility(View.GONE);
+                }
                 holderService.tv_serviceName.setText(service.getTitle());
                 String price = service.getPrice();
                 if (!NullUtil.isStringEmpty(price)) {
@@ -200,11 +215,13 @@ public class MerchantServicexAdapter extends BaseAdapter {
 
         SimpleDraweeView sdv_service_bg;
         TextView tv_serviceName,
-                tv_servicePrice;
+                tv_servicePrice,
+                tv_tag_kangyang;
 
         public ViewHolder(View v) {
             //商家
             sdv_merchantlogo = v.findViewById(R.id.sdv_merchantlogo);
+            tv_tag_kangyang = v.findViewById(R.id.tv_tag_kangyang);
             tv_organizationName = v.findViewById(R.id.tv_organizationName);
             tfl_merchantTag = v.findViewById(R.id.tfl_merchantTag);
             lin_container = v.findViewById(R.id.lin_container);
