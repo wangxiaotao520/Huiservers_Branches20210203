@@ -41,13 +41,20 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
     private TextView tv_btn, tv_jigou;
     private ArrayList<String> options1Items = new ArrayList<>(); //老人 子女
     private ArrayList<String> options1Item2 = new ArrayList<>();//机构
+    private ArrayList<String> options1Item3 = new ArrayList<>();//企业
     private int selected_options1 = 0;
+    private int selected_options_company = 0;
     private LinearLayout ly_sf, ly_chlid_info, ly_old_info, ly_jigou, ly_old_name, ly_SF_ID, ly_child_phone, ly_old_chengwei;
     private EditText et_old_name, et_sf_ID , et_child_phone, et_old_chengwei;
 
+    private LinearLayout ly_company;
+    private TextView tv_company;
+
     private int type = 1;  //1是老人 2是子女
     private List<ModelOldInst> mDatas_inst = new ArrayList<>();//机构数据
+    private List<ModelOldInst> mDatas_company = new ArrayList<>();//企业数据
     private String i_id = "";
+    private String company_id = "";
     private String o_company_id = "";
 
     @Override
@@ -73,6 +80,10 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
         et_child_phone = findViewById(R.id.et_child_phone);//子女填写老人手机号
         ly_old_chengwei = findViewById(R.id.ly_old_chengwei);
         et_old_chengwei = findViewById(R.id.et_old_chengwei);
+
+        ly_company=findViewById(R.id.ly_company);
+        tv_company=findViewById(R.id.tv_company);
+
         //默认选中老人
         tv_select_sf.setText("老人");
 
@@ -93,6 +104,7 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
         ly_jigou.setOnClickListener(this);
         ly_old_name.setOnClickListener(this);
         ly_SF_ID.setOnClickListener(this);
+        ly_company.setOnClickListener(this);
         // ly_old_phobe.setOnClickListener(this);
     }
 
@@ -199,8 +211,20 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
                     SmartToast.showInfo("请选择身份");
                     return;
                 }
+                if (NullUtil.isStringEmpty(tv_company.getText().toString())){
+                    SmartToast.showInfo("请选择企业");
+                    return;
+                }
                 new ToolUtils(et_old_name,AddOldRZUserActivity.this).closeInputMethod();
                 requestInst();
+                break;
+            case R.id.ly_company:
+                if (NullUtil.isStringEmpty(tv_select_sf.getText().toString())) {
+                    SmartToast.showInfo("请选择身份");
+                    return;
+                }
+                new ToolUtils(et_old_name,AddOldRZUserActivity.this).closeInputMethod();
+                requestCompany();
                 break;
             case R.id.ly_old_name:
                 if (NullUtil.isStringEmpty(tv_select_sf.getText().toString())) {
@@ -228,11 +252,66 @@ public class AddOldRZUserActivity extends BaseActivity implements View.OnClickLi
     }
 
     /**
+     * 请求企业
+     */
+    private void requestCompany() {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        MyOkHttp.get().post(ApiHttpClient.PENSION_COMPANY_LIST, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    List <ModelOldInst>data = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelOldInst.class);
+                    mDatas_company.clear();
+                    options1Item3.clear();
+                    mDatas_company.addAll(data);
+                    for (int i = 0; i < mDatas_company.size(); i++) {
+                        options1Item3.add(mDatas_company.get(i).getCompany_name()+"");
+                    }
+                    showCompanyDialog();
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
+    private void showCompanyDialog() {
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(AddOldRZUserActivity.this, new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+                String tx = options1Item3.get(options1);
+                tv_company.setText(tx);
+                company_id=mDatas_company.get(options1).getId()+"";
+                selected_options_company=options1;
+
+            }
+        }).setTitleText("请选择")//标题文字
+                .setTitleColor(this.getResources().getColor(R.color.title_color))
+                .setSubmitColor(this.getResources().getColor(R.color.orange))//确定按钮文字颜色
+                .setCancelColor(this.getResources().getColor(R.color.title_sub_color))
+                .setContentTextSize(18).setSelectOptions(selected_options_company).build();//取消按钮文字颜色;
+        pvOptions.setPicker(options1Item3);
+        pvOptions.show();
+    }
+
+    /**
      * 机构
      */
     private void requestInst() {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
+        params.put("id",company_id+"");
         MyOkHttp.get().post(ApiHttpClient.PENSION_INST_LIST, params, new JsonResponseHandler() {
 
             @Override

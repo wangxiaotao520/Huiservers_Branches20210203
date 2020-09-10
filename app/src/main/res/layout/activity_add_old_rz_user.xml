@@ -90,7 +90,43 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                >
+                <LinearLayout
+                    android:id="@+id/ly_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_50"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_15"
+                        android:text="选择企业"
+                        android:textColor="@color/title_color"
+                        android:textSize="@dimen/t_16sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_company"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="38dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:hint="请选择"
+                        android:singleLine="true"
+                        android:textColor="@color/title_color"
+                        android:textColorHint="@color/text_color_hint"
+                        android:textSize="@dimen/t_16sp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="16dp"
+                        android:src="@drawable/jiantou_you"/>
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/ly_jigou"
                     android:layout_width="match_parent"
@@ -135,6 +171,7 @@
                     android:layout_height="@dimen/margin_50"
                     android:background="@color/white"
                     android:gravity="center_vertical"
+                    android:layout_marginTop="1dp"
                     android:orientation="horizontal">
 
                     <TextView

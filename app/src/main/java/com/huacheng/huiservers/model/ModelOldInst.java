@@ -19,6 +19,9 @@ public class ModelOldInst {
     private String i_name;
     private String o_company_id;
 
+
+    private String company_name;
+
     public String getId() {
         return id;
     }
@@ -49,5 +52,13 @@ public class ModelOldInst {
 
     public void setO_company_id(String o_company_id) {
         this.o_company_id = o_company_id;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
     }
 }
