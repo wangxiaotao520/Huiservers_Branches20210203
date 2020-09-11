@@ -52,6 +52,7 @@ import com.huacheng.huiservers.ui.fragment.adapter.HomeGridViewCateAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
 import com.huacheng.huiservers.ui.fragment.adapter.VBannerAdapter;
 import com.huacheng.huiservers.ui.fragment.indexcat.HouseHandBookActivity;
+import com.huacheng.huiservers.ui.fragment.indexcat.IndexMoreSQActivity;
 import com.huacheng.huiservers.ui.fragment.indexcat.IndexShareSQActivity;
 import com.huacheng.huiservers.ui.index.houserent.HouseRentListActivity;
 import com.huacheng.huiservers.ui.index.houserent.RentSellCommissionActivity;
@@ -691,8 +692,12 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     sdv_shangquan.setOnClickListener(new OnDoubleClickListener() {
                         @Override
                         public void onNoDoubleClick(View v) {
+
+                            Intent intent = new Intent(mActivity, IndexShareSQActivity.class);
+                            intent.putExtra("id", modelHome.getAd_business_list().get(finalI).getId());
+                            startActivity(intent);
                             //跳外链
-                            ModelAds ads = modelHome.getAd_business_list().get(finalI);
+                          /*  ModelAds ads = modelHome.getAd_business_list().get(finalI);
                             if (TextUtils.isEmpty(ads.getUrl())) {
                                 if ("0".equals(ads.getUrl_type()) || TextUtils.isEmpty(ads.getUrl_type())) {
                                     new Jump(getActivity(), ads.getType_name(), ads.getAdv_inside_url());
@@ -702,7 +707,7 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                             } else {//URL不为空时外链
                                 new Jump(getActivity(), ads.getUrl());
 
-                            }
+                            }*/
                         }
                     });
                     ll_img_shangquan.addView(item_home_shangquan);
@@ -1325,8 +1330,10 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
             case R.id.tv_shangquan:
             case R.id.iv_more_shangquan:
                 //共享商圈查看更多
-                intent = new Intent(mContext, IndexShareSQActivity.class);
+                intent = new Intent(mContext, IndexMoreSQActivity.class);
                 startActivity(intent);
+               /* intent = new Intent(mContext, IndexShareSQActivity.class);
+                startActivity(intent);*/
                /* intent = new Intent(mContext, WebTestActivity.class);
                 startActivity(intent);*/
                 break;

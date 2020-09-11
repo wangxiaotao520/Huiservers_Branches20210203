@@ -15,22 +15,22 @@ public class ApiHttpClient {
 //    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
 //    //测试new
-//    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
-//    public static String API_URL = "http://1.71.130.58:8082/";
-//    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
-//    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
+    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
+    public static String API_URL = "http://1.71.130.58:8082/";
+    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
+    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
 //    //测试new
-//    public static String IMG_URL = "http://1.71.130.58:8088/";
-//    public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
+    public static String IMG_URL = "http://1.71.130.58:8088/";
+    public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
 
 //    正式
-    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
-    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
-    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
-    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service46/";
+//    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
+//    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
+//    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
+//    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service46/";
 //     正式
-    public static String IMG_URL = "http://img.hui-shenghuo.cn/";
-    public static String IMG_SERVICE_URL = "http://img.hui-shenghuo.cn/";
+//    public static String IMG_URL = "http://img.hui-shenghuo.cn/";
+//    public static String IMG_SERVICE_URL = "http://img.hui-shenghuo.cn/";
 
 
     public static String TOKEN;
@@ -84,6 +84,10 @@ public class ApiHttpClient {
     public static String GET_SERVICE_INDEX = API_SERVICE_URL + "index/serviceindex";
     //服务首页广告
     public static String GET_ADVERTISING = API_URL + API_VERSION + "site/get_Advertising";
+    //首页商圈详情列表
+    public static String GET_BUSINESS_DETAIL = API_URL + API_VERSION + "index/business_district_service_list";
+    //首页商圈列表
+    public static String GET_BUSINESS_LIST = API_URL + API_VERSION + "index/business_district_list";
     // 订单获取统计接口
     public static String GET_ORDER_COUNT = API_SERVICE_URL + "order/myOrderCount";
     // 我的订单
@@ -668,5 +672,7 @@ public class ApiHttpClient {
         CANCEL_REFUND= API_SERVICE_URL + "order/cancelRefund";
         FINISH_SERVICE= API_SERVICE_URL + "order/completeService";
         DELETE_SERVICE= API_SERVICE_URL + "order/orderDel";
+        GET_BUSINESS_DETAIL = API_URL + API_VERSION + "index/business_district_service_list";
+        GET_BUSINESS_LIST = API_URL + API_VERSION + "index/business_district_list";
     }
 }

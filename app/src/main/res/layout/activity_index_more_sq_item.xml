@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="125dp"
+        android:layout_height="127dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_shangquan"
+            fresco:placeholderImage="@color/default_img_color"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:roundBottomLeft="false"
+            fresco:roundBottomRight="false"
+            android:layout_width="91dp"
+            android:layout_height="75dp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:ellipsize="end"
+            android:maxEms="6"
+            android:singleLine="true"
+            android:text="哈哈哈哈哈哈哈哈哈"
+            android:textColor="@color/title_color" />
+
+    </LinearLayout>
+
+</LinearLayout>

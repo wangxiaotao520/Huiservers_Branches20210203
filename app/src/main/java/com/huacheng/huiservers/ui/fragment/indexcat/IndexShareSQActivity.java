@@ -1,6 +1,6 @@
 package com.huacheng.huiservers.ui.fragment.indexcat;
 
-import android.text.TextUtils;
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
@@ -8,16 +8,15 @@ import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.huacheng.huiservers.Jump;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelAds;
 import com.huacheng.huiservers.ui.base.BaseListActivity;
+import com.huacheng.huiservers.ui.webview.MyX5WebViewDefaultActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.json.JsonUtil;
-import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
@@ -45,12 +44,12 @@ public class IndexShareSQActivity extends BaseListActivity {
         super.initView();
         findTitleViews();
         prefrenceUtil = new SharePrefrenceUtil(this);
-        titleName.setText("共享商圈");
+        titleName.setText("活动列表");
 
         adapter = new CommonAdapter<ModelAds>(this, R.layout.item_index_share_sq, mDatas) {
             @Override
             protected void convert(ViewHolder viewHolder, ModelAds item, int position) {
-                viewHolder.<TextView>getView(R.id.tv_name).setText(item.getText());
+                viewHolder.<TextView>getView(R.id.tv_name).setText(item.getService_name());
                 FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_shangquan), ApiHttpClient.IMG_URL+item.getImg());
 
             }
@@ -67,39 +66,40 @@ public class IndexShareSQActivity extends BaseListActivity {
     @Override
     protected void requestData() {
         HashMap<String, String> params = new HashMap<>();
-        params.put("c_name", "hc_business_more");
-        if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())){
-            params.put("community_id", prefrenceUtil.getXiaoQuId());
-        }
+       // params.put("c_name", "hc_business_more");
+        params.put("bd_id", id);
         params.put("p", page + "");
-        MyOkHttp.get().get(ApiHttpClient.GET_ADVERTISING, params, new JsonResponseHandler() {
+        MyOkHttp.get().get(ApiHttpClient.GET_BUSINESS_DETAIL, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 mRefreshLayout.finishRefresh();
                 mRefreshLayout.finishLoadMore();
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    List<ModelAds> info = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelAds.class);
-                    if (info != null && info.size() > 0) {
-                        mRelNoData.setVisibility(View.GONE);
-                        if (page == 1) {
-                            mDatas.clear();
-                        }
-                        mDatas.addAll(info);
-                        page++;
-                        if (page > info.get(0).getTotal_Pages()) {
-                            mRefreshLayout.setEnableLoadMore(false);
+                    ModelAds info = (ModelAds)JsonUtil.getInstance().parseJsonFromResponse(response, ModelAds.class);
+                   // List<ModelAds> info = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelAds.class);
+                    if (info != null) {
+                        if (info.getList() != null && info.getList().size() > 0) {
+                            mRelNoData.setVisibility(View.GONE);
+                            if (page == 1) {
+                                mDatas.clear();
+                            }
+                            mDatas.addAll(info.getList());
+                            page++;
+                            if (page > info.getTotalPages()) {
+                                mRefreshLayout.setEnableLoadMore(false);
+                            } else {
+                                mRefreshLayout.setEnableLoadMore(true);
+                            }
+                            adapter.notifyDataSetChanged();
                         } else {
-                            mRefreshLayout.setEnableLoadMore(true);
+                            if (page == 1) {
+                                mRelNoData.setVisibility(View.VISIBLE);
+                                mDatas.clear();
+                            }
+                            mRefreshLayout.setEnableLoadMore(false);
+                            adapter.notifyDataSetChanged();
                         }
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        if (page == 1) {
-                            mRelNoData.setVisibility(View.VISIBLE);
-                            mDatas.clear();
-                        }
-                        mRefreshLayout.setEnableLoadMore(false);
-                        adapter.notifyDataSetChanged();
                     }
 
                 } else {
@@ -127,7 +127,12 @@ public class IndexShareSQActivity extends BaseListActivity {
             return;
         }
         ModelAds ads = mDatas.get(position);
-        if (TextUtils.isEmpty(ads.getUrl())) {
+        Intent intent = new Intent(IndexShareSQActivity.this, MyX5WebViewDefaultActivity.class);
+        intent.putExtra("url_param",ads.getService_url()+"");
+        intent.putExtra("title",ads.getService_name());
+        startActivity(intent);
+
+       /* if (TextUtils.isEmpty(ads.getUrl())) {
             if ("0".equals(ads.getUrl_type()) || TextUtils.isEmpty(ads.getUrl_type())) {
                 new Jump(this, ads.getType_name(), ads.getAdv_inside_url());
             } else {
@@ -136,7 +141,7 @@ public class IndexShareSQActivity extends BaseListActivity {
         } else {//URL不为空时外链
             new Jump(this, ads.getUrl());
 
-        }
+        }*/
 
 
     }

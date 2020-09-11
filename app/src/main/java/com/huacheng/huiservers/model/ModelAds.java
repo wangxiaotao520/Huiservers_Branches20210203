@@ -1,5 +1,7 @@
 package com.huacheng.huiservers.model;
 
+import java.util.List;
+
 /**
  * Description: 顶部广告
  * created by wangxiaotao
@@ -19,7 +21,52 @@ public class ModelAds {
     private String url_type_cn;
     private String text;
     private int Total_Pages;
+    private int totalPages;
+    private List<ModelAds> list;
     private String index_color;
+    private String service_name;
+    private String service_url;
+    private String bd_name;
+
+    public String getBd_name() {
+        return bd_name;
+    }
+
+    public void setBd_name(String bd_name) {
+        this.bd_name = bd_name;
+    }
+
+    public String getService_name() {
+        return service_name;
+    }
+
+    public void setService_name(String service_name) {
+        this.service_name = service_name;
+    }
+
+    public String getService_url() {
+        return service_url;
+    }
+
+    public void setService_url(String service_url) {
+        this.service_url = service_url;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
+
+    public List<ModelAds> getList() {
+        return list;
+    }
+
+    public void setList(List<ModelAds> list) {
+        this.list = list;
+    }
 
     public String getText() {
         return text;
