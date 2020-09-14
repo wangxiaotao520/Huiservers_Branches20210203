@@ -354,6 +354,8 @@ public class ApiHttpClient {
     public static String PENSION_OLD_AUDIT = API_URL + API_VERSION + "pension/elderAudit";
     //机构列表
     public static String PENSION_INST_LIST = API_URL + API_VERSION + "pension/instList";
+    //企业列表
+    public static String PENSION_COMPANY_LIST = API_URL + API_VERSION + "/pension/company";
     //养老消息列表
     public static String PENSION_MSG_LIST = API_URL + API_VERSION + "pension/msgList";
     //养老消息同意拒绝
@@ -674,5 +676,6 @@ public class ApiHttpClient {
         DELETE_SERVICE= API_SERVICE_URL + "order/orderDel";
         GET_BUSINESS_DETAIL = API_URL + API_VERSION + "index/business_district_service_list";
         GET_BUSINESS_LIST = API_URL + API_VERSION + "index/business_district_list";
+        PENSION_COMPANY_LIST = API_URL + API_VERSION + "/pension/company";
     }
 }
