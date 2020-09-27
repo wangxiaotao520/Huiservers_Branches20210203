@@ -199,7 +199,12 @@ public class ServiceRefundApplyActivity extends BaseActivity {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
-        params.put("type",list_refund_data.get(seleted_position).getC_alias());
+        if ("HC_refund_my".equals(list_refund_data.get(seleted_position).getC_alias())){
+            params.put("type","1");
+        }else {
+            //HC_refund_institution
+            params.put("type","2");
+        }
         params.put("content",list_refund_data.get(seleted_position).getC_name());
         MyOkHttp.get().post(ApiHttpClient.REFUND_COMMIT, params, new JsonResponseHandler() {
 

@@ -146,6 +146,7 @@
                 android:id="@+id/ly_delete"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:visibility="gone"
                 android:gravity="center">
 
                 <ImageView

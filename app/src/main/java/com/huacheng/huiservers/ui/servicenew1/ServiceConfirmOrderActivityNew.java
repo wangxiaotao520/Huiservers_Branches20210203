@@ -129,6 +129,7 @@ public class ServiceConfirmOrderActivityNew extends BaseActivity implements View
                         llNoteRoot.addView(textView,layoutParams);
                     }
                     edtNum.setSelection(edtNum.length());
+                     tvServiceName.setText(service_name+"");
 
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");

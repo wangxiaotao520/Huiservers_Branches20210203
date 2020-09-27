@@ -127,7 +127,11 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 }
 
             }
-
+            if ("2".equals(mDatas.get(position).getPension_display())){
+                recyclerViewHolder.tv_tag_kangyang.setVisibility(View.VISIBLE);
+            }else {
+                recyclerViewHolder.tv_tag_kangyang.setVisibility(View.GONE);
+            }
 //            Glide.with(mContext).load(mDatas.get(position).getTitle_img()).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.NONE)
 //                    .placeholder(R.drawable.icon_girdview).into(recyclerViewHolder.iv_title_img);
 
@@ -292,7 +296,7 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iv_shop_list_flag, iv_shopcar;
-        TextView tv_title, tv_shop_price, tv_shop_weight, tv_orders_sold_num, tv_shop_price_original, tv_sub_title ;
+        TextView tv_title, tv_shop_price, tv_shop_weight, tv_orders_sold_num, tv_shop_price_original, tv_sub_title ,tv_tag_kangyang;
         SimpleDraweeView iv_title_img;
 
         LinearLayout lin_goodslist_Tag,ly_onclick;
@@ -310,7 +314,7 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             tv_shop_price_original = (TextView) itemView.findViewById(R.id.tv_shop_price_original);
             tv_orders_sold_num = (TextView) itemView.findViewById(R.id.tv_orders_sold_num);
             tv_sub_title = (TextView) itemView.findViewById(R.id.tv_sub_title);
-
+            tv_tag_kangyang = (TextView) itemView.findViewById(R.id.tv_tag_kangyang);
         }
     }
 

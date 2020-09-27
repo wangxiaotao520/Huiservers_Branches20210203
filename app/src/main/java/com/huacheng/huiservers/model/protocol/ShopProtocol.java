@@ -1127,6 +1127,7 @@ public class ShopProtocol {
                     info.setIs_new(obj.getString("is_new"));
                     info.setOrder_num(obj.getString("order_num"));
                     info.setTotal_Pages(obj.getString("total_Pages"));
+                    info.setPension_display(obj.getString("pension_display"));
                     productList.add(info);
                 }
 
