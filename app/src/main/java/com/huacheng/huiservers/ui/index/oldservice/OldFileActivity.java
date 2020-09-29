@@ -2,10 +2,12 @@ package com.huacheng.huiservers.ui.index.oldservice;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ import com.huacheng.huiservers.model.ModelOldIndexTop;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.oldservice.adapter.OldFileAdapter;
 import com.huacheng.huiservers.utils.StringUtils;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -61,6 +64,9 @@ public class OldFileActivity extends BaseActivity {
     private View ll_healthy_file_title;
     private View ll_healthy_file;
     private View ll_tijian_title;
+    private TextView tv_address;
+    private LinearLayout ll_old_address;
+    private ModelOldFileDetail info;
 
     @Override
     protected void initView() {
@@ -88,6 +94,9 @@ public class OldFileActivity extends BaseActivity {
         tv_phone = headerView.findViewById(R.id.tv_phone);//联系方式
         tv_xueli = headerView.findViewById(R.id.tv_xueli);//学历
         tv_zhengzhi = headerView.findViewById(R.id.tv_zhengzhi);//政治面貌
+        //地址信息
+        tv_address = headerView.findViewById(R.id.tv_address);//地址
+        ll_old_address = headerView.findViewById(R.id.ll_old_address);//地址
 
         ll_healthy_file_title = headerView.findViewById(R.id.ll_healthy_file_title);
         ll_healthy_file = headerView.findViewById(R.id.ll_healthy_file);
@@ -170,7 +179,7 @@ public class OldFileActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    ModelOldFileDetail info = (ModelOldFileDetail) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldFileDetail.class);
+                    info = (ModelOldFileDetail) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldFileDetail.class);
                     ModelOldFileDetail.BasisBean basis = info.getBasis();
                     if (basis!=null){
                         //头部数据
@@ -185,6 +194,9 @@ public class OldFileActivity extends BaseActivity {
                         tv_phone.setText(basis.getTelphone()+"");
                         tv_xueli.setText(basis.getEducation_cn()+"");
                         tv_zhengzhi.setText(basis.getPolitical_cn()+"");
+                        if (!NullUtil.isStringEmpty(basis.getAddress())){
+                            tv_address.setText(basis.getAddress());
+                        }
                     }
                     ModelOldFileDetail.ArchivesBean archives = info.getArchives();
                     if (archives!=null){
@@ -353,6 +365,16 @@ public class OldFileActivity extends BaseActivity {
 
             }
         });
+        ll_old_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //编辑地址
+                Intent intent = new Intent(mContext, EditOldAddressActivity.class);
+                intent.putExtra("par_uid",modelOldIndexTop.getPar_uid());
+                intent.putExtra("address",info.getBasis().getAddress()+"");
+                startActivityForResult(intent,111);
+            }
+        });
     }
 
 
@@ -376,4 +398,18 @@ public class OldFileActivity extends BaseActivity {
     protected void initFragment() {
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 111:
+                    if (data != null) {
+                        String address = data.getStringExtra("address");
+                        tv_address.setText(address);
+                        info.getBasis().setAddress(address+"");
+                    }
+                    break;
+    }}}
 }

@@ -100,6 +100,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     private int type;  //认证状态
     private ModelOldIndexTop modelOldIndexTop;
     private LinearLayout lin_left;
+    private ImageView iv_investigate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -131,7 +132,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
             mEnhanceTabLayout.addTab(mTitles[i]);
         }
 
-
+        iv_investigate=view.findViewById(R.id.iv_investigate);
 
       //  initTabAndViewPager();
     }
@@ -289,6 +290,12 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                         }
                     },1000);
                 }
+            }
+        });
+        iv_investigate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 问卷调查
             }
         });
     }

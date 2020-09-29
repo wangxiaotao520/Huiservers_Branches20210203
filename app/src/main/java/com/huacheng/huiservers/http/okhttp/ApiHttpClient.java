@@ -7,30 +7,30 @@ package com.huacheng.huiservers.http.okhttp;
  */
 public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
-    public static String API_VERSION = "apk46/";
+    public static String API_VERSION = "apk47/";
 //    //测试
 //    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
 //    public static String API_URL = "http://test.hui-shenghuo.cn/";
 //    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
 //    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
+    //测试new
+    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
+    public static String API_URL = "http://1.71.130.58:8082/";
+    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
+    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
 //    //测试new
-//    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
-//    public static String API_URL = "http://1.71.130.58:8082/";
-//    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
-//    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
-////    //测试new
-//    public static String IMG_URL = "http://1.71.130.58:8088/";
-//    public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
+    public static String IMG_URL = "http://1.71.130.58:8088/";
+    public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
 
-//    正式
-    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
-    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
-    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
-    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service46/";
-   //  正式
-    public static String IMG_URL = "http://img.hui-shenghuo.cn/";
-    public static String IMG_SERVICE_URL = "http://img.hui-shenghuo.cn/";
+////    正式
+//    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
+//    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
+//    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
+//    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service46/";
+//   //  正式
+//    public static String IMG_URL = "http://img.hui-shenghuo.cn/";
+//    public static String IMG_SERVICE_URL = "http://img.hui-shenghuo.cn/";
 
 
     public static String TOKEN;
@@ -355,7 +355,7 @@ public class ApiHttpClient {
     //机构列表
     public static String PENSION_INST_LIST = API_URL + API_VERSION + "pension/instList";
     //企业列表
-    public static String PENSION_COMPANY_LIST = API_URL + API_VERSION + "/pension/company";
+    public static String PENSION_COMPANY_LIST = API_URL + API_VERSION + "pension/company";
     //养老消息列表
     public static String PENSION_MSG_LIST = API_URL + API_VERSION + "pension/msgList";
     //养老消息同意拒绝
@@ -376,6 +376,10 @@ public class ApiHttpClient {
     public static String PENSION_SOCIAL_DETAIL = API_URL + API_VERSION + "pension/pensionSocialdetails";
     //活动详情
     public static String PENSION_ACTIVITY_SEE = API_URL + API_VERSION + "pension/activitySee";
+    //老人慧生活设置地址
+    public static String PENSION_SET_ADDRESS = API_URL + API_VERSION + "pension/setAddress";
+
+
 
     /**
      * 隐私政策
@@ -676,6 +680,7 @@ public class ApiHttpClient {
         DELETE_SERVICE= API_SERVICE_URL + "order/orderDel";
         GET_BUSINESS_DETAIL = API_URL + API_VERSION + "index/business_district_service_list";
         GET_BUSINESS_LIST = API_URL + API_VERSION + "index/business_district_list";
-        PENSION_COMPANY_LIST = API_URL + API_VERSION + "/pension/company";
+        PENSION_COMPANY_LIST = API_URL + API_VERSION + "pension/company";
+        PENSION_SET_ADDRESS = API_URL + API_VERSION + "pension/setAddress";
     }
 }

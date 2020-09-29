@@ -151,6 +151,9 @@ android {
 
      //高德地图搜索
      implementation 'com.amap.api:search:6.9.2'
+     //高德3d地图
+     implementation 'com.amap.api:3dmap:5.8.0'
+
      implementation 'com.contrarywind:Android-PickerView:4.1.6'
      implementation 'cn.jiguang.sdk:jpush:3.1.5'
 

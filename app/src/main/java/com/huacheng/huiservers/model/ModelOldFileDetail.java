@@ -62,6 +62,14 @@ public class ModelOldFileDetail  implements Serializable{
 
         private String chusheng;
 
+        private String address;
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
         public String getId() {
             return id;
         }
@@ -288,4 +296,5 @@ public class ModelOldFileDetail  implements Serializable{
             this.c_name = c_name;
         }
     }
+
 }
