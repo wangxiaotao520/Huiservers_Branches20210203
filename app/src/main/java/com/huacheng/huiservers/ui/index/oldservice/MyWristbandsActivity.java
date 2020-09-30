@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.index.oldservice;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -18,8 +20,19 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelHandWrist;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +43,8 @@ import butterknife.ButterKnife;
  * 2020/9/29 0029 11:00
  */
 public class MyWristbandsActivity extends BaseActivity implements View.OnClickListener {
+    @BindView(R.id.rl_bottom_layout)
+    RelativeLayout rl_bottom_layout;
     @BindView(R.id.map_view)
     MapView mMapView;
     @BindView(R.id.tv_location)
@@ -58,9 +73,11 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
     @BindView(R.id.fl_more)
     FrameLayout flMore;
     private TextView txt_right1;
+    private String par_uid="";
 
     //位置 测试
     LatLng latLng = new LatLng(39.981167, 116.345103);
+    private ModelHandWrist modelHandWrist;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,27 +106,62 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
         llRefresh.setOnClickListener(this);
         initMap();
         requestData();
+        rl_bottom_layout.setVisibility(View.INVISIBLE);
     }
 
     /**
      * 请求服务器数据
      */
     private void requestData() {
-        //TODO 这个根据服务器数据返回
-        latLng = new LatLng(37.68888, 112.728371);
-        CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 15, 0, 0));
-        aMap.moveCamera(mCameraUpdate);
+        par_uid=getIntent().getStringExtra("par_uid");
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("par_uid",par_uid);
+        MyOkHttp.get().post( ApiHttpClient.DEVICE_LOCATION, params, new JsonResponseHandler() {
 
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
 
-        View markerView = LayoutInflater.from(this).inflate(R.layout.item_marker_view, mMapView, false);
+
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    //  SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"领取成功"));
+                    modelHandWrist = (ModelHandWrist) JsonUtil.getInstance().parseJsonFromResponse(response,ModelHandWrist.class);
+                    rl_bottom_layout.setVisibility(View.VISIBLE);
+                    latLng = new LatLng(modelHandWrist.getLat(), modelHandWrist.getLon());
+                    CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 15, 0, 0));
+                    aMap.moveCamera(mCameraUpdate);
+
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+
+                    View markerView = LayoutInflater.from(mContext).inflate(R.layout.item_marker_view, mMapView, false);
 //        Bitmap companyIcon = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_collection);
 //        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(companyIcon));
-        markerOptions.icon(BitmapDescriptorFactory.fromView(markerView));
-        //设置marker锚点偏移量
-        markerOptions.anchor(0.5f, 0.5f);
-        aMap.addMarker(markerOptions);
+                    markerOptions.icon(BitmapDescriptorFactory.fromView(markerView));
+                    //设置marker锚点偏移量
+                    markerOptions.anchor(0.5f, 0.5f);
+                    aMap.addMarker(markerOptions);
+
+                    tvLocation.setText(modelHandWrist.getPro()+modelHandWrist.getCity()+modelHandWrist.getDist()+modelHandWrist.getStr());
+                    tvLastTime.setText(modelHandWrist.getUT()+"");
+                    tvBatteryPercent.setText(modelHandWrist.getB()+"%");
+
+                } else {
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败"));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
+
+
     }
 
     private void initMap() {
@@ -199,6 +251,16 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.txt_right1:
                 //TODO 解绑
+                new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确定解绑吗？解绑后将清空数据？", new CommomDialog.OnCloseListener() {
+                    @Override
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        if (confirm) {
+                            unBind();
+                            dialog.dismiss();
+                        }
+                    }
+                }).show();
+
                 break;
             case R.id.fl_footprint:
                 //TODO 查看足迹
@@ -216,9 +278,40 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
                 //TODO 查看更多
                 break;
             case R.id.ll_refresh:
-                //TODO 刷新
+                //刷新
+                requestData();
                 break;
 
         }
+    }
+
+    /**
+     * 解绑设备
+     */
+    private void unBind() {
+        par_uid=getIntent().getStringExtra("par_uid");
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("par_uid",par_uid);
+        MyOkHttp.get().post( ApiHttpClient.HANRDWARE_UNBINDING, params, new JsonResponseHandler() {
+
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                      SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"成功"));
+                      finish();
+                } else {
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败"));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
     }
 }

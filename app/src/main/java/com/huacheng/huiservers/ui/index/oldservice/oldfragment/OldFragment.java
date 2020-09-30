@@ -469,7 +469,9 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                     startActivity(intent_oldfile);
                     break;
                 case R.id.rl_data:
-                    startActivity(new Intent(mActivity, OldHardwareActivity.class));
+                    Intent intent1 = new Intent(mActivity, OldHardwareActivity.class);
+                    intent1.putExtra("model",modelOldIndexTop);
+                    startActivity(intent1);
                     break;
                 case R.id.rl_warm:
                     Intent intent_warm=  new Intent(mActivity, OldServiceWarmActivity.class);

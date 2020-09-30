@@ -1204,6 +1204,10 @@
         <activity
             android:name=".ui.index.oldservice.MyHardWareFunctionListActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.oldservice.OldHandWristBindActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
 
     </application>
 </manifest>

@@ -6,6 +6,7 @@
     <include
         layout="@layout/titlebar_center"/>
     <RelativeLayout
+        android:id="@+id/rl_bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.amap.api.maps.MapView
@@ -177,7 +178,7 @@
                     android:layout_width="match_parent"
                     android:textColor="@color/title_color"
                     android:textSize="15dp"
-                    android:text="晋中市榆次区新建街道汇通南路辅 路（与您相聚1米）"
+                    android:text=""
                     android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
                     android:layout_height="45dp"/>
@@ -191,7 +192,7 @@
                       android:layout_width="wrap_content"
                       android:textColor="@color/title_third_color"
                       android:textSize="12dp"
-                      android:text="52分钟前"
+                      android:text=""
                       android:layout_marginLeft="15dp"
                       android:gravity="center_vertical"
                       android:layout_height="wrap_content"/>
@@ -206,7 +207,7 @@
                       android:layout_width="wrap_content"
                       android:textColor="#62D686"
                       android:textSize="12dp"
-                      android:text="45%"
+                      android:text=""
                       android:layout_marginLeft="5dp"
                       android:gravity="center_vertical"
                       android:layout_height="wrap_content"/>

@@ -378,6 +378,14 @@ public class ApiHttpClient {
     public static String PENSION_ACTIVITY_SEE = API_URL + API_VERSION + "pension/activitySee";
     //老人慧生活设置地址
     public static String PENSION_SET_ADDRESS = API_URL + API_VERSION + "pension/setAddress";
+    //老人智能硬件列表信息
+    public static String GET_HANRDWARE_INFO = API_URL + "Hardware/Fzd/hardwareInfo";
+    //老人绑定
+    public static String HANRDWARE_BINDING = API_URL + "/Hardware/Fzd/binding";
+    //老人解除绑定
+    public static String HANRDWARE_UNBINDING = API_URL + "/Hardware/Fzd/RemoveBinding ";
+    //老人设备定位
+    public static String DEVICE_LOCATION = API_URL + "/Hardware/Fzd/deviceLocation";
 
 
 
@@ -682,5 +690,9 @@ public class ApiHttpClient {
         GET_BUSINESS_LIST = API_URL + API_VERSION + "index/business_district_list";
         PENSION_COMPANY_LIST = API_URL + API_VERSION + "pension/company";
         PENSION_SET_ADDRESS = API_URL + API_VERSION + "pension/setAddress";
+        GET_HANRDWARE_INFO = API_URL  + "Hardware/Fzd/hardwareInfo ";
+        HANRDWARE_BINDING = API_URL + "/Hardware/Fzd/binding";
+        DEVICE_LOCATION = API_URL + "/Hardware/Fzd/deviceLocation";
+        HANRDWARE_UNBINDING = API_URL + "/Hardware/Fzd/RemoveBinding ";
     }
 }
