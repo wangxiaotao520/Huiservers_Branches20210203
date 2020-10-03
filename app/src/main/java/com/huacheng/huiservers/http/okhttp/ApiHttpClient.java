@@ -364,11 +364,11 @@ public class ApiHttpClient {
     public static String PENSION_DRUG_LIST = API_URL + API_VERSION + "pension/drugList";
     //亲情关怀列表
     public static String PENSION_CARE_LIST = API_URL + API_VERSION + "pension/careList";
-    //老人档案详情
+    //
     public static String PENSION_OLDFILE_DETAIL = API_URL + API_VERSION + "pension/peopleSee";
     //体检记录
     public static String PENSION_CHECKUP_LIST = API_URL + API_VERSION + "pension/checkupList";
-    //体检记录详情(常规记录)
+    //体检记录详情(常规记录)老人档案详情
     public static String PENSION_CHECKUP_ONE_SEE = API_URL + API_VERSION + "pension/checkupOneSee";
     //体检记录详情(智能硬件)
     public static String PENSION_BELTER_DETAILS = API_URL + API_VERSION + "/pension/belter_details";
@@ -386,6 +386,10 @@ public class ApiHttpClient {
     public static String HANRDWARE_UNBINDING = API_URL + "/Hardware/Fzd/RemoveBinding ";
     //老人设备定位
     public static String DEVICE_LOCATION = API_URL + "/Hardware/Fzd/deviceLocation";
+    //老人设备足迹查询
+    public static String DEVICE_ZUJI = API_URL + "/Hardware/Fzd/deviceFootPrint";
+    //老人健康计步
+    public static String STEP_INFO = API_URL + "/Hardware/Fzd/deviceStepInfo";
 
 
 
@@ -694,5 +698,7 @@ public class ApiHttpClient {
         HANRDWARE_BINDING = API_URL + "/Hardware/Fzd/binding";
         DEVICE_LOCATION = API_URL + "/Hardware/Fzd/deviceLocation";
         HANRDWARE_UNBINDING = API_URL + "/Hardware/Fzd/RemoveBinding ";
+        DEVICE_ZUJI = API_URL + "/Hardware/Fzd/deviceFootPrint";
+        STEP_INFO = API_URL + "/Hardware/Fzd/deviceStepInfo";
     }
 }

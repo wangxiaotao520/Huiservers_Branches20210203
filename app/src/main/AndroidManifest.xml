@@ -1205,6 +1205,15 @@
             android:name=".ui.index.oldservice.MyHardWareFunctionListActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.index.oldservice.OldDeviceMoreActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.oldservice.MyTrackActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.oldservice.OldMyStepActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.index.oldservice.OldHandWristBindActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
