@@ -414,7 +414,12 @@ public class ApiHttpClient {
     public static String GET_DEVICE= API_URL + "/Hardware/Fzd/findDevice";
     //监护号码
     public static String DEVICE_GUARDER= API_URL + "/Hardware/Fzd/setGuarder";
-
+    //老人是否有调查问卷的权限
+    public static String OLD_QUESTION_PERMISION= API_URL+ API_VERSION + "/oldQuestion/is_display";
+    //老人调查问卷问题
+    public static String OLD_INVESTIGATION_QUESTION= API_URL+ API_VERSION + "/oldQuestion/question";
+    //老人调查问卷问题
+    public static String OLD_INVESTIGATION_QUESTION_COMMIT= API_URL+ API_VERSION + "/oldQuestion/record";
 
     /**
      * 隐私政策
@@ -734,6 +739,8 @@ public class ApiHttpClient {
         DEVICE_SOS = API_URL + "/Hardware/Fzd/setSOS";
         DEVICE_GUARDER= API_URL + "/Hardware/Fzd/setGuarder";
         GET_DEVICE= API_URL + "/Hardware/Fzd/findDevice";
-
+        OLD_QUESTION_PERMISION= API_URL+ API_VERSION + "/oldQuestion/is_display";
+        OLD_INVESTIGATION_QUESTION= API_URL+ API_VERSION + "/oldQuestion/question";
+        OLD_INVESTIGATION_QUESTION_COMMIT= API_URL+ API_VERSION + "/oldQuestion/record";
     }
 }

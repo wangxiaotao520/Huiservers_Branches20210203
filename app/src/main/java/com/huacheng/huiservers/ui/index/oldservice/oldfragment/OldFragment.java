@@ -31,6 +31,7 @@ import com.huacheng.huiservers.ui.index.oldservice.AddOldRZUserActivity;
 import com.huacheng.huiservers.ui.index.oldservice.CalendarViewActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldFileActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldHardwareActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldInvestiagateActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldServiceWarmActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldUserActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
@@ -102,6 +103,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     private LinearLayout lin_left;
     private ImageView iv_investigate;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
@@ -134,6 +136,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
 
         iv_investigate=view.findViewById(R.id.iv_investigate);
 
+        iv_investigate.setVisibility(View.GONE);
       //  initTabAndViewPager();
     }
 
@@ -295,7 +298,10 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         iv_investigate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 问卷调查
+                // 问卷调查
+                Intent intent = new Intent(mContext, OldInvestiagateActivity.class);
+                intent.putExtra("model",modelOldIndexTop);
+                startActivityForResult(intent,222);
             }
         });
     }
@@ -311,6 +317,49 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
             showDialog(smallDialog);
             requestTopIndex();
         }
+    }
+
+    private void requestInvestigatePermmision() {
+        if (NullUtil.isStringEmpty(modelOldIndexTop.getOld_id())){
+            return;
+        }
+        if ("0".equals(modelOldIndexTop.getOld_id())){
+            return;
+        }
+        HashMap<String, String> params = new HashMap<>();
+        params.put("old_id", modelOldIndexTop.getOld_id() + "");
+        params.put("o_company_id", modelOldIndexTop.getO_company_id()+"");
+        MyOkHttp.get().post( ApiHttpClient.OLD_QUESTION_PERMISION, params, new JsonResponseHandler() {
+
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                 //   SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"成功"));
+                    try {
+                        JSONObject data = response.getJSONObject("data");
+                        String status = data.getString("status");
+                        if ("1".equals(status)){
+                            iv_investigate.setVisibility(View.VISIBLE);
+                        }else {
+                            iv_investigate.setVisibility(View.GONE);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                } else {
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败"));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
     }
 
     private void requestTopIndex() {
@@ -420,7 +469,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             //第一次进来
                             initTabAndViewPager();
                         }
-
+                        requestInvestigatePermmision();
                     }else {
                         SmartToast.showInfo("数据解析异常");
                     }
@@ -557,6 +606,8 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                     showDialog(smallDialog);
                     requestTopIndex();
                 }
+            }else if (requestCode==222){
+               requestInvestigatePermmision();
             }
         }
     }

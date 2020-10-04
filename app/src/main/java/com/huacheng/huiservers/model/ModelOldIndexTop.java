@@ -29,6 +29,9 @@ public class ModelOldIndexTop implements Serializable{
     private String call;
     private String par_uid;
     private String o_company_id;
+    private String d_id;
+    private String d_name;
+    private String old_phone;
 
 
     private String is_vip;
@@ -36,8 +39,16 @@ public class ModelOldIndexTop implements Serializable{
 
     private  String photo ;
 
-
     private String sex;//1男 2女
+
+    public String getOld_phone() {
+        return old_phone;
+    }
+
+    public void setOld_phone(String old_phone) {
+        this.old_phone = old_phone;
+    }
+
 
     public String getOld_id() {
         return old_id;
@@ -137,4 +148,19 @@ public class ModelOldIndexTop implements Serializable{
         this.is_vip = is_vip;
     }
 
+    public String getD_id() {
+        return d_id;
+    }
+
+    public void setD_id(String d_id) {
+        this.d_id = d_id;
+    }
+
+    public String getD_name() {
+        return d_name;
+    }
+
+    public void setD_name(String d_name) {
+        this.d_name = d_name;
+    }
 }
