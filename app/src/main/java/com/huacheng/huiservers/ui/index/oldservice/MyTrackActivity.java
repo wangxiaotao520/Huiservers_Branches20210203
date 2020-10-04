@@ -13,7 +13,6 @@ import com.huacheng.huiservers.ui.index.oldservice.adapter.AdapterMyTrak;
 import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.huacheng.huiservers.view.MyListView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -35,6 +34,7 @@ public class MyTrackActivity extends BaseActivity {
     private TextView tv_data;
     private TextView tv_city_num;
     private TextView tv_zuji_num;
+    private String par_uid = "";
 
     @Override
     protected void initView() {
@@ -63,7 +63,7 @@ public class MyTrackActivity extends BaseActivity {
     private void requestData() {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid", "105");// TODO: 2020/10/3  id记得更改
+        params.put("par_uid", par_uid);
         params.put("date", date);
 
         MyOkHttp.get().post(ApiHttpClient.DEVICE_ZUJI, params, new JsonResponseHandler() {
@@ -73,9 +73,9 @@ public class MyTrackActivity extends BaseActivity {
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     mOldFootmark = (ModelOldFootmark) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldFootmark.class);
                     if (mOldFootmark != null) {
-                        tv_data.setText("您"+date+"跨越了");
-                        tv_city_num.setText(mOldFootmark.getCityNum()+"");
-                        tv_zuji_num.setText(mOldFootmark.getPosNum()+"");
+                        tv_data.setText("您" + date + "跨越了");
+                        tv_city_num.setText(mOldFootmark.getCityNum() + "");
+                        tv_zuji_num.setText(mOldFootmark.getPosNum() + "");
                         if (mOldFootmark.getPos() != null && mOldFootmark.getPos().size() > 0) {
                             mDatas.clear();
                             mDatas.addAll(mOldFootmark.getPos());
@@ -83,11 +83,7 @@ public class MyTrackActivity extends BaseActivity {
                         }
                     }
                 } else {
-                    try {
-                        SmartToast.showInfo(response.getString("msg"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败"));
                 }
             }
 
@@ -112,6 +108,7 @@ public class MyTrackActivity extends BaseActivity {
 
     @Override
     protected void initIntentData() {
+        par_uid = getIntent().getStringExtra("par_uid");
 
     }
 

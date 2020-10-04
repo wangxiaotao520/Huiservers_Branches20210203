@@ -19,7 +19,7 @@ public class ApiHttpClient {
     public static String API_URL = "http://1.71.130.58:8082/";
     public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
     public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
-//    //测试new
+    //    //测试new
     public static String IMG_URL = "http://1.71.130.58:8088/";
     public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
 
@@ -130,21 +130,21 @@ public class ApiHttpClient {
     //服务首页广告
     public static String INDEX_SERVICE_AD_TOP = API_SERVICE_URL + "index/serviceClassifTop";
     //确认订单购买须知
-    public static String COMFIRM_ORDER_PURCHASE_NOTE= API_SERVICE_URL + "service/purchase";
+    public static String COMFIRM_ORDER_PURCHASE_NOTE = API_SERVICE_URL + "service/purchase";
     //退款页接口
-    public static String REFUND_LIST= API_SERVICE_URL + "order/refundList";
+    public static String REFUND_LIST = API_SERVICE_URL + "order/refundList";
     //退款提交
-    public static String REFUND_COMMIT= API_SERVICE_URL + "order/refundQuerty";
+    public static String REFUND_COMMIT = API_SERVICE_URL + "order/refundQuerty";
     //无上门费请求这个接口
-    public static String ORDER_CANCEL_NO_DOOR_COMMIT= API_SERVICE_URL + "order/order_cancel_service";
+    public static String ORDER_CANCEL_NO_DOOR_COMMIT = API_SERVICE_URL + "order/order_cancel_service";
     //退款详情接口
-    public static String ORDER_REFUND_DETAIL= API_SERVICE_URL + "order/OrderRefundDetail";
+    public static String ORDER_REFUND_DETAIL = API_SERVICE_URL + "order/OrderRefundDetail";
     //取消退款
-    public static String CANCEL_REFUND= API_SERVICE_URL + "order/cancelRefund";
+    public static String CANCEL_REFUND = API_SERVICE_URL + "order/cancelRefund";
     //完成服务
-    public static String FINISH_SERVICE= API_SERVICE_URL + "order/completeService";
+    public static String FINISH_SERVICE = API_SERVICE_URL + "order/completeService";
     //删除订单
-    public static String DELETE_SERVICE= API_SERVICE_URL + "order/orderDel";
+    public static String DELETE_SERVICE = API_SERVICE_URL + "order/orderDel";
 
     /**
      * 物业
@@ -260,7 +260,7 @@ public class ApiHttpClient {
     public static String GET_SHOP_ORDER_DETAILS = API_URL + API_VERSION + "userCenter/shopping_order_details";
     //商城订单列表待付款删除
     public static String GET_SHOP_ORDER_DEL = API_URL + API_VERSION + "userCenter/del_shopping_order";
-  // 购物订单操作页面(退款/收货/评价) 接口
+    // 购物订单操作页面(退款/收货/评价) 接口
     public static String GET_SHOP_ORDER_OPERTE = API_URL + API_VERSION + "userCenter/shopping_order_operate";
 
     //用户提交/取消工单推送接口
@@ -390,13 +390,30 @@ public class ApiHttpClient {
     public static String DEVICE_ZUJI = API_URL + "/Hardware/Fzd/deviceFootPrint";
     //老人健康计步
     public static String STEP_INFO = API_URL + "/Hardware/Fzd/deviceStepInfo";
+    //获取远程测心率
+    public static String DEVICE_HEART = API_URL + "/Hardware/Fzd/deviceHeartInfo";
+    //远程测心率
+    public static String DEVICE_HEART_COMMIT = API_URL + "/Hardware/Fzd/remoteHeartRate";
+    //获取远程测血压
+    public static String DEVICE_BIOOD = API_URL + "/Hardware/Fzd/deviceBlood";
+    //远程测血压
+    public static String DEVICE_BIOOD_COMMIT = API_URL + "/Hardware/Fzd/bldstart";
+    //获取远程云测温
+    public static String DEVICE_WD = API_URL + "/Hardware/Fzd/wdInfo";
+    //远程云测温
+    public static String DEVICE_WD_COMMIT = API_URL + "/Hardware/Fzd/wd";
     //老人围栏列表
     public static String ENCLOSURE_LIST = API_URL + "/Hardware/Fzd/enclosureList";
     //设置电子围栏
     public static String SET_ENCLOSURE = API_URL + "/Hardware/Fzd/setEnclosure";
     //删除电子围栏
     public static String DEL_ENCLOSURE = API_URL + "/Hardware/Fzd/delEnclosure";
-
+    //SOS
+    public static String DEVICE_SOS = API_URL + "/Hardware/Fzd/setSOS";
+    //查找设备
+    public static String GET_DEVICE= API_URL + "/Hardware/Fzd/findDevice";
+    //监护号码
+    public static String DEVICE_GUARDER= API_URL + "/Hardware/Fzd/setGuarder";
 
 
     /**
@@ -492,18 +509,17 @@ public class ApiHttpClient {
     //申请提交
     public static String PASS_CHECK_SUBMIT = API_URL + API_VERSION + "propertyPass/pass_check_submit";
     //请求分享参数
-    public static String GET_SHARE_PARAM= API_URL + API_VERSION + "shares/share";
+    public static String GET_SHARE_PARAM = API_URL + API_VERSION + "shares/share";
     //个人中心我的优惠券
-    public static String MY_COUPON_LIST= API_URL + API_VERSION + "/userCenter/my_coupon_46";
+    public static String MY_COUPON_LIST = API_URL + API_VERSION + "/userCenter/my_coupon_46";
     //历史记录
-    public static String COUPON_HISTORY= API_URL + API_VERSION + "userCenter/coupon_over_46";
+    public static String COUPON_HISTORY = API_URL + API_VERSION + "userCenter/coupon_over_46";
     //领取优惠券
-    public static String COUPON_ADD= API_URL + API_VERSION + "userCenter/coupon_add/";
+    public static String COUPON_ADD = API_URL + API_VERSION + "userCenter/coupon_add/";
     //商品详情的优惠券列表
-    public static String GOODS_COUPON_LIST= API_URL + API_VERSION + "shop/goods_coupon";
+    public static String GOODS_COUPON_LIST = API_URL + API_VERSION + "shop/goods_coupon";
     //确认订单优惠券列表
-    public static String COMFIRM_ORDER_COUPON_LIST= API_URL + API_VERSION + "userCenter/order_coupon_46";
-
+    public static String COMFIRM_ORDER_COUPON_LIST = API_URL + API_VERSION + "userCenter/order_coupon_46";
 
 
     /**
@@ -681,33 +697,43 @@ public class ApiHttpClient {
         VERITY_OLD_PHONE = API_URL + API_VERSION + "site/verify_old_phone";
         VERITY_NEW_PHONE = API_URL + API_VERSION + "site/verify_new_phone";
         VERITY_OPERATION = API_URL + API_VERSION + "site/verify_operation";
-        GET_SHARE_PARAM= API_URL + API_VERSION + "shares/share";
+        GET_SHARE_PARAM = API_URL + API_VERSION + "shares/share";
         VOTE_LIST = API_URL + API_VERSION + "vote/vote_list";
-        MY_COUPON_LIST= API_URL + API_VERSION + "/userCenter/my_coupon_46";
-        COUPON_HISTORY= API_URL + API_VERSION + "userCenter/coupon_over_46";
-        COUPON_ADD= API_URL + API_VERSION + "userCenter/coupon_add/";
-        GOODS_COUPON_LIST= API_URL + API_VERSION + "shop/goods_coupon";
-        COMFIRM_ORDER_COUPON_LIST= API_URL + API_VERSION + "userCenter/order_coupon_46";
-        COMFIRM_ORDER_PURCHASE_NOTE= API_SERVICE_URL + "service/purchase";
-        REFUND_LIST= API_SERVICE_URL + "order/refundList";
-        REFUND_COMMIT= API_SERVICE_URL + "order/refundQuerty";
-        ORDER_CANCEL_NO_DOOR_COMMIT= API_SERVICE_URL + "order/order_cancel_service";
-        ORDER_REFUND_DETAIL= API_SERVICE_URL + "order/OrderRefundDetail";
-        CANCEL_REFUND= API_SERVICE_URL + "order/cancelRefund";
-        FINISH_SERVICE= API_SERVICE_URL + "order/completeService";
-        DELETE_SERVICE= API_SERVICE_URL + "order/orderDel";
+        MY_COUPON_LIST = API_URL + API_VERSION + "/userCenter/my_coupon_46";
+        COUPON_HISTORY = API_URL + API_VERSION + "userCenter/coupon_over_46";
+        COUPON_ADD = API_URL + API_VERSION + "userCenter/coupon_add/";
+        GOODS_COUPON_LIST = API_URL + API_VERSION + "shop/goods_coupon";
+        COMFIRM_ORDER_COUPON_LIST = API_URL + API_VERSION + "userCenter/order_coupon_46";
+        COMFIRM_ORDER_PURCHASE_NOTE = API_SERVICE_URL + "service/purchase";
+        REFUND_LIST = API_SERVICE_URL + "order/refundList";
+        REFUND_COMMIT = API_SERVICE_URL + "order/refundQuerty";
+        ORDER_CANCEL_NO_DOOR_COMMIT = API_SERVICE_URL + "order/order_cancel_service";
+        ORDER_REFUND_DETAIL = API_SERVICE_URL + "order/OrderRefundDetail";
+        CANCEL_REFUND = API_SERVICE_URL + "order/cancelRefund";
+        FINISH_SERVICE = API_SERVICE_URL + "order/completeService";
+        DELETE_SERVICE = API_SERVICE_URL + "order/orderDel";
         GET_BUSINESS_DETAIL = API_URL + API_VERSION + "index/business_district_service_list";
         GET_BUSINESS_LIST = API_URL + API_VERSION + "index/business_district_list";
         PENSION_COMPANY_LIST = API_URL + API_VERSION + "pension/company";
         PENSION_SET_ADDRESS = API_URL + API_VERSION + "pension/setAddress";
-        GET_HANRDWARE_INFO = API_URL  + "Hardware/Fzd/hardwareInfo ";
+        GET_HANRDWARE_INFO = API_URL + "Hardware/Fzd/hardwareInfo ";
         HANRDWARE_BINDING = API_URL + "/Hardware/Fzd/binding";
         DEVICE_LOCATION = API_URL + "/Hardware/Fzd/deviceLocation";
         HANRDWARE_UNBINDING = API_URL + "/Hardware/Fzd/RemoveBinding ";
         DEVICE_ZUJI = API_URL + "/Hardware/Fzd/deviceFootPrint";
         STEP_INFO = API_URL + "/Hardware/Fzd/deviceStepInfo";
+        DEVICE_HEART = API_URL + "/Hardware/Fzd/deviceHeartInfo";
+        DEVICE_BIOOD = API_URL + "/Hardware/Fzd/deviceBlood";
+        DEVICE_WD = API_URL + "/Hardware/Fzd/wdInfo";
         ENCLOSURE_LIST = API_URL + "/Hardware/Fzd/enclosureList";
         SET_ENCLOSURE = API_URL + "/Hardware/Fzd/setEnclosure";
         DEL_ENCLOSURE = API_URL + "/Hardware/Fzd/delEnclosure";
+        DEVICE_HEART_COMMIT = API_URL + "/Hardware/Fzd/remoteHeartRate";
+        DEVICE_BIOOD_COMMIT = API_URL + "/Hardware/Fzd/bldstart";
+        DEVICE_WD_COMMIT = API_URL + "/Hardware/Fzd/wd";
+        DEVICE_SOS = API_URL + "/Hardware/Fzd/setSOS";
+        DEVICE_GUARDER= API_URL + "/Hardware/Fzd/setGuarder";
+        GET_DEVICE= API_URL + "/Hardware/Fzd/findDevice";
+
     }
 }

@@ -1211,6 +1211,9 @@
             android:name=".ui.index.oldservice.OldMyStepActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.index.oldservice.OldGaugeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.index.oldservice.OldHandWristBindActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>

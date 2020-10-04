@@ -1,24 +1,35 @@
 package com.huacheng.huiservers.ui.index.oldservice;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.OldDeviceDialog;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelOldDevice;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.oldservice.adapter.AdapterOldDevice;
 import com.huacheng.huiservers.view.MyGridview;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * 类描述：养老 查看更多
- *  时间：2020/9/30 16:06
+ * 时间：2020/9/30 16:06
  * created by DFF
  */
-public class OldDeviceMoreActivity extends BaseActivity {
+public class OldDeviceMoreActivity extends BaseActivity implements OldDeviceDialog.OnClickConfirmListener {
 
     private MyGridview mGridview1;
     private MyGridview mGridview2;
@@ -28,7 +39,9 @@ public class OldDeviceMoreActivity extends BaseActivity {
 
     private AdapterOldDevice mAdapterOldDevice1;
     private AdapterOldDevice mAdapterOldDevice2;
-    private String par_uid ="";
+    private String par_uid = "";
+    private String str_url = "";
+    OldDeviceDialog dialog;
 
     @Override
     protected void initView() {
@@ -37,7 +50,7 @@ public class OldDeviceMoreActivity extends BaseActivity {
         mGridview1 = findViewById(R.id.grid_cat1);
         mGridview2 = findViewById(R.id.grid_cat2);
 
-        String[] str = {"查看足迹", "健康计步", "远程测心率", "远程测血压", "云测温",  "电子围栏"};
+        String[] str = {"查看足迹", "健康计步", "远程测心率", "远程测血压", "云测温", "电子围栏"};
         for (int i = 0; i < str.length; i++) {
             ModelOldDevice selectCommon = new ModelOldDevice();
             selectCommon.setName(str[i]);
@@ -51,10 +64,10 @@ public class OldDeviceMoreActivity extends BaseActivity {
             mDatas2.add(selectCommon);
         }
 
-        mAdapterOldDevice1 = new AdapterOldDevice(this, R.layout.item_old_device, mDatas1,1);
+        mAdapterOldDevice1 = new AdapterOldDevice(this, R.layout.item_old_device, mDatas1, 1);
         mGridview1.setAdapter(mAdapterOldDevice1);
 
-        mAdapterOldDevice2 = new AdapterOldDevice(this, R.layout.item_old_device, mDatas2,2);
+        mAdapterOldDevice2 = new AdapterOldDevice(this, R.layout.item_old_device, mDatas2, 2);
         mGridview2.setAdapter(mAdapterOldDevice2);
 
     }
@@ -70,32 +83,84 @@ public class OldDeviceMoreActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {//查看足迹
-
                     Intent intent = new Intent(OldDeviceMoreActivity.this, MyTrackActivity.class);
+                    intent.putExtra("par_uid", par_uid);
                     startActivity(intent);
 
                 } else if (position == 1) {//健康计步
                     Intent intent = new Intent(OldDeviceMoreActivity.this, OldMyStepActivity.class);
+                    intent.putExtra("par_uid", par_uid);
                     startActivity(intent);
 
                 } else if (position == 2) {//远程测心率
-
+                    Intent intent = new Intent(OldDeviceMoreActivity.this, OldGaugeActivity.class);
+                    intent.putExtra("par_uid", par_uid);
+                    intent.putExtra("type", 1);
+                    startActivity(intent);
                 } else if (position == 3) {//远程测血压
-
+                    Intent intent = new Intent(OldDeviceMoreActivity.this, OldGaugeActivity.class);
+                    intent.putExtra("par_uid", par_uid);
+                    intent.putExtra("type", 2);
+                    startActivity(intent);
                 } else if (position == 4) {//云测温
-
+                    Intent intent = new Intent(OldDeviceMoreActivity.this, OldGaugeActivity.class);
+                    intent.putExtra("par_uid", par_uid);
+                    intent.putExtra("type", 3);
+                    startActivity(intent);
                 } else if (position == 5) {//电子围栏
                     Intent intent = new Intent(OldDeviceMoreActivity.this, OldFenceListActivity.class);
-                    intent.putExtra("par_uid",par_uid);
+                    intent.putExtra("par_uid", par_uid);
                     startActivity(intent);
-                } else if (position == 6) {//电子围栏
+                }
 
+            }
+        });
+        mGridview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {//查找设备
+                    getDevice();
 
-                } else if (position == 7) {//立即定位
-
+                } else if (position == 1) {//SOS
+                    dialog = new OldDeviceDialog(OldDeviceMoreActivity.this, OldDeviceMoreActivity.this, 1);
+                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                    showDialog(dialog);
+                } else if (position == 2) {//监护号码
+                    dialog = new OldDeviceDialog(OldDeviceMoreActivity.this, OldDeviceMoreActivity.this, 2);
+                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                    showDialog(dialog);
                 }
             }
         });
+    }
+
+    /**
+     * 查找设备
+     */
+    private void getDevice() {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("par_uid", par_uid);
+        MyOkHttp.get().post(ApiHttpClient.GET_DEVICE, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    //SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "成功"));
+                    SmartToast.showInfo("正在响铃");
+                } else {
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败"));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
     }
 
     @Override
@@ -105,7 +170,7 @@ public class OldDeviceMoreActivity extends BaseActivity {
 
     @Override
     protected void initIntentData() {
-        par_uid=getIntent().getStringExtra("par_uid");
+        par_uid = getIntent().getStringExtra("par_uid");
     }
 
     @Override
@@ -116,5 +181,46 @@ public class OldDeviceMoreActivity extends BaseActivity {
     @Override
     protected void initFragment() {
 
+    }
+
+    /**
+     * SOS手机号码
+     * 设置监护号码
+     *
+     * @param dialog
+     * @param content
+     * @param type
+     */
+    @Override
+    public void onClickConfirm(Dialog dialog, String content, int type) {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("par_uid", par_uid);
+        if (type == 1) {
+            //SOS
+            params.put("SOS", content);
+            str_url = ApiHttpClient.DEVICE_SOS;
+        } else {
+            params.put("Guarder", content);
+            str_url = ApiHttpClient.DEVICE_GUARDER;
+        }
+        MyOkHttp.get().post(str_url, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "成功"));
+                } else {
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败"));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
     }
 }

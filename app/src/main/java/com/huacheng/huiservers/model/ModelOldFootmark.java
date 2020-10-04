@@ -11,6 +11,60 @@ import java.util.List;
 public class ModelOldFootmark implements Serializable {
 
     private String S;
+    private String H;
+    private String T;
+    private String L;
+    private String W;
+    private String WD;
+    private List<ModelOldFootmark> WDInfo;
+
+    public String getWD() {
+        return WD;
+    }
+
+    public void setWD(String WD) {
+        this.WD = WD;
+    }
+
+    public List<ModelOldFootmark> getWDInfo() {
+        return WDInfo;
+    }
+
+    public void setWDInfo(List<ModelOldFootmark> WDInfo) {
+        this.WDInfo = WDInfo;
+    }
+
+    public String getL() {
+        return L;
+    }
+
+    public void setL(String l) {
+        L = l;
+    }
+
+    public String getW() {
+        return W;
+    }
+
+    public void setW(String w) {
+        W = w;
+    }
+
+    public String getH() {
+        return H;
+    }
+
+    public void setH(String h) {
+        H = h;
+    }
+
+    public String getT() {
+        return T;
+    }
+
+    public void setT(String t) {
+        T = t;
+    }
 
     public String getS() {
         return S;

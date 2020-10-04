@@ -30,6 +30,7 @@ public class OldMyStepActivity extends BaseActivity {
     private TextView tv_step_num;
     private String date;
     private ModelOldFootmark mOldFootmark;
+    private String par_uid = "";
 
     @Override
     protected void initView() {
@@ -55,7 +56,7 @@ public class OldMyStepActivity extends BaseActivity {
     private void requestData() {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid", "105");// TODO: 2020/10/3  id记得更改
+        params.put("par_uid", par_uid);
         params.put("date", date);
 
         MyOkHttp.get().post(ApiHttpClient.STEP_INFO, params, new JsonResponseHandler() {
@@ -105,7 +106,7 @@ public class OldMyStepActivity extends BaseActivity {
 
     @Override
     protected void initIntentData() {
-
+        par_uid = getIntent().getStringExtra("par_uid");
     }
 
     @Override

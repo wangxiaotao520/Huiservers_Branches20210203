@@ -265,6 +265,7 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.txt_right1:
                 // 解绑
@@ -280,20 +281,34 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
 
                 break;
             case R.id.fl_footprint:
-                //TODO 查看足迹
+                //查看足迹
+                intent = new Intent(this, MyTrackActivity.class);
+                intent.putExtra("par_uid",par_uid);
+                startActivity(intent);
                 break;
             case R.id.fl_foot_count:
-                //TODO 计步统计
+                //健康计步
+                intent = new Intent(this, OldMyStepActivity.class);
+                intent.putExtra("par_uid",par_uid);
+                startActivity(intent);
                 break;
             case R.id.fl_heart_count:
-                //TODO 心率
+                //远程测心率
+                intent = new Intent(this, OldGaugeActivity.class);
+                intent.putExtra("par_uid",par_uid);
+                intent.putExtra("type", 1);
+                startActivity(intent);
                 break;
             case R.id.fl_heart_presure:
-                //TODO 血压
+                //远程测血压
+                intent = new Intent(this, OldGaugeActivity.class);
+                intent.putExtra("par_uid",par_uid);
+                intent.putExtra("type", 2);
+                startActivity(intent);
                 break;
             case R.id.fl_more:
                 // 查看更多
-                Intent intent = new Intent(this, OldDeviceMoreActivity.class);
+                intent = new Intent(this, OldDeviceMoreActivity.class);
                 intent.putExtra("par_uid",par_uid);
                 startActivity(intent);
                 break;
