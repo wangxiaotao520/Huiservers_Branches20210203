@@ -1,11 +1,13 @@
 package com.huacheng.huiservers.model;
 
+import java.io.Serializable;
+
 /**
  * Description: 智能硬件列表model
  * created by wangxiaotao
  * 2020/9/30 0030 09:25
  */
-public class ModelHandWrist {
+public class ModelHandWrist implements Serializable {
 
 
 

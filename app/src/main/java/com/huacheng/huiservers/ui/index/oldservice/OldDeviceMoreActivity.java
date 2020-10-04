@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 类描述：
- * 时间：2020/9/30 16:06
+ * 类描述：养老 查看更多
+ *  时间：2020/9/30 16:06
  * created by DFF
  */
 public class OldDeviceMoreActivity extends BaseActivity {
@@ -28,6 +28,7 @@ public class OldDeviceMoreActivity extends BaseActivity {
 
     private AdapterOldDevice mAdapterOldDevice1;
     private AdapterOldDevice mAdapterOldDevice2;
+    private String par_uid ="";
 
     @Override
     protected void initView() {
@@ -83,9 +84,12 @@ public class OldDeviceMoreActivity extends BaseActivity {
 
                 } else if (position == 4) {//云测温
 
-                } else if (position == 5) {//睡眠监测
-
+                } else if (position == 5) {//电子围栏
+                    Intent intent = new Intent(OldDeviceMoreActivity.this, OldFenceListActivity.class);
+                    intent.putExtra("par_uid",par_uid);
+                    startActivity(intent);
                 } else if (position == 6) {//电子围栏
+
 
                 } else if (position == 7) {//立即定位
 
@@ -101,7 +105,7 @@ public class OldDeviceMoreActivity extends BaseActivity {
 
     @Override
     protected void initIntentData() {
-
+        par_uid=getIntent().getStringExtra("par_uid");
     }
 
     @Override

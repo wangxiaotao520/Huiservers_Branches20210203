@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/windowbackground">
+    <include
+        layout="@layout/titlebar_center"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="@color/title_color"
+            android:textSize="15dp"
+            android:text="您可以手动为该成员设置地理围栏，当该成员进入或离开该围栏时，您将可以接收到相关提醒信息"
+            android:layout_margin="15dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="@color/title_third_color"
+            android:textSize="13dp"
+            android:text="比如您点击“新增围栏”按钮，添加了一个名为“家”的围栏，那么当孩子进入或离开家时，系统将自动通知您"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@color/windowbackground"
+        android:text="我设置的围栏"
+        android:textColor="@color/title_color"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:textSize="15dp"
+        android:paddingLeft="15dp"
+        android:textStyle="bold"
+        android:layout_height="40dp"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+
+        <GridView
+            android:id="@+id/gridview_imgs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:gravity="center"
+            android:headerDividersEnabled="false"
+            android:horizontalSpacing="5dp"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp"/>
+
+    </FrameLayout>
+</LinearLayout>

@@ -38,7 +38,8 @@
                         android:orientation="vertical">
                             <ImageView
                                 android:layout_width="44dp"
-                                android:background="@color/default_img_color"
+                                android:background="@mipmap/ic_old_zuji"
+                                android:layout_gravity="center_horizontal"
                                 android:layout_height="44dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -63,7 +64,8 @@
                         android:orientation="vertical">
                             <ImageView
                                 android:layout_width="44dp"
-                                android:background="@color/default_img_color"
+                                android:background="@mipmap/ic_old_jibu"
+                                android:layout_gravity="center_horizontal"
                                 android:layout_height="44dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -88,7 +90,8 @@
                         android:orientation="vertical">
                             <ImageView
                                 android:layout_width="44dp"
-                                android:background="@color/default_img_color"
+                                android:background="@mipmap/ic_old_cxl"
+                                android:layout_gravity="center_horizontal"
                                 android:layout_height="44dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -113,7 +116,8 @@
                         android:orientation="vertical">
                             <ImageView
                                 android:layout_width="44dp"
-                                android:background="@color/default_img_color"
+                                android:background="@mipmap/ic_old_cxy"
+                                android:layout_gravity="center_horizontal"
                                 android:layout_height="44dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -125,27 +129,28 @@
 
                     </LinearLayout>
                 </FrameLayout>
-                <!--远程测学压-->
+                <!--查看更多-->
                 <FrameLayout
                     android:id="@+id/fl_more"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent">
                     <LinearLayout
+                        android:layout_marginTop="2dp"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                             <ImageView
-                                android:layout_width="44dp"
-                                android:background="@color/default_img_color"
-                                android:layout_height="44dp"/>
+                                android:layout_width="42dp"
+                                android:background="@mipmap/ic_old_more"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_height="42dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:textColor="@color/title_color"
                                     android:textSize="12dp"
                                     android:text="查看更多"
-                                    android:layout_marginTop="2dp"
                                     android:layout_height="wrap_content"/>
 
                     </LinearLayout>
@@ -153,7 +158,7 @@
             </LinearLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:background="@color/transparent"
+            android:background="@mipmap/bg_my_wrist_half_circle"
             android:layout_height="15dp"/>
         </LinearLayout>
 
@@ -224,8 +229,8 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="30dp"
-                    android:background="@color/default_img_color"
-                    android:layout_height="30dp"/>
+                    android:background="@mipmap/ic_old_refresh"
+                    android:layout_height="25dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:textColor="@color/title_color"

@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/windowbackground"
+    android:background="@color/white"
     android:orientation="vertical"
     >
     <include
@@ -31,7 +31,7 @@
                     android:orientation="vertical">
                     <ImageView
                         android:layout_width="50dp"
-                        android:background="@color/default_img_color"
+                        android:background="@mipmap/ic_wrist"
                         android:layout_height="50dp"/>
                     <TextView
                         android:id="@+id/tv_name"

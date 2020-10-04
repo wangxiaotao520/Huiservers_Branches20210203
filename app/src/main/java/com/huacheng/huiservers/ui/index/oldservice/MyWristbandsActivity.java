@@ -1,6 +1,8 @@
 package com.huacheng.huiservers.ui.index.oldservice;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
@@ -33,6 +36,7 @@ import com.huacheng.libraryservice.utils.json.JsonUtil;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -133,6 +137,7 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
                     CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng, 15, 0, 0));
                     aMap.moveCamera(mCameraUpdate);
 
+                    removeMarksFromMap();
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
 
@@ -146,6 +151,18 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
 
                     tvLocation.setText(modelHandWrist.getPro()+modelHandWrist.getCity()+modelHandWrist.getDist()+modelHandWrist.getStr());
                     tvLastTime.setText(modelHandWrist.getUT()+"");
+                    int b = modelHandWrist.getB();
+                    if (b<=25){
+                        tvBattery.setBackgroundResource(R.mipmap.ic_percent25);
+                        tvBatteryPercent.setTextColor(Color.parseColor("#e0473f"));
+                    }else if (b<=50){
+                        tvBattery.setBackgroundResource(R.mipmap.ic_percent50);
+                        tvBatteryPercent.setTextColor(Color.parseColor("#e5d84d"));
+                    }else {
+                        tvBattery.setBackgroundResource(R.mipmap.ic_percent75);
+                        tvBatteryPercent.setTextColor(Color.parseColor("#62d586"));
+                    }
+
                     tvBatteryPercent.setText(modelHandWrist.getB()+"%");
 
                 } else {
@@ -250,7 +267,7 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txt_right1:
-                //TODO 解绑
+                // 解绑
                 new CommomDialog(mContext, R.style.my_dialog_DimEnabled, "确定解绑吗？解绑后将清空数据？", new CommomDialog.OnCloseListener() {
                     @Override
                     public void onClick(Dialog dialog, boolean confirm) {
@@ -275,7 +292,10 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
                 //TODO 血压
                 break;
             case R.id.fl_more:
-                //TODO 查看更多
+                // 查看更多
+                Intent intent = new Intent(this, OldDeviceMoreActivity.class);
+                intent.putExtra("par_uid",par_uid);
+                startActivity(intent);
                 break;
             case R.id.ll_refresh:
                 //刷新
@@ -284,7 +304,13 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
 
         }
     }
-
+    //移除地图上除中心点的所有Maker
+    private void removeMarksFromMap() {
+        List<Marker> saveMarkerList = aMap.getMapScreenMarkers();//获得所有地图上所有Maker.
+        for (Marker marker : saveMarkerList) {
+            marker.remove();
+        }
+    }
     /**
      * 解绑设备
      */

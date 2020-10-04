@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include
+        layout="@layout/titlebar_center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_height="136dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="45dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="围栏名称:"
+
+                android:textColor="@color/title_color"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"/>
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/title_color"
+                android:maxLength="5"
+                android:textColorHint="@color/text_color_hint"
+                android:hint="地点备注（如家，学校)"
+                android:paddingLeft="10dp"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/line"
+            android:layout_height="1px"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="45dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:text="当前位置:"
+                android:textColor="@color/title_color"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"/>
+            <TextView
+                android:id="@+id/tv_location_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:gravity="left|center_vertical"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColorHint="@color/text_color_hint"
+                android:textColor="@color/title_color"
+                android:text=""
+                android:paddingLeft="10dp"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_circle"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="1px"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:text="区域范围（半径）："
+                android:textColor="@color/title_color"
+                android:textSize="14dp"/>
+
+            <TextView
+                android:id="@+id/tv_circle_metre"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="38dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right"
+                android:hint="请选择"
+                android:singleLine="true"
+                android:textColor="@color/title_color"
+                android:textColorHint="@color/text_color_hint"
+                android:paddingRight="10dp"
+                android:textSize="14dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/jiantou_you"/>
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <TextView
+            android:id="@+id/tv_btn"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/all_shape_trans_orange35"
+            android:gravity="center"
+            android:text="完成"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:layout_marginBottom="40dp"
+            android:layout_centerHorizontal="true"
+            />
+    </RelativeLayout>
+</LinearLayout>

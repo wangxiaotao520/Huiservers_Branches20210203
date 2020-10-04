@@ -390,6 +390,12 @@ public class ApiHttpClient {
     public static String DEVICE_ZUJI = API_URL + "/Hardware/Fzd/deviceFootPrint";
     //老人健康计步
     public static String STEP_INFO = API_URL + "/Hardware/Fzd/deviceStepInfo";
+    //老人围栏列表
+    public static String ENCLOSURE_LIST = API_URL + "/Hardware/Fzd/enclosureList";
+    //设置电子围栏
+    public static String SET_ENCLOSURE = API_URL + "/Hardware/Fzd/setEnclosure";
+    //删除电子围栏
+    public static String DEL_ENCLOSURE = API_URL + "/Hardware/Fzd/delEnclosure";
 
 
 
@@ -700,5 +706,8 @@ public class ApiHttpClient {
         HANRDWARE_UNBINDING = API_URL + "/Hardware/Fzd/RemoveBinding ";
         DEVICE_ZUJI = API_URL + "/Hardware/Fzd/deviceFootPrint";
         STEP_INFO = API_URL + "/Hardware/Fzd/deviceStepInfo";
+        ENCLOSURE_LIST = API_URL + "/Hardware/Fzd/enclosureList";
+        SET_ENCLOSURE = API_URL + "/Hardware/Fzd/setEnclosure";
+        DEL_ENCLOSURE = API_URL + "/Hardware/Fzd/delEnclosure";
     }
 }

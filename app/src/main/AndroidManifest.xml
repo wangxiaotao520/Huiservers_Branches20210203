@@ -1202,9 +1202,6 @@
             android:name=".ui.index.oldservice.MyWristbandsActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.index.oldservice.MyHardWareFunctionListActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".ui.index.oldservice.OldDeviceMoreActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -1216,6 +1213,17 @@
         <activity
             android:name=".ui.index.oldservice.OldHandWristBindActivity"
             android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.oldservice.OldFenceListActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.oldservice.NewAddFenceActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.index.oldservice.FenceDetailActivity"
             android:screenOrientation="portrait"/>
 
     </application>

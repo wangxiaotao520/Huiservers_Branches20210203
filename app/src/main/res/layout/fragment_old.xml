@@ -359,7 +359,7 @@
         android:id="@+id/iv_investigate"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:background="@color/default_img_color"
+        android:background="@mipmap/ic_old_investigate"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="60dp"
