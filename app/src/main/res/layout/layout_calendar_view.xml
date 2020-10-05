@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?><!--suppress ALL -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/windowbackground"
+    android:orientation="vertical"
+    tools:ignore="RtlHardcoded,HardcodedText,RtlSymmetry,SmallSp">
+    <RelativeLayout
+        android:id="@+id/rl_tool"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/windowbackground">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            tools:ignore="RelativeOverlap">
+
+            <TextView
+                android:id="@+id/tv_year"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="2019年"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/title_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_month"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/title_color"
+                android:text="8月"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
+                tools:ignore="SmallSp" />
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/fl_pre"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_calendar_arrow_left"
+                />
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/fl_next"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_calendar_arrow_right"
+                />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <!--<com.haibin.calendarview.CalendarLayout-->
+        <!--android:id="@+id/calendarLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#fff"-->
+        <!--android:orientation="vertical"-->
+        <!--app:calendar_content_view_id="@+id/nestedScrollView"-->
+        <!--app:calendar_show_mode="both_month_week_view">-->
+
+        <!--<com.haibin.calendarview.CalendarView-->
+            <!--android:id="@+id/calendarView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="#fff"-->
+            <!--app:calendar_padding="10dp"-->
+            <!--app:current_day_lunar_text_color="#ff0000"-->
+            <!--app:current_day_text_color="#ff0000"-->
+            <!--app:current_month_lunar_text_color="#CFCFCF"-->
+            <!--app:current_month_text_color="#333333"-->
+            <!--app:lunar_text_size="10sp"-->
+            <!--app:max_year="2050"-->
+            <!--app:max_year_day="31"-->
+            <!--app:max_year_month="12"-->
+            <!--app:min_year="2008"-->
+            <!--app:min_year_day="1"-->
+            <!--app:min_year_month="1"-->
+            <!--app:month_view="com.huacheng.huisevers.utils.custom_calendar.CustomMonthView"-->
+            <!--app:month_view_show_mode="mode_only_current"-->
+            <!--app:other_month_lunar_text_color="#e1e1e1"-->
+            <!--app:other_month_text_color="#e1e1e1"-->
+            <!--app:scheme_lunar_text_color="#CFCFCF"-->
+            <!--app:scheme_text="假"-->
+            <!--app:scheme_text_color="#333"-->
+            <!--app:scheme_theme_color="#128c4b"-->
+            <!--app:selected_lunar_text_color="#128c4b"-->
+            <!--app:selected_text_color="#128c4b"-->
+            <!--app:selected_theme_color="#80cfcfcf"-->
+            <!--app:week_background="#fff"-->
+            <!--app:week_bar_height="46dp"-->
+            <!--app:week_bar_view="com.huacheng.huisevers.utils.custom_calendar.CustomWeekBar"-->
+            <!--app:week_line_background="#00000000"-->
+            <!--app:week_line_margin="16dp"-->
+            <!--app:week_start_with="sun"-->
+            <!--app:week_text_size="10sp"-->
+            <!--app:week_view="com.huacheng.huisevers.utils.custom_calendar.CustomWeekView"-->
+            <!--app:year_windowbackground="#f6f6f6"-->
+            <!--app:year_view_day_text_color="#333333"-->
+            <!--app:year_view_day_text_size="8sp"-->
+            <!--app:year_view_month_text_color="#ff0000"-->
+            <!--app:year_view_month_text_size="20sp"-->
+            <!--app:year_view_scheme_color="#f17706"-->
+            <!--app:year_view_week_height="0dp"-->
+            <!--app:year_view_week_text_color="#666666"-->
+            <!--app:month_view_auto_select_day="last_select_day_ignore_current"-->
+            <!--app:year_view_week_text_size="7sp" />-->
+
+
+
+    <!--</com.haibin.calendarview.CalendarLayout>-->
+    <com.haibin.calendarview.CalendarLayout
+        android:id="@+id/calendarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:calendar_content_view_id="@+id/listview"
+        app:calendar_show_mode="only_month_view"
+        app:default_status="expand">
+        <!--这里注意路径的英文还是中文-->
+        <com.haibin.calendarview.CalendarView
+            app:month_view="com.huacheng.huiservers.utils.custom_calendar.ColorfulMonthView"
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:day_text_size="@dimen/t_14sp"
+            app:lunar_text_size="@dimen/t_10sp"
+            app:calendar_padding="2dp"
+            app:calendar_height="@dimen/margin_45"
+            app:current_month_lunar_text_color="#CFCFCF"
+            app:current_month_text_color="#333333"
+            app:current_day_lunar_text_color="@color/blue"
+            app:current_day_text_color="@color/blue"
+            app:min_year="2018"
+            app:week_bar_view="com.huacheng.huiservers.utils.custom_calendar.CustomWeekBar"
+            app:year_view="com.huacheng.huiservers.utils.custom_calendar.CustomYearView"
+            app:selected_lunar_text_color="#ffffff"
+            app:selected_text_color="#ffffff"
+            app:selected_theme_color="#f17706"
+            app:select_mode="single_mode"
+            app:week_start_with="sun"
+            app:month_view_show_mode="mode_fix"
+            app:other_month_text_color="#e1e1e1"
+            app:scheme_lunar_text_color="#ffffff"
+            app:scheme_text="假"
+            app:scheme_text_color="#fff"
+            app:scheme_theme_color="#128c4b"
+            app:week_background="#fff"
+            app:week_text_color="#111"
+            app:year_view_day_text_color="#333333"
+            app:year_view_day_text_size="7sp"
+            app:year_view_month_text_color="#ff0000"
+            app:year_view_month_text_size="20sp"
+            app:year_view_scheme_color="#f17706"
+            app:year_view_select_text_color="#fff"
+            app:year_view_week_height="12dp"
+            app:year_view_week_text_color="#e1e1e1"
+            app:year_view_week_text_size="6sp">
+
+    </com.haibin.calendarview.CalendarView>
+
+</com.haibin.calendarview.CalendarLayout>
+
+
+
+</LinearLayout>
