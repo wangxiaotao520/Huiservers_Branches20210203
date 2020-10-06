@@ -53,6 +53,7 @@ public class MyTrackActivity extends BaseActivity implements CalendarView.OnCale
     TextView tv_year;
     TextView tv_month;
     int mYear;
+    private Calendar calendar_selected;
 
 
     @Override
@@ -144,6 +145,9 @@ public class MyTrackActivity extends BaseActivity implements CalendarView.OnCale
         tv_month = contentView.findViewById(R.id.tv_month);
         calendarlayout = contentView.findViewById(R.id.calendarlayout);
         calendarView = contentView.findViewById(R.id.calendarView);
+        if (calendar_selected!=null){
+            calendarView.addSchemeDate(calendar_selected);
+        }
 
         mYear = calendarView.getCurYear();
         tv_year.setText(calendarView.getCurYear() + "年");
@@ -222,6 +226,7 @@ public class MyTrackActivity extends BaseActivity implements CalendarView.OnCale
         tv_data.setText("您" +calendar.getMonth()+"-"+calendar.getDay()+ "跨越了");
         requestData(getDateFormatCommit(calendar.getTimeInMillis()));
 
+  //      calendar_selected=calendar;
     }
 
     @Override

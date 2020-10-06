@@ -164,7 +164,7 @@
             app:scheme_lunar_text_color="#ffffff"
             app:scheme_text="假"
             app:scheme_text_color="#fff"
-            app:scheme_theme_color="#128c4b"
+            app:scheme_theme_color="#f17706"
             app:week_background="#fff"
             app:week_text_color="#111"
             app:year_view_day_text_color="#333333"

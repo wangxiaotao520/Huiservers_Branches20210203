@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.index.oldservice;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -113,6 +114,10 @@ public class OldHandWristBindActivity extends BaseActivity {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"操作成功"));
+                    //到时候返回par_uid
+                    Intent intent = new Intent(mContext, MyWristbandsActivity.class);
+                    intent.putExtra("par_uid",par_uid+"");
+                    startActivity(intent);
                    finish();
 
                 } else {

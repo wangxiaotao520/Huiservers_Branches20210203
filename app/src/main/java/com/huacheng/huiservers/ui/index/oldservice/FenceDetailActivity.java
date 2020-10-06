@@ -104,7 +104,7 @@ public class FenceDetailActivity extends BaseActivity implements View.OnClickLis
         titleName.setText("查看围栏");
         txt_right1 = findViewById(R.id.txt_right1);
         txt_right1.setVisibility(View.VISIBLE);
-        txt_right1.setText("解绑");
+        txt_right1.setText("删除");
         mMapView.onCreate(savedInstanceState);
         tvTitle.setText(modelFenceList.getTitle());
         tvRadius.setText("半径"+modelFenceList.getRadius()+"米内");
