@@ -35,13 +35,15 @@ public class OldDeviceDialog extends Dialog {
     private Button btn_confirm;
     private TextView tv_type;
     String content;
+    String number;
     private OldDeviceDialog.OnClickConfirmListener listener;
 
-    public OldDeviceDialog(@NonNull Context context, OldDeviceDialog.OnClickConfirmListener listener, int type) {
+    public OldDeviceDialog(@NonNull Context context, OldDeviceDialog.OnClickConfirmListener listener, int type, String number) {
         super(context, R.style.my_dialog_DimEnabled);
         mContext = context;
         this.listener = listener;
         this.type = type;
+        this.number = number;
 
     }
 
@@ -83,11 +85,24 @@ public class OldDeviceDialog extends Dialog {
             tv_type.setText("SOS手机号码");
             et_number1.setHint("请输入手机号码1");
             et_number2.setVisibility(View.VISIBLE);
+            if (!"".equals(number)) {
+                if (number.contains(",")) {
+                    //截取
+                    String str = number.substring(0, number.indexOf(","));
+                    String str2 = number.substring(number.indexOf(",")+1);
+                    et_number1.setText(str);
+                    et_number2.setText(str2);
+                } else {
+                    et_number1.setText(number);
+                }
+            }
         } else {
             //监护号码
             tv_type.setText("监护号码");
             et_number1.setHint("请输入手机号码");
-
+            if (!"".equals(number)) {
+                et_number1.setText(number);
+            }
         }
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override

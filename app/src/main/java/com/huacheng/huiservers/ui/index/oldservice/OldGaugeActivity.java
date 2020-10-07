@@ -22,7 +22,6 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelOldFootmark;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.oldservice.adapter.AdapterGauge;
-import com.huacheng.huiservers.ui.shop.bean.BannerBean;
 import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -149,7 +148,7 @@ public class OldGaugeActivity extends BaseActivity implements CalendarView.OnCal
                 refreshLayout.finishRefresh();
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     if (type == 1) {
-                        List<ModelOldFootmark> data = JsonUtil.getInstance().getDataArrayByName(response, "data", BannerBean.class);
+                        List<ModelOldFootmark> data = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelOldFootmark.class);
                         if (data != null && data.size() > 0) {
                             mDatas.clear();
                             mDatas.addAll(data);
@@ -159,7 +158,7 @@ public class OldGaugeActivity extends BaseActivity implements CalendarView.OnCal
 
                         }
                     } else if (type == 2) {
-                        List<ModelOldFootmark> data = JsonUtil.getInstance().getDataArrayByName(response, "data", BannerBean.class);
+                        List<ModelOldFootmark> data = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelOldFootmark.class);
                         if (data != null && data.size() > 0) {
                             mDatas.clear();
                             mDatas.addAll(data);
@@ -175,7 +174,7 @@ public class OldGaugeActivity extends BaseActivity implements CalendarView.OnCal
                                 mDatas.addAll(mOldFootmark.getWDInfo());
                                 mAdapterGauge.notifyDataSetChanged();
 
-                                tv_type_name.setText(mOldFootmark.getWD());
+                                tv_type_name.setText(mOldFootmark.getWDInfo().get(0).getW());
                             }
                         }
                     }

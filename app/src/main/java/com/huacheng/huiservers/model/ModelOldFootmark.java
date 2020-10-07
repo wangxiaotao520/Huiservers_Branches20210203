@@ -16,6 +16,25 @@ public class ModelOldFootmark implements Serializable {
     private String L;
     private String W;
     private String WD;
+    private String SOS;
+    private String Guarder;
+
+    public String getSOS() {
+        return SOS;
+    }
+
+    public void setSOS(String SOS) {
+        this.SOS = SOS;
+    }
+
+    public String getGuarder() {
+        return Guarder;
+    }
+
+    public void setGuarder(String guarder) {
+        Guarder = guarder;
+    }
+
     private List<ModelOldFootmark> WDInfo;
 
     public String getWD() {

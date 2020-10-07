@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.index.oldservice.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
@@ -29,9 +30,9 @@ public class AdapterGauge extends CommonAdapter<ModelOldFootmark> {
     protected void convert(ViewHolder viewHolder, ModelOldFootmark item, int position) {
 
         if (position == 0) {
-            viewHolder.<TextView>getView(R.id.ly_title).setVisibility(View.VISIBLE);
+            viewHolder.<LinearLayout>getView(R.id.ly_title).setVisibility(View.VISIBLE);
         } else {
-            viewHolder.<TextView>getView(R.id.ly_title).setVisibility(View.GONE);
+            viewHolder.<LinearLayout>getView(R.id.ly_title).setVisibility(View.GONE);
         }
         if (type == 1) {//心率
             viewHolder.<TextView>getView(R.id.tv_type_unit).setText("次/分");

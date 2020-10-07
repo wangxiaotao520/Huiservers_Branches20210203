@@ -13,6 +13,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelOldDevice;
+import com.huacheng.huiservers.model.ModelOldFootmark;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.oldservice.adapter.AdapterOldDevice;
 import com.huacheng.huiservers.view.MyGridview;
@@ -36,6 +37,7 @@ public class OldDeviceMoreActivity extends BaseActivity implements OldDeviceDial
 
     private List<ModelOldDevice> mDatas1 = new ArrayList<>();//常用功能
     private List<ModelOldDevice> mDatas2 = new ArrayList<>();//功能设置
+    private ModelOldFootmark mOldFootmark;
 
     private AdapterOldDevice mAdapterOldDevice1;
     private AdapterOldDevice mAdapterOldDevice2;
@@ -120,15 +122,10 @@ public class OldDeviceMoreActivity extends BaseActivity implements OldDeviceDial
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {//查找设备
                     getDevice();
-
                 } else if (position == 1) {//SOS
-                    dialog = new OldDeviceDialog(OldDeviceMoreActivity.this, OldDeviceMoreActivity.this, 1);
-                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                    showDialog(dialog);
+                    getNumber(1);
                 } else if (position == 2) {//监护号码
-                    dialog = new OldDeviceDialog(OldDeviceMoreActivity.this, OldDeviceMoreActivity.this, 2);
-                    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                    showDialog(dialog);
+                    getNumber(2);
                 }
             }
         });
@@ -149,6 +146,57 @@ public class OldDeviceMoreActivity extends BaseActivity implements OldDeviceDial
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     //SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "成功"));
                     SmartToast.showInfo("正在响铃");
+                } else {
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败"));
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
+    }
+
+
+    /**
+     * 获取设备SOS和监护号码
+     */
+    private void getNumber(final int type) {
+        showDialog(smallDialog);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("par_uid", par_uid);
+        MyOkHttp.get().post(ApiHttpClient.DEVICE_GET_SOS_GUARDER, params, new JsonResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    mOldFootmark = (ModelOldFootmark) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldFootmark.class);
+                    if (mOldFootmark != null) {
+                        if (type == 1) {
+                            dialog = new OldDeviceDialog(OldDeviceMoreActivity.this, OldDeviceMoreActivity.this, 1, mOldFootmark.getSOS());
+                            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                            showDialog(dialog);
+                        } else {
+                            dialog = new OldDeviceDialog(OldDeviceMoreActivity.this, OldDeviceMoreActivity.this, 2, mOldFootmark.getGuarder());
+                            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                            showDialog(dialog);
+                        }
+                    } else {
+                        if (type == 1) {
+                            dialog = new OldDeviceDialog(OldDeviceMoreActivity.this, OldDeviceMoreActivity.this, 1, "");
+                            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                            showDialog(dialog);
+                        } else {
+                            dialog = new OldDeviceDialog(OldDeviceMoreActivity.this, OldDeviceMoreActivity.this, 2, "");
+                            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                            showDialog(dialog);
+                        }
+                    }
+
                 } else {
                     SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败"));
                 }
