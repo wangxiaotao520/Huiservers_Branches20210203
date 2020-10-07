@@ -301,6 +301,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                 // 问卷调查
                 Intent intent = new Intent(mContext, OldInvestiagateActivity.class);
                 intent.putExtra("model",modelOldIndexTop);
+                intent.putExtra("par_uid",par_uid);
                 startActivityForResult(intent,222);
             }
         });

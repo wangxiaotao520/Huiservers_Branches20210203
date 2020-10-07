@@ -97,6 +97,7 @@ public class OldInvestiagateActivity extends BaseActivity implements View.OnClic
     private TextView tv_sub_title;
     private TextView tv_time;
     private ModelOldIndexTop modelOldIndexTop;
+    private String par_uid = "";
 
     @Override
     protected void initView() {
@@ -120,6 +121,7 @@ public class OldInvestiagateActivity extends BaseActivity implements View.OnClic
 
         showDialog(smallDialog);
         params.put("o_company_id", modelOldIndexTop.getO_company_id()+"");
+        params.put("par_uid", par_uid+"");
         MyOkHttp.get().post(url, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -510,6 +512,7 @@ public class OldInvestiagateActivity extends BaseActivity implements View.OnClic
 //        }
 //        this.plan_id = this.getIntent().getStringExtra("plan_id");
         modelOldIndexTop= (ModelOldIndexTop) this.getIntent().getSerializableExtra("model");
+        par_uid=  this.getIntent().getStringExtra("par_uid");
     }
 
     @Override
