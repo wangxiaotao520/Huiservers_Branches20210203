@@ -34,6 +34,8 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
     private TextView tv_company;
     private String id = "";
     String str_url;
+    private int type = 0;
+    private int p_type = 0;
 
     @Override
     protected void initView() {
@@ -66,6 +68,8 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void initIntentData() {
         id = getIntent().getStringExtra("id");
+        type = getIntent().getIntExtra("type", 0);
+        p_type = getIntent().getIntExtra("p_type", 0);
 
     }
 
@@ -73,7 +77,16 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
-        MyOkHttp.get().post(ApiHttpClient.PENSION_SOCIAL_DETAIL, params, new JsonResponseHandler() {
+        if (type == 0) {
+            str_url = ApiHttpClient.PENSION_SOCIAL_DETAIL;
+        } else {
+            if (p_type == 1) {
+                str_url = ApiHttpClient.OLD_NEW_ZIXUN_DETAIL;
+            } else {
+                str_url = ApiHttpClient.PENSION_SOCIAL_DETAIL;
+            }
+        }
+        MyOkHttp.get().post(str_url, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
@@ -81,9 +94,22 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
                     ModelOldZixun info = (ModelOldZixun) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldZixun.class);
                     if (info != null) {
                         mTvName.setText(info.getTitle());
-                        tv_person_addtime.setText("来源：" + info.getFrom() + "    " + info.getAddtime() );
-                        tv_read_count.setText("阅读数: " +info.getClick());
-                        tv_company.setText("发布企业: " +info.getO_company_name());
+                        if (type == 0) {
+                            tv_person_addtime.setText("来源：" + info.getFrom() + "    " + info.getAddtime());
+                            tv_read_count.setText("阅读数: " + info.getClick());
+                            tv_company.setText("发布企业: " + info.getO_company_name());
+                        } else {
+                            if (p_type == 1) {
+                                //老干局
+                                tv_person_addtime.setText("添加时间：" + info.getAddtime());
+                                tv_read_count.setText("阅读数: " + info.getBrowse());
+                                tv_company.setText("发布人: " + info.getUser_name());
+                            } else {
+                                tv_person_addtime.setText("来源：" + info.getFrom() + "    " + info.getAddtime());
+                                tv_read_count.setText("阅读数: " + info.getClick());
+                                tv_company.setText("发布企业: " + info.getO_company_name());
+                            }
+                        }
                         //能够的调用JavaScript代码
                         mWebview.getSettings().setJavaScriptEnabled(true);
                         // 设置允许JS弹窗
@@ -101,23 +127,23 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
 
                         //设置字体大小
                         mWebview.getSettings().setTextSize(WebSettings.TextSize.NORMAL);
-                     //   byte[] bytes = Base64.decode(info.getContent(), Base64.DEFAULT);
-                     //   String content = new String(bytes);
+                        //   byte[] bytes = Base64.decode(info.getContent(), Base64.DEFAULT);
+                        //   String content = new String(bytes);
                         if (!"".equals(info.getContent())) {
-                            String css="";
-                            if (NightModeUtils.getThemeMode()== NightModeUtils.ThemeMode.NIGHT){
+                            String css = "";
+                            if (NightModeUtils.getThemeMode() == NightModeUtils.ThemeMode.NIGHT) {
                                 //深色模式
                                 css = "<style type=\"text/css\"> " +
                                         "img {" +
                                         "max-width: 100% !important;" +//限定图片宽度填充屏幕
                                         "height:auto !important;" +//限定图片高度自动
-                                        "}" +"body" +
+                                        "}" + "body" +
                                         "  {" +
                                         "  color:#efefef;background:#1c1c1e;" +
-                                        "  }"+
+                                        "  }" +
                                         "</style>";
-                            }else {
-                              css = "<style type=\"text/css\"> " +
+                            } else {
+                                css = "<style type=\"text/css\"> " +
                                         "img {" +
                                         "max-width: 100% !important;" +//限定图片宽度填充屏幕
                                         "height:auto !important;" +//限定图片高度自动
@@ -138,8 +164,18 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
 //                        }
                         //发evevttype 增加阅读量
                         ModelOldZixun modelOldZixun = new ModelOldZixun();
-                        modelOldZixun.setClick(info.getClick());
-                        modelOldZixun.setEvevt_type(1);
+                        if (type == 0) {
+                            modelOldZixun.setClick(info.getClick());
+                            modelOldZixun.setEvevt_type(1);
+                        } else {
+                            if (p_type == 1) {
+                                modelOldZixun.setBrowse(info.getBrowse());
+                                modelOldZixun.setEvevt_type(2);
+                            } else {
+                                modelOldZixun.setClick(info.getClick());
+                                modelOldZixun.setEvevt_type(1);
+                            }
+                        }
                         modelOldZixun.setId(info.getId());
                         EventBus.getDefault().post(modelOldZixun);
                     }

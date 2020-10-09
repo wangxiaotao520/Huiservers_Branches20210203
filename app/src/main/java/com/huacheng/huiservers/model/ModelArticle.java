@@ -24,6 +24,18 @@ public class ModelArticle {
     private String click;
     private String addtime;
     private String img;
+    /**
+     * top_img :
+     * is_link : 1
+     * link :
+     * browse : 5
+     */
+
+    private String top_img;
+    private String is_link;
+    private String link;
+    private String browse;
+
 
     public int getTotalPages() {
         return totalPages;
@@ -82,5 +94,37 @@ public class ModelArticle {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getTop_img() {
+        return top_img;
+    }
+
+    public void setTop_img(String top_img) {
+        this.top_img = top_img;
+    }
+
+    public String getIs_link() {
+        return is_link;
+    }
+
+    public void setIs_link(String is_link) {
+        this.is_link = is_link;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getBrowse() {
+        return browse;
+    }
+
+    public void setBrowse(String browse) {
+        this.browse = browse;
     }
 }

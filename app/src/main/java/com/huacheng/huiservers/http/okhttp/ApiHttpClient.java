@@ -422,6 +422,10 @@ public class ApiHttpClient {
     public static String OLD_INVESTIGATION_QUESTION= API_URL+ API_VERSION + "/oldQuestion/question";
     //老人调查问卷问题
     public static String OLD_INVESTIGATION_QUESTION_COMMIT= API_URL+ API_VERSION + "/oldQuestion/record";
+    //老干局公告详情
+    public static String OLD_NEW_ZIXUN_LIST= API_URL+ API_VERSION + "/pension/informationList";
+    //老干局公告详情
+    public static String OLD_NEW_ZIXUN_DETAIL= API_URL+ API_VERSION + "/pension/informationdetails";
 
     /**
      * 隐私政策
@@ -745,5 +749,7 @@ public class ApiHttpClient {
         OLD_INVESTIGATION_QUESTION= API_URL+ API_VERSION + "/oldQuestion/question";
         OLD_INVESTIGATION_QUESTION_COMMIT= API_URL+ API_VERSION + "/oldQuestion/record";
         DEVICE_GET_SOS_GUARDER= API_URL + "/Hardware/Fzd/getSOSAndGuarder";
+        OLD_NEW_ZIXUN_LIST= API_URL+ API_VERSION + "/pension/informationList";
+        OLD_NEW_ZIXUN_DETAIL= API_URL+ API_VERSION + "/pension/informationdetails";
     }
 }

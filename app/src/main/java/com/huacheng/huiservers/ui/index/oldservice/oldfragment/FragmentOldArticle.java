@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.index.oldservice.oldfragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,16 +47,33 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
     private List<ModelArticle> mDatas = new ArrayList<>();
     private HeaderAndFooterWrapper mHeaderAndFooterWrapper;
     private LoadMoreWrapper mLoadMoreWrapper;
-    private String par_uid= "";
+    private String par_uid = "";
     private int page = 1;
     private ImageView iv_no_data;
     private LinearLayout ll_no_data;
+    private String Str_url = "";
+    private int type = 0;
+    private int p_type = 0;
+
+    public void setPar_uid(String par_uid) {
+        this.par_uid = par_uid;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setP_type(int p_type) {
+        this.p_type = p_type;
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         Bundle arguments = getArguments();
         par_uid = arguments.getString("par_uid");
+        type = arguments.getInt("type");
+        p_type = arguments.getInt("p_type");
     }
 
     @Override
@@ -66,56 +84,89 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
 
     @Override
     public void initView(View view) {
-      //  SmartRefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
+        //  SmartRefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
         recyclerview = view.findViewById(R.id.recyclerview);
         recyclerview.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-       // recyclerview.setAdapter(new RecyclerviewAdapter());
+        // recyclerview.setAdapter(new RecyclerviewAdapter());
 
 
-        mAdapter = new CommonAdapter<ModelArticle>(mActivity, R.layout.item_article, mDatas)
-        {
+        mAdapter = new CommonAdapter<ModelArticle>(mActivity, R.layout.item_article, mDatas) {
             @Override
-            protected void convert(ViewHolder holder, ModelArticle s, int position)
-            {
-              //  holder.setText(R.id.tv_name, s + " : " + holder.getAdapterPosition() + " , " + holder.getLayoutPosition());
+            protected void convert(ViewHolder holder, ModelArticle s, int position) {
+                //  holder.setText(R.id.tv_name, s + " : " + holder.getAdapterPosition() + " , " + holder.getLayoutPosition());
+                if (type != 0) {
+                    if (p_type == 1) {
+                        GlideUtils.getInstance().glideLoad(mActivity, ApiHttpClient.IMG_URL + s.getTop_img(), holder.<ImageView>getView(R.id.iv_image), R.color.windowbackground);
+                        holder.<TextView>getView(R.id.tv_title).setText(s.getTitle() + "");
+                        holder.<TextView>getView(R.id.tv_read_count).setText(s.getBrowse() + "");
+                        holder.<TextView>getView(R.id.tv_time).setText(s.getAddtime());
+                    } else {
+                        GlideUtils.getInstance().glideLoad(mActivity, ApiHttpClient.IMG_URL + s.getImg(), holder.<ImageView>getView(R.id.iv_image), R.color.windowbackground);
+                        holder.<TextView>getView(R.id.tv_title).setText(s.getTitle() + "");
+                        holder.<TextView>getView(R.id.tv_read_count).setText(s.getClick() + "");
+                        holder.<TextView>getView(R.id.tv_time).setText(s.getAddtime());
+                    }
+                } else {
+                    GlideUtils.getInstance().glideLoad(mActivity, ApiHttpClient.IMG_URL + s.getImg(), holder.<ImageView>getView(R.id.iv_image), R.color.windowbackground);
+                    holder.<TextView>getView(R.id.tv_title).setText(s.getTitle() + "");
+                    holder.<TextView>getView(R.id.tv_read_count).setText(s.getClick() + "");
+                    holder.<TextView>getView(R.id.tv_time).setText(s.getAddtime());
+                }
 
-                GlideUtils.getInstance().glideLoad(mActivity,ApiHttpClient.IMG_URL+s.getImg(),holder.<ImageView>getView(R.id.iv_image),R.color.windowbackground);
-                holder.<TextView>getView(R.id.tv_title).setText(s.getTitle()+"");
-                holder.<TextView>getView(R.id.tv_read_count).setText(s.getClick()+"");
-                holder.<TextView>getView(R.id.tv_time).setText(s.getAddtime());
             }
         };
 
         initHeaderAndFooter();
         mLoadMoreWrapper = new LoadMoreWrapper(mHeaderAndFooterWrapper);
         mLoadMoreWrapper.setLoadMoreView(0);
-        mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener()
-        {
+        mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
             @Override
-            public void onLoadMoreRequested()
-            {
+            public void onLoadMoreRequested() {
                 requestData();
             }
         });
 
         recyclerview.setAdapter(mLoadMoreWrapper);
-        mAdapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener()
-        {
+        mAdapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position)
-            {
-               // Toast.makeText(mActivity, "pos = " + position, Toast.LENGTH_SHORT).show();
-              //  mAdapter.notifyItemRemoved(position);
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                // Toast.makeText(mActivity, "pos = " + position, Toast.LENGTH_SHORT).show();
+                //  mAdapter.notifyItemRemoved(position);
+                if (type != 0) {
+                    if (p_type == 1) {//判断老干局老人跳是否跳外链
+                        if (mDatas.get(position).getIs_link().equals("1")) {
+                            Intent intent = new Intent(mActivity, ZXDetailActivity.class);
+                            intent.putExtra("id", mDatas.get(position).getId() + "");
+                            intent.putExtra("type", type);
+                            intent.putExtra("p_type", p_type);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setAction("android.intent.action.VIEW");
+                            Uri content_url = Uri.parse(mDatas.get(position).getLink());
+                            intent.setData(content_url);
+                            startActivity(intent);
+                        }
+                    } else {
+                        Intent intent = new Intent(mActivity, ZXDetailActivity.class);
+                        intent.putExtra("id", mDatas.get(position).getId() + "");
+                        intent.putExtra("type", type);
+                        intent.putExtra("p_type", p_type);
+                        startActivity(intent);
+                    }
+                } else {
+                    Intent intent = new Intent(mActivity, ZXDetailActivity.class);
+                    intent.putExtra("id", mDatas.get(position).getId() + "");
+                    intent.putExtra("type", type);
+                    intent.putExtra("p_type", p_type);
+                    startActivity(intent);
+                }
 
-                Intent intent = new Intent(mActivity, ZXDetailActivity.class);
-                intent.putExtra("id",mDatas.get(position).getId()+"");
-                startActivity(intent);
 
             }
 
             @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position)
-            {
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
                 return false;
             }
         });
@@ -142,7 +193,7 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
     @Override
     public void initData(Bundle savedInstanceState) {
         isInit = true;
-        page=1;
+        page = 1;
         showDialog(smallDialog);
         requestData();
     }
@@ -154,22 +205,34 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
 
     @Override
     public void isRefresh(String par_uid) {
-            // super.isRefresh(par_uid);
-            if (!isInit){
-                page=1;
-                showDialog(smallDialog);
-                isInit=true;
-                requestData();
-            }else {
-                //资讯不需要判断参数,也没必要实时刷新，只需要在下拉刷新的时候刷新一下就可以了
-            }
+        // super.isRefresh(par_uid);
+        if (!isInit) {
+            page = 1;
+            showDialog(smallDialog);
+            isInit = true;
+            requestData();
+        } else {
+            //资讯不需要判断参数,也没必要实时刷新，只需要在下拉刷新的时候刷新一下就可以了
+        }
 
     }
 
     private void requestData() {
         HashMap<String, String> params = new HashMap<>();
         params.put("p", page + "");
-        MyOkHttp.get().post(ApiHttpClient.PENSION_ZIXUN_LIST, params, new JsonResponseHandler() {
+        if (type == 0) {
+            //没有认证
+            Str_url = ApiHttpClient.PENSION_ZIXUN_LIST;
+        } else {
+            if (p_type == 1) {
+                //老干局老人
+                params.put("par_uid", par_uid + "");
+                Str_url = ApiHttpClient.OLD_NEW_ZIXUN_LIST;
+            } else {
+                Str_url = ApiHttpClient.PENSION_ZIXUN_LIST;
+            }
+        }
+        MyOkHttp.get().post(Str_url, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -219,8 +282,8 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
     @Override
     public void refreshIndeed(String par_uid) {
         //直接刷新 不显示smallDialog
-        isInit=true;
-        page=1;
+        isInit = true;
+        page = 1;
         requestData();
     }
 
@@ -238,21 +301,32 @@ public class FragmentOldArticle extends FragmentOldCommonImp {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ModelOldZixun model) {
         if (model != null) {
-            if (model.getEvevt_type()==1){
-                //阅读量
-                ModelArticle modelEvent=null;
+            if (model.getEvevt_type() == 1) {
+                //普通老人阅读量
+                ModelArticle modelEvent = null;
                 for (int i = 0; i < mDatas.size(); i++) {
-                    if ((mDatas.get(i).getId()+"").equals(model.getId())){
-                        modelEvent=mDatas.get(i);
+                    if ((mDatas.get(i).getId() + "").equals(model.getId())) {
+                        modelEvent = mDatas.get(i);
                     }
                 }
-                if (modelEvent!=null){
+                if (modelEvent != null) {
                     modelEvent.setClick(model.getClick());
                 }
                 mLoadMoreWrapper.notifyDataSetChanged();
             }
-        }else if (model.getEvevt_type()==2){
-
+        } else if (model.getEvevt_type() == 2) {
+            //老干局老人公告阅读量
+            ModelArticle modelEvent = null;
+            for (int i = 0; i < mDatas.size(); i++) {
+                if ((mDatas.get(i).getId() + "").equals(model.getId())) {
+                    modelEvent = mDatas.get(i);
+                }
+            }
+            if (modelEvent != null) {
+                modelEvent.setBrowse(model.getBrowse());
+            }
+            mLoadMoreWrapper.notifyDataSetChanged();
         }
+
     }
 }

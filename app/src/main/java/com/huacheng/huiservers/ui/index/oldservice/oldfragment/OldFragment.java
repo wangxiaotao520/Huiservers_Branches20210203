@@ -99,6 +99,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     private boolean isEventCallback=false;//登录  认证  切换老人
     private boolean is_Refresh = false;  //是否是刷新
     private int type;  //认证状态
+    private int p_type;  //是否是老干局的老人
     private ModelOldIndexTop modelOldIndexTop;
     private LinearLayout lin_left;
     private ImageView iv_investigate;
@@ -144,6 +145,10 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         FragmentOldArticle fragmentOldArticle = new FragmentOldArticle();
         Bundle bundle = new Bundle();
         bundle.putString("par_uid", par_uid);
+        if (modelOldIndexTop!=null){
+            bundle.putInt("type", modelOldIndexTop.getType());
+            bundle.putInt("p_type", modelOldIndexTop.getP_type());
+        }
         fragmentOldArticle.setArguments(bundle);
         //初始化数据
         mFragments.add(fragmentOldArticle);
@@ -378,6 +383,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                     modelOldIndexTop = (ModelOldIndexTop) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldIndexTop.class);
                     if (modelOldIndexTop !=null) {
                         type = modelOldIndexTop.getType();
+                        p_type = modelOldIndexTop.getP_type();
                         if (0== type){
                             //没有认证
                             rl_title_container.setBackgroundResource(R.mipmap.bg_old_orange);
@@ -439,30 +445,42 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             //如果是刷新 或者从登录页返回
                             //刷新
                             //表明切换的时候要刷新
-                            for (int i = 0; i < mFragments.size(); i++) {
-                                mFragments.get(i).setInit(false);
-                            }
-                            if (currentFragment!=null){
-                                currentFragment.refreshIndeed(par_uid);//当前页直接刷新 不显示smalldialog
-                            }
+
                             is_Refresh= false;
                             // 这里记得下一新版本的时候就不是第二个了
                             if (mFragments.size()>0){
                                 if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
                                     ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
+
+                                ((FragmentOldArticle)mFragments.get(0)).setP_type(modelOldIndexTop.getP_type());
+                                ((FragmentOldArticle)mFragments.get(0)).setType(modelOldIndexTop.getType());
+                                ((FragmentOldArticle)mFragments.get(0)).setPar_uid(par_uid);
+                                for (int i = 0; i < mFragments.size(); i++) {
+                                    mFragments.get(i).setInit(false);
+                                }
+                                if (currentFragment!=null){
+                                    currentFragment.refreshIndeed(par_uid);//当前页直接刷新 不显示smalldialog
+                                }
                             }else {
                                 initTabAndViewPager();
                             }
 
                         }else  if (isEventCallback){//从别的页返回  认证  切换老人
-                            if (currentFragment!=null){
-                                currentFragment.refreshIndeed(par_uid);//刷新fragment
-                            }
                             isEventCallback=false;
                             // 这里记得下一新版本的时候就不是第二个了
                             if (mFragments.size()>0){
                                 if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
                                     ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
+
+                                ((FragmentOldArticle)mFragments.get(0)).setP_type(modelOldIndexTop.getP_type());
+                                ((FragmentOldArticle)mFragments.get(0)).setType(modelOldIndexTop.getType());
+                                ((FragmentOldArticle)mFragments.get(0)).setPar_uid(par_uid);
+                                for (int i = 0; i < mFragments.size(); i++) {
+                                    mFragments.get(i).setInit(false);
+                                }
+                                if (currentFragment!=null){
+                                    currentFragment.refreshIndeed(par_uid);//当前页直接刷新 不显示smalldialog
+                                }
                             }else {
                                 initTabAndViewPager();
                             }

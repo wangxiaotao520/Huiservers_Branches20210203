@@ -32,6 +32,7 @@ public class ModelOldIndexTop implements Serializable{
     private String d_id;
     private String d_name;
     private String old_phone;
+    private int p_type;
 
 
     private String is_vip;
@@ -40,6 +41,14 @@ public class ModelOldIndexTop implements Serializable{
     private  String photo ;
 
     private String sex;//1男 2女
+
+    public int getP_type() {
+        return p_type;
+    }
+
+    public void setP_type(int p_type) {
+        this.p_type = p_type;
+    }
 
     public String getOld_phone() {
         return old_phone;

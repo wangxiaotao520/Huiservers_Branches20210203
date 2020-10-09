@@ -33,9 +33,25 @@ public class ModelOldZixun implements Serializable{
     private String from;
     private String o_company_name;
     private String click;
+    private String browse;
     private String addtime;
     private String banner;
     private String img;
+    /**
+     * top_img :
+     * user_name : 河南省老干局
+     */
+
+    private String top_img;
+    private String user_name;
+
+    public String getBrowse() {
+        return browse;
+    }
+
+    public void setBrowse(String browse) {
+        this.browse = browse;
+    }
 
     public String getImg() {
         return img;
@@ -118,5 +134,21 @@ public class ModelOldZixun implements Serializable{
 
     public void setEvevt_type(int evevt_type) {
         this.evevt_type = evevt_type;
+    }
+
+    public String getTop_img() {
+        return top_img;
+    }
+
+    public void setTop_img(String top_img) {
+        this.top_img = top_img;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 }
