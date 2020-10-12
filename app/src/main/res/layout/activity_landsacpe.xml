@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#0156CC"
+    android:layout_height="match_parent">
+<TextView
+    android:layout_width="480px"
+    android:text="2020-10-03 12:44:44"
+    android:textColor="@color/white"
+    android:gravity="center"
+    android:textSize="36px"
+    android:layout_height="33dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64px"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="75px"
+            android:background="@color/default_img_color"
+            android:layout_height="75px"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="养老服务中心管理系统"
+            android:textColor="#FEFEFF"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="55px"
+            android:textSize="60px"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/transparent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginLeft="90px"
+            android:layout_marginRight="90px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="93px"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@color/default_img_color"
+                android:layout_height="600px">
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="27px"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@color/default_img_color"
+                android:layout_height="600px">
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="27px"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@color/default_img_color"
+                android:layout_height="600px">
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="27px"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_height="600px">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/default_img_color"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:layout_marginTop="33px"
+                    android:layout_width="match_parent"
+                    android:background="@color/default_img_color"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
