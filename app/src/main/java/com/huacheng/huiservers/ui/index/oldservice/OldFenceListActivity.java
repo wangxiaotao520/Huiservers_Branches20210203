@@ -59,6 +59,8 @@ public class OldFenceListActivity extends BaseActivity implements AdapterFenceLi
                     if (data!= null && data.size() > 0) {
                         mDatas.clear();
                         mDatas.addAll(data);
+                    }else {
+                        mDatas.clear();
                     }
                     adapterFenceList.notifyDataSetChanged();
                 } else {
@@ -113,16 +115,18 @@ public class OldFenceListActivity extends BaseActivity implements AdapterFenceLi
         Intent intent = new Intent(mContext, FenceDetailActivity.class);
         intent.putExtra("model",mDatas.get(position));
         intent.putExtra("par_uid",par_uid);
-        startActivityForResult(intent,111);
+        startActivityForResult(intent,222);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode==RESULT_OK){
             if (requestCode==111){
                 initData();
+            }else if (requestCode==222){
+                initData();
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
