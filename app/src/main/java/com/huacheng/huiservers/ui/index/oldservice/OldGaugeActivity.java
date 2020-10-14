@@ -156,6 +156,10 @@ public class OldGaugeActivity extends BaseActivity implements CalendarView.OnCal
                             //默认第一条数据
                             tv_type_name.setText(mDatas.get(0).getH());
 
+                        }else {
+                            tv_type_name.setText("0");
+                            mDatas.clear();
+                            mAdapterGauge.notifyDataSetChanged();
                         }
                     } else if (type == 2) {
                         List<ModelOldFootmark> data = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelOldFootmark.class);
@@ -165,6 +169,10 @@ public class OldGaugeActivity extends BaseActivity implements CalendarView.OnCal
                             mAdapterGauge.notifyDataSetChanged();
                             //默认第一条数据
                             tv_type_name.setText(mDatas.get(0).getH() + "/" + mDatas.get(0).getL());
+                        }else {
+                            tv_type_name.setText("0");
+                            mDatas.clear();
+                            mAdapterGauge.notifyDataSetChanged();
                         }
                     } else {
                         mOldFootmark = (ModelOldFootmark) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldFootmark.class);
@@ -175,6 +183,10 @@ public class OldGaugeActivity extends BaseActivity implements CalendarView.OnCal
                                 mAdapterGauge.notifyDataSetChanged();
 
                                 tv_type_name.setText(mOldFootmark.getWDInfo().get(0).getW());
+                            }else {
+                                tv_type_name.setText("0");
+                                mDatas.clear();
+                                mAdapterGauge.notifyDataSetChanged();
                             }
                         }
                     }
