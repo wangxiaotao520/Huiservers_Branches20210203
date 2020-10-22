@@ -45,6 +45,7 @@ import com.huacheng.huiservers.utils.CacheUtils;
 import com.huacheng.huiservers.utils.NoDoubleClickListener;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
@@ -410,9 +411,41 @@ public class SplashActivity extends BaseActivity implements Updateprester.Update
                     startActivity(intent);
                     finish();
                 }else {
-                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                    Intent intent_jpush = getIntent();
+                    if (intent_jpush != null) {
+                        // String type = intent.getStringExtra("type");
+                        String from = intent_jpush.getStringExtra("from");
+                        //推给管理和师傅用这个 1是列表 2是详情 推给慧生活用这个 27是详情
+                        if ("jpush".equals(from)) {
+                            String url_type = intent_jpush.getStringExtra("url_type");
+                            if ("27".equals(url_type)) {//详情
+                                String j_id = intent_jpush.getStringExtra("j_id");
+                                if (!StringUtils.isEmpty(j_id)) {
+                                    Intent it = new Intent();
+                                    it.setClass(SplashActivity.this, HomeActivity.class);
+                                    it.putExtra("id", j_id);
+                                    startActivity(it);
+                                }
+                            }else if ("41".equals(url_type)){
+                                //老人智能设备
+                                String par_uid = intent_jpush.getStringExtra("par_uid");
+                                if (!StringUtils.isEmpty(par_uid)) {
+                                    Intent it = new Intent(SplashActivity.this, HomeActivity.class);
+                                    it.putExtra("par_uid",par_uid+"");
+                                    startActivity(it);
+                                }
+                            }
+                        }else {
+                            Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }else {
+                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
                 }
             }
         },1500);

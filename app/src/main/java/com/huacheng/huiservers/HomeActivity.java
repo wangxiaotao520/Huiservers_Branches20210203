@@ -38,6 +38,7 @@ import com.huacheng.huiservers.ui.fragment.HomeFragmentNew;
 import com.huacheng.huiservers.ui.fragment.MyCenterFrament;
 import com.huacheng.huiservers.ui.fragment.ServiceFragmentCat;
 import com.huacheng.huiservers.ui.fragment.ShopFragment1;
+import com.huacheng.huiservers.ui.index.oldservice.MyWristbandsActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.PermissionUtils;
@@ -418,6 +419,14 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
                         Intent it = new Intent();
                         it.setClass(this, WorkOrderDetailActivity.class);
                         it.putExtra("id", j_id);
+                        startActivity(it);
+                    }
+                }else if ("41".equals(url_type)){
+                    //老人智能设备
+                    String par_uid = intent.getStringExtra("par_uid");
+                    if (!StringUtils.isEmpty(par_uid)) {
+                        Intent it = new Intent(mContext, MyWristbandsActivity.class);
+                        it.putExtra("par_uid",par_uid+"");
                         startActivity(it);
                     }
                 }

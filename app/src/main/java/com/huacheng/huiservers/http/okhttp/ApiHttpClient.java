@@ -14,23 +14,23 @@ public class ApiHttpClient {
 //    public static String API_URL_SHARE = "http://test.hui-shenghuo.cn/";//分享
 //    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
-    //测试new
-    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
-    public static String API_URL = "http://1.71.130.58:8082/";
-    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
-    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
-    //    //测试new
-    public static String IMG_URL = "http://1.71.130.58:8088/";
-    public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
+//    //测试new
+//    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
+//    public static String API_URL = "http://1.71.130.58:8082/";
+//    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
+//    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
+//    //    //测试new
+//    public static String IMG_URL = "http://1.71.130.58:8088/";
+//    public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
 
-////    正式
-//    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
-//    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
-//    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
-//    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service46/";
-//   //  正式
-//    public static String IMG_URL = "http://img.hui-shenghuo.cn/";
-//    public static String IMG_SERVICE_URL = "http://img.hui-shenghuo.cn/";
+//    正式
+    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
+    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
+    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
+    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service46/";
+   //  正式
+    public static String IMG_URL = "http://img.hui-shenghuo.cn/";
+    public static String IMG_SERVICE_URL = "http://img.hui-shenghuo.cn/";
 
 
     public static String TOKEN;

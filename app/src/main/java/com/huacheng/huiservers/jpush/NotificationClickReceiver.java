@@ -57,7 +57,6 @@ public class NotificationClickReceiver extends BroadcastReceiver {
                 //物业工单url_type为27时，判断是否跳工单详情
                 String url_type = jsonObject.getString("url_type");
                 if ("27".equals(url_type)) {
-
                     if (UserSql.getInstance().hasLoginUser()!=null) {//判断是否登录
                         //极光推送 工单处理
                         if (!TextUtils.isEmpty(extras)) {
@@ -108,7 +107,60 @@ public class NotificationClickReceiver extends BroadcastReceiver {
                             context.startActivity(i);
                         }
                     }
-                } else {
+                } else if ("41".equals(url_type)){
+                    if (UserSql.getInstance().hasLoginUser()!=null) {//判断是否登录
+                        //极光推送 工单处理
+                        if (!TextUtils.isEmpty(extras)) {
+                            ModelJpushNotifaction modelJpushNotifaction = (ModelJpushNotifaction) JsonUtil.getInstance().parseJson(extras, ModelJpushNotifaction.class);
+                            if (modelJpushNotifaction != null) {
+
+                                String par_uid = modelJpushNotifaction.getData().getPar_uid();
+
+//                                Intent intent = new Intent(context, WorkOrderDetailActivity.class);
+//                                intent.putExtra("id", work_id);
+//                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                context.startActivity(intent);
+
+                                if (!isRun(context)) {
+                                    Intent intentt = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+                                    intentt.putExtra("from", "jpush");
+                                    intentt.putExtra("type", "1");
+                                    intentt.putExtra("url_type", url_type);   //推给管理和师傅 1是列表 2是详情 推给慧生活用这个 27是详情
+
+                                    intentt.putExtra("par_uid", par_uid);
+                                    intentt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(intentt);
+                                } else {
+                                    i = new Intent(context, HomeActivity.class);
+                                    i.putExtra("from", "jpush");
+                                    i.putExtra("type", "1");
+                                    i.putExtra("url_type", url_type);
+
+                                    i.putExtra("par_uid", par_uid);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(i);
+                                }
+
+                            }
+                        }
+
+                    } else {
+                        //没登录就让它跳到首页算求
+                        if (!isRun(context)) {
+                            Intent intentt = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+                            intentt.putExtra("from", "");
+                            intentt.putExtra("type", "");
+                            intentt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intentt);
+                        } else {
+                            i = new Intent(context, HomeActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(i);
+                        }
+                    }
+
+
+                }else {
                     String url_link = jsonObject.getString("url_link");
                     if (!TextUtils.isEmpty(url_type) && !TextUtils.isEmpty(url_link)) {
                         new Jump(context, url_type, url_link, "", "");

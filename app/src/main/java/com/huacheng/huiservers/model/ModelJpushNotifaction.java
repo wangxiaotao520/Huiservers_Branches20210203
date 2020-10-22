@@ -12,7 +12,11 @@ public class ModelJpushNotifaction implements Serializable {
     String url_type;
     String msg;
     ModelJpushNotifaction data;
+
     String id;
+
+
+    String par_uid; //老人定位用
     private String sound_type;
 
     public String getSound_type() {
@@ -53,5 +57,14 @@ public class ModelJpushNotifaction implements Serializable {
 
     public void setData(ModelJpushNotifaction data) {
         this.data = data;
+    }
+
+
+    public String getPar_uid() {
+        return par_uid;
+    }
+
+    public void setPar_uid(String par_uid) {
+        this.par_uid = par_uid;
     }
 }
