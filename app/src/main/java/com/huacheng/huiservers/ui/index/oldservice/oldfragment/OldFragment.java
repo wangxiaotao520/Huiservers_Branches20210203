@@ -67,7 +67,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
 
     private TextView title_name;
     View mStatusBar;
-    private String[] mTitles = {"资讯","活动"};
+    String[] mTitles=new String[]{"资讯","活动"};
     EnhanceTabLayout mEnhanceTabLayout;
     ViewPager mViewPager;
     private SmartRefreshLayout refreshLayout;
@@ -93,10 +93,10 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     private TextView tv_change_person;  //切换长者
     private LinearLayout ll_change_person;
 
-    private String par_uid= "";
-    private String par_uid_param= "";  //请求 par_uid_param
+    private String par_uid = "";
+    private String par_uid_param = "";  //请求 par_uid_param
 
-    private boolean isEventCallback=false;//登录  认证  切换老人
+    private boolean isEventCallback = false;//登录  认证  切换老人
     private boolean is_Refresh = false;  //是否是刷新
     private int type;  //认证状态
     private int p_type;  //是否是老干局的老人
@@ -114,11 +114,11 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initView(View view) {
         //状态栏
-        mStatusBar=view.findViewById(R.id.status_bar);
+        mStatusBar = view.findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mActivity)));
-        mStatusBar.setAlpha((float)1);
-        lin_left =view.findViewById(R.id.lin_left);
-        lin_left .setVisibility(View.VISIBLE);
+        mStatusBar.setAlpha((float) 1);
+        lin_left = view.findViewById(R.id.lin_left);
+        lin_left.setVisibility(View.VISIBLE);
         title_name = view.findViewById(R.id.title_name);
         title_name.setText("居家养老");
 
@@ -130,22 +130,35 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         initHeader(view);
 
         mEnhanceTabLayout = view.findViewById(R.id.enhance_tab_layout);
-        mViewPager =view. findViewById(R.id.vp_pager);
-        for(int i=0;i<mTitles.length;i++){
-            mEnhanceTabLayout.addTab(mTitles[i]);
-        }
+        mViewPager = view.findViewById(R.id.vp_pager);
 
-        iv_investigate=view.findViewById(R.id.iv_investigate);
+
+        iv_investigate = view.findViewById(R.id.iv_investigate);
 
         iv_investigate.setVisibility(View.GONE);
-      //  initTabAndViewPager();
+        //  initTabAndViewPager();
     }
 
     private void initTabAndViewPager() {
+        if (modelOldIndexTop != null) {
+            if (modelOldIndexTop.getType()==0){
+                mTitles = new String[]{"资讯", "活动"};
+            }else {
+                if (modelOldIndexTop.getP_type() == 1) {
+                    //老干局老人
+                    mTitles = new String[]{"公告", "活动"};
+                } else {
+                    mTitles = new String[]{"资讯", "活动"};
+                }
+            }
+        }
+        for (int i = 0; i < mTitles.length; i++) {
+            mEnhanceTabLayout.addTab(mTitles[i]);
+        }
         FragmentOldArticle fragmentOldArticle = new FragmentOldArticle();
         Bundle bundle = new Bundle();
         bundle.putString("par_uid", par_uid);
-        if (modelOldIndexTop!=null){
+        if (modelOldIndexTop != null) {
             bundle.putInt("type", modelOldIndexTop.getType());
             bundle.putInt("p_type", modelOldIndexTop.getP_type());
         }
@@ -153,12 +166,12 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         //初始化数据
         mFragments.add(fragmentOldArticle);
 
-        FragmentOldHuodong fragmentOldHuodong =  new FragmentOldHuodong();
+        FragmentOldHuodong fragmentOldHuodong = new FragmentOldHuodong();
         Bundle bundle1 = new Bundle();
         bundle1.putString("par_uid", par_uid);
         //传递o_company_id
-        if (modelOldIndexTop!=null&&!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id())){
-            bundle1.putString("o_company_id", modelOldIndexTop.getO_company_id()+"");
+        if (modelOldIndexTop != null && !NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id())) {
+            bundle1.putString("o_company_id", modelOldIndexTop.getO_company_id() + "");
         }
         fragmentOldHuodong.setArguments(bundle1);
         mFragments.add(fragmentOldHuodong);
@@ -237,12 +250,12 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 verticalOffset = Math.abs(verticalOffset);
-                if (verticalOffset==0){
-                    if (refreshLayout!=null){
+                if (verticalOffset == 0) {
+                    if (refreshLayout != null) {
                         refreshLayout.setEnableRefresh(true);
                     }
-                }else {
-                    if (refreshLayout!=null){
+                } else {
+                    if (refreshLayout != null) {
                         refreshLayout.setEnableRefresh(false);
                     }
                 }
@@ -251,7 +264,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         mEnhanceTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition()<mFragments.size()){
+                if (tab.getPosition() < mFragments.size()) {
                     //在这里传入参数
                     FragmentOldCommonImp fragmentCommon = (FragmentOldCommonImp) mFragments.get(tab.getPosition());
                     currentFragment = fragmentCommon;
@@ -278,25 +291,25 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                if (LoginUtils.hasLoginUser()){
+                if (LoginUtils.hasLoginUser()) {
                     //登录时刷新访问
-                    is_Refresh=true;
+                    is_Refresh = true;
                     requestTopIndex();
-                }else {
-                   //不登录时
+                } else {
+                    //不登录时
                     for (int i = 0; i < mFragments.size(); i++) {
                         mFragments.get(i).setInit(false);
                     }
-                    if (currentFragment!=null){
+                    if (currentFragment != null) {
                         currentFragment.refreshIndeed(par_uid);//当前页直接刷新 不显示smalldialog
                     }
-                    is_Refresh= false;
+                    is_Refresh = false;
                     new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             OldFragment.this.refreshLayout.finishRefresh();
                         }
-                    },1000);
+                    }, 1000);
                 }
             }
         });
@@ -305,19 +318,19 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
             public void onClick(View v) {
                 // 问卷调查
                 Intent intent = new Intent(mContext, OldInvestiagateActivity.class);
-                intent.putExtra("model",modelOldIndexTop);
-                intent.putExtra("par_uid",par_uid);
-                startActivityForResult(intent,222);
+                intent.putExtra("model", modelOldIndexTop);
+                intent.putExtra("par_uid", par_uid);
+                startActivityForResult(intent, 222);
             }
         });
     }
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        if (!LoginUtils.hasLoginUser()){
+        if (!LoginUtils.hasLoginUser()) {
             //1.没登录 不访问接口
             initTabAndViewPager();
-        }else {
+        } else {
             //2.登录了访问首页上方接口
             //3.type 除0之外 数据都是有值的
             showDialog(smallDialog);
@@ -326,28 +339,28 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void requestInvestigatePermmision() {
-        if (NullUtil.isStringEmpty(modelOldIndexTop.getOld_id())){
+        if (NullUtil.isStringEmpty(modelOldIndexTop.getOld_id())) {
             return;
         }
-        if ("0".equals(modelOldIndexTop.getOld_id())){
+        if ("0".equals(modelOldIndexTop.getOld_id())) {
             return;
         }
         HashMap<String, String> params = new HashMap<>();
         params.put("old_id", modelOldIndexTop.getOld_id() + "");
-        params.put("o_company_id", modelOldIndexTop.getO_company_id()+"");
-        MyOkHttp.get().post( ApiHttpClient.OLD_QUESTION_PERMISION, params, new JsonResponseHandler() {
+        params.put("o_company_id", modelOldIndexTop.getO_company_id() + "");
+        MyOkHttp.get().post(ApiHttpClient.OLD_QUESTION_PERMISION, params, new JsonResponseHandler() {
 
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                 //   SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"成功"));
+                    //   SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"成功"));
                     try {
                         JSONObject data = response.getJSONObject("data");
                         String status = data.getString("status");
-                        if ("1".equals(status)){
+                        if ("1".equals(status)) {
                             iv_investigate.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             iv_investigate.setVisibility(View.GONE);
                         }
                     } catch (JSONException e) {
@@ -356,7 +369,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
 
 
                 } else {
-                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败"));
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败"));
                 }
             }
 
@@ -370,7 +383,7 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
 
     private void requestTopIndex() {
         HashMap<String, String> params = new HashMap<>();
-        if (!NullUtil.isStringEmpty(par_uid_param)){
+        if (!NullUtil.isStringEmpty(par_uid_param)) {
             params.put("par_uid", par_uid_param + "");
         }
 
@@ -381,10 +394,10 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                 refreshLayout.finishRefresh();
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     modelOldIndexTop = (ModelOldIndexTop) JsonUtil.getInstance().parseJsonFromResponse(response, ModelOldIndexTop.class);
-                    if (modelOldIndexTop !=null) {
+                    if (modelOldIndexTop != null) {
                         type = modelOldIndexTop.getType();
                         p_type = modelOldIndexTop.getP_type();
-                        if (0== type){
+                        if (0 == type) {
                             //没有认证
                             rl_title_container.setBackgroundResource(R.mipmap.bg_old_orange);
                             ll_change_person.setBackgroundResource(R.drawable.all_shape_round_shadow_left_orange);
@@ -393,103 +406,122 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
                             ll_age_address.setVisibility(View.GONE);
                             tv_name.setText("暂未认证");
                             tv_change_person.setText("立即认证");
-                            par_uid= "";
+                            par_uid = "";
                             sdv_head.setImageResource(R.drawable.ic_default_head);
-                        }else if(1== type){
+
+                            mTitles = new String[]{"资讯", "活动"};
+
+                        } else if (1 == type) {
+                            if (p_type == 1) {
+                                //老干局老人
+                                mTitles = new String[]{"公告", "活动"};
+                            } else {
+                                mTitles = new String[]{"资讯", "活动"};
+                            }
                             //1.老人认证
                             rl_title_container.setBackgroundResource(R.mipmap.bg_old_red);
                             ll_change_person.setBackgroundResource(R.drawable.all_shape_round_shadow_left_red);
                             iv_sex.setVisibility(View.VISIBLE);
                             tv_dad_mom.setVisibility(View.GONE);
                             ll_age_address.setVisibility(View.VISIBLE);
-                            tv_name.setText(""+ modelOldIndexTop.getName()+"");
-                            iv_sex.setBackgroundResource("1".equals(modelOldIndexTop.getSex())?R.mipmap.ic_man_white:R.mipmap.ic_woman_white); //性别
-                            tv_age.setText("年龄  "+ modelOldIndexTop.getBirthday());
-                            tv_address.setText(modelOldIndexTop.getI_name()+"");
+                            tv_name.setText("" + modelOldIndexTop.getName() + "");
+                            iv_sex.setBackgroundResource("1".equals(modelOldIndexTop.getSex()) ? R.mipmap.ic_man_white : R.mipmap.ic_woman_white); //性别
+                            tv_age.setText("年龄  " + modelOldIndexTop.getBirthday());
+                            tv_address.setText(modelOldIndexTop.getI_name() + "");
                             tv_change_person.setText("关联子女");
-                            par_uid= modelOldIndexTop.getPar_uid()+"";
+                            par_uid = modelOldIndexTop.getPar_uid() + "";
                             // 头像
-                         //   FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
+                            //   FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
                             if (NullUtil.isStringEmpty(StringUtils.getImgUrl(modelOldIndexTop.getPhoto()))) {
                                 sdv_head.setImageResource(R.drawable.ic_default_head);
-                            }else {
-                                FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(modelOldIndexTop.getPhoto()+""));
+                            } else {
+                                FrescoUtils.getInstance().setImageUri(sdv_head, StringUtils.getImgUrl(modelOldIndexTop.getPhoto() + ""));
                             }
-                            iv_vip.setVisibility("1".equals(modelOldIndexTop.getIs_vip())?View.VISIBLE:View.GONE);
-                        }else if (2== type){
+                            iv_vip.setVisibility("1".equals(modelOldIndexTop.getIs_vip()) ? View.VISIBLE : View.GONE);
+                        } else if (2 == type) {
                             //2.子女认证
                             rl_title_container.setBackgroundResource(R.mipmap.bg_old_blue);
                             ll_change_person.setBackgroundResource(R.drawable.all_shape_round_shadow_left_blue);
                             iv_sex.setVisibility(View.VISIBLE);
                             tv_dad_mom.setVisibility(View.VISIBLE);
                             ll_age_address.setVisibility(View.VISIBLE);
-                            tv_name.setText(""+ modelOldIndexTop.getName()+"");
-                            iv_sex.setBackgroundResource("1".equals(modelOldIndexTop.getSex())?R.mipmap.ic_man_white:R.mipmap.ic_woman_white); //性别
-                            tv_age.setText("年龄  "+ modelOldIndexTop.getBirthday());
-                            tv_address.setText(modelOldIndexTop.getI_name()+"");
+                            tv_name.setText("" + modelOldIndexTop.getName() + "");
+                            iv_sex.setBackgroundResource("1".equals(modelOldIndexTop.getSex()) ? R.mipmap.ic_man_white : R.mipmap.ic_woman_white); //性别
+                            tv_age.setText("年龄  " + modelOldIndexTop.getBirthday());
+                            tv_address.setText(modelOldIndexTop.getI_name() + "");
                             tv_dad_mom.setText(modelOldIndexTop.getCall());
                             tv_change_person.setText("切换长者");
-                            par_uid= modelOldIndexTop.getPar_uid()+"";
-                            iv_vip.setVisibility("1".equals(modelOldIndexTop.getIs_vip())?View.VISIBLE:View.GONE);
+                            par_uid = modelOldIndexTop.getPar_uid() + "";
+                            iv_vip.setVisibility("1".equals(modelOldIndexTop.getIs_vip()) ? View.VISIBLE : View.GONE);
                             // 头像
-                         //   FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
+                            //   FrescoUtils.getInstance().setImageUri(sdv_head,ApiHttpClient.IMG_URL+ modelOldIndexTop.getPhoto()+"");
                             if (NullUtil.isStringEmpty(StringUtils.getImgUrl(modelOldIndexTop.getPhoto()))) {
                                 sdv_head.setImageResource(R.drawable.ic_default_head);
-                            }else {
-                                FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(modelOldIndexTop.getPhoto()+""));
+                            } else {
+                                FrescoUtils.getInstance().setImageUri(sdv_head, StringUtils.getImgUrl(modelOldIndexTop.getPhoto() + ""));
                             }
-
+                            mTitles = new String[]{"资讯", "活动"};
                         }
                         //刷新
-                        if (is_Refresh){
+                        if (is_Refresh) {
                             //如果是刷新 或者从登录页返回
                             //刷新
                             //表明切换的时候要刷新
 
-                            is_Refresh= false;
+                            is_Refresh = false;
                             // 这里记得下一新版本的时候就不是第二个了
-                            if (mFragments.size()>0){
+                            if (mFragments.size() > 0) {
+//
+                                mEnhanceTabLayout.getTabLayout().removeAllTabs();
+                                for (int i = 0; i < mTitles.length; i++) {
+                                    mEnhanceTabLayout.addTab(mTitles[i]);
+                                }
                                 if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
-                                    ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
+                                    ((FragmentOldHuodong) mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
 
-                                ((FragmentOldArticle)mFragments.get(0)).setP_type(modelOldIndexTop.getP_type());
-                                ((FragmentOldArticle)mFragments.get(0)).setType(modelOldIndexTop.getType());
-                                ((FragmentOldArticle)mFragments.get(0)).setPar_uid(par_uid);
+                                ((FragmentOldArticle) mFragments.get(0)).setP_type(modelOldIndexTop.getP_type());
+                                ((FragmentOldArticle) mFragments.get(0)).setType(modelOldIndexTop.getType());
+                                ((FragmentOldArticle) mFragments.get(0)).setPar_uid(par_uid);
                                 for (int i = 0; i < mFragments.size(); i++) {
                                     mFragments.get(i).setInit(false);
                                 }
-                                if (currentFragment!=null){
+                                if (currentFragment != null) {
                                     currentFragment.refreshIndeed(par_uid);//当前页直接刷新 不显示smalldialog
                                 }
-                            }else {
+                            } else {
                                 initTabAndViewPager();
                             }
 
-                        }else  if (isEventCallback){//从别的页返回  认证  切换老人
-                            isEventCallback=false;
+                        } else if (isEventCallback) {//从别的页返回  认证  切换老人
+                            isEventCallback = false;
                             // 这里记得下一新版本的时候就不是第二个了
-                            if (mFragments.size()>0){
-                                if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
-                                    ((FragmentOldHuodong)mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
+                            if (mFragments.size() > 0) {
 
-                                ((FragmentOldArticle)mFragments.get(0)).setP_type(modelOldIndexTop.getP_type());
-                                ((FragmentOldArticle)mFragments.get(0)).setType(modelOldIndexTop.getType());
-                                ((FragmentOldArticle)mFragments.get(0)).setPar_uid(par_uid);
+                                mEnhanceTabLayout.getTabLayout().removeAllTabs();
+                                for (int i = 0; i < mTitles.length; i++) {
+                                    mEnhanceTabLayout.addTab(mTitles[i]);
+                                }
+                                if (!NullUtil.isStringEmpty(modelOldIndexTop.getO_company_id()))
+                                    ((FragmentOldHuodong) mFragments.get(1)).setO_company_id(modelOldIndexTop.getO_company_id());
+
+                                ((FragmentOldArticle) mFragments.get(0)).setP_type(modelOldIndexTop.getP_type());
+                                ((FragmentOldArticle) mFragments.get(0)).setType(modelOldIndexTop.getType());
+                                ((FragmentOldArticle) mFragments.get(0)).setPar_uid(par_uid);
                                 for (int i = 0; i < mFragments.size(); i++) {
                                     mFragments.get(i).setInit(false);
                                 }
-                                if (currentFragment!=null){
+                                if (currentFragment != null) {
                                     currentFragment.refreshIndeed(par_uid);//当前页直接刷新 不显示smalldialog
                                 }
-                            }else {
+                            } else {
                                 initTabAndViewPager();
                             }
-                        }else {
+                        } else {
                             //第一次进来
                             initTabAndViewPager();
                         }
                         requestInvestigatePermmision();
-                    }else {
+                    } else {
                         SmartToast.showInfo("数据解析异常");
                     }
 
@@ -523,46 +555,46 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
         //没有登录的时候先登录
         if (!LoginUtils.hasLoginUser()) {
             startActivity(new Intent(mActivity, LoginVerifyCodeActivity.class));
-        }else if (type==0){//没有认证
-            Intent intent = new Intent(mActivity,  AddOldRZUserActivity.class);
+        } else if (type == 0) {//没有认证
+            Intent intent = new Intent(mActivity, AddOldRZUserActivity.class);
             startActivity(intent);
-        }else {
-            if (modelOldIndexTop==null){
+        } else {
+            if (modelOldIndexTop == null) {
                 return;
             }
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.rl_healthy:
-                    Intent intent_oldfile=  new Intent(mActivity, OldFileActivity.class);
-                    intent_oldfile.putExtra("model",modelOldIndexTop);
+                    Intent intent_oldfile = new Intent(mActivity, OldFileActivity.class);
+                    intent_oldfile.putExtra("model", modelOldIndexTop);
                     startActivity(intent_oldfile);
                     break;
                 case R.id.rl_data:
                     Intent intent1 = new Intent(mActivity, OldHardwareActivity.class);
-                    intent1.putExtra("model",modelOldIndexTop);
+                    intent1.putExtra("model", modelOldIndexTop);
                     startActivity(intent1);
                     break;
                 case R.id.rl_warm:
-                    Intent intent_warm=  new Intent(mActivity, OldServiceWarmActivity.class);
-                    intent_warm.putExtra("model",modelOldIndexTop);
+                    Intent intent_warm = new Intent(mActivity, OldServiceWarmActivity.class);
+                    intent_warm.putExtra("model", modelOldIndexTop);
                     startActivity(intent_warm);
                     break;
                 case R.id.rl_medicine:
-                    Intent intent_medicine=  new Intent(mActivity, CalendarViewActivity.class);
-                    intent_medicine.putExtra("model",modelOldIndexTop);
+                    Intent intent_medicine = new Intent(mActivity, CalendarViewActivity.class);
+                    intent_medicine.putExtra("model", modelOldIndexTop);
                     startActivity(intent_medicine);
                     break;
                 case R.id.ll_change_person:
-                    if (type==0){//立即认证
-                        Intent intent = new Intent(mActivity,  AddOldRZUserActivity.class);
+                    if (type == 0) {//立即认证
+                        Intent intent = new Intent(mActivity, AddOldRZUserActivity.class);
                         startActivity(intent);
-                    }else if (type==1){ //老人 关联子女列表
+                    } else if (type == 1) { //老人 关联子女列表
                         Intent intent = new Intent(mActivity, OldUserActivity.class);
-                        intent.putExtra("type",type);
-                        startActivityForResult(intent,111);
-                    }else if (type==2){//子女 关联老人列表
+                        intent.putExtra("type", type);
+                        startActivityForResult(intent, 111);
+                    } else if (type == 2) {//子女 关联老人列表
                         Intent intent = new Intent(mActivity, OldUserActivity.class);
-                        intent.putExtra("type",type);
-                        startActivityForResult(intent,111);
+                        intent.putExtra("type", type);
+                        startActivityForResult(intent, 111);
                     }
                     break;
                 default:
@@ -580,11 +612,12 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ModelLogin model) {
         if (model != null) {
-            isEventCallback=true;
+            isEventCallback = true;
             showDialog(smallDialog);
             requestTopIndex();
         }
     }
+
     /**
      * 老人认证返回
      *
@@ -593,13 +626,13 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ModelEventOld model) {
         if (model != null) {
-            if (model.getEvent_type()==1){
+            if (model.getEvent_type() == 1) {
                 //删除返回要清空
-                this.par_uid_param ="";
-            }else {
+                this.par_uid_param = "";
+            } else {
 
             }
-            isEventCallback=true;
+            isEventCallback = true;
             showDialog(smallDialog);
             requestTopIndex();
         }
@@ -615,18 +648,18 @@ public class OldFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ( resultCode == RESULT_OK){
-            if (requestCode==111){
-                if (data!=null){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 111) {
+                if (data != null) {
                     //切换老人返回
                     String par_uid = data.getStringExtra("par_uid");
-                    this.par_uid_param =par_uid;
-                    isEventCallback=true;
+                    this.par_uid_param = par_uid;
+                    isEventCallback = true;
                     showDialog(smallDialog);
                     requestTopIndex();
                 }
-            }else if (requestCode==222){
-               requestInvestigatePermmision();
+            } else if (requestCode == 222) {
+                requestInvestigatePermmision();
             }
         }
     }

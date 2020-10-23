@@ -40,7 +40,6 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void initView() {
         findTitleViews();
-        titleName.setText("资讯详情");
 
         mTvName = findViewById(R.id.tv_title);
         tv_person_addtime = findViewById(R.id.tv_person_addtime);
@@ -48,6 +47,16 @@ public class ZXDetailActivity extends BaseActivity implements View.OnClickListen
         tv_fav = findViewById(R.id.tv_fav);
         tv_read_count = findViewById(R.id.tv_read_count);
         tv_company = findViewById(R.id.tv_company);
+        if (type == 0) {
+            titleName.setText("资讯详情");
+        } else {
+            if (p_type == 1) {
+                titleName.setText("公告详情");
+
+            } else {
+                titleName.setText("资讯详情");
+            }
+        }
     }
 
     @Override
