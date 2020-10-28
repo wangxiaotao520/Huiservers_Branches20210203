@@ -36,6 +36,7 @@ import com.huacheng.huiservers.ui.fragment.presenter.PropertyPrester;
 import com.huacheng.huiservers.ui.index.charge.ChargeScanActivity;
 import com.huacheng.huiservers.ui.index.huodong.EducationActivity;
 import com.huacheng.huiservers.ui.index.huodong.EducationListActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldHardwareActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldServiceIndexActivity;
 import com.huacheng.huiservers.ui.index.party.CommunistPartyIndexActivity;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
@@ -566,6 +567,12 @@ public class Jump {
                 intent.putExtra("store_id", id);
                 mContext.startActivity(intent);
 
+            }else if (type.equals("41")) {
+                //智能硬件
+                Intent intent1 = new Intent(mContext, OldHardwareActivity.class);
+                intent1.putExtra("jump_type",1);
+                mContext.startActivity(intent1);
+
             }
         } else {
             if (type.equals("30")) {//活动投票
@@ -685,6 +692,12 @@ public class Jump {
                 //社区党建
                 Intent intent = new Intent(mContext, CommunistPartyIndexActivity.class);
                 mContext.startActivity(intent);
+
+            }else if (type.equals("41")) {
+                //智能硬件
+                Intent intent1 = new Intent(mContext, OldHardwareActivity.class);
+                intent1.putExtra("jump_type",1);
+                mContext.startActivity(intent1);
 
             }
         }

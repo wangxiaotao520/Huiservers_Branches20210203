@@ -27,6 +27,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelFenceList;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -59,6 +60,7 @@ public class FenceDetailActivity extends BaseActivity implements View.OnClickLis
     private LatLng latLng;
     private Marker localMark;
     private String par_uid="";
+    private int jump_type = 0;
 
     @Override
     protected void initView() {
@@ -84,6 +86,7 @@ public class FenceDetailActivity extends BaseActivity implements View.OnClickLis
     protected void initIntentData() {
         modelFenceList = (ModelFenceList) getIntent().getSerializableExtra("model");
         par_uid=getIntent().getStringExtra("par_uid");
+        jump_type=getIntent().getIntExtra("jump_type",0);
     }
 
     @Override
@@ -216,9 +219,17 @@ public class FenceDetailActivity extends BaseActivity implements View.OnClickLis
 
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid",par_uid);
+        String url = "";
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid", par_uid + "");
+        }
+        if (jump_type==0){
+            url=ApiHttpClient.DEL_ENCLOSURE;
+        }else {
+            url= ApiHttpClient.DEL_ENCLOSURE1;
+        }
         params.put("e_id",modelFenceList.getId()+"");
-        MyOkHttp.get().post( ApiHttpClient.DEL_ENCLOSURE, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(url , params, new JsonResponseHandler() {
 
 
             @Override

@@ -36,6 +36,7 @@ public class OldHardwareActivity  extends BaseActivity{
     private ModelHandWrist modelHandWrist;
     private ModelOldIndexTop modelOldIndexTop;
     private int status = 0;
+    private int jump_type = 0;
 
     @Override
     protected void initView() {
@@ -54,10 +55,16 @@ public class OldHardwareActivity  extends BaseActivity{
     @Override
     protected void initData() {
         showDialog(smallDialog);
+        String url = "";
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid",modelOldIndexTop.getPar_uid());
-        MyOkHttp.get().post( ApiHttpClient.GET_HANRDWARE_INFO, params, new JsonResponseHandler() {
+        if (jump_type==0){
+            url=ApiHttpClient.GET_HANRDWARE_INFO;
+            params.put("par_uid",modelOldIndexTop.getPar_uid());
+        }else {
+            url=ApiHttpClient.GET_HANRDWARE_INFO1;
+        }
 
+        MyOkHttp.get().post( url, params, new JsonResponseHandler() {
 
 
             @Override
@@ -94,20 +101,29 @@ public class OldHardwareActivity  extends BaseActivity{
                         if (!NullUtil.isStringEmpty(modelHandWrist.getFzdIMEI())){
                             //有值说明已绑定
                             Intent intent = new Intent(mContext, MyWristbandsActivity.class);
-                            intent.putExtra("par_uid",modelOldIndexTop.getPar_uid()+"");
+                            if (modelOldIndexTop!=null){
+                                intent.putExtra("par_uid",modelOldIndexTop.getPar_uid()+"");
+                            }
+                            intent.putExtra("jump_type",jump_type);
                             startActivity(intent);
                             finish();
                         }else {
                             //没值进入绑定页面
                             Intent intent = new Intent(mContext, OldHandWristBindActivity.class);
-                            intent.putExtra("par_uid",modelOldIndexTop.getPar_uid()+"");
+                            if (modelOldIndexTop!=null){
+                                intent.putExtra("par_uid",modelOldIndexTop.getPar_uid()+"");
+                            }
+                            intent.putExtra("jump_type",jump_type);
                             startActivity(intent);
                             finish();
                         }
                     } else {
                         //没值进入绑定页面
                         Intent intent = new Intent(mContext, OldHandWristBindActivity.class);
-                        intent.putExtra("par_uid",modelOldIndexTop.getPar_uid()+"");
+                        if (modelOldIndexTop!=null){
+                            intent.putExtra("par_uid",modelOldIndexTop.getPar_uid()+"");
+                        }
+                        intent.putExtra("jump_type",jump_type);
                         startActivity(intent);
                         finish();
                     }
@@ -124,6 +140,7 @@ public class OldHardwareActivity  extends BaseActivity{
     @Override
     protected void initIntentData() {
         modelOldIndexTop= (ModelOldIndexTop) getIntent().getSerializableExtra("model");
+        jump_type=getIntent().getIntExtra("jump_type",0);
     }
 
     @Override

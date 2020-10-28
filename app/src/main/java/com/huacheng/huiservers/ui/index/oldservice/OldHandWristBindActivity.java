@@ -1,6 +1,8 @@
 package com.huacheng.huiservers.ui.index.oldservice;
 
+import android.Manifest;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -9,13 +11,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.scan.CustomCaptureActivity;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.json.JSONObject;
 
@@ -23,6 +30,7 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 /**
  * Description: 手环绑定页面
@@ -50,10 +58,14 @@ public class OldHandWristBindActivity extends BaseActivity {
     LinearLayout lyOldSIM;
     @BindView(R.id.tv_comfirm)
     TextView tvComfirm;
+    @BindView(R.id.tv_scan)
+    TextView tvScan;
     private String fzdType= "1";//1->DS-68BWS双键手环 2->E10手表
     private String fzdIMEI="";
     private String fzdSIM="";
     private String par_uid="";
+    private int jump_type = 0;
+
 
     @Override
     protected void initView() {
@@ -98,16 +110,55 @@ public class OldHandWristBindActivity extends BaseActivity {
                 }
             }
         });
+
+        tvScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //扫描条形码
+                scan();
+            }
+        });
+    }
+
+    /**
+     * 扫描条形码
+     */
+    private void scan() {
+        new RxPermissions(this).request(Manifest.permission.CAMERA)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean isGranted) throws Exception {
+                        if (isGranted) {
+                            IntentIntegrator intentIntegrator = new IntentIntegrator(OldHandWristBindActivity.this)
+                                    .setOrientationLocked(false);
+                            intentIntegrator.setCaptureActivity(CustomCaptureActivity.class);
+                        /*intentIntegrator.setPrompt("将服务师傅的二维码放入框内\n" +
+                            "即可扫描付款");*/
+                            // 设置自定义的activity是ScanActivity
+                            intentIntegrator.initiateScan(); // 初始化扫描
+                        } else {
+
+                        }
+                    }
+                });
     }
 
     private void commit() {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid",par_uid+"");
+        String url = "";
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid",par_uid+"");
+        }
+        if (jump_type==0){
+            url=ApiHttpClient.HANRDWARE_BINDING;
+        }else {
+            url=ApiHttpClient.HANRDWARE_BINDING1;
+        }
         params.put("fzdType",fzdType+"");
         params.put("fzdIMEI",fzdIMEI+"");
         params.put("fzdSIM",fzdSIM+"");
-        MyOkHttp.get().post( ApiHttpClient.HANRDWARE_BINDING, params, new JsonResponseHandler() {
+        MyOkHttp.get().post( url, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -116,7 +167,10 @@ public class OldHandWristBindActivity extends BaseActivity {
                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"操作成功"));
                     //到时候返回par_uid
                     Intent intent = new Intent(mContext, MyWristbandsActivity.class);
-                    intent.putExtra("par_uid",par_uid+"");
+                    if (!NullUtil.isStringEmpty(par_uid)){
+                        intent.putExtra("par_uid",par_uid+"");
+                    }
+                    intent.putExtra("jump_type",jump_type);
                     startActivity(intent);
                    finish();
 
@@ -155,6 +209,7 @@ public class OldHandWristBindActivity extends BaseActivity {
     @Override
     protected void initIntentData() {
          par_uid = getIntent().getStringExtra("par_uid");
+        jump_type=getIntent().getIntExtra("jump_type",0);
     }
 
     @Override
@@ -167,4 +222,46 @@ public class OldHandWristBindActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 49374) {//二维码扫描返回（自己打断点试出来的）
+                IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+                if (intentResult != null) {
+                    if (intentResult.getContents() == null) {
+                        SmartToast.showInfo("内容为空");
+                    } else {
+                        String ScanResult = intentResult.getContents();
+
+                        if (!StringUtils.isEmpty(ScanResult)) {
+                            if (isNumeric(ScanResult)) {
+                                etID.setText(ScanResult+"");
+                                etID.setSelection(ScanResult.length());
+                            }
+                        }
+
+                    }
+                }
+            } else {
+
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public  boolean isNumeric(String str){
+
+        for (int i = str.length();--i>=0;){
+
+            if (!Character.isDigit(str.charAt(i))){
+
+                return false;
+
+            }
+
+        }
+
+        return true;
+
+    }
 }

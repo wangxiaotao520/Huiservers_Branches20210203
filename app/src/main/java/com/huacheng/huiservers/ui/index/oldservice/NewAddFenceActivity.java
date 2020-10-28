@@ -96,6 +96,7 @@ public class NewAddFenceActivity extends BaseActivity implements AMapLocationLis
     String title;
     private String[] radius_str = new String[]{};
     private String par_uid="";
+    private int jump_type = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,13 +139,21 @@ public class NewAddFenceActivity extends BaseActivity implements AMapLocationLis
     private void requestDataCommit() {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid",par_uid);
+        String url = "";
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid", par_uid + "");
+        }
+        if (jump_type==0){
+            url= ApiHttpClient.SET_ENCLOSURE;
+        }else {
+            url= ApiHttpClient.SET_ENCLOSURE1;
+        }
         params.put("title",title);
         params.put("address",newAddress);
         params.put("lon",latLng.longitude+"");
         params.put("lat",latLng.latitude+"");
         params.put("radius",radius+"");
-        MyOkHttp.get().post( ApiHttpClient.SET_ENCLOSURE, params, new JsonResponseHandler() {
+        MyOkHttp.get().post( url, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -304,6 +313,7 @@ public class NewAddFenceActivity extends BaseActivity implements AMapLocationLis
     @Override
     protected void initIntentData() {
         par_uid=getIntent().getStringExtra("par_uid");
+        jump_type=getIntent().getIntExtra("jump_type",0);
     }
 
     @Override

@@ -15,22 +15,22 @@ public class ApiHttpClient {
 //    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
 //    //测试new
-//    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
-//    public static String API_URL = "http://1.71.130.58:8082/";
-//    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
-//    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
-//    //    //测试new
-//    public static String IMG_URL = "http://1.71.130.58:8088/";
-//    public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
+    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
+    public static String API_URL = "http://1.71.130.58:8082/";
+    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
+    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
+    //    //测试new
+    public static String IMG_URL = "http://1.71.130.58:8088/";
+    public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
 
 //    正式
-    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
-    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
-    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
-    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service46/";
-   //  正式
-    public static String IMG_URL = "http://img.hui-shenghuo.cn/";
-    public static String IMG_SERVICE_URL = "http://img.hui-shenghuo.cn/";
+//    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
+//    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
+//    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
+//    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service46/";
+//   //  正式
+//    public static String IMG_URL = "http://img.hui-shenghuo.cn/";
+//    public static String IMG_SERVICE_URL = "http://img.hui-shenghuo.cn/";
 
 
     public static String TOKEN;
@@ -427,6 +427,45 @@ public class ApiHttpClient {
     //老干局公告详情
     public static String OLD_NEW_ZIXUN_DETAIL= API_URL+ API_VERSION + "/pension/informationdetails";
 
+
+ //老人智能硬件列表信息(社区慧生活)
+ public static String GET_HANRDWARE_INFO1 = API_URL+ API_VERSION + "/Fzd/hardwareInfo";
+ //老人绑定(社区慧生活)
+ public static String HANRDWARE_BINDING1 = API_URL+ API_VERSION + "/Fzd/binding";
+ //老人解除绑定(社区慧生活)
+ public static String HANRDWARE_UNBINDING1 = API_URL+ API_VERSION + "/Fzd/RemoveBinding ";
+ //老人设备定位(社区慧生活)
+ public static String DEVICE_LOCATION1 = API_URL+ API_VERSION + "/Fzd/deviceLocation";
+ //老人设备足迹查询(社区慧生活)
+ public static String DEVICE_ZUJI1 = API_URL+ API_VERSION + "/Fzd/deviceFootPrint";
+ //老人健康计步(社区慧生活)
+ public static String STEP_INFO1 = API_URL+ API_VERSION + "/Fzd/deviceStepInfo";
+ //获取远程测心率(社区慧生活)
+ public static String DEVICE_HEART1 = API_URL+ API_VERSION + "/Fzd/deviceHeartInfo";
+ //远程测心率(社区慧生活)
+ public static String DEVICE_HEART_COMMIT1 = API_URL+ API_VERSION + "/Fzd/remoteHeartRate";
+ //获取远程测血压(社区慧生活)
+ public static String DEVICE_BIOOD1 = API_URL+ API_VERSION + "/Fzd/deviceBlood";
+ //远程测血压(社区慧生活)
+ public static String DEVICE_BIOOD_COMMIT1 = API_URL+ API_VERSION + "/Fzd/bldstart";
+ //获取远程云测温(社区慧生活)
+ public static String DEVICE_WD1 = API_URL+ API_VERSION + "/Fzd/wdInfo";
+ //远程云测温(社区慧生活)
+ public static String DEVICE_WD_COMMIT1 = API_URL+ API_VERSION + "/Fzd/wd";
+ //老人围栏列表(社区慧生活)
+ public static String ENCLOSURE_LIST1 = API_URL+ API_VERSION + "/Fzd/enclosureList";
+ //设置电子围栏(社区慧生活)
+ public static String SET_ENCLOSURE1 = API_URL+ API_VERSION + "/Fzd/setEnclosure";
+ //删除电子围栏(社区慧生活)
+ public static String DEL_ENCLOSURE1 = API_URL+ API_VERSION + "/Fzd/delEnclosure";
+ //SOS(社区慧生活)
+ public static String DEVICE_SOS1 = API_URL+ API_VERSION + "/Fzd/setSOS";
+ //查找设备(社区慧生活)
+ public static String GET_DEVICE1= API_URL+ API_VERSION + "/Fzd/findDevice";
+ //监护号码(社区慧生活)
+ public static String DEVICE_GUARDER1= API_URL+ API_VERSION + "/Fzd/setGuarder";
+ //获取设备SOS和监护号码(社区慧生活)
+ public static String DEVICE_GET_SOS_GUARDER1= API_URL+ API_VERSION + "/Fzd/getSOSAndGuarder";
     /**
      * 隐私政策
      */
@@ -751,5 +790,25 @@ public class ApiHttpClient {
         DEVICE_GET_SOS_GUARDER= API_URL + "/Hardware/Fzd/getSOSAndGuarder";
         OLD_NEW_ZIXUN_LIST= API_URL+ API_VERSION + "/pension/informationList";
         OLD_NEW_ZIXUN_DETAIL= API_URL+ API_VERSION + "/pension/informationdetails";
+
+        GET_HANRDWARE_INFO1 = API_URL+ API_VERSION + "/Fzd/hardwareInfo";
+        HANRDWARE_BINDING1 = API_URL+ API_VERSION + "/Fzd/binding";
+        HANRDWARE_UNBINDING1 = API_URL+ API_VERSION + "/Fzd/RemoveBinding ";
+        DEVICE_LOCATION1 = API_URL+ API_VERSION + "/Fzd/deviceLocation";
+        DEVICE_ZUJI1 = API_URL+ API_VERSION + "/Fzd/deviceFootPrint";
+        STEP_INFO1 = API_URL+ API_VERSION + "/Fzd/deviceStepInfo";
+        DEVICE_HEART1 = API_URL+ API_VERSION + "/Fzd/deviceHeartInfo";
+        DEVICE_HEART_COMMIT1 = API_URL+ API_VERSION + "/Fzd/remoteHeartRate";
+        DEVICE_BIOOD1 = API_URL+ API_VERSION + "/Fzd/deviceBlood";
+        DEVICE_BIOOD_COMMIT1 = API_URL+ API_VERSION + "/Fzd/bldstart";
+        DEVICE_WD1 = API_URL+ API_VERSION + "/Fzd/wdInfo";
+        DEVICE_WD_COMMIT1 = API_URL+ API_VERSION + "/Fzd/wd";
+        ENCLOSURE_LIST1 = API_URL+ API_VERSION + "/Fzd/enclosureList";
+        SET_ENCLOSURE1 = API_URL+ API_VERSION + "/Fzd/setEnclosure";
+        DEL_ENCLOSURE1 = API_URL+ API_VERSION + "/Fzd/delEnclosure";
+        DEVICE_SOS1 = API_URL+ API_VERSION + "/Fzd/setSOS";
+        GET_DEVICE1= API_URL+ API_VERSION + "/Fzd/findDevice";
+        DEVICE_GUARDER1= API_URL+ API_VERSION + "/Fzd/setGuarder";
+        DEVICE_GET_SOS_GUARDER1= API_URL+ API_VERSION + "/Fzd/getSOSAndGuarder";
     }
 }

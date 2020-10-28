@@ -22,6 +22,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.oldservice.adapter.AdapterMyTrak;
 import com.huacheng.huiservers.utils.json.JsonUtil;
 import com.huacheng.huiservers.view.MyListView;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import org.json.JSONObject;
 
@@ -54,7 +55,7 @@ public class MyTrackActivity extends BaseActivity implements CalendarView.OnCale
     TextView tv_month;
     int mYear;
     private Calendar calendar_selected;
-
+    private int jump_type = 0;
 
     @Override
     protected void initView() {
@@ -85,10 +86,18 @@ public class MyTrackActivity extends BaseActivity implements CalendarView.OnCale
     private void requestData(String date) {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid", par_uid);
+        String url = "";
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid", par_uid);
+        }
+        if (jump_type==0){
+            url=ApiHttpClient.DEVICE_ZUJI;
+        }else {
+            url=ApiHttpClient.DEVICE_ZUJI1;
+        }
         params.put("date", date + "");
 
-        MyOkHttp.get().post(ApiHttpClient.DEVICE_ZUJI, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(url, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
@@ -196,6 +205,7 @@ public class MyTrackActivity extends BaseActivity implements CalendarView.OnCale
     @Override
     protected void initIntentData() {
         par_uid = getIntent().getStringExtra("par_uid");
+        jump_type=getIntent().getIntExtra("jump_type",0);
 
     }
 

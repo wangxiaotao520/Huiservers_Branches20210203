@@ -23,6 +23,7 @@ import com.huacheng.huiservers.model.ModelOldFootmark;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.oldservice.adapter.AdapterGauge;
 import com.huacheng.huiservers.utils.json.JsonUtil;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -66,6 +67,7 @@ public class OldGaugeActivity extends BaseActivity implements CalendarView.OnCal
     TextView tv_year;
     TextView tv_month;
     int mYear;
+    private int jump_type = 0;
 
     @Override
     protected void initView() {
@@ -131,16 +133,28 @@ public class OldGaugeActivity extends BaseActivity implements CalendarView.OnCal
     private void requestData(String date) {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid", par_uid);
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid", par_uid);
+        }
+        if (jump_type==0){
+            if (type == 1) {
+                str_url = ApiHttpClient.DEVICE_HEART;
+            } else if (type == 2) {
+                str_url = ApiHttpClient.DEVICE_BIOOD;
+            } else {
+                str_url = ApiHttpClient.DEVICE_WD;
+            }
+        }else {
+            if (type == 1) {
+                str_url = ApiHttpClient.DEVICE_HEART1;
+            } else if (type == 2) {
+                str_url = ApiHttpClient.DEVICE_BIOOD1;
+            } else {
+                str_url = ApiHttpClient.DEVICE_WD1;
+            }
+        }
         params.put("date", date);
 
-        if (type == 1) {
-            str_url = ApiHttpClient.DEVICE_HEART;
-        } else if (type == 2) {
-            str_url = ApiHttpClient.DEVICE_BIOOD;
-        } else {
-            str_url = ApiHttpClient.DEVICE_WD;
-        }
         MyOkHttp.get().post(str_url, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -287,14 +301,25 @@ public class OldGaugeActivity extends BaseActivity implements CalendarView.OnCal
     private void submit(int type) {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid", par_uid);
-
-        if (type == 1) {
-            str_url = ApiHttpClient.DEVICE_HEART_COMMIT;
-        } else if (type == 2) {
-            str_url = ApiHttpClient.DEVICE_BIOOD_COMMIT;
-        } else {
-            str_url = ApiHttpClient.DEVICE_WD_COMMIT;
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid", par_uid);
+        }
+        if (jump_type==0){
+            if (type == 1) {
+                str_url = ApiHttpClient.DEVICE_HEART_COMMIT;
+            } else if (type == 2) {
+                str_url = ApiHttpClient.DEVICE_BIOOD_COMMIT;
+            } else {
+                str_url = ApiHttpClient.DEVICE_WD_COMMIT;
+            }
+        }else {
+            if (type == 1) {
+                str_url = ApiHttpClient.DEVICE_HEART_COMMIT1;
+            } else if (type == 2) {
+                str_url = ApiHttpClient.DEVICE_BIOOD_COMMIT1;
+            } else {
+                str_url = ApiHttpClient.DEVICE_WD_COMMIT1;
+            }
         }
         MyOkHttp.get().post(str_url, params, new JsonResponseHandler() {
             @Override
@@ -334,7 +359,7 @@ public class OldGaugeActivity extends BaseActivity implements CalendarView.OnCal
 
         type = this.getIntent().getIntExtra("type", 0);
         par_uid = getIntent().getStringExtra("par_uid");
-
+        jump_type=getIntent().getIntExtra("jump_type",0);
     }
 
     @Override

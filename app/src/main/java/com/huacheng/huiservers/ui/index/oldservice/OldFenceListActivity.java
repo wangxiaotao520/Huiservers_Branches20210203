@@ -12,6 +12,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelFenceList;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.oldservice.adapter.AdapterFenceList;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -31,6 +32,7 @@ public class OldFenceListActivity extends BaseActivity implements AdapterFenceLi
     private AdapterFenceList adapterFenceList ;
     private List<ModelFenceList> mDatas = new ArrayList<>();
     private String par_uid ="";
+    private int jump_type = 0;
 
     @Override
     protected void initView() {
@@ -45,9 +47,16 @@ public class OldFenceListActivity extends BaseActivity implements AdapterFenceLi
     protected void initData() {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-
-        params.put("par_uid", par_uid + "");
-        MyOkHttp.get().post(ApiHttpClient.ENCLOSURE_LIST, params, new JsonResponseHandler() {
+        String url = "";
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid", par_uid + "");
+        }
+        if (jump_type==0){
+            url= ApiHttpClient.ENCLOSURE_LIST;
+        }else {
+            url= ApiHttpClient.ENCLOSURE_LIST1;
+        }
+        MyOkHttp.get().post(url, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -90,6 +99,7 @@ public class OldFenceListActivity extends BaseActivity implements AdapterFenceLi
     @Override
     protected void initIntentData() {
         par_uid=getIntent().getStringExtra("par_uid");
+        jump_type=getIntent().getIntExtra("jump_type",0);
     }
 
     @Override
@@ -106,7 +116,10 @@ public class OldFenceListActivity extends BaseActivity implements AdapterFenceLi
     public void onClickAdd(int position) {
         //新增围栏
         Intent intent = new Intent(this, NewAddFenceActivity.class);
-        intent.putExtra("par_uid",par_uid);
+        if (!NullUtil.isStringEmpty(par_uid)){
+            intent.putExtra("par_uid",par_uid);
+        }
+        intent.putExtra("jump_type",jump_type);
         startActivityForResult(intent,111);
     }
 
@@ -114,7 +127,10 @@ public class OldFenceListActivity extends BaseActivity implements AdapterFenceLi
     public void onClickImage(int position) {
         Intent intent = new Intent(mContext, FenceDetailActivity.class);
         intent.putExtra("model",mDatas.get(position));
-        intent.putExtra("par_uid",par_uid);
+        if (!NullUtil.isStringEmpty(par_uid)){
+            intent.putExtra("par_uid",par_uid);
+        }
+        intent.putExtra("jump_type",jump_type);
         startActivityForResult(intent,222);
     }
 

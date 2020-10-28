@@ -17,6 +17,7 @@ import com.huacheng.huiservers.model.ModelOldFootmark;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.oldservice.adapter.AdapterOldDevice;
 import com.huacheng.huiservers.view.MyGridview;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -43,6 +44,7 @@ public class OldDeviceMoreActivity extends BaseActivity implements OldDeviceDial
     private AdapterOldDevice mAdapterOldDevice2;
     private String par_uid = "";
     private String str_url = "";
+    private int jump_type = 0;
     OldDeviceDialog dialog;
 
     @Override
@@ -86,32 +88,50 @@ public class OldDeviceMoreActivity extends BaseActivity implements OldDeviceDial
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {//查看足迹
                     Intent intent = new Intent(OldDeviceMoreActivity.this, MyTrackActivity.class);
-                    intent.putExtra("par_uid", par_uid);
+                    if (!NullUtil.isStringEmpty(par_uid)){
+                        intent.putExtra("par_uid", par_uid);
+                    }
+                   intent.putExtra("jump_type",jump_type);
                     startActivity(intent);
 
                 } else if (position == 1) {//健康计步
                     Intent intent = new Intent(OldDeviceMoreActivity.this, OldMyStepActivity.class);
-                    intent.putExtra("par_uid", par_uid);
+                    if (!NullUtil.isStringEmpty(par_uid)){
+                        intent.putExtra("par_uid", par_uid);
+                    }
+                    intent.putExtra("jump_type",jump_type);
                     startActivity(intent);
 
                 } else if (position == 2) {//远程测心率
                     Intent intent = new Intent(OldDeviceMoreActivity.this, OldGaugeActivity.class);
-                    intent.putExtra("par_uid", par_uid);
+                    if (!NullUtil.isStringEmpty(par_uid)){
+                        intent.putExtra("par_uid", par_uid);
+                    }
+                    intent.putExtra("jump_type",jump_type);
                     intent.putExtra("type", 1);
                     startActivity(intent);
                 } else if (position == 3) {//远程测血压
                     Intent intent = new Intent(OldDeviceMoreActivity.this, OldGaugeActivity.class);
-                    intent.putExtra("par_uid", par_uid);
+                    if (!NullUtil.isStringEmpty(par_uid)){
+                        intent.putExtra("par_uid", par_uid);
+                    }
+                    intent.putExtra("jump_type",jump_type);
                     intent.putExtra("type", 2);
                     startActivity(intent);
                 } else if (position == 4) {//云测温
                     Intent intent = new Intent(OldDeviceMoreActivity.this, OldGaugeActivity.class);
-                    intent.putExtra("par_uid", par_uid);
+                    if (!NullUtil.isStringEmpty(par_uid)){
+                        intent.putExtra("par_uid", par_uid);
+                    }
+                    intent.putExtra("jump_type",jump_type);
                     intent.putExtra("type", 3);
                     startActivity(intent);
                 } else if (position == 5) {//电子围栏
                     Intent intent = new Intent(OldDeviceMoreActivity.this, OldFenceListActivity.class);
-                    intent.putExtra("par_uid", par_uid);
+                    if (!NullUtil.isStringEmpty(par_uid)){
+                        intent.putExtra("par_uid", par_uid);
+                    }
+                    intent.putExtra("jump_type",jump_type);
                     startActivity(intent);
                 }
 
@@ -137,8 +157,17 @@ public class OldDeviceMoreActivity extends BaseActivity implements OldDeviceDial
     private void getDevice() {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid", par_uid);
-        MyOkHttp.get().post(ApiHttpClient.GET_DEVICE, params, new JsonResponseHandler() {
+        String url = "";
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid", par_uid);
+        }
+        if (jump_type==0){
+            url=ApiHttpClient.GET_DEVICE;
+        }else {
+            url=ApiHttpClient.GET_DEVICE1;
+        }
+
+        MyOkHttp.get().post(url, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -167,8 +196,16 @@ public class OldDeviceMoreActivity extends BaseActivity implements OldDeviceDial
     private void getNumber(final int type) {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid", par_uid);
-        MyOkHttp.get().post(ApiHttpClient.DEVICE_GET_SOS_GUARDER, params, new JsonResponseHandler() {
+        String url = "";
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid", par_uid);
+        }
+        if (jump_type==0){
+            url=ApiHttpClient.DEVICE_GET_SOS_GUARDER;
+        }else {
+            url=ApiHttpClient.DEVICE_GET_SOS_GUARDER1;
+        }
+        MyOkHttp.get().post(url, params, new JsonResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
@@ -219,6 +256,7 @@ public class OldDeviceMoreActivity extends BaseActivity implements OldDeviceDial
     @Override
     protected void initIntentData() {
         par_uid = getIntent().getStringExtra("par_uid");
+        jump_type=getIntent().getIntExtra("jump_type",0);
     }
 
     @Override
@@ -243,15 +281,29 @@ public class OldDeviceMoreActivity extends BaseActivity implements OldDeviceDial
     public void onClickConfirm(Dialog dialog, String content, int type) {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid", par_uid);
-        if (type == 1) {
-            //SOS
-            params.put("SOS", content);
-            str_url = ApiHttpClient.DEVICE_SOS;
-        } else {
-            params.put("Guarder", content);
-            str_url = ApiHttpClient.DEVICE_GUARDER;
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid", par_uid);
         }
+        if (jump_type==0){
+            if (type == 1) {
+                //SOS
+                params.put("SOS", content);
+                str_url = ApiHttpClient.DEVICE_SOS;
+            } else {
+                params.put("Guarder", content);
+                str_url = ApiHttpClient.DEVICE_GUARDER;
+            }
+        }else {
+            if (type == 1) {
+                //SOS
+                params.put("SOS", content);
+                str_url = ApiHttpClient.DEVICE_SOS1;
+            } else {
+                params.put("Guarder", content);
+                str_url = ApiHttpClient.DEVICE_GUARDER1;
+            }
+        }
+
         MyOkHttp.get().post(str_url, params, new JsonResponseHandler() {
 
             @Override

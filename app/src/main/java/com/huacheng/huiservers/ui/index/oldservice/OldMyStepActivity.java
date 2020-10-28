@@ -19,6 +19,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelOldFootmark;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.json.JsonUtil;
+import com.huacheng.libraryservice.utils.NullUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +45,7 @@ public class OldMyStepActivity extends BaseActivity implements CalendarView.OnCa
     TextView tv_year;
     TextView tv_month;
     int mYear;
+    private int jump_type = 0;
 
     @Override
     protected void initView() {
@@ -69,10 +71,18 @@ public class OldMyStepActivity extends BaseActivity implements CalendarView.OnCa
     private void requestData(String date) {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid", par_uid);
+        String url = "";
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid", par_uid);
+        }
+        if (jump_type==0){
+            url=ApiHttpClient.STEP_INFO;
+        }else {
+            url=ApiHttpClient.STEP_INFO1;
+        }
         params.put("date", date);
 
-        MyOkHttp.get().post(ApiHttpClient.STEP_INFO, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(url, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
@@ -168,6 +178,7 @@ public class OldMyStepActivity extends BaseActivity implements CalendarView.OnCa
     @Override
     protected void initIntentData() {
         par_uid = getIntent().getStringExtra("par_uid");
+        jump_type=getIntent().getIntExtra("jump_type",0);
     }
 
     @Override

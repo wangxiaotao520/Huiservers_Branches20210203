@@ -125,7 +125,8 @@
 
                 <EditText
                     android:id="@+id/et_ID"
-                    android:layout_width="fill_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="70dp"
                     android:background="@null"
@@ -134,12 +135,24 @@
                     android:singleLine="true"
                     android:inputType="number"
                     android:gravity="right|center_vertical"
-                    android:paddingRight="15dp"
+                    android:paddingRight="10dp"
                     android:textColor="@color/title_color"
                     android:textColorHint="@color/text_color_hint"
                     android:textCursorDrawable="@drawable/color_cursor"
                     android:textSize="@dimen/t_16sp"/>
 
+                <TextView
+                    android:background="@mipmap/ic_index_scan_black"
+                    android:id="@+id/tv_scan"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:text=""
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/title_color"
+                    android:gravity="center"
+                    android:textSize="12dp"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/ly_old_SIM"

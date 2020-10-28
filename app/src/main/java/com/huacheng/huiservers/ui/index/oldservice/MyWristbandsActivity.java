@@ -31,6 +31,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelHandWrist;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.json.JSONObject;
@@ -82,6 +83,7 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
     //位置 测试
     LatLng latLng = new LatLng(39.981167, 116.345103);
     private ModelHandWrist modelHandWrist;
+    private int jump_type = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,10 +122,17 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
         par_uid=getIntent().getStringExtra("par_uid");
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid",par_uid);
-        MyOkHttp.get().post( ApiHttpClient.DEVICE_LOCATION, params, new JsonResponseHandler() {
+        String url = "";
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid",par_uid);
+        }
+        if (jump_type==0){
+            url = ApiHttpClient.DEVICE_LOCATION;
+        }else {
+            url = ApiHttpClient.DEVICE_LOCATION1;
+        }
 
-
+        MyOkHttp.get().post(url , params, new JsonResponseHandler() {
 
 
             @Override
@@ -222,7 +231,7 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initIntentData() {
-
+        jump_type=getIntent().getIntExtra("jump_type",0);
     }
 
     @Override
@@ -283,33 +292,48 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
             case R.id.fl_footprint:
                 //查看足迹
                 intent = new Intent(this, MyTrackActivity.class);
-                intent.putExtra("par_uid",par_uid);
+                if (!NullUtil.isStringEmpty(par_uid)){
+                    intent.putExtra("par_uid",par_uid);
+                }
+                intent.putExtra("jump_type",jump_type);
                 startActivity(intent);
                 break;
             case R.id.fl_foot_count:
                 //健康计步
                 intent = new Intent(this, OldMyStepActivity.class);
-                intent.putExtra("par_uid",par_uid);
+                if (!NullUtil.isStringEmpty(par_uid)){
+                    intent.putExtra("par_uid",par_uid);
+                }
+                intent.putExtra("jump_type",jump_type);
                 startActivity(intent);
                 break;
             case R.id.fl_heart_count:
                 //远程测心率
                 intent = new Intent(this, OldGaugeActivity.class);
-                intent.putExtra("par_uid",par_uid);
+                if (!NullUtil.isStringEmpty(par_uid)){
+                    intent.putExtra("par_uid",par_uid);
+                }
+                intent.putExtra("jump_type",jump_type);
                 intent.putExtra("type", 1);
                 startActivity(intent);
                 break;
             case R.id.fl_heart_presure:
                 //远程测血压
                 intent = new Intent(this, OldGaugeActivity.class);
-                intent.putExtra("par_uid",par_uid);
+                if (!NullUtil.isStringEmpty(par_uid)){
+                    intent.putExtra("par_uid",par_uid);
+                }
+                intent.putExtra("jump_type",jump_type);
                 intent.putExtra("type", 2);
                 startActivity(intent);
                 break;
             case R.id.fl_more:
                 // 查看更多
                 intent = new Intent(this, OldDeviceMoreActivity.class);
-                intent.putExtra("par_uid",par_uid);
+                if (!NullUtil.isStringEmpty(par_uid)){
+                    intent.putExtra("par_uid",par_uid);
+                }
+                intent.putExtra("jump_type",jump_type);
                 startActivity(intent);
                 break;
             case R.id.ll_refresh:
@@ -333,8 +357,16 @@ public class MyWristbandsActivity extends BaseActivity implements View.OnClickLi
         par_uid=getIntent().getStringExtra("par_uid");
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("par_uid",par_uid);
-        MyOkHttp.get().post( ApiHttpClient.HANRDWARE_UNBINDING, params, new JsonResponseHandler() {
+        String url = "";
+        if (!NullUtil.isStringEmpty(par_uid)){
+            params.put("par_uid",par_uid);
+        }
+        if (jump_type==0){
+            url = ApiHttpClient.HANRDWARE_UNBINDING;
+        }else {
+            url = ApiHttpClient.HANRDWARE_UNBINDING1;
+        }
+        MyOkHttp.get().post( url, params, new JsonResponseHandler() {
 
 
             @Override
