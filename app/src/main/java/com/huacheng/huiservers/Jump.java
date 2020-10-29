@@ -26,6 +26,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelIsOld;
 import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.ui.center.AboutActivity;
 import com.huacheng.huiservers.ui.center.CouponListActivity;
@@ -569,10 +570,42 @@ public class Jump {
 
             }else if (type.equals("41")) {
                 //智能硬件
-                Intent intent1 = new Intent(mContext, OldHardwareActivity.class);
-                intent1.putExtra("jump_type",1);
-                mContext.startActivity(intent1);
+                if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                    Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                    mContext.startActivity(intent);
+                } else {
+                    smallDialog = new SmallDialog(mContext);
+                    smallDialog.show();
+                    MyOkHttp.get().post(ApiHttpClient.IS_OLD, null, new JsonResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, JSONObject response) {
+                            if (smallDialog != null) {
+                                smallDialog.dismiss();
+                            }
+                            if (JsonUtil.getInstance().isSuccess(response)) {
+                                ModelIsOld bean = (ModelIsOld) JsonUtil.getInstance().parseJsonFromResponse(response, ModelIsOld.class);
+                                if ("1".equals(bean.getOld_type())){
+                                    Intent intent1 = new Intent(mContext, OldHardwareActivity.class);
+                                    intent1.putExtra("par_uid", bean.getUid()+"");
+                                    intent1.putExtra("jump_type",0);
+                                    mContext.startActivity(intent1);
+                                }else {
+                                    Intent intent1 = new Intent(mContext, OldHardwareActivity.class);
+                                    intent1.putExtra("jump_type",1);
+                                    mContext.startActivity(intent1);
+                                }
+                            }
+                        }
 
+                        @Override
+                        public void onFailure(int statusCode, String error_msg) {
+                            SmartToast.showInfo("网络异常,请检查网络设置");
+                            if (smallDialog != null) {
+                                smallDialog.dismiss();
+                            }
+                        }
+                    });
+                }
             }
         } else {
             if (type.equals("30")) {//活动投票
@@ -695,9 +728,44 @@ public class Jump {
 
             }else if (type.equals("41")) {
                 //智能硬件
-                Intent intent1 = new Intent(mContext, OldHardwareActivity.class);
-                intent1.putExtra("jump_type",1);
-                mContext.startActivity(intent1);
+                if ("".equals(login_type) || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                    Intent intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                    mContext.startActivity(intent);
+                } else {
+
+
+                    smallDialog = new SmallDialog(mContext);
+                    smallDialog.show();
+                    MyOkHttp.get().post(ApiHttpClient.IS_OLD, null, new JsonResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, JSONObject response) {
+                            if (smallDialog != null) {
+                                smallDialog.dismiss();
+                            }
+                            if (JsonUtil.getInstance().isSuccess(response)) {
+                                ModelIsOld bean = (ModelIsOld) JsonUtil.getInstance().parseJsonFromResponse(response, ModelIsOld.class);
+                                if ("1".equals(bean.getOld_type())){
+                                    Intent intent1 = new Intent(mContext, OldHardwareActivity.class);
+                                    intent1.putExtra("par_uid", bean.getUid()+"");
+                                    intent1.putExtra("jump_type",0);
+                                    mContext.startActivity(intent1);
+                                }else {
+                                    Intent intent1 = new Intent(mContext, OldHardwareActivity.class);
+                                    intent1.putExtra("jump_type",1);
+                                    mContext.startActivity(intent1);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, String error_msg) {
+                            SmartToast.showInfo("网络异常,请检查网络设置");
+                            if (smallDialog != null) {
+                                smallDialog.dismiss();
+                            }
+                        }
+                    });
+                }
 
             }
         }

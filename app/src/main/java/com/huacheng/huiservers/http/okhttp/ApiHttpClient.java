@@ -466,6 +466,8 @@ public class ApiHttpClient {
  public static String DEVICE_GUARDER1= API_URL+ API_VERSION + "/Fzd/setGuarder";
  //获取设备SOS和监护号码(社区慧生活)
  public static String DEVICE_GET_SOS_GUARDER1= API_URL+ API_VERSION + "/Fzd/getSOSAndGuarder";
+ //检测是否是老人
+ public static String IS_OLD= API_URL+ API_VERSION + "/Fzd/is_old";
     /**
      * 隐私政策
      */
@@ -810,5 +812,6 @@ public class ApiHttpClient {
         GET_DEVICE1= API_URL+ API_VERSION + "/Fzd/findDevice";
         DEVICE_GUARDER1= API_URL+ API_VERSION + "/Fzd/setGuarder";
         DEVICE_GET_SOS_GUARDER1= API_URL+ API_VERSION + "/Fzd/getSOSAndGuarder";
+        IS_OLD= API_URL+ API_VERSION + "/Fzd/is_old";
     }
 }
