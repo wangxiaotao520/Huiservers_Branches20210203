@@ -107,14 +107,15 @@ public class NotificationClickReceiver extends BroadcastReceiver {
                             context.startActivity(i);
                         }
                     }
-                } else if ("41".equals(url_type)){
+                } else if ("42".equals(url_type)){
                     if (UserSql.getInstance().hasLoginUser()!=null) {//判断是否登录
-                        //极光推送 工单处理
+                        //极光推送 智能硬件
                         if (!TextUtils.isEmpty(extras)) {
                             ModelJpushNotifaction modelJpushNotifaction = (ModelJpushNotifaction) JsonUtil.getInstance().parseJson(extras, ModelJpushNotifaction.class);
                             if (modelJpushNotifaction != null) {
 
                                 String par_uid = modelJpushNotifaction.getData().getPar_uid();
+                                String toView = modelJpushNotifaction.getData().getToView();
 
 //                                Intent intent = new Intent(context, WorkOrderDetailActivity.class);
 //                                intent.putExtra("id", work_id);
@@ -125,9 +126,11 @@ public class NotificationClickReceiver extends BroadcastReceiver {
                                     Intent intentt = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
                                     intentt.putExtra("from", "jpush");
                                     intentt.putExtra("type", "1");
-                                    intentt.putExtra("url_type", url_type);   //推给管理和师傅 1是列表 2是详情 推给慧生活用这个 27是详情
+                                    intentt.putExtra("url_type", url_type);
 
-                                    intentt.putExtra("par_uid", par_uid);
+
+                                    intentt.putExtra("par_uid", par_uid+"");
+                                    intentt.putExtra("toView", toView);
                                     intentt.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     context.startActivity(intentt);
                                 } else {
@@ -136,7 +139,8 @@ public class NotificationClickReceiver extends BroadcastReceiver {
                                     i.putExtra("type", "1");
                                     i.putExtra("url_type", url_type);
 
-                                    i.putExtra("par_uid", par_uid);
+                                    i.putExtra("par_uid", par_uid+"");
+                                    i.putExtra("toView", toView+"");
                                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     context.startActivity(i);
                                 }

@@ -421,14 +421,19 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
                         it.putExtra("id", j_id);
                         startActivity(it);
                     }
-                }else if ("41".equals(url_type)){
+                }else if ("42".equals(url_type)){
                     //老人智能设备
                     String par_uid = intent.getStringExtra("par_uid");
-                    if (!StringUtils.isEmpty(par_uid)) {
-                        Intent it = new Intent(mContext, MyWristbandsActivity.class);
-                        it.putExtra("par_uid",par_uid+"");
-                        startActivity(it);
+                    String toView = intent.getStringExtra("toView");
+                    Intent it = new Intent(mContext, MyWristbandsActivity.class);
+                    if ("1".equals(toView)){
+                        it.putExtra("jump_type",1);//跳到慧生活智能硬件
+                    }else {
+                        it.putExtra("par_uid",par_uid+"");//跳到养老模块智能硬件
+                        it.putExtra("jump_type",0);
                     }
+                    startActivity(it);
+
                 }
             }
         }

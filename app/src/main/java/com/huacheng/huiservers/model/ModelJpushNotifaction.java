@@ -17,6 +17,9 @@ public class ModelJpushNotifaction implements Serializable {
 
 
     String par_uid; //老人定位用
+
+
+    String toView; //toView这个参数 , 如果toView=1表示往慧生活的地图首页跳转 , 如果toView=2表示往居家养老的地图首页跳转
     private String sound_type;
 
     public String getSound_type() {
@@ -67,4 +70,13 @@ public class ModelJpushNotifaction implements Serializable {
     public void setPar_uid(String par_uid) {
         this.par_uid = par_uid;
     }
+
+    public String getToView() {
+        return toView;
+    }
+
+    public void setToView(String toView) {
+        this.toView = toView;
+    }
+
 }

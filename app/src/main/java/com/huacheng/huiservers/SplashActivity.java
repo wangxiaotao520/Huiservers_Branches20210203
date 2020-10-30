@@ -426,14 +426,17 @@ public class SplashActivity extends BaseActivity implements Updateprester.Update
                                     it.putExtra("id", j_id);
                                     startActivity(it);
                                 }
-                            }else if ("41".equals(url_type)){
+                            }else if ("42".equals(url_type)){
                                 //老人智能设备
                                 String par_uid = intent_jpush.getStringExtra("par_uid");
-                                if (!StringUtils.isEmpty(par_uid)) {
-                                    Intent it = new Intent(SplashActivity.this, HomeActivity.class);
-                                    it.putExtra("par_uid",par_uid+"");
-                                    startActivity(it);
-                                }
+                                String toView = intent_jpush.getStringExtra("toView");
+
+                                Intent it = new Intent(SplashActivity.this, HomeActivity.class);
+                                it.putExtra("par_uid",par_uid+"");
+                                it.putExtra("from", "jpush");
+                                it.putExtra("toView",toView+"");
+                                startActivity(it);
+
                             }
                         }else {
                             Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
