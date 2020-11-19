@@ -138,7 +138,7 @@ android {
      implementation 'com.belerweb:pinyin4j:2.5.0'
 
      //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-     implementation 'com.tencent.bugly:crashreport:latest.release'
+    // implementation 'com.tencent.bugly:crashreport:latest.release'
   //   implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
      implementation 'com.android.support:multidex:1.0.0'
      implementation 'com.google.zxing:core:3.2.1'

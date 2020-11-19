@@ -397,7 +397,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/title_sub_color"
-                            android:textSize="@dimen/t_15sp" />
+                            android:textSize="@dimen/t_15sp"
+                            android:visibility="gone"/>
+                       <TextView
+                           android:id="@+id/tv_content"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text=""
+                           android:textSize="@dimen/t_15sp"/>
                     </LinearLayout>
 
                 </LinearLayout>

@@ -28,8 +28,8 @@ import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.model.HouseRentDetail;
 import com.huacheng.huiservers.model.HouseRentTagListBean;
+import com.huacheng.huiservers.model.ModelMyHouseList;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.houserent.adapter.HouseRentListAdapter;
 import com.huacheng.huiservers.ui.index.houserent.adapter.HouseRentTagAdapter;
@@ -92,7 +92,8 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
     private ImageView iv_order_type;
 
 
-    private List<HouseRentDetail> mDatas = new ArrayList<>();
+    //private List<HouseRentDetail> mDatas = new ArrayList<>();
+    private List<ModelMyHouseList> mDatas = new ArrayList<>();
 
     private HouseRentListAdapter houseRentListAdapter;
 
@@ -366,14 +367,20 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
         if (!NullUtil.isStringEmpty(community_name)){
             params.put("community_name",community_name +"");
         }
-        if (jump_type==1){//租房
+
+       /* if (jump_type==1){//租房
             mPresenter.getLeaseList(page,params);
         }else {
             //售房
             mPresenter.getSellList(page,params);
-        }
+        }*/
+        params.put("p", page + "");
+        params.put("state",jump_type+"");
+        params.put("check","1");
+        params.put("property", "1");//除了和昌都需要传这个参数
+        params.put("request", "1");//社区慧生活需要这个参数
+        mPresenter.getRentSellHouseList(params);
     }
-
 
     @Override
     protected void initListener() {
@@ -401,6 +408,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
                 Intent intent = new Intent(HouseRentListActivity.this, HouserentDetailActivity.class);
                 intent.putExtra("jump_type",jump_type);
                 intent.putExtra("id",id1);
+                intent.putExtra("isCommendHouse", 1);
                 startActivity(intent);
             }
         });
@@ -959,7 +967,7 @@ public class HouseRentListActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public void onGetHouseList(int status, String msg, int page,int CountPage,  List<HouseRentDetail> datas) {
+    public void onGetHouseList(int status, String msg,int CountPage,  List<ModelMyHouseList> datas) {
         hideDialog(smallDialog);
         refreshLayout.setRefreshing(false);
         listView.setIsLoading(false);

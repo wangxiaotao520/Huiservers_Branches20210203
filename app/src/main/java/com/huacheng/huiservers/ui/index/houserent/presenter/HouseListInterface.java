@@ -1,7 +1,7 @@
 package com.huacheng.huiservers.ui.index.houserent.presenter;
 
-import com.huacheng.huiservers.model.HouseRentDetail;
 import com.huacheng.huiservers.model.HouseRentTagListBean;
+import com.huacheng.huiservers.model.ModelMyHouseList;
 
 import java.util.List;
 
@@ -21,5 +21,5 @@ public interface HouseListInterface{
      * 房屋列表的回调
      *
      */
-    void onGetHouseList(int status, String msg, int page, int CountPage,List<HouseRentDetail> datas);
+    void onGetHouseList(int status, String msg, int CountPage,List<ModelMyHouseList> datas);
 }

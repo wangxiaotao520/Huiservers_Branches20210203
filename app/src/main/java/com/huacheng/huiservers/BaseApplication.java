@@ -40,7 +40,6 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.tinker.entry.ApplicationLike;
 import com.tinkerpatch.sdk.TinkerPatch;
@@ -170,10 +169,10 @@ public class BaseApplication extends Application {
         // 获取当前进程名
         String processName = getProcessName(android.os.Process.myPid());
         // 设置是否为上报进程
-        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
-        strategy.setUploadProcess(processName == null || processName.equals(packageName));
-        // 初始化Bugly
-        CrashReport.initCrashReport(context, "bb9f25fed0", false, strategy);
+//        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
+//        strategy.setUploadProcess(processName == null || processName.equals(packageName));
+//        // 初始化Bugly
+//        CrashReport.initCrashReport(context, "bb9f25fed0", false, strategy);
         //CrashReport.initCrashReport(getApplicationContext(), "bb9f25fed0", true);
         //CrashReport.testJavaCrash();
         //初始化fresco

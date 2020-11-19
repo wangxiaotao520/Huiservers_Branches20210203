@@ -14,7 +14,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
-import com.huacheng.huiservers.model.HouseListBean;
+import com.huacheng.huiservers.model.ModelMyHouseList;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
@@ -29,7 +29,7 @@ import java.util.List;
  * created by badge
  * 2018/11/10  下午 18:34
  */
-public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
+public class MyHouseRentListAdapter extends CommonAdapter<ModelMyHouseList> {
 
     private String room = "";
     private String office = "";
@@ -52,7 +52,7 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
     }
 
     @Override
-    protected void convert(ViewHolder viewHolder, HouseListBean item, int position) {
+    protected void convert(ViewHolder viewHolder, ModelMyHouseList item, int position) {
         viewHolder.getView(R.id.sdv_head).setVisibility(View.VISIBLE);
 
         SimpleDraweeView sdv_head = viewHolder.getView(R.id.sdv_head);
@@ -62,10 +62,10 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
         TextView tv_broker_name = viewHolder.getView(R.id.tv_broker_name);
         ImageView iv_mobile = viewHolder.getView(R.id.iv_mobile);
 
-        if (!StringUtils.isEmpty(item.getHead_img())) {
+        if (!StringUtils.isEmpty(item.getHeadimg())) {
 //            GlideUtils.getInstance()
 //                    .glideLoad(mContext, StringUtils.getImgUrl(item.getHead_img()+""), sdv_head, R.drawable.ic_default_rectange);
-            FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(item.getHead_img()+"")+"");
+            FrescoUtils.getInstance().setImageUri(sdv_head,StringUtils.getImgUrl(item.getHeadimg()+"")+"");
 
         }
 
@@ -73,7 +73,7 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
         ImageView iv_rentss = viewHolder.getView(R.id.iv_rentss);
         TextView tv_rents_status = viewHolder.getView(R.id.tv_rents_status);
 
-        String communityName = item.getCommunity_name();
+        String communityName = item.getCommunity();
         room = item.getRoom();
         if (!NullUtil.isStringEmpty(room)) {
             room = room + "室";
@@ -95,19 +95,19 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
             area = "面积" + area + "平米";
         }
 
-        String houseFloor = item.getHouse_floor();//当前层数
-        String floor = item.getFloor();//总层数
+        String houseFloor = item.getNumber();//当前层数
+        String floor = item.getNumber_count();//总层数
 
         if (!NullUtil.isStringEmpty(houseFloor) && !NullUtil.isStringEmpty(floor)) {
             floor_hfloor = " | " + houseFloor + "/" + floor + "层";
         }
 
-        String status = item.getStatus();
+        String status = item.getCheck()+"";
 
         tv_title.setText(communityName + "-" + room + office + kitchen + guard + "-" + area + floor_hfloor + "");
 
         if (mType == 0) {
-            totalPrice = item.getTotal_price(); //总价 0售房
+            totalPrice = item.getSelling(); //总价 0售房
             if (!NullUtil.isStringEmpty(totalPrice)) {
                 tv_price.setText(totalPrice + "元");
             } else {
@@ -115,27 +115,32 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
             }
 
             //房产状态 1为未审核 2为未售 3为已售
+            // 审核状态  0未审核 1上架  2下降 3删除 4下降已出租 5下架已出售
             int mResource = 0;
-            if ("1".equals(status)) {
+            if ("0".equals(status)) {
                 status = "未审核";
                 mResource = R.mipmap.ic_h_no_review;
                 tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
-            } else if ("2".equals(status)) {
-                status = "未售";
+            } else if ("1".equals(status)) {
+                status = "未出售";
                 mResource = R.mipmap.ic_h_no_sale;
                 tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
-            } else if ("3".equals(status)) {
-                status = "已售";
+            } else if ("2".equals(status)) {
+                status = "已下架";
+                mResource = R.mipmap.ic_h_no_sale;
+                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.title_third_color));
+            } else if ("5".equals(status)) {
+                status = "已出售";
                 mResource = R.mipmap.ic_h_sold;
                 tv_rents_status.setTextColor(Color.parseColor("#18B632"));
             }
-            GlideUtils.getInstance().glideLoad(mContext, "", iv_rentss, mResource);
+            //GlideUtils.getInstance().glideLoad(mContext, "", iv_rentss, mResource);
             tv_rents_status.setText(status);
 
 
         } else if (mType == 1) {
 
-            unitPrice = item.getUnit_price(); //单价 单元 元/月 1租房
+            unitPrice = item.getRent(); //单价 单元 元/月 1租房
             if (!NullUtil.isStringEmpty(unitPrice)) {
                 tv_price.setText(unitPrice + "元/月");
             } else {
@@ -144,24 +149,28 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
 
             //房产状态 1为未审核 2为未出租 3为已出租
             int mResource = 0;
-            if ("1".equals(status)) {
+            if ("0".equals(status)) {
                 status = "未审核";
                 mResource = R.mipmap.ic_h_no_review;
                 tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
-            } else if ("2".equals(status)) {
+            } else if ("1".equals(status)) {
                 status = "未出租";
                 mResource = R.mipmap.ic_h_no_sale;
                 tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
-            } else if ("3".equals(status)) {
+            } else if ("2".equals(status)) {
+                status = "已下架";
+                mResource = R.mipmap.ic_h_no_sale;
+                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
+            } else if ("4".equals(status)) {
                 status = "已出租";
                 mResource = R.mipmap.ic_h_sold;
                 tv_rents_status.setTextColor(Color.parseColor("#18B632"));
             }
-            GlideUtils.getInstance().glideLoad(mContext, "", iv_rentss, mResource);
+           // GlideUtils.getInstance().glideLoad(mContext, "", iv_rentss, mResource);
             tv_rents_status.setText(status);
         }
 
-        String adminImg = item.getAdministrator_img();
+        String adminImg = item.getAudit().getAvatars();
         if (!StringUtils.isEmpty(adminImg)) {
             iv_broker.setVisibility(View.VISIBLE);
             GlideUtils.getInstance()
@@ -170,14 +179,14 @@ public class MyHouseRentListAdapter extends CommonAdapter<HouseListBean> {
             iv_broker.setVisibility(View.GONE);
         }
 
-        String broker = item.getName();//经纪人
+        String broker = item.getAudit().getName();//经纪人
         if (!StringUtils.isEmpty(broker)) {
             tv_broker_name.setText("经纪人：" + broker);
         } else {
             tv_broker_name.setText("");
         }
 
-        final String mobile = item.getPhone();
+        final String mobile = item.getAudit().getMobile();
         if (!NullUtil.isStringEmpty(mobile)) {
             iv_mobile.setVisibility(View.VISIBLE);
         } else {

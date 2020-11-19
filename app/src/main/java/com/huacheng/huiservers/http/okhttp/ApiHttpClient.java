@@ -15,22 +15,22 @@ public class ApiHttpClient {
 //    public static String API_SERVICE_URL = "http://test.hui-shenghuo.cn/service/";//服务
 
 //    //测试new
-//    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
-//    public static String API_URL = "http://1.71.130.58:8082/";
-//    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
-//    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
-//    //    //测试new
-//    public static String IMG_URL = "http://1.71.130.58:8088/";
-//    public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
+    public static final String API_URL_FINAL = "http://1.71.130.58:8081/";//固定域名
+    public static String API_URL = "http://1.71.130.58:8082/";
+    public static String API_URL_SHARE = "http://1.71.130.58:8082";//分享
+    public static String API_SERVICE_URL = "http://1.71.130.58:8082/service46/";//服务
+    //    //测试new
+    public static String IMG_URL = "http://1.71.130.58:8088/";
+    public static String IMG_SERVICE_URL = "http://1.71.130.58:8088/";
 
 //    正式
-    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
-    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
-    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
-    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service46/";
-   //  正式
-    public static String IMG_URL = "http://img.hui-shenghuo.cn/";
-    public static String IMG_SERVICE_URL = "http://img.hui-shenghuo.cn/";
+//    public static final String API_URL_FINAL = "http://common.hui-shenghuo.cn/";
+//    public static  String API_URL = "http://m.hui-shenghuo.cn/" ;
+//    public static  String API_URL_SHARE = "http://m.hui-shenghuo.cn/";
+//    public static  String API_SERVICE_URL = "http://m.hui-shenghuo.cn/service46/";
+//   //  正式
+//    public static String IMG_URL = "http://img.hui-shenghuo.cn/";
+//    public static String IMG_SERVICE_URL = "http://img.hui-shenghuo.cn/";
 
 
     public static String TOKEN;
@@ -212,6 +212,16 @@ public class ApiHttpClient {
     public static String HOUSESADDDO = API_URL + API_VERSION + "personalHouse/housesAddDo";
     //工单列表
     public static String GETWORKLIST = API_URL + API_VERSION + "propertyWork/getWorkList";
+
+    //新版二手房接口
+    //添加租售房屋
+    public static String ADD_HOUST= API_URL + "/House/House/add_house";
+    // 房屋列表
+    public static String GET_HOUST_LIST = API_URL + "/House/House/get_house_list";
+    // 房屋详情
+    public static String GET_HOUST_DETAIL= API_URL  + "/House/House/get_house_info";
+    // 推荐房屋
+    public static String GET_HOUST_RECOMMEND= API_URL  + "/House/House/recommend_house";
 
     /**
      * 物业工单
@@ -813,5 +823,10 @@ public class ApiHttpClient {
         DEVICE_GUARDER1= API_URL+ API_VERSION + "/Fzd/setGuarder";
         DEVICE_GET_SOS_GUARDER1= API_URL+ API_VERSION + "/Fzd/getSOSAndGuarder";
         IS_OLD= API_URL+ API_VERSION + "/Fzd/is_old";
+
+        ADD_HOUST= API_URL + "/House/House/add_house";
+        GET_HOUST_LIST = API_URL + "/House/House/get_house_list";
+        GET_HOUST_DETAIL= API_URL  + "/House/House/get_house_info";
+        GET_HOUST_RECOMMEND= API_URL  + "/House/House/recommend_house";
     }
 }
