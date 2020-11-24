@@ -115,7 +115,9 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
         llHeadTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 个人基础信息
+                // 个人基础信息
+                Intent intent=new Intent(PersonalSettingActivity.this,MyInfoEditActivity.class);
+                startActivity(intent);
             }
         });
         llQrCode.setOnClickListener(new View.OnClickListener() {

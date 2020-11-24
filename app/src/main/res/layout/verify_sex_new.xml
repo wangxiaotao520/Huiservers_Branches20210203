@@ -30,7 +30,7 @@
                 android:layout_height="50dip"
                 android:background="@null"
                 android:button="@null"
-                android:text="男"
+                android:text=""
                 android:textColor="@color/title_color"
                 android:textSize="@dimen/t_16sp"/>
 
@@ -45,7 +45,7 @@
                 android:layout_height="50dip"
                 android:background="@null"
                 android:button="@null"
-                android:text="女"
+                android:text=""
                 android:textColor="@color/title_color"
                 android:textSize="@dimen/t_16sp"/>
         </RadioGroup>
