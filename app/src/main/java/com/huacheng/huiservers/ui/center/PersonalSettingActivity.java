@@ -1,6 +1,8 @@
 package com.huacheng.huiservers.ui.center;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -13,31 +15,39 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
+import com.huacheng.huiservers.dialog.PermitDialog;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelLoginOverTime;
 import com.huacheng.huiservers.model.ModelUser;
+import com.huacheng.huiservers.model.PayInfoBean;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.download.DownLoadDialogActivityNew;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.update.AppUpdate;
+import com.huacheng.huiservers.utils.update.Updateprester;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 /**
  * Description: 个人信息设置页面
  * created by wangxiaotao
  * 2020/11/24 0024 09:42
  */
-public class PersonalSettingActivity extends BaseActivity {
+public class PersonalSettingActivity extends BaseActivity implements Updateprester.UpdateListener {
     @BindView(R.id.status_bar)
     View mStatusBar;
     @BindView(R.id.lin_left)
@@ -65,7 +75,9 @@ public class PersonalSettingActivity extends BaseActivity {
     @BindView(R.id.tv_login_out)
     TextView tvLoginOut;
     ModelUser user ;
-
+    Updateprester updateprester;
+    private String apkpath="";
+    public static final int ACT_REQUEST_DOWNLOAD = 101;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         isStatusBar=true;
@@ -83,6 +95,7 @@ public class PersonalSettingActivity extends BaseActivity {
         FrescoUtils.getInstance().setImageUri(sdvHead, StringUtils.getImgUrl(user.getAvatars()));
         tvName.setText(user.getNickname()+"");
         tvVersion.setText("当前版本号：v" + AppUpdate.getVersionName(this));
+        updateprester = new Updateprester(this, this);
     }
 
     @Override
@@ -96,6 +109,12 @@ public class PersonalSettingActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        llHeadTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo 个人基础信息
             }
         });
         llQrCode.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +138,8 @@ public class PersonalSettingActivity extends BaseActivity {
         llUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 检查更新
+                // 检查更新
+                getUpdate();
             }
         });
         tvLoginOut.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +157,17 @@ public class PersonalSettingActivity extends BaseActivity {
                 }).show();
             }
         });
+    }
+    /**
+     * 更新接口
+     */
+    private void getUpdate() {
+
+        HashMap<String, String> mParams = new HashMap<>();
+        mParams.put("version", "v" + AppUpdate.getVersionName(this));
+        mParams.put("type", "1");
+        mParams.put("app_type", "1");
+        updateprester.getUpdate(mParams);
     }
 
     /**
@@ -189,4 +220,57 @@ public class PersonalSettingActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onUpdate(int status, final PayInfoBean info, String msg) {
+        if (status == 1) {
+            if (info != null) {
+                apkpath = info.getPath();
+                new CommomDialog(PersonalSettingActivity.this, R.style.my_dialog_DimEnabled, "发现有新版本，是否立即更新？", new CommomDialog.OnCloseListener() {
+                    @Override
+                    public void onClick(final Dialog dialog, boolean confirm) {
+                        if (confirm) {
+                            // downLoadApk();
+                            new RxPermissions(PersonalSettingActivity.this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE
+                                    , Manifest.permission.READ_PHONE_STATE)
+                                    .subscribe(new Consumer<Boolean>() {
+                                        @Override
+                                        public void accept(Boolean isGranted) throws Exception {
+                                            if (isGranted) {
+                                                Intent intent = new Intent();
+                                                intent.putExtra("file_name", info.getVersion() + ".apk");
+                                                intent.putExtra("download_src", apkpath);
+                                                intent.setClass(PersonalSettingActivity.this, DownLoadDialogActivityNew.class);
+                                                startActivityForResult(intent, ACT_REQUEST_DOWNLOAD);
+                                                dialog.dismiss();
+                                            } else {
+                                                //请求权限用户点取消
+                                            }
+                                        }
+                                    });
+
+                            //  dialog.dismiss();
+                        }
+
+                    }
+                }).show();//.setTitle("提示")
+            } else {
+               // SmartToast.showInfo("当前已是最新版本");
+                new PermitDialog(this,  "当前已是最新版本").show();
+            }
+
+        } else {
+            new PermitDialog(this, msg + "").show();
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ACT_REQUEST_DOWNLOAD) {
+                getUpdate();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
