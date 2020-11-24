@@ -26,16 +26,18 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.center.HeZuoActivity;
 import com.huacheng.huiservers.ui.center.MyAboutActivity;
 import com.huacheng.huiservers.ui.center.MyInfoCircleActivity;
-import com.huacheng.huiservers.ui.center.SetActivity;
+import com.huacheng.huiservers.ui.center.PersonalSettingActivity;
 import com.huacheng.huiservers.ui.center.coupon.MyCouponListActivityNew;
 import com.huacheng.huiservers.ui.fragment.adapter.MyCenterAdapter;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
+import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew1.ServiceOrderListActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
+import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyGridview;
@@ -356,9 +358,17 @@ public class MyCenterFrament extends BaseFragment {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.iv_set:
-                intent = new Intent(mContext, SetActivity.class);
-                intent.putExtra("username",  bean.getUsername());
-                startActivity(intent);
+//                intent = new Intent(mContext, SetActivity.class);
+//                intent.putExtra("username",  bean.getUsername());
+//                startActivity(intent);
+
+                if (!LoginUtils.hasLoginUser()){
+                    intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent = new Intent(mContext, PersonalSettingActivity.class);
+                    startActivity(intent);
+                }
 
                 break;
             case R.id.iv_message:

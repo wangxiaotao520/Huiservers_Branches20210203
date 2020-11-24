@@ -1234,6 +1234,9 @@
         <activity
             android:name=".demo.LandScapeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name=".ui.center.PersonalSettingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
 
     </application>
 </manifest>
