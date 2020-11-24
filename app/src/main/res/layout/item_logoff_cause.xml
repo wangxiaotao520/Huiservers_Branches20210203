@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_15"
+    android:paddingBottom="@dimen/margin_15"
+    android:layout_marginLeft="@dimen/public_space_value_25"
+    android:layout_marginRight="@dimen/public_space_value_25"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/title_color"
+        android:text="账号内有未完成状态的订单" />
+
+    <TextView
+        android:id="@+id/no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/margin"
+        android:textColor="@color/title_third_color"
+        android:text="工单编号：ybxq123456789"
+        android:textSize="@dimen/text_size_13" />
+
+
+</LinearLayout>

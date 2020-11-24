@@ -5,6 +5,7 @@ import android.os.Handler;
 
 import com.google.gson.Gson;
 import com.huacheng.huiservers.BaseApplication;
+import com.huacheng.huiservers.http.HttpLoggingInterceptor;
 import com.huacheng.huiservers.http.okhttp.body.ProgressRequestBody;
 import com.huacheng.huiservers.http.okhttp.body.ResponseProgressBody;
 import com.huacheng.huiservers.http.okhttp.response.DownloadResponseHandler;
@@ -73,7 +74,7 @@ public class MyOkHttp {
                 List<Cookie> cookies = cookieStore.get(url.host());
                 return cookies != null ? cookies : new ArrayList<Cookie>();
             }
-        }).build();
+        }).addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build();
     }
 
     /**

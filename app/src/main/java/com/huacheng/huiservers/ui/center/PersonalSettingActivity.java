@@ -25,6 +25,7 @@ import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.huiservers.model.PayInfoBean;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.download.DownLoadDialogActivityNew;
+import com.huacheng.huiservers.ui.vip.QRCodeActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
@@ -121,6 +122,9 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
             @Override
             public void onClick(View v) {
                 //todo 我的二维码
+                Intent it = new Intent();
+                it.setClass(mContext, QRCodeActivity.class);
+                startActivity(it);
             }
         });
         llAddress.setOnClickListener(new View.OnClickListener() {

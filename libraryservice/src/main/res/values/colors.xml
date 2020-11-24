@@ -53,5 +53,6 @@
     <color name="red_normal">#FF625E</color><!--常规red-->
     <color name="arc_green">#36FCC4</color><!--充电桩进度-->
     <color name="coupon_tag_color">#FDF6F6</color><!--商品详情优惠券标签颜色-->
+    <color name="red_li">#E0473F</color><!--商品详情优惠券标签颜色-->
 
 </resources>

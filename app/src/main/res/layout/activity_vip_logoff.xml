@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title" />
+
+
+    <ImageView
+        android:layout_width="@dimen/public_space_value_70"
+        android:layout_height="@dimen/public_space_value_70"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/public_space_value_25"
+        android:adjustViewBounds="true"
+        android:background="@color/default_img_color" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/public_space_value_25"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginRight="@dimen/public_space_value_25"
+        android:text="很遗憾，将153****2921所绑定的账号注 销,相信短暂的离别只为日后更好的相见~"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/text_size_18" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/public_space_value_25"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginRight="@dimen/public_space_value_25"
+        android:text="注销账号无法恢复，请谨慎操作。注销账号前，我们 需要对以下信息进行审核，以保证你的账号安全。"
+        android:textColor="@color/title_third_color"
+        android:textSize="@dimen/text_size_14" />
+
+     <ListView
+         android:id="@+id/listview"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:visibility="visible"
+         android:divider="@null"
+         android:layout_marginTop="@dimen/margin_15"
+         android:layout_marginLeft="@dimen/public_space_value_25"
+         android:layout_marginRight="@dimen/public_space_value_25"/>
+
+
+     <TextView
+         android:id="@+id/next"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="@dimen/public_space_value_25"
+         android:layout_marginRight="@dimen/public_space_value_25"
+         android:layout_marginTop="@dimen/public_space_value_35"
+         android:gravity="center"
+         android:textSize="@dimen/text_size_16"
+         android:padding="15dp"
+         android:background="@drawable/shape_solid_orange_btn"
+         android:textColor="@color/white"
+         android:text="下一步"/>
+
+
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/public_space_value_25"
+          android:layout_marginRight="@dimen/public_space_value_25"
+          android:textSize="@dimen/text_size_12"
+          android:layout_marginTop="@dimen/margin"
+          android:text="点击“下一步”即代表你自愿放弃账号内所有虚拟资产并同意"/>
+
+    <TextView
+        android:id="@+id/protocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/public_space_value_25"
+        android:layout_marginRight="@dimen/public_space_value_25"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/text_size_12"
+        android:text="《社区慧生活用户注销协议》"/>
+
+</LinearLayout>
