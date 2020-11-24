@@ -121,7 +121,7 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
         llQrCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 我的二维码
+                //我的二维码
                 Intent it = new Intent();
                 it.setClass(mContext, QRCodeActivity.class);
                 startActivity(it);
@@ -130,13 +130,18 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
         llAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 收货地址
+                //收货地址
+                Intent intent = new Intent(mContext, AddressListActivity.class);
+                intent.putExtra("jump_type", 3);
+                startActivity(intent);
             }
         });
         llSafe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 账号与安全
+                // 账号与安全
+                Intent intent = new Intent(mContext, AccountSafeActivity.class);
+                startActivity(intent);
             }
         });
         llUpdate.setOnClickListener(new View.OnClickListener() {

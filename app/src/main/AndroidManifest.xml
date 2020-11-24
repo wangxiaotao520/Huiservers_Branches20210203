@@ -1220,6 +1220,9 @@
         <activity
             android:name=".ui.center.PersonalSettingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name=".ui.center.AccountSafeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity
             android:name=".ui.vip.QRCodeActivity"
