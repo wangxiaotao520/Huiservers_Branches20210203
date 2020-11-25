@@ -1,70 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/windowbackground"
     android:layout_height="match_parent">
-    <View
-        android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/white"/>
+
     <include layout="@layout/titlebar_center"/>
 
     <LinearLayout
-        android:id="@+id/ll_head_title"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:layout_height="wrap_content">
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sdv_head"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            fresco:roundAsCircle="true"
-            fresco:placeholderImage="@color/default_img_color"
-            fresco:placeholderImageScaleType="centerCrop" />
-
-        <LinearLayout
-            android:layout_gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:textColor="@color/title_color"
-                android:text=""
-                android:textSize="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tv_sign"
-                android:textColor="@color/title_sub_color"
-                android:text="您还未设置签名哦~"
-                android:textSize="14dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/jiantou_you"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_qr_code"
-        android:layout_marginTop="10dp"
+        android:id="@+id/ll_phone_number"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:orientation="horizontal"
@@ -73,7 +16,7 @@
         android:layout_height="50dp">
         <TextView
             android:textColor="@color/title_color"
-            android:text="我的二维码"
+            android:text="手机号码"
             android:textSize="16dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -82,12 +25,15 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"/>
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+        <TextView
+            android:id="@+id/tv_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16dp"
+            android:textColor="@color/title_sub_color"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="5dp"
-            android:background="@color/default_img_color"/>
+            android:layout_marginRight="5dp" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,10 +43,9 @@
     <View
         android:layout_width="match_parent"
         android:background="@color/line"
-
         android:layout_height="1px"/>
     <LinearLayout
-        android:id="@+id/ll_address"
+        android:id="@+id/ll_phone_wechat"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:orientation="horizontal"
@@ -109,7 +54,7 @@
         android:layout_height="50dp">
         <TextView
             android:textColor="@color/title_color"
-            android:text="收货地址"
+            android:text="微信账号"
             android:textSize="16dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -119,13 +64,13 @@
             android:layout_weight="1"
             android:layout_height="match_parent"/>
         <TextView
-            android:textColor="@color/text_color_hint"
-            android:text="添加/修改"
-            android:textSize="16dp"
-            android:layout_marginRight="5dp"
-            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="未绑定"
+            android:textSize="16dp"
+            android:textColor="@color/text_color_hint"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,17 +79,17 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_safe"
-        android:layout_marginTop="10dp"
+        android:id="@+id/ll_secret"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
+        android:layout_marginTop="10dp"
         android:layout_height="50dp">
         <TextView
             android:textColor="@color/title_color"
-            android:text="账号与安全"
+            android:text="隐私政策"
             android:textSize="16dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -156,9 +101,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="手机号码/账号绑定"
+            android:text=""
             android:textSize="16dp"
-            android:textColor="@color/text_color_hint"
+            android:textColor="@color/title_sub_color"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="5dp" />
         <ImageView
@@ -173,7 +118,7 @@
 
         android:layout_height="1px"/>
     <LinearLayout
-        android:id="@+id/ll_update"
+        android:id="@+id/ll_cancel_account"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:orientation="horizontal"
@@ -182,7 +127,7 @@
         android:layout_height="50dp">
         <TextView
             android:textColor="@color/title_color"
-            android:text="检查更新"
+            android:text="注销账号"
             android:textSize="16dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -192,30 +137,17 @@
             android:layout_weight="1"
             android:layout_height="match_parent"/>
         <TextView
-            android:id="@+id/tv_version"
-            android:textColor="@color/text_color_hint"
-            android:text=""
-            android:textSize="16dp"
-            android:layout_marginRight="5dp"
-            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="注销账号无法恢复，请谨慎操作"
+            android:textSize="16dp"
+            android:textColor="@color/text_color_hint"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@drawable/jiantou_you"/>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_login_out"
-        android:textColor="@color/orange"
-        android:text="退出登录"
-        android:textSize="17dp"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"/>
 </LinearLayout>

@@ -27,6 +27,8 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
     RadioGroup radiogroup;
     RadioButton radio_nan, radio_nv;
     String currentSelectedVal;
+    private String sex="";
+    private int type=1;
 
 
     @Override
@@ -91,14 +93,23 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
     protected void initView() {
         title_name = (TextView) findViewById(R.id.title_name);
         right = (TextView) findViewById(R.id.right);
-        // set
-        title_name.setText("性别");
-        right.setTextColor(getResources().getColor(R.color.orange));
-        right.setText("提交");
-        right.setVisibility(View.VISIBLE);
         radiogroup = (RadioGroup) findViewById(R.id.radiogroup);
         radio_nan = (RadioButton) findViewById(R.id.radio_nan);
         radio_nv = (RadioButton) findViewById(R.id.radio_nv);
+        // set
+        if (type==1){
+            title_name.setText("性别");
+            radio_nan.setText("男");
+            radio_nv.setText("女");
+        }else {
+            title_name.setText("居住状态");
+            radio_nan.setText("自有房屋");
+            radio_nv.setText("租房");
+        }
+        right.setTextColor(getResources().getColor(R.color.orange));
+        right.setText("提交");
+        right.setVisibility(View.VISIBLE);
+
         final Drawable drawableCheck = getResources().getDrawable(R.mipmap.ic_selected_pay_type);
         final Drawable drawableunCheck = getResources().getDrawable(R.drawable.shape_oval_grey);
         drawableCheck.setBounds(0, 0, drawableCheck.getMinimumWidth(), drawableCheck.getMinimumHeight());  //
@@ -108,30 +119,30 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
             @Override
             public void onCheckedChanged(RadioGroup arg0, int arg1) {
                 RadioButton rb = (RadioButton) findViewById(arg0.getCheckedRadioButtonId());
-                if (rb.getText().toString().equals("男")) {
-                    currentSelectedVal = "1";
-                    radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
-                    radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
-                } else {
-                    currentSelectedVal = "2";
-                    radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
-                    radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
-                }
+
+                    if (rb.getText().toString().equals("男")||rb.getText().toString().equals("自有房屋")) {
+                        currentSelectedVal = "1";
+                        radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
+                        radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
+                    } else  if (rb.getText().toString().equals("女")||rb.getText().toString().equals("租房")){
+                        currentSelectedVal = "2";
+                        radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
+                        radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
+                    }
+
             }
         });
         //getExtra
-
-        String sex = getIntent().getExtras().getString("sex");
         if (!sex.equals("")) {
-            if (sex.equals("男")) {
-                radio_nan.setChecked(true);
-                radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
-                radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
-            } else if (sex.equals("女")) {
-                radio_nv.setChecked(true);
-                radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
-                radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
-            }
+                if (sex.equals("男")||sex.equals("只有房屋")) {
+                    radio_nan.setChecked(true);
+                    radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
+                    radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
+                } else if (sex.equals("女")||sex.equals("租房")) {
+                    radio_nv.setChecked(true);
+                    radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
+                    radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
+                }
         } else {
             radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
             radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
@@ -143,6 +154,7 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
 
     @Override
     protected void initData() {
+
 
     }
 
@@ -158,7 +170,8 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
 
     @Override
     protected void initIntentData() {
-
+        sex = this.getIntent().getStringExtra("sex");
+        type = this.getIntent().getIntExtra("type",1);
     }
 
     @Override

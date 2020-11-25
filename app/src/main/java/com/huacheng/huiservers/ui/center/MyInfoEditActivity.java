@@ -7,22 +7,26 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.ImgDialog;
 import com.huacheng.huiservers.http.HttpHelper;
@@ -31,10 +35,12 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
+import com.huacheng.huiservers.model.ModelRegion;
 import com.huacheng.huiservers.model.PersoninfoBean;
 import com.huacheng.huiservers.model.protocol.CenterProtocol;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.utils.GetJsonDataUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
 import com.huacheng.huiservers.view.CircularImage;
@@ -48,6 +54,7 @@ import com.yalantis.ucrop.UCrop;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
 
 import java.io.File;
 import java.text.ParseException;
@@ -57,6 +64,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import top.zibin.luban.CompressionPredicate;
@@ -64,65 +74,102 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 /**
- * 个人信息编辑页面
+ * 类描述：个人基础信息
+ * 时间：2020/11/24 16:13
+ * created by DFF
  */
-public class MyInfoEditActivity extends BaseActivity implements OnClickListener {
+public class MyInfoEditActivity extends BaseActivity{
 
+    @BindView(R.id.title_name)
+    TextView mTitleName;
+    @BindView(R.id.img_head_1)
+    CircularImage mImgHead1;
+    @BindView(R.id.rl_head)
+    RelativeLayout mRlHead;
+    @BindView(R.id.tv_name)
+    TextView mTvName;
+    @BindView(R.id.rl_name)
+    RelativeLayout mRlName;
+    @BindView(R.id.tv_nickname)
+    TextView mTvNickname;
+    @BindView(R.id.rl_nickname)
+    RelativeLayout mRlNickname;
+    @BindView(R.id.tv_qianming)
+    TextView mTvQianming;
+    @BindView(R.id.rl_qianming)
+    RelativeLayout mRlQianming;
+    @BindView(R.id.tv_sex)
+    TextView mTvSex;
+    @BindView(R.id.rl_sex)
+    RelativeLayout mRlSex;
+    @BindView(R.id.tv_birthday)
+    TextView mTvBirthday;
+    @BindView(R.id.rl_birthday)
+    RelativeLayout mRlBirthday;
+    @BindView(R.id.tv_city)
+    TextView mTvCity;
+    @BindView(R.id.rl_city)
+    RelativeLayout mRlCity;
+    @BindView(R.id.tv_juzhu)
+    TextView mTvJuzhu;
+    @BindView(R.id.rl_juzhu)
+    RelativeLayout mRlJuzhu;
+    @BindView(R.id.scrollView)
+    ScrollView mScrollView;
 
-    private static final int PICK_CAMERA = 4;
-    private LinearLayout lin_left;
-    private RelativeLayout rl_name, rl_nickname, rl_sex, rl_birthday, rl_changepwd;
-    private TextView title_name, tv_name, tv_nickname, tv_nickname1, tv_sex, tv_birthday;
+    private ArrayList<ModelRegion> jsonBean;
+    private ArrayList<String> options1Items = new ArrayList<>();//省
+    private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();//市
+    private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();//区
+    private int selected_options1, selected_options2, selected_options3;//默认选中
+    private String location_provice, location_district, location_city,location_code;
+    private static final int MSG_LOAD_SUCCESS = 0x0002;
+    private static final int MSG_LOAD_FAILED = 0x0003;
+    private Thread thread_parse_json;
+
+    public static final int ACT_SELECT_PHOTO = 111;//选择图片
     private ImgDialog dialog;
-    private CircularImage img_head_1;
     private File file = new File(Environment.getExternalStorageDirectory() + "/Gphoto.png");
     private BitmapUtils bitmapUtils;
 
     private CenterProtocol cprotocol = new CenterProtocol();
     private PersoninfoBean bean = new PersoninfoBean();
-    private String strData;
-    private String result;
     private Intent intent;
     private Bundle bundle = new Bundle();
-    private ScrollView scrollView;
     private RxPermissions rxPermission;
 
-
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_LOAD_SUCCESS:
+                    hideDialog(smallDialog);
+                    //   showCityWheel();
+                    break;
+                case MSG_LOAD_FAILED:
+                    hideDialog(smallDialog);
+                    SmartToast.showInfo("解析失败");
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
     @Override
     protected void initView() {
-        MyCookieStore.My_info = 0;
-        //    SetTransStatus.GetStatus(this);// 系统栏默认为黑色
-        scrollView =  findViewById(R.id.scrollView);
-        lin_left = (LinearLayout) findViewById(R.id.lin_left);
-        title_name = (TextView) findViewById(R.id.title_name);
-        img_head_1 = (CircularImage) findViewById(R.id.img_head_1);
-        rl_name = (RelativeLayout) findViewById(R.id.rl_name);
-        rl_nickname = (RelativeLayout) findViewById(R.id.rl_nickname);
-        rl_sex = (RelativeLayout) findViewById(R.id.rl_sex);
-        rl_birthday = (RelativeLayout) findViewById(R.id.rl_birthday);
-        rl_changepwd = (RelativeLayout) findViewById(R.id.rl_changepwd);
-        tv_name = (TextView) findViewById(R.id.tv_name);
-        tv_nickname = (TextView) findViewById(R.id.tv_nickname);
-        tv_nickname1 = (TextView) findViewById(R.id.tv_nickname1);
-        tv_sex = (TextView) findViewById(R.id.tv_sex);
-        tv_birthday = (TextView) findViewById(R.id.tv_birthday);
-        //
-        title_name.setText("个人信息");
-        lin_left.setOnClickListener(this);
-        img_head_1.setOnClickListener(this);
-        rl_name.setOnClickListener(this);
-        rl_nickname.setOnClickListener(this);
-        rl_sex.setOnClickListener(this);
-        rl_birthday.setOnClickListener(this);
-        rl_changepwd.setOnClickListener(this);
-        //请求数据
-        getinfo();
+        findTitleViews();
+        ButterKnife.bind(this);
+        titleName.setText("基础信息");
         rxPermission = new RxPermissions(this);
     }
 
     @Override
     protected void initData() {
-
+        //请求数据
+        getinfo();
+        //解析json
+        parseJson();
     }
 
     @Override
@@ -155,16 +202,12 @@ public class MyInfoEditActivity extends BaseActivity implements OnClickListener 
     protected void initFragment() {
 
     }
-
-    public static final int ACT_SELECT_PHOTO = 111;//选择图片
-
-    @Override
-    public void onClick(View arg0) {
-        switch (arg0.getId()) {
-            case R.id.lin_left:
-                finish();
-                break;
-            case R.id.img_head_1:// 修改头像
+    @OnClick({R.id.img_head_1,R.id.rl_head, R.id.rl_name, R.id.rl_nickname, R.id.rl_qianming, R.id.rl_sex, R.id.rl_birthday, R.id.rl_city, R.id.rl_juzhu})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.img_head_1:
+            case R.id.rl_head:
+                //修改头像
                 dialog = new ImgDialog(MyInfoEditActivity.this, new ImgDialog.OnCustomDialogListener() {
                     @SuppressLint("CheckResult")
                     @Override
@@ -201,22 +244,34 @@ public class MyInfoEditActivity extends BaseActivity implements OnClickListener 
                     }
                 });
                 dialog.show();
+                break;
+            case R.id.rl_name:
+
 
                 break;
             case R.id.rl_nickname:
+                //昵称
                 intent = new Intent(this, NamenickVerfityActivity.class);
-                bundle.putString("nickname", tv_nickname.getText().toString());
-                bundle.putString("tv_sex", tv_sex.getText().toString());
+                bundle.putString("nickname", mTvNickname.getText().toString());
+                bundle.putString("tv_sex", mTvSex.getText().toString());
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 22);
+
+                break;
+            case R.id.rl_qianming:
+                //签名
+                intent = new Intent(this, MyAutographActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rl_sex:
+                //性别
                 intent = new Intent(this, SexVerfityActivity.class);
-                bundle.putString("sex", tv_sex.getText().toString());
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 3);
+                intent.putExtra("sex",mTvSex.getText().toString());
+                intent.putExtra("type",1);
+                startActivity(intent);
                 break;
             case R.id.rl_birthday:
+                //生日
                 TimePickerView pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
@@ -229,12 +284,12 @@ public class MyInfoEditActivity extends BaseActivity implements OnClickListener 
                     }
                 }).setSubmitColor(this.getResources().getColor(R.color.orange))//确定按钮文字颜色
                         .setCancelColor(this.getResources().getColor(R.color.text_color_hint)).build();
-                String birthDay = tv_birthday.getText().toString();
+                String birthDay = mTvBirthday.getText().toString();
                 if (NullUtil.isStringEmpty(birthDay)) {
                     Calendar instance = Calendar.getInstance();
                     pvTime.setDate(instance);
                 } else {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     try {
                         Date date = sdf.parse(birthDay);
                         Calendar calendar = Calendar.getInstance();
@@ -246,16 +301,54 @@ public class MyInfoEditActivity extends BaseActivity implements OnClickListener 
                 }
                 pvTime.show();
                 break;
-            case R.id.rl_changepwd:
-                intent = new Intent(this, ChangePwdVerifyActivity.class);
-                startActivity(intent);
+            case R.id.rl_city:
+                //地区
+                if (options1Items.size() > 0) {
+                    showCityWheel();
+                }
                 break;
-
-            default:
+            case R.id.rl_juzhu:
+                //居住状态
+                intent = new Intent(this, SexVerfityActivity.class);
+                intent.putExtra("sex",mTvSex.getText().toString());
+                intent.putExtra("type",2);
+                startActivity(intent);
                 break;
         }
     }
+    /**
+     * 显示三级城市联动
+     */
+    private void showCityWheel() {
+        //条件选择器
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                selected_options1 = options1;
+                selected_options2 = option2;
+                selected_options3 = options3;
+                if (jsonBean != null && jsonBean.size() > 0) {
+                    if (jsonBean.get(options1).getS_list().get(option2).getSs_list().size()==0) {
+                        return;
+                    }
+//                    mTvCity.setText( "" +
+//                            jsonBean.get(options1).getS_list().get(option2).getSs_list().get(options3).getRegion_name());
 
+                    location_provice=jsonBean.get(options1).getRegion_name();
+                    location_city=jsonBean.get(options1).getS_list().get(option2).getRegion_name();
+                    location_district=jsonBean.get(options1).getS_list().get(option2).getSs_list().get(options3).getRegion_name();
+
+                    mTvCity.setText(location_provice+ " "+location_city+" "+location_district);
+                }
+            }
+        }).setSubmitColor(this.getResources().getColor(R.color.orange))//确定按钮文字颜色
+                .setCancelColor(this.getResources().getColor(R.color.text_color_hint))
+                .build();//取消按钮文字颜色;
+        pvOptions.setPicker(options1Items, options2Items, options3Items);
+        pvOptions.setSelectOptions(selected_options1, selected_options2, selected_options3);
+        pvOptions.show();
+
+    }
     private void jumpToImageSelector() {
         Intent imageIntent = new Intent(this, MultiImageSelectorActivity.class);
         // 是否显示相机
@@ -266,6 +359,103 @@ public class MyInfoEditActivity extends BaseActivity implements OnClickListener 
         // 默认选择
 
         startActivityForResult(imageIntent, ACT_SELECT_PHOTO);
+    }
+    /**
+     * 解析cityjson
+     */
+    private void parseJson() {
+        showDialog(smallDialog);
+        if (thread_parse_json == null) {
+            thread_parse_json = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // 子线程中解析省市区数据
+                    initJsonData();
+                }
+            });
+        }
+        thread_parse_json.start();
+    }
+    private void initJsonData() {//解析数据
+
+        /**
+         * 注意：assets 目录下的Json文件仅供参考，实际使用可自行替换文件
+         * 关键逻辑在于循环体
+         *
+         * */
+        String JsonData = new GetJsonDataUtil().getJson(this, "region.json");//获取assets目录下的json文件数据
+
+        //用Gson 转成实体
+        jsonBean = parseData(JsonData);
+
+        /**
+         * 添加省份数据
+         *
+         * 注意：如果是添加的JavaBean实体，则实体类需要实现 IPickerViewData 接口，
+         * PickerView会通过getPickerViewText方法获取字符串显示出来。
+         */
+        for (int i = 0; i < jsonBean.size(); i++) {
+            options1Items.add(jsonBean.get(i).getRegion_name());
+            if (jsonBean.get(i).getRegion_name().equals(location_provice)) {
+                selected_options1 = i;
+            }
+        }
+        for (int i = 0; i < jsonBean.size(); i++) {//遍历省份
+            ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
+            ArrayList<ArrayList<String>> Province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
+
+            for (int c = 0; c < jsonBean.get(i).getS_list().size(); c++) {//遍历该省份的所有城市
+                String CityName = jsonBean.get(i).getS_list().get(c).getRegion_name();
+                CityList.add(CityName);//添加城市
+                //默认选中
+                if (CityName.equals(location_city)) {
+                    selected_options2 = c;
+                }
+                ArrayList<String> City_AreaList = new ArrayList<>();//该城市的所有地区列表
+
+                //如果无地区数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
+                if (jsonBean.get(i).getS_list().get(c).getSs_list() == null
+                        || jsonBean.get(i).getS_list().get(c).getSs_list().size() == 0) {
+                    City_AreaList.add("");
+                } else {
+                    for (int i1 = 0; i1 < jsonBean.get(i).getS_list().get(c).getSs_list().size(); i1++) {
+                        City_AreaList.add(jsonBean.get(i).getS_list().get(c).getSs_list().get(i1).getRegion_name());
+                        if (jsonBean.get(i).getS_list().get(c).getSs_list().get(i1).getRegion_name().equals(location_district)) {
+                            selected_options3 = i1;
+                        }
+                    }
+
+                }
+                Province_AreaList.add(City_AreaList);//添加该省所有地区数据
+            }
+
+            /**
+             * 添加城市数据
+             */
+            options2Items.add(CityList);
+
+            /**
+             * 添加地区数据
+             */
+            options3Items.add(Province_AreaList);
+        }
+        mHandler.sendEmptyMessage(MSG_LOAD_SUCCESS);
+    }
+
+    public ArrayList<ModelRegion> parseData(String result) {//Gson 解析
+        ArrayList<ModelRegion> detail = new ArrayList<>();
+        try {
+            JSONArray data = new JSONArray(result);
+            Gson gson = new Gson();
+            for (int i = 0; i < data.length(); i++) {
+                ModelRegion entity = gson.fromJson(data.optJSONObject(i).toString(), ModelRegion.class);
+                detail.add(entity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            mHandler.sendEmptyMessage(MSG_LOAD_FAILED);
+        }
+        return detail;
     }
 
 
@@ -303,19 +493,6 @@ public class MyInfoEditActivity extends BaseActivity implements OnClickListener 
 
     }
 
-    public void data() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
-        strData = formatter.format(curDate);
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //  getinfo();
-    }
-
     private void getinfo() {// 个人信息
         showDialog(smallDialog);
         Url_info info = new Url_info(this);
@@ -326,12 +503,12 @@ public class MyInfoEditActivity extends BaseActivity implements OnClickListener 
             protected void setData(String json) {
                 hideDialog(smallDialog);
                 bean = cprotocol.getinfo3(json);
-                scrollView.setVisibility(View.VISIBLE);
+                mScrollView.setVisibility(View.VISIBLE);
                 //获取头像
                 if (bean.getAvatars().equals("null")) {
                 } else {
                     bitmapUtils = new BitmapUtils(MyInfoEditActivity.this);
-                    bitmapUtils.display(img_head_1, StringUtils.getImgUrl(bean.getAvatars()));
+                    bitmapUtils.display(mImgHead1, StringUtils.getImgUrl(bean.getAvatars()));
                 }
                 file = new File(Environment.getExternalStorageDirectory() + "/Gphoto.png");
                 if (file.exists()) {
@@ -339,39 +516,39 @@ public class MyInfoEditActivity extends BaseActivity implements OnClickListener 
                 }
                 //姓名
                 if (bean.getFullname().equals("null")) {
-                    tv_name.setHint("请填写姓名");
+                    mTvName.setHint("请填写姓名");
                 } else {
-                    tv_name.setText(bean.getFullname());
+                    mTvName.setText(bean.getFullname());
                 }
                 //昵称
                 if (bean.getNickname().equals("null")) {
-                    tv_nickname.setHint("请填写昵称");
+                    mTvNickname.setHint("请填写昵称");
                 } else {
-                    tv_nickname.setText(bean.getNickname());
+                    mTvNickname.setText(bean.getNickname());
                     // tv_nickname1.setText(bean.getNickname());
                 }
 
                 //获取性别
                 String sex_str = bean.getSex();
                 if (sex_str.equals("null")) {
-                    tv_sex.setHint("请选择性别");
+                    mTvSex.setHint("请选择性别");
                 } else {
                     if (sex_str.equals("1")) {
-                        tv_sex.setText("男");
+                        mTvSex.setText("男");
                     } else if (sex_str.equals("2")) {
-                        tv_sex.setText("女");
+                        mTvSex.setText("女");
                     } else {
-                        tv_sex.setText("");
+                        mTvSex.setText("");
                     }
                 }
                 //获取生日
                 String birthday_str = bean.getBirthday();
                 if (birthday_str.equals("null")) {
-                    tv_birthday.setHint("请选择出生日期");
+                    mTvBirthday.setHint("请选择出生日期");
                 } else {
                     if (!StringUtils.isEmpty(birthday_str)) {
 //                        birthday_str=  DateUtil.StrToDate(birthday_str);
-                        tv_birthday.setText(birthday_str);
+                        mTvBirthday.setText(birthday_str);
                     }
                 }
             }
