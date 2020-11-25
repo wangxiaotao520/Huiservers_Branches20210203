@@ -41,6 +41,7 @@ import com.huacheng.huiservers.ui.fragment.ShopFragment1;
 import com.huacheng.huiservers.ui.index.oldservice.MyWristbandsActivity;
 import com.huacheng.huiservers.ui.index.workorder.WorkOrderDetailActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.vip.MineFragment;
 import com.huacheng.huiservers.utils.PermissionUtils;
 import com.huacheng.huiservers.utils.QRCodeUtils;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -194,7 +195,7 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
 
         fragments.add(new CircleFragmentNew());
 
-        fragments.add(new MyCenterFrament());
+        fragments.add(MineFragment.newInstance());
 
     }
 

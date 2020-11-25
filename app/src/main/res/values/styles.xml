@@ -3,14 +3,14 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-<!--        <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>-->
+        <!--        <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>-->
         <!--Appbar背景色-->
         <item name="colorPrimary">@color/line_de</item>
         <!--控制各个控件被选中时的颜色 colorAccent-->
 
         <!--取消水波纹效果-->
-<!--        <item name="android:selectableItemBackground">@null</item>-->
-<!--        <item name="android:selectableItemBackgroundBorderless">@null</item>-->
+        <!--        <item name="android:selectableItemBackground">@null</item>-->
+        <!--        <item name="android:selectableItemBackgroundBorderless">@null</item>-->
 
         <!-- 设置自定义水波纹颜色(包括了listivew的item按下颜色) -->
         <!-- The color applied to framework control highlights (ex. ripples, list selectors). -->
@@ -137,9 +137,9 @@
     </style>
 
 
-<!--    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">-->
-<!--        <item name="android:colorAccent">@color/colorPrimary</item>-->
-<!--    </style>-->
+    <!--    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">-->
+    <!--        <item name="android:colorAccent">@color/colorPrimary</item>-->
+    <!--    </style>-->
 
 
     <!--租售房edittext主题-->
@@ -147,6 +147,7 @@
         <item name="colorControlNormal">@color/orange</item>
         <item name="colorControlActivated">@color/orange</item>
     </style>
+
     <style name="rent_release_text">
         <item name="android:textColor">@color/title_color</item>
         <item name="android:textSize">@dimen/t_15sp</item>
@@ -162,4 +163,44 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
+    <style name="mine_tabs_linear">
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">@dimen/margin</item>
+        <item name="android:paddingBottom">@dimen/margin_20</item>
+
+    </style>
+
+    <style name="mine_tabs_img">
+
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_margin">@dimen/public_space_value_7</item>
+        <item name="android:background">@color/default_img_color</item>
+
+    </style>
+
+    <style name="mine_tabs_dot">
+        <item name="android:layout_width">15dp</item>
+        <item name="android:layout_height">15dp</item>
+         <item name="android:layout_gravity">right</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/shape_circle_solid_red</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="mine_tabs_txt">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/title_color</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
 </resources>
