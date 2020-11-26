@@ -1,9 +1,12 @@
 package com.huacheng.huiservers.ui.base;
 
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.libraryservice.utils.TDevice;
 
 
 /**
@@ -60,5 +63,10 @@ public class MyActivity extends BaseActivity{
 
         TextView textView  = findViewById(R.id.title);
         textView.setText(title);
+    }
+    public void initStatubar(){
+
+        View mStatusBar = findViewById(R.id.status_bar);
+        mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(mContext)));
     }
 }

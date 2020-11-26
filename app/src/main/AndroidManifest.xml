@@ -1254,6 +1254,9 @@
             android:name=".ui.vip.LogoffIfActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.vip.VipInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.webview.WebviewActivity"
             android:screenOrientation="portrait" />
         <activity

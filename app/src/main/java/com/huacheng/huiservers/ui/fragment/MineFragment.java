@@ -13,6 +13,7 @@ import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.ui.base.MyFragment;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.vip.PersonalSettingActivity;
+import com.huacheng.huiservers.ui.vip.VipInfoActivity;
 import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.LoginUtils;
 
@@ -31,8 +32,6 @@ import butterknife.Unbinder;
 public class MineFragment extends MyFragment {
 
 
-    @BindView(R.id.status_bar)
-    View statusBar;
     @BindView(R.id.setting)
     ImageView setting;
     @BindView(R.id.msg)
@@ -122,6 +121,7 @@ public class MineFragment extends MyFragment {
     }
 
 
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_mine;
@@ -130,6 +130,7 @@ public class MineFragment extends MyFragment {
     @Override
     public void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
+        initStatubar();
         loginView.setVisibility(LoginUtils.hasLoginUser() ? View.GONE : View.VISIBLE);
         userView.setVisibility(LoginUtils.hasLoginUser() ? View.VISIBLE : View.GONE);
     }
@@ -191,7 +192,8 @@ public class MineFragment extends MyFragment {
                 break;
             // 会员等级
             case R.id.level:
-
+                intent = new Intent(mContext, VipInfoActivity.class);
+                startActivity(intent);
                 break;
             //积分
             case R.id.point:
