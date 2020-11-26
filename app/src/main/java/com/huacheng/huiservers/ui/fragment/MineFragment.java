@@ -9,10 +9,15 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.ui.base.MyFragment;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.vip.PersonalSettingActivity;
+import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.LoginUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,8 +51,10 @@ public class MineFragment extends MyFragment {
     TextView kyold;
     @BindView(R.id.sign)
     TextView sign;
-    @BindView(R.id.switcher)
-    ViewSwitcher switcher;
+    @BindView(R.id.login_view)
+    View loginView;
+    @BindView(R.id.user_view)
+    View userView;
     @BindView(R.id.renzheng)
     LinearLayout renzheng;
     @BindView(R.id.goodslike)
@@ -123,8 +130,19 @@ public class MineFragment extends MyFragment {
     @Override
     public void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
+        loginView.setVisibility(LoginUtils.hasLoginUser() ? View.GONE : View.VISIBLE);
+        userView.setVisibility(LoginUtils.hasLoginUser() ? View.VISIBLE : View.GONE);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        loginView.setVisibility(LoginUtils.hasLoginUser() ? View.GONE : View.VISIBLE);
+        userView.setVisibility(LoginUtils.hasLoginUser() ? View.VISIBLE : View.GONE);
+
+    }
 
     @OnClick({R.id.setting, R.id.msg, R.id.login, R.id.avator, R.id.name, R.id.level, R.id.point, R.id.kyold, R.id.sign,
             R.id.renzheng, R.id.goodslike, R.id.storelike, R.id.article_collect, R.id.vip, R.id.point_mall, R.id.coupon,
@@ -132,7 +150,13 @@ public class MineFragment extends MyFragment {
             R.id.wait_serve, R.id.in_serve, R.id.serve_wait_comment, R.id.serve_after_sale, R.id.serve_order_all,
             R.id.work_order, R.id.cart, R.id.bill, R.id.rent_sell, R.id.my_article, R.id.address, R.id.user_invite, R.id.join, R.id.visitor_invite, R.id.aboat})
     public void onViewClicked(View view) {
+
         Intent intent = null;
+        if (!LoginUtils.hasLoginUser()) {
+            intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+            startActivity(intent);
+            return;
+        }
         switch (view.getId()) {
 
             //设置
@@ -152,6 +176,9 @@ public class MineFragment extends MyFragment {
                 break;
             //登录
             case R.id.login:
+
+                intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                startActivity(intent);
 
                 break;
             //头像

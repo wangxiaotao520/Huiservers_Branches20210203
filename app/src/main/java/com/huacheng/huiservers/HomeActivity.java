@@ -592,22 +592,21 @@ public class HomeActivity extends BaseActivity implements  View.OnClickListener 
                 changeBottomUI(3);
                 break;
             case R.id.fl_my:
-                preferencesLogin = this.getSharedPreferences("login", 0);
-                login_type = preferencesLogin.getString("login_type", "");
-                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
-                    Editor editor = preferencesLogin.edit();
-                    editor.putString("login_shop", "shop_login");
-                    editor.commit();
-                    startActivity(new Intent(this, LoginVerifyCodeActivity.class));
-                } else {
+//                preferencesLogin = this.getSharedPreferences("login", 0);
+//                login_type = preferencesLogin.getString("login_type", "");
+//                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+//                    Editor editor = preferencesLogin.edit();
+//                    editor.putString("login_shop", "shop_login");
+//                    editor.commit();
+//                    startActivity(new Intent(this, LoginVerifyCodeActivity.class));
+//                } else {
                     switchFragment(4);
                     current_fragment = 4;
                     changeBottomUI(4);
-                }
+//                }
 
                 break;
-                default:
-                    break;
+
         }
     }
 
