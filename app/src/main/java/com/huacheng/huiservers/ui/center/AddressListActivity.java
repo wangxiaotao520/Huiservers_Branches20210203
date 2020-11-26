@@ -23,6 +23,7 @@ import com.huacheng.huiservers.model.ModelAddressList;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.adapter.NewAddressAdapter;
+import com.huacheng.huiservers.ui.vip.AddAddressActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.TDevice;

@@ -27,7 +27,7 @@ import com.huacheng.huiservers.model.ModelCouponNew;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivity;
-import com.huacheng.huiservers.ui.center.AddAddressActivity;
+import com.huacheng.huiservers.ui.vip.AddAddressActivity;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.center.coupon.CouponListAdapter;
 import com.huacheng.huiservers.ui.shop.adapter.ConfirmShopListAdapter;

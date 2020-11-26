@@ -26,7 +26,7 @@ import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.center.HeZuoActivity;
 import com.huacheng.huiservers.ui.center.MyAboutActivity;
 import com.huacheng.huiservers.ui.center.MyInfoCircleActivity;
-import com.huacheng.huiservers.ui.center.PersonalSettingActivity;
+import com.huacheng.huiservers.ui.vip.PersonalSettingActivity;
 import com.huacheng.huiservers.ui.center.coupon.MyCouponListActivityNew;
 import com.huacheng.huiservers.ui.fragment.adapter.MyCenterAdapter;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;

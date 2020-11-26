@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.center;
+package com.huacheng.huiservers.ui.vip;
 
 import android.Manifest;
 import android.app.Dialog;

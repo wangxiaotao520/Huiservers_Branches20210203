@@ -1068,7 +1068,7 @@
             android:name=".ui.shop.StoreIndexActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.center.AddAddressActivity"
+            android:name=".ui.vip.AddAddressActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             />
@@ -1235,13 +1235,13 @@
             android:name=".demo.LandScapeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
-            android:name=".ui.center.PersonalSettingActivity"
+            android:name=".ui.vip.PersonalSettingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".ui.center.AccountSafeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
-            android:name=".ui.center.RegisterActivity"
+            android:name=".ui.vip.RegisterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity

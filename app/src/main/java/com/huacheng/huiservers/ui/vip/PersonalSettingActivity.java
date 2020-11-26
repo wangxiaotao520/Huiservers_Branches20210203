@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.center;
+package com.huacheng.huiservers.ui.vip;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -24,8 +24,9 @@ import com.huacheng.huiservers.model.ModelLoginOverTime;
 import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.huiservers.model.PayInfoBean;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.AccountSafeActivity;
+import com.huacheng.huiservers.ui.center.MyInfoEditActivity;
 import com.huacheng.huiservers.ui.download.DownLoadDialogActivityNew;
-import com.huacheng.huiservers.ui.vip.QRCodeActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.update.AppUpdate;
 import com.huacheng.huiservers.utils.update.Updateprester;
@@ -116,7 +117,7 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
             @Override
             public void onClick(View v) {
                 // 个人基础信息
-                Intent intent=new Intent(PersonalSettingActivity.this,MyInfoEditActivity.class);
+                Intent intent=new Intent(PersonalSettingActivity.this, MyInfoEditActivity.class);
                 startActivity(intent);
             }
         });
@@ -133,9 +134,12 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
             @Override
             public void onClick(View v) {
                 //收货地址
-                Intent intent = new Intent(mContext, AddressListActivity.class);
-                intent.putExtra("jump_type", 3);
-                startActivity(intent);
+//                Intent intent = new Intent(mContext, AddressListActivity.class);
+//                intent.putExtra("jump_type", 3);
+//                startActivity(intent);
+                //todo 测试 签到
+                Intent intent = new Intent(mContext, RegisterActivity.class);
+               startActivity(intent);
             }
         });
         llSafe.setOnClickListener(new View.OnClickListener() {
