@@ -7,7 +7,7 @@ package com.huacheng.huiservers.http.okhttp;
  */
 public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
-    public static String API_VERSION = "apk47/";
+    public static String API_VERSION = "apk48/";
 //    //测试
 //    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
 //    public static String API_URL = "http://test.hui-shenghuo.cn/";
@@ -582,6 +582,9 @@ public class ApiHttpClient {
     public static String GOODS_COUPON_LIST = API_URL + API_VERSION + "shop/goods_coupon";
     //确认订单优惠券列表
     public static String COMFIRM_ORDER_COUPON_LIST = API_URL + API_VERSION + "userCenter/order_coupon_46";
+    //新会员功能
+    //我的特权
+    public static String MY_RIGHT = API_URL + API_VERSION + "userCenter/user_right";
 
 
     /**
@@ -828,5 +831,6 @@ public class ApiHttpClient {
         GET_HOUST_LIST = API_URL + "/House/House/get_house_list";
         GET_HOUST_DETAIL= API_URL  + "/House/House/get_house_info";
         GET_HOUST_RECOMMEND= API_URL  + "/House/House/recommend_house";
+        MY_RIGHT = API_URL + API_VERSION + "userCenter/user_right";
     }
 }
