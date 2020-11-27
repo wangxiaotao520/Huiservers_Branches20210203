@@ -1262,6 +1262,9 @@
         <activity
             android:name=".ui.center.MyAutographActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".demo.CoordinatorLayoutWeiPinhuiActivity1"
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>
