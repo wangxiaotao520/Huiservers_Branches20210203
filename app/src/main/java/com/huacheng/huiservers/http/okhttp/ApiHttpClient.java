@@ -588,6 +588,10 @@ public class ApiHttpClient {
     //个人中心首页
     public static String UCENTER_INDEX = API_URL + API_VERSION + "userCenter/index_40";
 
+    //签到页面
+    public static String SIGN_INFO = API_URL + API_VERSION + "userCenter/sign_info";
+    //签到操作
+    public static String SIGN_TO = API_URL + API_VERSION + "userCenter/sign";
 
     /**
      * 刷新接口
@@ -834,5 +838,7 @@ public class ApiHttpClient {
         GET_HOUST_DETAIL = API_URL + "/House/House/get_house_info";
         GET_HOUST_RECOMMEND = API_URL + "/House/House/recommend_house";
         MY_RIGHT = API_URL + API_VERSION + "userCenter/user_right";
+        SIGN_INFO = API_URL + API_VERSION + "/userCenter/sign_info";
+        SIGN_TO = API_URL + API_VERSION + "userCenter/sign";
     }
 }
