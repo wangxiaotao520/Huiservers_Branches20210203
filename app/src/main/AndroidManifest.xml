@@ -1274,6 +1274,9 @@
         <activity
             android:name=".ui.integral.MyIntegralRightActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.vip.VipRightActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>

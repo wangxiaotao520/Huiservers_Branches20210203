@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <include
+        layout="@layout/titlebar_center"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_vip_right"
+                android:layout_width="match_parent"
+                android:background="@color/transparent"
+                android:layout_height="110dp"/>
+            <TextView
+                android:id="@+id/tv_my_right"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:text="VIP特权"
+                android:textColor="@color/title_color"
+                android:textStyle="bold"
+                android:paddingLeft="15dp"
+                android:textSize="14dp"
+                android:gravity="center_vertical"
+                android:layout_height="40dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/line"
+                android:layout_height="1px"/>
+            <com.huacheng.huiservers.view.MyListView
+                android:id="@+id/mListView_my"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@android:color/transparent"
+                android:divider="@null"
+                android:fastScrollEnabled="false"
+                android:listSelector="@android:color/transparent" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
