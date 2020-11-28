@@ -12,17 +12,18 @@ import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.dialog.PermitDialog;
 import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelLoginOverTime;
 import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.huiservers.model.PayInfoBean;
+import com.huacheng.huiservers.model.PersoninfoBean;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.AccountSafeActivity;
 import com.huacheng.huiservers.ui.center.MyInfoEditActivity;
@@ -36,9 +37,12 @@ import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,13 +80,15 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
     LinearLayout llUpdate;
     @BindView(R.id.tv_login_out)
     TextView tvLoginOut;
-    ModelUser user ;
+    ModelUser user;
     Updateprester updateprester;
-    private String apkpath="";
+    private String apkpath = "";
     public static final int ACT_REQUEST_DOWNLOAD = 101;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        isStatusBar=true;
+        EventBus.getDefault().register(this);
+        isStatusBar = true;
         super.onCreate(savedInstanceState);
     }
 
@@ -93,15 +99,45 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         titleName.setText("个人信息");
 
-        user= BaseApplication.getUser();
-        FrescoUtils.getInstance().setImageUri(sdvHead, StringUtils.getImgUrl(user.getAvatars()));
-        tvName.setText(user.getNickname()+"");
         tvVersion.setText("当前版本号：v" + AppUpdate.getVersionName(this));
         updateprester = new Updateprester(this, this);
     }
 
     @Override
     protected void initData() {
+        requestData();
+    }
+
+    /**
+     * 获取基础信息
+     */
+    private void requestData() {
+        showDialog(smallDialog);
+        Map<String, String> params = new HashMap<>();
+        MyOkHttp.get().post(ApiHttpClient.MY_CENTER_INFO, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    PersoninfoBean bean = (PersoninfoBean) JsonUtil.getInstance().parseJsonFromResponse(response, PersoninfoBean.class);
+                    if (bean != null) {
+                        tvName.setText(bean.getNickname() + "");
+                        FrescoUtils.getInstance().setImageUri(sdvHead, StringUtils.getImgUrl(bean.getAvatars()));
+                        tvSign.setText(bean.getSignature());
+
+                    }
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
 
     }
 
@@ -117,7 +153,7 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
             @Override
             public void onClick(View v) {
                 // 个人基础信息
-                Intent intent=new Intent(PersonalSettingActivity.this, MyInfoEditActivity.class);
+                Intent intent = new Intent(PersonalSettingActivity.this, MyInfoEditActivity.class);
                 startActivity(intent);
             }
         });
@@ -139,7 +175,7 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
 //                startActivity(intent);
                 //todo 测试 签到
                 Intent intent = new Intent(mContext, RegisterActivity.class);
-               startActivity(intent);
+                startActivity(intent);
             }
         });
         llSafe.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +209,7 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
             }
         });
     }
+
     /**
      * 更新接口
      */
@@ -203,7 +240,7 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
                     modelLoginOverTime.setType(1);
                     EventBus.getDefault().post(modelLoginOverTime);
                 } else {
-                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"获取数据失败"));
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "获取数据失败"));
                 }
             }
 
@@ -270,14 +307,15 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
                     }
                 }).show();//.setTitle("提示")
             } else {
-               // SmartToast.showInfo("当前已是最新版本");
-                new PermitDialog(this,  "当前已是最新版本").show();
+                // SmartToast.showInfo("当前已是最新版本");
+                new PermitDialog(this, "当前已是最新版本").show();
             }
 
         } else {
             new PermitDialog(this, msg + "").show();
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == RESULT_OK) {
@@ -287,5 +325,17 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(PersoninfoBean bean) {
+        //更换个人信息后刷新
+        requestData();
     }
 }

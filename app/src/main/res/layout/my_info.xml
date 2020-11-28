@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_nsm"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -50,7 +51,7 @@
 
                 </LinearLayout>
 
-                <com.huacheng.huiservers.view.CircularImage
+               <!-- <com.huacheng.huiservers.view.CircularImage
                     android:id="@+id/img_head_1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -58,7 +59,19 @@
                     android:layout_marginRight="@dimen/margin"
                     android:layout_toLeftOf="@+id/go"
                     android:background="@drawable/ic_default_head"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop" />-->
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sdv_head"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_toLeftOf="@+id/go"
+                    fresco:placeholderImage="@drawable/ic_default_head"
+                    fresco:placeholderImageScaleType="centerCrop"
+                    fresco:roundAsCircle="true"
+                    />
 
                 <ImageView
                     android:id="@+id/go"

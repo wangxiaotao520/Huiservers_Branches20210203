@@ -56,6 +56,7 @@ import okhttp3.Response;
 public class MyOkHttp {
 
     private OkHttpClient client;
+    private OkHttpClient clientUpload;
     private static MyOkHttp instance;
 
 
@@ -74,7 +75,26 @@ public class MyOkHttp {
                 List<Cookie> cookies = cookieStore.get(url.host());
                 return cookies != null ? cookies : new ArrayList<Cookie>();
             }
-        }).addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build();
+        })
+
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .build();
+        clientUpload = new OkHttpClient.Builder().cookieJar(new CookieJar() {
+            final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+
+            @Override
+            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                cookieStore.put(url.host(), cookies);
+            }
+
+            @Override
+            public List<Cookie> loadForRequest(HttpUrl url) {
+                List<Cookie> cookies = cookieStore.get(url.host());
+                return cookies != null ? cookies : new ArrayList<Cookie>();
+            }
+        })
+                // .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .build();
     }
 
     /**
@@ -303,7 +323,7 @@ public class MyOkHttp {
                     .build();
         }
         //responseHandler 获取到的是总进度
-        client.newCall(request).enqueue(new MyCallback(new Handler(), responseHandler));
+        clientUpload.newCall(request).enqueue(new MyCallback(new Handler(), responseHandler));
     }
 
     /**

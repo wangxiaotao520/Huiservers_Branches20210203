@@ -26,28 +26,26 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.db.UserSql;
 import com.huacheng.huiservers.dialog.ImgDialog;
-import com.huacheng.huiservers.http.HttpHelper;
-import com.huacheng.huiservers.http.MyCookieStore;
-import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
-import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelRegion;
+import com.huacheng.huiservers.model.ModelUser;
 import com.huacheng.huiservers.model.PersoninfoBean;
-import com.huacheng.huiservers.model.protocol.CenterProtocol;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.utils.GetJsonDataUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ucrop.ImgCropUtil;
-import com.huacheng.huiservers.view.CircularImage;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.UriUtils;
-import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.HttpUtils;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.yalantis.ucrop.UCrop;
 
@@ -55,6 +53,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.ParseException;
@@ -63,6 +62,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,12 +78,12 @@ import top.zibin.luban.OnCompressListener;
  * 时间：2020/11/24 16:13
  * created by DFF
  */
-public class MyInfoEditActivity extends BaseActivity{
+public class MyInfoEditActivity extends BaseActivity {
 
     @BindView(R.id.title_name)
     TextView mTitleName;
-    @BindView(R.id.img_head_1)
-    CircularImage mImgHead1;
+    /*@BindView(R.id.img_head_1)
+    CircularImage mImgHead1;*/
     @BindView(R.id.rl_head)
     RelativeLayout mRlHead;
     @BindView(R.id.tv_name)
@@ -116,27 +116,27 @@ public class MyInfoEditActivity extends BaseActivity{
     RelativeLayout mRlJuzhu;
     @BindView(R.id.scrollView)
     ScrollView mScrollView;
+    @BindView(R.id.sdv_head)
+    SimpleDraweeView mSdvHead;
 
     private ArrayList<ModelRegion> jsonBean;
     private ArrayList<String> options1Items = new ArrayList<>();//省
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();//市
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();//区
     private int selected_options1, selected_options2, selected_options3;//默认选中
-    private String location_provice, location_district, location_city,location_code;
+    private String location_provice, location_district, location_city, location_code;
     private static final int MSG_LOAD_SUCCESS = 0x0002;
     private static final int MSG_LOAD_FAILED = 0x0003;
     private Thread thread_parse_json;
 
     public static final int ACT_SELECT_PHOTO = 111;//选择图片
     private ImgDialog dialog;
-    private File file = new File(Environment.getExternalStorageDirectory() + "/Gphoto.png");
-    private BitmapUtils bitmapUtils;
+    // private File file = new File(Environment.getExternalStorageDirectory() + "/Gphoto.png");
 
-    private CenterProtocol cprotocol = new CenterProtocol();
     private PersoninfoBean bean = new PersoninfoBean();
     private Intent intent;
-    private Bundle bundle = new Bundle();
     private RxPermissions rxPermission;
+    private String head_url="";
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -156,6 +156,7 @@ public class MyInfoEditActivity extends BaseActivity{
             }
         }
     };
+
     @Override
     protected void initView() {
         findTitleViews();
@@ -167,9 +168,50 @@ public class MyInfoEditActivity extends BaseActivity{
     @Override
     protected void initData() {
         //请求数据
-        getinfo();
+        requestData();
         //解析json
         parseJson();
+    }
+
+    /**
+     * 获取基础信息
+     */
+    private void requestData() {
+        showDialog(smallDialog);
+        Map<String, String> params = new HashMap<>();
+        MyOkHttp.get().post(ApiHttpClient.MY_CENTER_INFO, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    bean = (PersoninfoBean) JsonUtil.getInstance().parseJsonFromResponse(response, PersoninfoBean.class);
+                    if (bean != null) {
+                        FrescoUtils.getInstance().setImageUri(mSdvHead, StringUtils.getImgUrl(bean.getAvatars()));
+                        mTvName.setText(bean.getUid());
+                        mTvNickname.setText(bean.getNickname());
+                        mTvQianming.setText(bean.getSignature());
+                        mTvSex.setText(bean.getSex_cn());
+                        mTvBirthday.setText(bean.getBirthday());
+                        mTvCity.setText(bean.getAddress());
+                        mTvJuzhu.setText(bean.getHouse_status_cn());
+//                        file = new File(Environment.getExternalStorageDirectory() + "/Gphoto.png");
+//                        if (file.exists()) {
+//                            file.delete();
+//                        }
+                    }
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+
     }
 
     @Override
@@ -202,10 +244,11 @@ public class MyInfoEditActivity extends BaseActivity{
     protected void initFragment() {
 
     }
-    @OnClick({R.id.img_head_1,R.id.rl_head, R.id.rl_name, R.id.rl_nickname, R.id.rl_qianming, R.id.rl_sex, R.id.rl_birthday, R.id.rl_city, R.id.rl_juzhu})
+
+    @OnClick({R.id.sdv_head, R.id.rl_head, R.id.rl_name, R.id.rl_nickname, R.id.rl_qianming, R.id.rl_sex, R.id.rl_birthday, R.id.rl_city, R.id.rl_juzhu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.img_head_1:
+            case R.id.sdv_head:
             case R.id.rl_head:
                 //修改头像
                 dialog = new ImgDialog(MyInfoEditActivity.this, new ImgDialog.OnCustomDialogListener() {
@@ -247,27 +290,26 @@ public class MyInfoEditActivity extends BaseActivity{
                 break;
             case R.id.rl_name:
 
-
                 break;
             case R.id.rl_nickname:
                 //昵称
                 intent = new Intent(this, NamenickVerfityActivity.class);
-                bundle.putString("nickname", mTvNickname.getText().toString());
-                bundle.putString("tv_sex", mTvSex.getText().toString());
-                intent.putExtras(bundle);
+                intent.putExtra("nickname", mTvNickname.getText().toString());
+                intent.putExtra("tv_sex", mTvSex.getText().toString());
                 startActivityForResult(intent, 22);
 
                 break;
             case R.id.rl_qianming:
                 //签名
                 intent = new Intent(this, MyAutographActivity.class);
+                intent.putExtra("sign", bean.getSignature());
                 startActivity(intent);
                 break;
             case R.id.rl_sex:
                 //性别
                 intent = new Intent(this, SexVerfityActivity.class);
-                intent.putExtra("sex",mTvSex.getText().toString());
-                intent.putExtra("type",1);
+                intent.putExtra("type_value", bean.getSex());
+                intent.putExtra("type", 1);
                 startActivity(intent);
                 break;
             case R.id.rl_birthday:
@@ -310,12 +352,13 @@ public class MyInfoEditActivity extends BaseActivity{
             case R.id.rl_juzhu:
                 //居住状态
                 intent = new Intent(this, SexVerfityActivity.class);
-                intent.putExtra("sex",mTvSex.getText().toString());
-                intent.putExtra("type",2);
+                intent.putExtra("type_value", bean.getHouse_status());
+                intent.putExtra("type", 2);
                 startActivity(intent);
                 break;
         }
     }
+
     /**
      * 显示三级城市联动
      */
@@ -328,17 +371,20 @@ public class MyInfoEditActivity extends BaseActivity{
                 selected_options2 = option2;
                 selected_options3 = options3;
                 if (jsonBean != null && jsonBean.size() > 0) {
-                    if (jsonBean.get(options1).getS_list().get(option2).getSs_list().size()==0) {
+                    if (jsonBean.get(options1).getS_list().get(option2).getSs_list().size() == 0) {
                         return;
                     }
 //                    mTvCity.setText( "" +
 //                            jsonBean.get(options1).getS_list().get(option2).getSs_list().get(options3).getRegion_name());
 
-                    location_provice=jsonBean.get(options1).getRegion_name();
-                    location_city=jsonBean.get(options1).getS_list().get(option2).getRegion_name();
-                    location_district=jsonBean.get(options1).getS_list().get(option2).getSs_list().get(options3).getRegion_name();
+                    location_provice = jsonBean.get(options1).getRegion_name();
+                    location_city = jsonBean.get(options1).getS_list().get(option2).getRegion_name();
+                    location_district = jsonBean.get(options1).getS_list().get(option2).getSs_list().get(options3).getRegion_name();
 
-                    mTvCity.setText(location_provice+ " "+location_city+" "+location_district);
+                    mTvCity.setText(location_provice + " " + location_city + " " + location_district);
+                    String id = jsonBean.get(options1).getRegion_id() + "," + jsonBean.get(options1).getS_list().get(option2).getRegion_id() + "," +
+                            jsonBean.get(options1).getS_list().get(option2).getSs_list().get(options3).getRegion_id();
+                    getMyCity(id);
                 }
             }
         }).setSubmitColor(this.getResources().getColor(R.color.orange))//确定按钮文字颜色
@@ -349,6 +395,7 @@ public class MyInfoEditActivity extends BaseActivity{
         pvOptions.show();
 
     }
+
     private void jumpToImageSelector() {
         Intent imageIntent = new Intent(this, MultiImageSelectorActivity.class);
         // 是否显示相机
@@ -360,6 +407,7 @@ public class MyInfoEditActivity extends BaseActivity{
 
         startActivityForResult(imageIntent, ACT_SELECT_PHOTO);
     }
+
     /**
      * 解析cityjson
      */
@@ -376,6 +424,7 @@ public class MyInfoEditActivity extends BaseActivity{
         }
         thread_parse_json.start();
     }
+
     private void initJsonData() {//解析数据
 
         /**
@@ -460,27 +509,24 @@ public class MyInfoEditActivity extends BaseActivity{
 
 
     /**
-     * 修改个人信息
+     * 修改个人信息生日
      *
      * @param param
      */
-    private void getMyinfoBirthDay(final String param) {
+    private void getMyinfoBirthDay(String param) {
         showDialog(smallDialog);
-        Url_info info = new Url_info(this);
-
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("birthday", param);
-
-        MyOkHttp.get().post(info.edit_center, params.getParams(), new RawResponseHandler() {
+        Map<String, String> params = new HashMap<>();
+        params.put("type", "setBirthday");
+        params.put("value", param);
+        MyOkHttp.get().post(ApiHttpClient.MY_EDIT_CENTER, params, new JsonResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, String response) {
-                ShopProtocol protocol = new ShopProtocol();
-                String str = protocol.setShop(response);
-                if ("1".equals(str)) {
-                    getinfo();
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    requestData();
                 } else {
-                    hideDialog(smallDialog);
-                    SmartToast.showInfo(str);
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -490,75 +536,36 @@ public class MyInfoEditActivity extends BaseActivity{
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
-
     }
 
-    private void getinfo() {// 个人信息
+    /**
+     * 修改个人信息地区
+     *
+     * @param param
+     */
+    private void getMyCity(String param) {
         showDialog(smallDialog);
-        Url_info info = new Url_info(this);
-        RequestParams params = new RequestParams();
-        new HttpHelper(info.get_person_index, params, MyInfoEditActivity.this) {
-
+        Map<String, String> params = new HashMap<>();
+        params.put("type", "setAddress");
+        params.put("value", param);
+        MyOkHttp.get().post(ApiHttpClient.MY_EDIT_CENTER, params, new JsonResponseHandler() {
             @Override
-            protected void setData(String json) {
+            public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
-                bean = cprotocol.getinfo3(json);
-                mScrollView.setVisibility(View.VISIBLE);
-                //获取头像
-                if (bean.getAvatars().equals("null")) {
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    requestData();
                 } else {
-                    bitmapUtils = new BitmapUtils(MyInfoEditActivity.this);
-                    bitmapUtils.display(mImgHead1, StringUtils.getImgUrl(bean.getAvatars()));
-                }
-                file = new File(Environment.getExternalStorageDirectory() + "/Gphoto.png");
-                if (file.exists()) {
-                    file.delete();
-                }
-                //姓名
-                if (bean.getFullname().equals("null")) {
-                    mTvName.setHint("请填写姓名");
-                } else {
-                    mTvName.setText(bean.getFullname());
-                }
-                //昵称
-                if (bean.getNickname().equals("null")) {
-                    mTvNickname.setHint("请填写昵称");
-                } else {
-                    mTvNickname.setText(bean.getNickname());
-                    // tv_nickname1.setText(bean.getNickname());
-                }
-
-                //获取性别
-                String sex_str = bean.getSex();
-                if (sex_str.equals("null")) {
-                    mTvSex.setHint("请选择性别");
-                } else {
-                    if (sex_str.equals("1")) {
-                        mTvSex.setText("男");
-                    } else if (sex_str.equals("2")) {
-                        mTvSex.setText("女");
-                    } else {
-                        mTvSex.setText("");
-                    }
-                }
-                //获取生日
-                String birthday_str = bean.getBirthday();
-                if (birthday_str.equals("null")) {
-                    mTvBirthday.setHint("请选择出生日期");
-                } else {
-                    if (!StringUtils.isEmpty(birthday_str)) {
-//                        birthday_str=  DateUtil.StrToDate(birthday_str);
-                        mTvBirthday.setText(birthday_str);
-                    }
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
-            protected void requestFailure(Exception error, String msg) {
+            public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
-        };
+        });
     }
 
     @Override
@@ -594,6 +601,7 @@ public class MyInfoEditActivity extends BaseActivity{
      * 压缩图片
      */
     private void compressImage(Uri uri_path) {
+        head_url = uri_path.getPath();
         Luban.with(this)
                 .load(uri_path)
                 .ignoreBy(100)
@@ -647,31 +655,42 @@ public class MyInfoEditActivity extends BaseActivity{
 
     private void uploadCameraAvatar(File file) {
         showDialog(smallDialog);
-        HttpUtils http = new HttpUtils();
         HashMap<String, File> params_file = new HashMap<>();
-        params_file.put("avatars", file);
-        MyOkHttp.get().upload(MyCookieStore.SERVERADDRESS + "userCenter/edit_center/", params_file, new RawResponseHandler() {
+        Map<String, String> params = new HashMap<>();
+        params.put("type", "setAvatars");
+        params_file.put("value", file);
+        MyOkHttp.get().upload(this, ApiHttpClient.MY_EDIT_CENTER, params, params_file, new JsonResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, String response) {
-                ShopProtocol protocol = new ShopProtocol();
-                String str = protocol.setShop(response);
-                if (str.equals("1")) {
-                    getinfo();
-                    //删除缓存文件夹中的图片
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交成功");
+                    SmartToast.showInfo(msg);
+                    requestData();
 
-                    ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
-
+                    //更改昵称更新数据库
+                    ModelUser modelUser = BaseApplication.getUser();
+                    modelUser.setAvatars(head_url);
+                    UserSql.getInstance().updateObject(modelUser);
                     EventBus.getDefault().post(new PersoninfoBean());
+
+//                    //删除缓存文件夹中的图片
+                    ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
                 } else {
-                    hideDialog(smallDialog);
-                    SmartToast.showInfo(str);
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交失败");
+                    SmartToast.showInfo(msg);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 hideDialog(smallDialog);
-                SmartToast.showInfo(error_msg);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+
+            @Override
+            public void onProgress(long currentBytes, long totalBytes) {
+                super.onProgress(currentBytes, totalBytes);
             }
         });
     }
@@ -681,7 +700,7 @@ public class MyInfoEditActivity extends BaseActivity{
     public void update(PersoninfoBean bean) {
         //1.绑定房屋后刷新
         //2.更换个人信息后刷新
-        getinfo();
+        requestData();
     }
 
     @Override

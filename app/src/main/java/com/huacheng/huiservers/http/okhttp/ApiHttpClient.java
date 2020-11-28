@@ -593,6 +593,10 @@ public class ApiHttpClient {
     //签到操作
     public static String SIGN_TO = API_URL + API_VERSION + "userCenter/sign";
 
+    //个人中心基础信息
+    public static String MY_CENTER_INFO = API_URL + API_VERSION + "userCenter/user_info";
+    //个人中心编辑基础信息
+    public static String MY_EDIT_CENTER = API_URL + API_VERSION + "userCenter/edit_center";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -840,5 +844,7 @@ public class ApiHttpClient {
         MY_RIGHT = API_URL + API_VERSION + "userCenter/user_right";
         SIGN_INFO = API_URL + API_VERSION + "/userCenter/sign_info";
         SIGN_TO = API_URL + API_VERSION + "userCenter/sign";
+        MY_CENTER_INFO = API_URL + API_VERSION + "userCenter/user_info";
+        MY_EDIT_CENTER = API_URL + API_VERSION + "userCenter/edit_center";
     }
 }

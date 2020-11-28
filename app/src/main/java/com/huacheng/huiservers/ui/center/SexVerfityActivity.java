@@ -10,15 +10,18 @@ import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.http.Url_info;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
-import com.huacheng.huiservers.http.okhttp.RequestParams;
-import com.huacheng.huiservers.http.okhttp.response.RawResponseHandler;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.PersoninfoBean;
-import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SexVerfityActivity extends BaseActivity implements OnClickListener {
 
@@ -26,23 +29,16 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
     TextView title_name, right;
     RadioGroup radiogroup;
     RadioButton radio_nan, radio_nv;
-    String currentSelectedVal;
-    private String sex="";
-    private int type=1;
-
+    String currentSelectedVal = "";
+    private String type_value = "";
+    private int type = 1;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.right:
                 if (!currentSelectedVal.equals("")) {
-                    getMyinfo(currentSelectedVal);
-                    /*Intent intent = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("sex", currentSelectedVal);
-                    intent.putExtras(bundle);
-                    setResult(3, intent);
-                    finish();*/
+                    requestData();
                 } else {
                     SmartToast.showInfo("性别为空");
                 }
@@ -56,28 +52,27 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
     }
 
     /**
-     * 修改个人信息
-     *
-     * @param param
+     * 修改个人信息性别 / 居住状态
      */
-    private void getMyinfo(final String param) {
+    private void requestData() {
         showDialog(smallDialog);
-        Url_info info = new Url_info(this);
-
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("sex", param);
-
-        MyOkHttp.get().post(info.edit_center, params.getParams(), new RawResponseHandler() {
+        Map<String, String> params = new HashMap<>();
+        if (type == 1) {//性别
+            params.put("type", "setSex");
+        } else {//居住状态
+            params.put("type", "setHouseStatus");
+        }
+        params.put("value", currentSelectedVal);
+        MyOkHttp.get().post(ApiHttpClient.MY_EDIT_CENTER, params, new JsonResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, String response) {
+            public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
-                ShopProtocol protocol = new ShopProtocol();
-                String str = protocol.setShop(response);
-                if (str.equals("1")) {
+                if (JsonUtil.getInstance().isSuccess(response)) {
                     EventBus.getDefault().post(new PersoninfoBean());
                     finish();
                 } else {
-                    SmartToast.showInfo(str);
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
                 }
             }
 
@@ -87,7 +82,9 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
                 SmartToast.showInfo("网络异常，请检查网络设置");
             }
         });
+
     }
+
 
     @Override
     protected void initView() {
@@ -97,11 +94,11 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
         radio_nan = (RadioButton) findViewById(R.id.radio_nan);
         radio_nv = (RadioButton) findViewById(R.id.radio_nv);
         // set
-        if (type==1){
+        if (type == 1) {
             title_name.setText("性别");
             radio_nan.setText("男");
             radio_nv.setText("女");
-        }else {
+        } else {
             title_name.setText("居住状态");
             radio_nan.setText("自有房屋");
             radio_nv.setText("租房");
@@ -120,29 +117,31 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
             public void onCheckedChanged(RadioGroup arg0, int arg1) {
                 RadioButton rb = (RadioButton) findViewById(arg0.getCheckedRadioButtonId());
 
-                    if (rb.getText().toString().equals("男")||rb.getText().toString().equals("自有房屋")) {
-                        currentSelectedVal = "1";
-                        radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
-                        radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
-                    } else  if (rb.getText().toString().equals("女")||rb.getText().toString().equals("租房")){
-                        currentSelectedVal = "2";
-                        radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
-                        radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
-                    }
+                if (rb.getText().toString().equals("男") || rb.getText().toString().equals("自有房屋")) {
+                    currentSelectedVal = "1";
+                    radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
+                    radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
+                } else if (rb.getText().toString().equals("女") || rb.getText().toString().equals("租房")) {
+                    currentSelectedVal = "2";
+                    radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
+                    radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
+                }
 
             }
         });
         //getExtra
-        if (!sex.equals("")) {
-                if (sex.equals("男")||sex.equals("只有房屋")) {
-                    radio_nan.setChecked(true);
-                    radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
-                    radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
-                } else if (sex.equals("女")||sex.equals("租房")) {
-                    radio_nv.setChecked(true);
-                    radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
-                    radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
-                }
+        if (!type_value.equals("")) {
+            if (type_value.equals("1")) {
+                currentSelectedVal = "1";
+                radio_nan.setChecked(true);
+                radio_nan.setCompoundDrawables(null, null, drawableCheck, null);
+                radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
+            } else if (type_value.equals("2")) {
+                currentSelectedVal = "2";
+                radio_nv.setChecked(true);
+                radio_nv.setCompoundDrawables(null, null, drawableCheck, null);
+                radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
+            }
         } else {
             radio_nan.setCompoundDrawables(null, null, drawableunCheck, null);
             radio_nv.setCompoundDrawables(null, null, drawableunCheck, null);
@@ -170,8 +169,8 @@ public class SexVerfityActivity extends BaseActivity implements OnClickListener 
 
     @Override
     protected void initIntentData() {
-        sex = this.getIntent().getStringExtra("sex");
-        type = this.getIntent().getIntExtra("type",1);
+        type_value = this.getIntent().getStringExtra("type_value");
+        type = this.getIntent().getIntExtra("type", 1);
     }
 
     @Override

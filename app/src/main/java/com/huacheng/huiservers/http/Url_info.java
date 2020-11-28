@@ -29,7 +29,7 @@ public class Url_info {
     //关于我们
     public static  String about = MyCookieStore.SERVERADDRESS + "userCenter/about_us/";
     //修改个人信息生日,头像,性别,昵称
-    public static  String edit_center = MyCookieStore.SERVERADDRESS + "userCenter/edit_center/";
+   // public static  String edit_center = MyCookieStore.SERVERADDRESS + "userCenter/edit_center/";
     //个人中心消费记录
     public static  String my_wallet = MyCookieStore.SERVERADDRESS + "userCenter/my_wallet/";
     //修改密码
@@ -50,7 +50,7 @@ public class Url_info {
     //个人中心首页
     public static  String center_index = MyCookieStore.SERVERADDRESS + "userCenter/index_40/";
     //获取修改个人信息
-    public static  String get_person_index = MyCookieStore.SERVERADDRESS + "userCenter/user_info/";
+   // public static  String get_person_index = MyCookieStore.SERVERADDRESS + "userCenter/user_info/";
     //个人中心 添加/修改 收货地址
     public static  String add_user_address = MyCookieStore.SERVERADDRESS + "userCenter/add_user_address/";
     //个人中心获取收货地址列表
@@ -244,7 +244,7 @@ public class Url_info {
 
           about = MyCookieStore.SERVERADDRESS + "userCenter/about_us/";
 
-          edit_center = MyCookieStore.SERVERADDRESS + "userCenter/edit_center/";
+          //edit_center = MyCookieStore.SERVERADDRESS + "userCenter/edit_center/";
 
           my_wallet = MyCookieStore.SERVERADDRESS + "userCenter/my_wallet/";
 
@@ -262,7 +262,7 @@ public class Url_info {
 
           center_index = MyCookieStore.SERVERADDRESS + "userCenter/index_40/";
 
-          get_person_index = MyCookieStore.SERVERADDRESS + "userCenter/user_info/";
+         // get_person_index = MyCookieStore.SERVERADDRESS + "userCenter/user_info/";
 
           add_user_address = MyCookieStore.SERVERADDRESS + "userCenter/add_user_address/";
 

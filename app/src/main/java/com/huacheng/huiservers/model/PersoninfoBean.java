@@ -9,7 +9,12 @@ public class PersoninfoBean implements Serializable{
 	private String fullname;
 	private String avatars;
 	private String nickname;
+	private String signature;
 	private String sex;
+	private String sex_cn;
+	private String address;
+	private String house_status;
+	private String house_status_cn;
 	private String birthday;
 	private String utype;
 	private String status;
@@ -249,4 +254,43 @@ public class PersoninfoBean implements Serializable{
 		this.status = status;
 	}
 
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+
+	public String getSex_cn() {
+		return sex_cn;
+	}
+
+	public void setSex_cn(String sex_cn) {
+		this.sex_cn = sex_cn;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getHouse_status() {
+		return house_status;
+	}
+
+	public void setHouse_status(String house_status) {
+		this.house_status = house_status;
+	}
+
+	public String getHouse_status_cn() {
+		return house_status_cn;
+	}
+
+	public void setHouse_status_cn(String house_status_cn) {
+		this.house_status_cn = house_status_cn;
+	}
 }
