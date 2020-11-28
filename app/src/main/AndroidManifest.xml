@@ -1257,6 +1257,12 @@
             android:name=".ui.vip.VipInfoActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.vip.PointDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.vip.VipDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.webview.WebviewActivity"
             android:screenOrientation="portrait" />
         <activity

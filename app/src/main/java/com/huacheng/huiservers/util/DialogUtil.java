@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 
@@ -58,6 +59,22 @@ public class DialogUtil {
             }
         });
         dialog.show();
+
+    }
+
+    public static void customMsgAlert(Context context, String title, String msg) {
+
+        final Dialog d = new Dialog(context, R.style.my_dialog);
+        d.setContentView(R.layout.dialog_msg_alert);
+        TextView contentTx = d.findViewById(R.id.tv_content);
+        d.findViewById(R.id.tv_argee).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                d.dismiss();
+            }
+        });
+        contentTx.setText(msg);
+        d.show();
 
     }
 

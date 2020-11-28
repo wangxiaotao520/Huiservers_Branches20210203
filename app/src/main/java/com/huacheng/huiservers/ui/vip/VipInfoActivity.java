@@ -1,10 +1,10 @@
 package com.huacheng.huiservers.ui.vip;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -15,6 +15,7 @@ import com.huacheng.huiservers.ui.base.MyActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -86,7 +87,7 @@ public class VipInfoActivity extends MyActivity {
             if (i < level) {
                 progressBar.setProgress(progressBar.getMax());
             }
-            if (i == level){
+            if (i == level) {
                 levelTx.setTextColor(getResources().getColor(R.color.orange));
             }
             if (i == 3) {
@@ -106,9 +107,29 @@ public class VipInfoActivity extends MyActivity {
         return R.layout.activity_vipinfo;
     }
 
+    @OnClick({R.id.vip_history, R.id.point_history})
+    public void onViewClick(View view) {
+        Intent it = new Intent();
+        switch (view.getId()) {
+
+            case R.id.vip_history:
+                it.setClass(mContext, VipDetailActivity.class);
+                startActivity(it);
+                break;
+            case R.id.point_history:
+                it.setClass(mContext, PointDetailActivity.class);
+                startActivity(it);
+
+                break;
+
+        }
+    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
     }
+
 }

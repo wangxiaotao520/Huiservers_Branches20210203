@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        android:padding="@dimen/margin_15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前积分"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:drawablePadding="@dimen/margin_5"
+            android:text="1080"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/text_size_14" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        android:padding="@dimen/margin_15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的会员等级"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:drawablePadding="@dimen/margin_5"
+            android:text="LV5"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/text_size_14" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        android:padding="@dimen/margin_15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="升级所需成长值"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:drawablePadding="@dimen/margin_5"
+            android:text="555"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/text_size_14" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:background="@color/white"
+        android:padding="@dimen/margin_15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="成长记录"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:drawableRight="@mipmap/ic_arrow_right_grey"
+            android:drawablePadding="@dimen/margin_5"
+            android:text="如何获取成长值"
+            android:textColor="@color/title_third_color"
+            android:textSize="@dimen/text_size_14" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_list" />
+
+</LinearLayout>

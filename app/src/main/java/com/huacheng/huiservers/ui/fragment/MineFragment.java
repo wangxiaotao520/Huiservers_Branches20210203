@@ -9,7 +9,11 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.GsonResponseHandler;
 import com.huacheng.huiservers.model.ModelLogin;
+import com.huacheng.huiservers.model.UcenterIndex;
 import com.huacheng.huiservers.ui.base.MyFragment;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.vip.PersonalSettingActivity;
@@ -19,6 +23,9 @@ import com.huacheng.huiservers.utils.LoginUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -121,7 +128,6 @@ public class MineFragment extends MyFragment {
     }
 
 
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_mine;
@@ -142,6 +148,31 @@ public class MineFragment extends MyFragment {
 
         loginView.setVisibility(LoginUtils.hasLoginUser() ? View.GONE : View.VISIBLE);
         userView.setVisibility(LoginUtils.hasLoginUser() ? View.VISIBLE : View.GONE);
+
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+
+        getData();
+    }
+
+    public void getData() {
+        smallDialog.show();
+        Map<String, String> map = new HashMap<>();
+        MyOkHttp.get().post(ApiHttpClient.UCENTER_INDEX, map, new GsonResponseHandler<UcenterIndex>() {
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                smallDialog.dismiss();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, UcenterIndex response) {
+                smallDialog.dismiss();
+
+
+            }
+        });
 
     }
 
