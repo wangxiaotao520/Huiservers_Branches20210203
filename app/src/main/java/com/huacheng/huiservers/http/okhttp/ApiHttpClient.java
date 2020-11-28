@@ -65,11 +65,11 @@ public class ApiHttpClient {
     //登录用户绑定
     public static String WX_BIND = API_URL + API_VERSION + "site/wx_bind";
     //用户验证原手机号
-    public static String VERITY_OLD_PHONE = API_URL + API_VERSION + "site/verify_old_phone";
+    public static String VERITY_OLD_PHONE = API_URL + API_VERSION + "userCenter/verify_old_phone";
     //用户验证新手机号
-    public static String VERITY_NEW_PHONE = API_URL + API_VERSION + "site/verify_new_phone";
+    public static String VERITY_NEW_PHONE = API_URL + API_VERSION + "userCenter/verify_new_phone";
     //用户新手机号绑定
-    public static String VERITY_OPERATION = API_URL + API_VERSION + "site/verify_operation";
+    public static String VERITY_OPERATION = API_URL + API_VERSION + "userCenter/verify_operation";
     //提交小区id
     public static String SELECT_COMMUNITY = API_URL + API_VERSION + "site/select_community";
     //定位获取小区
@@ -478,9 +478,6 @@ public class ApiHttpClient {
     public static String DEVICE_GET_SOS_GUARDER1 = API_URL + API_VERSION + "/Fzd/getSOSAndGuarder";
     //检测是否是老人
     public static String IS_OLD = API_URL + API_VERSION + "/Fzd/is_old";
-    /**
-     * 隐私政策
-     */
     //隐私政策
     public static String GET_PRIVARY = API_URL + API_VERSION + "userCenter/privacy";
     /**
@@ -597,6 +594,10 @@ public class ApiHttpClient {
     public static String MY_CENTER_INFO = API_URL + API_VERSION + "userCenter/user_info";
     //个人中心编辑基础信息
     public static String MY_EDIT_CENTER = API_URL + API_VERSION + "userCenter/edit_center";
+    //账号安全
+    public static String ACCOUNT_SECURITY = API_URL + API_VERSION + "userCenter/accountsecurity";
+    //解绑微信
+    public static String UNBIND_WX = API_URL + API_VERSION + "userCenter/unbind_wx";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -846,5 +847,7 @@ public class ApiHttpClient {
         SIGN_TO = API_URL + API_VERSION + "userCenter/sign";
         MY_CENTER_INFO = API_URL + API_VERSION + "userCenter/user_info";
         MY_EDIT_CENTER = API_URL + API_VERSION + "userCenter/edit_center";
+        ACCOUNT_SECURITY = API_URL + API_VERSION + "userCenter/accountsecurity";
+        UNBIND_WX = API_URL + API_VERSION + "userCenter/unbind_wx";
     }
 }

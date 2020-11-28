@@ -34,6 +34,9 @@ public class PersoninfoBean implements Serializable{
 	private String decoration_num;
 	private String cart_num;
 
+	private String weixin_nick;
+
+
 	public String getGuest_num() {
 		return guest_num;
 	}
@@ -293,4 +296,13 @@ public class PersoninfoBean implements Serializable{
 	public void setHouse_status_cn(String house_status_cn) {
 		this.house_status_cn = house_status_cn;
 	}
+
+	public String getWeixin_nick() {
+		return weixin_nick;
+	}
+
+	public void setWeixin_nick(String weixin_nick) {
+		this.weixin_nick = weixin_nick;
+	}
+
 }

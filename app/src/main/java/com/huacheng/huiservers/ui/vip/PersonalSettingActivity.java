@@ -26,6 +26,7 @@ import com.huacheng.huiservers.model.PayInfoBean;
 import com.huacheng.huiservers.model.PersoninfoBean;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.AccountSafeActivity;
+import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.center.MyInfoEditActivity;
 import com.huacheng.huiservers.ui.download.DownLoadDialogActivityNew;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -170,12 +171,10 @@ public class PersonalSettingActivity extends BaseActivity implements Updateprest
             @Override
             public void onClick(View v) {
                 //收货地址
-//                Intent intent = new Intent(mContext, AddressListActivity.class);
-//                intent.putExtra("jump_type", 3);
-//                startActivity(intent);
-                //todo 测试 签到
-                Intent intent = new Intent(mContext, RegisterActivity.class);
+                Intent intent = new Intent(mContext, AddressListActivity.class);
+                intent.putExtra("jump_type", 3);
                 startActivity(intent);
+
             }
         });
         llSafe.setOnClickListener(new View.OnClickListener() {

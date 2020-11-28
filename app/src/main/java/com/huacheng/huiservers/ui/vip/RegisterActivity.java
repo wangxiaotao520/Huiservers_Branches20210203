@@ -142,9 +142,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         if ("1".equals(modelSignRegister.getIs_sign())){
                             tvSign.setBackgroundResource(R.drawable.allshape_orange35_ready);
                             tvSign.setText("已签到");
+                            tvSign.setClickable(false);
                         }else {
                             tvSign.setBackgroundResource(R.drawable.allshape_orange35);
                             tvSign.setText("立即签到" );
+                            tvSign.setClickable(true);
                         }
 
                     }
