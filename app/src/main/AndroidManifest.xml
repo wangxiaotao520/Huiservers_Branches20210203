@@ -1277,6 +1277,9 @@
         <activity
             android:name=".ui.vip.VipRightActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.vip.VipRecordActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>
