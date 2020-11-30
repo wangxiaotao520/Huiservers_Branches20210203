@@ -19,6 +19,7 @@ import com.huacheng.huiservers.ui.center.coupon.MyCouponListActivityNew;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.vip.MyDetailActivity;
 import com.huacheng.huiservers.ui.vip.PersonalSettingActivity;
+import com.huacheng.huiservers.ui.vip.VipIndexActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.libraryservice.utils.glide.GlideCircleTransform;
 
@@ -310,7 +311,8 @@ public class MineFragment extends MyFragment {
                 break;
             //会员
             case R.id.vip:
-
+                intent = new Intent(mContext, VipIndexActivity.class);
+                startActivity(intent);
                 break;
             //积分商城
             case R.id.point_mall:

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_15">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="开通方式"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/t_18sp"
+            android:textStyle="bold" />
+
+        <com.huacheng.huiservers.view.MyGridview
+            android:id="@+id/grid_open"
+            android:horizontalSpacing="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_15">
+
+        <TextView
+            android:id="@+id/tv_btn_buy"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/allshape_orange35"
+            android:gravity="center"
+            android:text="立即购买"
+            android:textColor="#694E33"
+            android:textSize="@dimen/t_16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="购买即默认同意 "
+                android:textColor="@color/title_third_color"
+                android:textSize="@dimen/t_12sp" />
+
+            <TextView
+                android:id="@+id/tv_xieyi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="《社区慧生活VIP用户协议》》 "
+                android:textColor="@color/blue"
+                android:textSize="@dimen/t_12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
