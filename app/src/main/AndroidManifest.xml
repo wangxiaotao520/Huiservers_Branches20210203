@@ -1280,6 +1280,9 @@
         <activity
             android:name=".ui.vip.VipRecordActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.vip.VipCouponListActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>

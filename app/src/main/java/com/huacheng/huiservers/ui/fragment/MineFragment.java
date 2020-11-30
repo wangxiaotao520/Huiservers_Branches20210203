@@ -6,23 +6,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.GsonResponseHandler;
-import com.huacheng.huiservers.model.ModelLogin;
 import com.huacheng.huiservers.model.UcenterIndex;
 import com.huacheng.huiservers.ui.base.MyFragment;
+import com.huacheng.huiservers.ui.center.coupon.MyCouponListActivityNew;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.vip.PersonalSettingActivity;
 import com.huacheng.huiservers.ui.vip.VipInfoActivity;
-import com.huacheng.huiservers.utils.LogUtils;
 import com.huacheng.huiservers.utils.LoginUtils;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -264,6 +259,14 @@ public class MineFragment extends MyFragment {
                 break;
             // 优惠券
             case R.id.coupon:
+                if (!LoginUtils.hasLoginUser()) {
+                    intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getActivity(), MyCouponListActivityNew.class);
+                    intent.putExtra("jump_type",1);
+                    startActivity(intent);
+                }
 
                 break;
             //等待付款

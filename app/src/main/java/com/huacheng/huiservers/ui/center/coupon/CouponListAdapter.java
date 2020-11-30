@@ -19,7 +19,7 @@ import java.util.List;
  * 2020/6/5 0005 15:24
  */
 public class CouponListAdapter extends CommonAdapter<ModelCouponNew> {
-    private int type = 0;//0 个人中心我的优惠券 1更多优化券 2 已使用优化券 3.已过期优化券 4.商品详情弹窗优惠券
+    private int type = 0;//0 个人中心我的优惠券 1更多优化券 2 已使用优化券 3.已过期优化券 4.商品详情弹窗优惠券 6是vip待使用 7是vip已使用 8是vip已过期
     private OnClickRightBtnListener onClickRightBtnListener;
 
     public CouponListAdapter(Context context, int layoutId, List<ModelCouponNew> datas,int type,OnClickRightBtnListener onClickRightBtnListener) {
@@ -65,6 +65,42 @@ public class CouponListAdapter extends CommonAdapter<ModelCouponNew> {
         }else if (type==5){
             viewHolder.<TextView>getView(R.id.tv_right_btn).setText("使用");
             viewHolder.<LinearLayout>getView(R.id.ll_coupon_root).setBackgroundResource(R.mipmap.bg_coupon_red_new);
+        }else if (type==6){
+          //  6是vip待使用
+            viewHolder.<TextView>getView(R.id.tv_vip_tag).setVisibility(View.VISIBLE);
+            viewHolder.<TextView>getView(R.id.tv_vip_tag).setBackgroundResource(R.drawable.allshape_lefttop_rightbottom_yellow5_counpon);
+            viewHolder.<TextView>getView(R.id.tv_right_btn).setText("去使用");
+            viewHolder.<LinearLayout>getView(R.id.ll_coupon_root).setBackgroundResource(R.mipmap.bg_coupon_red_new);
+            viewHolder.<TextView>getView(R.id.tv_right_btn).setTextColor(mContext.getResources().getColor(R.color.orange));
+            viewHolder.<TextView>getView(R.id.tv_price_icon).setTextColor(mContext.getResources().getColor(R.color.orange));
+            viewHolder.<TextView>getView(R.id.tv_price).setTextColor(mContext.getResources().getColor(R.color.orange));
+            viewHolder.<TextView>getView(R.id.tv_coupon_rules).setTextColor(mContext.getResources().getColor(R.color.orange));
+            viewHolder.<TextView>getView(R.id.tv_coupon_name).setTextColor(mContext.getResources().getColor(R.color.orange));
+            viewHolder.<TextView>getView(R.id.tv_coupon_time).setTextColor(mContext.getResources().getColor(R.color.orange));
+        }else if (type==7){
+          //  7是vip已使用
+            viewHolder.<TextView>getView(R.id.tv_right_btn).setText("已使用");
+            viewHolder.<TextView>getView(R.id.tv_vip_tag).setVisibility(View.VISIBLE);
+            viewHolder.<TextView>getView(R.id.tv_vip_tag).setBackgroundResource(R.drawable.allshape_lefttop_rightbottom_black5_counpon);
+            viewHolder.<TextView>getView(R.id.tv_right_btn).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<TextView>getView(R.id.tv_price_icon).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<TextView>getView(R.id.tv_price).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<TextView>getView(R.id.tv_coupon_rules).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<TextView>getView(R.id.tv_coupon_name).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<TextView>getView(R.id.tv_coupon_time).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<LinearLayout>getView(R.id.ll_coupon_root).setBackgroundResource(R.mipmap.bg_coupon_grey_new);
+        }else if (type==8){
+            //8是vip已过期
+            viewHolder.<TextView>getView(R.id.tv_right_btn).setText("已过期");
+            viewHolder.<TextView>getView(R.id.tv_vip_tag).setVisibility(View.VISIBLE);
+            viewHolder.<TextView>getView(R.id.tv_vip_tag).setBackgroundResource(R.drawable.allshape_lefttop_rightbottom_black5_counpon);
+            viewHolder.<TextView>getView(R.id.tv_right_btn).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<TextView>getView(R.id.tv_price_icon).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<TextView>getView(R.id.tv_price).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<TextView>getView(R.id.tv_coupon_rules).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<TextView>getView(R.id.tv_coupon_name).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<TextView>getView(R.id.tv_coupon_time).setTextColor(mContext.getResources().getColor(R.color.white));
+            viewHolder.<LinearLayout>getView(R.id.ll_coupon_root).setBackgroundResource(R.mipmap.bg_coupon_grey_new);
         }
         viewHolder.<TextView>getView(R.id.tv_right_btn).setOnClickListener(new View.OnClickListener() {
             @Override

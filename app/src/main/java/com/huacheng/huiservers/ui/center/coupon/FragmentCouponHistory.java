@@ -63,8 +63,15 @@ public class FragmentCouponHistory extends BaseFragment implements CouponListAda
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(false);
         listView = view.findViewById(R.id.listview);
-        //2是已使用优化券 3是已过期优化券
-        adapter= new CouponListAdapter(mContext,R.layout.item_coupon_list_new,mData,type==0?2:3,this);
+        //2是已使用优化券 3是已过期优化券 6是vip待使用 7是vip已使用 8是vip已过期
+        if(type==0){
+            adapter= new CouponListAdapter(mContext,R.layout.item_coupon_list_new,mData,2,this);
+        }else if(type==1){
+            adapter= new CouponListAdapter(mContext,R.layout.item_coupon_list_new,mData,3,this);
+        }else {
+            adapter= new CouponListAdapter(mContext,R.layout.item_coupon_list_new,mData,type,this);
+        }
+
         listView.setAdapter(adapter);
     }
 
