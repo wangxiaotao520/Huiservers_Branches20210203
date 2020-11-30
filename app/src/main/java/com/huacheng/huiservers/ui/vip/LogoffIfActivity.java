@@ -16,10 +16,22 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.GsonResponseHandler;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.BaseResp;
+import com.huacheng.huiservers.model.ModelLoginOverTime;
+import com.huacheng.huiservers.model.UnsetReason;
 import com.huacheng.huiservers.ui.base.MyActivity;
 import com.huacheng.huiservers.ui.base.MyAdapter;
+import com.huacheng.libraryservice.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * @author Created by changyadong on 2020/11/24
@@ -27,7 +39,6 @@ import java.util.Arrays;
  */
 public class LogoffIfActivity extends MyActivity {
 
-    ViewSwitcher switcher;
     ListView listView;
     TextView tellTx;
     TextView zhuxiaoTx;
@@ -58,16 +69,76 @@ public class LogoffIfActivity extends MyActivity {
 
             }
         });
-        switcher = findViewById(R.id.switcher);
         listView = findViewById(R.id.listview);
 
-        ItemAdapter adapter = new ItemAdapter();
-        listView.setAdapter(adapter);
-        adapter.addData(Arrays.asList(array));
+        findViewById(R.id.unset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                unset();
+            }
+        });
 
 
     }
-    public void callPhone(){
+
+    @Override
+    protected void initData() {
+        getData();
+    }
+
+    public void unset() {
+        smallDialog.show();
+        MyOkHttp.get().post(ApiHttpClient.UNSET_ACCOUNT, new HashMap<String, String>(), new GsonResponseHandler<BaseResp>() {
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                smallDialog.dismiss();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, BaseResp response) {
+                smallDialog.dismiss();
+                if (response.getStatus() == 1){
+                    ModelLoginOverTime modelLoginOverTime = new ModelLoginOverTime();
+                    modelLoginOverTime.setType(1);
+                    EventBus.getDefault().post(modelLoginOverTime);
+                    finish();
+                }
+                ToastUtils.showShort(mContext,response.getMsg());
+            }
+        });
+
+
+    }
+
+    public void getData() {
+        smallDialog.show();
+        MyOkHttp.get().post(ApiHttpClient.UNSET_ACCOUNT_REASON, new HashMap<String, String>(), new GsonResponseHandler<UnsetReason>() {
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                smallDialog.dismiss();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, UnsetReason response) {
+                smallDialog.dismiss();
+                if (response.getData() == null || response.getData().isEmpty()) {
+                    zhuxiaoTx.setText("当前账号可以注销");
+                    findViewById(R.id.unset_yes).setVisibility(View.VISIBLE);
+                } else {
+                    findViewById(R.id.listview).setVisibility(View.VISIBLE);
+
+                    ItemAdapter adapter = new ItemAdapter();
+                    listView.setAdapter(adapter);
+                    adapter.addData(response.getData());
+
+                }
+            }
+        });
+
+
+    }
+
+    public void callPhone() {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:400-6535-355"));
         startActivity(callIntent);
@@ -77,7 +148,7 @@ public class LogoffIfActivity extends MyActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode ==101 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 101 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
             callPhone();
 
@@ -94,7 +165,7 @@ public class LogoffIfActivity extends MyActivity {
     };
 
 
-    class ItemAdapter extends MyAdapter<String> {
+    class ItemAdapter extends MyAdapter<UnsetReason.DataBean> {
 
 
         @Override
@@ -104,7 +175,8 @@ public class LogoffIfActivity extends MyActivity {
             }
             TextView content = view.findViewById(R.id.content);
             TextView no = view.findViewById(R.id.no);
-            content.setText(getItem(i));
+            content.setText(getItem(i).getTitle());
+            no.setText(getItem(i).getContent());
             return view;
         }
 

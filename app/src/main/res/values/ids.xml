@@ -29,4 +29,5 @@
   <item name="id_expand_textview" type="id"></item>
   <item type="id" name="statusbarutil_fake_status_bar_view" />
   <item type="id" name="statusbarutil_translucent_view" />
+  <item type="id" name="dot"/>
 </resources>

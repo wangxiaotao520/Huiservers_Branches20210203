@@ -16,11 +16,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="当前积分"
+            android:text="我的成长值"
             android:textColor="@color/title_color"
             android:textSize="@dimen/text_size_14" />
 
         <TextView
+            android:id="@+id/grow_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -46,6 +47,7 @@
             android:textSize="@dimen/text_size_14" />
 
         <TextView
+            android:id="@+id/level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -71,6 +73,7 @@
             android:textSize="@dimen/text_size_14" />
 
         <TextView
+            android:id="@+id/need"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

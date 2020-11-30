@@ -20,11 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_15"
-        android:text="当前账号可以注销"
         android:textColor="@color/title_color"
         android:textSize="@dimen/text_size_18" />
 
-    <ViewSwitcher
+    <FrameLayout
         android:id="@+id/switcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,14 +33,17 @@
             android:id="@+id/listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_margin="@dimen/public_space_value_25"
             android:divider="@null" />
 
         <LinearLayout
+            android:id="@+id/unset_yes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
             android:gravity="center_horizontal"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <TextView
@@ -53,6 +55,7 @@
                 android:textSize="@dimen/text_size_13" />
 
             <TextView
+                android:id="@+id/unset"
                 android:layout_width="165dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/public_space_value_35"
@@ -68,7 +71,7 @@
         </LinearLayout>
 
 
-    </ViewSwitcher>
+    </FrameLayout>
 
 
     <LinearLayout

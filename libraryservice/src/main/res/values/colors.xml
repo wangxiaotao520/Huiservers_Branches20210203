@@ -32,6 +32,7 @@
     <color name="bg_toupiao_color">#f1f1f1</color>
 
     <color name="orange">#ED8D37</color>
+    <color name="orange_lite">#FAE5D0</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <!--字体颜色不可选-->
@@ -54,5 +55,11 @@
     <color name="arc_green">#36FCC4</color><!--充电桩进度-->
     <color name="coupon_tag_color">#FDF6F6</color><!--商品详情优惠券标签颜色-->
     <color name="red_li">#E0473F</color><!--商品详情优惠券标签颜色-->
+    
+    <color name="level_1">#AF792A</color>
+    <color name="level_2">#AF792A</color>
+    <color name="level_3">#7D7D7D</color>
+    <color name="level_4">#2280C5</color>
+
 
 </resources>

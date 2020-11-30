@@ -66,6 +66,7 @@ public class DialogUtil {
 
         final Dialog d = new Dialog(context, R.style.my_dialog);
         d.setContentView(R.layout.dialog_msg_alert);
+        TextView titleTx = d.findViewById(R.id.title);
         TextView contentTx = d.findViewById(R.id.tv_content);
         d.findViewById(R.id.tv_argee).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +74,7 @@ public class DialogUtil {
                 d.dismiss();
             }
         });
+        titleTx.setText(title);
         contentTx.setText(msg);
         d.show();
 

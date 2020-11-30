@@ -584,6 +584,20 @@ public class ApiHttpClient {
     public static String MY_RIGHT = API_URL + API_VERSION + "userCenter/user_right";
     //个人中心首页
     public static String UCENTER_INDEX = API_URL + API_VERSION + "userCenter/index_40";
+    //注销协议
+    public static String UCENTER_UNSET_PROTOCAL = API_URL + API_VERSION + "userCenter/unset_about";
+    //注销协议
+    public static String POINT_RULE = API_URL + API_VERSION + "userCenter/points_rule";
+    //注销协议
+    public static String UNSET_ACCOUNT_REASON = API_URL + API_VERSION + "userCenter/unset_account_reason";
+ //注销
+    public static String UNSET_ACCOUNT = API_URL + API_VERSION + "userCenter/unset_account";
+   //我的主页
+    public static String USER_INDEX = API_URL + API_VERSION + "userCenter/user_index";
+ //我的会员
+    public static String USER_RANK = API_URL + API_VERSION + "userCenter/user_rank";
+   //我的会员
+    public static String USER_POINTS = API_URL + API_VERSION + "userCenter/user_points";
 
     //签到页面
     public static String SIGN_INFO = API_URL + API_VERSION + "userCenter/sign_info";

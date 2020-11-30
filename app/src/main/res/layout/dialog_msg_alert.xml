@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/margin_15">
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -22,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
-        android:text="每天最高获得1000点成长值，获取方式如下：1.订单支付金额、物业缴费金额、物业服务支付金额等1：1转化为成长值"
         android:layout_marginBottom="@dimen/margin_15"
         android:textColor="@color/title_sub_color"
         android:textSize="@dimen/t_12sp" />

@@ -23,7 +23,8 @@ import java.util.Arrays;
 
 public class LogoffActivity extends MyActivity {
 
-     ListView listView;
+    ListView listView;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_vip_logoff;
@@ -41,11 +42,12 @@ public class LogoffActivity extends MyActivity {
             public void onClick(View view) {
                 Intent it = new Intent();
                 it.setClass(mContext, WebviewActivity.class);
-                it.putExtra("title","注销协议");
-                it.putExtra("url", ApiHttpClient.GET_PRIVARY);
+                it.putExtra("title", "注销协议");
+                it.putExtra("url", ApiHttpClient.POINT_RULE);
                 startActivity(it);
             }
-        });  findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
+        });
+        findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent();
@@ -59,23 +61,22 @@ public class LogoffActivity extends MyActivity {
 
 
     String[] array = new String[]{
-      "账号内无未完成状态的订单",
-      "账号内无未完成状态的物业工单",
-      "账号无任何纠纷",
-      "已注销或关闭账号内所有金融服务",
-      "账号内涉及的第三方服务为已完结状态",
+            "账号内无未完成状态的订单",
+            "账号内无未完成状态的物业工单",
+            "账号无任何纠纷",
+            "已注销或关闭账号内所有金融服务",
+            "账号内涉及的第三方服务为已完结状态",
     };
 
 
-
-    class ItemAdapter extends MyAdapter<String>{
+    class ItemAdapter extends MyAdapter<String> {
 
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-             if (view == null){
-                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_logoff_check,viewGroup,false);
-             }
+            if (view == null) {
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_logoff_check, viewGroup, false);
+            }
             TextView index = view.findViewById(R.id.index);
             TextView textView = view.findViewById(R.id.content);
             index.setText(String.valueOf(i + 1));

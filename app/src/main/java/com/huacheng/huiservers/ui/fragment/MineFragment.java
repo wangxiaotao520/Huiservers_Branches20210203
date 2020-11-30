@@ -2,11 +2,13 @@ package com.huacheng.huiservers.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
@@ -15,9 +17,10 @@ import com.huacheng.huiservers.model.UcenterIndex;
 import com.huacheng.huiservers.ui.base.MyFragment;
 import com.huacheng.huiservers.ui.center.coupon.MyCouponListActivityNew;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.vip.MyDetailActivity;
 import com.huacheng.huiservers.ui.vip.PersonalSettingActivity;
-import com.huacheng.huiservers.ui.vip.VipInfoActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
+import com.huacheng.libraryservice.utils.glide.GlideCircleTransform;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +49,8 @@ public class MineFragment extends MyFragment {
     TextView name;
     @BindView(R.id.level)
     TextView level;
+    @BindView(R.id.level_bg)
+    View levelBg;
     @BindView(R.id.point)
     TextView point;
     @BindView(R.id.kyold)
@@ -56,14 +61,28 @@ public class MineFragment extends MyFragment {
     View loginView;
     @BindView(R.id.user_view)
     View userView;
+
     @BindView(R.id.renzheng)
     LinearLayout renzheng;
+    @BindView(R.id.bindnum)
+    TextView bindnum;
+
     @BindView(R.id.goodslike)
     LinearLayout goodslike;
+    @BindView(R.id.shop_collect_num)
+    TextView shopCollectNum;
+
     @BindView(R.id.storelike)
     LinearLayout storelike;
+    @BindView(R.id.store_collect_num)
+    TextView storeCollectNum;
+
     @BindView(R.id.article_collect)
     LinearLayout articleCollect;
+    @BindView(R.id.article_collect_num)
+    TextView articleCollectNum;
+
+
     @BindView(R.id.vip)
     LinearLayout vip;
     @BindView(R.id.point_mall)
@@ -152,6 +171,9 @@ public class MineFragment extends MyFragment {
         getData();
     }
 
+    int[] levelBgArr = {R.drawable.level_bg_1, R.drawable.level_bg_1, R.drawable.level_bg_1, R.drawable.level_bg_2, R.drawable.level_bg_3, R.drawable.level_bg_1, R.drawable.level_bg_4};
+    int[] levelTxColorArr = {R.color.level_1, R.color.level_1, R.color.level_1, R.color.level_2, R.color.level_3, R.color.level_3, R.color.level_4};
+
     public void getData() {
         smallDialog.show();
         Map<String, String> map = new HashMap<>();
@@ -163,8 +185,46 @@ public class MineFragment extends MyFragment {
 
             @Override
             public void onSuccess(int statusCode, UcenterIndex response) {
+                Log.d("cyd", "onSuccess");
                 smallDialog.dismiss();
+                UcenterIndex.DataBean userBean = response.getData();
+                name.setText(userBean.getNickname());
+                Glide.with(mActivity).load(ApiHttpClient.IMG_URL + userBean.getAvatars()).transform(new GlideCircleTransform(mActivity)).into(avator);
+                level.setText(userBean.getLevel().getName());
+                point.setText("积分" + userBean.getPoints());
+                kyold.setVisibility(userBean.getOld_type().equals("1") ? View.VISIBLE : View.GONE);
 
+                bindnum.setText(userBean.getBind_num());
+                shopCollectNum.setText(userBean.getShop_collection());
+                storeCollectNum.setText(userBean.getMerchant_collection());
+                articleCollectNum.setText(userBean.getSocial_collection());
+
+                if (userBean.getSign_num().equals("0")) {
+                    sign.setText("签到+10积分");
+                } else sign.setText(String.format("已连续签到%s天", userBean.getSign_num()));
+
+
+                ((TextView) waitPay.findViewById(R.id.dot)).setText(userBean.getShop_order_1());
+                waitPay.findViewById(R.id.dot).setVisibility(userBean.getShop_order_1().equals("0") ? View.GONE : View.VISIBLE);
+                ((TextView) waitReceive.findViewById(R.id.dot)).setText(userBean.getShop_order_1());
+                waitReceive.findViewById(R.id.dot).setVisibility(userBean.getShop_order_2().equals("0") ? View.GONE : View.VISIBLE);
+                ((TextView) shopWaitComment.findViewById(R.id.dot)).setText(userBean.getShop_order_3());
+                shopWaitComment.findViewById(R.id.dot).setVisibility(userBean.getShop_order_3().equals("0") ? View.GONE : View.VISIBLE);
+                ((TextView) shopAfterSale.findViewById(R.id.dot)).setText(userBean.getShop_order_4());
+                shopAfterSale.findViewById(R.id.dot).setVisibility(userBean.getShop_order_4().equals("0") ? View.GONE : View.VISIBLE);
+
+                ((TextView) waitServe.findViewById(R.id.dot)).setText(userBean.getService_order_1());
+                waitServe.findViewById(R.id.dot).setVisibility(userBean.getService_order_1().equals("0") ? View.GONE : View.VISIBLE);
+                ((TextView) inServe.findViewById(R.id.dot)).setText(userBean.getService_order_2());
+                inServe.findViewById(R.id.dot).setVisibility(userBean.getService_order_2().equals("0") ? View.GONE : View.VISIBLE);
+                ((TextView) serveWaitComment.findViewById(R.id.dot)).setText(userBean.getService_order_3());
+                serveWaitComment.findViewById(R.id.dot).setVisibility(userBean.getService_order_3().equals("0") ? View.GONE : View.VISIBLE);
+                ((TextView) serveAfterSale.findViewById(R.id.dot)).setText(userBean.getService_order_4());
+                serveAfterSale.findViewById(R.id.dot).setVisibility(userBean.getService_order_4().equals("0") ? View.GONE : View.VISIBLE);
+
+                int levelIndex = Integer.valueOf(userBean.getLevel().getId());
+                levelBg.setBackground(getResources().getDrawable(levelBgArr[levelIndex - 1]));
+                level.setTextColor(getResources().getColor(levelTxColorArr[levelIndex - 1]));
 
             }
         });
@@ -211,15 +271,14 @@ public class MineFragment extends MyFragment {
             //头像
             case R.id.avator:
 
-                break;
-            //昵称
+                //昵称
             case R.id.name:
 
-                break;
-            // 会员等级
+                // 会员等级
             case R.id.level:
-                intent = new Intent(mContext, VipInfoActivity.class);
+                intent = new Intent(mContext, MyDetailActivity.class);
                 startActivity(intent);
+
                 break;
             //积分
             case R.id.point:

@@ -145,7 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/margin_20"
-            android:text="还需350成长值升级LV4"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_14" />
 
@@ -243,6 +243,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:drawableRight="@mipmap/ic_arrow_right_grey"
             android:drawablePadding="@dimen/margin_5"
             android:padding="@dimen/margin_5"
             android:text="查看详情"
@@ -252,94 +253,12 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/right_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:background="@color/white"
-        android:paddingLeft="@dimen/margin_15">
-
-        <LinearLayout
-            android:id="@+id/sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:layout_width="@dimen/public_space_value_30"
-                android:layout_height="@dimen/public_space_value_30"
-                android:layout_marginLeft="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_15"
-                android:layout_marginRight="@dimen/margin_20"
-                android:background="@color/default_img_color" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
-                android:layout_marginBottom="@dimen/margin_15"
-                android:text="签到送积分"
-                android:textColor="@color/title_color"
-                android:textSize="@dimen/text_size_13" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/identity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:layout_width="@dimen/public_space_value_30"
-                android:layout_height="@dimen/public_space_value_30"
-                android:layout_marginLeft="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_15"
-                android:layout_marginRight="@dimen/margin_20"
-                android:background="@color/default_img_color" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
-                android:layout_marginBottom="@dimen/margin_15"
-                android:text="身份铭牌"
-                android:textColor="@color/title_color"
-                android:textSize="@dimen/text_size_13" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/point_mall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:layout_width="@dimen/public_space_value_30"
-                android:layout_height="@dimen/public_space_value_30"
-                android:layout_marginLeft="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_15"
-                android:layout_marginRight="@dimen/margin_20"
-                android:background="@color/default_img_color" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
-                android:layout_marginBottom="@dimen/margin_15"
-                android:text="积分商城"
-                android:textColor="@color/title_color"
-                android:textSize="@dimen/text_size_13" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
+        android:paddingLeft="@dimen/margin_15"/>
 
     <ImageView
         android:id="@+id/open_vip"
