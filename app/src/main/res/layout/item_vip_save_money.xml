@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+      android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_weight="1"
+            android:text="购物抵扣"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/t_14sp" />
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="258.00元"
+            android:visibility="visible"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/t_14sp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_order_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:layout_marginLeft="15dp"
+        android:text="订单编号gw-7882200427095820"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/title_sub_color"
+        android:textSize="@dimen/t_14sp" />
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="left"
+        android:layout_marginLeft="15dp"
+        android:text="2020-05-01 14:22:22"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/title_third_color"
+        android:textSize="@dimen/t_14sp" />
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/line"
+        android:layout_height="1px"/>
+</LinearLayout>
