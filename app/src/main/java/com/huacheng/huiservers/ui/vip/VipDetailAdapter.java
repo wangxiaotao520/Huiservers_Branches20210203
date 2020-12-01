@@ -7,13 +7,14 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.PointLog;
+import com.huacheng.huiservers.model.VipLogs;
 import com.huacheng.huiservers.ui.base.MyAdapter;
 
 /**
  * @author Created by changyadong on 2020/11/27
  * @description
  */
-public class PointDetailAdapter extends MyAdapter<PointLog.DataBean.PointsLogBean> {
+public class VipDetailAdapter extends MyAdapter<VipLogs.DataBean.RankLogBean> {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
@@ -32,10 +33,12 @@ public class PointDetailAdapter extends MyAdapter<PointLog.DataBean.PointsLogBea
 
         } else holder = (ViewHolder) view.getTag();
 
-        PointLog.DataBean.PointsLogBean bean = getItem(i);
+        VipLogs.DataBean.RankLogBean bean = getItem(i);
         holder.titleTx.setText(bean.getContent());
+
         holder.dateTx.setText(bean.getAddtime());
-        holder.amountTx.setText(bean.getPoints());
+        holder.amountTx.setText(bean.getRank() + "成长值");
+
 
         return view;
     }

@@ -36,6 +36,29 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/t_18sp" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right">
+                <ImageView
+                    android:id="@+id/set"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/margin_5"
+                    android:paddingRight="@dimen/margin_5"
+                    android:scaleType="center"
+                    android:src="@mipmap/ic_set_white" />
+                <ImageView
+                    android:id="@+id/share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/margin_5"
+                    android:paddingRight="@dimen/margin_5"
+                    android:scaleType="center"
+                    android:src="@mipmap/ic_share_white" />
+            </LinearLayout>
+
+
 
         </FrameLayout>
 
@@ -88,7 +111,7 @@
                 <TextView
                     android:id="@+id/level"
                     android:layout_width="35dp"
-                    android:layout_height="17dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|bottom"
                     android:background="@drawable/bg_shape_btn_rounded_rect_red"
                     android:gravity="center"

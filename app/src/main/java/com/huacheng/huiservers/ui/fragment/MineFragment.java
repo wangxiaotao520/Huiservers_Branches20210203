@@ -9,18 +9,32 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.GsonResponseHandler;
 import com.huacheng.huiservers.model.UcenterIndex;
 import com.huacheng.huiservers.ui.base.MyFragment;
+import com.huacheng.huiservers.ui.center.AddressListActivity;
+import com.huacheng.huiservers.ui.center.HeZuoActivity;
+import com.huacheng.huiservers.ui.center.MyAboutActivity;
 import com.huacheng.huiservers.ui.center.coupon.MyCouponListActivityNew;
+import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
+import com.huacheng.huiservers.ui.index.message.MessageIndexActivity;
+import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
+import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.ui.servicenew1.ServiceOrderListActivityNew;
+import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
+import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
 import com.huacheng.huiservers.ui.vip.MyDetailActivity;
 import com.huacheng.huiservers.ui.vip.PersonalSettingActivity;
+import com.huacheng.huiservers.ui.vip.RegisterActivity;
 import com.huacheng.huiservers.ui.vip.VipIndexActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
+import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.glide.GlideCircleTransform;
 
 import java.util.HashMap;
@@ -33,7 +47,7 @@ import butterknife.Unbinder;
 
 /**
  * @author Created by changyadong on 2020/11/24
- * @description
+ * @description 我的-首页
  */
 public class MineFragment extends MyFragment {
 
@@ -132,6 +146,7 @@ public class MineFragment extends MyFragment {
     LinearLayout aboat;
     Unbinder unbinder;
 
+    SharePrefrenceUtil prefrenceUtil;
 
     public static MineFragment newInstance() {
 
@@ -152,6 +167,7 @@ public class MineFragment extends MyFragment {
     public void initView(View view) {
         unbinder = ButterKnife.bind(this, view);
         initStatubar();
+        prefrenceUtil = new SharePrefrenceUtil(mActivity);
         loginView.setVisibility(LoginUtils.hasLoginUser() ? View.GONE : View.VISIBLE);
         userView.setVisibility(LoginUtils.hasLoginUser() ? View.VISIBLE : View.GONE);
     }
@@ -174,6 +190,7 @@ public class MineFragment extends MyFragment {
 
     int[] levelBgArr = {R.drawable.level_bg_1, R.drawable.level_bg_1, R.drawable.level_bg_1, R.drawable.level_bg_2, R.drawable.level_bg_3, R.drawable.level_bg_1, R.drawable.level_bg_4};
     int[] levelTxColorArr = {R.color.level_1, R.color.level_1, R.color.level_1, R.color.level_2, R.color.level_3, R.color.level_3, R.color.level_4};
+    UcenterIndex.DataBean userBean;
 
     public void getData() {
         smallDialog.show();
@@ -188,7 +205,7 @@ public class MineFragment extends MyFragment {
             public void onSuccess(int statusCode, UcenterIndex response) {
                 Log.d("cyd", "onSuccess");
                 smallDialog.dismiss();
-                UcenterIndex.DataBean userBean = response.getData();
+                userBean = response.getData();
                 name.setText(userBean.getNickname());
                 Glide.with(mActivity).load(ApiHttpClient.IMG_URL + userBean.getAvatars()).transform(new GlideCircleTransform(mActivity)).into(avator);
                 level.setText(userBean.getLevel().getName());
@@ -202,7 +219,13 @@ public class MineFragment extends MyFragment {
 
                 if (userBean.getSign_num().equals("0")) {
                     sign.setText("签到+10积分");
-                } else sign.setText(String.format("已连续签到%s天", userBean.getSign_num()));
+                    sign.setBackground(getResources().getDrawable(R.drawable.shape_left_round_orange));
+                    sign.setTextColor(getResources().getColor(R.color.white));
+                } else {
+                    sign.setText(String.format("已连续签到%s天", userBean.getSign_num()));
+                    sign.setBackground(getResources().getDrawable(R.drawable.shape_left_round_stroke_grey));
+                    sign.setTextColor(getResources().getColor(R.color.title_color));
+                }
 
 
                 ((TextView) waitPay.findViewById(R.id.dot)).setText(userBean.getShop_order_1());
@@ -260,7 +283,8 @@ public class MineFragment extends MyFragment {
                 break;
             //消息
             case R.id.msg:
-
+                intent = new Intent(mContext, OldMessageActivity.class);
+                startActivity(intent);
                 break;
             //登录
             case R.id.login:
@@ -279,10 +303,10 @@ public class MineFragment extends MyFragment {
             case R.id.level:
                 intent = new Intent(mContext, MyDetailActivity.class);
                 startActivity(intent);
-
                 break;
             //积分
             case R.id.point:
+
 
                 break;
             //康养老人
@@ -291,11 +315,23 @@ public class MineFragment extends MyFragment {
                 break;
             //签到
             case R.id.sign:
-
+                if (userBean.getSign_num().equals("0")) {
+                    intent = new Intent(mContext, RegisterActivity.class);
+                    startActivity(intent);
+                }
                 break;
             //认证
             case R.id.renzheng:
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                    // Intent intent = new Intent(getActivity(), PropertyNewActivity.class);
+                    intent = new Intent(mContext, HouseListActivity.class);
+                    intent.putExtra("type", 1);
+                    intent.putExtra("wuye_type", "bind");
+                    startActivity(intent);
 
+                } else {
+                    SmartToast.showInfo("该小区暂未开通服务");
+                }
                 break;
             //商品服务关注
             case R.id.goodslike:
@@ -325,7 +361,7 @@ public class MineFragment extends MyFragment {
                     startActivity(intent);
                 } else {
                     intent = new Intent(getActivity(), MyCouponListActivityNew.class);
-                    intent.putExtra("jump_type",1);
+                    intent.putExtra("jump_type", 1);
                     startActivity(intent);
                 }
 
@@ -333,54 +369,68 @@ public class MineFragment extends MyFragment {
             //等待付款
             case R.id.wait_pay:
 
-                break;
-            //等待收获
+
+                //等待收货
             case R.id.wait_receive:
 
-                break;
-            //待评价-商品
+                //待评价-商品
             case R.id.shop_wait_comment:
 
-                break;
-            //退款售后-商品
+
+                //退款售后-商品
             case R.id.shop_after_sale:
+
+                intent = new Intent(mContext, ShopOrderListActivityNew.class);
+                startActivity(intent);
 
                 break;
             //全部订单
             case R.id.shop_order_all:
 
-                break;
-            //待服务
+
+                //待服务
             case R.id.wait_serve:
 
-                break;
-            //服务中
+
+                //服务中
             case R.id.in_serve:
 
-                break;
-            //待评价-服务
+
+                //待评价-服务
             case R.id.serve_wait_comment:
 
-                break;
-            //售后-服务
-            case R.id.serve_after_sale:
 
+                //售后-服务
+            case R.id.serve_after_sale:
+                intent = new Intent(mContext, ServiceOrderListActivityNew.class);
+                startActivity(intent);
                 break;
             //物业工单
             case R.id.work_order:
 
+
                 break;
             //购物车
             case R.id.cart:
-
+                intent = new Intent(mActivity, ShopCartActivityNew.class);
+                startActivity(intent);
                 break;
             //缴费账单
             case R.id.bill:
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
 
+                    intent = new Intent(mContext, HouseListActivity.class);
+                    intent.putExtra("type", 1);
+                    intent.putExtra("wuye_type", "property");
+                    startActivity(intent);
+                } else {
+                    SmartToast.showInfo("该小区暂未开通服务");
+                }
                 break;
             //租售房
             case R.id.rent_sell:
-
+                intent = new Intent(mActivity, MyHousePropertyActivity.class);
+                startActivity(intent);
                 break;
             //我的帖子
             case R.id.my_article:
@@ -388,7 +438,9 @@ public class MineFragment extends MyFragment {
                 break;
             //收货地址
             case R.id.address:
-
+                intent = new Intent(mActivity, AddressListActivity.class);
+                intent.putExtra("jump_type",3);
+                startActivity(intent);
                 break;
             //邀请注册
             case R.id.user_invite:
@@ -396,15 +448,23 @@ public class MineFragment extends MyFragment {
                 break;
             //我要加盟
             case R.id.join:
-
+                startActivity(new Intent(mActivity, HeZuoActivity.class));
                 break;
             //访客邀请
             case R.id.visitor_invite:
-
+                if (!NullUtil.isStringEmpty(prefrenceUtil.getXiaoQuId())) {
+                    //Intent intent1 = new Intent(mContext, PropertyNewActivity.class);
+                    intent = new Intent(mContext, HouseListActivity.class);
+                    intent.putExtra("type", 1);
+                    intent.putExtra("wuye_type", "house_invite");
+                    startActivity(intent);
+                } else {
+                    SmartToast.showInfo("该小区暂未开启此功能");
+                }
                 break;
             // 关于惠生活
             case R.id.aboat:
-
+                startActivity(new Intent(mActivity, MyAboutActivity.class));
                 break;
 
         }

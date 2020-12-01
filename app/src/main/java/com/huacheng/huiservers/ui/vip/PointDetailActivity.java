@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * @author Created by changyadong on 2020/11/27
- * @description
+ * @description  我的积分
  */
 public class PointDetailActivity extends MyListActivity {
 

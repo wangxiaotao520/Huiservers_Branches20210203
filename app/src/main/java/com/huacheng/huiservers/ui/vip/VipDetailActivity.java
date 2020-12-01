@@ -20,21 +20,21 @@ import java.util.Map;
 
 /**
  * @author Created by changyadong on 2020/11/27
- * @description
+ * @description 我的会员
  */
 public class VipDetailActivity extends MyListActivity {
 
 
-
-
-    TextView growValue,level,need;
-    PointDetailAdapter adapter;
+    TextView growValue, level, need;
+    VipDetailAdapter adapter;
 
     @Override
     protected int getLayoutId() {
         return R.layout.actvivity_vip_detail;
     }
+
     String rule = "";
+
     @Override
     protected void initView() {
         super.initView();
@@ -47,7 +47,7 @@ public class VipDetailActivity extends MyListActivity {
         findViewById(R.id.rule).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogUtil.customMsgAlert(mContext,"如何获取成长值",rule);
+                DialogUtil.customMsgAlert(mContext, "如何获取成长值", rule);
             }
         });
 
@@ -55,32 +55,41 @@ public class VipDetailActivity extends MyListActivity {
 
     @Override
     protected void initData() {
-         adapter = new PointDetailAdapter();
-         listView.setAdapter(adapter);
-         getData(mPage);
+        adapter = new VipDetailAdapter();
+        listView.setAdapter(adapter);
+        getData(mPage);
     }
 
     @Override
-    public void getData(int page) {
+    public void getData(final int page) {
         smallDialog.show();
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
+        map.put("p", String.valueOf(mPage));
         MyOkHttp.get().get(ApiHttpClient.USER_RANK, map, new JsonResponseHandler() {
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                 smallDialog.dismiss();
+                smallDialog.dismiss();
 
             }
+
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
 
-                 VipLogs logs = new Gson().fromJson(response.toString(),VipLogs.class);
-                 smallDialog.dismiss();
-                 rule = logs.getData().getSign_rule();
+                VipLogs logs = new Gson().fromJson(response.toString(), VipLogs.class);
+                smallDialog.dismiss();
+                rule = logs.getData().getSign_rule();
 
-                 growValue.setText(logs.getData().getRank());
-                 level.setText(logs.getData().getLevel());
-                 need.setText(logs.getData().getLevel_next());
+                growValue.setText(logs.getData().getRank());
+                level.setText(logs.getData().getLevel());
+                need.setText(logs.getData().getNext_level() + "");
+
+                mPage = page;
+                if (page == 1) {
+                    adapter.clearData();
+                }
+                adapter.addData(logs.getData().getRank_log());
+                setEmpty(adapter);
 
 
             }

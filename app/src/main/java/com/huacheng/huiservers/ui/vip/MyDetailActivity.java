@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,7 +18,10 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.GsonResponseHandler;
 import com.huacheng.huiservers.model.UserIndex;
+import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.MyActivity;
+import com.huacheng.huiservers.ui.integral.MyIntegralRightActivity;
+import com.huacheng.libraryservice.utils.AppConstant;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +33,7 @@ import butterknife.Unbinder;
 
 /**
  * @author Created by changyadong on 2020/11/26
- * @description
+ * @description 我的主页
  */
 public class MyDetailActivity extends MyActivity {
     Unbinder unbinder;
@@ -66,6 +70,8 @@ public class MyDetailActivity extends MyActivity {
     @BindView(R.id.grow_max)
     TextView growMaxTx;
 
+    @BindView(R.id.share)
+    ImageView shareIv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -193,7 +199,7 @@ public class MyDetailActivity extends MyActivity {
     }
 
 
-    @OnClick({R.id.vip_history, R.id.point_history})
+    @OnClick({R.id.vip_history, R.id.point_history, R.id.vip_detail,R.id.privilege_detail,R.id.set,R.id.share})
     public void onViewClick(View view) {
         Intent it = new Intent();
         switch (view.getId()) {
@@ -207,10 +213,45 @@ public class MyDetailActivity extends MyActivity {
                 startActivity(it);
 
                 break;
+            case R.id.vip_detail:
+                it.setClass(mContext, VipDetailActivity.class);
+                startActivity(it);
+
+                break;
+            case R.id.privilege_detail:
+                it.setClass(mContext, MyIntegralRightActivity.class);
+                startActivity(it);
+
+                break;
+            case R.id.set:
+                it.setClass(mContext,PersonalSettingActivity.class);
+                startActivity(it);
+
+                break;
+            case R.id.share:
+
+                 String shareTitle = "我的会员等级" + level.getText();
+                 String shareDesc = "开通vip享受至尊特权";
+                 String share_icon = "";
+                 String share_url = ApiHttpClient.VLOG_INDEX_SHARE;
+                 showSharePop(shareTitle,shareDesc,share_icon,share_url);
+                break;
 
         }
     }
 
+    /**
+     * 显示分享弹窗
+     *
+     * @param share_title
+     * @param share_desc
+     * @param share_icon
+     * @param share_url_new
+     */
+    private void showSharePop(String share_title, String share_desc, String share_icon, String share_url_new) {
+        PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, share_icon, share_url_new, AppConstant.SHARE_COMMON);
+        popup.showBottom(getWindow().getDecorView());
+    }
 
     @Override
     protected void onDestroy() {
