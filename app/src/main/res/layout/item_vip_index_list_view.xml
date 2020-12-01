@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ly_onclick"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/allshape_white"
+        android:orientation="vertical"
+        android:paddingBottom="8dp">
+
+        <LinearLayout
+            android:id="@+id/lin_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/item_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    fresco:placeholderImage="@color/default_img_color"
+                    fresco:placeholderImageScaleType="centerCrop"
+                    fresco:roundedCornerRadius="5dp" />
+
+                <ImageView
+                    android:id="@+id/iv_shouqing"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/ic_shop_shouqing"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_tag"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/shape_red_2"
+                        android:gravity="center"
+                        android:text="秒杀"
+                        android:textColor="@color/text_special_ff_color"
+                        android:textSize="11dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_tag_kangyang"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/allshape_orange_2"
+                        android:gravity="center"
+                        android:text="康养"
+                        android:textColor="@color/text_special_ff_color"
+                        android:textSize="11dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_tag_vip"
+                        android:layout_width="45dp"
+                        android:layout_height="17dp"
+                        android:background="@drawable/shape_vip_solid5_lefttop_rightbottom"
+                        android:gravity="center"
+                        android:text="VIP折扣"
+                        android:textColor="@color/text_special_ff_color"
+                        android:textSize="@dimen/t_10sp"
+                       />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            android:ellipsize="end"
+            android:lines="2"
+            android:text="是否会四大行会四大行会四大行"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/t_15sp" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_shop_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23.00"
+                    android:textColor="@color/red_normal"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_shop_original"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="1dp"
+                    android:text="23.00"
+                    android:textColor="@color/title_third_color"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_add_shop_cart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/ic_shop_cart_bg_red"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

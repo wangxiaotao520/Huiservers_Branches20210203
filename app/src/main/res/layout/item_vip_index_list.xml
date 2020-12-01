@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginBottom="@dimen/margin_15"
+        android:text="推荐店铺"
+        android:textColor="@color/title_color"
+        android:textSize="@dimen/t_18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin_15"
+        android:layout_marginBottom="@dimen/margin"
+        android:background="@drawable/allshape_white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ly_store"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/iv_store_head"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                fresco:placeholderImage="@mipmap/ic_store_head"
+                fresco:roundedCornerRadius="@dimen/margin_5" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_store_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="赵云云官方旗舰店"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_15sp" />
+
+                <TextView
+                    android:id="@+id/tv_store_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="时尚天街购物中心58号奥"
+                    android:textColor="@color/title_third_color"
+                    android:textSize="@dimen/t_12sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="65dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:background="@drawable/allshape_zorange_k_20"
+                android:gravity="center"
+                android:text="进店逛逛"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/t_12sp" />
+        </LinearLayout>
+
+        <com.huacheng.huiservers.view.MyGridview
+            android:id="@+id/grid_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="@dimen/margin"
+            android:numColumns="3"
+            android:paddingLeft="@dimen/margin"
+            android:paddingRight="@dimen/margin" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

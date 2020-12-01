@@ -94,6 +94,9 @@ public class WebViewDefaultActivity extends BaseActivity {
             //服务协议
             Url_info info = new Url_info(this);
             web_url=info.user_agreement;
+        }else if (jump_type==ConstantWebView.CONSTANT_VIP_FUWU_XIEYI){
+            //VIP服务协议
+            web_url=ApiHttpClient.VIP_XIEYI;
         }
 
     }
@@ -131,6 +134,9 @@ public class WebViewDefaultActivity extends BaseActivity {
         }else if (jump_type==ConstantWebView.CONSTANT_FUWU_XIEYI){
             //服务协议
             titleName.setText("用户协议");
+        }else if (jump_type==ConstantWebView.CONSTANT_VIP_FUWU_XIEYI){
+            //服务协议
+            titleName.setText("VIP用户协议");
         }
 
         if (web_type==0){

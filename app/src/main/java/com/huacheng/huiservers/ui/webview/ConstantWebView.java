@@ -14,6 +14,7 @@ public class ConstantWebView {
     public static final  int CONSTANT_JIAOFANG = 5;  //交房手册
     public static final  int CONSTANT_YINGSI = 6;  //隐私政策
     public static final  int CONSTANT_FUWU_XIEYI = 7;  //服务协议
+    public static final  int CONSTANT_VIP_FUWU_XIEYI = 8;  //VIP服务协议
 
 
 }

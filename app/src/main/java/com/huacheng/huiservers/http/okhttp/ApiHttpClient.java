@@ -612,6 +612,8 @@ public class ApiHttpClient {
     public static String ACCOUNT_SECURITY = API_URL + API_VERSION + "userCenter/accountsecurity";
     //解绑微信
     public static String UNBIND_WX = API_URL + API_VERSION + "userCenter/unbind_wx";
+    //VIP用户协议
+    public static String VIP_XIEYI= API_URL + API_VERSION + "userCenter/about_vip";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -863,5 +865,6 @@ public class ApiHttpClient {
         MY_EDIT_CENTER = API_URL + API_VERSION + "userCenter/edit_center";
         ACCOUNT_SECURITY = API_URL + API_VERSION + "userCenter/accountsecurity";
         UNBIND_WX = API_URL + API_VERSION + "userCenter/unbind_wx";
+        VIP_XIEYI= API_URL + API_VERSION + "userCenter/about_vip";
     }
 }

@@ -1289,6 +1289,9 @@
         <activity
             android:name=".ui.vip.SaveMoneyListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.vip.VipBuyActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>

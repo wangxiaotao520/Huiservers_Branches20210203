@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/titlebar_center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_15">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_head"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                fresco:placeholderImage="@mipmap/ic_store_head"
+                fresco:placeholderImageScaleType="centerCrop"
+                fresco:roundAsCircle="true"
+                fresco:roundedCornerRadius="@dimen/margin_5"
+                fresco:roundingBorderColor="#ffffff"
+                fresco:roundingBorderWidth="1dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="凌腾云"
+                    android:textColor="@color/title_color"
+                    android:textSize="@dimen/t_15sp" />
+
+                <TextView
+                    android:id="@+id/tv_open_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:text="您还不是VIP会员"
+                    android:textColor="#694E33"
+                    android:textSize="@dimen/t_12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <include layout="@layout/vip_index_open_style"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.vip;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.fragment.adapter.AdapterVipGridCat;
 import com.huacheng.huiservers.ui.fragment.adapter.AdapterVipGridOpen;
 import com.huacheng.huiservers.ui.fragment.adapter.AdapterVipIndex;
+import com.huacheng.huiservers.ui.webview.ConstantWebView;
+import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
 import com.huacheng.huiservers.view.MyGridview;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -53,7 +56,6 @@ public class VipIndexActivity extends BaseActivity {
     View headerView;
     HeaderViewHolder headerViewHolder;
 
-
     private AdapterVipIndex mVipIndex;
     private AdapterVipGridCat mVipGridCat;
     private AdapterVipGridOpen mVipGridOpen;
@@ -67,7 +69,11 @@ public class VipIndexActivity extends BaseActivity {
 
         addHeaderView();
         //底部商品
-        mVipIndex = new AdapterVipIndex(this, R.layout.item_old_gauge, mDatas);
+        for (int i = 0; i < 3; i++) {
+            mDatas.add(new ModelVipIndex());
+        }
+
+        mVipIndex = new AdapterVipIndex(this, R.layout.item_vip_index_list, mDatas);
         mListview.setAdapter(mVipIndex);
 
     }
@@ -122,7 +128,32 @@ public class VipIndexActivity extends BaseActivity {
                 finish();
             }
         });
-        //选中开通方式
+
+        //立即开通/立即续费
+        headerViewHolder.mTvBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VipIndexActivity.this, VipBuyActivity.class);
+                startActivity(intent);
+            }
+        });
+        //省钱
+        headerViewHolder.mLyShengqian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VipIndexActivity.this, SaveMoneyListActivity.class);
+                startActivity(intent);
+            }
+        });
+        //开通记录
+        headerViewHolder.mTvJilu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VipIndexActivity.this, VipRecordActivity.class);
+                startActivity(intent);
+            }
+        });
+        //vip选中开通方式
         headerViewHolder.mGridOpen.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -134,6 +165,32 @@ public class VipIndexActivity extends BaseActivity {
                     }
                 }
                 mVipGridOpen.notifyDataSetChanged();
+            }
+        });
+        //立即购买
+        headerViewHolder.mTvBtnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VipIndexActivity.this, VipBuyActivity.class);
+                startActivity(intent);
+            }
+        });
+        //用户协议
+        headerViewHolder.mTvXieyi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VipIndexActivity.this, WebViewDefaultActivity.class);
+                intent.putExtra("web_type", 0);
+                intent.putExtra("jump_type", ConstantWebView.CONSTANT_VIP_FUWU_XIEYI);
+                startActivity(intent);
+            }
+        });
+        //优惠券
+        headerViewHolder.mTvMoreVipCoupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VipIndexActivity.this, VipCouponListActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -200,6 +257,11 @@ public class VipIndexActivity extends BaseActivity {
         TextView mTvXieyi;
         @BindView(R.id.ll_coupon)
         LinearLayout mLlCoupon;
+        @BindView(R.id.ly_shengqian)
+        LinearLayout mLyShengqian;
+        @BindView(R.id.tv_more_vip_coupon)
+        TextView mTvMoreVipCoupon;
+
 
         HeaderViewHolder(View view) {
             ButterKnife.bind(this, view);
