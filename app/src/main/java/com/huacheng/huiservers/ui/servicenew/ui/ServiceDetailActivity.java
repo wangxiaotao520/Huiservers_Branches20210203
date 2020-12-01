@@ -3,8 +3,12 @@ package com.huacheng.huiservers.ui.servicenew.ui;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +40,7 @@ import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.servicenew1.ServiceConfirmOrderActivityNew;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
+import com.huacheng.huiservers.view.MyImageSpan;
 import com.huacheng.huiservers.view.ScrollChangedScrollView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
@@ -235,10 +240,31 @@ public class ServiceDetailActivity extends BaseActivity {
         if (mModelOrdetDetail != null) {
             if ("2".equals(mModelOrdetDetail.getPension_display())){
                 mTvTagKangyang.setVisibility(View.VISIBLE);
-                mTitleName.setText("\u3000\u3000"+mModelOrdetDetail.getTitle());
+              //  mTitleName.setText("\u3000\u3000"+mModelOrdetDetail.getTitle());
+
+                //TODO vip标签
+                String title = mModelOrdetDetail.getTitle();
+                String addSpan = "\u3000\u3000"+" "+"VIP折扣";
+                SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+                d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+                ImageSpan span = new MyImageSpan(mContext,d);
+                spannableString.setSpan(span, (addSpan+" "+title).indexOf("VIP折扣"), (addSpan+" "+title).indexOf("VIP折扣")+"VIP折扣".length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                mTitleName.setText(spannableString);
+
             }else {
                 mTvTagKangyang.setVisibility(View.GONE);
-                mTitleName.setText(mModelOrdetDetail.getTitle());
+             //   mTitleName.setText(mModelOrdetDetail.getTitle());
+
+                //TODO vip标签
+                String title =mModelOrdetDetail.getTitle()+"";
+                String addSpan = "VIP折扣";
+                SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+                d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+                ImageSpan span = new MyImageSpan(mContext,d);
+                spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                mTitleName.setText(spannableString);
             }
             //mTvServiceName.setText(mModelOrdetDetail.getTitle());
             //GlideUtils.getInstance().glideLoad(this, ApiHttpClient.IMG_SERVICE_URL + , mIcBanner, R.drawable.bg_default_rectange);

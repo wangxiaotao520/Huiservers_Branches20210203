@@ -2,6 +2,10 @@ package com.huacheng.huiservers.ui.servicenew.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +24,8 @@ import com.huacheng.huiservers.ui.servicenew.ui.ServiceDetailActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
+import com.huacheng.huiservers.view.MyImageSpan;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -107,7 +113,19 @@ public class MerchantServicexAdapter extends BaseAdapter {
 
                     final ModelServiceItem item = services.get(i);
                     FrescoUtils.getInstance().setImageUri(sdv_premium_merchat_bg, ApiHttpClient.IMG_SERVICE_URL + item.getTitle_img());
-                    tv_titleName.setText(item.getTitle());
+                  //  tv_titleName.setText(item.getTitle());
+                    //TODO vip标签
+                    String title =item.getTitle()+"";
+                    String addSpan = "VIP折扣";
+                    SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                    Drawable d = context.getResources().getDrawable(R.mipmap.ic_vip_span);
+                    d.setBounds(0, 0, DeviceUtils.dip2px(context,50), DeviceUtils.dip2px(context,16));
+                    ImageSpan span = new MyImageSpan(context,d);
+                    spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    tv_titleName.setText(spannableString);
+
+
+
                     holder.lin_merchant_card.addView(v);
 
                     lin_most.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +186,19 @@ public class MerchantServicexAdapter extends BaseAdapter {
                 }else {
                     holderService.tv_tag_kangyang.setVisibility(View.GONE);
                 }
-                holderService.tv_serviceName.setText(service.getTitle());
+           //     holderService.tv_serviceName.setText(service.getTitle());
+                //TODO vip标签
+                String title =service.getTitle()+"";
+                String addSpan = "VIP折扣";
+                SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                Drawable d = context.getResources().getDrawable(R.mipmap.ic_vip_span);
+                d.setBounds(0, 0, DeviceUtils.dip2px(context,50), DeviceUtils.dip2px(context,16));
+                ImageSpan span = new MyImageSpan(context,d);
+                spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                holderService.tv_serviceName.setText(spannableString);
+
+
+
                 String price = service.getPrice();
                 if (!NullUtil.isStringEmpty(price)) {
                     holderService.tv_servicePrice.setText("¥" + price);

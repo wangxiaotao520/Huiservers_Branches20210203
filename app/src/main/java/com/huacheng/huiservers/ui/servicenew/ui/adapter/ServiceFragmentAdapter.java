@@ -1,6 +1,10 @@
 package com.huacheng.huiservers.ui.servicenew.ui.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,6 +14,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceItem;
+import com.huacheng.huiservers.view.MyImageSpan;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
 import java.util.List;
@@ -61,7 +67,18 @@ public class ServiceFragmentAdapter <T>extends BaseAdapter {
         }
         ModelServiceItem item = (ModelServiceItem) getItem(position);
         FrescoUtils.getInstance().setImageUri(viewHolder.sdv_pic, ApiHttpClient.IMG_SERVICE_URL+item.getTitle_img());
-        viewHolder.tv_service_name.setText(item.getTitle()+"");
+       // viewHolder.tv_service_name.setText(item.getTitle()+"");
+        //TODO vip标签
+        String title =item.getTitle()+"";
+        String addSpan = "VIP折扣";
+        SpannableString spannableString=new SpannableString(addSpan+" "+title);
+        Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+        d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+        ImageSpan span = new MyImageSpan(mContext,d);
+        spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        viewHolder.tv_service_name.setText(spannableString);
+
+
         viewHolder.tv_price.setText("¥ "+item.getPrice());
         if ("2".equals(item.getPension_display())){
             viewHolder.tv_tag_kangyang.setVisibility(View.VISIBLE);
