@@ -185,7 +185,15 @@ public class VipIndexActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        //优惠券
+        //VIP特权查看更多
+        headerViewHolder.mTvMoreVip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VipIndexActivity.this, VipRightActivity.class);
+                startActivity(intent);
+            }
+        });
+        //优惠券查看更多
         headerViewHolder.mTvMoreVipCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
