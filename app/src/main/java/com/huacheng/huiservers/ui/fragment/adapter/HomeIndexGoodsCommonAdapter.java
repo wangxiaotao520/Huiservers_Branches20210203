@@ -2,6 +2,10 @@ package com.huacheng.huiservers.ui.fragment.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +18,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ModelShopIndex;
+import com.huacheng.huiservers.view.MyImageSpan;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
@@ -80,7 +85,16 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
             FrescoUtils.getInstance().setImageUri(viewHolder.item_image1,ApiHttpClient.IMG_URL+item.getTitle_thumb_img());
 
             viewHolder. txt_shop_price1.setText("¥ "+item.getPrice());
-            viewHolder. item_name1.setText(item.getTitle()+"");
+            //TODO vip标签
+            String title = item.getTitle()+"";
+            String addSpan = "VIP折扣";
+            SpannableString spannableString=new SpannableString(addSpan+" "+title);
+            Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+            d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+            ImageSpan span = new MyImageSpan(mContext,d);
+            spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            viewHolder. item_name1.setText(spannableString);
+
 
             viewHolder.txt_shop_original1.setText("¥ "+item.getOriginal());
             viewHolder.txt_shop_original1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -132,7 +146,17 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
             FrescoUtils.getInstance().setImageUri(viewHolder.item_image2,ApiHttpClient.IMG_URL+item.getTitle_thumb_img());
 
             viewHolder. txt_shop_price2.setText("¥ "+item.getPrice());
-            viewHolder. item_name2.setText(item.getTitle()+"");
+            //TODO vip标签
+            String title = item.getTitle()+"";
+            String addSpan = "VIP折扣";
+            SpannableString spannableString=new SpannableString(addSpan+" "+title);
+            Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+            d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+            ImageSpan span = new MyImageSpan(mContext,d);
+            spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            viewHolder. item_name2.setText(spannableString);
+
+          //  viewHolder. item_name2.setText(item.getTitle()+"");
             viewHolder.txt_shop_original2.setText("¥ "+item.getOriginal());
             viewHolder.txt_shop_original2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             //是否售罄

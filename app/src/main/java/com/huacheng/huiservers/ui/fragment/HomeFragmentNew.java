@@ -5,10 +5,14 @@ import android.animation.ArgbEvaluator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ImageSpan;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +72,7 @@ import com.huacheng.huiservers.ui.shop.ShopZQListActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.MyCornerImageLoader;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
+import com.huacheng.huiservers.view.MyImageSpan;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -756,7 +761,19 @@ public class HomeFragmentNew extends BaseFragment implements HomeGridViewCateAda
                     tv_shop_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                     final ModelShopIndex shopIndex = seckill_list.get(i);
                     FrescoUtils.getInstance().setImageUri(sdv_sec_kill, ApiHttpClient.IMG_URL + shopIndex.getTitle_img());
-                    tv_title.setText(shopIndex.getTitle() + "");
+                    //TODO vip标签
+                 //   tv_title.setText(shopIndex.getTitle() + "");
+                    String title = shopIndex.getTitle()+"";
+                    String addSpan = "VIP折扣";
+                    SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                    Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+                    d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+                    ImageSpan span = new MyImageSpan(mContext,d);
+                    spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    tv_title.setText(spannableString);
+
+
+
                     tv_sub_title.setText(shopIndex.getDescription() + "");
                     tv_shop_price.setText("¥ " + shopIndex.getPrice());
                     tv_shop_price_original.setText("¥ " + shopIndex.getOriginal() + "");

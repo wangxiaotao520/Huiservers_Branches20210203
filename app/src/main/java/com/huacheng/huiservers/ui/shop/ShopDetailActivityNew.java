@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
@@ -54,6 +58,7 @@ import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.utils.statusbar.OSUtils;
 import com.huacheng.huiservers.view.MyGridview;
+import com.huacheng.huiservers.view.MyImageSpan;
 import com.huacheng.huiservers.view.PhotoViewPagerAcitivity;
 import com.huacheng.huiservers.view.ScrollChangedScrollView;
 import com.huacheng.libraryservice.utils.AppConstant;
@@ -368,10 +373,29 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
 
                             if ("2".equals(detailBean.getPension_display())){
                                 tv_tag_kangyang.setVisibility(View.VISIBLE);
-                                txt_name.setText("\u3000\u3000"+" "+detailBean.getTitle());
+//                                txt_name.setText("\u3000\u3000"+" "+detailBean.getTitle());
+                                //TODO vip标签
+                                String title = detailBean.getTitle();
+                                String addSpan = "\u3000\u3000"+" "+"VIP折扣";
+                                SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                                Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+                                d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+                                ImageSpan span = new MyImageSpan(mContext,d);
+                                spannableString.setSpan(span, (addSpan+" "+title).indexOf("VIP折扣"), (addSpan+" "+title).indexOf("VIP折扣")+"VIP折扣".length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                                txt_name.setText(spannableString);
                             }else {
-                                tv_tag_kangyang.setVisibility(View.GONE);
-                                txt_name.setText(detailBean.getTitle());
+                               tv_tag_kangyang.setVisibility(View.GONE);
+                              //  txt_name.setText(detailBean.getTitle());
+
+                                //TODO vip标签
+                                String title = detailBean.getTitle()+"";
+                                String addSpan = "VIP折扣";
+                                SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                                Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+                                d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+                                ImageSpan span = new MyImageSpan(mContext,d);
+                                spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                                txt_name.setText(spannableString);
                             }
                             txt_content.setText(detailBean.getDescription());
                             txt_price.setText("¥" + detailBean.getPrice());

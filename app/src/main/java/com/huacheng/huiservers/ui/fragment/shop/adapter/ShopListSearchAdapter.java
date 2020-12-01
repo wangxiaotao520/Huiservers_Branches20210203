@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +28,8 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.ShopCartManager;
 import com.huacheng.huiservers.ui.shop.ShopDetailActivityNew;
 import com.huacheng.huiservers.utils.NoDoubleClickListener;
+import com.huacheng.huiservers.view.MyImageSpan;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 
@@ -138,7 +144,18 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             //   GlideUtils.getInstance().glideLoad(mContext,MyCookieStore.URL + mDatas.get(position).getTitle_img(),recyclerViewHolder.iv_title_img,R.drawable.ic_default_rectange);
 
             FrescoUtils.getInstance().setImageUri(recyclerViewHolder.iv_title_img,  mDatas.get(position).getTitle_img());
-            recyclerViewHolder.tv_title.setText(mDatas.get(position).getTitle());
+
+            //TODO vip标签
+            String title = mDatas.get(position).getTitle()+"";
+            String addSpan = "VIP折扣";
+            SpannableString spannableString=new SpannableString(addSpan+" "+title);
+            Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+            d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+            ImageSpan span = new MyImageSpan(mContext,d);
+            spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            recyclerViewHolder.tv_title.setText(spannableString);
+         //   recyclerViewHolder.tv_title.setText(mDatas.get(position).getTitle());
+
             if (!NullUtil.isStringEmpty(mDatas.get(position).getDescription())){
                 recyclerViewHolder.tv_sub_title.setText(mDatas.get(position).getDescription());
             }else {

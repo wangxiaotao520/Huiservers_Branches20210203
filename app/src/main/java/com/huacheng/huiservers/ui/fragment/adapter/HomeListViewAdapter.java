@@ -2,6 +2,10 @@ package com.huacheng.huiservers.ui.fragment.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,6 +14,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.model.ModelShopIndex;
+import com.huacheng.huiservers.view.MyImageSpan;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
@@ -63,7 +69,19 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
         }
         FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_sec_kill), MyCookieStore.URL + mDatas.get(position).getTitle_img());
 
-        viewHolder.<TextView>getView(R.id.tv_title).setText(item.getTitle());
+      //  viewHolder.<TextView>getView(R.id.tv_title).setText(item.getTitle());
+        //TODO vip标签
+        String title = item.getTitle()+"";
+        String addSpan = "VIP折扣";
+        SpannableString spannableString=new SpannableString(addSpan+" "+title);
+        Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+        d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+        ImageSpan span = new MyImageSpan(mContext,d);
+        spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        viewHolder.<TextView>getView(R.id.tv_title).setText(spannableString);
+
+
+
         if (!NullUtil.isStringEmpty(item.getDescription())){
             //  副标题
             viewHolder.<TextView>getView(R.id.tv_sub_title).setText(item.getDescription()+"");
