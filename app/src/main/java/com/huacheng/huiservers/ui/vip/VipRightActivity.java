@@ -54,7 +54,7 @@ public class VipRightActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        titleName.setText("我的特权");
+        titleName.setText("VIP特权");
         llContent.setVisibility(View.INVISIBLE);
         adapterMy= new CommonAdapter<ModelIntegralRight>(this,R.layout.item_my_integral_right,mDatasMy) {
             @Override
