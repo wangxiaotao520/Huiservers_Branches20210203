@@ -76,6 +76,7 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
     private ImageView iv_serch;
     private RelativeLayout ry_title;
     private TextView titleName;
+    private TextView tv_follow;
     private String share_url;
     private String share_title;
     private String share_desc;
@@ -101,6 +102,7 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
         lin_left = findViewById(R.id.lin_left);
         iv_left = findViewById(R.id.iv_left);
         titleName = findViewById(R.id.titleName);
+
         ly_share = findViewById(R.id.ly_share);
         iv_share = findViewById(R.id.iv_share);
         iv_left.setBackgroundResource(R.mipmap.ic_arrow_left_white);
@@ -131,7 +133,7 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
         tv_store_address = headerView.findViewById(R.id.tv_store_address);
         ly_all = headerView.findViewById(R.id.ly_all);
         iv_bg = headerView.findViewById(R.id.iv_bg);
-
+        tv_follow = headerView.findViewById(R.id.tv_follow);
     }
 
     @Override
@@ -169,6 +171,12 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
         ly_serch.setOnClickListener(this);
         lin_left.setOnClickListener(this);
         ly_share.setOnClickListener(this);
+        tv_follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo 商品店铺关注
+            }
+        });
     }
 
     @Override

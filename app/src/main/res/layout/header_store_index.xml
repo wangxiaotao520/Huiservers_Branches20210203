@@ -97,7 +97,16 @@
                 </LinearLayout>
 
             </LinearLayout>
-
+            <TextView
+                android:id="@+id/tv_follow"
+                android:layout_marginLeft="5dp"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:text="+  关注"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:background="@drawable/allshape_red_35"
+                android:textSize="12dp"/>
         </LinearLayout>
 
         <RelativeLayout

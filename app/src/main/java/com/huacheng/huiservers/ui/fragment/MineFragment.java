@@ -19,9 +19,9 @@ import com.huacheng.huiservers.ui.base.MyFragment;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.center.HeZuoActivity;
 import com.huacheng.huiservers.ui.center.MyAboutActivity;
+import com.huacheng.huiservers.ui.center.MyStoreFollowListActivity;
 import com.huacheng.huiservers.ui.center.coupon.MyCouponListActivityNew;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
-import com.huacheng.huiservers.ui.index.message.MessageIndexActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
@@ -339,6 +339,13 @@ public class MineFragment extends MyFragment {
                 break;
             //店铺关注
             case R.id.storelike:
+                if (!LoginUtils.hasLoginUser()) {
+                    intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(mContext, MyStoreFollowListActivity.class);
+                    startActivity(intent);
+                }
 
                 break;
             // 文章收藏

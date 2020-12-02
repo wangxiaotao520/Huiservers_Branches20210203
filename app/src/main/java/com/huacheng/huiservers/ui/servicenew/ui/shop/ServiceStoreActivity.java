@@ -85,6 +85,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
     private String share_icon;
     private TextView tv_store_name1;
     private TextView tv_store_phone_number1;
+    private TextView tv_follow;
     private TextView tv_call_number1;
     private View view_service_tab;
     private View view_comment_tab;
@@ -107,6 +108,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
         status_bar.setAlpha(0);
         lin_left = findViewById(R.id.lin_left);
         title_name = findViewById(R.id.title_name);
+        tv_follow = findViewById(R.id.tv_follow);
 //        tv_store_phone = findViewById(R.id.tv_store_phone);
 //        tv_service_num = findViewById(R.id.tv_service_num);
         iv_right = findViewById(R.id.iv_right);
@@ -207,6 +209,12 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void initListener() {
         lin_left.setOnClickListener(this);
+        tv_follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 服务店铺关注
+            }
+        });
         scrollableLayout.setOnScrollListener(new HeaderViewPager.OnScrollListener() {
             @Override
             public void onScroll(int currentY, int maxY) {

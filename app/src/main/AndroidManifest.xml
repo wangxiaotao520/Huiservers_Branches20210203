@@ -1292,6 +1292,9 @@
         <activity
             android:name=".ui.vip.VipBuyActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.center.MyStoreFollowListActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 </manifest>
