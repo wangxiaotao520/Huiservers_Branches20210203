@@ -99,8 +99,15 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="@dimen/margin_15">
-                <FrameLayout
+
+                <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/tv_tag_kangyang"
@@ -123,6 +130,31 @@
 
                 </FrameLayout>
 
+                <LinearLayout
+                    android:id="@+id/ly_guanzhu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_guanzhu"
+                        android:layout_width="20dp"
+                        android:layout_height="18dp"
+                        android:background="@color/orange" />
+
+                    <TextView
+                        android:id="@+id/tv_guanzhu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="已关注"
+                        android:textSize="@dimen/t_10sp" />
+                </LinearLayout>
+
+                </LinearLayout>
                 <TextView
                     android:id="@+id/tv_price"
                     android:layout_width="wrap_content"

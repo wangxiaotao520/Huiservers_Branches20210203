@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:fresco="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/activity_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true">
 
         <com.huacheng.huiservers.view.ScrollChangedScrollView
@@ -36,8 +36,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
 
                         <ImageView
                             android:id="@+id/img_title"
@@ -55,8 +54,7 @@
                         android:layout_height="@dimen/margin_45"
                         android:layout_alignParentBottom="true"
                         android:background="@mipmap/bg_shop_seckill"
-                        android:visibility="gone"
-                        >
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -74,7 +72,7 @@
                                 android:text="总计0份"
                                 android:textColor="@color/text_special_ff_color"
                                 android:textSize="@dimen/t_11sp"
-                                android:textStyle="italic"/>
+                                android:textStyle="italic" />
 
                         </LinearLayout>
 
@@ -84,8 +82,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="@dimen/margin_20"
-                            android:orientation="vertical"
-                            >
+                            android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -108,8 +105,8 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/margin_5"
                                 android:layout_marginTop="@dimen/margin_3"
+                                android:layout_marginRight="@dimen/margin_5"
                                 android:gravity="right"
                                 android:orientation="horizontal">
 
@@ -121,7 +118,7 @@
                                     android:padding="2dp"
                                     android:text=""
                                     android:textColor="@color/white"
-                                    android:textSize="9sp"/>
+                                    android:textSize="9sp" />
 
                                 <TextView
                                     android:id="@+id/tv_downcount_day"
@@ -133,7 +130,7 @@
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
                                     android:textColor="@color/text_special_ff_color"
-                                    android:textSize="@dimen/t_10sp"/>
+                                    android:textSize="@dimen/t_10sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -142,7 +139,7 @@
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text="天"
                                     android:textColor="#333333"
-                                    android:textSize="@dimen/t_10sp"/>
+                                    android:textSize="@dimen/t_10sp" />
 
                                 <TextView
                                     android:id="@+id/tv_downcount_hour"
@@ -154,7 +151,7 @@
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
                                     android:textColor="@color/text_special_ff_color"
-                                    android:textSize="@dimen/t_10sp"/>
+                                    android:textSize="@dimen/t_10sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -163,7 +160,7 @@
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text=":"
                                     android:textColor="#333333"
-                                    android:textSize="@dimen/t_10sp"/>
+                                    android:textSize="@dimen/t_10sp" />
 
                                 <TextView
                                     android:id="@+id/tv_downcount_minute"
@@ -175,7 +172,7 @@
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
                                     android:textColor="@color/text_special_ff_color"
-                                    android:textSize="@dimen/t_10sp"/>
+                                    android:textSize="@dimen/t_10sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -184,7 +181,7 @@
                                     android:layout_marginRight="@dimen/margin_3"
                                     android:text=":"
                                     android:textColor="#333333"
-                                    android:textSize="@dimen/t_10sp"/>
+                                    android:textSize="@dimen/t_10sp" />
 
                                 <TextView
                                     android:id="@+id/tv_downcount_second"
@@ -196,7 +193,7 @@
                                     android:paddingRight="@dimen/margin_2"
                                     android:text="00"
                                     android:textColor="@color/text_special_ff_color"
-                                    android:textSize="@dimen/t_10sp"/>
+                                    android:textSize="@dimen/t_10sp" />
 
                             </LinearLayout>
 
@@ -223,19 +220,19 @@
                                 android:textColor="@color/red_normal"
                                 android:textSize="23sp"
                                 android:textStyle="bold"
-                                tools:text="34.9"/>
+                                tools:text="34.9" />
 
                             <TextView
                                 android:id="@+id/txt_yuan_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignBottom="@+id/txt_price"
-                                android:layout_marginBottom="@dimen/margin_3"
                                 android:layout_marginLeft="@dimen/margin"
+                                android:layout_marginBottom="@dimen/margin_3"
                                 android:layout_toRightOf="@+id/txt_price"
                                 android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_14sp"
-                                tools:text="35.9"/>
+                                tools:text="35.9" />
 
                             <TextView
                                 android:id="@+id/txt_num"
@@ -246,31 +243,67 @@
                                 android:layout_marginBottom="4dp"
                                 android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_12sp"
-                                tools:text="已售1200"/>
+                                tools:text="已售1200" />
                         </RelativeLayout>
-                        <RelativeLayout
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:id="@+id/txt_name"
-                                android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/title_color"
-                                android:textSize="@dimen/t_16sp"
-                                android:textStyle="bold"
-                                tools:text="\u3000\u3000 五谷道场非油炸袋装泡面14种口味自选组合方便面番茄牛腩面批发"/>
-                            <TextView
-                                android:id="@+id/tv_tag_kangyang"
-                                android:layout_width="30dp"
-                                android:layout_height="16dp"
-                                android:layout_marginTop="2.5dp"
-                                android:background="@drawable/allshape_orange_2"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/txt_name"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/title_color"
+                                    android:textSize="@dimen/t_16sp"
+                                    android:textStyle="bold"
+                                    tools:text="\u3000\u3000 五谷道场非油炸袋装泡面14种口味自选组合方便面番茄牛腩面批发" />
+
+                                <TextView
+                                    android:id="@+id/tv_tag_kangyang"
+                                    android:layout_width="30dp"
+                                    android:layout_height="16dp"
+                                    android:layout_marginTop="2.5dp"
+                                    android:background="@drawable/allshape_orange_2"
+                                    android:gravity="center"
+                                    android:text="康养"
+                                    android:textColor="@color/text_special_ff_color"
+                                    android:textSize="11dp"
+                                    android:visibility="visible" />
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ly_guanzhu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/margin_20"
                                 android:gravity="center"
-                                android:text="康养"
-                                android:textColor="@color/text_special_ff_color"
-                                android:textSize="11dp"
-                                android:visibility="visible"/>
-                        </RelativeLayout>
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/iv_guanzhu"
+                                    android:layout_width="20dp"
+                                    android:layout_height="18dp"
+                                    android:background="@color/orange" />
+
+                                <TextView
+                                    android:id="@+id/tv_guanzhu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:text="已关注"
+                                    android:textSize="@dimen/t_10sp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
 
                         <TextView
                             android:id="@+id/txt_content"
@@ -279,7 +312,7 @@
                             android:layout_marginTop="@dimen/margin"
                             android:textColor="@color/title_third_color"
                             android:textSize="@dimen/t_13sp"
-                            tools:text="这里的泡面非常实惠，居家必备"/>
+                            tools:text="这里的泡面非常实惠，居家必备" />
 
                         <TextView
                             android:id="@+id/txt_paisong"
@@ -290,7 +323,7 @@
                             android:textColor="@color/red_warning"
                             android:textSize="@dimen/t_14sp"
                             android:textStyle="bold"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
@@ -299,16 +332,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingBottom="@dimen/margin_15"
                         android:paddingLeft="@dimen/margin_15"
                         android:paddingRight="@dimen/margin_15"
-                        >
+                        android:paddingBottom="@dimen/margin_15">
 
                     </LinearLayout>
+
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="10dp"
-                        android:background="@color/windowbackground"/>
+                        android:background="@color/windowbackground" />
 
                     <RelativeLayout
                         android:id="@+id/rel_coupon"
@@ -327,34 +360,35 @@
                                 android:layout_height="wrap_content"
                                 android:text="领券"
                                 android:textColor="@color/title_sub_color"
-                                android:textSize="@dimen/t_14sp"/>
+                                android:textSize="@dimen/t_14sp" />
 
                             <TextView
                                 android:id="@+id/tv_coupon_tag1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
-                                android:text="店铺券满150减5"
-                                android:singleLine="true"
                                 android:background="@color/coupon_tag_color"
                                 android:paddingLeft="5dp"
                                 android:paddingRight="5dp"
+                                android:singleLine="true"
+                                android:text="店铺券满150减5"
                                 android:textColor="@color/red_normal"
-                                android:visibility="gone"
-                                android:textSize="@dimen/t_14sp"/>
+                                android:textSize="@dimen/t_14sp"
+                                android:visibility="gone" />
+
                             <TextView
                                 android:id="@+id/tv_coupon_tag2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:text="店铺券满150减5"
-                                android:singleLine="true"
                                 android:background="@color/coupon_tag_color"
                                 android:paddingLeft="5dp"
                                 android:paddingRight="5dp"
-                                android:visibility="gone"
+                                android:singleLine="true"
+                                android:text="店铺券满150减5"
                                 android:textColor="@color/red_normal"
-                                android:textSize="@dimen/t_14sp"/>
+                                android:textSize="@dimen/t_14sp"
+                                android:visibility="gone" />
                         </LinearLayout>
 
 
@@ -364,12 +398,13 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="right"
-                            android:background="@drawable/jiantou_you"/>
+                            android:background="@drawable/jiantou_you" />
                     </RelativeLayout>
+
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="10dp"
-                        android:background="@color/windowbackground"/>
+                        android:background="@color/windowbackground" />
 
                     <RelativeLayout
                         android:id="@+id/rel_cancel"
@@ -389,7 +424,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="规格"
                                 android:textColor="@color/title_sub_color"
-                                android:textSize="@dimen/t_14sp"/>
+                                android:textSize="@dimen/t_14sp" />
 
                             <TextView
                                 android:id="@+id/tag_name"
@@ -398,7 +433,7 @@
                                 android:layout_marginLeft="@dimen/margin_5"
                                 android:text=""
                                 android:textColor="@color/title_color"
-                                android:textSize="@dimen/t_14sp"/>
+                                android:textSize="@dimen/t_14sp" />
                         </LinearLayout>
 
                         <TextView
@@ -408,7 +443,7 @@
                             android:text="请选择数量规格"
                             android:textColor="@color/title_color"
                             android:textSize="@dimen/t_14sp"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -416,13 +451,13 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="right"
-                            android:background="@drawable/jiantou_you"/>
+                            android:background="@drawable/jiantou_you" />
                     </RelativeLayout>
 
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="10dp"
-                        android:background="@color/windowbackground"/>
+                        android:background="@color/windowbackground" />
 
                     <LinearLayout
                         android:id="@+id/ly_pingjia"
@@ -430,16 +465,15 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:orientation="vertical"
-                        android:visibility="invisible"
-                        >
+                        android:visibility="invisible">
 
                         <LinearLayout
                             android:id="@+id/ly_onclck_pingjia"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_15"
-                            android:layout_marginRight="@dimen/margin_15"
                             android:layout_marginTop="@dimen/margin_15"
+                            android:layout_marginRight="@dimen/margin_15"
                             android:background="@color/white"
                             android:orientation="horizontal">
 
@@ -450,7 +484,7 @@
                                 android:layout_weight="1"
                                 android:textColor="@color/title_third_color"
                                 android:textSize="@dimen/t_14sp"
-                                tools:text="商品评价(0+)"/>
+                                tools:text="商品评价(0+)" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -464,22 +498,22 @@
                                     android:layout_height="wrap_content"
                                     android:text="查看全部"
                                     android:textColor="@color/orange"
-                                    android:textSize="@dimen/t_13sp"/>
+                                    android:textSize="@dimen/t_13sp" />
 
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/margin_5"
-                                    android:background="@mipmap/ic_arrow_right_orange"/>
+                                    android:background="@mipmap/ic_arrow_right_orange" />
                             </LinearLayout>
                         </LinearLayout>
 
-                        <include layout="@layout/shop_detail_list_item"/>
+                        <include layout="@layout/shop_detail_list_item" />
 
                         <View
                             android:layout_width="fill_parent"
                             android:layout_height="10dp"
-                            android:background="@color/windowbackground"/>
+                            android:background="@color/windowbackground" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -496,13 +530,12 @@
                             android:gravity="center_vertical"
                             android:text="暂无商品评价"
                             android:textColor="@color/title_sub_color"
-                            android:textSize="@dimen/t_14sp"
-                            />
+                            android:textSize="@dimen/t_14sp" />
 
                         <View
                             android:layout_width="fill_parent"
                             android:layout_height="10dp"
-                            android:background="@color/windowbackground"/>
+                            android:background="@color/windowbackground" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -519,7 +552,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             fresco:placeholderImage="@mipmap/ic_store_head"
-                            fresco:roundedCornerRadius="@dimen/margin_5"/>
+                            fresco:roundedCornerRadius="@dimen/margin_5" />
 
 
                         <LinearLayout
@@ -537,7 +570,7 @@
                                 android:singleLine="true"
                                 android:text=""
                                 android:textColor="@color/title_color"
-                                android:textSize="@dimen/t_15sp"/>
+                                android:textSize="@dimen/t_15sp" />
 
                             <TextView
                                 android:id="@+id/tv_store_address"
@@ -548,7 +581,7 @@
                                 android:singleLine="true"
                                 android:text=""
                                 android:textColor="@color/title_third_color"
-                                android:textSize="@dimen/t_12sp"/>
+                                android:textSize="@dimen/t_12sp" />
 
                         </LinearLayout>
 
@@ -560,8 +593,7 @@
                             android:gravity="center"
                             android:text="进店逛逛"
                             android:textColor="@color/orange"
-                            android:textSize="@dimen/t_12sp"
-                            />
+                            android:textSize="@dimen/t_12sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -576,7 +608,7 @@
                     <View
                         android:layout_width="30dp"
                         android:layout_height="1dp"
-                        android:background="@color/text_color_hint"/>
+                        android:background="@color/text_color_hint" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -586,12 +618,12 @@
                         android:gravity="center_vertical"
                         android:text="商品详情"
                         android:textColor="@color/title_color"
-                        android:textSize="@dimen/t_14sp"/>
+                        android:textSize="@dimen/t_14sp" />
 
                     <View
                         android:layout_width="30dp"
                         android:layout_height="1dp"
-                        android:background="@color/text_color_hint"/>
+                        android:background="@color/text_color_hint" />
 
                 </LinearLayout>
 
@@ -605,11 +637,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:gravity="center"
-                    android:textSize="@dimen/t_12sp"
-                    android:textColor="@color/title_third_color"
                     android:background="@color/windowbackground"
-                    android:text="没有更多内容了"/>
+                    android:gravity="center"
+                    android:text="没有更多内容了"
+                    android:textColor="@color/title_third_color"
+                    android:textSize="@dimen/t_12sp" />
 
 
                 <LinearLayout
@@ -629,7 +661,7 @@
                         <View
                             android:layout_width="30dp"
                             android:layout_height="1dp"
-                            android:background="@color/text_color_hint"/>
+                            android:background="@color/text_color_hint" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -639,12 +671,12 @@
                             android:gravity="center_vertical"
                             android:text="为您推荐"
                             android:textColor="@color/title_color"
-                            android:textSize="@dimen/t_14sp"/>
+                            android:textSize="@dimen/t_14sp" />
 
                         <View
                             android:layout_width="30dp"
                             android:layout_height="1dp"
-                            android:background="@color/text_color_hint"/>
+                            android:background="@color/text_color_hint" />
 
                     </LinearLayout>
 
@@ -666,8 +698,7 @@
             <View
                 android:id="@+id/status_bar"
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
-                />
+                android:layout_height="10dp" />
 
             <RelativeLayout
                 android:id="@+id/title_rel"
@@ -683,15 +714,13 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
-                    android:gravity="center"
-                    >
+                    android:gravity="center">
 
                     <ImageView
                         android:id="@+id/left"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:background="@mipmap/ic_shop_left_white"
-                        />
+                        android:background="@mipmap/ic_shop_left_white" />
                 </LinearLayout>
 
                 <TextView
@@ -705,12 +734,12 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="@color/title_color"
-                    android:textSize="@dimen/t_18sp"/>
+                    android:textSize="@dimen/t_18sp" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
                 <!--  android:background="@drawable/allshape_gray_round"-->
                 <LinearLayout
                     android:id="@+id/ly_share"
@@ -718,15 +747,14 @@
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:gravity="center"
-                    >
+                    android:gravity="center">
 
                     <ImageView
                         android:id="@+id/iv_share"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@mipmap/ic_shop_share_white"/>
+                        android:background="@mipmap/ic_shop_share_white" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -735,7 +763,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@color/windowbackground"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </LinearLayout>
     </RelativeLayout>
@@ -751,22 +779,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             app:sl_cornerRadius="56dp"
             app:sl_dx="0dp"
             app:sl_dy="0dp"
             app:sl_shadowColor="@color/shadow"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
             app:sl_shadowRadius="4dp">
 
             <ImageButton
                 android:id="@+id/iv_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/transparent"
                 android:src="@drawable/bt_top"
                 android:visibility="gone"
-                android:background="@color/transparent"
-                tools:ignore="ContentDescription"/>
+                tools:ignore="ContentDescription" />
 
         </com.huacheng.huiservers.view.ShadowLayout>
 
@@ -782,7 +810,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/windowbackground"/>
+                android:background="@color/windowbackground" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -792,7 +820,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="fill_parent"
-                    android:background="@color/windowbackground"/>
+                    android:background="@color/windowbackground" />
 
                 <LinearLayout
                     android:id="@+id/ly_gouwuche"
@@ -820,7 +848,7 @@
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:background="@mipmap/ic_shop_cart_black"/>
+                                android:background="@mipmap/ic_shop_cart_black" />
                         </RelativeLayout>
 
                         <TextView
@@ -832,7 +860,7 @@
                             android:gravity="center"
                             android:textColor="@color/title_third_color"
                             android:textSize="@dimen/t_12sp"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
                     </RelativeLayout>
 
                     <TextView
@@ -840,7 +868,7 @@
                         android:layout_height="wrap_content"
                         android:text="购物车"
                         android:textColor="@color/title_color"
-                        android:textSize="@dimen/t_12sp"/>
+                        android:textSize="@dimen/t_12sp" />
 
                 </LinearLayout>
 
@@ -859,7 +887,7 @@
                         android:padding="@dimen/margin"
                         android:text="加入购物车"
                         android:textColor="@color/text_special_ff_color"
-                        android:textSize="@dimen/t_16sp"/>
+                        android:textSize="@dimen/t_16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -879,7 +907,7 @@
                         android:padding="@dimen/margin"
                         android:text="立即购买"
                         android:textColor="@color/text_special_ff_color"
-                        android:textSize="@dimen/t_16sp"/>
+                        android:textSize="@dimen/t_16sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -897,7 +925,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/windowbackground"/>
+                android:background="@color/windowbackground" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -917,7 +945,7 @@
                     android:padding="@dimen/margin"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="@dimen/t_16sp"/>
+                    android:textSize="@dimen/t_16sp" />
 
             </LinearLayout>
         </LinearLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowbackground"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <com.huacheng.huiservers.view.widget.EnhanceTabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:background="@color/white"
+            tab:tabIndicatorColor="@color/orange"
+            tab:tabIndicatorHeight="2dp"
+            tab:tabIndicatorWidth="40dp"
+            tab:tabSelectTextColor="@color/orange"
+            tab:tabTextColor="@color/title_sub_color"
+            tab:tab_Mode="mode_fixed">
+
+        </com.huacheng.huiservers.view.widget.EnhanceTabLayout>
+        <LinearLayout
+            android:id="@+id/lin_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/left"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/ic_arrow_left_black" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

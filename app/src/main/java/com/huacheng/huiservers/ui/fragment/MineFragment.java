@@ -17,6 +17,7 @@ import com.huacheng.huiservers.http.okhttp.response.GsonResponseHandler;
 import com.huacheng.huiservers.model.UcenterIndex;
 import com.huacheng.huiservers.ui.base.MyFragment;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
+import com.huacheng.huiservers.ui.center.GoodsServiceFollowActivity;
 import com.huacheng.huiservers.ui.center.HeZuoActivity;
 import com.huacheng.huiservers.ui.center.MyAboutActivity;
 import com.huacheng.huiservers.ui.center.MyStoreFollowListActivity;
@@ -335,7 +336,8 @@ public class MineFragment extends MyFragment {
                 break;
             //商品服务关注
             case R.id.goodslike:
-
+                intent = new Intent(mContext, GoodsServiceFollowActivity.class);
+                startActivity(intent);
                 break;
             //店铺关注
             case R.id.storelike:
