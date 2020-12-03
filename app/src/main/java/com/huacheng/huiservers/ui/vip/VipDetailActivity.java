@@ -69,13 +69,14 @@ public class VipDetailActivity extends MyListActivity {
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
+                loadComplete();
                 smallDialog.dismiss();
 
             }
 
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-
+                loadComplete();
                 VipLogs logs = new Gson().fromJson(response.toString(), VipLogs.class);
                 smallDialog.dismiss();
                 rule = logs.getData().getSign_rule();

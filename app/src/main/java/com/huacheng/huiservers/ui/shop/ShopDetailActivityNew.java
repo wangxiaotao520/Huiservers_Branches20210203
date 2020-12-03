@@ -111,8 +111,8 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
     // /
     private LinearLayout lin_left, lin_add_ss, lin_img, lin_bottom, lin_title, lin_goumai, lin_yixuanze, lin_XS_bottom, lin_goodsTag;
     private RelativeLayout rel_cancel;
-    private TextView title_name, txt_name,tv_tag_kangyang, txt_content, txt_price, txt_num, tag_name, txt_tag1, txt_tag2, right, txt_tag3, txt_tag4, txt_shop_num,
-            txt_paisong, txt_yuan_price, txt_tuijian, tag_guige, tv_XS_type;
+    private TextView title_name, txt_name, tv_tag_kangyang, txt_content, txt_price, txt_num, tag_name, txt_tag1, txt_tag2, right, txt_tag3, txt_tag4, txt_shop_num,
+            txt_paisong, txt_yuan_price, txt_tuijian, tag_guige, tv_XS_type, goumaiTx;
     private GridView grid_view;
     private LinearLayout ly_gouwuche;
     private String shop_id, login_type, url;
@@ -170,6 +170,7 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
     private TextView tv_coupon_tag2;//优惠券tag2
     private ChooseCouponDialog chooseCouponDialog; //选择优惠券对话框
 
+    private int type;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -177,9 +178,10 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
     }
+
     @Override
     protected void initIntentData() {
-
+        type = getIntent().getIntExtra("type", 2);
     }
 
     @Override
@@ -264,6 +266,7 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         ly_gouwuche = findViewById(R.id.ly_gouwuche);// 购物车
         lin_add_ss = findViewById(R.id.lin_add_ss);// 加入购物车
         lin_goumai = findViewById(R.id.lin_goumai);//立即够买
+        goumaiTx = findViewById(R.id.goumai);//立即够买
         rel_cancel = findViewById(R.id.rel_cancel);// 选择商品类型
         //评价
         ly_onclck_pingjia = findViewById(R.id.ly_onclck_pingjia);
@@ -329,6 +332,12 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         ly_share.setOnClickListener(this);
         ly_onclck_pingjia.setOnClickListener(this);
         rel_coupon.setOnClickListener(this);
+
+        if (type == 2) {
+            ly_gouwuche.setVisibility(View.GONE);
+            lin_add_ss.setVisibility(View.GONE);
+            goumaiTx.setText("立即兑换");
+        }
     }
 
     @Override
@@ -359,46 +368,50 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
             @Override
             protected void setData(String json) {
                 hideDialog(smallDialog);
-                if (!NullUtil.isStringEmpty(json)){
+                if (!NullUtil.isStringEmpty(json)) {
                     try {
                         JSONObject jsonObject = new JSONObject(json);
                         String status = jsonObject.getString("status");
                         String data = jsonObject.getString("data");
                         String msg = jsonObject.getString("msg");
-                        if ("1".equals(status)){
+                        if ("1".equals(status)) {
                             detailBean = protocol.getDetail(json);
                             tag_guige.setVisibility(View.VISIBLE);
                             ly_store.setVisibility(View.VISIBLE);
                             GlideUtils.getInstance().glideLoad(ShopDetailActivityNew.this, MyCookieStore.URL + detailBean.getTitle_img(), img_title, R.color.default_img_color);
 
-                            if ("2".equals(detailBean.getPension_display())){
+                            if ("2".equals(detailBean.getPension_display())) {
                                 tv_tag_kangyang.setVisibility(View.VISIBLE);
 //                                txt_name.setText("\u3000\u3000"+" "+detailBean.getTitle());
                                 //TODO vip标签
                                 String title = detailBean.getTitle();
-                                String addSpan = "\u3000\u3000"+" "+"VIP折扣";
-                                SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                                String addSpan = "\u3000\u3000" + " " + "VIP折扣";
+                                SpannableString spannableString = new SpannableString(addSpan + " " + title);
                                 Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
-                                d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
-                                ImageSpan span = new MyImageSpan(mContext,d);
-                                spannableString.setSpan(span, (addSpan+" "+title).indexOf("VIP折扣"), (addSpan+" "+title).indexOf("VIP折扣")+"VIP折扣".length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                                d.setBounds(0, 0, DeviceUtils.dip2px(mContext, 50), DeviceUtils.dip2px(mContext, 16));
+                                ImageSpan span = new MyImageSpan(mContext, d);
+                                spannableString.setSpan(span, (addSpan + " " + title).indexOf("VIP折扣"), (addSpan + " " + title).indexOf("VIP折扣") + "VIP折扣".length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                                 txt_name.setText(spannableString);
-                            }else {
-                               tv_tag_kangyang.setVisibility(View.GONE);
-                              //  txt_name.setText(detailBean.getTitle());
+                            } else {
+                                tv_tag_kangyang.setVisibility(View.GONE);
+                                //  txt_name.setText(detailBean.getTitle());
 
                                 //TODO vip标签
-                                String title = detailBean.getTitle()+"";
+                                String title = detailBean.getTitle() + "";
                                 String addSpan = "VIP折扣";
-                                SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                                SpannableString spannableString = new SpannableString(addSpan + " " + title);
                                 Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
-                                d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
-                                ImageSpan span = new MyImageSpan(mContext,d);
+                                d.setBounds(0, 0, DeviceUtils.dip2px(mContext, 50), DeviceUtils.dip2px(mContext, 16));
+                                ImageSpan span = new MyImageSpan(mContext, d);
                                 spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                                 txt_name.setText(spannableString);
                             }
                             txt_content.setText(detailBean.getDescription());
-                            txt_price.setText("¥" + detailBean.getPrice());
+                            //Todo
+                            if (type == 2){
+                                txt_price.setText( detailBean.getPrice() + "积分");
+                            }else txt_price.setText("¥" + detailBean.getPrice());
+
                             txt_yuan_price.setText("¥" + detailBean.getOriginal());
                             tv_seckill_num.setText("总计：" + detailBean.getInventory() + " " + detailBean.getUnit());
                             //txt_num.setText("已剩：" + detailBean.getInventory() + " " + detailBean.getUnit());
@@ -437,8 +450,8 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
                             }
                             getCouponTag();
 
-                        }else {
-                            SmartToast.showInfo(msg+"");
+                        } else {
+                            SmartToast.showInfo(msg + "");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -460,17 +473,17 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
      * 商品详情的优惠券标签
      */
     private void getCouponTag() {
-        if (detailBean.getCoupon()!=null&&detailBean.getCoupon().size()>0){
+        if (detailBean.getCoupon() != null && detailBean.getCoupon().size() > 0) {
             for (int i = 0; i < detailBean.getCoupon().size(); i++) {
-                if (i==0){
+                if (i == 0) {
                     tv_coupon_tag1.setVisibility(View.VISIBLE);
-                    tv_coupon_tag1.setText(detailBean.getCoupon().get(i).getName()+"");
-                }else if (i==1){
+                    tv_coupon_tag1.setText(detailBean.getCoupon().get(i).getName() + "");
+                } else if (i == 1) {
                     tv_coupon_tag2.setVisibility(View.VISIBLE);
-                    tv_coupon_tag2.setText(detailBean.getCoupon().get(i).getName()+"");
+                    tv_coupon_tag2.setText(detailBean.getCoupon().get(i).getName() + "");
                 }
             }
-        }else {
+        } else {
             tv_coupon_tag1.setVisibility(View.GONE);
             tv_coupon_tag2.setVisibility(View.GONE);
         }
@@ -757,14 +770,14 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
                 for (int i = 0; i < detailBean.getScore().get(0).getScore_img().size(); i++) {
                     View view = LinearLayout.inflate(ShopDetailActivityNew.this, R.layout.circle_image_item, null);
                     ImageView img = view.findViewById(R.id.imageView);
-                    img.setPadding(0,0,10,0);
-                    GlideUtils.getInstance().glideLoad(this,MyCookieStore.URL + detailBean.getScore().get(0).getScore_img().get(i).getImg(),img,R.drawable.icon_girdview);
+                    img.setPadding(0, 0, 10, 0);
+                    GlideUtils.getInstance().glideLoad(this, MyCookieStore.URL + detailBean.getScore().get(0).getScore_img().get(i).getImg(), img, R.drawable.icon_girdview);
                     final int finalI = i;
                     img.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(ShopDetailActivityNew.this, PhotoViewPagerAcitivity.class);
-                            intent.putExtra("img_list",lists);
+                            intent.putExtra("img_list", lists);
                             intent.putExtra("position", finalI);
                             startActivity(intent);
                         }
@@ -855,7 +868,12 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
                     if (detailBean.getExist_hours().equals("2")) {// 判断是否打烊
                         SmartToast.showInfo("当前时间不在派送时间范围内");
                     } else {
-                        getTag("1");
+                        if (type == 4) {
+                            getTag("4");
+                        } else {
+                            getTag("1");
+                        }
+
                     }
 
                 } else {
@@ -1002,12 +1020,12 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
             case R.id.rel_coupon://优惠券
 
                 if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
-                     intent = new Intent(this, LoginVerifyCodeActivity.class);
+                    intent = new Intent(this, LoginVerifyCodeActivity.class);
                     startActivity(intent);
-                }else {
+                } else {
                     requestCouponList();
                 }
-               // showCouponDialog();
+                // showCouponDialog();
                 break;
             default:
                 break;
@@ -1022,13 +1040,13 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         // 根据接口请求数据
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("id",shop_id+"");
+        params.put("id", shop_id + "");
         MyOkHttp.get().get(ApiHttpClient.GOODS_COUPON_LIST, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    List <ModelCouponNew>list = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelCouponNew.class);
+                    List<ModelCouponNew> list = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelCouponNew.class);
                     showCouponDialog(list);
                 } else {
                     String msg = com.huacheng.libraryservice.utils.json.JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
@@ -1049,23 +1067,25 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
     /**
      * 显示优惠券对话框
      */
-    private void showCouponDialog(List <ModelCouponNew> mDatas) {
+    private void showCouponDialog(List<ModelCouponNew> mDatas) {
         //每次都要new
-        chooseCouponDialog = new ChooseCouponDialog(this, mDatas, 4,new CouponListAdapter.OnClickRightBtnListener() {
-               @Override
-               public void onClickRightBtn(ModelCouponNew item, int position, int type) {
-                   if ("1".equals(item.getStatus())){
-                       couponAdd(item,position,type);
-                   }else {
-                       SmartToast.showInfo("优惠券已领取");
-                   }
+        chooseCouponDialog = new ChooseCouponDialog(this, mDatas, 4, new CouponListAdapter.OnClickRightBtnListener() {
+            @Override
+            public void onClickRightBtn(ModelCouponNew item, int position, int type) {
+                if ("1".equals(item.getStatus())) {
+                    couponAdd(item, position, type);
+                } else {
+                    SmartToast.showInfo("优惠券已领取");
+                }
 
-               }
-           });
+            }
+        });
         chooseCouponDialog.show();
     }
+
     /**
      * 领取优惠券
+     *
      * @param item
      * @param position
      * @param type
@@ -1073,17 +1093,17 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
     private void couponAdd(ModelCouponNew item, final int position, int type) {
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
-        params.put("coupon_id",item.getId()+"");
-        MyOkHttp.get().post( ApiHttpClient.COUPON_ADD, params, new JsonResponseHandler() {
+        params.put("coupon_id", item.getId() + "");
+        MyOkHttp.get().post(ApiHttpClient.COUPON_ADD, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"领取成功"));
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "领取成功"));
                     chooseCouponDialog.notifyOneItem(position);
 
                 } else {
-                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response,"领取失败"));
+                    SmartToast.showInfo(JsonUtil.getInstance().getMsgFromResponse(response, "领取失败"));
                 }
             }
 
@@ -1094,6 +1114,7 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
             }
         });
     }
+
     /**
      * 显示分享弹窗
      *
@@ -1109,7 +1130,6 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
 
     ShopProtocol protocoltag = new ShopProtocol();
     List<ShopDetailBean> beanstag = new ArrayList<ShopDetailBean>();
-    AddShopDialog dialog;
 
     private void getTag(final String isbooltag) {//获取商品标签
         showDialog(smallDialog);
@@ -1216,22 +1236,25 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
             }
         }
     }
+
     /**
      * 购物车数量变化
+     *
      * @param model
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onShopCartChange(ModelEventShopCart model){
-        if (model!=null){
+    public void onShopCartChange(ModelEventShopCart model) {
+        if (model != null) {
             getCartNum();
         }
     }
+
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
         this.cannelAllTimers();
-        if (chooseCouponDialog!=null){
+        if (chooseCouponDialog != null) {
             chooseCouponDialog.dismiss();
         }
 

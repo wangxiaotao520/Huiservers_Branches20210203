@@ -9,10 +9,8 @@ import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
-import com.huacheng.huiservers.http.okhttp.response.GsonResponseHandler;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.PointLog;
-import com.huacheng.huiservers.model.VipLogs;
 import com.huacheng.huiservers.ui.base.MyListActivity;
 import com.huacheng.huiservers.ui.webview.WebviewActivity;
 
@@ -76,12 +74,13 @@ public class PointDetailActivity extends MyListActivity {
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 smallDialog.dismiss();
+                loadComplete();
 
 
             }
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-                Log.d("cyd",response.toString());
+                loadComplete();
                 PointLog log = new Gson().fromJson(response.toString(),PointLog.class);
 
                 smallDialog.dismiss();

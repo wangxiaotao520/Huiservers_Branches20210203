@@ -49,7 +49,6 @@ public class ShopSecKillListFragment extends BaseFragment implements HomeListVie
     private int page = 1;
     private HomeListViewAdapter adapter;
     private boolean isInit=false;
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

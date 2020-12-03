@@ -900,6 +900,7 @@
                     android:layout_weight="1">
 
                     <TextView
+                        android:id="@+id/goumai"
                         android:layout_width="fill_parent"
                         android:layout_height="45dp"
                         android:background="@drawable/allshape_red_shopdetail35"

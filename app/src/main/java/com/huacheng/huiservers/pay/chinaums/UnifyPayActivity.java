@@ -185,7 +185,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 }
                 adapterUnifypay.notifyDataSetChanged();
                 String type_name = pay_type_datas.get(position).getTypename();
-
+                //todo 积分支付
                 if ("wxpay".equals(type_name)) {
                     //微信
                     typetag = TYPE_WEIXIN;

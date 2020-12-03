@@ -30,10 +30,14 @@ import java.util.List;
  */
 public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
     private OnAddCartClickListener listener;
-
+    int type;
     public HomeListViewAdapter(Context context, int layoutId, List datas, OnAddCartClickListener listener) {
         super(context, layoutId, datas);
         this.listener = listener;
+    }
+    public HomeListViewAdapter(Context context, int layoutId, List datas) {
+        super(context, layoutId, datas);
+        this.type = 1;
     }
 
     @Override

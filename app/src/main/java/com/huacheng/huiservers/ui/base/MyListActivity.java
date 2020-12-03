@@ -51,6 +51,11 @@ public abstract class MyListActivity extends MyActivity{
 
     public abstract void getData(int page);
 
+    public void loadComplete(){
+        smallDialog.dismiss();
+         refreshLayout.finishRefresh();
+         refreshLayout.finishLoadMore();
+    }
     public void setEmpty(String msg) {
 
         emptyTx = findViewById(R.id.txt_empty);

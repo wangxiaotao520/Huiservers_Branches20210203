@@ -63,6 +63,11 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
      * 云闪付
      */
     private final int TYPE_CLOUD_QUICK_PAY = 2;
+    /**
+     * 积分支付
+     */
+    private final int TYPE_POINTS = 2;
+
     private String appPayRequest = "";
     private String type = "";
     private String order_id = "";
@@ -133,6 +138,9 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
             //  showDialog(smallDialog);
             tv_pay_type.setText("云闪付");
             payCloudQuickPay(appPayRequest);
+        }else if (typetag == TYPE_POINTS){
+            //Todo
+            tv_pay_type.setText("积分");
         }
 
     }

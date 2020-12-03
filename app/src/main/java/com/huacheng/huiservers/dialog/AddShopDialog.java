@@ -93,9 +93,7 @@ public class AddShopDialog extends Dialog implements OnClickListener {
 
     private SmallDialog smallDialog = null;
 
-    public AddShopDialog(Context context, String id, TextView txt_shop_num,
-                         List<ShopDetailBean> beans,
-                         ShopDetailBean detailBean, String strtag, PriorityListener listener) {
+    public AddShopDialog(Context context, String id, TextView txt_shop_num, List<ShopDetailBean> beans, ShopDetailBean detailBean, String strtag, PriorityListener listener) {
         super(context, R.style.Dialog_down);
         this.context = context;
         this.id = id;
@@ -180,12 +178,23 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                         } else {
                             edit_num.setText("1");
                         }
-                        if (beans.get(i).getUnit().equals("")) {
-                            txt_price.setText("¥" + morenPrice);//根据显示不同的标签价格会发生相应的变化
-                            txt_yuan_price.setText("¥" + beans.get(i).getOriginal());
-                        } else {
-                            txt_price.setText("¥" + morenPrice + "/" + unit);//根据显示不同的标签价格会发生相应的变化
-                            txt_yuan_price.setText("¥" + beans.get(i).getOriginal());
+                        //Todo
+                        if (strtag.equals("4")) {// 积分兑换
+                            if (beans.get(i).getUnit().equals("")) {
+                                txt_price.setText( morenPrice + "积分");//根据显示不同的标签价格会发生相应的变化
+                                txt_yuan_price.setText("¥" + beans.get(i).getOriginal());
+                            } else {
+                                txt_price.setText( morenPrice + "/" + unit);//根据显示不同的标签价格会发生相应的变化
+                                txt_yuan_price.setText("¥" + beans.get(i).getOriginal());
+                            }
+                        }else{
+                            if (beans.get(i).getUnit().equals("")) {
+                                txt_price.setText("¥" + morenPrice);//根据显示不同的标签价格会发生相应的变化
+                                txt_yuan_price.setText("¥" + beans.get(i).getOriginal());
+                            } else {
+                                txt_price.setText("¥" + morenPrice + "/" + unit);//根据显示不同的标签价格会发生相应的变化
+                                txt_yuan_price.setText("¥" + beans.get(i).getOriginal());
+                            }
                         }
                     }
                     //    getXG();//获取限购商品数量
@@ -321,6 +330,8 @@ public class AddShopDialog extends Dialog implements OnClickListener {
                                 type = 1;
                             } else if (strtag.equals("2")) {//tag值为2是加入购物车
                                 type = 2;
+                            }else if (strtag.equals("4")){ // 积分兑换
+                                type = 1;
                             }
                             getShopLimit();
                         }
