@@ -24,7 +24,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="100dp">
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/item_image"
@@ -82,7 +82,17 @@
                         android:textSize="@dimen/t_10sp"
                        />
                 </LinearLayout>
-
+                <TextView
+                    android:id="@+id/tv_shouqing"
+                    android:layout_width="fill_parent"
+                    android:layout_height="25dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#66000000"
+                    android:gravity="center"
+                    android:text="已售罄"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/t_12sp"
+                    android:visibility="gone"/>
             </RelativeLayout>
         </LinearLayout>
 
@@ -114,7 +124,7 @@
                     android:id="@+id/txt_shop_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23.00"
+                    android:text="0.00"
                     android:textColor="@color/red_normal"
                     android:textSize="16dp"
                     android:textStyle="bold" />
@@ -126,7 +136,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="4dp"
                     android:layout_marginBottom="1dp"
-                    android:text="23.00"
+                    android:text="0.00"
                     android:textColor="@color/title_third_color"
                     android:textSize="12dp" />
             </LinearLayout>

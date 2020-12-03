@@ -26,10 +26,22 @@ public class AdapterVipGridOpen extends CommonAdapter<ModelVipIndex> {
     @Override
     protected void convert(ViewHolder viewHolder, ModelVipIndex item, int position) {
         viewHolder.<TextView>getView(R.id.tv_original_price).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        viewHolder.<TextView>getView(R.id.tv_name).setText(item.getName());
+        viewHolder.<TextView>getView(R.id.tv_price).setText(item.getPrice());
+        viewHolder.<TextView>getView(R.id.tv_original_price).setText(item.getOriginal_price() + "/月");
 
-        if (item.isSelect()==true){
+        if (position == 0) {
+            viewHolder.<TextView>getView(R.id.tv_type).setText("单月购买续费");
+        } else if (position == 1) {
+            viewHolder.<TextView>getView(R.id.tv_type).setText("季度购买续费");
+        } else if (position == 2) {
+            viewHolder.<TextView>getView(R.id.tv_type).setText("包年购买续费");
+        }
+
+
+        if (item.isSelect() == true) {
             viewHolder.<LinearLayout>getView(R.id.ly_bg).setBackgroundResource(R.drawable.shape_vip_stoke5_solid);
-        }else {
+        } else {
             viewHolder.<LinearLayout>getView(R.id.ly_bg).setBackgroundResource(R.drawable.allshape_stroke_grey_bb);
         }
     }

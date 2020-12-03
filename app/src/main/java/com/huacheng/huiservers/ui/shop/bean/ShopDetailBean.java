@@ -58,6 +58,24 @@ public class ShopDetailBean implements Serializable{
     private List<ModelCouponNew> coupon;
 
     private String pension_display;
+    private String is_vip;
+    private String vip_price;
+
+    public String getIs_vip() {
+        return is_vip;
+    }
+
+    public void setIs_vip(String is_vip) {
+        this.is_vip = is_vip;
+    }
+
+    public String getVip_price() {
+        return vip_price;
+    }
+
+    public void setVip_price(String vip_price) {
+        this.vip_price = vip_price;
+    }
 
     public String getScore_count() {
         return score_count;

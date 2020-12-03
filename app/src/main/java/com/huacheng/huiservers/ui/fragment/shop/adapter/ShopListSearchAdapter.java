@@ -173,8 +173,12 @@ public class ShopListSearchAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     }
                 }
             }
-
-            recyclerViewHolder.tv_shop_price.setText("¥" + mDatas.get(position).getPrice() + "/");
+            //判断是否是会员价格
+            if ("1".equals(mDatas.get(position).getIs_vip())){//会员
+                recyclerViewHolder.tv_shop_price.setText("¥" + mDatas.get(position).getVip_price() + "/");
+            }else {
+                recyclerViewHolder.tv_shop_price.setText("¥" + mDatas.get(position).getPrice() + "/");
+            }
             recyclerViewHolder.tv_shop_weight.setText(mDatas.get(position).getUnit());
             recyclerViewHolder.tv_shop_price_original.setText("¥" + mDatas.get(position).getOriginal() + "元");
             recyclerViewHolder.tv_shop_price_original.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);

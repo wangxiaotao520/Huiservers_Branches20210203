@@ -614,6 +614,8 @@ public class ApiHttpClient {
     public static String UNBIND_WX = API_URL + API_VERSION + "userCenter/unbind_wx";
     //VIP用户协议
     public static String VIP_XIEYI= API_URL + API_VERSION + "userCenter/about_vip";
+    //VIP首页
+    public static String VIP_INDEX= API_URL + API_VERSION + "userCenter/user_vip";
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -866,5 +868,6 @@ public class ApiHttpClient {
         ACCOUNT_SECURITY = API_URL + API_VERSION + "userCenter/accountsecurity";
         UNBIND_WX = API_URL + API_VERSION + "userCenter/unbind_wx";
         VIP_XIEYI= API_URL + API_VERSION + "userCenter/about_vip";
+        VIP_INDEX= API_URL + API_VERSION + "userCenter/user_vip";
     }
 }

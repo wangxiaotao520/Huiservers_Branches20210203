@@ -83,8 +83,12 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
             layoutParams.height=layoutParams.width;
             viewHolder.item_image1.setLayoutParams(layoutParams);
             FrescoUtils.getInstance().setImageUri(viewHolder.item_image1,ApiHttpClient.IMG_URL+item.getTitle_thumb_img());
-
-            viewHolder. txt_shop_price1.setText("¥ "+item.getPrice());
+            //判断是否是会员价格
+            if ("1".equals(item.getIs_vip())){
+                viewHolder. txt_shop_price1.setText("¥"+item.getVip_price());
+            }else {
+                viewHolder. txt_shop_price1.setText("¥"+item.getPrice());
+            }
             //TODO vip标签
             String title = item.getTitle()+"";
             String addSpan = "VIP折扣";
@@ -96,7 +100,7 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
             viewHolder. item_name1.setText(spannableString);
 
 
-            viewHolder.txt_shop_original1.setText("¥ "+item.getOriginal());
+            viewHolder.txt_shop_original1.setText("¥"+item.getOriginal());
             viewHolder.txt_shop_original1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             //是否售罄
             if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {
@@ -144,8 +148,12 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
             layoutParams.height=layoutParams.width;
             viewHolder.item_image2.setLayoutParams(layoutParams);
             FrescoUtils.getInstance().setImageUri(viewHolder.item_image2,ApiHttpClient.IMG_URL+item.getTitle_thumb_img());
-
-            viewHolder. txt_shop_price2.setText("¥ "+item.getPrice());
+            //判断是否是会员价格
+            if ("1".equals(item.getIs_vip())){
+                viewHolder. txt_shop_price2.setText("¥"+item.getVip_price());
+            }else {
+                viewHolder. txt_shop_price2.setText("¥"+item.getPrice());
+            }
             //TODO vip标签
             String title = item.getTitle()+"";
             String addSpan = "VIP折扣";
@@ -157,7 +165,7 @@ public class HomeIndexGoodsCommonAdapter <T> extends BaseAdapter {
             viewHolder. item_name2.setText(spannableString);
 
           //  viewHolder. item_name2.setText(item.getTitle()+"");
-            viewHolder.txt_shop_original2.setText("¥ "+item.getOriginal());
+            viewHolder.txt_shop_original2.setText("¥"+item.getOriginal());
             viewHolder.txt_shop_original2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             //是否售罄
             if (NullUtil.isStringEmpty(item.getInventory()) || 0 >= Integer.valueOf(item.getInventory())) {

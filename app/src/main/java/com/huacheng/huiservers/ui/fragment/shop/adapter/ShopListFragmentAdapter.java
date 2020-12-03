@@ -193,7 +193,12 @@ public class ShopListFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 }
             });
-            recyclerViewHolder.tv_shop_price.setText("¥" + mDatas.get(position).getPrice());
+            //判断是否是会员价格
+            if ("1".equals(mDatas.get(position).getIs_vip())){//会员
+                recyclerViewHolder.tv_shop_price.setText("¥" + mDatas.get(position).getVip_price() );
+            }else {
+                recyclerViewHolder.tv_shop_price.setText("¥" + mDatas.get(position).getPrice());
+            }
             if (mDatas.get(position).getUnit().equals("")) {
                 recyclerViewHolder.tv_shop_weight.setText("");
             } else {
