@@ -29,6 +29,7 @@ import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew1.ServiceOrderListActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
+import com.huacheng.huiservers.ui.vip.ArticalCollectActivity;
 import com.huacheng.huiservers.ui.vip.MyDetailActivity;
 import com.huacheng.huiservers.ui.vip.PersonalSettingActivity;
 import com.huacheng.huiservers.ui.vip.RegisterActivity;
@@ -352,7 +353,8 @@ public class MineFragment extends MyFragment {
                 break;
             // 文章收藏
             case R.id.article_collect:
-
+                intent = new Intent(mContext, ArticalCollectActivity.class);
+                startActivity(intent);
                 break;
             //会员
             case R.id.vip:

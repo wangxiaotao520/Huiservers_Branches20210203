@@ -151,6 +151,8 @@ public class CircleDetailsActivity extends BaseActivity {
     TextView tv_title1;
     @BindView(R.id.tv_sub_title1)
     TextView tv_sub_title1;
+   @BindView(R.id.tv_collect)
+    TextView tv_collect;
 
 
     private String SCROLLtag = "0";
@@ -664,6 +666,12 @@ public class CircleDetailsActivity extends BaseActivity {
                         }
                     }
                 });
+
+                break;
+
+            case R.id.tv_collect: //收藏
+                // todo
+
 
                 break;
         }
