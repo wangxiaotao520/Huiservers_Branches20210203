@@ -1,12 +1,13 @@
 package com.huacheng.huiservers.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Created by changyadong on 2020/11/28
  * @description
  */
-public class UserIndex {
+public class UserIndex implements Serializable {
 
 
     /**

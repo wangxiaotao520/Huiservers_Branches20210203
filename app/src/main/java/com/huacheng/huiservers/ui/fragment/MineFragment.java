@@ -20,6 +20,7 @@ import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.center.GoodsServiceFollowActivity;
 import com.huacheng.huiservers.ui.center.HeZuoActivity;
 import com.huacheng.huiservers.ui.center.MyAboutActivity;
+import com.huacheng.huiservers.ui.center.MyInfoCircleActivity;
 import com.huacheng.huiservers.ui.center.MyStoreFollowListActivity;
 import com.huacheng.huiservers.ui.center.coupon.MyCouponListActivityNew;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
@@ -445,7 +446,9 @@ public class MineFragment extends MyFragment {
                 break;
             //我的帖子
             case R.id.my_article:
-
+                intent = new Intent(mActivity, MyInfoCircleActivity.class);
+                intent.putExtra("infoBean", userBean);
+                startActivity(intent);
                 break;
             //收货地址
             case R.id.address:

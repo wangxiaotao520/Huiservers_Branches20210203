@@ -1,5 +1,7 @@
 package com.huacheng.huiservers.model;
 
+import java.io.Serializable;
+
 /**
  * @author Created by changyadong on 2020/11/27
  * @description
@@ -51,7 +53,7 @@ public class UcenterIndex {
         this.dialog = dialog;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * uid : 14661
          * username : 15340800612
@@ -296,7 +298,7 @@ public class UcenterIndex {
             this.sign_num = sign_num;
         }
 
-        public static class LevelBean {
+        public static class LevelBean  implements Serializable{
             /**
              * id : 1
              * name : Level0
