@@ -57,8 +57,6 @@ public class UnifyPayPresenter {
                 }
             }
         });
-
-
     }
     /**
      * 验证支付结果
@@ -109,6 +107,8 @@ public class UnifyPayPresenter {
             url=ApiHttpClient.PAY_PROPERTY_ORDER_NEW;
         }else if (type.equals(CanstantPay.PAY_CHARGE_YX)){//充电桩
             url=ApiHttpClient.PAY_YX_ORDER;
+        }else if (type.equals(CanstantPay.PAY_VIP)){//VIP
+            url=ApiHttpClient.VIP_PAY;
         }
         HashMap<String, String> params = new HashMap<>();
         params.put("id",id);

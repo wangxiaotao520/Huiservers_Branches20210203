@@ -16,6 +16,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
+import com.huacheng.huiservers.model.EventModelVip;
 import com.huacheng.huiservers.model.PayTypeBean;
 import com.huacheng.huiservers.model.XorderDetailBean;
 import com.huacheng.huiservers.ui.base.BaseActivity;
@@ -256,6 +257,9 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
                 startActivity(intent);
                 finish();
 
+                    }else if (type.equals(CanstantPay.PAY_VIP)){
+                        EventBus.getDefault().post(new EventModelVip());
+                        finish();
                     }
                 }
 
@@ -357,6 +361,8 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
                 type_params = "face";
             } else if (type.equals(CanstantPay.PAY_CHARGE_YX)) {
                 type_params = "yxcd";
+            }else if (type.equals(CanstantPay.PAY_VIP)) {
+                type_params = "vip";
             }
             showDialog(smallDialog);
             payPresenter.confirmOrderPayment(order_id, type_params);
@@ -420,6 +426,11 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
 
             }else if(type.equals(CanstantPay.PAY_CHARGE_YX)){
 
+                tv_confirm.setVisibility(View.VISIBLE);
+                pay_result_type=2;
+                iv_status_img.setBackgroundResource(R.mipmap.ic_success_pay);
+                tv_status.setText("支付成功");
+            }else if(type.equals(CanstantPay.PAY_VIP)){
                 tv_confirm.setVisibility(View.VISIBLE);
                 pay_result_type=2;
                 iv_status_img.setBackgroundResource(R.mipmap.ic_success_pay);

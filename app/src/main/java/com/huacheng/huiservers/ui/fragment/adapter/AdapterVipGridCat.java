@@ -1,8 +1,13 @@
 package com.huacheng.huiservers.ui.fragment.adapter;
 
 import android.content.Context;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.MyCookieStore;
 import com.huacheng.huiservers.model.ModelVipIndex;
+import com.huacheng.libraryservice.utils.glide.GlideUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
@@ -21,6 +26,8 @@ public class AdapterVipGridCat extends CommonAdapter<ModelVipIndex> {
 
     @Override
     protected void convert(ViewHolder viewHolder, ModelVipIndex item, int position) {
+        viewHolder.<TextView>getView(R.id.tv_name).setText(item.getName());
+        GlideUtils.getInstance().glideLoad(mContext, MyCookieStore.URL + item.getImg(),viewHolder.<ImageView>getView(R.id.iv_cat), R.drawable.ic_default);
 
     }
 }

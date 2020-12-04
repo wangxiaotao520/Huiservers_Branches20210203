@@ -73,19 +73,6 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
         }
         FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.sdv_sec_kill), MyCookieStore.URL + mDatas.get(position).getTitle_img());
 
-      //  viewHolder.<TextView>getView(R.id.tv_title).setText(item.getTitle());
-        //TODO vip标签
-        String title = item.getTitle()+"";
-        String addSpan = "VIP折扣";
-        SpannableString spannableString=new SpannableString(addSpan+" "+title);
-        Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
-        d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
-        ImageSpan span = new MyImageSpan(mContext,d);
-        spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        viewHolder.<TextView>getView(R.id.tv_title).setText(spannableString);
-
-
-
         if (!NullUtil.isStringEmpty(item.getDescription())){
             //  副标题
             viewHolder.<TextView>getView(R.id.tv_sub_title).setText(item.getDescription()+"");
@@ -105,7 +92,23 @@ public class HomeListViewAdapter extends CommonAdapter<ModelShopIndex> {
                 }
             }
         }*/
-        viewHolder.<TextView>getView(R.id.tv_shop_price).setText("¥" + item.getPrice());
+        //判断是否是会员
+        if ("1".equals(item.getIs_vip())){
+            viewHolder.<TextView>getView(R.id.tv_shop_price).setText("¥" + item.getVip_price());
+            //TODO vip标签
+            String title = item.getTitle()+"";
+            String addSpan = "VIP折扣";
+            SpannableString spannableString=new SpannableString(addSpan+" "+title);
+            Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+            d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
+            ImageSpan span = new MyImageSpan(mContext,d);
+            spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            viewHolder.<TextView>getView(R.id.tv_title).setText(spannableString);
+
+        }else {
+            viewHolder.<TextView>getView(R.id.tv_shop_price).setText("¥" + item.getPrice());
+            viewHolder.<TextView>getView(R.id.tv_title).setText(item.getTitle());
+        }
         //是否有单位
 //        if (!NullUtil.isStringEmpty(item.getUnit())) {
 //            viewHolder.<TextView>getView(R.id.tv_shop_weight).setText("/" + item.getUnit());

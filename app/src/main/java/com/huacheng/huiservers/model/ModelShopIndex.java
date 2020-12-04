@@ -27,10 +27,12 @@ public class ModelShopIndex {
     private String addtime;
     private String price;
     private String original;
+    private String vip_price;
     private String unit;
     private String exist_hours;
     private String hot;
     private String is_hot;
+    private String is_vip;
     private String is_new;
     private String is_limit;
     private String is_time;
@@ -66,6 +68,22 @@ public class ModelShopIndex {
 
 
     private String pension_display;//是否是养老  1不是 2是
+
+    public String getVip_price() {
+        return vip_price;
+    }
+
+    public void setVip_price(String vip_price) {
+        this.vip_price = vip_price;
+    }
+
+    public String getIs_vip() {
+        return is_vip;
+    }
+
+    public void setIs_vip(String is_vip) {
+        this.is_vip = is_vip;
+    }
 
     public List<ModelVBaner> getArticle_one() {
         return article_one;

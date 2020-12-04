@@ -6,6 +6,12 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ly_vip_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -20,13 +26,19 @@
             android:textSize="@dimen/t_18sp"
             android:textStyle="bold" />
 
-        <com.huacheng.huiservers.view.MyGridview
-            android:id="@+id/grid_open"
-            android:horizontalSpacing="@dimen/margin"
-            android:layout_marginTop="@dimen/margin_15"
+       <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="3" />
+            android:layout_height="155dp"
+            android:orientation="vertical">
+
+                <com.huacheng.huiservers.view.MyGridview
+                    android:id="@+id/grid_open"
+                    android:layout_centerVertical="true"
+                    android:horizontalSpacing="@dimen/margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="3" />
+       </RelativeLayout>
 
     </LinearLayout>
 
@@ -71,5 +83,5 @@
 
     </LinearLayout>
 
-
+    </LinearLayout>
 </LinearLayout>

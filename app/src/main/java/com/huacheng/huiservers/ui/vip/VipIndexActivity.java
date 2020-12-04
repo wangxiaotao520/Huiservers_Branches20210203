@@ -3,6 +3,7 @@ package com.huacheng.huiservers.ui.vip;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,8 +13,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.EventModelVip;
 import com.huacheng.huiservers.model.ModelVipIndex;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.fragment.adapter.AdapterVipGridCat;
@@ -21,11 +27,23 @@ import com.huacheng.huiservers.ui.fragment.adapter.AdapterVipGridOpen;
 import com.huacheng.huiservers.ui.fragment.adapter.AdapterVipIndex;
 import com.huacheng.huiservers.ui.webview.ConstantWebView;
 import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
+import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.view.MyGridview;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
+import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,9 +74,10 @@ public class VipIndexActivity extends BaseActivity {
     View headerView;
     HeaderViewHolder headerViewHolder;
 
-    private AdapterVipIndex mVipIndex;
-    private AdapterVipGridCat mVipGridCat;
-    private AdapterVipGridOpen mVipGridOpen;
+    private AdapterVipIndex mAdapterVipIndex;
+    private AdapterVipGridCat mAdapterVipGridCat;
+    private AdapterVipGridOpen mAdapterVipGridOpen;
+    private ModelVipIndex mIndex;
     private List<ModelVipIndex> mDatas = new ArrayList<>();
     private List<ModelVipIndex> mDatasCat = new ArrayList<>();
     private List<ModelVipIndex> mDatasOpen = new ArrayList<>();
@@ -67,14 +86,12 @@ public class VipIndexActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
 
+        mRefreshLayout.setEnableRefresh(true);
+        mRefreshLayout.setEnableLoadMore(false);
         addHeaderView();
         //底部商品
-        for (int i = 0; i < 3; i++) {
-            mDatas.add(new ModelVipIndex());
-        }
-
-        mVipIndex = new AdapterVipIndex(this, R.layout.item_vip_index_list, mDatas);
-        mListview.setAdapter(mVipIndex);
+        mAdapterVipIndex = new AdapterVipIndex(this, R.layout.item_vip_index_list, mDatas);
+        mListview.setAdapter(mAdapterVipIndex);
 
     }
 
@@ -86,37 +103,109 @@ public class VipIndexActivity extends BaseActivity {
 
         headerViewHolder.mTvJilu.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 
-        for (int i = 0; i < 8; i++) {
-            mDatasCat.add(new ModelVipIndex());
-        }
         //vip分类
-        mVipGridCat = new AdapterVipGridCat(this, R.layout.item_vip_index_grid, mDatasCat);
-        headerViewHolder.mGridVip.setAdapter(mVipGridCat);
+        mAdapterVipGridCat = new AdapterVipGridCat(this, R.layout.item_vip_index_grid, mDatasCat);
+        headerViewHolder.mGridVip.setAdapter(mAdapterVipGridCat);
 
-        for (int i = 0; i < 3; i++) {
-            mDatasOpen.add(new ModelVipIndex());
-        }
         //vip开通方式
-        mVipGridOpen = new AdapterVipGridOpen(this, R.layout.item_vip_index_open_style, mDatasOpen);
-        headerViewHolder.mGridOpen.setAdapter(mVipGridOpen);
-        mDatasOpen.get(0).setSelect(true);//默认第一条选中
-
-        //优惠券
-        headerViewHolder.mLlCoupon.removeAllViews();
-        for (int i = 0; i < 3; i++) {
-            View view_coupon = LayoutInflater.from(this).inflate(R.layout.item_vip_index_coupon, null);
-            TextView tv_price = view_coupon.findViewById(R.id.tv_tag);
-            TextView tv_coupon_price = view_coupon.findViewById(R.id.tv_coupon_price);
-            TextView tv_total_price = view_coupon.findViewById(R.id.tv_total_price);
-            TextView tv_coupon_type = view_coupon.findViewById(R.id.tv_coupon_type);
-
-            headerViewHolder.mLlCoupon.addView(view_coupon);
-        }
+        mAdapterVipGridOpen = new AdapterVipGridOpen(this, R.layout.item_vip_index_open_style, mDatasOpen);
+        headerViewHolder.mGridOpen.setAdapter(mAdapterVipGridOpen);
 
     }
 
     @Override
     protected void initData() {
+        showDialog(smallDialog);
+        Map<String, String> params = new HashMap<>();
+        MyOkHttp.get().post(ApiHttpClient.VIP_INDEX, params, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                hideDialog(smallDialog);
+                mRefreshLayout.finishRefresh();
+                if (JsonUtil.getInstance().isSuccess(response)) {
+                    ModelVipIndex modelVipIndex = (ModelVipIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelVipIndex.class);
+                    if (modelVipIndex != null) {
+                        mIndex = modelVipIndex;
+                        inflateContent();
+                    }
+                } else {
+                    String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
+                    SmartToast.showInfo(msg);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                mRefreshLayout.finishRefresh();
+                hideDialog(smallDialog);
+                SmartToast.showInfo("网络异常，请检查网络设置");
+            }
+        });
+    }
+
+    private void inflateContent() {
+        //顶部信息
+        headerViewHolder.mTvName.setText(mIndex.getNickname());
+        FrescoUtils.getInstance().setImageUri(headerViewHolder.mSdvHead, StringUtils.getImgUrl(mIndex.getAvatars()));
+        //判断是否是VIP
+        if ("1".equals(mIndex.getIs_vip())) {//会员
+            headerViewHolder.mTvOpenType.setText("已开通");
+            headerViewHolder.mTvOpenNum.setText("距离权益到期还有" + mIndex.getVip_endtime() + "天");
+            headerViewHolder.mTvBuy.setText("立即续费");
+            headerViewHolder.mTvKesheng.setText("累计已省");
+            headerViewHolder.mTvMoney.setText(mIndex.getSave_already());
+
+            //开通方式不显示
+            headerViewHolder.mLyVipList.setVisibility(View.GONE);
+            headerViewHolder.mViewLine.setVisibility(View.GONE);
+
+        } else {
+            headerViewHolder.mTvOpenType.setText("未开通");
+            headerViewHolder.mTvOpenNum.setText("您还不是VIP会员");
+            headerViewHolder.mTvBuy.setText("立即开通");
+            headerViewHolder.mTvKesheng.setText("开通预计可省");
+            headerViewHolder.mTvMoney.setText(mIndex.getSave_plan());
+
+            //开通方式显示
+            headerViewHolder.mLyVipList.setVisibility(View.VISIBLE);
+            headerViewHolder.mViewLine.setVisibility(View.VISIBLE);
+        }
+
+        //VIP特权分类
+        if (mIndex.getVip_right() != null && mIndex.getVip_right().size() > 0) {
+            mDatasCat.clear();
+            mDatasCat.addAll(mIndex.getVip_right());
+            mAdapterVipGridCat.notifyDataSetChanged();
+        }
+        //Vip开通
+        if (mIndex.getVip_list() != null && mIndex.getVip_list().size() > 0) {
+            mDatasOpen.clear();
+            mDatasOpen.addAll(mIndex.getVip_list());
+            mDatasOpen.get(0).setSelect(true);//默认第一条选中
+            mAdapterVipGridOpen.notifyDataSetChanged();
+        }
+        //专属好券
+        if (mIndex.getVip_coupon() != null && mIndex.getVip_coupon().size() > 0) {
+            headerViewHolder.mLlCoupon.removeAllViews();
+            for (int i = 0; i < mIndex.getVip_coupon().size(); i++) {
+                View view_coupon = LayoutInflater.from(this).inflate(R.layout.item_vip_index_coupon, null);
+                TextView tv_tag = view_coupon.findViewById(R.id.tv_tag);
+                TextView tv_coupon_price = view_coupon.findViewById(R.id.tv_coupon_price);
+                TextView tv_total_price = view_coupon.findViewById(R.id.tv_total_price);
+                TextView tv_coupon_type = view_coupon.findViewById(R.id.tv_coupon_type);
+
+                tv_coupon_price.setText(mIndex.getVip_coupon().get(i).getAmount());
+                tv_total_price.setText("满" + mIndex.getVip_coupon().get(i).getFulfil_amount() + "可用");
+                tv_coupon_type.setText(mIndex.getVip_coupon().get(i).getCategory_name());
+                headerViewHolder.mLlCoupon.addView(view_coupon);
+            }
+        }
+        //推荐店铺
+        if (mIndex.getVip_shop() != null && mIndex.getVip_shop().size() > 0) {
+            mDatas.clear();
+            mDatas.addAll(mIndex.getVip_shop());
+            mAdapterVipIndex.notifyDataSetChanged();
+        }
 
     }
 
@@ -128,12 +217,18 @@ public class VipIndexActivity extends BaseActivity {
                 finish();
             }
         });
-
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                initData();
+            }
+        });
         //立即开通/立即续费
         headerViewHolder.mTvBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VipIndexActivity.this, VipBuyActivity.class);
+                intent.putExtra("vip", mIndex);
                 startActivity(intent);
             }
         });
@@ -164,7 +259,7 @@ public class VipIndexActivity extends BaseActivity {
                         mDatasOpen.get(i).setSelect(false);
                     }
                 }
-                mVipGridOpen.notifyDataSetChanged();
+                mAdapterVipGridOpen.notifyDataSetChanged();
             }
         });
         //立即购买
@@ -172,6 +267,7 @@ public class VipIndexActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VipIndexActivity.this, VipBuyActivity.class);
+                intent.putExtra("vip", mIndex);
                 startActivity(intent);
             }
         });
@@ -225,8 +321,23 @@ public class VipIndexActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    /**
+     * @param
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void back(EventModelVip info) {
+        initData();
     }
 
     class HeaderViewHolder {
@@ -269,6 +380,10 @@ public class VipIndexActivity extends BaseActivity {
         LinearLayout mLyShengqian;
         @BindView(R.id.tv_more_vip_coupon)
         TextView mTvMoreVipCoupon;
+        @BindView(R.id.ly_vip_list)
+        LinearLayout mLyVipList;
+        @BindView(R.id.view_line)
+        View mViewLine;
 
 
         HeaderViewHolder(View view) {

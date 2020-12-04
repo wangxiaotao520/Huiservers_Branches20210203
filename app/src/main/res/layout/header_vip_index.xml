@@ -59,7 +59,7 @@
                     android:layout_height="45dp"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
-                    fresco:placeholderImage="@mipmap/ic_store_head"
+                    fresco:placeholderImage="@color/default_img_color"
                     fresco:placeholderImageScaleType="centerCrop"
                     fresco:roundAsCircle="true"
                     fresco:roundedCornerRadius="@dimen/margin_5"
@@ -78,7 +78,7 @@
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="凌腾云"
+                        android:text=""
                         android:textColor="@color/title_color"
                         android:textSize="@dimen/t_15sp" />
 
@@ -93,7 +93,7 @@
                             android:layout_height="13dp"
                             android:background="@drawable/shape_vip_solid5"
                             android:gravity="center"
-                            android:text="未开通"
+                            android:text=""
                             android:textColor="#694E33"
                             android:textSize="@dimen/t_10sp" />
 
@@ -102,7 +102,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_5"
-                            android:text="您还不是VIP会员"
+                            android:text=""
                             android:textColor="#694E33"
                             android:textSize="@dimen/t_12sp" />
                     </LinearLayout>
@@ -162,7 +162,7 @@
                         android:id="@+id/tv_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="555.00"
+                        android:text="00.00"
                         android:textColor="@color/title_color"
                         android:textSize="@dimen/t_16sp" />
 
@@ -237,14 +237,19 @@
                 android:layout_marginRight="16dp"
                 android:background="@drawable/jiantou_you" />
         </LinearLayout>
+        <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="180dp">
 
-        <com.huacheng.huiservers.view.MyGridview
-            android:id="@+id/grid_vip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_15"
-            android:layout_marginRight="@dimen/margin_15"
-            android:numColumns="4" />
+           <com.huacheng.huiservers.view.MyGridview
+               android:id="@+id/grid_vip"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_marginLeft="@dimen/margin_15"
+               android:layout_marginRight="@dimen/margin_15"
+               android:numColumns="4" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -256,6 +261,7 @@
     <include layout="@layout/vip_index_open_style" />
 
     <View
+        android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin" />
     <!--专属好券-->
@@ -276,7 +282,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/margin_15"
-                android:text="专属好券"
+                android:text="VIP专享"
                 android:textColor="@color/title_color"
                 android:textSize="18sp"
                 android:textStyle="bold" />

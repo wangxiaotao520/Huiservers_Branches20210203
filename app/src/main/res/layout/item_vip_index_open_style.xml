@@ -51,8 +51,7 @@
             android:layout_height="wrap_content"
             android:text="10.0/月"
             android:textColor="@color/title_third_color"
-            android:textSize="@dimen/t_12sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/t_12sp"/>
 
         <TextView
             android:id="@+id/tv_type"
