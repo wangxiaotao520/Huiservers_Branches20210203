@@ -26,6 +26,7 @@ import com.huacheng.huiservers.http.HttpHelper;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
+import com.huacheng.huiservers.model.EventModelVip;
 import com.huacheng.huiservers.model.PayTypeBean;
 import com.huacheng.huiservers.model.XorderDetailBean;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
@@ -320,6 +321,8 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 type_params = "face";
             } else if (type.equals(CanstantPay.PAY_CHARGE_YX)) {
                 type_params = "yxcd";
+            }else if (type.equals(CanstantPay.PAY_VIP)) {
+                type_params = "vip";
             }
             showDialog(smallDialog);
             payPresenter.confirmOrderPayment(order_id, type_params);
@@ -533,6 +536,9 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 intent.putExtra("jump_from", "pay");
                 intent.putExtra("id", order_id);
                 startActivity(intent);
+                finish();
+            }else if(type.equals(CanstantPay.PAY_VIP)){
+                EventBus.getDefault().post(new EventModelVip());
                 finish();
             }
             SmartToast.showInfo(msg);

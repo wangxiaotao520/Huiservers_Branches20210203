@@ -13,6 +13,7 @@ public class CanstantPay {
     public static final String PAY_SHOP_ORDER_DETAIL="shop";//商品订单详情
     public static final String PAY_SERVICE="service_new_pay";//服务订单支付
     public static final String PAY_CHARGE_YX="charge_yx";//充电
+    public static final String PAY_VIP="vip";//VIP
     //不确定
     public static final String PAY_FACE="facepay";//当面付
     public static final String PAY_HUODONG="huodong";//活动

@@ -261,6 +261,7 @@
     <include layout="@layout/vip_index_open_style" />
 
     <View
+        android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin" />
     <!--专属好券-->

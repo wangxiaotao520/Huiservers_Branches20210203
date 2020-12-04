@@ -52,7 +52,6 @@
                     android:id="@+id/tv_open_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_5"
                     android:text="您还不是VIP会员"
                     android:textColor="#694E33"
                     android:textSize="@dimen/t_12sp" />

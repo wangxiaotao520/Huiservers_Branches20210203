@@ -19,6 +19,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.EventModelVip;
 import com.huacheng.huiservers.model.ModelVipIndex;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.fragment.adapter.AdapterVipGridCat;
@@ -34,6 +35,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -119,9 +123,9 @@ public class VipIndexActivity extends BaseActivity {
                 hideDialog(smallDialog);
                 mRefreshLayout.finishRefresh();
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    ModelVipIndex  modelVipIndex = (ModelVipIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelVipIndex.class);
-                    if (modelVipIndex!=null){
-                        mIndex=modelVipIndex;
+                    ModelVipIndex modelVipIndex = (ModelVipIndex) JsonUtil.getInstance().parseJsonFromResponse(response, ModelVipIndex.class);
+                    if (modelVipIndex != null) {
+                        mIndex = modelVipIndex;
                         inflateContent();
                     }
                 } else {
@@ -144,36 +148,44 @@ public class VipIndexActivity extends BaseActivity {
         headerViewHolder.mTvName.setText(mIndex.getNickname());
         FrescoUtils.getInstance().setImageUri(headerViewHolder.mSdvHead, StringUtils.getImgUrl(mIndex.getAvatars()));
         //判断是否是VIP
-        if ("1".equals(mIndex.getIs_vip())){//会员
+        if ("1".equals(mIndex.getIs_vip())) {//会员
             headerViewHolder.mTvOpenType.setText("已开通");
-            headerViewHolder.mTvOpenNum.setText("距离权益到期还有"+mIndex.getVip_endtime()+"天");
+            headerViewHolder.mTvOpenNum.setText("距离权益到期还有" + mIndex.getVip_endtime() + "天");
             headerViewHolder.mTvBuy.setText("立即续费");
             headerViewHolder.mTvKesheng.setText("累计已省");
             headerViewHolder.mTvMoney.setText(mIndex.getSave_already());
 
-        }else {
+            //开通方式不显示
+            headerViewHolder.mLyVipList.setVisibility(View.GONE);
+            headerViewHolder.mViewLine.setVisibility(View.GONE);
+
+        } else {
             headerViewHolder.mTvOpenType.setText("未开通");
             headerViewHolder.mTvOpenNum.setText("您还不是VIP会员");
             headerViewHolder.mTvBuy.setText("立即开通");
             headerViewHolder.mTvKesheng.setText("开通预计可省");
             headerViewHolder.mTvMoney.setText(mIndex.getSave_plan());
+
+            //开通方式显示
+            headerViewHolder.mLyVipList.setVisibility(View.VISIBLE);
+            headerViewHolder.mViewLine.setVisibility(View.VISIBLE);
         }
 
         //VIP特权分类
-        if (mIndex.getVip_right()!=null&&mIndex.getVip_right().size()>0){
+        if (mIndex.getVip_right() != null && mIndex.getVip_right().size() > 0) {
             mDatasCat.clear();
             mDatasCat.addAll(mIndex.getVip_right());
             mAdapterVipGridCat.notifyDataSetChanged();
         }
         //Vip开通
-        if (mIndex.getVip_list()!=null&&mIndex.getVip_list().size()>0){
+        if (mIndex.getVip_list() != null && mIndex.getVip_list().size() > 0) {
             mDatasOpen.clear();
             mDatasOpen.addAll(mIndex.getVip_list());
             mDatasOpen.get(0).setSelect(true);//默认第一条选中
             mAdapterVipGridOpen.notifyDataSetChanged();
         }
         //专属好券
-        if (mIndex.getVip_coupon()!=null&&mIndex.getVip_coupon().size()>0){
+        if (mIndex.getVip_coupon() != null && mIndex.getVip_coupon().size() > 0) {
             headerViewHolder.mLlCoupon.removeAllViews();
             for (int i = 0; i < mIndex.getVip_coupon().size(); i++) {
                 View view_coupon = LayoutInflater.from(this).inflate(R.layout.item_vip_index_coupon, null);
@@ -183,15 +195,15 @@ public class VipIndexActivity extends BaseActivity {
                 TextView tv_coupon_type = view_coupon.findViewById(R.id.tv_coupon_type);
 
                 tv_coupon_price.setText(mIndex.getVip_coupon().get(i).getAmount());
-                tv_total_price.setText("满"+mIndex.getVip_coupon().get(i).getFulfil_amount()+"可用");
+                tv_total_price.setText("满" + mIndex.getVip_coupon().get(i).getFulfil_amount() + "可用");
                 tv_coupon_type.setText(mIndex.getVip_coupon().get(i).getCategory_name());
                 headerViewHolder.mLlCoupon.addView(view_coupon);
             }
         }
         //推荐店铺
-        if (mIndex.getVip_shop()!=null&&mIndex.getVip_shop().size()>0){
+        if (mIndex.getVip_shop() != null && mIndex.getVip_shop().size() > 0) {
             mDatas.clear();
-            mDatas.addAll(mIndex.getVip_shop()) ;
+            mDatas.addAll(mIndex.getVip_shop());
             mAdapterVipIndex.notifyDataSetChanged();
         }
 
@@ -216,6 +228,7 @@ public class VipIndexActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VipIndexActivity.this, VipBuyActivity.class);
+                intent.putExtra("vip", mIndex);
                 startActivity(intent);
             }
         });
@@ -254,6 +267,7 @@ public class VipIndexActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VipIndexActivity.this, VipBuyActivity.class);
+                intent.putExtra("vip", mIndex);
                 startActivity(intent);
             }
         });
@@ -307,8 +321,23 @@ public class VipIndexActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    /**
+     * @param
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void back(EventModelVip info) {
+        initData();
     }
 
     class HeaderViewHolder {
@@ -351,6 +380,10 @@ public class VipIndexActivity extends BaseActivity {
         LinearLayout mLyShengqian;
         @BindView(R.id.tv_more_vip_coupon)
         TextView mTvMoreVipCoupon;
+        @BindView(R.id.ly_vip_list)
+        LinearLayout mLyVipList;
+        @BindView(R.id.view_line)
+        View mViewLine;
 
 
         HeaderViewHolder(View view) {

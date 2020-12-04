@@ -6,6 +6,12 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ly_vip_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -77,5 +83,5 @@
 
     </LinearLayout>
 
-
+    </LinearLayout>
 </LinearLayout>
