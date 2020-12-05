@@ -118,6 +118,11 @@ public class FragmentCouponHistory extends BaseFragment implements CouponListAda
             if (refreshLayout != null) {
                 refreshLayout.autoRefresh();
             }
+        }else if (type==6){
+            isInit = true;
+            if (refreshLayout != null) {
+                refreshLayout.autoRefresh();
+            }
         }
     }
 
@@ -131,17 +136,28 @@ public class FragmentCouponHistory extends BaseFragment implements CouponListAda
      * 请求数据
      */
     private void requestData() {
-
-
+        String url = "";
         // 根据接口请求数据
         HashMap<String, String> params = new HashMap<>();
         if (type==0){
             params.put("type","1");
-        }else {
+            url=ApiHttpClient.COUPON_HISTORY;
+        }else if (type ==1){
             params.put("type","2");
+            url=ApiHttpClient.COUPON_HISTORY;
+        }else if (type==6){
+            url=ApiHttpClient.VIP_COUPON;
+            params.put("status","1");
+        }else if (type==7){
+            url=ApiHttpClient.VIP_COUPON;
+            params.put("status","2");
+        }else if (type==8){
+            url=ApiHttpClient.VIP_COUPON;
+            params.put("status","3");
         }
+
         params.put("p", page + "");
-        MyOkHttp.get().get(ApiHttpClient.COUPON_HISTORY, params, new JsonResponseHandler() {
+        MyOkHttp.get().get(url, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
