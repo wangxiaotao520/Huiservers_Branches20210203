@@ -1,4 +1,4 @@
-package com.huacheng.huiservers.ui.center;
+package com.huacheng.huiservers.ui.center.presenter;
 
 import android.content.Context;
 
@@ -12,41 +12,39 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 /**
- * 类描述：收藏
+ * 类描述：删除收藏
  * 时间：2020/12/7 15:24
  * created by DFF
  */
-public class CollectPresenter {
+public class CollectDeletePresenter {
     Context mContext;
     CollectListener listener;
 
-    public CollectPresenter(Context mContext, CollectListener listener) {
+    public CollectDeletePresenter(Context mContext, CollectListener listener) {
         this.mContext = mContext;
         this.listener = listener;
     }
 
     public interface CollectListener {
-        void onCollect(int status, String msg);
+        void onDeleteCollect(int status, String collect_id,String msg);
     }
 
-    public void getCollect(final String id, final String type) {
+    public void getDeleteCollect(final String id, final String type) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("p_id", id);
+        params.put("id", id);
         params.put("type", type);
-        //订单删除按钮
-        MyOkHttp.get().post(ApiHttpClient.MY_COLLECT, params, new JsonResponseHandler() {
+        MyOkHttp.get().post(ApiHttpClient.MY_COLLECT_DELETE, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    //  ModelLogin bean = (ModelLogin) JsonUtil.getInstance().parseJsonFromResponse(response, ModelLogin.class);
                     if (listener != null) {
-                        listener.onCollect(1, "请求成功");
+                        listener.onDeleteCollect(1,id, "请求成功");
                     }
 
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
                     if (listener != null) {
-                        listener.onCollect(0, msg);
+                        listener.onDeleteCollect(0,id, msg);
                     }
                 }
 
@@ -55,7 +53,7 @@ public class CollectPresenter {
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 if (listener != null) {
-                    listener.onCollect(-1, "网络异常,请检查网络设置");
+                    listener.onDeleteCollect(-1,id, "网络异常,请检查网络设置");
                 }
             }
         });

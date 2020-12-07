@@ -1,5 +1,6 @@
 package com.huacheng.huiservers.ui.center;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +15,13 @@ import android.widget.TextView;
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelCollect;
 import com.huacheng.huiservers.ui.base.BaseFragment;
-import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
+import com.huacheng.huiservers.ui.center.presenter.CollectDeletePresenter;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
 import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
@@ -31,9 +33,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ import java.util.List;
  * created by wangxiaotao
  * 2020/12/2 0002 09:34
  */
-public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickListener {
+public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickListener,CollectDeletePresenter.CollectListener {
     private ListView listview;
     private SmartRefreshLayout refreshLayout;
     private int page = 1;
@@ -58,6 +57,7 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
     private ImageView img_data;
     private TextView tv_text;
     private CommonAdapter<ModelCollect> mAdapter;
+    private CollectDeletePresenter mDeletePresenter;
 
     @Override
     public void onAttach(Context context) {
@@ -68,13 +68,12 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public void initView(View view) {
-
+        mDeletePresenter=new CollectDeletePresenter(mActivity,this);
         listview = view.findViewById(R.id.listview);
         refreshLayout = view.findViewById(R.id.refreshLayout);
         rel_no_data = view.findViewById(R.id.rel_no_data);
@@ -134,6 +133,30 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
                     intent.putExtra("store_id", datas.get(position).getP_id());
                     mContext.startActivity(intent);
                 }
+            }
+        });
+        //长按删除收藏
+        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                new CommomDialog(mActivity, R.style.my_dialog_DimEnabled, "确认要删除吗？", new CommomDialog.OnCloseListener() {
+                    @Override
+                    public void onClick(Dialog dialog, boolean confirm) {
+                        if (confirm) {
+                            if (type==0){
+                                showDialog(smallDialog);
+                                mDeletePresenter.getDeleteCollect(datas.get(position).getCollection_id(),"2");
+                            }else{
+                                showDialog(smallDialog);
+                                mDeletePresenter.getDeleteCollect(datas.get(position).getCollection_id(),"4");
+                            }
+                            dialog.dismiss();
+                        } else {
+                            dialog.dismiss();
+                        }
+                    }
+                }).show();
+                return true;
             }
         });
     }
@@ -241,18 +264,6 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
                 refreshLayout.autoRefresh();
             }
         }
-/*
-        //支付完成后传过来的值
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            String typeReceipt = arguments.getString("typeReceipt", "0");
-            if ("2".equals(typeReceipt) && type == 2) {
-                page = 1;
-                isInit = true;
-                refreshLayout.autoRefresh();
-            }
-        }*/
-
     }
 
     /**
@@ -279,51 +290,33 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
 
     }
 
-    /**
-     * 回调
-     *
-     * @param
-     * @param
-     */
-
-   /* @Override
-    public void click(final ModelOrderList.ListBean listBean, final int type) {
-
-        if (type == 0) {//上门
-            new CommomDialog(mContext, R.style.dialog, "确定上门", new CommomDialog.OnCloseListener() {
-                @Override
-                public void onClick(Dialog dialog, boolean confirm) {
-                    if (confirm) {
-                        getSend(listBean, type);
-                        dialog.dismiss();
-                    }
-                }
-            }).show();
-        } else if (type == 1) {//收款
-            Intent intent = new Intent(mActivity, ReceiptActivity.class);
-            String oid = listBean.getId();
-            String onum = listBean.getOrder_number();
-            intent.putExtra("oid", oid);
-            intent.putExtra("onum", onum);
-            startActivity(intent);
-
-        }
-    }
-*/
     @Override
     public void onDestroy() {
-        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
     /**
-     * 更新数据（取消订单，评价完成）
-     *
-     * @param modelOrderList
+     *删除收藏
+     * @param status
+     * @param collect_id
+     * @param msg
      */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateOrderList(ModelOrderList modelOrderList) {
-        ModelOrderList modelOrderList_remove = null;
+    @Override
+    public void onDeleteCollect(int status, String collect_id, String msg) {
+        hideDialog(smallDialog);
+        if (status == 1) {
+            for (int i = 0; i < datas.size(); i++) {
+                if (datas.get(i).getCollection_id().equals(collect_id)) {
+                    datas.remove(i);
+                }
+            }
+            if (datas.size()==0){
+                rel_no_data.setVisibility(View.VISIBLE);
+            }
+            mAdapter.notifyDataSetChanged();
+        } else {
+            SmartToast.showInfo(msg);
+        }
 
     }
 }
