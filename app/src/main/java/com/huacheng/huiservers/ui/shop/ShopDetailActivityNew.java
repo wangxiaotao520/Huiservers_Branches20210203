@@ -49,6 +49,7 @@ import com.huacheng.huiservers.model.ModelEventShopCart;
 import com.huacheng.huiservers.model.protocol.ShopProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.CollectPresenter;
 import com.huacheng.huiservers.ui.center.coupon.CouponListAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.shop.bean.ShopDetailBean;
@@ -89,7 +90,7 @@ import cn.jpush.android.api.JPushInterface;
  * 商品详情界面
  */
 //second为mLink的key
-public class ShopDetailActivityNew extends BaseActivity implements OnClickListener {
+public class ShopDetailActivityNew extends BaseActivity implements OnClickListener,CollectPresenter.CollectListener {
 
     private ScrollChangedScrollView sv_bodyContainer;
     LinearLayout ll_shop_tuijian;
@@ -169,6 +170,11 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
     private TextView tv_coupon_tag1;    //优惠券tag1
     private TextView tv_coupon_tag2;//优惠券tag2
     private ChooseCouponDialog chooseCouponDialog; //选择优惠券对话框
+    private LinearLayout ly_guanzhu;
+    private TextView tv_guanzhu;
+    private ImageView iv_guanzhu;
+
+    private CollectPresenter mPresenter;
 
     private int type;
 
@@ -224,6 +230,7 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         // 获取登陆值来判断是否登陆
         getLinshi();
         prefrenceUtil = new SharePrefrenceUtil(this);
+        mPresenter=new CollectPresenter(this,this);
         // 初始化ids
         if (!TextUtils.isEmpty(this.getIntent().getExtras().getString("shop_id"))) {
             shop_id = this.getIntent().getExtras().getString("shop_id");
@@ -247,6 +254,10 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         sv_bodyContainer = findViewById(R.id.anchor_bodyContainer);
         //ll_shop_tuijian = (LinearLayout) findViewById(R.id.ll_shop_tuijian);
         view_title_line = findViewById(R.id.view_title_line);
+        //关注
+        ly_guanzhu = findViewById(R.id.ly_guanzhu);
+        iv_guanzhu = findViewById(R.id.iv_guanzhu);
+        tv_guanzhu = findViewById(R.id.tv_guanzhu);
         // 为您推荐
         grid_view = findViewById(R.id.grid_view);
         iv_top = findViewById(R.id.iv_top);
@@ -332,6 +343,7 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         ly_share.setOnClickListener(this);
         ly_onclck_pingjia.setOnClickListener(this);
         rel_coupon.setOnClickListener(this);
+        ly_guanzhu.setOnClickListener(this);
 
         if (type == 2) {
             ly_gouwuche.setVisibility(View.GONE);
@@ -1039,6 +1051,10 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
                 }
                 // showCouponDialog();
                 break;
+            case R.id.ly_guanzhu://点击收藏关注
+                showDialog(smallDialog);
+                mPresenter.getCollect(shop_id,"1");
+                break;
             default:
                 break;
         }
@@ -1270,5 +1286,22 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
             chooseCouponDialog.dismiss();
         }
 
+    }
+
+    /**
+     * 收藏关注商品
+     * @param status
+     * @param msg
+     */
+    @Override
+    public void onCollect(int status, String msg) {
+        hideDialog(smallDialog);
+        if (status==1){
+            tv_guanzhu.setText("已关注");
+            //iv_guanzhu.setBackgroundResource();
+            SmartToast.showInfo("已关注");
+        }else {
+            SmartToast.showInfo(msg);
+        }
     }
 }

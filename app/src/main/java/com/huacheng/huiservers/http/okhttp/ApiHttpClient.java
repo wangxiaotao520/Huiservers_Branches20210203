@@ -626,7 +626,21 @@ public class ApiHttpClient {
     //VIP支付
     public static String VIP_PAY = API_URL + API_VERSION + "payment/pay_vip_order";
     //VIP开通记录
-    public static String VIP_RECORD= API_URL + API_VERSION + "userCenter/vip_log";
+    public static String VIP_RECORD = API_URL + API_VERSION + "userCenter/vip_log";
+
+    //点击收藏
+    public static String MY_COLLECT = API_URL + API_VERSION + "userCenter/members_collection";
+    //删除收藏
+    public static String MY_COLLECT_DELETE = API_URL + API_VERSION + "userCenter/members_collection_del";
+    //我的收藏-商品
+    public static String MY_COLLECT_SHOP = API_URL + API_VERSION + "userCenter/members_collection_shop";
+    //我的收藏-店铺
+    public static String MY_COLLECT_SHOP_STORE = API_URL + API_VERSION + "userCenter/members_collection_merchant";
+    //我的收藏-服务
+    public static String MY_COLLECT_SERVICE = API_URL + API_VERSION + "userCenter/members_collection_service";
+    //我的收藏-机构
+    public static String MY_COLLECT_SERVICE_STORE = API_URL + API_VERSION + "userCenter/members_collection_institution";
+
     /**
      * 刷新接口
      * 谨记在上方定义完接口后要在下方再写一遍
@@ -885,5 +899,11 @@ public class ApiHttpClient {
         VIP_PAY = API_URL + API_VERSION + "payment/pay_vip_order";
         VIP_RECORD = API_URL + API_VERSION + "userCenter/vip_log";
         VIP_SAVE_MONEY= API_URL + API_VERSION + "userCenter/vip_save_already";
+        MY_COLLECT = API_URL + API_VERSION + "userCenter/members_collection";
+        MY_COLLECT_DELETE = API_URL + API_VERSION + "userCenter/members_collection_del";
+        MY_COLLECT_SHOP = API_URL + API_VERSION + "userCenter/members_collection_shop";
+        MY_COLLECT_SHOP_STORE = API_URL + API_VERSION + "userCenter/members_collection_merchant";
+        MY_COLLECT_SERVICE = API_URL + API_VERSION + "userCenter/members_collection_service";
+        MY_COLLECT_SERVICE_STORE = API_URL + API_VERSION + "userCenter/members_collection_institution";
     }
 }

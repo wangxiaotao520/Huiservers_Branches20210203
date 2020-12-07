@@ -3,9 +3,11 @@ package com.huacheng.huiservers.ui.circle;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -41,6 +43,7 @@ import com.huacheng.huiservers.model.CircleDetailBean;
 import com.huacheng.huiservers.model.protocol.CommonProtocol;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.CollectPresenter;
 import com.huacheng.huiservers.ui.circle.adapter.CircleDetailListAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.LogUtils;
@@ -82,7 +85,7 @@ import static com.huacheng.huiservers.R.id.tv_send;
  *  // 不知道为什么，切换到夜间模式后，第一次打开这个页面，有webview的页面，页面会重新创建,重新走onCreate,类似于
  *  //横竖屏切换，第一个页面的smallDialog 消失不掉，如果设置android:configChanges="uiMode" 对话框是消失了，页面渲染又会有问题，所以想了这个办法
  */
-public class CircleDetailsActivity extends BaseActivity {
+public class CircleDetailsActivity extends BaseActivity implements CollectPresenter.CollectListener {
 
     CircleDetailBean mCirclebean = new CircleDetailBean();
     CircleDetailListAdapter cricle2detailListAdapter;
@@ -165,6 +168,7 @@ public class CircleDetailsActivity extends BaseActivity {
     SharePrefrenceUtil prefrenceUtil;
     View mStatusBar;
     private InputTextMsgDialog mInputTextMsgDialog;
+    private CollectPresenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -176,6 +180,7 @@ public class CircleDetailsActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        mPresenter=new CollectPresenter(this,this);
         mStatusBar = findViewById(R.id.status_bar);
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
 
@@ -594,7 +599,7 @@ public class CircleDetailsActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.lin_left, et_input, tv_send, R.id.right_share})
+    @OnClick({R.id.lin_left, et_input, tv_send, R.id.right_share,R.id.tv_collect})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lin_left:
@@ -670,8 +675,8 @@ public class CircleDetailsActivity extends BaseActivity {
                 break;
 
             case R.id.tv_collect: //收藏
-                // todo
-
+                showDialog(smallDialog);
+                mPresenter.getCollect(circle_id,"5");
 
                 break;
         }
@@ -735,5 +740,24 @@ public class CircleDetailsActivity extends BaseActivity {
     private void showSharePop(String share_title, String share_desc, String share_icon, String share_url_new) {
         PopupWindowShare popup = new PopupWindowShare(this, share_title, share_desc, share_icon, share_url_new, AppConstant.SHARE_COMMON);
         popup.showBottom(mRightShare);
+    }
+
+    /**
+     * 收藏关注服务
+     * @param status
+     * @param msg
+     */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void onCollect(int status, String msg) {
+        hideDialog(smallDialog);
+        if (status==1){
+            tv_collect.setText("已收藏");
+            tv_collect.setCompoundDrawablesWithIntrinsicBounds(null,
+                    getResources().getDrawable(R.mipmap.ic_collection, null), null, null);
+            SmartToast.showInfo("已收藏");
+        }else {
+            SmartToast.showInfo(msg);
+        }
     }
 }

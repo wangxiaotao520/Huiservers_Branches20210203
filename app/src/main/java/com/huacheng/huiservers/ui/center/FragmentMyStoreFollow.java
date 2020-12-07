@@ -12,13 +12,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ModelCollect;
 import com.huacheng.huiservers.ui.base.BaseFragment;
 import com.huacheng.huiservers.ui.servicenew.model.ModelOrderList;
-import com.huacheng.huiservers.ui.servicenew.ui.order.ServiceOrderDetailActivity;
+import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
+import com.huacheng.huiservers.ui.shop.StoreIndexActivity;
+import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -48,12 +52,12 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
     private boolean isInit = false;       //页面是否进行了初始化
     private boolean isRequesting = false; //是否正在刷新
     int type;
-  //  FragmentOrderAdapter fragmentOrderAdapter;
+    //  FragmentOrderAdapter fragmentOrderAdapter;
     RelativeLayout rel_no_data;
-    private List<ModelOrderList> datas = new ArrayList();
+    private List<ModelCollect> datas = new ArrayList();
     private ImageView img_data;
     private TextView tv_text;
-    private CommonAdapter<ModelOrderList> mAdapter;
+    private CommonAdapter<ModelCollect> mAdapter;
 
     @Override
     public void onAttach(Context context) {
@@ -78,10 +82,16 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
         tv_text = view.findViewById(R.id.tv_text);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(true);
-        mAdapter= new CommonAdapter<ModelOrderList>(mContext,R.layout.item_follow_store,datas) {
+        mAdapter = new CommonAdapter<ModelCollect>(mContext, R.layout.item_follow_store, datas) {
             @Override
-            protected void convert(ViewHolder viewHolder, ModelOrderList item, int position) {
-              //  viewHolder.<TextView>getView(R.id.tv_time).setText(item.getEatime()+"");
+            protected void convert(ViewHolder viewHolder, ModelCollect item, int position) {
+                FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.iv_store_head), ApiHttpClient.IMG_URL + item.getLogo());
+                if (type == 0) {
+                    viewHolder.<TextView>getView(R.id.tv_store_name).setText(item.getMerchant_name() + "");
+                } else {
+                    viewHolder.<TextView>getView(R.id.tv_store_name).setText(item.getName() + "");
+                }
+                viewHolder.<TextView>getView(R.id.tv_store_address).setText(item.getAddress());
             }
         };
         listview.setAdapter(mAdapter);
@@ -101,6 +111,7 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
                 page = 1;
                 isRequesting = true;
                 requestData();
+
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -114,17 +125,15 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if (datas.get(position).getStatus().equals("6")) {
-                    SmartToast.showInfo("订单已取消");
-                } else {
-                    //   详情跳转
-                    ModelOrderList modelOrderList = datas.get(position);
-                    Intent intent = new Intent(mActivity, ServiceOrderDetailActivity.class);
-                    intent.putExtra("order_id", modelOrderList.getId());
-                    startActivity(intent);
+                if (type == 0) {
+                    Intent intent = new Intent(mContext, StoreIndexActivity.class);
+                    intent.putExtra("store_id", datas.get(position).getP_id());
+                    mContext.startActivity(intent);
+                }else {
+                    Intent intent = new Intent(mContext, ServiceStoreActivity.class);
+                    intent.putExtra("store_id", datas.get(position).getP_id());
+                    mContext.startActivity(intent);
                 }
-
             }
         });
     }
@@ -132,14 +141,18 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
     /**
      * 请求数据
      */
+    private String setUrl = "";
+
     private void requestData() {
         // 根据接口请求数据
-        //dsm->待上门  wfk->未付款 dpj->待评价 ypj->已评价 qxdd->取消订单
         HashMap<String, String> params = new HashMap<>();
-        params.put("type", "qb");
         params.put("p", page + "");
-
-        MyOkHttp.get().get(ApiHttpClient.GET_MY_ORDER, params, new JsonResponseHandler() {
+        if (type == 0) {
+            setUrl = ApiHttpClient.MY_COLLECT_SHOP_STORE;
+        } else {
+            setUrl = ApiHttpClient.MY_COLLECT_SERVICE_STORE;
+        }
+        MyOkHttp.get().get(setUrl, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 isRequesting = false;
@@ -147,8 +160,11 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
                 refreshLayout.finishRefresh();
                 refreshLayout.finishLoadMore();
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    List<ModelOrderList> modelOrderList = (List<ModelOrderList>) JsonUtil.getInstance().getDataArrayByName(response, "data", ModelOrderList.class);
-                    inflateContent(modelOrderList);
+                    ModelCollect info = (ModelCollect) JsonUtil.getInstance().parseJsonFromResponse(response, ModelCollect.class);
+                    if (info != null) {
+                        inflateContent(info);
+                    }
+
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "请求失败");
                     SmartToast.showInfo(msg);
@@ -174,41 +190,42 @@ public class FragmentMyStoreFollow extends BaseFragment implements View.OnClickL
      *
      * @param
      */
-    private void inflateContent(List<ModelOrderList> modelOrderList) {
-        if (modelOrderList != null && modelOrderList.size() > 0) {
-            rel_no_data.setVisibility(View.GONE);
-            List<ModelOrderList> list_new = modelOrderList;
-            if (page == 1) {
-                datas.clear();
-            }
-            datas.addAll(list_new);
-            page++;
-            if (page > modelOrderList.get(0).getTotal_Pages()) {
-                refreshLayout.setEnableLoadMore(false);
+    private void inflateContent(ModelCollect modelCollects) {
+        if (modelCollects != null) {
+            if (modelCollects.getList() != null && modelCollects.getList().size() > 0) {
+                rel_no_data.setVisibility(View.GONE);
+                List<ModelCollect> list_new = modelCollects.getList();
+                if (page == 1) {
+                    datas.clear();
+                }
+                datas.addAll(list_new);
+                page++;
+                if (page > modelCollects.getTotal_Pages()) {
+                    refreshLayout.setEnableLoadMore(false);
+                } else {
+                    refreshLayout.setEnableLoadMore(true);
+                }
+                mAdapter.notifyDataSetChanged();
+                if (page == 2) {
+                    listview.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listview.setSelection(0);
+                        }
+                    });
+                }
             } else {
-                refreshLayout.setEnableLoadMore(true);
+                if (page == 1) {
+                    // 占位图显示出来
+                    rel_no_data.setVisibility(View.VISIBLE);
+                    //img_data.setBackgroundResource(R.mipmap.bg_no_service_order_data);
+                    //tv_text.setText("暂无工单");
+                    datas.clear();
+                }
+                refreshLayout.setEnableLoadMore(false);
+                mAdapter.notifyDataSetChanged();
             }
-            mAdapter.notifyDataSetChanged();
-            if (page == 2) {
-                listview.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        listview.setSelection(0);
-                    }
-                });
-            }
-        } else {
-            if (page == 1) {
-                // 占位图显示出来
-                rel_no_data.setVisibility(View.VISIBLE);
-                img_data.setBackgroundResource(R.mipmap.bg_no_service_order_data);
-                tv_text.setText("暂无工单");
-                datas.clear();
-            }
-            refreshLayout.setEnableLoadMore(false);
-            mAdapter.notifyDataSetChanged();
         }
-
     }
 
     @Override

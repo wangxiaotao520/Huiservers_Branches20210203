@@ -33,6 +33,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.CollectPresenter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.model.ModelServiceDetail;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.ServiceCateAdapter;
@@ -70,7 +71,7 @@ import butterknife.OnClick;
  * 时间：2018/9/4 09:25
  * created by DFF
  */
-public class ServiceDetailActivity extends BaseActivity {
+public class ServiceDetailActivity extends BaseActivity implements CollectPresenter.CollectListener{
     @BindView(R.id.ic_banner)
     SimpleDraweeView mIcBanner;
     @BindView(R.id.list)
@@ -134,6 +135,14 @@ public class ServiceDetailActivity extends BaseActivity {
     @BindView(R.id.ly_select_cat)
     LinearLayout mLySelectCat;
     View status_bar;
+    @BindView(R.id.ly_bottom)
+    LinearLayout mLyBottom;
+    @BindView(R.id.iv_guanzhu)
+    ImageView mIvGuanzhu;
+    @BindView(R.id.tv_guanzhu)
+    TextView mTvGuanzhu;
+    @BindView(R.id.ly_guanzhu)
+    LinearLayout mLyGuanzhu;
 
     int width;
     List<String> StoreCatedata = new ArrayList<>();
@@ -143,8 +152,7 @@ public class ServiceDetailActivity extends BaseActivity {
     String call, service_id = "";
     ModelServiceDetail mModelOrdetDetail;
     ModelServiceDetail.TagListBean select_cat = new ModelServiceDetail.TagListBean();
-    @BindView(R.id.ly_bottom)
-    LinearLayout mLyBottom;
+    private CollectPresenter mPresenter;
 
     private String share_url;
     private String share_title;
@@ -154,6 +162,7 @@ public class ServiceDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        mPresenter = new CollectPresenter(this,this);
         status_bar = findViewById(R.id.status_bar);
         status_bar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         status_bar.setAlpha(1);
@@ -238,31 +247,31 @@ public class ServiceDetailActivity extends BaseActivity {
 
     private void inflateContent(ModelServiceDetail mModelOrdetDetail) {
         if (mModelOrdetDetail != null) {
-            if ("2".equals(mModelOrdetDetail.getPension_display())){
+            if ("2".equals(mModelOrdetDetail.getPension_display())) {
                 mTvTagKangyang.setVisibility(View.VISIBLE);
-              //  mTitleName.setText("\u3000\u3000"+mModelOrdetDetail.getTitle());
+                //  mTitleName.setText("\u3000\u3000"+mModelOrdetDetail.getTitle());
 
                 //TODO vip标签
                 String title = mModelOrdetDetail.getTitle();
-                String addSpan = "\u3000\u3000"+" "+"VIP折扣";
-                SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                String addSpan = "\u3000\u3000" + " " + "VIP折扣";
+                SpannableString spannableString = new SpannableString(addSpan + " " + title);
                 Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
-                d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
-                ImageSpan span = new MyImageSpan(mContext,d);
-                spannableString.setSpan(span, (addSpan+" "+title).indexOf("VIP折扣"), (addSpan+" "+title).indexOf("VIP折扣")+"VIP折扣".length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                d.setBounds(0, 0, DeviceUtils.dip2px(mContext, 50), DeviceUtils.dip2px(mContext, 16));
+                ImageSpan span = new MyImageSpan(mContext, d);
+                spannableString.setSpan(span, (addSpan + " " + title).indexOf("VIP折扣"), (addSpan + " " + title).indexOf("VIP折扣") + "VIP折扣".length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 mTitleName.setText(spannableString);
 
-            }else {
+            } else {
                 mTvTagKangyang.setVisibility(View.GONE);
-             //   mTitleName.setText(mModelOrdetDetail.getTitle());
+                //   mTitleName.setText(mModelOrdetDetail.getTitle());
 
                 //TODO vip标签
-                String title =mModelOrdetDetail.getTitle()+"";
+                String title = mModelOrdetDetail.getTitle() + "";
                 String addSpan = "VIP折扣";
-                SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                SpannableString spannableString = new SpannableString(addSpan + " " + title);
                 Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
-                d.setBounds(0, 0, DeviceUtils.dip2px(mContext,50), DeviceUtils.dip2px(mContext,16));
-                ImageSpan span = new MyImageSpan(mContext,d);
+                d.setBounds(0, 0, DeviceUtils.dip2px(mContext, 50), DeviceUtils.dip2px(mContext, 16));
+                ImageSpan span = new MyImageSpan(mContext, d);
                 spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 mTitleName.setText(spannableString);
             }
@@ -334,7 +343,7 @@ public class ServiceDetailActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.lin_left, R.id.tv_btn, R.id.ly_onclck_pingjia, R.id.ly_call, R.id.ly_store, R.id.ly_share, R.id.ly_select_cat})
+    @OnClick({R.id.lin_left, R.id.tv_btn, R.id.ly_onclck_pingjia, R.id.ly_call, R.id.ly_store, R.id.ly_share, R.id.ly_select_cat,R.id.ly_guanzhu})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -437,6 +446,10 @@ public class ServiceDetailActivity extends BaseActivity {
 
                     }
                 }).show();
+                break;
+            case R.id.ly_guanzhu://收藏关注服务
+                showDialog(smallDialog);
+                mPresenter.getCollect(service_id,"3");
                 break;
         }
     }
@@ -620,4 +633,20 @@ public class ServiceDetailActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 收藏关注服务
+     * @param status
+     * @param msg
+     */
+    @Override
+    public void onCollect(int status, String msg) {
+        hideDialog(smallDialog);
+        if (status==1){
+            mTvGuanzhu.setText("已关注");
+            //iv_guanzhu.setBackgroundResource();
+            SmartToast.showInfo("已关注");
+        }else {
+            SmartToast.showInfo(msg);
+        }
+    }
 }

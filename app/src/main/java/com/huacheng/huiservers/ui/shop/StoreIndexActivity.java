@@ -24,6 +24,7 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelShopIndex;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.CollectPresenter;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
@@ -52,7 +53,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
  * 时间：2019/11/8 10:59
  * created by DFF
  */
-public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCommonAdapter.OnClickCallback, View.OnClickListener {
+public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCommonAdapter.OnClickCallback, View.OnClickListener ,CollectPresenter.CollectListener{
     View mStatusBar;
     private View headerView;
     protected PagingListView listView;
@@ -82,6 +83,7 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
     private String share_desc;
     private String share_icon;
     private ModelShopIndex modelShopIndex;
+    private CollectPresenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,6 +93,7 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
 
     @Override
     protected void initView() {
+        mPresenter=new CollectPresenter(this,this);
         listView = findViewById(R.id.listview);
         mRefreshLayout = findViewById(R.id.refreshLayout);
         mRelNoData = findViewById(R.id.rel_no_data);
@@ -171,10 +174,11 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
         ly_serch.setOnClickListener(this);
         lin_left.setOnClickListener(this);
         ly_share.setOnClickListener(this);
-        tv_follow.setOnClickListener(new View.OnClickListener() {
+        tv_follow.setOnClickListener(new View.OnClickListener() {//关注店铺
             @Override
             public void onClick(View v) {
-                //todo 商品店铺关注
+               showDialog(smallDialog);
+               mPresenter.getCollect(store_id,"2");
             }
         });
     }
@@ -440,4 +444,21 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
         popup.showBottom(ly_share);
     }
 
+    /**
+     * 关注店铺
+     * @param status
+     * @param msg
+     */
+    @Override
+    public void onCollect(int status, String msg) {
+        hideDialog(smallDialog);
+        if (status==1){
+            tv_follow.setText("已关注");
+            tv_follow.setBackgroundResource(R.drawable.allshape_gray_solid_bb35);
+            SmartToast.showInfo("已关注");
+        }else {
+            SmartToast.showInfo(msg);
+        }
+
+    }
 }

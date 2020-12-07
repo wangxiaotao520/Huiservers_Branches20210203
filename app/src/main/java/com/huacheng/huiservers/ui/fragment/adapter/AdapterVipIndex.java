@@ -19,6 +19,7 @@ import com.huacheng.libraryservice.utils.fresco.FrescoUtils;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,18 +36,26 @@ public class AdapterVipIndex extends CommonAdapter<ModelVipIndex> {
     @Override
     protected void convert(ViewHolder viewHolder, final ModelVipIndex item, int position) {
 
-        FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.iv_store_head), ApiHttpClient.IMG_URL+item.getLogo());
+        FrescoUtils.getInstance().setImageUri(viewHolder.<SimpleDraweeView>getView(R.id.iv_store_head), ApiHttpClient.IMG_URL + item.getLogo());
         viewHolder.<TextView>getView(R.id.tv_store_name).setText(item.getSend_shop());
         viewHolder.<TextView>getView(R.id.tv_store_address).setText(item.getAddress());
 
-        if (item.getS_list()!=null&&item.getS_list().size()>0){
-            AdapterVipIndexList adapterVipIndexList = new AdapterVipIndexList(mContext, R.layout.item_vip_index_list_view, item.getS_list());
+        if (item.getS_list() != null && item.getS_list().size() > 0) {
+            List<ModelVipIndex> modelVipIndexList=new ArrayList<>();
+            modelVipIndexList.clear();
+            for (int i = 0; i < item.getS_list().size(); i++) {
+                if (i<=2){
+                    modelVipIndexList.add(item.getS_list().get(i));
+                }
+            }
+            AdapterVipIndexList adapterVipIndexList = new AdapterVipIndexList(mContext, R.layout.item_vip_index_list_view, modelVipIndexList);
             viewHolder.<MyGridview>getView(R.id.grid_list).setAdapter(adapterVipIndexList);
+            adapterVipIndexList.notifyDataSetChanged();
         }
 
-        if (position==0){
+        if (position == 0) {
             viewHolder.<TextView>getView(R.id.tv_title).setVisibility(View.VISIBLE);
-        }else {
+        } else {
             viewHolder.<TextView>getView(R.id.tv_title).setVisibility(View.GONE);
         }
         viewHolder.<LinearLayout>getView(R.id.ly_store).setOnClickListener(new View.OnClickListener() {

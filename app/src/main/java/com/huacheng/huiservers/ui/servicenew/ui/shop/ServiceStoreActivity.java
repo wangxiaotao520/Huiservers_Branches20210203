@@ -25,6 +25,7 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.center.CollectPresenter;
 import com.huacheng.huiservers.ui.servicenew.inter.OnRefreshAndLoadMoreListener;
 import com.huacheng.huiservers.ui.servicenew.model.CategoryBean;
 import com.huacheng.huiservers.ui.servicenew.model.ModelStore;
@@ -54,7 +55,7 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
  * created by wangxiaotao
  * 2018/8/30 0030 下午 4:24
  */
-public class ServiceStoreActivity extends BaseActivity implements View.OnClickListener {
+public class ServiceStoreActivity extends BaseActivity implements View.OnClickListener , CollectPresenter.CollectListener {
 
     private View status_bar;
     private RelativeLayout rl_title;
@@ -90,6 +91,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
     private View view_service_tab;
     private View view_comment_tab;
     private ImageView iv_left;
+    private CollectPresenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,6 +103,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initView() {
+        mPresenter=new CollectPresenter(this,this);
         rl_head = findViewById(R.id.rl_head);
         rl_title = findViewById(R.id.rl_title);
         status_bar=findViewById(R.id.status_bar);
@@ -212,7 +215,9 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
         tv_follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 服务店铺关注
+                // 服务店铺关注
+                showDialog(smallDialog);
+                mPresenter.getCollect(store_id,"4");
             }
         });
         scrollableLayout.setOnScrollListener(new HeaderViewPager.OnScrollListener() {
@@ -434,5 +439,22 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
             view_comment_tab.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    /**
+     * 服务店铺关注
+     * @param status
+     * @param msg
+     */
+    @Override
+    public void onCollect(int status, String msg) {
+        hideDialog(smallDialog);
+        if (status==1){
+            tv_follow.setText("已关注");
+            tv_follow.setBackgroundResource(R.drawable.allshape_gray_solid_bb35);
+            SmartToast.showInfo("已关注");
+        }else {
+            SmartToast.showInfo(msg);
+        }
     }
 }
