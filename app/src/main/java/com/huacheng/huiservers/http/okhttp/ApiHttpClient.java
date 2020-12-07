@@ -615,7 +615,12 @@ public class ApiHttpClient {
     //VIP用户协议
     public static String VIP_XIEYI = API_URL + API_VERSION + "userCenter/about_vip";
     //VIP首页
-    public static String VIP_INDEX = API_URL + API_VERSION + "userCenter/user_vip";
+    public static String VIP_INDEX= API_URL + API_VERSION + "userCenter/user_vip";
+    //VIP优惠券
+    public static String VIP_COUPON= API_URL + API_VERSION + "userCenter/vip_coupon";
+    //VIP累计省钱
+    public static String VIP_SAVE_MONEY= API_URL + API_VERSION + "userCenter/vip_save_already";
+
     //VIP下单
     public static String VIP_BUY = API_URL + API_VERSION + "userCenter/vip_order";
     //VIP支付
@@ -875,8 +880,10 @@ public class ApiHttpClient {
         UNBIND_WX = API_URL + API_VERSION + "userCenter/unbind_wx";
         VIP_XIEYI= API_URL + API_VERSION + "userCenter/about_vip";
         VIP_INDEX= API_URL + API_VERSION + "userCenter/user_vip";
+        VIP_COUPON= API_URL + API_VERSION + "userCenter/vip_coupon";
         VIP_BUY = API_URL + API_VERSION + "userCenter/vip_order";
         VIP_PAY = API_URL + API_VERSION + "payment/pay_vip_order";
         VIP_RECORD = API_URL + API_VERSION + "userCenter/vip_log";
+        VIP_SAVE_MONEY= API_URL + API_VERSION + "userCenter/vip_save_already";
     }
 }

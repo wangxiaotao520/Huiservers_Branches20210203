@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="258.00元"
+                android:text=""
                 android:visibility="visible"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/t_14sp" />
