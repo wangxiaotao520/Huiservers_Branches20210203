@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
+import com.huacheng.huiservers.http.okhttp.StringCallback;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.PointLog;
 import com.huacheng.huiservers.ui.base.MyListActivity;
@@ -65,25 +66,23 @@ public class PointDetailActivity extends MyListActivity {
     @Override
     public void getData(final int page) {
 
+
+
         Map<String,String> map = new HashMap<>();
         map.put("p",String.valueOf(mPage));
-        MyOkHttp.get().get(ApiHttpClient.USER_POINTS, map, new JsonResponseHandler() {
-
-
-
+        MyOkHttp.get().get(ApiHttpClient.USER_POINTS,map, new StringCallback() {
             @Override
-            public void onFailure(int statusCode, String error_msg) {
+            public void onFailure(int code) {
                 smallDialog.dismiss();
                 loadComplete();
-
-
             }
             @Override
-            public void onSuccess(int statusCode, JSONObject response) {
-                loadComplete();
-                PointLog log = new Gson().fromJson(response.toString(),PointLog.class);
+            public void onSuccess(String resp) {
 
+                loadComplete();
                 smallDialog.dismiss();
+                PointLog log = new Gson().fromJson(resp,PointLog.class);
+
                 pointsTx.setText(log.getData().getPoints());
                 mPage = page;
                 if (page == 1) {
@@ -94,8 +93,36 @@ public class PointDetailActivity extends MyListActivity {
             }
 
 
-
         });
+//        MyOkHttp.get().get(ApiHttpClient.USER_POINTS, map, new JsonResponseHandler() {
+//
+//
+//
+//            @Override
+//            public void onFailure(int statusCode, String error_msg) {
+//                smallDialog.dismiss();
+//                loadComplete();
+//
+//
+//            }
+//            @Override
+//            public void onSuccess(int statusCode, JSONObject response) {
+//                loadComplete();
+//                PointLog log = new Gson().fromJson(response.toString(),PointLog.class);
+//
+//                smallDialog.dismiss();
+//                pointsTx.setText(log.getData().getPoints());
+//                mPage = page;
+//                if (page == 1) {
+//                    adapter.clearData();
+//                }
+//                adapter.addData(log.getData().getPoints_log());
+//                setEmpty(adapter);
+//            }
+//
+//
+//
+//        });
     }
 
 

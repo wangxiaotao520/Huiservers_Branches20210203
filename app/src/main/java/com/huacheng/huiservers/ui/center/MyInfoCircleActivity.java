@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.huacheng.huiservers.R;
+import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.model.UcenterIndex;
 import com.huacheng.huiservers.model.UserIndex;
 import com.huacheng.huiservers.ui.base.BaseActivity;

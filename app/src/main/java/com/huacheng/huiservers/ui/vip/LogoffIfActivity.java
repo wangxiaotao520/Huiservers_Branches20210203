@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.ViewSwitcher;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
+import com.huacheng.huiservers.http.okhttp.GsonCallback;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.GsonResponseHandler;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
@@ -88,22 +90,23 @@ public class LogoffIfActivity extends MyActivity {
 
     public void unset() {
         smallDialog.show();
-        MyOkHttp.get().post(ApiHttpClient.UNSET_ACCOUNT, new HashMap<String, String>(), new GsonResponseHandler<BaseResp>() {
+        MyOkHttp.get().post(ApiHttpClient.UNSET_ACCOUNT, new HashMap<String, String>(), new GsonCallback<BaseResp>() {
             @Override
-            public void onFailure(int statusCode, String error_msg) {
+            public void onFailure(int code) {
                 smallDialog.dismiss();
             }
 
             @Override
-            public void onSuccess(int statusCode, BaseResp response) {
+            public void onSuccess(BaseResp resp) {
                 smallDialog.dismiss();
-                if (response.getStatus() == 1){
+
+                if (resp.getStatus() == 1){
                     ModelLoginOverTime modelLoginOverTime = new ModelLoginOverTime();
                     modelLoginOverTime.setType(1);
                     EventBus.getDefault().post(modelLoginOverTime);
                     finish();
                 }
-                ToastUtils.showShort(mContext,response.getMsg());
+                ToastUtils.showShort(mContext,resp.getMsg());
             }
         });
 
@@ -112,16 +115,18 @@ public class LogoffIfActivity extends MyActivity {
 
     public void getData() {
         smallDialog.show();
-        MyOkHttp.get().post(ApiHttpClient.UNSET_ACCOUNT_REASON, new HashMap<String, String>(), new GsonResponseHandler<UnsetReason>() {
+
+        MyOkHttp.get().post(ApiHttpClient.UNSET_ACCOUNT_REASON, new HashMap<String, String>(), new GsonCallback<UnsetReason>() {
             @Override
-            public void onFailure(int statusCode, String error_msg) {
+            public void onFailure(int code) {
                 smallDialog.dismiss();
             }
 
             @Override
-            public void onSuccess(int statusCode, UnsetReason response) {
+            public void onSuccess(UnsetReason resp) {
                 smallDialog.dismiss();
-                if (response.getData() == null || response.getData().isEmpty()) {
+
+                if (resp.getData() == null || resp.getData().isEmpty()) {
                     zhuxiaoTx.setText("当前账号可以注销");
                     findViewById(R.id.unset_yes).setVisibility(View.VISIBLE);
                 } else {
@@ -129,11 +134,33 @@ public class LogoffIfActivity extends MyActivity {
 
                     ItemAdapter adapter = new ItemAdapter();
                     listView.setAdapter(adapter);
-                    adapter.addData(response.getData());
+                    adapter.addData(resp.getData());
 
                 }
             }
         });
+//        MyOkHttp.get().post(ApiHttpClient.UNSET_ACCOUNT_REASON, new HashMap<String, String>(), new GsonResponseHandler<UnsetReason>() {
+//            @Override
+//            public void onFailure(int statusCode, String error_msg) {
+//                smallDialog.dismiss();
+//            }
+//
+//            @Override
+//            public void onSuccess(int statusCode, UnsetReason response) {
+//                smallDialog.dismiss();
+//                if (response.getData() == null || response.getData().isEmpty()) {
+//                    zhuxiaoTx.setText("当前账号可以注销");
+//                    findViewById(R.id.unset_yes).setVisibility(View.VISIBLE);
+//                } else {
+//                    findViewById(R.id.listview).setVisibility(View.VISIBLE);
+//
+//                    ItemAdapter adapter = new ItemAdapter();
+//                    listView.setAdapter(adapter);
+//                    adapter.addData(response.getData());
+//
+//                }
+//            }
+//        });
 
 
     }

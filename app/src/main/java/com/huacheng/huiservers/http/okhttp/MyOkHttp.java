@@ -1,7 +1,10 @@
 package com.huacheng.huiservers.http.okhttp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.huacheng.huiservers.BaseApplication;
@@ -17,6 +20,7 @@ import com.huacheng.huiservers.model.ModelLoginOverTime;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
+import com.lidroid.xutils.http.client.multipart.FormBodyPart;
 import com.lidroid.xutils.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -141,14 +145,14 @@ public class MyOkHttp {
                 builder.add(entry.getKey(), entry.getValue());
             }
         }
-        if (ApiHttpClient.TOKEN != null&& ApiHttpClient.TOKEN_SECRET!=null) {
+        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
             builder.add("token", ApiHttpClient.TOKEN);
             builder.add("tokenSecret", ApiHttpClient.TOKEN_SECRET);
         }
         // 添加小区id
         SharePrefrenceUtil sharePrefrenceUtil = new SharePrefrenceUtil(BaseApplication.getContext());
         String xiaoQuId = sharePrefrenceUtil.getXiaoQuId();
-        if (!NullUtil.isStringEmpty(xiaoQuId)){
+        if (!NullUtil.isStringEmpty(xiaoQuId)) {
             builder.add("hui_community_id", xiaoQuId);
         }
 
@@ -178,14 +182,14 @@ public class MyOkHttp {
      * @param responseHandler 回调
      */
     public void get(String url, final Map<String, String> params, final IResponseHandler responseHandler) {
-        if (ApiHttpClient.TOKEN != null&& ApiHttpClient.TOKEN_SECRET!=null) {
+        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
             url = url + "/token/" + ApiHttpClient.TOKEN + "/tokenSecret/" + ApiHttpClient.TOKEN_SECRET;
         }
         //  拼接小区id
         SharePrefrenceUtil sharePrefrenceUtil = new SharePrefrenceUtil(BaseApplication.getContext());
         String xiaoQuId = sharePrefrenceUtil.getXiaoQuId();
-        if (!NullUtil.isStringEmpty(xiaoQuId)){
-            url = url + "/hui_community_id/" +xiaoQuId ;
+        if (!NullUtil.isStringEmpty(xiaoQuId)) {
+            url = url + "/hui_community_id/" + xiaoQuId;
         }
         get(null, url, params, responseHandler);
     }
@@ -229,6 +233,55 @@ public class MyOkHttp {
         }
 
         client.newCall(request).enqueue(new MyCallback(new Handler(), responseHandler));
+    }
+
+    public void get(String url, final Map<String, String> params, Callback callback) {
+
+        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
+            params.put("token", ApiHttpClient.TOKEN);
+            params.put("tokenSecret", ApiHttpClient.TOKEN_SECRET);
+        }
+        String xiaoQuId = new SharePrefrenceUtil(BaseApplication.getContext()).getXiaoQuId();
+        if (!TextUtils.isEmpty(xiaoQuId)) {
+            params.put("hui_community_id", xiaoQuId);
+        }
+
+        HttpUrl.Builder urlBuilder =  HttpUrl.parse(url).newBuilder();
+
+
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
+        }
+        Request request = new Request.Builder()
+                .url(urlBuilder.build())
+                .build();
+
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void post(String url, final Map<String, String> params, Callback callback) {
+
+        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
+            params.put("token", ApiHttpClient.TOKEN);
+            params.put("tokenSecret", ApiHttpClient.TOKEN_SECRET);
+        }
+        String xiaoQuId = new SharePrefrenceUtil(BaseApplication.getContext()).getXiaoQuId();
+        if (!TextUtils.isEmpty(xiaoQuId)) {
+            params.put("hui_community_id", xiaoQuId);
+        }
+
+        FormBody.Builder builder = new FormBody.Builder();
+
+
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            builder.add(entry.getKey(), entry.getValue());
+        }
+        Request request = new Request.Builder()
+                .url(url )
+                .post(builder.build())
+                .build();
+
+        client.newCall(request).enqueue(callback);
     }
 
     /**
@@ -276,14 +329,14 @@ public class MyOkHttp {
      * @param responseHandler 回调
      */
     public void upload(Context context, String url, Map<String, String> params, Map<String, File> files, final IResponseHandler responseHandler) {
-        if (ApiHttpClient.TOKEN != null&& ApiHttpClient.TOKEN_SECRET!=null) {
+        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
             url = url + "/token/" + ApiHttpClient.TOKEN + "/tokenSecret/" + ApiHttpClient.TOKEN_SECRET;
         }
         // 拼接小区id
         SharePrefrenceUtil sharePrefrenceUtil = new SharePrefrenceUtil(BaseApplication.getContext());
         String xiaoQuId = sharePrefrenceUtil.getXiaoQuId();
-        if (!NullUtil.isStringEmpty(xiaoQuId)){
-            url = url + "/hui_community_id/" +xiaoQuId ;
+        if (!NullUtil.isStringEmpty(xiaoQuId)) {
+            url = url + "/hui_community_id/" + xiaoQuId;
         }
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
@@ -493,7 +546,7 @@ public class MyOkHttp {
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                   // SmartToast.showInfo( "登录失效，请重新登录");
+                                    // SmartToast.showInfo( "登录失效，请重新登录");
                                     EventBus.getDefault().post(new ModelLoginOverTime());
                                 }
                             });

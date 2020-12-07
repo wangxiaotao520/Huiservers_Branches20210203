@@ -206,7 +206,6 @@ public class MineFragment extends MyFragment {
 
             @Override
             public void onSuccess(int statusCode, UcenterIndex response) {
-                Log.d("cyd", "onSuccess");
                 smallDialog.dismiss();
                 userBean = response.getData();
                 name.setText(userBean.getNickname());
@@ -318,10 +317,10 @@ public class MineFragment extends MyFragment {
                 break;
             //签到
             case R.id.sign:
-                if (userBean.getSign_num().equals("0")) {
+//                if (userBean.getSign_num().equals("0")) {
                     intent = new Intent(mContext, RegisterActivity.class);
                     startActivity(intent);
-                }
+//                }
                 break;
             //认证
             case R.id.renzheng:
