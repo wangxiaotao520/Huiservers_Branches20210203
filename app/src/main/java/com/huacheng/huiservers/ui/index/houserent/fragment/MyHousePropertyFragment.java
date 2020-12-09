@@ -174,7 +174,7 @@ public class MyHousePropertyFragment extends BaseFragment {
             params.put("state", "2");
         }
         params.put("p", page + "");
-        params.put("check",  "0,1,2,4,5");//  0未审核 1上架  2下降 3删除 4下降已出租 5下架已出售
+        params.put("check",  "0,1,2,4,5,6");//  0未审核 1上架  2下降 3删除 4下降已出租 5下架已出售6已拒绝审核
         params.put("add_id", BaseApplication.getUser().getUid() + "");
         params.put("property", "1");//除了和昌都需要传这个参数
         MyOkHttp.get().get(ApiHttpClient.GET_HOUST_LIST, params, new JsonResponseHandler() {

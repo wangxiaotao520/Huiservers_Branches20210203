@@ -133,6 +133,10 @@ public class MyHouseRentListAdapter extends CommonAdapter<ModelMyHouseList> {
                 status = "已出售";
                 mResource = R.mipmap.ic_h_sold;
                 tv_rents_status.setTextColor(Color.parseColor("#18B632"));
+            }else if ("6".equals(status)) {
+                status = "已拒绝";
+                mResource = R.mipmap.ic_h_no_sale;
+                tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
             }
             //GlideUtils.getInstance().glideLoad(mContext, "", iv_rentss, mResource);
             tv_rents_status.setText(status);
