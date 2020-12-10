@@ -676,6 +676,7 @@ public class MyInfoEditActivity extends BaseActivity {
 
 //                    //删除缓存文件夹中的图片
                     ImgCropUtil.deleteCacheFile(new File(ImgCropUtil.getCacheDir()));
+
                 } else {
                     String msg = JsonUtil.getInstance().getMsgFromResponse(response, "提交失败");
                     SmartToast.showInfo(msg);

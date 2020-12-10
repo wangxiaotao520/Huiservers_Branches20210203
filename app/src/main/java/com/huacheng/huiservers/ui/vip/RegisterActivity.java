@@ -20,10 +20,13 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ModelSignRegister;
+import com.huacheng.huiservers.model.UserIndex;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.fragment.MineFragment;
 import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -234,6 +237,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             public void onSuccess(int statusCode, JSONObject response) {
                 if (JsonUtil.getInstance().isSuccess(response)) {
                     initData();
+                    EventBus.getDefault().post(new UserIndex());
                 } else {
                     hideDialog(smallDialog);
                     try {

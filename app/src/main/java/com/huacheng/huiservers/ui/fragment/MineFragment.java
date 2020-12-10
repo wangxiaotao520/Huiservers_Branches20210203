@@ -1,11 +1,17 @@
 package com.huacheng.huiservers.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -14,7 +20,9 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.GsonResponseHandler;
+import com.huacheng.huiservers.model.PersoninfoBean;
 import com.huacheng.huiservers.model.UcenterIndex;
+import com.huacheng.huiservers.model.UserIndex;
 import com.huacheng.huiservers.ui.base.MyFragment;
 import com.huacheng.huiservers.ui.center.AddressListActivity;
 import com.huacheng.huiservers.ui.center.GoodsServiceFollowActivity;
@@ -26,6 +34,7 @@ import com.huacheng.huiservers.ui.center.coupon.MyCouponListActivityNew;
 import com.huacheng.huiservers.ui.index.houserent.MyHousePropertyActivity;
 import com.huacheng.huiservers.ui.index.oldservice.OldMessageActivity;
 import com.huacheng.huiservers.ui.index.property.HouseListActivity;
+import com.huacheng.huiservers.ui.index.workorder.WorkOrderListActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew1.ServiceOrderListActivityNew;
 import com.huacheng.huiservers.ui.shop.ShopCartActivityNew;
@@ -38,7 +47,11 @@ import com.huacheng.huiservers.ui.vip.VipIndexActivity;
 import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.huacheng.libraryservice.utils.TDevice;
 import com.huacheng.libraryservice.utils.glide.GlideCircleTransform;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,16 +68,27 @@ import butterknife.Unbinder;
 public class MineFragment extends MyFragment {
 
 
+
     @BindView(R.id.setting)
     ImageView setting;
     @BindView(R.id.msg)
     ImageView msg;
+
+    @BindView(R.id.scroll)
+    ScrollView scrollView;
+    @BindView(R.id.action_bar)
+    FrameLayout actionBar;
+    @BindView(R.id.mine_bg)
+    LinearLayout mineBg;
+
     @BindView(R.id.login)
     LinearLayout login;
     @BindView(R.id.avator)
     ImageView avator;
     @BindView(R.id.name)
     TextView name;
+    @BindView(R.id.vip_icon)
+    ImageView vipIcon;
     @BindView(R.id.level)
     TextView level;
     @BindView(R.id.level_bg)
@@ -102,7 +126,7 @@ public class MineFragment extends MyFragment {
 
 
     @BindView(R.id.vip)
-    LinearLayout vip;
+    ImageView vip;
     @BindView(R.id.point_mall)
     LinearLayout pointMall;
     @BindView(R.id.coupon)
@@ -151,6 +175,7 @@ public class MineFragment extends MyFragment {
 
     SharePrefrenceUtil prefrenceUtil;
 
+
     public static MineFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -166,15 +191,43 @@ public class MineFragment extends MyFragment {
         return R.layout.fragment_mine;
     }
 
+
     @Override
     public void initView(View view) {
+        EventBus.getDefault().register(this);
         unbinder = ButterKnife.bind(this, view);
         initStatubar();
+
+        actionBar.setPadding(0,TDevice.getStatuBarHeight(mContext),0,0);
+
         prefrenceUtil = new SharePrefrenceUtil(mActivity);
         loginView.setVisibility(LoginUtils.hasLoginUser() ? View.GONE : View.VISIBLE);
         userView.setVisibility(LoginUtils.hasLoginUser() ? View.VISIBLE : View.GONE);
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            scrollView.setOnScrollChangeListener(new ScrollView.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View nestedScrollView, int l, int t, int oldl, int oldt) {
+
+                    //获取高度
+                    float range = 500;
+                    float offset = t;
+
+                    int alpha = Math.min ((int) (0xff * (offset / range)),0xff);
+                    int color = 0xff;
+                    actionBar.setBackgroundColor(Color.argb(alpha, color, color, color));
+                }
+            });
+        }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public void onResume() {
@@ -188,6 +241,16 @@ public class MineFragment extends MyFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
 
+        getData();
+    }
+
+
+    @Subscribe
+    public void  onEvent(UserIndex event){
+        getData();
+    }
+    @Subscribe
+    public void  onEvent(PersoninfoBean event){
         getData();
     }
 
@@ -208,10 +271,14 @@ public class MineFragment extends MyFragment {
             public void onSuccess(int statusCode, UcenterIndex response) {
                 smallDialog.dismiss();
                 userBean = response.getData();
+
+                mineBg.setBackgroundResource(userBean.getIs_vip().equals("1")?R.drawable.mine_bg_ykt:R.drawable.mine_bg_wkt);
+                vipIcon.setVisibility(userBean.getIs_vip().equals("1")?View.VISIBLE:View.GONE);
+
                 name.setText(userBean.getNickname());
                 Glide.with(mActivity).load(ApiHttpClient.IMG_URL + userBean.getAvatars()).transform(new GlideCircleTransform(mActivity)).into(avator);
-                level.setText(userBean.getLevel().getName());
-                point.setText("积分" + userBean.getPoints());
+                level.setText(userBean.getLevel().getName() + " >");
+                point.setText("积分" + userBean.getPoints() + " >");
                 kyold.setVisibility(userBean.getOld_type().equals("1") ? View.VISIBLE : View.GONE);
 
                 bindnum.setText(userBean.getBind_num());
@@ -249,7 +316,7 @@ public class MineFragment extends MyFragment {
                 serveAfterSale.findViewById(R.id.dot).setVisibility(userBean.getService_order_4().equals("0") ? View.GONE : View.VISIBLE);
 
                 int levelIndex = Integer.valueOf(userBean.getLevel().getId());
-                levelBg.setBackground(getResources().getDrawable(levelBgArr[levelIndex - 1]));
+                levelBg.setBackgroundResource(levelBgArr[levelIndex - 1]);
                 level.setTextColor(getResources().getColor(levelTxColorArr[levelIndex - 1]));
 
             }
@@ -391,14 +458,14 @@ public class MineFragment extends MyFragment {
                 //退款售后-商品
             case R.id.shop_after_sale:
 
+
+            //全部订单
+            case R.id.shop_order_all:
+
                 intent = new Intent(mContext, ShopOrderListActivityNew.class);
                 startActivity(intent);
 
                 break;
-            //全部订单
-            case R.id.shop_order_all:
-
-
                 //待服务
             case R.id.wait_serve:
 
@@ -413,12 +480,18 @@ public class MineFragment extends MyFragment {
 
                 //售后-服务
             case R.id.serve_after_sale:
+
+
+            case R.id.serve_order_all:
                 intent = new Intent(mContext, ServiceOrderListActivityNew.class);
                 startActivity(intent);
+
                 break;
             //物业工单
             case R.id.work_order:
 
+                intent = new Intent(mContext, WorkOrderListActivity.class);
+                startActivity(intent);
 
                 break;
             //购物车
