@@ -374,12 +374,12 @@ public class HouserentDetailActivity extends BaseActivity {
         } */ else if ("3".equals(houseRentInfo.getList().getRents_state())) {
                     headerViewHolder.mTvFkType.setText("年付");
                 }
-                headerViewHolder.mTvRuzhu.setText(houseRentInfo.getInfo().getCheck_in_cn());
-                headerViewHolder.tv_zq_time_name.setText("房屋租期");
-                headerViewHolder.mTvZqTime.setText(houseRentInfo.getInfo().getTenancy());
-                headerViewHolder.mTvElevator.setText(houseRentInfo.getInfo().getLift_cn());
-
-
+                if (houseRentInfo.getInfo()!=null){
+                    headerViewHolder.mTvRuzhu.setText(houseRentInfo.getInfo().getCheck_in_cn());
+                    headerViewHolder.tv_zq_time_name.setText("房屋租期");
+                    headerViewHolder.mTvZqTime.setText(houseRentInfo.getInfo().getTenancy());
+                    headerViewHolder.mTvElevator.setText(houseRentInfo.getInfo().getLift_cn());
+                }
                 //租房小贴士
                 headerViewHolder.mTvType1.setText("租房小贴士");
                 //
@@ -388,7 +388,6 @@ public class HouserentDetailActivity extends BaseActivity {
             } else {
                 headerViewHolder.tv_fk_type_name.setText("房屋单价");
                 headerViewHolder.mTvFkType.setText(houseRentInfo.getList().getHouse_unit() + "元");
-                headerViewHolder.mTvRuzhu.setText(houseRentInfo.getInfo().getCheck_in_cn());
 
                 headerViewHolder.tv_zq_time_name.setText("付款方式");
                 if ("1".equals(houseRentInfo.getList().getPay())) {
@@ -396,7 +395,10 @@ public class HouserentDetailActivity extends BaseActivity {
                 } else if ("2".equals(houseRentInfo.getList().getPay())) {
                     headerViewHolder.mTvZqTime.setText("全款");
                 }
-                headerViewHolder.mTvElevator.setText(houseRentInfo.getInfo().getLift_cn());
+                if (houseRentInfo.getInfo()!=null) {
+                    headerViewHolder.mTvRuzhu.setText(houseRentInfo.getInfo().getCheck_in_cn());
+                    headerViewHolder.mTvElevator.setText(houseRentInfo.getInfo().getLift_cn());
+                }
                 //
                 headerViewHolder.mLyZq.setVisibility(View.VISIBLE);
 
