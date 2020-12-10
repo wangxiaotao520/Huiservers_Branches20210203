@@ -47,6 +47,7 @@ import com.huacheng.huiservers.ui.center.presenter.CollectPresenter;
 import com.huacheng.huiservers.ui.circle.adapter.CircleDetailListAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.utils.LogUtils;
+import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.NightModeUtils;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
@@ -308,6 +309,7 @@ public class CircleDetailsActivity extends BaseActivity implements CollectPresen
         params.addBodyParameter("is_pro", isPro + "");
 
         MyOkHttp.get().post(info.get_social, params.getParams(), new JsonResponseHandler() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 hideDialog(smallDialog);
@@ -329,6 +331,16 @@ public class CircleDetailsActivity extends BaseActivity implements CollectPresen
                         .placeholder(R.drawable.ic_default_head).error(R.drawable.ic_default_head).into(mIvPhotoBootom);*/
                     mTvName.setText(mCirclebean.getNickname());
                     mTvTime.setText(mCirclebean.getAddtime());
+                    if ("1".equals(mCirclebean.getIs_collection())){
+                        tv_collect.setText("已收藏");
+                        tv_collect.setCompoundDrawablesWithIntrinsicBounds(null,
+                                getResources().getDrawable(R.mipmap.ic_collect_star_select, null), null, null);
+                        tv_collect.setClickable(false);
+                    }else {
+                        tv_collect.setText("收藏");
+                        tv_collect.setCompoundDrawablesWithIntrinsicBounds(null,
+                                getResources().getDrawable(R.mipmap.ic_collect_star_noselect, null), null, null);
+                    }
                     //判断内容是官方发布还是用户发布admin_id为0标识为用户发布
                     if ("0".equals(mCirclebean.getAdmin_id())) {//用户发布
                         //mTvName.setTextColor(context.getResources().getColor(R.color.title_color));
@@ -675,9 +687,13 @@ public class CircleDetailsActivity extends BaseActivity implements CollectPresen
                 break;
 
             case R.id.tv_collect: //收藏
-                showDialog(smallDialog);
-                mPresenter.getCollect(circle_id,"5");
-
+                if (!LoginUtils.hasLoginUser()) {
+                    Intent intent = new Intent(CircleDetailsActivity.this, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                } else {
+                    showDialog(smallDialog);
+                    mPresenter.getCollect(circle_id, "5");
+                }
                 break;
         }
     }
@@ -754,7 +770,8 @@ public class CircleDetailsActivity extends BaseActivity implements CollectPresen
         if (status==1){
             tv_collect.setText("已收藏");
             tv_collect.setCompoundDrawablesWithIntrinsicBounds(null,
-                    getResources().getDrawable(R.mipmap.ic_collection, null), null, null);
+                    getResources().getDrawable(R.mipmap.ic_collect_star_select, null), null, null);
+            tv_collect.setClickable(false);
             SmartToast.showInfo("已收藏");
         }else {
             SmartToast.showInfo(msg);

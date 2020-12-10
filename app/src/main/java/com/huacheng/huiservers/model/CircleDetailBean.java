@@ -36,6 +36,15 @@ public class CircleDetailBean {
 
     private String social_num;
     private String is_observe;
+    private String is_collection;
+
+    public String getIs_collection() {
+        return is_collection;
+    }
+
+    public void setIs_collection(String is_collection) {
+        this.is_collection = is_collection;
+    }
 
     private int type = 0;//0是评论1是删除
 

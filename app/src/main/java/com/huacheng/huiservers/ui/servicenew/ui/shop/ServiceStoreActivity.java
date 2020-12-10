@@ -26,9 +26,11 @@ import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.presenter.CollectPresenter;
+import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.inter.OnRefreshAndLoadMoreListener;
 import com.huacheng.huiservers.ui.servicenew.model.CategoryBean;
 import com.huacheng.huiservers.ui.servicenew.model.ModelStore;
+import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.statusbar.SystemBarTintManager;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
@@ -206,6 +208,17 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
            tv_store_name1.setText(modelStore.getName()+"");
            tv_store_phone_number1.setText("联系电话:"+modelStore.getTelphone()+"");
 
+           //判断是否已收藏
+           if ("1".equals(modelStore.getIs_collection())){
+               tv_follow.setText("已关注");
+               tv_follow.setBackgroundResource(R.drawable.allshape_gray_solid_bb35);
+               tv_follow.setClickable(false);
+           }else {
+               tv_follow.setText("+ 关注");
+               tv_follow.setBackgroundResource(R.drawable.allshape_red_35);
+
+           }
+
        }
     }
 
@@ -215,9 +228,16 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
         tv_follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 服务店铺关注
-                showDialog(smallDialog);
-                mPresenter.getCollect(store_id,"4");
+
+                if (!LoginUtils.hasLoginUser()) {
+                    Intent intent = new Intent(ServiceStoreActivity.this, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                } else {
+                    // 服务店铺关注
+                    showDialog(smallDialog);
+                    mPresenter.getCollect(store_id,"4");
+                }
+
             }
         });
         scrollableLayout.setOnScrollListener(new HeaderViewPager.OnScrollListener() {
@@ -452,6 +472,7 @@ public class ServiceStoreActivity extends BaseActivity implements View.OnClickLi
         if (status==1){
             tv_follow.setText("已关注");
             tv_follow.setBackgroundResource(R.drawable.allshape_gray_solid_bb35);
+            tv_follow.setClickable(false);
             SmartToast.showInfo("已关注");
         }else {
             SmartToast.showInfo(msg);

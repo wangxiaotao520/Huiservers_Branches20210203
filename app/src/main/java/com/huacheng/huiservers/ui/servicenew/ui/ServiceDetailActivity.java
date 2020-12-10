@@ -39,6 +39,7 @@ import com.huacheng.huiservers.ui.servicenew.model.ModelServiceDetail;
 import com.huacheng.huiservers.ui.servicenew.ui.adapter.ServiceCateAdapter;
 import com.huacheng.huiservers.ui.servicenew.ui.shop.ServiceStoreActivity;
 import com.huacheng.huiservers.ui.servicenew1.ServiceConfirmOrderActivityNew;
+import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.view.MyImageSpan;
@@ -275,6 +276,15 @@ public class ServiceDetailActivity extends BaseActivity implements CollectPresen
                 spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 mTitleName.setText(spannableString);
             }
+            //判断是否已收藏
+            if ("1".equals(mModelOrdetDetail.getIs_collection())){
+                mTvGuanzhu.setText("已关注");
+                mIvGuanzhu.setBackgroundResource(R.mipmap.ic_collect_select);
+                mLyGuanzhu.setClickable(false);
+            }else {
+                mTvGuanzhu.setText("关注");
+                mIvGuanzhu.setBackgroundResource(R.mipmap.ic_collect_noselect);
+            }
             //mTvServiceName.setText(mModelOrdetDetail.getTitle());
             //GlideUtils.getInstance().glideLoad(this, ApiHttpClient.IMG_SERVICE_URL + , mIcBanner, R.drawable.bg_default_rectange);
             String imgSize = mModelOrdetDetail.getTitle_img_size();
@@ -448,8 +458,13 @@ public class ServiceDetailActivity extends BaseActivity implements CollectPresen
                 }).show();
                 break;
             case R.id.ly_guanzhu://收藏关注服务
-                showDialog(smallDialog);
-                mPresenter.getCollect(service_id,"3");
+                if (!LoginUtils.hasLoginUser()) {
+                    intent = new Intent(mContext, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                } else {
+                    showDialog(smallDialog);
+                    mPresenter.getCollect(service_id, "3");
+                }
                 break;
         }
     }
@@ -643,7 +658,8 @@ public class ServiceDetailActivity extends BaseActivity implements CollectPresen
         hideDialog(smallDialog);
         if (status==1){
             mTvGuanzhu.setText("已关注");
-            //iv_guanzhu.setBackgroundResource();
+            mIvGuanzhu.setBackgroundResource(R.mipmap.ic_collect_select);
+            mLyGuanzhu.setClickable(false);
             SmartToast.showInfo("已关注");
         }else {
             SmartToast.showInfo(msg);

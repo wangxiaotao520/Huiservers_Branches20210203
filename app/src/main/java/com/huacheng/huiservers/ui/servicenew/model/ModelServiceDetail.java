@@ -22,6 +22,15 @@ public class ModelServiceDetail {
     private InsInfoBean ins_info;
     private List<TagListBean> tag_list;
     private List<ImgListBean> img_list;
+    private String is_collection;
+
+    public String getIs_collection() {
+        return is_collection;
+    }
+
+    public void setIs_collection(String is_collection) {
+        this.is_collection = is_collection;
+    }
 
     public String getTitle_img_size() {
         return title_img_size;

@@ -60,6 +60,15 @@ public class ShopDetailBean implements Serializable{
     private String pension_display;
     private String is_vip;
     private String vip_price;
+    private String is_collection;
+
+    public String getIs_collection() {
+        return is_collection;
+    }
+
+    public void setIs_collection(String is_collection) {
+        this.is_collection = is_collection;
+    }
 
     public String getIs_vip() {
         return is_vip;

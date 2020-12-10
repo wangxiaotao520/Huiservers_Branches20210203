@@ -342,8 +342,6 @@ public class VipIndexActivity extends BaseActivity {
 
     class HeaderViewHolder {
 
-        @BindView(R.id.sdv_bg)
-        SimpleDraweeView mSdvBg;
         @BindView(R.id.sdv_head)
         SimpleDraweeView mSdvHead;
         @BindView(R.id.tv_name)

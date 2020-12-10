@@ -10,7 +10,7 @@
         android:id="@+id/ry_bg"
         android:layout_width="145dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_vip_stoke5_solid"
+        android:background="@mipmap/ic_vip_index_coupon"
         android:orientation="vertical">
 
         <TextView

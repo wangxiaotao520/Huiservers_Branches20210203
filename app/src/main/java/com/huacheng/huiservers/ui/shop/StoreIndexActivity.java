@@ -27,6 +27,7 @@ import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.presenter.CollectPresenter;
 import com.huacheng.huiservers.ui.fragment.adapter.HomeIndexGoodsCommonAdapter;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
+import com.huacheng.huiservers.utils.LoginUtils;
 import com.huacheng.huiservers.view.widget.loadmorelistview.PagingListView;
 import com.huacheng.libraryservice.utils.AppConstant;
 import com.huacheng.libraryservice.utils.DeviceUtils;
@@ -177,8 +178,13 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
         tv_follow.setOnClickListener(new View.OnClickListener() {//关注店铺
             @Override
             public void onClick(View v) {
-               showDialog(smallDialog);
-               mPresenter.getCollect(store_id,"2");
+                if (!LoginUtils.hasLoginUser()) {
+                    Intent intent = new Intent(StoreIndexActivity.this, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                } else {
+                    showDialog(smallDialog);
+                    mPresenter.getCollect(store_id,"2");
+                }
             }
         });
     }
@@ -265,6 +271,16 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
                                 tv_tag_kangyang.setVisibility(View.VISIBLE);
                             }else {
                                 tv_tag_kangyang.setVisibility(View.GONE);
+                            }
+                            //判断是否已收藏
+                            if ("1".equals(modelShopIndex.getIs_collection())){
+                                tv_follow.setText("已关注");
+                                tv_follow.setBackgroundResource(R.drawable.allshape_gray_solid_bb35);
+                                tv_follow.setClickable(false);
+                            }else {
+                                tv_follow.setText("+ 关注");
+                                tv_follow.setBackgroundResource(R.drawable.allshape_red_35);
+
                             }
                            // GlideUtils.getInstance().glideLoad(StoreIndexActivity.this, ApiHttpClient.IMG_URL + shopIndex.getBackground(), iv_bg, R.mipmap.ic_store_bg);
                             Glide.with(mContext).load(ApiHttpClient.IMG_URL + shopIndex.getBackground())
@@ -455,6 +471,7 @@ public class StoreIndexActivity extends BaseActivity implements HomeIndexGoodsCo
         if (status==1){
             tv_follow.setText("已关注");
             tv_follow.setBackgroundResource(R.drawable.allshape_gray_solid_bb35);
+            tv_follow.setClickable(false);
             SmartToast.showInfo("已关注");
         }else {
             SmartToast.showInfo(msg);

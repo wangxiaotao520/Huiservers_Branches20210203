@@ -87,7 +87,7 @@
             android:layout_height="20dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="5dp"
-            android:background="@color/default_img_color"/>
+            android:background="@mipmap/ic_set_ewm"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

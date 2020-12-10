@@ -436,6 +436,15 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
                             }else {
                                 txt_price.setText("¥" + detailBean.getPrice());
                             }
+                            //判断是否已收藏
+                            if ("1".equals(detailBean.getIs_collection())){
+                                tv_guanzhu.setText("已关注");
+                                iv_guanzhu.setBackgroundResource(R.mipmap.ic_collect_select);
+                                ly_guanzhu.setClickable(false);
+                            }else {
+                                tv_guanzhu.setText("关注");
+                                iv_guanzhu.setBackgroundResource(R.mipmap.ic_collect_noselect);
+                            }
                             txt_yuan_price.setText("¥" + detailBean.getOriginal());
                             tv_seckill_num.setText("总计：" + detailBean.getInventory() + " " + detailBean.getUnit());
                             //txt_num.setText("已剩：" + detailBean.getInventory() + " " + detailBean.getUnit());
@@ -1052,8 +1061,13 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
                 // showCouponDialog();
                 break;
             case R.id.ly_guanzhu://点击收藏关注
+                if (login_type.equals("") || ApiHttpClient.TOKEN == null || ApiHttpClient.TOKEN_SECRET == null) {
+                    intent = new Intent(this, LoginVerifyCodeActivity.class);
+                    startActivity(intent);
+                } else {
                 showDialog(smallDialog);
                 mPresenter.getCollect(shop_id,"1");
+                }
                 break;
             default:
                 break;
@@ -1298,7 +1312,8 @@ public class ShopDetailActivityNew extends BaseActivity implements OnClickListen
         hideDialog(smallDialog);
         if (status==1){
             tv_guanzhu.setText("已关注");
-            //iv_guanzhu.setBackgroundResource();
+            iv_guanzhu.setBackgroundResource(R.mipmap.ic_collect_select);
+            ly_guanzhu.setClickable(false);
             SmartToast.showInfo("已关注");
         }else {
             SmartToast.showInfo(msg);

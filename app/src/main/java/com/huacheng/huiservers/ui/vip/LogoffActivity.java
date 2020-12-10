@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
@@ -12,6 +11,7 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.ui.base.MyActivity;
 import com.huacheng.huiservers.ui.base.MyAdapter;
 import com.huacheng.huiservers.ui.webview.WebviewActivity;
+import com.huacheng.huiservers.view.MyListView;
 
 import java.util.Arrays;
 
@@ -23,7 +23,8 @@ import java.util.Arrays;
 
 public class LogoffActivity extends MyActivity {
 
-    ListView listView;
+    MyListView listView;
+    private String number="";
 
     @Override
     protected int getLayoutId() {
@@ -33,10 +34,13 @@ public class LogoffActivity extends MyActivity {
     @Override
     protected void initView() {
         back();
+        number=this.getIntent().getStringExtra("number");
         listView = findViewById(R.id.listview);
         ItemAdapter adapter = new ItemAdapter();
         listView.setAdapter(adapter);
         adapter.addData(Arrays.asList(array));
+        TextView tv_phone= findViewById(R.id.tv_phone);
+        tv_phone.setText("很遗憾，将"+number+"所绑定的账号注 销,相信短暂的离别只为日后更好的相见~");
         findViewById(R.id.protocal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -13,7 +13,7 @@
         android:layout_width="@dimen/public_space_value_50"
         android:layout_height="@dimen/public_space_value_50"
         android:layout_marginTop="@dimen/public_space_value_25"
-        android:background="@color/default_img_color" />
+        android:background="@mipmap/ic_set_zhuxiao" />
 
     <TextView
         android:id="@+id/zhuxiao"

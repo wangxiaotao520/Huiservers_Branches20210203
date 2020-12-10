@@ -291,7 +291,7 @@
                                     android:id="@+id/iv_guanzhu"
                                     android:layout_width="20dp"
                                     android:layout_height="18dp"
-                                    android:background="@color/orange" />
+                                    android:background="@mipmap/ic_collect_noselect" />
 
                                 <TextView
                                     android:id="@+id/tv_guanzhu"

@@ -364,6 +364,8 @@ public class ShopProtocol {
                 info.setDiscount(obj.getString("discount"));
                 info.setDistance_start(obj.getString("distance_start"));
                 info.setDistance_end(obj.getString("distance_end"));
+                info.setIs_vip(obj.getString("is_vip"));
+                info.setIs_collection(obj.getString("is_collection"));
                 // 商家保证
                 String add = obj.getString("goods_tag");
                 List<BannerBean> tagBean = new ArrayList<BannerBean>();
@@ -1080,6 +1082,9 @@ public class ShopProtocol {
                     info.setOrder_num(obj.getString("order_num"));
                     info.setTotal_Pages(obj.getString("total_Pages"));
                     info.setPension_display(obj.getString("pension_display"));
+                    info.setIs_vip(obj.getString("is_vip"));
+                    info.setVip_price(obj.getString("vip_price"));
+                    info.setIs_collection(obj.getString("is_collection"));
                     productList.add(info);
                 }
 
@@ -1128,6 +1133,9 @@ public class ShopProtocol {
                     info.setOrder_num(obj.getString("order_num"));
                     info.setTotal_Pages(obj.getString("total_Pages"));
                     info.setPension_display(obj.getString("pension_display"));
+                    info.setIs_collection(obj.getString("is_collection"));
+                    info.setIs_vip(obj.getString("is_vip"));
+                    info.setVip_price(obj.getString("vip_price"));
                     productList.add(info);
                 }
 

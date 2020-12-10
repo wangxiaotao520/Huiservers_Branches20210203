@@ -372,7 +372,7 @@
                 android:id="@+id/tv_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableTop="@mipmap/ic_collection"
+                android:drawableTop="@mipmap/ic_collect_star_noselect"
                 android:drawablePadding="@dimen/margin_5"
                 android:paddingLeft="@dimen/margin_15"
                 android:paddingRight="@dimen/margin_15"

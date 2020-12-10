@@ -158,6 +158,7 @@ public class AccountSafeActivity extends BaseActivity {
             public void onClick(View v) {
                 //注销账号
                 Intent intent = new Intent(mContext, LogoffActivity.class);
+                intent.putExtra("number",tvPhoneNumber.getText().toString().trim());
                 startActivity(intent);
             }
         });

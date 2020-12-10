@@ -17,8 +17,17 @@ public class ModelStore implements Serializable{
     private String index_img;
     private String serviceCount;
     private String commentsCount;
+    private String is_collection;
     private List<CategoryBean> category;
     private List<ModelServiceItem> service;
+
+    public String getIs_collection() {
+        return is_collection;
+    }
+
+    public void setIs_collection(String is_collection) {
+        this.is_collection = is_collection;
+    }
 
     public String getId() {
         return id;

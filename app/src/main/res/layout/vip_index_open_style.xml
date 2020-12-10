@@ -52,10 +52,9 @@
         <TextView
             android:id="@+id/tv_btn_buy"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/allshape_orange35"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_vip_buy"
             android:gravity="center"
-            android:text="立即购买"
             android:textColor="#694E33"
             android:textSize="@dimen/t_16sp" />
 

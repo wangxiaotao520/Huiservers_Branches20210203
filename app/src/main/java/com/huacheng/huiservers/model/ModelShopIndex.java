@@ -68,6 +68,15 @@ public class ModelShopIndex {
 
 
     private String pension_display;//是否是养老  1不是 2是
+    private String is_collection ;//是否是收藏  0不是 1是
+
+    public String getIs_collection() {
+        return is_collection;
+    }
+
+    public void setIs_collection(String is_collection) {
+        this.is_collection = is_collection;
+    }
 
     public String getVip_price() {
         return vip_price;
