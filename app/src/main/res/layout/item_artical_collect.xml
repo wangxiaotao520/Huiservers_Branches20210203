@@ -3,6 +3,7 @@
     xmlns:app = "http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="horizontal"
     android:padding="@dimen/margin_15">
 
@@ -17,6 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="社区慧生活第二轮直购直播马上开启，预告走一波！"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="@color/title_color"
             android:textSize="@dimen/t_15sp" />
 

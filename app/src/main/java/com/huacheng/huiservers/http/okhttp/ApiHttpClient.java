@@ -640,6 +640,10 @@ public class ApiHttpClient {
     public static String MY_COLLECT_SERVICE = API_URL + API_VERSION + "userCenter/members_collection_service";
     //我的收藏-机构
     public static String MY_COLLECT_SERVICE_STORE = API_URL + API_VERSION + "userCenter/members_collection_institution";
+   //我的收藏-文章
+    public static String MY_COLLECT_SOCIAL = API_URL + API_VERSION + "userCenter/members_collection_social";
+   //我的收藏-物业公告
+    public static String MY_COLLECT_SOCIAL_PRO = API_URL + API_VERSION + "userCenter/members_collection_social_pro";
 
     /**
      * 刷新接口

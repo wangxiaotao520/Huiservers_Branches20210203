@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.TabLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab"
+    android:layout_marginTop="1dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:tabSelectedTextColor="@color/orange"
+    app:tabIndicatorColor="@color/orange"
+    app:tabIndicatorFullWidth="false"
+    app:tabIndicatorHeight="2dp"
+    app:tabTextColor="@color/title_sub_color">
+
+</android.support.design.widget.TabLayout>
