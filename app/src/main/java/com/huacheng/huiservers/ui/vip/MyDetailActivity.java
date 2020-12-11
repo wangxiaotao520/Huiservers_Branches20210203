@@ -22,6 +22,7 @@ import com.huacheng.huiservers.sharesdk.PopupWindowShare;
 import com.huacheng.huiservers.ui.base.MyActivity;
 import com.huacheng.huiservers.ui.integral.MyIntegralRightActivity;
 import com.huacheng.libraryservice.utils.AppConstant;
+import com.huacheng.libraryservice.utils.glide.GlideCircleTransform;
 
 import java.util.HashMap;
 import java.util.List;
@@ -181,6 +182,8 @@ public class MyDetailActivity extends MyActivity {
                 growValue.setText(userBean.getRank());
                 point.setText(userBean.getPoints());
                 name.setText(userBean.getNickname());
+                Glide.with(mContext).load(ApiHttpClient.IMG_URL + userBean.getAvatars()).transform(new GlideCircleTransform(mContext)).into(avator);
+
                 level.setText(userBean.getUser_level());
                 need.setText(String.format("还需%s成长值升级%s", userBean.getNext_rank(), userBean.getNext_level()));
 

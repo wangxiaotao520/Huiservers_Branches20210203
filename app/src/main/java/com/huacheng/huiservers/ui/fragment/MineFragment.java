@@ -224,7 +224,7 @@ public class MineFragment extends MyFragment {
     }
 
     @Override
-    public void onDestroy() {
+     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }

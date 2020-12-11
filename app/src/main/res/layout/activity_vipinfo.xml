@@ -88,6 +88,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8"
+                    android:drawableLeft="@drawable/icon_grow"
+                    android:drawablePadding="@dimen/margin_5"
                     android:text="我的成长值"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_14" />
@@ -105,8 +107,7 @@
                     android:layout_width="@dimen/public_space_value_65"
                     android:layout_height="@dimen/public_space_value_65"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/margin_8"
-                    android:background="@color/default_img_color" />
+                    android:layout_margin="@dimen/margin_8" />
 
                 <TextView
                     android:id="@+id/level"
@@ -143,6 +144,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8"
+                    android:drawableLeft="@drawable/icon_point"
+                    android:drawablePadding="@dimen/margin_5"
                     android:text="我的积分"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_14" />
@@ -286,8 +289,9 @@
     <ImageView
         android:id="@+id/open_vip"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/public_space_value_100"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:layout_marginTop="@dimen/public_space_value_30"
-        android:background="@color/default_img_color" />
+        android:src="@drawable/vip_kt" />
 
 </LinearLayout>
