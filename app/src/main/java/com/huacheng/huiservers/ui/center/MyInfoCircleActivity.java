@@ -57,6 +57,8 @@ public class MyInfoCircleActivity extends BaseActivity {
 
     TextView nameTx,addressTx ,signatureTx;
     ImageView isVip,vipLevel;
+    int[] levelBgArr = {R.drawable.vip_level0,R.drawable.vip_level1,R.drawable.vip_level2,R.drawable.vip_level3,R.drawable.vip_level4,R.drawable.vip_level5,R.drawable.vip_level6 };
+
     private SimpleDraweeView sdv_image;
     UcenterIndex.DataBean infoBean;
     List<BaseFragment> mFragments = new ArrayList<>();
@@ -98,6 +100,9 @@ public class MyInfoCircleActivity extends BaseActivity {
         signatureTx = findViewById(R.id.signature);
         isVip = findViewById(R.id.isvip);
         vipLevel = findViewById(R.id.vip_level);
+
+        int levelIndex = Integer.valueOf(infoBean.getLevel().getId());
+        vipLevel.setBackgroundResource(levelBgArr[levelIndex - 1]);
 
         nameTx.setText(infoBean.getNickname());
         signatureTx.setText(infoBean.getSignature());

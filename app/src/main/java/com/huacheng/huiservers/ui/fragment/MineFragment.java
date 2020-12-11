@@ -89,8 +89,6 @@ public class MineFragment extends MyFragment {
     TextView name;
     @BindView(R.id.vip_icon)
     ImageView vipIcon;
-    @BindView(R.id.level)
-    TextView level;
     @BindView(R.id.level_bg)
     View levelBg;
     @BindView(R.id.point)
@@ -254,8 +252,8 @@ public class MineFragment extends MyFragment {
         getData();
     }
 
-    int[] levelBgArr = {R.drawable.level_bg_1, R.drawable.level_bg_1, R.drawable.level_bg_1, R.drawable.level_bg_2, R.drawable.level_bg_3, R.drawable.level_bg_1, R.drawable.level_bg_4};
-    int[] levelTxColorArr = {R.color.level_1, R.color.level_1, R.color.level_1, R.color.level_2, R.color.level_3, R.color.level_3, R.color.level_4};
+    int[] levelBgArr = {R.drawable.vip_level0,R.drawable.vip_level1,R.drawable.vip_level2,R.drawable.vip_level3,R.drawable.vip_level4,R.drawable.vip_level5,R.drawable.vip_level6 };
+
     UcenterIndex.DataBean userBean;
 
     public void getData() {
@@ -277,7 +275,7 @@ public class MineFragment extends MyFragment {
 
                 name.setText(userBean.getNickname());
                 Glide.with(mActivity).load(ApiHttpClient.IMG_URL + userBean.getAvatars()).transform(new GlideCircleTransform(mActivity)).into(avator);
-                level.setText(userBean.getLevel().getName() + " >");
+
                 point.setText("积分" + userBean.getPoints() + " >");
                 kyold.setVisibility(userBean.getOld_type().equals("1") ? View.VISIBLE : View.GONE);
 
@@ -317,14 +315,13 @@ public class MineFragment extends MyFragment {
 
                 int levelIndex = Integer.valueOf(userBean.getLevel().getId());
                 levelBg.setBackgroundResource(levelBgArr[levelIndex - 1]);
-                level.setTextColor(getResources().getColor(levelTxColorArr[levelIndex - 1]));
 
             }
         });
 
     }
 
-    @OnClick({R.id.setting, R.id.msg, R.id.login, R.id.avator, R.id.name, R.id.level, R.id.point, R.id.kyold, R.id.sign,
+    @OnClick({R.id.setting, R.id.msg, R.id.login, R.id.avator, R.id.name, R.id.level_bg, R.id.point, R.id.kyold, R.id.sign,
             R.id.renzheng, R.id.goodslike, R.id.storelike, R.id.article_collect, R.id.vip, R.id.point_mall, R.id.coupon,
             R.id.wait_pay, R.id.wait_receive, R.id.shop_wait_comment, R.id.shop_after_sale, R.id.shop_order_all,
             R.id.wait_serve, R.id.in_serve, R.id.serve_wait_comment, R.id.serve_after_sale, R.id.serve_order_all,
@@ -369,7 +366,7 @@ public class MineFragment extends MyFragment {
             case R.id.name:
 
                 // 会员等级
-            case R.id.level:
+            case R.id.level_bg:
                 intent = new Intent(mContext, MyDetailActivity.class);
                 startActivity(intent);
                 break;
