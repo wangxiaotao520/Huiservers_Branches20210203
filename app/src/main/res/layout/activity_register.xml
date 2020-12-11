@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/orange"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ED7F37">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/orange"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -17,8 +16,8 @@
             <ImageView
                 android:id="@+id/iv_bottom_image"
                 android:layout_width="match_parent"
-                android:layout_height="357dp"
-                android:background="@color/transparent" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/sign_bg" />
 
             <View
                 android:id="@+id/status_bar"
@@ -82,51 +81,55 @@
 
             </RelativeLayout>
         </RelativeLayout>
+
         <LinearLayout
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/allshape_white"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="250dp">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"
+            android:background="@drawable/allshape_white"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
+
                 <TextView
                     android:id="@+id/tv_days"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
                     android:text="已连续签到3天"
                     android:textColor="@color/title_color"
                     android:textSize="14dp"
-                    android:layout_marginLeft="15dp"
                     android:visibility="visible" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    />
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:id="@+id/iv_register_tips"
                     android:layout_width="13dp"
                     android:layout_height="13dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/default_img_color" />
+                    android:background="@drawable/icon_sign_tip" />
+
                 <TextView
                     android:id="@+id/tv_register_tips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="15dp"
                     android:text="签到规则"
                     android:textColor="@color/orange"
-                    android:layout_marginRight="15dp"
                     android:textSize="14dp"
-                    android:layout_marginLeft="5dp"
                     android:visibility="visible" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_days1_6"
                 android:layout_width="match_parent"
@@ -134,240 +137,250 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:orientation="horizontal">
+
                 <RelativeLayout
                     android:layout_width="0dp"
+                    android:layout_height="57dp"
                     android:layout_weight="1"
-                    android:background="@drawable/all_shape_light_orange5"
-                    android:layout_height="57dp">
-                        <LinearLayout
-                            android:layout_centerInParent="true"
+                    android:background="@drawable/all_shape_light_orange5">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_tick0"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/iv_tick0"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="@color/default_img_color" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="第一天"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/orange"
-                                android:textSize="10dp"
-                                android:visibility="visible" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:text="第一天"
+                            android:textColor="@color/orange"
+                            android:textSize="10dp"
+                            android:visibility="visible" />
+                    </LinearLayout>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="57dp"
                     android:layout_marginLeft="9dp"
-                    android:background="@drawable/all_shape_light_orange5"
-                    android:layout_height="57dp">
-                        <LinearLayout
-                            android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/all_shape_light_orange5">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_tick1"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/iv_tick1"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="@color/default_img_color" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="第二天"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/orange"
-                                android:textSize="10dp"
-                                android:visibility="visible" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:text="第二天"
+                            android:textColor="@color/orange"
+                            android:textSize="10dp"
+                            android:visibility="visible" />
+                    </LinearLayout>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="57dp"
                     android:layout_marginLeft="9dp"
-                    android:background="@drawable/all_shape_light_orange5"
-                    android:layout_height="57dp">
-                        <LinearLayout
-                            android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/all_shape_light_orange5">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_tick2"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/iv_tick2"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="@color/default_img_color" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="第三天"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/orange"
-                                android:textSize="10dp"
-                                android:visibility="visible" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:text="第三天"
+                            android:textColor="@color/orange"
+                            android:textSize="10dp"
+                            android:visibility="visible" />
+                    </LinearLayout>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="57dp"
                     android:layout_marginLeft="9dp"
-                    android:background="@drawable/all_shape_light_orange5"
-                    android:layout_height="57dp">
-                        <LinearLayout
-                            android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/all_shape_light_orange5">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_tick3"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/iv_tick3"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="@color/default_img_color" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="第四天"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/orange"
-                                android:textSize="10dp"
-                                android:visibility="visible" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:text="第四天"
+                            android:textColor="@color/orange"
+                            android:textSize="10dp"
+                            android:visibility="visible" />
+                    </LinearLayout>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="57dp"
                     android:layout_marginLeft="9dp"
-                    android:background="@drawable/all_shape_light_orange5"
-                    android:layout_height="57dp">
-                        <LinearLayout
-                            android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/all_shape_light_orange5">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_tick4"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/iv_tick4"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="@color/default_img_color" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="第五天"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/orange"
-                                android:textSize="10dp"
-                                android:visibility="visible" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:text="第五天"
+                            android:textColor="@color/orange"
+                            android:textSize="10dp"
+                            android:visibility="visible" />
+                    </LinearLayout>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="57dp"
                     android:layout_marginLeft="9dp"
-                    android:background="@drawable/all_shape_light_orange5"
-                    android:layout_height="57dp">
-                        <LinearLayout
-                            android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/all_shape_light_orange5">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_tick5"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:id="@+id/iv_tick5"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="@color/default_img_color" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="第六天"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/orange"
-                                android:textSize="10dp"
-                                android:visibility="visible" />
-                        </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp"
+                            android:text="第六天"
+                            android:textColor="@color/orange"
+                            android:textSize="10dp"
+                            android:visibility="visible" />
+                    </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_days7"
                 android:layout_width="match_parent"
-                android:layout_marginRight="15dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/all_shape_light_orange5"
-                android:layout_height="57dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content">
+                android:layout_marginRight="15dp"
+                android:background="@drawable/all_shape_light_orange5">
 
-                    <FrameLayout
-                        android:layout_marginLeft="20dp"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
-                        <ImageView
-                            android:id="@+id/iv_tick6"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:background="@color/default_img_color" />
 
-                        <ImageView
-                            android:background="@color/default_img_color"
-                            android:id="@+id/iv_img6"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-                    </FrameLayout>
-                    <TextView
-                        android:id="@+id/tv_register_points"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="积分+50 成长值+100"
-                        android:layout_marginLeft="15dp"
-                        android:textColor="@color/orange"
-                        android:textSize="14dp"
-                        android:visibility="visible" />
-                </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_img6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:padding="@dimen/margin_5" />
+
                 <TextView
-                    android:background="@drawable/all_shape_leftbottom_topright_light_red5"
+                    android:id="@+id/tv_register_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/iv_img6"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="积分+50 成长值+100"
+                    android:textColor="@color/orange"
+                    android:textSize="14dp"
+                    android:visibility="visible" />
+
+                <TextView
                     android:layout_width="40dp"
                     android:layout_height="17dp"
-                    android:layout_gravity="center_vertical"
-                    android:text="第七天"
-                    android:gravity="center"
                     android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/all_shape_leftbottom_topright_light_red5"
+                    android:gravity="center"
+                    android:text="第七天"
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:visibility="visible" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/tv_sign"
-                android:text="立即签到"
-                android:gravity="center"
-                android:textSize="17dp"
-                android:textColor="@color/white"
                 android:layout_width="match_parent"
-                android:layout_marginTop="15dp"
+                android:layout_height="45dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
+                android:layout_marginBottom="@dimen/margin_20"
                 android:background="@drawable/allshape_orange35"
-                android:layout_height="45dp"/>
+                android:gravity="center"
+                android:text="立即签到"
+                android:textColor="@color/white"
+                android:textSize="17dp" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -7,93 +7,92 @@
 
     <include layout="@layout/layout_title" />
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
-    <ImageView
-        android:layout_width="@dimen/public_space_value_70"
-        android:layout_height="@dimen/public_space_value_70"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/public_space_value_25"
-        android:adjustViewBounds="true"
-        android:background="@mipmap/bg_set_zhuxiao" />
+            <ImageView
+                android:layout_width="@dimen/public_space_value_70"
+                android:layout_height="@dimen/public_space_value_70"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/public_space_value_25"
+                android:adjustViewBounds="true"
+                android:background="@mipmap/bg_set_zhuxiao" />
 
 
-    <TextView
-        android:id="@+id/tv_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/public_space_value_25"
-        android:layout_marginTop="@dimen/margin"
-        android:layout_marginRight="@dimen/public_space_value_25"
-        android:text="很遗憾，将153****2921所绑定的账号注 销,相信短暂的离别只为日后更好的相见~"
-        android:textColor="@color/title_color"
-        android:textSize="@dimen/text_size_18" />
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/public_space_value_25"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginRight="@dimen/public_space_value_25"
+                android:text="很遗憾，将153****2921所绑定的账号注 销,相信短暂的离别只为日后更好的相见~"
+                android:textColor="@color/title_color"
+                android:textSize="@dimen/text_size_18" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/public_space_value_25"
-        android:layout_marginTop="@dimen/margin_8"
-        android:layout_marginRight="@dimen/public_space_value_25"
-        android:text="注销账号无法恢复，请谨慎操作。注销账号前，我们 需要对以下信息进行审核，以保证你的账号安全。"
-        android:textColor="@color/title_third_color"
-        android:textSize="@dimen/text_size_14" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/public_space_value_25"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginRight="@dimen/public_space_value_25"
+                android:text="注销账号无法恢复，请谨慎操作。注销账号前，我们 需要对以下信息进行审核，以保证你的账号安全。"
+                android:textColor="@color/title_third_color"
+                android:textSize="@dimen/text_size_14" />
 
-     <com.huacheng.huiservers.view.MyListView
-         android:id="@+id/listview"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:visibility="visible"
-         android:divider="@null"
-         android:layout_marginTop="@dimen/margin_15"
-         android:layout_marginLeft="@dimen/public_space_value_25"
-         android:layout_marginRight="@dimen/public_space_value_25"/>
-
-
-     <TextView
-         android:id="@+id/next"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginLeft="@dimen/public_space_value_25"
-         android:layout_marginRight="@dimen/public_space_value_25"
-         android:layout_marginTop="@dimen/public_space_value_35"
-         android:gravity="center"
-         android:textSize="@dimen/text_size_16"
-         android:padding="15dp"
-         android:background="@drawable/shape_solid_orange_btn"
-         android:textColor="@color/white"
-         android:text="下一步"/>
+            <com.huacheng.huiservers.view.MyListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/public_space_value_25"
+                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginRight="@dimen/public_space_value_25"
+                android:divider="@null"
+                android:visibility="visible" />
 
 
+            <TextView
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/public_space_value_25"
+                android:layout_marginTop="@dimen/public_space_value_35"
+                android:layout_marginRight="@dimen/public_space_value_25"
+                android:background="@drawable/shape_solid_orange_btn"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="下一步"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16" />
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/public_space_value_25"
-          android:layout_marginRight="@dimen/public_space_value_25"
-          android:textSize="@dimen/text_size_12"
-          android:layout_marginTop="@dimen/margin"
-          android:text="点击“下一步”即代表你自愿放弃账号内所有虚拟资产并同意"/>
 
-    <TextView
-        android:id="@+id/protocal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/public_space_value_25"
-        android:layout_marginRight="@dimen/public_space_value_25"
-        android:layout_marginBottom="@dimen/margin_20"
-        android:textColor="@color/blue"
-        android:textSize="@dimen/text_size_12"
-        android:text="《社区慧生活用户注销协议》"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/public_space_value_25"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginRight="@dimen/public_space_value_25"
+                android:text="点击“下一步”即代表你自愿放弃账号内所有虚拟资产并同意"
+                android:textSize="@dimen/text_size_12" />
 
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/protocal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/public_space_value_25"
+                android:layout_marginRight="@dimen/public_space_value_25"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:text="《社区慧生活用户注销协议》"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/text_size_12" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

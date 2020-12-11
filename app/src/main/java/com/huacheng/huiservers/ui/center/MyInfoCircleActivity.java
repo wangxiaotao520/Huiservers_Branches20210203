@@ -16,10 +16,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.model.UcenterIndex;
@@ -51,7 +53,10 @@ public class MyInfoCircleActivity extends BaseActivity {
     private EnhanceTabLayout mEnhanceTabLayout;
     private String[] mTitles = {"我的邻里"};
     private ViewPager mViewPager;
-    private TextView tv_edit;
+
+
+    TextView nameTx,addressTx ,signatureTx;
+    ImageView isVip,vipLevel;
     private SimpleDraweeView sdv_image;
     UcenterIndex.DataBean infoBean;
     List<BaseFragment> mFragments = new ArrayList<>();
@@ -63,6 +68,7 @@ public class MyInfoCircleActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     protected void initView() {
 
@@ -72,12 +78,8 @@ public class MyInfoCircleActivity extends BaseActivity {
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) toolbar.getLayoutParams();
         layoutParams.setMargins(0, TDevice.getStatuBarHeight(this), 0, 0);
         toolbar.setLayoutParams(layoutParams);
-
         toolbar.setTitle(infoBean.getNickname());
         setSupportActionBar(toolbar);
-        //      设置标题
-
-
         appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
@@ -91,14 +93,23 @@ public class MyInfoCircleActivity extends BaseActivity {
 
             }
         });
+        nameTx = findViewById(R.id.name);
+        addressTx = findViewById(R.id.address);
+        signatureTx = findViewById(R.id.signature);
+        isVip = findViewById(R.id.isvip);
+        vipLevel = findViewById(R.id.vip_level);
 
+        nameTx.setText(infoBean.getNickname());
+        signatureTx.setText(infoBean.getSignature());
+        isVip.setVisibility(infoBean.getIs_vip().equals("1") ? View.VISIBLE : View.GONE);
+         // todo  Address
+         addressTx.setText(infoBean.getAddress());
         sdv_image = findViewById(R.id.sdv_image);
         if (!StringUtils.isEmpty(infoBean.getAvatars())) {
             FrescoUtils.getInstance().setImageUri(sdv_image, StringUtils.getImgUrl(infoBean.getAvatars()));
         }
 
 
-        tv_edit = findViewById(R.id.tv_edit);
 
         mEnhanceTabLayout = findViewById(R.id.enhance_tab_layout);
 
@@ -145,12 +156,7 @@ public class MyInfoCircleActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initListener() {
-        tv_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MyInfoCircleActivity.this, MyInfoEditActivity.class));
-            }
-        });
+
         //返回键
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

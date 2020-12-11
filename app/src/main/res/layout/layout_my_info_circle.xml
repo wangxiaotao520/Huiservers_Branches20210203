@@ -51,46 +51,66 @@
                     android:layout_marginTop="@dimen/margin"
                     android:orientation="horizontal">
 
-
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="明天如你所愿"
-                        android:textColor="@color/title_color"
-                        android:textSize="18sp" />
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="明天如你所愿"
+                            android:textColor="@color/title_color"
+                            android:textSize="18sp" />
+                        <ImageView
+                            android:id="@+id/isvip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_5" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_edit"
+
+                    <ImageView
+                        android:id="@+id/vip_level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/margin_15"
-                        android:background="@drawable/checked_bg"
-                        android:layout_gravity="right"
-                        android:gravity="center"
-                        android:text="编辑"
-                        android:textColor="@color/orange"
-                        android:textSize="@dimen/t_12sp" />
+                        android:layout_gravity="right" />
                 </FrameLayout>
 
                 <TextView
+                    android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="95dp"
+                    android:layout_marginTop="@dimen/margin"
                     android:text="山西  晋中"
                     android:textColor="@color/title_sub_color"
                     android:textSize="13sp" />
 
-                 <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin"
                     android:layout_marginLeft="@dimen/margin_15"
                     android:layout_marginRight="@dimen/margin_15"
-                     android:layout_marginBottom="@dimen/margin_15"
-                    android:text="我沉默. 不代表我¨ 不痛≯ に ◆、罘停悳,寻找呐熟悉的身 忘了爱影。"
-                    android:textColor="@color/title_sub_color"
-                    android:textSize="13sp" />
+                    android:layout_marginBottom="@dimen/margin_15">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_signature"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/signature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="山西 晋中"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/title_sub_color"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
 
 
             </LinearLayout>
@@ -102,8 +122,6 @@
                 android:layout_height="75dp"
                 android:layout_marginLeft="@dimen/margin_15"
                 android:layout_marginTop="110dp"
-                android:background="@color/default_img_color"
-                fresco:placeholderImage="@color/default_img_color"
                 fresco:placeholderImageScaleType="centerCrop"
                 fresco:roundAsCircle="true" />
 

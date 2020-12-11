@@ -87,6 +87,7 @@ public class UcenterIndex {
         private String nickname;
         private String avatars;
         private String signature;
+        private String address;
         private String is_vip;
         private String points;
         private String rank;
@@ -152,6 +153,14 @@ public class UcenterIndex {
 
         public void setSignature(String signature) {
             this.signature = signature;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
         }
 
         public String getIs_vip() {

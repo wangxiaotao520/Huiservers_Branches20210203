@@ -77,8 +77,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     ImageView ivTick5;
     @BindView(R.id.ll_days1_6)
     LinearLayout llDays1_6;
-    @BindView(R.id.iv_tick6)
-    ImageView ivTick6;
+
     @BindView(R.id.iv_img6)
     ImageView ivImg6;
     @BindView(R.id.rl_days7)
@@ -126,18 +125,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             LinearLayout childAt_ = (LinearLayout) childAt.getChildAt(0);
                             ImageView imageView = (ImageView) childAt_.getChildAt(0);
                             if (i< modelSignRegister.getSign_num()){
-                                imageView.setBackgroundColor(Color.parseColor("#ffffff"));
+                                imageView.setBackgroundResource(R.drawable.sign_yes);
                             }else {
-                                imageView.setBackgroundColor(Color.parseColor("#ff0000"));
+                                imageView.setBackgroundResource(R.drawable.sign_no);
                             }
                         }
                         //第七天
                         if (modelSignRegister.getSign_num()==7){
-                            ivTick6.setVisibility(View.VISIBLE);
-                            ivImg6.setVisibility(View.GONE);
+                            ivImg6.setImageResource(R.drawable.sign_yes7);
                         }else {
-                            ivTick6.setVisibility(View.GONE);
-                            ivImg6.setVisibility(View.VISIBLE);
+                            ivImg6.setImageResource(R.drawable.sign_no7);
+
                         }
 
                         tv_register_points.setText("积分+"+modelSignRegister.getSign_points()+"  成长值+" +modelSignRegister.getSign_rank());
