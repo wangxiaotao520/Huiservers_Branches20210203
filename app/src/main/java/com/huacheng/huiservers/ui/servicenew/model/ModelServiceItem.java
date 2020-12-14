@@ -14,8 +14,17 @@ public class ModelServiceItem implements Serializable {
     private String title_thumb_img;
     private String title_img_size;
     private String price;
+    private String is_vip;
     private String pension_display;
     private int total_Pages;
+
+    public String getIs_vip() {
+        return is_vip;
+    }
+
+    public void setIs_vip(String is_vip) {
+        this.is_vip = is_vip;
+    }
 
     public String getTitle_img_size() {
         return title_img_size;

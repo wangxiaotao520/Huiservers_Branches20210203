@@ -110,21 +110,22 @@ public class MerchantServicexAdapter extends BaseAdapter {
                     SimpleDraweeView sdv_premium_merchat_bg = v.findViewById(R.id.sdv_premium_merchat_bg);
                     LinearLayout lin_most = v.findViewById(R.id.lin_most);
 
-
                     final ModelServiceItem item = services.get(i);
                     FrescoUtils.getInstance().setImageUri(sdv_premium_merchat_bg, ApiHttpClient.IMG_SERVICE_URL + item.getTitle_img());
-                  //  tv_titleName.setText(item.getTitle());
-                    //TODO vip标签
-                    String title =item.getTitle()+"";
-                    String addSpan = "VIP折扣";
-                    SpannableString spannableString=new SpannableString(addSpan+" "+title);
-                    Drawable d = context.getResources().getDrawable(R.mipmap.ic_vip_span);
-                    d.setBounds(0, 0, DeviceUtils.dip2px(context,50), DeviceUtils.dip2px(context,16));
-                    ImageSpan span = new MyImageSpan(context,d);
-                    spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                    tv_titleName.setText(spannableString);
 
-
+                    // vip标签
+                    if ("1".equals(item.getIs_vip())){
+                        String title =item.getTitle()+"";
+                        String addSpan = "VIP折扣";
+                        SpannableString spannableString=new SpannableString(addSpan+" "+title);
+                        Drawable d = context.getResources().getDrawable(R.mipmap.ic_vip_span);
+                        d.setBounds(0, 0, DeviceUtils.dip2px(context,50), DeviceUtils.dip2px(context,16));
+                        ImageSpan span = new MyImageSpan(context,d);
+                        spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                        tv_titleName.setText(spannableString);
+                    }else {
+                        tv_titleName.setText(item.getTitle());
+                    }
 
                     holder.lin_merchant_card.addView(v);
 
