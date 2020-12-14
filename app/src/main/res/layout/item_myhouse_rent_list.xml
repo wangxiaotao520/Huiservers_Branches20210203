@@ -5,16 +5,18 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp">
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/sdv_head"
@@ -25,12 +27,12 @@
                 android:scaleType="centerCrop"
                 fresco:placeholderImage="@color/default_img_color"
                 fresco:placeholderImageScaleType="centerCrop"
-                fresco:roundTopLeft="true"
-                fresco:roundTopRight="true"
+                fresco:roundAsCircle="false"
                 fresco:roundBottomLeft="true"
                 fresco:roundBottomRight="true"
-                fresco:roundedCornerRadius="5dp"
-                fresco:roundAsCircle="false" />
+                fresco:roundTopLeft="true"
+                fresco:roundTopRight="true"
+                fresco:roundedCornerRadius="5dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,9 +95,9 @@
                         android:id="@+id/tv_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:text=""
                         android:textColor="@color/colorPrimary"
-                        android:layout_centerVertical="true"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -103,9 +105,9 @@
                         android:id="@+id/tv_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:singleLine="true"
-                        android:layout_centerVertical="true"
                         android:text=""
                         android:textColor="@color/title_third_color"
                         android:textSize="15sp"
@@ -128,8 +130,8 @@
                                 android:id="@+id/iv_rentss"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
-
-                                android:src="@mipmap/ic_h_no_review" />
+                                android:src="@mipmap/ic_h_no_review"
+                                android:visibility="gone" />
                         </LinearLayout>
 
                         <TextView
@@ -151,10 +153,11 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
-            android:background="@color/line"
-            android:layout_height="1.5px"/>
+            android:layout_height="1.5px"
+            android:background="@color/line" />
     </LinearLayout>
 
 

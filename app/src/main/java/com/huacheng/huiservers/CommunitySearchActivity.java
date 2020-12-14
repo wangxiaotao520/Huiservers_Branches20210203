@@ -264,7 +264,7 @@ public class CommunitySearchActivity extends BaseActivity implements AdapterCoum
     public void onClickListItem(ModelCoummnityList item, int position) {
         if (jump_type==1){
             requestCommunityId(item);
-        }else if (jump_type==2){
+        }else if (jump_type==2||jump_type==3){
             Intent intent = new Intent();
             intent.putExtra("location_provice",location_provice);
             intent.putExtra("location_city",location_city);

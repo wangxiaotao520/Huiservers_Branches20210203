@@ -72,7 +72,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
 
     private String location_provice="", location_district="", location_city="",location_code="";//
     private String longitude="",latitude="";
-    private int jump_type = 1;  //1从首页点进来 2.从商城选择收货地址点进来
+    private int jump_type = 1;  //1从首页点进来 2.从商城选择收货地址点进来 3添加房屋
     private String cat_search_name="商务住宅";
     private LinearLayout ll_empty_my_community;
     private ListView mListViewEmpty;
@@ -85,6 +85,8 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
         titleName.setText("选择小区");
         if (jump_type==2){
             titleName.setText("选择收货地址");
+        }else if(jump_type==3){
+            titleName.setText("选择小区");
         }
         iv_right = findViewById(R.id.iv_right);
         mListview = findViewById(R.id.listview);
@@ -208,7 +210,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initIntentData() {
         this.jump_type=this.getIntent().getIntExtra("jump_type",1);
-        if (jump_type==2){
+        if (jump_type==2||jump_type==3){
             cat_search_name="";
         }
     }
@@ -731,7 +733,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
                 //附近小区
                 requestCommunityId(item,item.getType());
             }
-        }else if (jump_type==2){//收货地址
+        }else if (jump_type==2||jump_type==3){//收货地址
             if (item.getType()==1){//当前小区
                 Intent intent = new Intent();
                 intent.putExtra("location_provice",prefrenceUtil.getProvince_cn()+"");
@@ -915,7 +917,7 @@ public class CommunityListActivity extends BaseActivity implements View.OnClickL
             if (requestCode==111){
                 if (jump_type==1){
                     finish();
-                }else if (jump_type==2){
+                }else if (jump_type==2||jump_type==3){
                     if (data!=null){
                         setResult(RESULT_OK,data);
                         finish();

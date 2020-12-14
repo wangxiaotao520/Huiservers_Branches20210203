@@ -94,11 +94,13 @@ public class RentSellCommissionActivity extends BaseActivity {
             case R.id.fl_house_sell:
                 intent.setClass(this, RentSellReleaseActivity.class);
                 intent.putExtra("type", 2);//售房
+                intent.putExtra("tag", "add");
                 startActivityForResult(intent, 22);
                 break;
             case R.id.fl_house_rent:
                 intent.setClass(this, RentSellReleaseActivity.class);
                 intent.putExtra("type", 1);//租房
+                intent.putExtra("tag", "add");
                 startActivityForResult(intent, 22);
                 break;
         }
