@@ -250,31 +250,36 @@ public class ServiceDetailActivity extends BaseActivity implements CollectPresen
         if (mModelOrdetDetail != null) {
             if ("2".equals(mModelOrdetDetail.getPension_display())) {
                 mTvTagKangyang.setVisibility(View.VISIBLE);
-                //  mTitleName.setText("\u3000\u3000"+mModelOrdetDetail.getTitle());
-
-                //TODO vip标签
-                String title = mModelOrdetDetail.getTitle();
-                String addSpan = "\u3000\u3000" + " " + "VIP折扣";
-                SpannableString spannableString = new SpannableString(addSpan + " " + title);
-                Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
-                d.setBounds(0, 0, DeviceUtils.dip2px(mContext, 50), DeviceUtils.dip2px(mContext, 16));
-                ImageSpan span = new MyImageSpan(mContext, d);
-                spannableString.setSpan(span, (addSpan + " " + title).indexOf("VIP折扣"), (addSpan + " " + title).indexOf("VIP折扣") + "VIP折扣".length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                mTitleName.setText(spannableString);
+                //vip标签
+                if ("1".equals(mModelOrdetDetail.getIs_vip())){
+                    String title = mModelOrdetDetail.getTitle();
+                    String addSpan = "\u3000\u3000" + " " + "VIP折扣";
+                    SpannableString spannableString = new SpannableString(addSpan + " " + title);
+                    Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+                    d.setBounds(0, 0, DeviceUtils.dip2px(mContext, 50), DeviceUtils.dip2px(mContext, 16));
+                    ImageSpan span = new MyImageSpan(mContext, d);
+                    spannableString.setSpan(span, (addSpan + " " + title).indexOf("VIP折扣"), (addSpan + " " + title).indexOf("VIP折扣") + "VIP折扣".length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    mTitleName.setText(spannableString);
+                }else {
+                    mTitleName.setText("\u3000\u3000" +mModelOrdetDetail.getTitle());
+                }
 
             } else {
                 mTvTagKangyang.setVisibility(View.GONE);
-                //   mTitleName.setText(mModelOrdetDetail.getTitle());
+                // vip标签
+                if ("1".equals(mModelOrdetDetail.getIs_vip())){
+                    String title = mModelOrdetDetail.getTitle() + "";
+                    String addSpan = "VIP折扣";
+                    SpannableString spannableString = new SpannableString(addSpan + " " + title);
+                    Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
+                    d.setBounds(0, 0, DeviceUtils.dip2px(mContext, 50), DeviceUtils.dip2px(mContext, 16));
+                    ImageSpan span = new MyImageSpan(mContext, d);
+                    spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    mTitleName.setText(spannableString);
+                }else {
+                    mTitleName.setText(mModelOrdetDetail.getTitle());
+                }
 
-                //TODO vip标签
-                String title = mModelOrdetDetail.getTitle() + "";
-                String addSpan = "VIP折扣";
-                SpannableString spannableString = new SpannableString(addSpan + " " + title);
-                Drawable d = mContext.getResources().getDrawable(R.mipmap.ic_vip_span);
-                d.setBounds(0, 0, DeviceUtils.dip2px(mContext, 50), DeviceUtils.dip2px(mContext, 16));
-                ImageSpan span = new MyImageSpan(mContext, d);
-                spannableString.setSpan(span, 0, addSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                mTitleName.setText(spannableString);
             }
             //判断是否已收藏
             if ("1".equals(mModelOrdetDetail.getIs_collection())){
@@ -495,6 +500,7 @@ public class ServiceDetailActivity extends BaseActivity implements CollectPresen
             //cateAdapter.notifyDataSetChanged();
             //默认选中第一条
             //cateAdapter.setSelectItem(0);
+            // TODO: 2020/12/10  vip价格
             mTvPrice.setText("¥" + tagListBeans.get(0).getPrice());
             mTvSelectCat.setText(tagListBeans.get(0).getTagname());
             tag_id = tagListBeans.get(0).getId();

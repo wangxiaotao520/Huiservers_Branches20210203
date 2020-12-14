@@ -330,7 +330,7 @@ public class HouserentDetailActivity extends BaseActivity {
             if (HouseRentType == 1) {
                 headerViewHolder.tv_price.setText(houseRentInfo.getList().getRent() + "元/月");
             } else {
-                headerViewHolder.tv_price.setText(houseRentInfo.getList().getSelling() + "万元");
+                headerViewHolder.tv_price.setText(houseRentInfo.getList().getSelling() + "元");
             }
             headerViewHolder.tv_time_release.setText(StringUtils.getDateToString(houseRentInfo.getList().getSet_time(), "8") + "更新");
 
