@@ -280,7 +280,14 @@ public class PersonalWorkOrderCommitActivity extends BaseActivity implements Vie
 
     @Override
     protected void initIntentData() {
-
+            if (getIntent().hasExtra("community")) {
+                HouseBean item = (HouseBean) getIntent().getSerializableExtra("community");
+                community_id = item.getCommunity_id();
+                community_cn = item.getCommunity_name();
+                address = item.getCommunity_address();
+                room_id = item.getRoom_id();
+                tv_address.setText(item.getCommunity_address());
+            }
     }
 
     @Override

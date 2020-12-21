@@ -467,7 +467,9 @@ public class Jump {
                             if (JsonUtil.getInstance().isSuccess(response)) {
                                 ModelLogin bean = (ModelLogin) JsonUtil.getInstance().parseJsonFromResponse(response, ModelLogin.class);
                                 if (bean != null && bean.getIs_bind_property().equals("2")) {
-                                    Intent intent = new Intent(mContext, PersonalWorkOrderCommitActivity.class);
+//                                    Intent intent = new Intent(mContext, PersonalWorkOrderCommitActivity.class);
+                                    Intent intent = new Intent(mContext, HouseListActivity.class);
+                                    intent.putExtra("type",0);
                                     mContext.startActivity(intent);
                                 } else {
                                     Intent intent = new Intent(mContext, PropertyBindHomeActivity.class);
@@ -677,7 +679,9 @@ public class Jump {
                             if (JsonUtil.getInstance().isSuccess(response)) {
                                 ModelLogin bean = (ModelLogin) JsonUtil.getInstance().parseJsonFromResponse(response, ModelLogin.class);
                                 if (bean != null && bean.getIs_bind_property().equals("2")) {
-                                    Intent intent = new Intent(mContext, PersonalWorkOrderCommitActivity.class);
+//                                    Intent intent = new Intent(mContext, PersonalWorkOrderCommitActivity.class);
+                                    Intent intent = new Intent(mContext, HouseListActivity.class);
+                                    intent.putExtra("type",0);
                                     mContext.startActivity(intent);
                                 } else {
                                     Intent intent = new Intent(mContext, PropertyBindHomeActivity.class);

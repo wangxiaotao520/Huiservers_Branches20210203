@@ -173,6 +173,7 @@ public class ModelPropertyWyInfo {
         private String tot_sumvalue;
         private String pay_time;
         private String count;//
+        private int is_switch;
 
         private String tot_refund;
 
@@ -296,6 +297,13 @@ public class ModelPropertyWyInfo {
             this.tot_refund = tot_refund;
         }
 
+        public int getIs_switch() {
+            return is_switch;
+        }
+
+        public void setIs_switch(int is_switch) {
+            this.is_switch = is_switch;
+        }
     }
     public static class SFaddDFBean {
 

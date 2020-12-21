@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/windowbackground"
     android:orientation="vertical">
 
@@ -28,8 +28,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:paddingTop="24dp"
-                    android:paddingLeft="16dp">
+                    android:paddingLeft="16dp"
+                    android:paddingTop="24dp">
 
                     <TextView
                         android:id="@+id/tv_verifyID"
@@ -42,14 +42,15 @@
                         tools:text="李/水平" />
 
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/rel_selectaddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
                     android:background="@color/white"
-                    android:paddingBottom="25dp"
-                    android:paddingLeft="16dp">
+                    android:paddingLeft="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="25dp">
 
                     <TextView
                         android:id="@+id/tv_house"
@@ -60,23 +61,25 @@
                         tools:text="商贸测试小区1号楼1单元101" />
 
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1.5px"
-                    android:background="@color/line"
-                    />
+                    android:background="@color/line" />
+
                 <TextView
                     android:id="@+id/tv_jiaofei_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="15dp"
+                    android:text="房屋缴费"
                     android:textColor="@color/title_color"
                     android:textColorHint="@color/text_color_hint"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:paddingTop="15dp"
-                    android:background="@color/white"
-                    android:paddingLeft="16dp"
-                    android:text="房屋缴费"  />
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -93,18 +96,17 @@
                         android:orientation="horizontal">
 
 
-
                         <TextView
                             android:id="@+id/tv_wuye"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin"
-                            android:text="物业费"
                             android:background="@drawable/allshape_orange_35_second"
                             android:paddingLeft="16dp"
-                            android:paddingRight="16dp"
                             android:paddingTop="5dp"
+                            android:paddingRight="16dp"
                             android:paddingBottom="5dp"
+                            android:text="物业费"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/t_15sp" />
 
@@ -112,6 +114,7 @@
 
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -122,8 +125,8 @@
                     <com.huacheng.huiservers.view.MyListView
                         android:id="@+id/lsit"
                         android:layout_width="match_parent"
-                        android:background="@drawable/white"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:background="@drawable/white" />
 
                     <include layout="@layout/no_data" />
 
@@ -137,13 +140,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/line"/>
+                android:background="@color/line" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -153,11 +156,11 @@
                 android:paddingRight="@dimen/margin">
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -184,8 +187,8 @@
                     android:background="@drawable/allshape_orange35"
                     android:gravity="center"
                     android:text="立即缴费"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_special_ff_color" />
+                    android:textColor="@color/text_special_ff_color"
+                    android:textSize="16sp" />
 
             </RelativeLayout>
 

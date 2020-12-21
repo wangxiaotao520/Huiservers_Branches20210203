@@ -122,7 +122,7 @@ public class PropertyNewActivity extends BaseActivity implements NewPropertyAdap
                 if ("property".equals(wuye_type)) {
                     Intent intent;
                     if (mdatas.get(position).getIs_ym().equals("0")) {
-                        intent = new Intent(PropertyNewActivity.this, PropertyHomeListActivity.class);
+                        intent = new Intent(PropertyNewActivity.this,   PropertyHomeListActivity.class);
                     } else {
                         intent = new Intent(PropertyNewActivity.this, PropertyHomeNewJFActivity.class);
                     }

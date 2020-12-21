@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,8 +19,10 @@ import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.HouseBean;
 import com.huacheng.huiservers.pay.chinaums.UnifyPayActivity;
 import com.huacheng.huiservers.ui.base.BaseActivity;
+import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestHistoryListActivity;
 import com.huacheng.huiservers.ui.index.property.adapter.PropertyWYInfoAdapter1;
 import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
@@ -53,7 +56,7 @@ import butterknife.OnClick;
  * 时间：2018/8/13 16:49
  * created by DFF
  */
-public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJFListener, OnCheckJFListener1 {
+public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJFListener1 {
     @BindView(R.id.lin_left)
     LinearLayout mLinLeft;
     @BindView(R.id.title_name)
@@ -78,7 +81,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     LinearLayout mLyDianfei;
     @BindView(R.id.list)
     MyListView mList;
-//    @BindView(R.id.tv_type_name)
+    //    @BindView(R.id.tv_type_name)
 //    TextView mTvTypeName;
     @BindView(R.id.tv_account_price)
     TextView mTvAccountPrice;
@@ -102,7 +105,8 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     LinearLayout llPayment;
     @BindView(R.id.tv_jiaofei_title)
     TextView tv_jiaofei_title;
-
+    @BindView(R.id.right)
+    TextView mRight;
     private int type;
     String room_id, fullname;
     private StringBuilder sb_bill_ids;
@@ -121,17 +125,21 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     private String last_ShuiFei = "";//上次水费的值
     private String last_Dianfei = "";//上次电费的值
     private boolean isShuifei = true;
-    private String company_id="";
+    private String company_id = "";
 
     private String selected_invoice_type = "";//选中的账单类型 如果该参数为0，能多选账单，且只能选该参数为0的账单，如果该参数为1，只能单选，不可选其他任何账单)
     private String selected_bill_id = ""; //选中的账单id 且只有在 selected_invoice_type=“1”时有值 只能选择它
-    private String selected_type_id  = "";//选中的费项id 且只有在 selected_invoice_type=“1”时有值 只能选择它
+    private String selected_type_id = "";//选中的费项id 且只有在 selected_invoice_type=“1”时有值 只能选择它
 
 
     @Override
     protected void initView() {
         ButterKnife.bind(this);
         mTitleName.setText("缴费");
+        mRight.setVisibility(View.VISIBLE);
+        mRight.setText("缴费记录");
+        mRight.setTextColor(getResources().getColor(R.color.orange));
+
         mTitleName.setFocusable(true);
         mTitleName.setFocusableInTouchMode(true);
         mTitleName.requestFocus();
@@ -146,7 +154,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 //        wyInfoAdapter = new PropertyWYInfoAdapter(PropertyHomeNewJFActivity.this, wyListData, true);
 //        wyInfoAdapter.setListener(this);
 //        mList.setAdapter(wyInfoAdapter);
-        wyInfoAdapter1 = new PropertyWYInfoAdapter1(PropertyHomeNewJFActivity.this, R.layout.property_homelist_item1,wyListData1,this);
+        wyInfoAdapter1 = new PropertyWYInfoAdapter1(PropertyHomeNewJFActivity.this, R.layout.property_homelist_item1, wyListData1, this);
         mList.setAdapter(wyInfoAdapter1);
         mLyWuye.setVisibility(View.GONE);
         mLyShuifei.setVisibility(View.GONE);
@@ -164,6 +172,19 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
     @Override
     protected void initListener() {
         getEditText();
+        mRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    Intent intent = new Intent(mContext, PropertyPaymentActivity.class);
+                    intent.putExtra("room_id",room_id);
+                    intent.putExtra("userName",propertyInfo.getRoom_info().getFullname());
+                    intent.putExtra("roomName",propertyInfo.getRoom_info().getAddress());
+
+                    startActivity(intent);
+                }
+
+        });
         mTvJf.setOnClickListener(new NoDoubleClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
@@ -183,9 +204,9 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                         Intent intent = new Intent(PropertyHomeNewJFActivity.this, PropertyFrimOrderActivity.class);
                         intent.putExtra("room_id", room_id);
                         intent.putExtra("bill_id", sb_bill_ids.toString());
-                        intent.putExtra("company_id",company_id);
-                        if (propertyInfo!=null&&propertyInfo.getRoom_info()!=null){
-                            intent.putExtra("fullName",propertyInfo.getRoom_info().getFullname());
+                        intent.putExtra("company_id", company_id);
+                        if (propertyInfo != null && propertyInfo.getRoom_info() != null) {
+                            intent.putExtra("fullName", propertyInfo.getRoom_info().getFullname());
                         }
                         startActivity(intent);
                         finish();
@@ -197,7 +218,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
                     if (propertyInfo.getIs_available() == 0) {//值为0 可以充值水费
                         if (!TextUtils.isEmpty(mEtPrice.getText().toString().trim())) {
-                            if (propertyInfo.getShuifei() != null&&propertyInfo.getShuifei().getInfo()!=null) {
+                            if (propertyInfo.getShuifei() != null && propertyInfo.getShuifei().getInfo() != null) {
 
                                 double aDouble1 = Double.valueOf(propertyInfo.getShuifei().getInfo().getUpper_limit());
                                 double aDouble2 = Double.valueOf(propertyInfo.getShuifei().getInfo().getSMay_acc());
@@ -228,7 +249,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     if (propertyInfo.getIs_available() == 0) {//值为0 可以充值电费
 
                         if (!TextUtils.isEmpty(mEtPrice.getText().toString().trim())) {
-                            if (propertyInfo.getDianfei() != null&&propertyInfo.getDianfei().getInfo()!=null) {
+                            if (propertyInfo.getDianfei() != null && propertyInfo.getDianfei().getInfo() != null) {
 
                                 double aDouble1 = Double.valueOf(propertyInfo.getDianfei().getInfo().getUpper_limit());
                                 double aDouble2 = Double.valueOf(propertyInfo.getDianfei().getInfo().getDMay_acc());
@@ -316,6 +337,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         MyOkHttp.get().post(ApiHttpClient.GET_ROOM_BILL, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
+                Log.d("cyd",response.toString());
                 hideDialog(smallDialog);
                 mTvJf.setClickable(true);
                 if (JsonUtil.getInstance().isSuccess(response)) {
@@ -386,9 +408,9 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
                 mTvAccountPrice.setText("¥ 0.00");
                 mTvJf.setText("立即充值");
-             //   mTvTypeName.setText("水费");
+                //   mTvTypeName.setText("水费");
                 mTvCzName.setText("水费充值");
-                if (propertyInfo != null && propertyInfo.getShuifei() != null&&propertyInfo.getShuifei().getInfo()!=null) {
+                if (propertyInfo != null && propertyInfo.getShuifei() != null && propertyInfo.getShuifei().getInfo() != null) {
                     if (!TextUtils.isEmpty(propertyInfo.getShuifei().getInfo().getSMay_acc())) {
                         mTvPrice.setText("¥ " + propertyInfo.getShuifei().getInfo().getSMay_acc());
                     } else {
@@ -401,7 +423,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 //输入框和下方价格的显示
                 if (!NullUtil.isStringEmpty(last_ShuiFei)) {
                     mTvAccountPrice.setText("¥ " + last_ShuiFei);
-                    mTvJf.setText("¥ " + last_ShuiFei+"  "+"立即充值");
+                    mTvJf.setText("¥ " + last_ShuiFei + "  " + "立即充值");
                     mEtPrice.setText(last_ShuiFei);
                     mEtPrice.setSelection(last_ShuiFei.length());
                 } else {
@@ -427,10 +449,10 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
                 mTvAccountPrice.setText("¥ 0.00");
                 mTvJf.setText("立即充值");
-             //   mTvTypeName.setText("电费");
+                //   mTvTypeName.setText("电费");
                 mTvCzName.setText("电费充值");
                 if (propertyInfo.getDianfei() != null) {
-                    if (propertyInfo.getDianfei().getInfo()!=null&&!TextUtils.isEmpty(propertyInfo.getDianfei().getInfo().getDMay_acc())) {
+                    if (propertyInfo.getDianfei().getInfo() != null && !TextUtils.isEmpty(propertyInfo.getDianfei().getInfo().getDMay_acc())) {
                         mTvPrice.setText("¥ " + propertyInfo.getDianfei().getInfo().getDMay_acc());
                     } else {
                         mTvPrice.setText("¥ 0.00");
@@ -443,7 +465,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 //输入框和下方价格的显示
                 if (!NullUtil.isStringEmpty(last_Dianfei)) {
                     mTvAccountPrice.setText("¥ " + last_Dianfei);
-                    mTvJf.setText("¥ " + last_Dianfei+"  "+"立即充值");
+                    mTvJf.setText("¥ " + last_Dianfei + "  " + "立即充值");
                     mEtPrice.setText(last_Dianfei);
                     mEtPrice.setSelection(last_Dianfei.length());
                 } else {
@@ -472,7 +494,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                         Intent intent = new Intent(PropertyHomeNewJFActivity.this, PropertyFrimOrderActivity.class);
                         intent.putExtra("room_id", room_id);
                         intent.putExtra("bill_id", sb_bill_ids.toString());
-                        intent.putExtra("company_id",company_id);
+                        intent.putExtra("company_id", company_id);
                         startActivity(intent);
                         finish();
                     } else {
@@ -483,7 +505,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
 
                     if (propertyInfo.getIs_available() == 0) {//值为0 可以充值水费
                         if (!TextUtils.isEmpty(mEtPrice.getText().toString().trim())) {
-                            if (propertyInfo.getShuifei() != null&&propertyInfo.getShuifei().getInfo()!=null) {
+                            if (propertyInfo.getShuifei() != null && propertyInfo.getShuifei().getInfo() != null) {
 
                                 double aDouble1 = Double.valueOf(propertyInfo.getShuifei().getInfo().getUpper_limit());
                                 double aDouble2 = Double.valueOf(propertyInfo.getShuifei().getInfo().getSMay_acc());
@@ -514,7 +536,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     if (propertyInfo.getIs_available() == 0) {//值为0 可以充值电费
 
                         if (!TextUtils.isEmpty(mEtPrice.getText().toString().trim())) {
-                            if (propertyInfo.getDianfei() != null&&propertyInfo.getDianfei().getInfo()!=null) {
+                            if (propertyInfo.getDianfei() != null && propertyInfo.getDianfei().getInfo() != null) {
 
                                 double aDouble1 = Double.valueOf(propertyInfo.getDianfei().getInfo().getUpper_limit());
                                 double aDouble2 = Double.valueOf(propertyInfo.getDianfei().getInfo().getDMay_acc());
@@ -554,7 +576,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         params.put("category_id", type);
         params.put("category_name", type_cn);
         params.put("amount", mEtPrice.getText().toString().trim());
-        params.put("company_id",company_id+"");
+        params.put("company_id", company_id + "");
      /*   params.put("community_id", roomInfoBean.getCommunity_id());
         params.put("community_name", roomInfoBean.getCommunity_name());
         params.put("building_name", roomInfoBean.getBuilding_name());
@@ -613,7 +635,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                 for (int i = 0; i < wyList.size(); i++) {
                     for (int i1 = 0; i1 < wyList.get(i).size(); i1++) {
                         wyList.get(i).get(i1).setPosition(i1);
-                        wyListData1.add( wyList.get(i).get(i1));
+                        wyListData1.add(wyList.get(i).get(i1));
                     }
                 }
                 wyInfoAdapter1.notifyDataSetChanged();
@@ -642,10 +664,10 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     total_wuye_price += selected_price_list.get(i);
                 }
                 mTvAccountPrice.setText("¥ " + setFloat(total_wuye_price));
-                if (total_wuye_price==0){
+                if (total_wuye_price == 0) {
                     mTvJf.setText("立即缴费");
-                }else {
-                    mTvJf.setText("¥ " + setFloat(total_wuye_price)+"  "+"立即缴费");
+                } else {
+                    mTvJf.setText("¥ " + setFloat(total_wuye_price) + "  " + "立即缴费");
                 }
             }
 
@@ -659,15 +681,16 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         }
 
         //判断水电费的显示
-        if (propertyInfo.getIs_android_electric()==0){
+        if (propertyInfo.getIs_android_electric() == 0 && propertyInfo.getRoom_info().getIs_switch() == 1) {
+
             mLyDianfei.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             mLyDianfei.setVisibility(View.GONE);
         }
 
-        if (propertyInfo.getIs_android_water()==0){
+        if (propertyInfo.getIs_android_water() == 0 && propertyInfo.getRoom_info().getIs_switch()== 1) {
             mLyShuifei.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             mLyShuifei.setVisibility(View.GONE);
         }
     }
@@ -695,14 +718,14 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     mTvJf.setText("立即充值");
                     if (isShuifei) {
                         //保存上次水费的值
-                        last_ShuiFei =  "";
+                        last_ShuiFei = "";
                     } else {
                         //保存上次电费的值
-                        last_Dianfei =  "";
+                        last_Dianfei = "";
                     }
                 } else {
                     mTvAccountPrice.setText("¥ " + mEtPrice.getText().toString().trim() + "");
-                    mTvJf.setText("¥ " + mEtPrice.getText().toString().trim() +"  "+"立即充值");
+                    mTvJf.setText("¥ " + mEtPrice.getText().toString().trim() + "  " + "立即充值");
                     if (isShuifei) {
                         //保存上次水费的值
                         last_ShuiFei = mEtPrice.getText().toString().trim() + "";
@@ -720,137 +743,15 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         });
     }
 
-    /**
-     * 点击选择
-     *
-     * @param parentPosition
-     * @param childPosition
-     */
-    @Override
-    public void onClickChildItem(int parentPosition, int childPosition) {
-//        if (wyListData.get(parentPosition).get(childPosition).isChecked()) {//本身是选中状态 反选
-//            //先反选
-//            wyListData.get(parentPosition).get(childPosition).setChecked(false);
-//            selected_invoice_type="";
-//            selected_bill_id="";
-//            //遍历所有集合，判断有无选中
-//            Loop:
-//            for (int i = 0; i < wyListData.get(parentPosition).size(); i++) {
-//                List<ModelWuye> modelWuyes = wyListData.get(parentPosition);
-//                for (int i1 = 0; i1 < modelWuyes.size(); i1++) {
-//                    if (modelWuyes.get(i1).isChecked()){
-//                        selected_invoice_type=modelWuyes.get(i1).getIs_invoice();
-//                        if (selected_invoice_type.equals("1")){
-//                            selected_bill_id= modelWuyes.get(i1).getBill_id();
-//                        }
-//                        break Loop;
-//                    }
-//                }
-//            }
-//
-//        } else { //本身是没选中
-//            if (NullUtil.isStringEmpty(selected_invoice_type)){
-//                //从来没有选过
-//                wyListData.get(parentPosition).get(childPosition).setChecked(true);
-//                selected_invoice_type= wyListData.get(parentPosition).get(childPosition).getIs_invoice();
-//                if ("1".equals(selected_invoice_type)){
-//                    selected_bill_id= wyListData.get(parentPosition).get(childPosition).getBill_id()+"";
-//                }else {
-//                    selected_bill_id="";
-//                }
-//            }else if ("0".equals(selected_invoice_type)){
-//                //可多选
-//                if ("0".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())) {
-//                    wyListData.get(parentPosition).get(childPosition).setChecked(true);
-//                }else if ("1".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())){//单选账单
-//                    SmartToast.showInfo("该账单不可合并支付");
-//                    return;
-//                }
-//            }else if ("1".equals(selected_invoice_type)){//单选账单
-//                if ("0".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())) {
-//                    SmartToast.showInfo("该账单只能单独支付");
-//                    return;
-//                }else if ("1".equals(wyListData.get(parentPosition).get(childPosition).getIs_invoice())){//单选账单
-//                    SmartToast.showInfo("该账单只能单独支付");
-//                    return;
-//                }
-//            }
-//
-//        }
-//        wyInfoAdapter.setSelected_bill_id(selected_bill_id);
-//        wyInfoAdapter.setSelected_invoice_type(selected_invoice_type);
-//        getWuyeInfo();
-//        wyInfoAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public void onClickChildItem(int childPosition) {
-//         if (wyListData1.get(childPosition).isChecked()) {//本身是选中状态 反选
-//            //先反选
-//            wyListData1.get(childPosition).setChecked(false);
-//            selected_invoice_type="";
-//            selected_bill_id="";
-//            selected_type_id="";
-//            //遍历所有集合，判断有无选中
-//            Loop:
-//            for (int i = 0; i <wyListData1.size(); i++) {
-//               ModelWuye modelWuye =  wyListData1.get(i);
-//                    if (modelWuye.isChecked()){
-//                        selected_invoice_type=modelWuye.getIs_invoice();
-//                        if (selected_invoice_type.equals("1")){
-//                            selected_bill_id= modelWuye.getBill_id();
-//                            selected_type_id=modelWuye.getType_id();
-//                        }
-//                        break Loop;
-//                    }
-//
-//            }
-//        } else { //本身是没选中
-//            if (NullUtil.isStringEmpty(selected_invoice_type)){
-//                //从来没有选过
-//                wyListData1.get(childPosition).setChecked(true);
-//                selected_invoice_type= wyListData1.get(childPosition).getIs_invoice();
-//                if ("1".equals(selected_invoice_type)){
-//                    selected_bill_id= wyListData1.get(childPosition).getBill_id()+"";
-//                    selected_type_id=wyListData1.get(childPosition).getType_id()+"";
-//                }else {
-//                    selected_bill_id="";
-//                    selected_type_id="";
-//                }
-//            }else if ("0".equals(selected_invoice_type)){
-//                //可多选
-//                if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
-//                    wyListData1.get(childPosition).setChecked(true);
-//                }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
-//                    SmartToast.showInfo(wyListData1.get(childPosition).getCharge_type()+"设置为单独开票,不能与其他收费标准合并收费");
-//                    return;
-//                }
-//            }else if ("1".equals(selected_invoice_type)){//单选账单
-//                if ("0".equals(wyListData1.get(childPosition).getIs_invoice())) {
-//                    SmartToast.showInfo("所选账单设置为单独开票,不能与其他收费标准合并收费");
-//                    return;
-//                }else if ("1".equals(wyListData1.get(childPosition).getIs_invoice())){//单选账单
-//                    if (selected_type_id.equals(wyListData1.get(childPosition).getType_id())){
-//                        //费项相同 可选
-//                        wyListData1.get(childPosition).setChecked(true);
-//                    }else {
-//                        SmartToast.showInfo("所选账单设置为单独开票,不能与其他收费标准合并收费");
-//                        return;
-//                    }
-//                }
-//            }
-//
-//        }
-//        wyInfoAdapter1.setSelected_bill_id(selected_bill_id);
-//        wyInfoAdapter1.setSelected_invoice_type(selected_invoice_type);
-//        wyInfoAdapter1.setSelected_type_id(selected_type_id);
-//        wyInfoAdapter1.notifyDataSetChanged();
-//        sumValue();
+
 
         if (wyListData1.get(childPosition).isChecked()) {//本身是选中状态 反选
             //先反选
-           wyListData1.get(childPosition).setChecked(false);
-        }else {
+            wyListData1.get(childPosition).setChecked(false);
+        } else {
             wyListData1.get(childPosition).setChecked(true);
         }
         wyInfoAdapter1.notifyDataSetChanged();
@@ -861,11 +762,11 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
         selected_id_str.clear();
         selected_price_list.clear();
         for (int i = 0; i < wyListData1.size(); i++) {
-                String str = wyListData1.get(i ).getBill_id();
-                if (wyListData1.get(i ).isChecked()) {//如果被选中
-                    selected_id_str.add(str);
-                    selected_price_list.add(wyListData1.get(i ).getSumvalue());
-                }
+            String str = wyListData1.get(i).getBill_id();
+            if (wyListData1.get(i).isChecked()) {//如果被选中
+                selected_id_str.add(str);
+                selected_price_list.add(wyListData1.get(i).getSumvalue());
+            }
 
         }
         sb_bill_ids = new StringBuilder();
@@ -882,10 +783,10 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
             total_wuye_price += selected_price_list.get(i);
         }
         mTvAccountPrice.setText("¥ " + setFloat(total_wuye_price));
-        if (total_wuye_price==0){
+        if (total_wuye_price == 0) {
             mTvJf.setText("立即缴费");
-        }else {
-            mTvJf.setText("¥ " + setFloat(total_wuye_price)+"  "+"立即缴费");
+        } else {
+            mTvJf.setText("¥ " + setFloat(total_wuye_price) + "  " + "立即缴费");
         }
 
     }

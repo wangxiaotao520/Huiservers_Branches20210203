@@ -190,4 +190,5 @@ public class IndexAllServiesActivity extends BaseActivity implements View.OnClic
 
         }
     }
+
 }

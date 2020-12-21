@@ -29,6 +29,7 @@ import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestHistoryLis
 import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestigateActivity;
 import com.huacheng.huiservers.ui.index.openDoor.OpenLanActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterHouseList;
+import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -80,9 +81,9 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         ButterKnife.bind(this);
         if (type == 1) {
             mTitleName.setText("我的房屋");
-            mRight.setVisibility(View.VISIBLE);
-            mRight.setText("缴费记录");
-            mRight.setTextColor(getResources().getColor(R.color.orange));
+//            mRight.setVisibility(View.VISIBLE);
+//            mRight.setText("缴费记录");
+//            mRight.setTextColor(getResources().getColor(R.color.orange));
         } else {
             mRight.setVisibility(View.GONE);
             mTitleName.setText("选择房屋");
@@ -189,7 +190,16 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     //调查问卷的历史记录
                     startActivity(new Intent(HouseListActivity.this, InvestHistoryListActivity.class));
                 } else {
-                    startActivity(new Intent(HouseListActivity.this, PropertyPaymentActivity.class));
+                    Intent intent = new Intent(HouseListActivity.this, PropertyPaymentActivity.class);
+                    String roomId = "";
+                    if (mDatas != null && !mDatas.isEmpty()) {
+                        for (HouseBean bean : mDatas) {
+                            roomId += bean.getRoom_id() + ",";
+                        }
+                        roomId = roomId.substring(0,roomId.length() -1);
+                    }
+                    intent.putExtra("room_id",roomId);
+                    startActivity(intent);
                 }
             }
         });
@@ -206,12 +216,20 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                if (type == 0) {
+//                    Intent intent = new Intent();
+//                    intent.putExtra("community", mDatas.get(position));
+//                    setResult(RESULT_OK, intent);
+//                    finish();
+//                }
                 if (type == 0) {
                     Intent intent = new Intent();
                     intent.putExtra("community", mDatas.get(position));
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
+                    intent.setClass(mContext, PersonalWorkOrderCommitActivity.class);
+                    startActivity(intent);
+                }
+
+                else {
                     if ("property".equals(wuye_type)) {
                         Intent intent;
                         if (mDatas.get(position).getIs_ym().equals("0")) {
@@ -219,6 +237,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                         } else {
                             intent = new Intent(HouseListActivity.this, PropertyHomeNewJFActivity.class);
                         }
+
                         intent.putExtra("room_id", mDatas.get(position).getRoom_id());
                         intent.putExtra("company_id", mDatas.get(position).getCompany_id());
                         startActivity(intent);
