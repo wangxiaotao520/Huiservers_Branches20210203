@@ -280,10 +280,10 @@ public class RentSellReleaseActivity extends BaseActivity {
                 String total_price = data.getList().getSelling();
                 if (!StringUtils.isEmpty(total_price)) {
                     //使用BigDecimal可以防止BigDecimal 丢失两位精度
-//                    BigDecimal dSell = new BigDecimal(total_price);
-//                    BigDecimal totalSell = dSell.divide(BigDecimal.valueOf(10000));
+                    BigDecimal dSell = new BigDecimal(total_price);
+                    BigDecimal totalSell = dSell.divide(BigDecimal.valueOf(10000));
 
-                    etReleSellPrice.setText(total_price + "");
+                    etReleSellPrice.setText(totalSell + "");
                 } else {
                     double d_area = Double.parseDouble(releArea);
                     double d_unitPrice = Double.parseDouble(unitPrice);

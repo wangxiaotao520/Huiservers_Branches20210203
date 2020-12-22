@@ -213,7 +213,9 @@ public class ApiHttpClient {
     //工单列表
     public static String GETWORKLIST = API_URL + API_VERSION + "propertyWork/getWorkList";
 
-    //新版二手房接口
+    /**
+     *   新版二手房接口
+     */
     //添加租售房屋
     public static String ADD_HOUST = API_URL + "/House/House/add_house";
     // 房屋列表
@@ -222,6 +224,8 @@ public class ApiHttpClient {
     public static String GET_HOUST_DETAIL = API_URL + "/House/House/get_house_info";
     // 推荐房屋
     public static String GET_HOUST_RECOMMEND = API_URL + "/House/House/recommend_house";
+    // 添加用户查看或拨打记录
+    public static String GET_HOUST_LOG = API_URL + "/House/House/add_house_log";
     /**
      * 物业工单
      */
@@ -827,5 +831,6 @@ public class ApiHttpClient {
         GET_HOUST_LIST = API_URL + "/House/House/get_house_list";
         GET_HOUST_DETAIL = API_URL + "/House/House/get_house_info";
         GET_HOUST_RECOMMEND = API_URL + "/House/House/recommend_house";
+        GET_HOUST_LOG = API_URL + "/House/House/add_house_log";
     }
 }

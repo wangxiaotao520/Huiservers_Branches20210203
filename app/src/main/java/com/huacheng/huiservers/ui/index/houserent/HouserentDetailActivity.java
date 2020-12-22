@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.coder.zzq.smartshow.toast.SmartToast;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.dialog.CommomDialog;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
@@ -140,6 +141,9 @@ public class HouserentDetailActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
+             getCallAddSee("1");//查看浏览次数记录
+             }
         showDialog(smallDialog);
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
@@ -585,7 +589,7 @@ public class HouserentDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_btn_call://联系经纪人咨询
-                if (NullUtil.isStringEmpty(houseRentInfo.getPhone())) {
+                if (NullUtil.isStringEmpty(houseRentInfo.getAudit().getMobile())) {
                     return;
                 }
                 SharedPreferences preferencesLogin = this.getSharedPreferences("login", 0);
@@ -596,11 +600,11 @@ public class HouserentDetailActivity extends BaseActivity {
                         @Override
                         public void onClick(Dialog dialog, boolean confirm) {
                             if (confirm) {
-                                getCall();//拨打电话次数记录
+                                getCallAddSee("2");//拨打电话次数记录
                                 Intent intent = new Intent();
                                 intent.setAction(Intent.ACTION_DIAL);
                                 intent.setData(Uri.parse("tel:"
-                                        + houseRentInfo.getPhone()));
+                                        + houseRentInfo.getAudit().getMobile()));
                                 startActivity(intent);
                                 dialog.dismiss();
                             }
@@ -615,10 +619,14 @@ public class HouserentDetailActivity extends BaseActivity {
         }
     }
 
-    private void getCall() {
+    private void getCallAddSee(String status) {
         HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", BaseApplication.getUser().getUid()+"");
         params.put("house_id", id);
-        MyOkHttp.get().post(ApiHttpClient.GET_HOUSEEND_CALL, params, new JsonResponseHandler() {
+        params.put("status", status+"");
+        params.put("property", "1");//除了和昌都需要传这个参数
+        params.put("request", "1");//社区慧生活需要这个参数
+        MyOkHttp.get().post(ApiHttpClient.GET_HOUST_LOG, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
 

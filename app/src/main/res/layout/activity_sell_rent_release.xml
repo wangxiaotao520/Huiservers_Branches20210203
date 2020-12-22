@@ -893,35 +893,33 @@
                     android:layout_height="1px"
                     android:background="@color/line" />
 
-                <LinearLayout
-                    android:id="@+id/ly_refuse"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:paddingTop="@dimen/margin_15"
-                    android:paddingBottom="@dimen/margin_15">
-
-                    <TextView
-                        style="@style/rent_release_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_15"
-                        android:text="拒绝原因:" />
-
-                    <TextView
-                        android:id="@+id/tv_refuse"
-                        style="@style/rent_release_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_15"
-                        android:text="" />
-
-                </LinearLayout>
-
             </FrameLayout>
+            <LinearLayout
+                android:id="@+id/ly_refuse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:paddingTop="@dimen/margin_15"
+                android:paddingBottom="@dimen/margin_15">
 
+                <TextView
+                    style="@style/rent_release_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:text="拒绝原因:" />
+
+                <TextView
+                    android:id="@+id/tv_refuse"
+                    style="@style/rent_release_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:text="" />
+
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
