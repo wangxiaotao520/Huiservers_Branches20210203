@@ -158,7 +158,7 @@ public class MyHouseRentListAdapter extends CommonAdapter<ModelMyHouseList> {
                 mResource = R.mipmap.ic_h_no_review;
                 tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
             } else if ("1".equals(status)) {
-                status = "未出售";
+                status = "未出租";
                 mResource = R.mipmap.ic_h_no_sale;
                 tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.red_warning));
             } else if ("2".equals(status)) {
@@ -166,7 +166,7 @@ public class MyHouseRentListAdapter extends CommonAdapter<ModelMyHouseList> {
                 mResource = R.mipmap.ic_h_no_sale;
                 tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.title_third_color));
             } else if ("5".equals(status)) {
-                status = "已出售";
+                status = "已出租";
                 mResource = R.mipmap.ic_h_sold;
                 tv_rents_status.setTextColor(Color.parseColor("#18B632"));
             }else if ("6".equals(status)) {
