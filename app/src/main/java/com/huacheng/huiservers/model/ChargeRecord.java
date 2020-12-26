@@ -82,7 +82,16 @@ public class ChargeRecord {
         private String company_id;
         private String roomInfo;
         private String refund_money;
+        private String payer;
         private List<List<OrderListBean>> orderList;
+
+        public String getPayer() {
+            return payer;
+        }
+
+        public void setPayer(String payer) {
+            this.payer = payer;
+        }
 
         public String getId() {
             return id;

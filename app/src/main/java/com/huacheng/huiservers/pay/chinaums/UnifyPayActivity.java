@@ -92,6 +92,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
     private String order_id = "";
     private String type = "";
     private String price = "";
+    private String room_id = "";//物业缴费房间id
 
     private RxPermissions rxPermissions;
     private int request_count = 0;
@@ -103,6 +104,9 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
         order_id = this.getIntent().getExtras().getString("o_id") + "";
         type = this.getIntent().getExtras().getString("type") + "";
         price = this.getIntent().getExtras().getString("price");
+        if (type.equals("wuyeNew")){
+            room_id = this.getIntent().getExtras().getString("room_id");
+        }
 
     }
 
@@ -227,6 +231,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 intent.putExtra("type", type);
                 intent.putExtra("o_id", order_id);
                 intent.putExtra("price", price);
+                intent.putExtra("room_id",room_id);
                 startActivity(intent);
                 finish();
             } else {
@@ -250,6 +255,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                 intent.putExtra("type", type);
                 intent.putExtra("o_id", order_id);
                 intent.putExtra("price", price);
+                intent.putExtra("room_id",room_id);
                 startActivity(intent);
                 finish();
             } else {
@@ -420,6 +426,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                                 intent.putExtra("type", type);
                                 intent.putExtra("o_id", order_id);
                                 intent.putExtra("price", price);
+                                intent.putExtra("room_id",room_id);
                                 startActivity(intent);
                                 finish();
                             } else if (typetag == TYPE_CLOUD_QUICK_PAY) {
@@ -438,6 +445,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
                                 intent.putExtra("type", type);
                                 intent.putExtra("o_id", order_id);
                                 intent.putExtra("price", price);
+                                intent.putExtra("room_id",room_id);
                                 startActivity(intent);
                                 finish();
                             } else if (typetag == TYPE_WEIXIN) {
@@ -516,6 +524,7 @@ public class UnifyPayActivity extends BaseActivity implements OnUnifyPayListener
             } else if (type.equals(CanstantPay.PAY_PROPERTY)) {
                 EventBus.getDefault().post(new EventProperty());
                 Intent intent = new Intent(this, PropertyPaymentActivity.class);
+                intent.putExtra("room_id",room_id);
                 startActivity(intent);
                 finish();
             } else if (type.equals(CanstantPay.PAY_WORKORDER)) {//工单

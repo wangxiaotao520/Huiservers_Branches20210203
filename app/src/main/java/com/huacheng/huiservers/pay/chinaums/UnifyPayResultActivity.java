@@ -67,6 +67,7 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
     private String type = "";
     private String order_id = "";
     private String price = "";
+    private String room_id = "";
 
     private boolean isFirstIn = true;
     private int request_count=0;
@@ -120,6 +121,7 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
         this.type = this.getIntent().getExtras().getString("type") + "";
         this.order_id=this.getIntent().getExtras().getString("o_id") + "";
         this.price = this.getIntent().getExtras().getString("price");
+        this.room_id = this.getIntent().getExtras().getString("room_id");
         tv_status.setText("支付中...");
         iv_status_img.setBackgroundResource(R.mipmap.ic_pay_waiting);
         tv_price.setText(price+"");
@@ -229,6 +231,7 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
                     }else if(type.equals(CanstantPay.PAY_PROPERTY)) {
                 EventBus.getDefault().post(new EventProperty());
                 Intent intent = new Intent(mContext, PropertyPaymentActivity.class);
+                intent.putExtra("room_id",room_id);
                 startActivity(intent);
                 finish();
                     }else if(type.equals(CanstantPay.PAY_WORKORDER)){//工单

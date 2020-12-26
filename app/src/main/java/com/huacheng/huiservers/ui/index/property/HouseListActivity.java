@@ -20,9 +20,9 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
-import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.model.HouseBean;
 import com.huacheng.huiservers.model.PersoninfoBean;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.house.HouseInviteActivity;
 import com.huacheng.huiservers.ui.index.coronavirus.PermitListActivity;
 import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestHistoryListActivity;
@@ -110,6 +110,9 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
             //通行证
             mRight.setVisibility(View.GONE);
             mRight.setText("历史记录");
+        }else if ("ziyongbaoxiu".equals(wuye_type)) {
+            //自用报修
+            mRight.setVisibility(View.GONE);
         }
     }
 
@@ -216,19 +219,12 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (type == 0) {
-//                    Intent intent = new Intent();
-//                    intent.putExtra("community", mDatas.get(position));
-//                    setResult(RESULT_OK, intent);
-//                    finish();
-//                }
                 if (type == 0) {
                     Intent intent = new Intent();
                     intent.putExtra("community", mDatas.get(position));
-                    intent.setClass(mContext, PersonalWorkOrderCommitActivity.class);
-                    startActivity(intent);
+                    setResult(RESULT_OK, intent);
+                    finish();
                 }
-
                 else {
                     if ("property".equals(wuye_type)) {
                         Intent intent;
@@ -274,6 +270,13 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                         //通行证
                         //判断小区是否有通行证
                         isPermitData(position,mDatas.get(position).getCompany_id(), mDatas.get(position).getCommunity_id());
+
+                    }else if ("ziyongbaoxiu".equals(wuye_type)) {
+                       //自用报修
+                        Intent intent = new Intent();
+                        intent.putExtra("community", mDatas.get(position));
+                        intent.setClass(mContext, PersonalWorkOrderCommitActivity.class);
+                        startActivity(intent);
 
                     }
                 }

@@ -2,7 +2,6 @@ package com.huacheng.huiservers.ui.index.property.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,23 +12,16 @@ import android.widget.TextView;
 import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
-import com.huacheng.huiservers.http.okhttp.MyOkHttp;
-import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.ChargeRecord;
-import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
 import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.huacheng.huiservers.ui.webview.ConstantWebView.CONSTANT_BILL;
 
@@ -94,8 +86,8 @@ public class PropertyPaymentAdapter extends BaseAdapter {
         final ChargeRecord.DataBean info = getItem(position);
         holder.mTvTime.setText(StringUtils.getDateToString(info.getPay_time(), "1"));
 
-        holder.mTvName.setText(getUserName());
-        holder.mTvAddress.setText(getRoomName());
+        holder.mTvName.setText(info.getPayer());
+        holder.mTvAddress.setText(info.getRoomInfo());
 
         if (info.getVoidX().equals("0")) {
             if (info.getRefund().equals("0")) {

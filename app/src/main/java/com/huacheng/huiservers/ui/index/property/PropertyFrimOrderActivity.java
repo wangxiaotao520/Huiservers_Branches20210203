@@ -208,6 +208,7 @@ public class PropertyFrimOrderActivity extends BaseActivity {
                 bundle.putString("price", propertyInfo.getTot_sumvalue() + "");
                 bundle.putString("type", "wuyeNew");
                 bundle.putString("order_type", "wy");
+                bundle.putString("room_id", room_id);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
