@@ -59,7 +59,7 @@ public class RentSellReleaseActivity extends BaseActivity {
     EditText etReleSellUnitPrice;
 
     @BindView(R.id.et_rele_sell_price)
-    TextView etReleSellPrice;
+    EditText etReleSellPrice;
     @BindView(R.id.et_rele_sent_price)
     EditText etReleSentPrice;
 
@@ -308,7 +308,7 @@ public class RentSellReleaseActivity extends BaseActivity {
     @Override
     protected void initListener() {
         //售房面积改变监控事件
-        etReleArea.addTextChangedListener(new TextWatcher() {
+       /* etReleArea.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -331,11 +331,11 @@ public class RentSellReleaseActivity extends BaseActivity {
                     double d_area = Double.parseDouble(releArea);
                     double d_unitPrice = Double.parseDouble(unitPrice);
 
-                    /*double 类型运算会出现精度问题
+                    *//*double 类型运算会出现精度问题
                       要先转换为字符串，后进行运算，可以写个方法做乘法运算
 
                       multiply为乘， divide为除
-                    */
+                    *//*
                     BigDecimal b_area = new BigDecimal(Double.toString(d_area));
                     BigDecimal b_unit = new BigDecimal(Double.toString(d_unitPrice));
                     BigDecimal total_big = b_area.multiply(b_unit);
@@ -377,11 +377,11 @@ public class RentSellReleaseActivity extends BaseActivity {
                     double d_area = Double.parseDouble(releArea);
                     double d_unitPrice = Double.parseDouble(unitPrice);
 
-                    /*double 类型运算会出现精度问题
+                    *//*double 类型运算会出现精度问题
                       要先转换为字符串，后进行运算，可以写个方法做乘法运算
 
                       multiply为乘， divide为除
-                    */
+                    *//*
                     BigDecimal b_area = new BigDecimal(Double.toString(d_area));
                     BigDecimal b_unit = new BigDecimal(Double.toString(d_unitPrice));
                     BigDecimal total_big = b_area.multiply(b_unit);
@@ -396,6 +396,98 @@ public class RentSellReleaseActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+
+            }
+        });*/
+
+        //面积改变监控事件
+        etReleArea.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String releArea = etReleArea.getText().toString();
+                String sellPrice = etReleSellPrice.getText().toString();
+
+                if (!StringUtils.isEmpty(sellPrice)) {
+                    if (sellPrice.startsWith("0") || sellPrice.startsWith(".")) {//限制文本格式不是以“0”或“.”开头的
+                        etReleSellPrice.setText("");
+                        return;
+                    }
+                }
+
+                if (!StringUtils.isEmpty(releArea) && !StringUtils.isEmpty(sellPrice)) {
+                    double d_area = Double.parseDouble(releArea);
+                    double d_sellPrice = Double.parseDouble(sellPrice);
+
+                     /*double 类型运算会出现精度问题
+                      要先转换为字符串，后进行运算，可以写个方法做乘法运算
+
+                      multiply为乘， divide为除
+                    */
+                    BigDecimal b_area = new BigDecimal(Double.toString(d_area));
+                    BigDecimal b_sell = new BigDecimal(Double.toString(d_sellPrice));
+                    BigDecimal b_sell_pirce = b_sell.multiply(BigDecimal.valueOf(10000));
+                    BigDecimal unit = b_sell_pirce.divide(b_area, 2, BigDecimal.ROUND_UP);
+                    //BigDecimal total_1W_unit = unit.multiply(BigDecimal.valueOf(10000));
+                    etReleSellUnitPrice.setText(unit + "");
+                    ToolUtils.filterDecimalDigitsText(etReleSellUnitPrice);//限制售价小数点位数
+
+                } else {
+                    etReleSellUnitPrice.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        etReleSellPrice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String releArea = etReleArea.getText().toString();
+                String sellPrice = etReleSellPrice.getText().toString();
+
+                if (!StringUtils.isEmpty(sellPrice)) {
+                    if (sellPrice.startsWith("0") || sellPrice.startsWith(".")) {//限制文本格式不是以“0”或“.”开头的
+                        etReleSellPrice.setText("");
+                        return;
+                    }
+                }
+
+                if (!StringUtils.isEmpty(releArea) && !StringUtils.isEmpty(sellPrice)) {
+                    double d_area = Double.parseDouble(releArea);
+                    double d_sellPrice = Double.parseDouble(sellPrice);
+
+                     /*double 类型运算会出现精度问题
+                      要先转换为字符串，后进行运算，可以写个方法做乘法运算
+
+                      multiply为乘， divide为除
+                    */
+                    BigDecimal b_area = new BigDecimal(Double.toString(d_area));
+                    BigDecimal b_sell = new BigDecimal(Double.toString(d_sellPrice));
+                    BigDecimal b_sell_pirce = b_sell.multiply(BigDecimal.valueOf(10000));
+                    BigDecimal unit = b_sell_pirce.divide(b_area, 2, BigDecimal.ROUND_UP);
+                    //BigDecimal total_1W_unit = unit.multiply(BigDecimal.valueOf(10000));
+                    etReleSellUnitPrice.setText(unit + "");
+                    ToolUtils.filterDecimalDigitsText(etReleSellUnitPrice);//限制售价小数点位数
+
+                } else {
+                    etReleSellUnitPrice.setText("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
 
             }
         });
@@ -565,12 +657,12 @@ public class RentSellReleaseActivity extends BaseActivity {
             }
 
         } else {
-            if (StringUtils.isEmpty(sellUnitPrice)) {
-                SmartToast.showInfo("请输入出售单价");
+            if (StringUtils.isEmpty(sellPrice)) {
+                SmartToast.showInfo( "请输入出售价格");
                 return false;
             }
-            if (StringUtils.isEmpty(sellPrice)) {
-                SmartToast.showInfo("自动计算售价异常");
+            if (StringUtils.isEmpty(sellUnitPrice)) {
+                SmartToast.showInfo("自动计算单价异常");
                 return false;
             }
 

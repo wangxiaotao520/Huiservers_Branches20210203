@@ -114,7 +114,6 @@ public class MyHouseRentListAdapter extends CommonAdapter<ModelMyHouseList> {
                 tv_price.setText("");
             }
 
-            //房产状态 1为未审核 2为未售 3为已售
             // 审核状态  0未审核 1上架  2下降 3删除 4下降已出租 5下架已出售
             int mResource = 0;
             if ("0".equals(status)) {
@@ -151,7 +150,6 @@ public class MyHouseRentListAdapter extends CommonAdapter<ModelMyHouseList> {
                 tv_price.setText("");
             }
 
-            //房产状态 1为未审核 2为未出租 3为已出租
             int mResource = 0;
             if ("0".equals(status)) {
                 status = "未审核";
@@ -165,7 +163,7 @@ public class MyHouseRentListAdapter extends CommonAdapter<ModelMyHouseList> {
                 status = "已下架";
                 mResource = R.mipmap.ic_h_no_sale;
                 tv_rents_status.setTextColor(mContext.getResources().getColor(R.color.title_third_color));
-            } else if ("5".equals(status)) {
+            } else if ("4".equals(status)) {
                 status = "已出租";
                 mResource = R.mipmap.ic_h_sold;
                 tv_rents_status.setTextColor(Color.parseColor("#18B632"));
