@@ -2,15 +2,16 @@
 
 buildscript {
     repositories {
-
+        maven{url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         maven { url 'https://jitpack.io' }
         maven { url "https://raw.githubusercontent.com/miomin/mvn-repo-ione/master" }
         mavenCentral()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
-        jcenter()
+//        maven {
+//            url 'https://maven.google.com/'
+//            name 'Google'
+//        }
+        jcenter(){ url 'https://maven.aliyun.com/repository/jcenter' }
+//        jcenter()
         google()
 
     }
@@ -32,15 +33,16 @@ buildscript {
 
 allprojects {
     repositories {
-
+        maven{url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         maven { url 'https://jitpack.io' }
         maven { url "https://raw.githubusercontent.com/miomin/mvn-repo-ione/master" }
         mavenCentral()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
-        jcenter()
+//        maven {
+//            url 'https://maven.google.com/'
+//            name 'Google'
+//        }
+        jcenter(){ url 'https://maven.aliyun.com/repository/jcenter' }
+//        jcenter()
         google()
        
     }
