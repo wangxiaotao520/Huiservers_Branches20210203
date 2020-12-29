@@ -65,6 +65,8 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
     TextView tv_jiaofei_title;
     @BindView(R.id.ly_wuye)
     LinearLayout mLyWuye;
+    @BindView(R.id.right)
+    TextView mRight;
 
     private StringBuilder sb_bill_ids;
     private List<String> selected_id_str = new ArrayList<String>();//选中的id
@@ -93,6 +95,9 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
         titleName.setFocusableInTouchMode(true);
         titleName.requestFocus();
 
+        mRight.setVisibility(View.VISIBLE);
+        mRight.setText("缴费记录");
+        mRight.setTextColor(getResources().getColor(R.color.orange));
 //        wyInfoAdapter = new PropertyWYInfoAdapter(PropertyHomeListActivity.this, wyListData, true);
 //        wyInfoAdapter.setListener(this);
 //        mLsit.setAdapter(wyInfoAdapter);
@@ -145,7 +150,19 @@ public class PropertyHomeListActivity extends BaseActivity implements OnCheckJFL
 
     @Override
     protected void initListener() {
+        mRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(mContext, PropertyPaymentActivity.class);
+                intent.putExtra("room_id",room_id);
+                intent.putExtra("userName",propertyInfo.getRoom_info().getFullname());
+                intent.putExtra("roomName",propertyInfo.getRoom_info().getAddress());
+
+                startActivity(intent);
+            }
+
+        });
     }
 
     @Override
