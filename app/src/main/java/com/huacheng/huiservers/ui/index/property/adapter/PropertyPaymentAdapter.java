@@ -13,7 +13,7 @@ import com.huacheng.huiservers.BaseApplication;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.model.ChargeRecord;
-import com.huacheng.huiservers.ui.webview.WebViewDefaultActivity;
+import com.huacheng.huiservers.ui.center.MedicalWebViewActivity;
 import com.huacheng.huiservers.utils.SharePrefrenceUtil;
 import com.huacheng.huiservers.utils.StringUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
@@ -22,8 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.huacheng.huiservers.ui.webview.ConstantWebView.CONSTANT_BILL;
 
 /**
  * 类描述：缴费记录Adapter
@@ -136,12 +134,18 @@ public class PropertyPaymentAdapter extends BaseAdapter {
             url  += "&hui_community_id=" + xiaoQuId;
         }
         url += "&id=" + id;
-        Intent it = new Intent();
-        it.setClass(mContext, WebViewDefaultActivity.class);
-        it.putExtra("web_type", 0);
-        it.putExtra("jump_type",CONSTANT_BILL);
-        it.putExtra("url", url);
-        mContext.startActivity(it);
+//        Intent it = new Intent();
+//        it.setClass(mContext, WebViewDefaultActivity.class);
+//        it.putExtra("web_type", 0);
+//        it.putExtra("jump_type",CONSTANT_BILL);
+//        it.putExtra("url", url);
+//        mContext.startActivity(it);
+        Intent intent = new Intent();
+        intent.setClass(mContext, MedicalWebViewActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("url", url);
+        intent.putExtra("name", "查看票据");
+        mContext.startActivity(intent);
 
 
     }

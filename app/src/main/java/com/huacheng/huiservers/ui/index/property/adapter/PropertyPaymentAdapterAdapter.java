@@ -1,8 +1,6 @@
 package com.huacheng.huiservers.ui.index.property.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +10,7 @@ import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.model.ChargeRecord;
-import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
-import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.List;
 
@@ -77,12 +72,12 @@ public class PropertyPaymentAdapterAdapter extends BaseAdapter {
             TextView tv_timePrice = v.findViewById(R.id.tv_timePrice);
             TextView tv_refund = v.findViewById(R.id.tv_refund);
 
-            tv_timeInterval.setText(StringUtils.getDateToString(wuye.getChargeFrom(), "8") + " — " + StringUtils.getDateToString(wuye.getChargeFrom(), "8"));
+            tv_timeInterval.setText(StringUtils.getDateToString(wuye.getChargeFrom(), "8") + " — " + StringUtils.getDateToString(wuye.getChargeEnd(), "8"));
 
             tv_timePrice.setText(wuye.getBillPrice() + "元");
 
             //判断是否是退款
-            if ( wuye.getRefund_status().equals("1") ) {
+            if ( wuye.getRefund().equals("1") ) {
                 tv_refund.setText("已退款");
             } else {
                 tv_refund.setText("—");
