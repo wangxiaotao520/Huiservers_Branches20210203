@@ -342,7 +342,7 @@ public class PropertyHomeNewJFActivity extends BaseActivity implements OnCheckJF
                     if (propertyInfo != null) {
                         if (propertyInfo.getRoom_info() != null) {
 
-                            mTvHouse.setText("地址：" + propertyInfo.getRoom_info().getAddress());
+                            mTvHouse.setText(propertyInfo.getRoom_info().getCommunity_name()+propertyInfo.getRoom_info().getAddress());
                             mTvVerifyID.setText(propertyInfo.getRoom_info().getFullname());
 
                         }
