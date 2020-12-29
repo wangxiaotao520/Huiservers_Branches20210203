@@ -7,7 +7,7 @@ package com.huacheng.huiservers.http.okhttp;
  */
 public class ApiHttpClient {
     //    public static  String API_VERSION = "apk41/";
-    public static String API_VERSION = "apk47/";
+    public static String API_VERSION = "apk471/";
 //    //测试
 //    public static final String API_URL_FINAL = "http://com.hui-shenghuo.cn/";//固定域名
 //    public static String API_URL = "http://test.hui-shenghuo.cn/";

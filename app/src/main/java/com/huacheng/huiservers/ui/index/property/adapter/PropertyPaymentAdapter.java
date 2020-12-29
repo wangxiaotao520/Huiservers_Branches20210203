@@ -125,7 +125,7 @@ public class PropertyPaymentAdapter extends BaseAdapter {
     }
 
     public void printBill(String id) {
-        String url = ApiHttpClient.API_URL + "apk47/property/printInfo";
+        String url = ApiHttpClient.API_URL +ApiHttpClient.API_VERSION +"property/printInfo";
         if (ApiHttpClient.TOKEN != null && ApiHttpClient.TOKEN_SECRET != null) {
             url +=   "?token=" + ApiHttpClient.TOKEN + "&tokenSecret=" + ApiHttpClient.TOKEN_SECRET;
         }
