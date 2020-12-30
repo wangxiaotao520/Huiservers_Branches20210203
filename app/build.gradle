@@ -11,8 +11,8 @@ android {
         applicationId "com.huacheng.huiservers"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 44
-        versionName "4.5.8"
+        versionCode 45
+        versionName "4.5.9"
         multiDexEnabled true
         multiDexKeepProguard file("tinkerMultidexKeep.pro") //keep specific classes using proguard syntax
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
