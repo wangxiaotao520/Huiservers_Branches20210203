@@ -45,7 +45,7 @@ public class HouseRentListAdapter extends CommonAdapter<ModelMyHouseList>{
 //            viewHolder.<TextView>getView(R.id.tv_desc).setVisibility(View.GONE);
         }else {
             // 售房
-            viewHolder.<TextView>getView(R.id.tv_price).setText(item.getSelling()+"万元");
+            viewHolder.<TextView>getView(R.id.tv_price).setText(item.getSelling()+"元");
             viewHolder.<TextView>getView(R.id.tv_desc).setText(item.getHouse_unit()+"元/平米");
         }
         if (item.getLabel_cn() != null && item.getLabel_cn().size() > 0) {

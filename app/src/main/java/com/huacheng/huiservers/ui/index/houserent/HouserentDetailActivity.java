@@ -239,7 +239,7 @@ public class HouserentDetailActivity extends BaseActivity {
                     tv_price.setText(item.getRent() + "元/月");
                     tv_unit_price.setText("");
                 } else {
-                    tv_price.setText(item.getSelling() + "万元");
+                    tv_price.setText(item.getSelling() + "元");
                     tv_unit_price.setText(item.getHouse_unit() + "元/平");
                 }
                 final int finalI = i;
