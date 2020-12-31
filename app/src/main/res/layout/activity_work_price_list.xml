@@ -27,6 +27,7 @@
                 android:layout_height="match_parent"
                 android:divider="@null"
                 android:fastScrollEnabled="false"
+                android:groupIndicator="@null"
                 android:listSelector="@android:color/transparent"
                 android:smoothScrollbar="true"/>
 

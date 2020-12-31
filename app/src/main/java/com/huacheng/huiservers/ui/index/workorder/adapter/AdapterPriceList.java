@@ -124,6 +124,7 @@ public class AdapterPriceList extends BaseExpandableListAdapter {
                 new WorkOrderCatStatardDialog(mcontext,mDatas.get(groupPosition).getContent()+"").show();
             }
         });
+        groupViewHolder.tv_statard.setVisibility(View.GONE);
         groupViewHolder.tv_statard.setTextColor(mcontext.getResources().getColor(R.color.title_third_color));
         groupViewHolder.view_line.setVisibility(View.VISIBLE);
         return convertView;
