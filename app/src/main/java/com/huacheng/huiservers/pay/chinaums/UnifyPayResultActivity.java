@@ -4,18 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chinaums.pppay.unify.UnifyPayPlugin;
 import com.chinaums.pppay.unify.UnifyPayRequest;
+import com.chinaums.pppay.util.DeviceUtil;
+import com.google.gson.Gson;
 import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.Url_info;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
+import com.huacheng.huiservers.model.IcbcData;
 import com.huacheng.huiservers.model.PayTypeBean;
 import com.huacheng.huiservers.model.XorderDetailBean;
 import com.huacheng.huiservers.ui.base.BaseActivity;
@@ -25,8 +30,13 @@ import com.huacheng.huiservers.ui.index.property.bean.EventProperty;
 import com.huacheng.huiservers.ui.servicenew.ui.order.JpushPresenter;
 import com.huacheng.huiservers.ui.servicenew1.ServiceOrderDetailNew;
 import com.huacheng.huiservers.ui.shop.ShopOrderListActivityNew;
+import com.huacheng.huiservers.utils.ToolUtils;
 import com.huacheng.huiservers.utils.json.JsonUtil;
+import com.huacheng.libraryservice.utils.DeviceUtils;
 import com.huacheng.libraryservice.utils.NullUtil;
+import com.icbc.paysdk.AliPayAPI;
+import com.icbc.paysdk.ICBCAPI;
+import com.icbc.paysdk.model.UnionPayReq;
 import com.stx.xhb.xbanner.OnDoubleClickListener;
 import com.unionpay.UPPayAssistEx;
 
@@ -34,7 +44,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import cn.com.chinatelecom.account.lib.utils.DeviceInfoUtil;
 
 /**
  * Description: 支付结果 支付等待页
@@ -99,7 +113,8 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
             if (typetag == TYPE_ALIPAY) {
                 isFirstIn = false;
                 showDialog(smallDialog);
-                payAliPay(appPayRequest);
+//                payAliPay(appPayRequest);
+                payIcbc();
             }
         }
 
@@ -138,7 +153,59 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
         }
 
     }
+    String url = "http://1.71.130.58:8082/apk48/IcbcPay/pay/";
+    private void payIcbc(){
 
+        Map<String,String> map = new HashMap<>();
+        map.put("payType","10");
+        map.put("orderId",order_id);
+        map.put("money","1");
+        map.put("decive", DeviceInfoUtil.getDeviceId(mContext));
+        map.put("clientIp",DeviceUtil.getIp(mContext));
+        MyOkHttp.get().post(url, map, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                IcbcData  req = new Gson().fromJson(response.toString(),IcbcData.class);
+                UnionPayReq unionPayReq = new UnionPayReq();
+                unionPayReq.setAppId(req.getApp_id());
+                unionPayReq.setMsgId(req.getMsg_id());
+                unionPayReq.setFormat(req.getFormat());
+                unionPayReq.setCharset(req.getCharset());
+                unionPayReq.setSignType(req.getSign_type());
+                unionPayReq.setSign(req.getSign());
+                unionPayReq.setTimestamp(req.getTimestamp());
+                unionPayReq.setBizContent(req.getBiz_content());
+                AliPayAPI.getInstance().doSdk(UnifyPayResultActivity.this, unionPayReq, new
+                        AliPayAPI.AliPayResultCallBack() {
+                            @Override
+                            public void onResp(String resultcode) {
+                                if ("9000".equals(resultcode)) {
+                                    Toast.makeText(mContext, "支付成功",
+                                            Toast.LENGTH_SHORT).show();
+//支付成功
+                                } else if ("6001".equals(resultcode)) {
+                                    Toast.makeText(mContext, "支付取消",
+                                            Toast.LENGTH_SHORT).show();
+//支付取消
+                                } else {
+                                    Toast.makeText(mContext, "支付失败",
+                                            Toast.LENGTH_SHORT).show();
+//支付失败
+                                }
+                            }
+                        });
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                Log.d("cyd","error_msg");
+            }
+        });
+
+
+
+    }
     /**
      * 支付宝
      *
