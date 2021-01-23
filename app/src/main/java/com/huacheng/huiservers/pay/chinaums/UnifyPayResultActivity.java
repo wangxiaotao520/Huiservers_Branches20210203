@@ -113,8 +113,8 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
             if (typetag == TYPE_ALIPAY) {
                 isFirstIn = false;
                 showDialog(smallDialog);
-//                payAliPay(appPayRequest);
-                payIcbc();
+                payAliPay(appPayRequest);
+//                payIcbc();
             }
         }
 
