@@ -43,7 +43,7 @@ public class MedicalWebViewActivity extends BaseActivity implements OnClickListe
         mStatusBar.setBackgroundColor(Color.WHITE);//医疗这一页状态栏要设置成白色
         mStatusBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.getStatuBarHeight(this)));
         title_rel=findViewById(R.id.title_rel);
-        title_rel.setVisibility(View.GONE);
+        title_rel.setVisibility(View.VISIBLE);
         findViewById(R.id.v_head_line).setVisibility(View.GONE);
         title_name = (TextView) findViewById(R.id.title_name);
         name = this.getIntent().getExtras().getString("name");

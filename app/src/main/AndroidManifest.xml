@@ -3,10 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.huacheng.huiservers">
 
-    <!--<uses-sdk-->
-    <!--android:minSdkVersion="19"-->
-    <!--android:targetSdkVersion="22" />-->
-    <!-- ===============推送权限 -->
+
     <!-- Required -->
     <permission
         android:name="com.huacheng.huiservers.permission.JPUSH_MESSAGE"
@@ -200,7 +197,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:exported="false"
             android:theme="@android:style/Theme.NoTitleBar">
-            -
+
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity"/>
 
@@ -250,13 +247,13 @@
                 <!-- Required 显示通知栏 -->
                 <category android:name="com.huacheng.huiservers"/>
             </intent-filter>
-            -
+
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT"/>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
             <!-- Optional -->
-            -
+
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
                 <action android:name="android.intent.action.PACKAGE_REMOVED"/>

@@ -3,18 +3,11 @@ apply plugin: 'com.android.library'
 project.archivesBaseName ='toast'
 
 android {
-    compileSdkVersion 28
-
-
+    compileSdkVersion CompileVersion as int
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        minSdkVersion MinVersion
+        targetSdkVersion TargetVersion
     }
 
     buildTypes {

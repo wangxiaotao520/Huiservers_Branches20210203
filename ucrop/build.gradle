@@ -2,12 +2,11 @@ apply plugin: 'com.android.library'
 
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion CompileVersion as int
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 27
+        minSdkVersion MinVersion
+        targetSdkVersion TargetVersion
         versionCode 23
         versionName "2.2.2-native"
 

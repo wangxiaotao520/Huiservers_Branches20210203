@@ -20,15 +20,16 @@ import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
-import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.model.HouseBean;
 import com.huacheng.huiservers.model.PersoninfoBean;
+import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.center.house.HouseInviteActivity;
 import com.huacheng.huiservers.ui.index.coronavirus.PermitListActivity;
 import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestHistoryListActivity;
 import com.huacheng.huiservers.ui.index.coronavirus.investigate.InvestigateActivity;
 import com.huacheng.huiservers.ui.index.openDoor.OpenLanActivity;
 import com.huacheng.huiservers.ui.index.workorder.adapter.AdapterHouseList;
+import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.view.MyListView;
 import com.huacheng.libraryservice.utils.json.JsonUtil;
 
@@ -80,9 +81,9 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
         ButterKnife.bind(this);
         if (type == 1) {
             mTitleName.setText("我的房屋");
-            mRight.setVisibility(View.VISIBLE);
-            mRight.setText("缴费记录");
-            mRight.setTextColor(getResources().getColor(R.color.orange));
+//            mRight.setVisibility(View.VISIBLE);
+//            mRight.setText("缴费记录");
+//            mRight.setTextColor(getResources().getColor(R.color.orange));
         } else {
             mRight.setVisibility(View.GONE);
             mTitleName.setText("选择房屋");
@@ -109,6 +110,9 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
             //通行证
             mRight.setVisibility(View.GONE);
             mRight.setText("历史记录");
+        }else if ("ziyongbaoxiu".equals(wuye_type)) {
+            //自用报修
+            mRight.setVisibility(View.GONE);
         }
     }
 
@@ -189,7 +193,16 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     //调查问卷的历史记录
                     startActivity(new Intent(HouseListActivity.this, InvestHistoryListActivity.class));
                 } else {
-                    startActivity(new Intent(HouseListActivity.this, PropertyPaymentActivity.class));
+                    Intent intent = new Intent(HouseListActivity.this, PropertyPaymentActivity.class);
+                    String roomId = "";
+                    if (mDatas != null && !mDatas.isEmpty()) {
+                        for (HouseBean bean : mDatas) {
+                            roomId += bean.getRoom_id() + ",";
+                        }
+                        roomId = roomId.substring(0,roomId.length() -1);
+                    }
+                    intent.putExtra("room_id",roomId);
+                    startActivity(intent);
                 }
             }
         });
@@ -211,7 +224,8 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                     intent.putExtra("community", mDatas.get(position));
                     setResult(RESULT_OK, intent);
                     finish();
-                } else {
+                }
+                else {
                     if ("property".equals(wuye_type)) {
                         Intent intent;
                         if (mDatas.get(position).getIs_ym().equals("0")) {
@@ -219,6 +233,7 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                         } else {
                             intent = new Intent(HouseListActivity.this, PropertyHomeNewJFActivity.class);
                         }
+
                         intent.putExtra("room_id", mDatas.get(position).getRoom_id());
                         intent.putExtra("company_id", mDatas.get(position).getCompany_id());
                         startActivity(intent);
@@ -255,6 +270,13 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                         //通行证
                         //判断小区是否有通行证
                         isPermitData(position,mDatas.get(position).getCompany_id(), mDatas.get(position).getCommunity_id());
+
+                    }else if ("ziyongbaoxiu".equals(wuye_type)) {
+                       //自用报修
+                        Intent intent = new Intent();
+                        intent.putExtra("community", mDatas.get(position));
+                        intent.setClass(mContext, PersonalWorkOrderCommitActivity.class);
+                        startActivity(intent);
 
                     }
                 }

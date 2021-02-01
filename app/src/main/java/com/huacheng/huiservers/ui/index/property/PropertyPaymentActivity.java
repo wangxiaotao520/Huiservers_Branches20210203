@@ -2,6 +2,7 @@ package com.huacheng.huiservers.ui.index.property;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -11,6 +12,7 @@ import com.huacheng.huiservers.R;
 import com.huacheng.huiservers.http.okhttp.ApiHttpClient;
 import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
+import com.huacheng.huiservers.model.ChargeRecord;
 import com.huacheng.huiservers.ui.base.BaseActivity;
 import com.huacheng.huiservers.ui.index.property.adapter.PropertyPaymentAdapter;
 import com.huacheng.huiservers.ui.index.property.bean.ModelPropertyWyInfo;
@@ -40,8 +42,10 @@ public class PropertyPaymentActivity extends BaseActivity {
 
     RelativeLayout mRelNoData;
     PropertyPaymentAdapter paymentAdapter;
-    List<ModelPropertyWyInfo> mdatas = new ArrayList<>();
+    List<ChargeRecord.DataBean> mdatas = new ArrayList<>();
     private int page = 1;
+    String roomId = "";
+    String userName,roomName;
 
     @Override
     protected void initView() {
@@ -49,13 +53,16 @@ public class PropertyPaymentActivity extends BaseActivity {
         findTitleViews();
         titleName.setText("缴费记录");
         mListView = findViewById(R.id.listview);
-        refreshLayout =findViewById(R.id.refreshLayout);
+        refreshLayout = findViewById(R.id.refreshLayout);
         mRelNoData = findViewById(R.id.rel_no_data);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setEnableLoadMore(false);
         paymentAdapter = new PropertyPaymentAdapter(this, mdatas);
+        paymentAdapter.setUserName(userName);
+        paymentAdapter.setRoomName(roomName);
         mListView.setAdapter(paymentAdapter);
     }
+
 
     @Override
     protected void initData() {
@@ -70,7 +77,7 @@ public class PropertyPaymentActivity extends BaseActivity {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
 
-              getPaymentList();
+                getPaymentList();
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -90,7 +97,9 @@ public class PropertyPaymentActivity extends BaseActivity {
 
     @Override
     protected void initIntentData() {
-
+        roomId = getIntent().getStringExtra("room_id");
+        userName = getIntent().getStringExtra("userName");
+        roomName = getIntent().getStringExtra("roomName");
     }
 
     @Override
@@ -105,26 +114,25 @@ public class PropertyPaymentActivity extends BaseActivity {
 
     private void getPaymentList() {
         HashMap<String, String> params = new HashMap<>();
-        params.put("p",page+"");
+        params.put("p", page + "");
+        if (roomId != null) {
+            params.put("room_id", roomId);
+        }
         MyOkHttp.get().get(ApiHttpClient.GET_USER_BILL, params, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
+                Log.d("cyd", response.toString());
+
                 hideDialog(smallDialog);
                 refreshLayout.finishLoadMore();
                 refreshLayout.finishRefresh();
                 if (JsonUtil.getInstance().isSuccess(response)) {
-                    List<ModelPropertyWyInfo> mlist = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelPropertyWyInfo.class);
-//                    if (mlist != null && mlist.size() > 0) {
-//                        mRelNoData.setVisibility(View.GONE);
-//                        mList.setVisibility(View.VISIBLE);
-//                        mdatas.clear();
-//                        mdatas.addAll(mlist);
-//                        paymentAdapter.notifyDataSetChanged();
-//                    } else {
-//                        mdatas.clear();
-//                        mRelNoData.setVisibility(View.VISIBLE);
-//                        mList.setVisibility(View.GONE);
-//                    }
+
+                    List<ChargeRecord.DataBean> mlist = JsonUtil.getInstance().getDataArrayByName(response, "data", ChargeRecord.DataBean.class);
+
+
+//                    List<ModelPropertyWyInfo> mlist = JsonUtil.getInstance().getDataArrayByName(response, "data", ModelPropertyWyInfo.class);
+
 
                     if (mlist != null && mlist.size() > 0) {
                         mRelNoData.setVisibility(View.GONE);
@@ -133,11 +141,11 @@ public class PropertyPaymentActivity extends BaseActivity {
                         }
                         mdatas.addAll(mlist);
                         page++;
-                        if (page > mlist.get(0).getTotalPages()) {
-                            refreshLayout.setEnableLoadMore(false);
-                        } else {
-                            refreshLayout.setEnableLoadMore(true);
-                        }
+//                        if (page > mlist.get(0).getTotalPages()) {
+//                            refreshLayout.setEnableLoadMore(false);
+//                        } else {
+//                            refreshLayout.setEnableLoadMore(true);
+//                        }
                     } else {
                         if (page == 1) {
                             mRelNoData.setVisibility(View.VISIBLE);

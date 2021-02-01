@@ -274,7 +274,7 @@ public class MineFragment extends MyFragment {
                 vipIcon.setVisibility(userBean.getIs_vip().equals("1")?View.VISIBLE:View.GONE);
 
                 name.setText(userBean.getNickname());
-                Glide.with(mActivity).load(ApiHttpClient.IMG_URL + userBean.getAvatars()).transform(new GlideCircleTransform(mActivity)).into(avator);
+                Glide.with(mActivity).load( userBean.getAvatars()).transform(new GlideCircleTransform(mActivity)).into(avator);
 
                 point.setText("积分" + userBean.getPoints() + " >");
                 kyold.setVisibility(userBean.getOld_type().equals("1") ? View.VISIBLE : View.GONE);

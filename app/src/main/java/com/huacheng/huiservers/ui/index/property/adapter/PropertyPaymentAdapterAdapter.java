@@ -1,8 +1,6 @@
 package com.huacheng.huiservers.ui.index.property.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huacheng.huiservers.R;
-import com.huacheng.huiservers.ui.index.property.bean.ModelWuye;
-import com.huacheng.huiservers.ui.index.property.inter.OnCheckJFListener;
+import com.huacheng.huiservers.model.ChargeRecord;
 import com.huacheng.huiservers.utils.StringUtils;
-import com.huacheng.libraryservice.utils.NullUtil;
 
 import java.util.List;
 
@@ -26,17 +22,16 @@ import butterknife.ButterKnife;
  * created by wangxiaotao
  * 2019/12/13 0013 下午 5:51
  */
-public class PropertyPaymentAdapterAdapter  extends BaseAdapter {
+public class PropertyPaymentAdapterAdapter extends BaseAdapter {
     private Context mContext;
-    List<List<ModelWuye>> wyListData;
+    List<List<ChargeRecord.DataBean.OrderListBean>> wyListData;
 
-    private OnCheckJFListener listener;//点击选择item的回调
 
     private String selected_invoice_type = "";//选中的账单类型 如果该参数为0，能多选账单，且只能选该参数为0的账单，如果该参数为1，只能单选，不可选其他任何账单)
     private String selected_bill_id = ""; //选中的账单id 且只有在 selected_invoice_type=“1”时有值 只能选择它
 
 
-    public PropertyPaymentAdapterAdapter(Context mContext, List<List<ModelWuye>> wyListData,boolean is_JF) {
+    public PropertyPaymentAdapterAdapter(Context mContext, List<List<ChargeRecord.DataBean.OrderListBean>> wyListData, boolean is_JF) {
         this.mContext = mContext;
         this.wyListData = wyListData;
     }
@@ -47,8 +42,8 @@ public class PropertyPaymentAdapterAdapter  extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public List<ChargeRecord.DataBean.OrderListBean> getItem(int position) {
+        return wyListData.get(position);
     }
 
     @Override
@@ -58,44 +53,39 @@ public class PropertyPaymentAdapterAdapter  extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-      ViewHolder holder;
+        ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_item_property_payment_list, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_item_property_payment_list, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        List<ChargeRecord.DataBean.OrderListBean> listBeans = getItem(position);
         holder.mLinView.removeAllViews();
-        for (int i = 0; i < wyListData.get(position).size(); i++) {
+        for (ChargeRecord.DataBean.OrderListBean wuye : listBeans) {
 
-            holder.mTvTagName.setText(wyListData.get(position).get(i).getCharge_type());
+            holder.mTvTagName.setText(wuye.getCategory_name());
             View v = LayoutInflater.from(mContext).inflate(R.layout.item_item_item_property_paymentlist, null);
             TextView tv_timeInterval = v.findViewById(R.id.tv_timeInterval);
             TextView tv_timePrice = v.findViewById(R.id.tv_timePrice);
             TextView tv_refund = v.findViewById(R.id.tv_refund);
 
-            if (!wyListData.get(position).get(i).getStartdate().equals("0") && !TextUtils.isEmpty(wyListData.get(position).get(i).getStartdate())) {
-                tv_timeInterval.setText(StringUtils.getDateToString(wyListData.get(position).get(i).getStartdate(), "8") + " — " +
-                        StringUtils.getDateToString(wyListData.get(position).get(i).getEnddate(), "8"));
-            } else {
-                tv_timeInterval.setText(StringUtils.getDateToString(wyListData.get(position).get(i).getBill_time(), "8"));
-            }
+            tv_timeInterval.setText(StringUtils.getDateToString(wuye.getChargeFrom(), "8") + " — " + StringUtils.getDateToString(wuye.getChargeEnd(), "8"));
+
+            tv_timePrice.setText(wuye.getBillPrice() + "元");
+
             //判断是否是退款
-            if (!NullUtil.isStringEmpty(wyListData.get(position).get(i).getRefund())&&!"0".equals(wyListData.get(position).get(i).getRefund())&&!"0.00".equals(wyListData.get(position).get(i).getRefund())&&!"0.0".equals(wyListData.get(position).get(i).getRefund())){
-                tv_refund.setVisibility(View.VISIBLE);
+            if ( wuye.getRefund().equals("1") ) {
                 tv_refund.setText("已退款");
-                tv_refund.setTextColor(Color.parseColor("#E0473F"));
-            }else {
-                tv_refund.setVisibility(View.VISIBLE);
+            } else {
                 tv_refund.setText("—");
-                tv_refund.setTextColor(Color.parseColor("#666666"));
             }
-            tv_timePrice.setText(wyListData.get(position).get(i).getSumvalue() + "元");
             holder.mLinView.addView(v);
 
         }
+
 
         return convertView;
     }
@@ -107,16 +97,11 @@ public class PropertyPaymentAdapterAdapter  extends BaseAdapter {
         LinearLayout mLinView;
 
 
-
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
 
-
-    public void setListener(OnCheckJFListener listener) {
-        this.listener = listener;
-    }
 
     public String getSelected_invoice_type() {
         return selected_invoice_type;

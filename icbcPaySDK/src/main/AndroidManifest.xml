@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.icbc.paysdk"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="com.icbc.paysdk">
 
-<!--    <uses-sdk-->
-<!--        android:minSdkVersion="14"-->
-<!--        android:targetSdkVersion="21" />-->
+
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -14,10 +10,7 @@
     <uses-permission android:name="android.permission.R"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <application
-        android:allowBackup="false"
-        android:icon="@drawable/rose">
-        <!--android:icon="@drawable/ic_launcher">-->
+    <application>
 
 
         <activity

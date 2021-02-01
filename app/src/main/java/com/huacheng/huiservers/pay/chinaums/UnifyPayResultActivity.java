@@ -16,7 +16,6 @@ import com.huacheng.huiservers.http.okhttp.MyOkHttp;
 import com.huacheng.huiservers.http.okhttp.RequestParams;
 import com.huacheng.huiservers.http.okhttp.response.JsonResponseHandler;
 import com.huacheng.huiservers.model.EventBusWorkOrderModel;
-import com.huacheng.huiservers.model.EventModelVip;
 import com.huacheng.huiservers.model.PayTypeBean;
 import com.huacheng.huiservers.model.XorderDetailBean;
 import com.huacheng.huiservers.ui.base.BaseActivity;
@@ -73,6 +72,7 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
     private String type = "";
     private String order_id = "";
     private String price = "";
+    private String room_id = "";
 
     private boolean isFirstIn = true;
     private int request_count=0;
@@ -257,9 +257,6 @@ public class UnifyPayResultActivity extends BaseActivity implements OnUnifyPayLi
                 startActivity(intent);
                 finish();
 
-                    }else if (type.equals(CanstantPay.PAY_VIP)){
-                        EventBus.getDefault().post(new EventModelVip());
-                        finish();
                     }
                 }
 

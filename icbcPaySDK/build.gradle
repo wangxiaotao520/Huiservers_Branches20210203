@@ -1,12 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion CompileVersion as int
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 26
+        minSdkVersion MinVersion
+        targetSdkVersion TargetVersion
     }
 
     lintOptions{
@@ -29,29 +28,30 @@ android {
 dependencies {
     //  compile files('libs/libammsdk.jar')
     api files('libs/wechat-sdk-android-with-mta-1.4.0.jar')
-    api(name: 'alipaySdk-15.6.8-20191021122514', ext: 'aar')
+//    api(name: 'alipaysdk-15.8.01.210112203525', ext: 'aar')
+    api (name: 'alipaySdk-15.6.8-20191021122514', ext: 'aar')
     //compile files('libs/alipaySdk-20170922.jar')
-    task clearJar(type: Delete) {
-        delete 'build/libs/icbcsdk.jar'
-    }
-    task makeJar(type: Jar) {
-        from('build/intermediates/classes/release/')
-
-        //过滤不需要的class
-        exclude('BuildConfig.class', 'R.class')
-        exclude "**/**/BuildConfig.class"
-        exclude "**/**/BuildConfig\$*.class"
-        exclude "**/R.class"
-        exclude "**/R\$*.class"
-
-        //指定打包的class
-        include "com/icbc/paysdk/**/*.class"
-        include "com/icbc/icbcfactory/**/*.class"
-        include "com/icbc/paysdk/*.class"
-
-        rename('classes.jar', 'icbcpaysdk.jar')
-
-    }
-    makeJar.dependsOn(clearJar, build)
+//    task clearJar(type: Delete) {
+//        delete 'build/libs/icbcsdk.jar'
+//    }
+//    task makeJar(type: Jar) {
+//        from('build/intermediates/classes/release/')
+//
+//        //过滤不需要的class
+//        exclude('BuildConfig.class', 'R.class')
+//        exclude "**/**/BuildConfig.class"
+//        exclude "**/**/BuildConfig\$*.class"
+//        exclude "**/R.class"
+//        exclude "**/R\$*.class"
+//
+//        //指定打包的class
+//        include "com/icbc/paysdk/**/*.class"
+//        include "com/icbc/icbcfactory/**/*.class"
+//        include "com/icbc/paysdk/*.class"
+//
+//        rename('classes.jar', 'icbcpaysdk.jar')
+//
+//    }
+//    makeJar.dependsOn(clearJar, build)
     api files('libs/icbcPaySDK.jar')
 }

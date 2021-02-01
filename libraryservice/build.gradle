@@ -1,19 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
-
+    compileSdkVersion CompileVersion as int
 
     defaultConfig {
-     //   applicationId "com.huacheng.libraryservice"
-        minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-        multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        minSdkVersion MinVersion
+        targetSdkVersion TargetVersion
     }
 
     buildTypes {

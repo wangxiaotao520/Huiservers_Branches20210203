@@ -2,20 +2,20 @@
  apply plugin: 'org.greenrobot.greendao'
  apply from: 'tinkerpatch.gradle'
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion CompileVersion as int
+    buildToolsVersion BuildVersion
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
 
     defaultConfig {
         applicationId "com.huacheng.huiservers"
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 44
-        versionName "4.5.8"
+        minSdkVersion MinVersion
+        targetSdkVersion TargetVersion
+        versionCode 45
+        versionName "4.5.9"
         multiDexEnabled true
-        multiDexKeepProguard file("tinkerMultidexKeep.pro") //keep specific classes using proguard syntax
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        multiDexKeepProguard file("tinkerMultidexKeep.pro") //keep specific classes using proguard syntax
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         /*ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
@@ -114,9 +114,11 @@ android {
  }
  dependencies {
      implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
-     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-         exclude group: 'com.android.support', module: 'support-annotations'
-     })
+//  implementation(name: 'alipaysdk-15.8.01.210112203525', ext: 'aar')
+//     implementation(name: 'alipaySdk-15.6.8-20191021122514', ext: 'aar')
+//     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+//         exclude group: 'com.android.support', module: 'support-annotations'
+//     })
      testImplementation 'junit:junit:4.12'
 
      //    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
@@ -138,7 +140,7 @@ android {
      implementation 'com.belerweb:pinyin4j:2.5.0'
 
      //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    // implementation 'com.tencent.bugly:crashreport:latest.release'
+     implementation 'com.tencent.bugly:crashreport:latest.release'
   //   implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
      implementation 'com.android.support:multidex:1.0.0'
      implementation 'com.google.zxing:core:3.2.1'
@@ -171,7 +173,7 @@ android {
 
      /*rxpermissions*/
      implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
-     implementation 'org.greenrobot:greendao:3.2.0'
+     implementation 'org.greenrobot:greendao:3.2.2'
      implementation project(':base-adapter-library')
      implementation project(':baseadapter-recyclerview')
      implementation project(':library-luban')

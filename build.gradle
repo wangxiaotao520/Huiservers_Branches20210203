@@ -6,17 +6,18 @@ buildscript {
         maven { url 'https://jitpack.io' }
         maven { url "https://raw.githubusercontent.com/miomin/mvn-repo-ione/master" }
         mavenCentral()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
-        jcenter()
+//        maven {
+//            url 'https://maven.google.com/'
+//            name 'Google'
+//        }
+        jcenter(){ url 'https://maven.aliyun.com/repository/jcenter' }
+//        jcenter()
         google()
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
+        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
         // TinkerPatch 插件
         classpath "com.tinkerpatch.sdk:tinkerpatch-gradle-plugin:1.2.11"
      //   classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -25,8 +26,8 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         //banner
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.1'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+//        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.1'
+//        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
     }
 }
 
@@ -36,13 +37,13 @@ allprojects {
         maven { url 'https://jitpack.io' }
         maven { url "https://raw.githubusercontent.com/miomin/mvn-repo-ione/master" }
         mavenCentral()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
-        jcenter()
+//        maven {
+//            url 'https://maven.google.com/'
+//            name 'Google'
+//        }
+        jcenter(){ url 'https://maven.aliyun.com/repository/jcenter' }
+//        jcenter()
         google()
-       
     }
 
 }

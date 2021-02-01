@@ -45,7 +45,6 @@ import com.huacheng.huiservers.ui.index.property.PropertyBindHomeActivity;
 import com.huacheng.huiservers.ui.index.request.CommitRequestActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteIndexActivity;
 import com.huacheng.huiservers.ui.index.vote.VoteVlogIndexActivity;
-import com.huacheng.huiservers.ui.index.workorder.commit.PersonalWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.index.workorder.commit.PublicWorkOrderCommitActivity;
 import com.huacheng.huiservers.ui.login.LoginVerifyCodeActivity;
 import com.huacheng.huiservers.ui.servicenew.ui.MerchantServiceListActivity;
@@ -467,7 +466,10 @@ public class Jump {
                             if (JsonUtil.getInstance().isSuccess(response)) {
                                 ModelLogin bean = (ModelLogin) JsonUtil.getInstance().parseJsonFromResponse(response, ModelLogin.class);
                                 if (bean != null && bean.getIs_bind_property().equals("2")) {
-                                    Intent intent = new Intent(mContext, PersonalWorkOrderCommitActivity.class);
+//                                    Intent intent = new Intent(mContext, PersonalWorkOrderCommitActivity.class);
+                                    Intent intent = new Intent(mContext, HouseListActivity.class);
+                                    intent.putExtra("type",1);
+                                    intent.putExtra("wuye_type", "ziyongbaoxiu");
                                     mContext.startActivity(intent);
                                 } else {
                                     Intent intent = new Intent(mContext, PropertyBindHomeActivity.class);
@@ -677,7 +679,10 @@ public class Jump {
                             if (JsonUtil.getInstance().isSuccess(response)) {
                                 ModelLogin bean = (ModelLogin) JsonUtil.getInstance().parseJsonFromResponse(response, ModelLogin.class);
                                 if (bean != null && bean.getIs_bind_property().equals("2")) {
-                                    Intent intent = new Intent(mContext, PersonalWorkOrderCommitActivity.class);
+//                                    Intent intent = new Intent(mContext, PersonalWorkOrderCommitActivity.class);
+                                    Intent intent = new Intent(mContext, HouseListActivity.class);
+                                    intent.putExtra("type",1);
+                                    intent.putExtra("wuye_type", "ziyongbaoxiu");
                                     mContext.startActivity(intent);
                                 } else {
                                     Intent intent = new Intent(mContext, PropertyBindHomeActivity.class);
