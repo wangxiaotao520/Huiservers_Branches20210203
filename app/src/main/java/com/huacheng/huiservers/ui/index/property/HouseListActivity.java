@@ -129,7 +129,9 @@ public class HouseListActivity extends BaseActivity implements AdapterHouseList.
                 type_url = ApiHttpClient.INVESTIGATE_HOME_LIST;
                 //计划id
                 params.put("id", id);
-            } else {
+            } else if ("ziyongbaoxiu".equals(wuye_type)){
+                type_url = ApiHttpClient.GET_WORK_HOUSE_ADDRESS;
+            }else {
                 type_url = ApiHttpClient.BINDING_COMMUNITY;
             }
 
